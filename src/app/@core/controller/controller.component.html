@@ -1,0 +1,77 @@
+<div class="box">
+  <div class="field has-addons has-addons-centered is-marginless">
+    <p class="control">
+      <button [disabled]="this.gameService.getDisableController() | async" class="button is-outlined" title="slow down"
+              (click)="gameService.setSpeedDown()">
+        <fa-icon [icon]="['fas', 'backward']"></fa-icon>
+      </button>
+    </p>
+    <p class="control">
+      <button [disabled]="(this.gameService.getDisableController() | async) || ((gameService.getBackwardStepsAmount() | async) < 1)"
+              class="button is-outlined"
+              title="last step"
+              [ngClass]="{'buttonBackwards' : (gameService.getBackwardStepsAmount() | async) < 1}"
+              (click)="gameService.setBackwardStep()">
+        <fa-icon [icon]="['fas', 'step-backward']"></fa-icon>
+        <b> {{ gameService.getBackwardStepsAmount() | async }} </b>
+      </button>
+    </p>
+    <p class="control">
+      <button [disabled]="this.gameService.getDisableController() | async"
+              [ngClass]="(gameService.getGameStatus() | async) ? 'is-primary is-light' : 'is-danger is-light'"
+              class="button"
+              title="play" (click)="gameService.setGameStatus()">
+        <fa-icon *ngIf="gameService.getGameStatus() | async" [icon]="['fas', 'stop']"></fa-icon>
+        <fa-icon *ngIf="!(gameService.getGameStatus() | async)" [icon]="['fas', 'play']"></fa-icon>
+      </button>
+    </p>
+    <p class="control">
+      <button [disabled]="this.gameService.getDisableController() | async" class="button is-outlined" title="clear grid"
+              (click)="gameService.reset()">
+        <fa-icon [icon]="['fas', 'redo']"></fa-icon>
+      </button>
+    </p>
+    <p class="control">
+      <button [disabled]="this.gameService.getDisableController() | async" class="button is-outlined" title="next step"
+              (click)="gameService.addStep()">
+        <fa-icon [icon]="['fas', 'step-forward']"></fa-icon>
+      </button>
+    </p>
+    <p class="control">
+      <button [disabled]="this.gameService.getDisableController() | async" class="button is-outlined" title="speed up"
+              (click)="gameService.setSpeedUp()">
+        <fa-icon [icon]="['fas', 'forward']"></fa-icon>
+      </button>
+    </p>
+
+  </div>
+  <div class="field has-addons has-addons-centered is-marginless">
+    <p class="control">
+      <button [disabled]="this.gameService.getDisableController() | async" class="button" title="import"
+              (click)="gameService.setImportSession(); this.gameService.setGameStatus(false)">
+        <span class="icon">
+          <fa-icon [icon]="['far', 'edit']"></fa-icon>
+        </span>
+        <b>Import</b>
+      </button>
+    </p>
+    <p class="control">
+      <button [disabled]="this.gameService.getDisableController() | async" class="button" title="export"
+              (click)="gameService.setExportSession(); this.gameService.setGameStatus(false)">
+        <span class="icon">
+          <fa-icon [icon]="['far', 'save']"></fa-icon>
+        </span>
+        <b>Export</b>
+      </button>
+    </p>
+    <p class="control">
+      <button [disabled]="this.gameService.getDisableController() | async" class="button is-outlined" title="random"
+              (click)="gameService.setRandomSeed()">
+        <span class="icon">
+          <fa-icon [icon]="['fas', 'random']"></fa-icon>
+        </span>
+        <b>Random</b>
+      </button>
+    </p>
+  </div>
+</div>

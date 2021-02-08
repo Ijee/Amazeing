@@ -1,0 +1,44 @@
+<div class="modal" [@modalAnimation]="showImport" [ngClass]="showImport ? 'is-active' : 'inactive'">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">
+        <span class="icon">
+          <fa-icon [icon]="['far', 'edit']"></fa-icon>
+        </span>
+        <label for="importArea">
+          <b> Import</b>
+        </label>
+      </p>
+      <button class="delete" aria-label="close" (click)="showImport = false"></button>
+    </header>
+    <section class="modal-card-body">
+              <textarea id="importArea"
+                        class="textarea is-primary"
+                        type="text"
+                        placeholder="Paste here"
+                        [(ngModel)]="importToken">
+              </textarea>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-success" (click)="importSession()">Import</button>
+      <button class="button" (click)="showImport = false">Cancel</button>
+      <div class="field">
+        <p class="control has-icons-left">
+              <span class="select">
+                <select [ngModel]="selectedScenario" (ngModelChange)="scenarioSelected($event)">
+                  <option value="scenario" selected>Scenario</option>
+                  <option value="gosper">Gosper glider gun</option>
+                  <option value="multiple">Multiple patterns</option>
+                  <option value="chess">Chess board</option>
+                  <option value="mandala">Mandala</option>
+                </select>
+              </span>
+          <span class="icon is-small is-left">
+                <fa-icon [icon]="['fas', 'list']"></fa-icon>
+          </span>
+        </p>
+      </div>
+    </footer>
+  </div>
+</div>

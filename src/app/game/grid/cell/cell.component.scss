@@ -1,0 +1,15 @@
+.cell {
+  flex: 1;
+  user-select: none;
+  border-right: 1px solid #1a0707;
+  border-bottom: 1px solid #1a0707;
+  padding-bottom: 100%;
+}
+
+.cell:hover {
+  background-color: rgba(132, 26, 26, 0.6);
+}
+
+.alive {
+  background-color: #FF0000 !important;
+}

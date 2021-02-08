@@ -1,0 +1,35 @@
+<div class="modal" [@modalAnimation]="showExport" [ngClass]="showExport ? 'is-active' : 'inactive'">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">
+        <span class="icon">
+          <fa-icon [icon]="['far', 'save']"></fa-icon>
+        </span>
+        <span>
+          <label for="exportArea">
+              <b> Export</b>
+          </label>
+        </span>
+      </p>
+      <button class="delete" aria-label="close" (click)="showExport = false"></button>
+    </header>
+    <section class="modal-card-body">
+              <textarea id="exportArea"
+                        class="textarea is-primary"
+                        type="text"
+                        (focus)="$event.target.select()"
+                        [ngModel]="gameService.getExportToken() | async">
+              </textarea>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-success" (click)="exportSession()">
+         <span class="icon is-small">
+            <fa-icon [icon]="['fas', 'paste']"></fa-icon>
+        </span>
+        <span>Copy to clipboard</span>
+      </button>
+      <button class="button" (click)="showExport = false">Cancel</button>
+    </footer>
+  </div>
+</div>
