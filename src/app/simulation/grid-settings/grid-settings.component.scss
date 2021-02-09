@@ -20,3 +20,13 @@
 .goal-icon {
   color: #FF0000;
 }
+
+.control-button-wrapper:before {
+  content: "";
+  flex: 1 0 0;
+}
+
+.control-pulled-right {
+  flex: 1 0 0;
+  text-align: end;
+}
