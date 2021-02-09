@@ -4,7 +4,7 @@ import {FaIconLibrary} from '@fortawesome/angular-fontawesome';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import {fab} from '@fortawesome/free-brands-svg-icons';
 import {far} from '@fortawesome/free-regular-svg-icons';
-import {GameService} from './@core/services/game.service';
+import {SimulationService} from './@core/services/simulation.service';
 import {fadeAnimation} from './@shared/animations/fadeAnimation';
 import {Subject} from 'rxjs';
 import {Router} from '@angular/router';
@@ -23,7 +23,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private readonly destroyed$: Subject<void>;
 
-  constructor(library: FaIconLibrary, public gameService: GameService,
+  constructor(library: FaIconLibrary, public simulationService: SimulationService,
               private router: Router,
               private location: Location) {
     library.addIconPacks(fas, fab, far);
@@ -34,10 +34,10 @@ export class AppComponent implements OnInit, OnDestroy {
     // sets the controller status based on route so that it is
     // only available on the game page
     this.router.events.subscribe(() => {
-      if (this.location.path() === '/game') {
-        this.gameService.setDisableController(false);
+      if (this.location.path() === '/simulation') {
+        this.simulationService.setDisableController(false);
       } else {
-        this.gameService.setDisableController(true);
+        this.simulationService.setDisableController(true);
       }
     });
   }
@@ -53,17 +53,17 @@ export class AppComponent implements OnInit, OnDestroy {
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent): void {
     if (event.code === 'ArrowRight') {
-      this.gameService.addStep();
+      this.simulationService.addStep();
     } else if (event.code === 'ArrowLeft') {
-      this.gameService.setBackwardStep();
+      this.simulationService.setBackwardStep();
     } else if (event.code === 'Space') {
-      this.gameService.setGameStatus();
+      this.simulationService.setGameStatus();
     } else if (event.code === 'NumpadAdd') {
-      this.gameService.setSpeedUp();
+      this.simulationService.setSpeedUp();
     } else if (event.code === 'NumpadSubtract') {
-      this.gameService.setSpeedDown();
+      this.simulationService.setSpeedDown();
     } else if (event.code === 'KeyR') {
-      this.gameService.reset();
+      this.simulationService.reset();
     }
   }
 

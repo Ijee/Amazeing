@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subject} from 'rxjs';
-import {GameService} from '../../services/game.service';
+import {SimulationService} from '../../services/simulation.service';
 import {FaIconLibrary} from '@fortawesome/angular-fontawesome';
 import {takeUntil} from 'rxjs/operators';
 import {fas} from '@fortawesome/free-solid-svg-icons';
@@ -19,7 +19,7 @@ export class ExportModalComponent implements OnInit, OnDestroy {
 
   private readonly destroyed$: Subject<void>;
 
-  constructor(public gameService: GameService, library: FaIconLibrary) {
+  constructor(public simulationService: SimulationService, library: FaIconLibrary) {
     library.addIconPacks(fas, fab, far);
     this.showExport = false;
 
@@ -27,7 +27,7 @@ export class ExportModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.gameService.getExportSession().pipe(takeUntil(this.destroyed$)).subscribe(() => {
+    this.simulationService.getExportSession().pipe(takeUntil(this.destroyed$)).subscribe(() => {
       this.showExport = true;
     });
   }

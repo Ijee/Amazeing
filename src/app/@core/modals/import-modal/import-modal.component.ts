@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {GameService} from '../../services/game.service';
+import {SimulationService} from '../../services/simulation.service';
 import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 import {FaIconLibrary} from '@fortawesome/angular-fontawesome';
@@ -22,7 +22,7 @@ export class ImportModalComponent implements OnInit, OnDestroy {
 
   private readonly destroyed$: Subject<void>;
 
-  constructor(public gameService: GameService, library: FaIconLibrary) {
+  constructor(public simulationService: SimulationService, library: FaIconLibrary) {
     library.addIconPacks(fas, fab, far);
     this.showImport = false;
     this.selectedScenario = 'scenario';
@@ -31,7 +31,7 @@ export class ImportModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.gameService.getImportSession().pipe(takeUntil(this.destroyed$)).subscribe(() => {
+    this.simulationService.getImportSession().pipe(takeUntil(this.destroyed$)).subscribe(() => {
       this.showImport = true;
     });
   }
@@ -99,8 +99,8 @@ export class ImportModalComponent implements OnInit, OnDestroy {
    * and uses the gameService for the grid to react to it
    */
   importSession(): void {
-    this.gameService.reset();
-    this.gameService.setImportToken(this.importToken);
+    this.simulationService.reset();
+    this.simulationService.setImportToken(this.importToken);
     this.showImport = false;
   }
 }

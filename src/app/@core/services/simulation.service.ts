@@ -6,11 +6,11 @@ import {Alive} from '../../../types';
 @Injectable({
   providedIn: 'root'
 })
-export class GameService {
+export class SimulationService {
   private readonly gridList$: ReplaySubject<Alive[][]>;
   private readonly gridHistory: Array<Alive[][]>;
   private readonly tick$: BehaviorSubject<number>;
-  private readonly cellCount$: BehaviorSubject<number>;
+  private readonly nodeCount$: BehaviorSubject<number>;
   private readonly cellsAlive$: BehaviorSubject<number>;
   private readonly cellsAliveHistory: Array<number>;
   private readonly cellsCreated$: BehaviorSubject<number>;
@@ -36,7 +36,7 @@ export class GameService {
     this.gridHistory = [];
     // Stats
     this.tick$ = new BehaviorSubject<number>(0);
-    this.cellCount$ = new BehaviorSubject<number>(0);
+    this.nodeCount$ = new BehaviorSubject<number>(0);
     this.cellsAlive$ = new BehaviorSubject<number>(0);
     this.cellsAliveHistory = [0];
     this.cellsCreated$ = new BehaviorSubject<number>(0);
@@ -113,7 +113,7 @@ export class GameService {
    * @param newCellCount - the new cellCount to be set
    */
   public setCellCount(newCellCount: number): void {
-    this.cellCount$.next(newCellCount);
+    this.nodeCount$.next(newCellCount);
   }
 
   /**
@@ -352,8 +352,8 @@ export class GameService {
   /**
    * Returns the current cellCount
    */
-  public getCellCount(): Observable<number> {
-    return this.cellCount$;
+  public getNodeCount(): Observable<number> {
+    return this.nodeCount$;
   }
 
   /**
@@ -367,7 +367,6 @@ export class GameService {
    * Returns the current cellsCreated
    */
   public getCellsCreated(): Observable<number> {
-    console.log('current cellsCreated:', this.cellsCreated$.getValue());
     return this.cellsCreated$;
   }
 

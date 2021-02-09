@@ -1,4 +1,4 @@
-<app-stats class="box is-outlined" [isMouseDown]="isMouseDown"></app-stats>
+<app-stats class="box has-background-info-light is-outlined" [isMouseDown]="isMouseDown"></app-stats>
 <div class="game-grid columns"
      (touchstart)="isMouseDown = true"
      (touchend)="onMouseUp()"
@@ -6,9 +6,9 @@
      (mouseup)="onMouseUp()"
      (mouseleave)="onMouseUp()">
   <div *ngFor="let col of gridList" class="game-column">
-    <app-cell *ngFor="let isAlive of col"
+    <app-node *ngFor="let isAlive of col"
               [status-obj]="isAlive"
               [is-mouse-down]="isMouseDown"
-              (wasUpdated)="updateCellStats($event)"></app-cell>
+              (wasUpdated)="updateCellStats($event)"></app-node>
   </div>
 </div>

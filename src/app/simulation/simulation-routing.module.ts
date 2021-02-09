@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
-import {GridComponent} from './grid/grid.component';
+import {SimulationComponent} from './simulation.component';
 
 const routes: Routes = [
   {
-    path: '', component: GridComponent
+    path: '', component: SimulationComponent
   }
 ];
 
@@ -16,4 +15,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class GameRoutingModule { }
+export class SimulationRoutingModule { }

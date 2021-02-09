@@ -2,11 +2,11 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Alive} from '../../../../types';
 
 @Component({
-  selector: 'app-cell',
-  templateUrl: './cell.component.html',
-  styleUrls: ['./cell.component.scss']
+  selector: 'app-node',
+  templateUrl: './node.component.html',
+  styleUrls: ['./node.component.scss']
 })
-export class CellComponent {
+export class NodeComponent {
   @Input('status-obj') statusObj: Alive;
   @Input('is-mouse-down') isMouseDown: boolean;
   @Output() wasUpdated: EventEmitter<boolean>;

@@ -4,19 +4,19 @@ import {Routes, RouterModule} from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'game',
-    loadChildren: () => import('./game/game.module').then(m => m.GameModule),
-    data: { reuse: true, key: 'game' }
+    path: 'simulation',
+    loadChildren: () => import('./simulation/simulation.module').then(m => m.SimulationModule),
+    data: { reuse: true, key: 'simulation' }
 
   },
   {
-    path: 'info',
+    path: 'about',
     loadChildren: () => import('./about/about.module').then(m => m.AboutModule),
     data: { reuse: false, key: 'about' }
   },
   {
     path: '',
-    redirectTo: '/game',
+    redirectTo: '/simulation',
     pathMatch: 'full'
   },
 ];
