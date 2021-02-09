@@ -2,13 +2,13 @@
   <div class="column is-half-mobile">
     <strong class="has-text-centered">
       <p class="heading is-size-6-mobile">Tick</p>
-      <p class="title is-size-6-mobile">{{ gameService.getTick() | async }}</p>
+      <p class="title is-size-6-mobile">{{ simulationService.getTick() | async }}</p>
     </strong>
   </div>
   <div class="column is-half-mobile">
     <strong class="has-text-centered">
-      <p class="heading is-size-6-mobile">Cell Count</p>
-      <p class="title is-size-6-mobile has-text-danger" appCountAnimation [newValue]="gameService.getCellCount() | async"
+      <p class="heading is-size-6-mobile">Node Count</p>
+      <p class="title is-size-6-mobile has-text-danger" appCountAnimation [newValue]="simulationService.getNodeCount() | async"
          [disableAnimation]="isMouseDown">
         0
       </p>
@@ -16,17 +16,17 @@
   </div>
   <div class="column is-size-7-mobile is-half-mobile">
     <strong class="has-text-centered">
-      <p class="heading is-size-6-mobile">Cells Alive</p>
-      <p class="title is-size-6-mobile has-text-danger" appCountAnimation [newValue]="gameService.getCellsAlive() | async"
+      <p class="heading is-size-6-mobile">Nodes Discovered</p>
+      <p class="title is-size-6-mobile has-text-danger" appCountAnimation [newValue]="simulationService.getCellsAlive() | async"
          [disableAnimation]="isMouseDown">
-        {{ gameService.getCellsAlive() | async }}
+        {{ simulationService.getCellsAlive() | async }}
       </p>
     </strong>
   </div>
   <div class="column is-size-7-mobile is-half-mobile">
     <strong class="has-text-centered">
-      <p class="heading is-size-6-mobile">Cells Created</p>
-      <p class="title is-size-6-mobile has-text-danger" appCountAnimation [newValue]="gameService.getCellsCreated() | async"
+      <p class="heading is-size-6-mobile">Nodes Created</p>
+      <p class="title is-size-6-mobile has-text-danger" appCountAnimation [newValue]="simulationService.getCellsCreated() | async"
          [disableAnimation]=isMouseDown>
         0
       </p>
@@ -35,7 +35,7 @@
   <div class="column is-size-7-mobile is-half-mobile">
     <strong class="has-text-centered">
       <p class="heading is-size-6-mobile">Speed</p>
-      <p class="title is-size-6-mobile has-text-danger">{{ gameService.getGameSpeed() | async }}%</p>
+      <p class="title is-size-6-mobile has-text-danger">{{ simulationService.getGameSpeed() | async }}%</p>
     </strong>
   </div>
 </div>

@@ -6,9 +6,9 @@
      (mouseup)="onMouseUp()"
      (mouseleave)="onMouseUp()">
   <div *ngFor="let col of gridList" class="game-column">
-    <app-cell *ngFor="let isAlive of col"
+    <app-node *ngFor="let isAlive of col"
               [status-obj]="isAlive"
               [is-mouse-down]="isMouseDown"
-              (wasUpdated)="updateCellStats($event)"></app-cell>
+              (wasUpdated)="updateCellStats($event)"></app-node>
   </div>
 </div>

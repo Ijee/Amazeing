@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Alive} from '../../../types';
-import {GameService} from '../../@core/services/game.service';
+import {SimulationService} from '../../@core/services/simulation.service';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import * as _ from 'lodash';
@@ -20,9 +20,9 @@ export class GridComponent implements OnInit, OnDestroy {
   private readonly destroyed$: Subject<void>;
   private isInitialized: boolean;
 
-  constructor(public gameService: GameService) {
+  constructor(public gameService: SimulationService) {
     this.width = 46;
-    this.height = 20;
+    this.height = 16;
     this.gridList = [];
     // init with no cells alive
     for (let i = 0; i < this.width; i++) {

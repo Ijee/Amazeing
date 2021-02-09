@@ -7,9 +7,9 @@
           <div class="navbar-brand">
             <a class="navbar-item" style="color: #fff">
               <span class="icon">
-                <fa-icon [icon]="['fas', 'heartbeat']"></fa-icon>
+                <fa-icon [icon]="['fas', 'code']"></fa-icon>
               </span>
-              <span><b>A (maze) ing</b></span>
+              <span><b>A<i>maze</i>ing</b></span>
             </a>
             <span [ngClass]="{'is-active': isNavbar}"
                   class="navbar-burger burger  font-white"
@@ -23,16 +23,16 @@
           <div id="navbarMenuHeroA" [ngClass]="{ 'is-active': isNavbar }" class="navbar-menu">
             <div class="navbar-end">
               <a class="navbar-item font-white"
-                 routerLink="/game"
-                (click)="gameService.setGameStatus(false)">
+                 routerLink="/simulation"
+                (click)="simulationService.setGameStatus(false)">
                 <span class="icon">
-                  <fa-icon [icon]="['fas', 'gamepad']"></fa-icon>
+                  <fa-icon [icon]="['fas', 'microchip']"></fa-icon>
                 </span>
                 <span><b>SIMULATION</b></span>
               </a>
               <a class="navbar-item font-white"
-                 routerLink="/info"
-                 (click)="gameService.setGameStatus(false)">
+                 routerLink="/about"
+                 (click)="simulationService.setGameStatus(false)">
                 <span class="icon">
                   <fa-icon [icon]="['fas', 'info']"></fa-icon>
                 </span>
@@ -58,8 +58,8 @@
     </div>
     <!-- Bulma - Hero content -->
     <div class="hero-body">
-      <div class="container is-paddingless" [@fadeAnimation]="getRouterOutletState(o)">
-        <div class="columns box is-fullwidth is-gapless">
+      <div class="container is-paddingless" >
+        <div class="columns is-multiline is-gapless" [@fadeAnimation]="getRouterOutletState(o)">
           <main class="column is-12">
             <router-outlet #o="outlet"></router-outlet>
           </main>
@@ -70,7 +70,7 @@
     <footer class="footer">
       <div class="container">
         <div class="columns">
-          <div class="column is-fullwidth">
+          <div class="column box is-12">
             <app-controller></app-controller>
           </div>
         </div>
