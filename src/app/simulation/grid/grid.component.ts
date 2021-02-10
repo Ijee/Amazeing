@@ -22,7 +22,7 @@ export class GridComponent implements OnInit, OnDestroy {
 
   constructor(public gameService: SimulationService) {
     this.width = 46;
-    this.height = 16;
+    this.height = 24
     this.gridList = [];
     // init with no cells alive
     for (let i = 0; i < this.width; i++) {

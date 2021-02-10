@@ -23,3 +23,22 @@
   margin: 0 auto;
   flex-direction: column;
 }
+
+
+.start-icon {
+  color: #00D1B2;
+}
+
+.goal-icon {
+  color: #FF0000;
+}
+
+.control-button-wrapper:before {
+  content: "";
+  flex: 1 0 0;
+}
+
+.control-pulled-right {
+  flex: 1 0 0;
+  text-align: end;
+}

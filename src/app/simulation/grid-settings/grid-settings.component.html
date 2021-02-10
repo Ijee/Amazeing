@@ -1,4 +1,7 @@
 <div class="columns is-multiline is-gapless">
+  <div class="column is-12">
+    <hr class="hr-text" data-content="Algorithm Selection">
+  </div>
   <div class="column is-half">
     <button class="button maze-button is-primary is-outlined is-medium is-fullwidth">
       <b>M A Z E</b>
@@ -11,44 +14,6 @@
   </div>
   <div class="column is-full">
     <app-maze-settings></app-maze-settings>
-    <hr class="hr-text" data-content="GRID COTNROL">
-    <div class="columns">
-      <div class="column is-full">
-        <div class="field has-addons has-addons-centered is-marginless control-button-wrapper">
-          <p class="control">
-            <button class="button is-outlined">
-                <span class="icon start-icon">
-                  <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
-                </span>
-              <b>Set Start</b>
-            </button>
-          </p>
-          <p class="control">
-            <button [disabled]="true" class="button is-outlined">
-                <span class="icon">
-                  <fa-icon [icon]="['fas', 'balance-scale-right']"></fa-icon>
-                </span>
-              <b>Add weights</b>
-            </button>
-          </p>
-          <p class="control">
-            <button class="button is-outlined">
-                <span class="icon goal-icon">
-                  <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
-                </span>
-              <b>Set Goal</b>
-            </button>
-          </p>
-          <p class="control control-pulled-right">
-            <button class="button is-outlined">
-                <span class="icon">
-                  <fa-icon [icon]="['fas', 'asterisk']"></fa-icon>
-                </span>
-              <b>Legend</b>
-            </button>
-          </p>
-        </div>
-      </div>
-    </div>
+
   </div>
 </div>

@@ -1,3 +1,9 @@
+:host {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
 .hero-body {
   align-items: stretch !important;
   padding-top: 18px;
@@ -5,8 +11,9 @@
 }
 
 .footer {
-  padding: 1.5%;
   background-color: transparent;
+  margin-top: auto;
+  flex: 1;
 }
 
 .hr {
