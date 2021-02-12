@@ -1,14 +1,18 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, ReplaySubject, Subject} from 'rxjs';
-import {Alive} from '../../../types';
+import {Node} from '../../../types';
+import * as _ from 'lodash';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class SimulationService {
-  private readonly gridList$: ReplaySubject<Alive[][]>;
-  private readonly gridHistory: Array<Alive[][]>;
+  private readonly gridList$: ReplaySubject<Node[][]>;
+  private readonly gridHistory: Array<Node[][]>;
+  private gridSavePoint: Node[][];
+  private readonly shouldSafe$: BehaviorSubject<boolean>;
+  private readonly gridLock$: BehaviorSubject<boolean>;
   private readonly tick$: BehaviorSubject<number>;
   private readonly nodeCount$: BehaviorSubject<number>;
   private readonly cellsAlive$: BehaviorSubject<number>;
@@ -17,11 +21,14 @@ export class SimulationService {
   private readonly cellsCreatedHistory: Array<number>;
   private rewritingHistory: boolean;
   private readonly gameSpeed$: BehaviorSubject<number>;
+  private drawingMode: number;
   private readonly disableController$: BehaviorSubject<boolean>;
   private readonly isGameActive$: BehaviorSubject<boolean>;
   private readonly backwardStep$: Subject<void>;
   private readonly backwardStepsAmount$: BehaviorSubject<number>;
   private readonly step$: Subject<void>;
+  private readonly setStart$: Subject<void>;
+  private readonly setGoal$: Subject<void>;
   private readonly randomSeed$: Subject<void>;
   private readonly importSession$: Subject<void>;
   private readonly exportSession$: Subject<void>;
@@ -31,9 +38,12 @@ export class SimulationService {
   private intervalID: number;
 
   constructor() {
-    this.gridList$ = new ReplaySubject<Alive[][]>(5);
+    this.gridList$ = new ReplaySubject<Node[][]>(5);
     this.gridList$.next([]);
     this.gridHistory = [];
+    this.gridSavePoint = [];
+    this.shouldSafe$ = new BehaviorSubject<boolean>(true);
+    this.gridLock$ = new BehaviorSubject<boolean>(false);
     // Stats
     this.tick$ = new BehaviorSubject<number>(0);
     this.nodeCount$ = new BehaviorSubject<number>(0);
@@ -45,11 +55,14 @@ export class SimulationService {
     // Responsible for controlling the simulation - also used to propagate
     // events from the controller component
     this.gameSpeed$ = new BehaviorSubject(100);
+    this.drawingMode = 0;
     this.disableController$ = new BehaviorSubject<boolean>(false);
     this.isGameActive$ = new BehaviorSubject(false);
     this.backwardStep$ = new Subject<void>();
     this.backwardStepsAmount$ = new BehaviorSubject<number>(0);
     this.step$ = new Subject<void>();
+    this.setStart$ = new Subject<void>();
+    this.setGoal$ = new Subject<void>();
     this.randomSeed$ = new Subject<void>();
     this.importSession$ = new Subject<void>();
     this.exportSession$ = new Subject<void>();
@@ -96,6 +109,15 @@ export class SimulationService {
     } else if (this.gameSpeed$.getValue() > 500) {
       this.gameSpeed$.next(500);
     }
+  }
+
+  /**
+   * Sets the status of the grid to either interactable or not
+   *
+   * @param isLocked - whether or not the grid should be interactable
+   */
+  public setGridLock(isLocked: boolean): void {
+    this.gridLock$.next(isLocked);
   }
 
   /**
@@ -148,7 +170,7 @@ export class SimulationService {
    *
    * @param newGrid - the new gridList
    */
-  public setGridList(newGrid: Alive[][]): void {
+  public setGridList(newGrid: Node[][]): void {
     this.gridList$.next(newGrid);
   }
 
@@ -183,11 +205,17 @@ export class SimulationService {
    *
    * @param newGrid - the current grid
    */
-  public setStep(newGrid: Alive[][]): void {
+  public setStep(newGrid: Node[][]): void {
     this.setGridList(newGrid);
     this.changeTick(1);
     if (this.backwardStepsAmount$.getValue() < 9) {
       this.changeBackwardStepsAmount(1);
+    }
+    // only saves the current state before the first step is being done
+    if (this.shouldSafe$.getValue()) {
+      console.log('yo');
+      this.setGridSavePoint(newGrid);
+      this.shouldSafe$.next(false);
     }
   }
 
@@ -210,7 +238,7 @@ export class SimulationService {
    *
    * @param gridList - the gridList used in the grid component
    */
-  public setHistory(gridList: Alive[][]): void {
+  public setHistory(gridList: Node[][]): void {
     if (this.gridHistory.length >= 10) {
       this.gridHistory.shift();
       this.cellsCreatedHistory.shift();
@@ -255,6 +283,10 @@ export class SimulationService {
     this.cellsAlive$.next(this.cellsAliveHistory[this.cellsAliveHistory.length - 1]);
   }
 
+  public setGridSavePoint(gridList: Node[][]): void {
+    this.gridSavePoint = gridList;
+  }
+
   /**
    * Sets the new speed down between boundaries
    */
@@ -272,14 +304,44 @@ export class SimulationService {
   }
 
   /**
+   * This sets the mode for drawing on the grid.
+   * You are only able to draw and clear walls nothing else.
+   * newMode = -1: only clear nodes of their walls
+   * newMode = 0: only draw new nodes on the grid
+   * newMode = 1: draw a new start
+   * newMode = 2: draw a new goal
+   *
+   * @param newMode - the new mode to be set for drawing
+   */
+  public setDrawingMode(newMode: number): void {
+    if (this.getDrawingMode() === newMode) {
+      this.drawingMode = 0;
+    } else {
+      this.drawingMode = newMode;
+    }
+  }
+
+  /**
    * This resets all stats and as well as the gridList
    */
   public reset(): void {
-    this.backwardStepsAmount$.next(0);
-    this.tick$.next(0);
-    this.cellsAlive$.next(0);
-    this.cellsCreated$.next(0);
-    this.gridList$.next([]);
+    if (this.getGridSavePoint().length > 0) {
+      this.setStep(_.cloneDeep(this.getGridSavePoint()));
+      this.setGridSavePoint([]);
+      console.log('in if case reset');
+      this.shouldSafe$.next(true);
+      console.log('shouldSafe$', this.shouldSafe$.getValue());
+      console.log('gridSavePoint', this.gridSavePoint);
+
+    } else {
+      this.backwardStepsAmount$.next(0);
+      this.tick$.next(0);
+      this.cellsAlive$.next(0);
+      this.cellsCreated$.next(0);
+      this.gridList$.next([]);
+      this.setGridSavePoint([]);
+      this.shouldSafe$.next(true);
+    }
   }
 
   /**
@@ -324,8 +386,16 @@ export class SimulationService {
   /**
    * Returns the current gridList to any subscriber
    */
-  public getGridList(): Observable<Alive[][]> {
+  public getGridList(): Observable<Node[][]> {
     return this.gridList$;
+  }
+
+  public getGridSavePoint(): Node[][]  {
+    return this.gridSavePoint;
+  }
+
+  public getShouldSave(): Observable<boolean> {
+    return this.shouldSafe$;
   }
 
   /**
@@ -340,6 +410,10 @@ export class SimulationService {
    */
   public getGameStatus(): Observable<boolean> {
     return this.isGameActive$;
+  }
+
+  public getGridLock(): Observable<boolean> {
+    return this.gridLock$;
   }
 
   /**
@@ -385,6 +459,13 @@ export class SimulationService {
   }
 
   /**
+   * Returns the current drawingMode
+   */
+  public getDrawingMode(): number {
+    return this.drawingMode;
+  }
+
+  /**
    * Returns when a new backwardStep was called
    */
   public getBackwardStep(): Observable<void> {
@@ -403,6 +484,20 @@ export class SimulationService {
    */
   public getStep(): Observable<void> {
     return this.step$;
+  }
+
+  /**
+   * Returns when a new start was called
+   */
+  public getStart(): Observable<void> {
+    return this.setStart$;
+  }
+
+  /**
+   * Returns when a new goal was called
+   */
+  public getGoal(): Observable<void> {
+    return this.setGoal$;
   }
 
   /**

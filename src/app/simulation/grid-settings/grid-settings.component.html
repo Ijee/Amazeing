@@ -1,19 +1,23 @@
 <div class="columns is-multiline is-gapless">
   <div class="column is-12">
-    <hr class="hr-text" data-content="Algorithm Selection">
+    <hr class="hr-text m-1" data-content="ALGORITHM MODE">
   </div>
   <div class="column is-half">
-    <button class="button maze-button is-primary is-outlined is-medium is-fullwidth">
-      <b>M A Z E</b>
+    <button class="button maze-button is-medium is-fullwidth"
+            [ngClass]="(this.settingsService.getAlgorithmMode() | async) === 'maze' ? 'is-primary' : 'has-background-primary-light'"
+            (click)="this.settingsService.setAlgorithmMode('maze')">
+      <b>MAZE</b>
     </button>
   </div>
   <div class="column is-half">
-    <button class="button path-button is-danger is-outlined is-medium is-fullwidth">
-      <b>P A T H F I N D I N G</b>
+    <button class="button path-button is-medium is-fullwidth"
+            [ngClass]="(this.settingsService.getAlgorithmMode() | async) === 'pathFinding' ? 'is-danger' : 'has-background-danger-light'"
+            (click)="this.settingsService.setAlgorithmMode('pathFinding')">
+      <b>PATHFINDING</b>
     </button>
   </div>
   <div class="column is-full">
-    <app-maze-settings></app-maze-settings>
-
+    <app-maze-settings *ngIf="(this.settingsService.getAlgorithmMode() | async) === 'maze'"></app-maze-settings>
+    <app-pathfinding-settings  *ngIf="(this.settingsService.getAlgorithmMode() | async) === 'pathFinding'"></app-pathfinding-settings>
   </div>
 </div>

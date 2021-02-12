@@ -2,10 +2,6 @@
   display: block;
 }
 
-.box {
-  background-color: #EEF6FC;
-}
-
 .game-grid {
   border-top: 1px solid #1a0707;
   border-left: 1px solid #1a0707;
@@ -22,6 +18,14 @@
   padding: 0;
   margin: 0 auto;
   flex-direction: column;
+}
+
+.game-grid-lock {
+  pointer-events: none;
+}
+
+.wrapper-forbidden {
+  cursor: not-allowed;
 }
 
 

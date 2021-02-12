@@ -5,62 +5,86 @@
     </p>
     <aside class="columns is-multiline is-gapless">
       <div class="column is-one-third">
-        <button class="button algo-button is-outlined is-fullwidth">
+        <button class="button algo-button is-fullwidth"
+                [ngClass]="(this.settingsService.getcurrentAlgorithm() | async) === 'prims' ? 'is-primary' : ''"
+                (click)="this.settingsService.setCurrentAlgorithm('prims')">
           <b>Prim's</b>
         </button>
       </div>
       <div class="column is-one-third">
-        <button class="button algo-button is-outlined is-fullwidth">
+        <button class="button algo-button is-fullwidth"
+                [ngClass]="(this.settingsService.getcurrentAlgorithm() | async) === 'kruskals' ? 'is-primary' : ''"
+                (click)="this.settingsService.setCurrentAlgorithm('kruskals')">
           <b>Kruskal's</b>
         </button>
       </div>
       <div class="column is-one-third">
-        <button class="button algo-button is-outlined is-fullwidth">
+        <button class="button algo-button is-fullwidth"
+                [ngClass]="(this.settingsService.getcurrentAlgorithm() | async) === 'recursiveBacktracker' ? 'is-primary' : ''"
+                (click)="this.settingsService.setCurrentAlgorithm('recursiveBacktracker')">
           <b>Recursive-Backtracker</b>
         </button>
       </div>
       <div class="column is-one-third">
-        <button class="button algo-button is-outlined is-fullwidth">
+        <button class="button algo-button is-fullwidth"
+                [ngClass]="(this.settingsService.getcurrentAlgorithm() | async) === 'aldousBroder' ? 'is-primary' : ''"
+                (click)="this.settingsService.setCurrentAlgorithm('aldousBroder')">
           <b>Aldous-Broder</b>
         </button>
       </div>
       <div class="column is-one-third">
-        <button class="button algo-button is-outlined is-fullwidth">
+        <button class="button algo-button is-fullwidth"
+                [ngClass]="(this.settingsService.getcurrentAlgorithm() | async) === 'growingTree' ? 'is-primary' : ''"
+                (click)="this.settingsService.setCurrentAlgorithm('growingTree')">
           <b>Growing Tree</b>
         </button>
       </div>
       <div class="column is-one-third">
-        <button class="button algo-button is-outlined is-fullwidth">
+        <button class="button algo-button is-fullwidth"
+                [ngClass]="(this.settingsService.getcurrentAlgorithm() | async) === 'huntAndKill' ? 'is-primary' : ''"
+                (click)="this.settingsService.setCurrentAlgorithm('huntAndKill')">
           <b>Hunt and Kill</b>
         </button>
       </div>
       <div class="column is-one-third">
-        <button class="button algo-button is-outlined is-fullwidth">
+        <button class="button algo-button is-fullwidth"
+                [ngClass]="(this.settingsService.getcurrentAlgorithm() | async) === 'wilsons' ? 'is-primary' : ''"
+                (click)="this.settingsService.setCurrentAlgorithm('wilsons')">
           <b>Wilson's</b>
         </button>
       </div>
       <div class="column is-one-third">
-        <button class="button algo-button is-outlined is-fullwidth">
+        <button class="button algo-button is-fullwidth"
+                [ngClass]="(this.settingsService.getcurrentAlgorithm() | async) === 'ellers' ? 'is-primary' : ''"
+                (click)="this.settingsService.setCurrentAlgorithm('ellers')">
           <b>Eller's</b>
         </button>
       </div>
       <div class="column is-one-third">
-        <button class="button algo-button is-outlined is-fullwidth">
+        <button class="button algo-button is-fullwidth"
+                [ngClass]="(this.settingsService.getcurrentAlgorithm() | async) === 'cellularAutomation' ? 'is-primary' : ''"
+                (click)="this.settingsService.setCurrentAlgorithm('cellularAutomation')">
           <b>Cellular Automation</b>
         </button>
       </div>
       <div class="column is-one-third">
-        <button class="button algo-button is-outlined is-fullwidth">
+        <button class="button algo-button is-fullwidth"
+                [ngClass]="(this.settingsService.getcurrentAlgorithm() | async) === 'recursiveDivision' ? 'is-primary' : ''"
+                (click)="this.settingsService.setCurrentAlgorithm('recursiveDivision')">
           <b>Recursive Division</b>
         </button>
       </div>
       <div class="column is-one-third">
-        <button class="button algo-button is-outlined is-fullwidth">
+        <button class="button algo-button is-fullwidth"
+                [ngClass]="(this.settingsService.getcurrentAlgorithm() | async) === 'sidewinder' ? 'is-primary' : ''"
+                (click)="this.settingsService.setCurrentAlgorithm('sidewinder')">
           <b>Sidewinder</b>
         </button>
       </div>
       <div class="column is-one-third">
-        <button class="button algo-button is-outlined is-fullwidth">
+        <button class="button algo-button is-fullwidth"
+                [ngClass]="(this.settingsService.getcurrentAlgorithm() | async) === 'binaryTree' ? 'is-primary' : ''"
+                (click)="this.settingsService.setCurrentAlgorithm('binaryTree')">
           <b>Binary Tree</b>
         </button>
       </div>
@@ -70,10 +94,43 @@
     <p class="menu-label has-text-centered">
       <b>Options</b>
     </p>
+    <div class="columns">
+      <div class="column is-full">
+        <div class="buttons has-addons is-centered">
+          <button class="button is-small"
+                  [ngClass]="(this.settingsService.getCurrentHeuristic() | async) === 'manhattan' ? 'is-primary' : ''"
+                  (click)="this.settingsService.setCurrentHeuristic('manhattan')">
+            <b>Manhattan</b>
+          </button>
+          <button class="button is-small"
+                  [ngClass]="(this.settingsService.getCurrentHeuristic() | async) === 'euclidean' ? 'is-primary' : ''"
+                  (click)="this.settingsService.setCurrentHeuristic('euclidean')">
+            <b>Euclidean</b>
+          </button>
+          <button class="button is-small"
+                  [ngClass]="(this.settingsService.getCurrentHeuristic() | async) === 'octile' ? 'is-primary' : ''"
+                  (click)="this.settingsService.setCurrentHeuristic('octile')">
+            <b>Octile</b>
+          </button>
+          <button class="button is-small"
+                  [ngClass]="(this.settingsService.getCurrentHeuristic() | async) === 'chebyshev' ? 'is-primary' : 't'"
+                  (click)="this.settingsService.setCurrentHeuristic('chebyshev')">
+            <b>Chebyshev</b>
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="column is-full">
     <p class="menu-label has-text-centered">
       <b>Pseudo Code</b>
     </p>
+    <div class="columns">
+      <div class="column is-full">
+          <pre class="m-0 p-0">
+          <code class="javascript" [innerHTML]="testCode"></code>
+          </pre>
+      </div>
+    </div>
   </div>
 </div>

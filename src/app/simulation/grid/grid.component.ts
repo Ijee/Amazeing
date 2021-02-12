@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Alive} from '../../../types';
+import {Node} from '../../../types';
 import {SimulationService} from '../../@core/services/simulation.service';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -14,13 +14,13 @@ export class GridComponent implements OnInit, OnDestroy {
 
   private readonly width: number;
   private readonly height: number;
-  public gridList: Alive[][];
+  public gridList: Node[][];
   public isMouseDown: boolean;
 
   private readonly destroyed$: Subject<void>;
   private isInitialized: boolean;
 
-  constructor(public gameService: SimulationService) {
+  constructor(public simulationService: SimulationService) {
     this.width = 46;
     this.height = 20;
     this.gridList = [];
@@ -28,7 +28,7 @@ export class GridComponent implements OnInit, OnDestroy {
     for (let i = 0; i < this.width; i++) {
       this.gridList[i] = [];
       for (let j = 0; j < this.height; j++) {
-        this.gridList[i][j] = {isAlive: false};
+        this.gridList[i][j] = {nodeStatus: -1};
       }
     }
 
@@ -36,40 +36,40 @@ export class GridComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.gameService.setCellCount(this.width * this.height);
+    this.simulationService.setCellCount(this.width * this.height);
     // if you're asking yourself: 'why did this madman use a replaysubject?
     // I liked the name and also no it is not better to use than a normal array as
     // also have the gridHistory in the gameService.
-    this.gameService.getGridList().pipe(takeUntil(this.destroyed$)).subscribe(data => {
+    this.simulationService.getGridList().pipe(takeUntil(this.destroyed$)).subscribe(data => {
       if (data.length) {
         data.forEach((column, i) => {
           column.forEach((cell, j) => {
-            this.setCell(i, j, cell.isAlive);
+            this.setCell(i, j, cell.nodeStatus);
           });
         });
       } else {
         this.reset();
       }
-      if (!this.gameService.getRewritingHistory()) {
-        this.gameService.setHistory(data);
+      if (!this.simulationService.getRewritingHistory()) {
+        this.simulationService.setHistory(data);
       }
     });
-    this.gameService.getBackwardStep().pipe(takeUntil(this.destroyed$)).subscribe(() => {
-      this.gameService.setRewritingHistory(true);
-      this.gameService.manipulateHistory();
-      this.gameService.changeTick(-1);
+    this.simulationService.getBackwardStep().pipe(takeUntil(this.destroyed$)).subscribe(() => {
+      this.simulationService.setRewritingHistory(true);
+      this.simulationService.manipulateHistory();
+      this.simulationService.changeTick(-1);
     });
-    this.gameService.getStep().pipe(takeUntil(this.destroyed$)).subscribe(() => {
+    this.simulationService.getStep().pipe(takeUntil(this.destroyed$)).subscribe(() => {
       this.update();
-      this.gameService.changeTick(1);
+      this.simulationService.changeTick(1);
     });
-    this.gameService.getRandomSeed().pipe(takeUntil(this.destroyed$)).subscribe(() => {
+    this.simulationService.getRandomSeed().pipe(takeUntil(this.destroyed$)).subscribe(() => {
       this.randomSeed();
     });
-    this.gameService.getImportToken().pipe(takeUntil(this.destroyed$)).subscribe((token: string) => {
+    this.simulationService.getImportToken().pipe(takeUntil(this.destroyed$)).subscribe((token: string) => {
       this.importToken(token);
     });
-    this.gameService.getExportSession().pipe(takeUntil(this.destroyed$)).subscribe(() => {
+    this.simulationService.getExportSession().pipe(takeUntil(this.destroyed$)).subscribe(() => {
       this.exportSession();
     });
     this.isInitialized = true;
@@ -89,43 +89,55 @@ export class GridComponent implements OnInit, OnDestroy {
       this.isMouseDown = false;
       // forces drawing a line / cells to be a tick in the simulation until the mouse releases
       // this.gameService.setStep(_.cloneDeep(this.gridList));
-      this.gameService.setStep(_.cloneDeep(this.gridList));
+      this.simulationService.setStep(_.cloneDeep(this.gridList));
     }
   }
 
   /**
    * Updates the current cell stats on each new tick.
    *
-   * @param bool - boolean based on cell isAlive status
+   * @param newValue - the new cell status
    */
-  updateCellStats(bool: boolean): void {
-    if (bool) {
-      this.gameService.changeCellsAlive(1);
-      this.gameService.changeCellsCreated(1);
+  updateCellStats(newValue: number): void {
+    if (newValue >= 0) {
+      this.simulationService.changeCellsAlive(1);
+      this.simulationService.changeCellsCreated(1);
     } else {
-      this.gameService.changeCellsAlive(-1);
+      this.simulationService.changeCellsAlive(-1);
+    }
+  }
+
+  drawModeLogic(event: string): void {
+    switch (event) {
+      case 'startOrGoal':
+        this.isMouseDown = false;
+        this.simulationService.setDrawingMode(0);
+        // TODO check if grid already has start / goal and remove that. most likely needs x, y to nodes as inputs
+        break;
+      default:
+        break;
     }
   }
 
   /**
-   * Changes the 'isAlive' object property
+   * Changes the 'nodeStatus' object property
    * of a specific cell to the one requested
    * in the param.
    *
    * @param x - the x position
    * @param y - the y position
-   * @param alive - the new boolean
+   * @param nodeStatus - the new boolean
    */
-  private setCell(x: number, y: number, alive: boolean): void {
-    if (this.gridList[x][y].isAlive !== alive) {
-      this.gridList[x][y].isAlive = alive;
+  public setCell(x: number, y: number, nodeStatus: number): void {
+    if (this.gridList[x][y].nodeStatus !== nodeStatus) {
+      this.gridList[x][y].nodeStatus = nodeStatus;
 
       if (this.isInitialized) {
-        this.updateCellStats(alive);
+        this.updateCellStats(nodeStatus);
       }
     }
     // let row = this.gridList[x];
-    // row.splice(y, 1, {isAlive: true});
+    // row.splice(y, 1, {nodeStatus: true});
     // this.gridList.splice(x, 1, row);
   }
 
@@ -145,7 +157,7 @@ export class GridComponent implements OnInit, OnDestroy {
           const newX = posX + offsetX;
           const newY = posY + offsetY;
           // check if offset is:
-          // on current cell, out of bounds and if isAlive
+          // on current cell, out of bounds and if nodeStatus
           // for cell true
           if (
             (offsetX !== 0 || offsetY !== 0) &&
@@ -153,7 +165,7 @@ export class GridComponent implements OnInit, OnDestroy {
             newX < this.width &&
             newY >= 0 &&
             newY < this.height &&
-            this.gridList[posX + offsetX][posY + offsetY].isAlive === true
+            this.gridList[posX + offsetX][posY + offsetY].nodeStatus === 0
           ) {
             neighbours++;
           }
@@ -168,42 +180,42 @@ export class GridComponent implements OnInit, OnDestroy {
    * every tick based on the game of life rules.
    */
   private update(): void {
-    const tempArr: Alive[][] = [];
+    const tempArr: Node[][] = [];
     for (let i = 0; i < this.width; i++) {
       tempArr[i] = [];
       for (let j = 0; j < this.height; j++) {
-        const status = this.gridList[i][j].isAlive;
+        const status = this.gridList[i][j].nodeStatus;
         const neighbours = this.getNeighbours(i, j);
-        let result = false;
+        let result = -1;
         // Rule 1:
         // Any live cell with fewer than two live neighbours dies,
         // as if by under population
         if (status && neighbours < 2) {
-          result = false;
+          result = -1;
         }
         // Rule 2:
         // Any live cell with two or three neighbours lives on
         // to the next generation
         if ((status && neighbours === 2) || neighbours === 3) {
-          result = true;
+          result = 0;
         }
         // Rule 3:
         // Any live cell with more than three live neighbours dies,
         // as if by overpopulation
         if (status && neighbours > 3) {
-          result = false;
+          result = -1;
         }
         // Rule 4:
         // Any dead cell with exactly three live neighbours becomes
         // a live cell, as if by reproduction
         if (!status && neighbours === 3) {
-          result = true;
+          result = 0;
         }
-        tempArr[i][j] = {isAlive: result};
+        tempArr[i][j] = {nodeStatus: result};
       }
     }
     // set new gridList content
-    this.gameService.setGridList(tempArr);
+    this.simulationService.setGridList(tempArr);
   }
 
   /**
@@ -213,7 +225,7 @@ export class GridComponent implements OnInit, OnDestroy {
   private reset(): void {
     this.gridList.forEach(col => {
       col.forEach(cell => {
-        cell.isAlive = false;
+        cell.nodeStatus = -1;
       });
     });
   }
@@ -222,15 +234,15 @@ export class GridComponent implements OnInit, OnDestroy {
    * Populates and overwrites gridList with cells.
    */
   private randomSeed(): void {
-    this.gameService.reset();
-    this.gameService.setStep(_.cloneDeep(this.gridList));
+    this.simulationService.reset();
+    this.simulationService.setStep(_.cloneDeep(this.gridList));
     for (let i = 0; i < this.width; i++) {
       for (let j = 0; j < this.height; j++) {
         const rand = Math.random();
         if (rand < 0.2) {
-          this.setCell(i, j, true);
+          this.setCell(i, j, 0);
         } else {
-          this.setCell(i, j, false);
+          this.setCell(i, j, -1);
         }
       }
     }
@@ -252,7 +264,7 @@ export class GridComponent implements OnInit, OnDestroy {
       tempArr.forEach((element) => {
         element = element.substring(1, element.length - 1);
         const xy = element.split(',');
-        this.setCell(+xy[0], +xy[1], true);
+        this.setCell(+xy[0], +xy[1], 0);
       });
     }
   }
@@ -266,11 +278,11 @@ export class GridComponent implements OnInit, OnDestroy {
     let exportToken = '';
     for (let i = 0; i < this.width; i++) {
       for (let j = 0; j < this.height; j++) {
-        if (this.gridList[i][j].isAlive) {
+        if (this.gridList[i][j].nodeStatus) {
           exportToken += '[' + i + ',' + j + ']';
         }
       }
     }
-    this.gameService.setExportToken(exportToken);
+    this.simulationService.setExportToken(exportToken);
   }
 }

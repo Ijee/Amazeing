@@ -1,2 +1,2 @@
-<div [ngClass]="statusObj.isAlive ? 'alive' : 'dead'" class="cell is-danger"
-     (mousedown)="reborn(true)" (mouseover)="reborn(isMouseDown)"></div>
+<div [ngClass]="determineStatus()" class="cell is-danger"
+     (mousedown)="setNewStatus(true)" (mouseover)="setNewStatus(isMouseDown)"></div>

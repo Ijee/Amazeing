@@ -1,3 +1,3 @@
-export type Alive = {
-  isAlive: boolean;
+export type Node = {
+  nodeStatus: number;
 };

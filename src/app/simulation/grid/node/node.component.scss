@@ -1,6 +1,5 @@
 .cell {
   flex: 1;
-  width: 100%;
   user-select: none;
   border-right: 1px solid #1a0707;
   border-bottom: 1px solid #1a0707;
@@ -11,6 +10,6 @@
   background-color: rgba(132, 26, 26, 0.6);
 }
 
-.alive {
-  background-color: #FF0000 !important;
+.wall {
+  background-color: #818078 !important;
 }
