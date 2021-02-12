@@ -1,4 +1,4 @@
-<app-stats class="box has-background-primary-light is-outlined" [isMouseDown]="isMouseDown"></app-stats>
+<app-stats class="box  is-outlined" [isMouseDown]="isMouseDown"></app-stats>
 <div class="column" [ngClass]="{'wrapper-forbidden': simulationService.getGridLock() | async}">
   <div class="column is-12 m-0 p-0">
     <div class="game-grid"
@@ -11,7 +11,7 @@
                   [status-obj]="nodeStatus"
                   [is-mouse-down]="isMouseDown"
                   (wasUpdated)="updateCellStats($event)"
-                  (drawModeLogic)="drawModeLogic($event)"
+                  (drawModeLogic)="drawModeLogic($event, i, j)"
         ></app-node>
       </div>
     </div>

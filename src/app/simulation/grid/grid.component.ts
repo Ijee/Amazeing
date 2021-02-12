@@ -107,12 +107,20 @@ export class GridComponent implements OnInit, OnDestroy {
     }
   }
 
-  drawModeLogic(event: string): void {
+  drawModeLogic(event: string, col: number, row: number): void {
     switch (event) {
       case 'startOrGoal':
         this.isMouseDown = false;
         this.simulationService.setDrawingMode(0);
-        // TODO check if grid already has start / goal and remove that. most likely needs x, y to nodes as inputs
+        // removes all existing start or goal nodes but the newly placed one
+        const startOrGoal = this.gridList[col][row].nodeStatus;
+        for (let i = 0; i < this.gridList.length; i++) {
+          for (let j = 0; j < this.gridList[i].length; j++) {
+            if (this.gridList[i][j].nodeStatus === startOrGoal && !(col === i && row === j)) {
+              this.gridList[i][j].nodeStatus = -1;
+            }
+          }
+        }
         break;
       default:
         break;
