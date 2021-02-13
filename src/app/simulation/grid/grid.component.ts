@@ -4,6 +4,7 @@ import {SimulationService} from '../../@core/services/simulation.service';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import * as _ from 'lodash';
+import {SettingsService} from '../../@core/services/settings.service';
 
 @Component({
   selector: 'app-grid',
@@ -20,7 +21,7 @@ export class GridComponent implements OnInit, OnDestroy {
   private readonly destroyed$: Subject<void>;
   private isInitialized: boolean;
 
-  constructor(public simulationService: SimulationService) {
+  constructor(public simulationService: SimulationService, public settingsService: SettingsService) {
     this.width = 46;
     this.height = 20;
     this.gridList = [];

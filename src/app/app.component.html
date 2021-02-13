@@ -51,6 +51,7 @@
             </span>
                 <span><b>Dark mode</b></span>
                 <button class="button is-small dropdown-button"
+                        disabled="true"
                         [class]="(settingsService.getAlgorithmMode() | async) === 'maze' ? 'is-primary' : 'is-danger'"
                         (click)="settingsService.setDarkModeSetting()">
                   <b>{{ (settingsService.getdarkModeSetting() | async) ? 'OFF' : 'ON' }}</b>

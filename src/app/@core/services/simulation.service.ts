@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, ReplaySubject, Subject} from 'rxjs';
-import {Node} from '../../../types';
+import {Node, SavePointStats} from '../../../types';
 import * as _ from 'lodash';
 
 
@@ -11,6 +11,7 @@ export class SimulationService {
   private readonly gridList$: ReplaySubject<Node[][]>;
   private readonly gridHistory: Array<Node[][]>;
   private gridSavePoint: Node[][];
+  private gridSavePointStats: SavePointStats;
   private readonly shouldSafe$: BehaviorSubject<boolean>;
   private readonly gridLock$: BehaviorSubject<boolean>;
   private readonly tick$: BehaviorSubject<number>;
@@ -214,6 +215,11 @@ export class SimulationService {
     // only saves the current state before the first step is being done
     if (this.shouldSafe$.getValue()) {
       console.log('yo');
+      this.gridSavePointStats = {
+        tick: this.tick$.getValue(),
+        cellsAlive: this.cellsAlive$.getValue(),
+        cellsCreated: this.cellsCreated$.getValue()
+      };
       this.setGridSavePoint(newGrid);
       this.shouldSafe$.next(false);
     }
@@ -325,13 +331,15 @@ export class SimulationService {
    * This resets all stats and as well as the gridList
    */
   public reset(): void {
+    this.setGameStatus(false);
     if (this.getGridSavePoint().length > 0) {
       this.setStep(_.cloneDeep(this.getGridSavePoint()));
+      this.tick$.next(this.gridSavePointStats.tick);
+      this.cellsAlive$.next(this.gridSavePointStats.cellsAlive);
+      this.cellsCreated$.next(this.gridSavePointStats.cellsCreated);
       this.setGridSavePoint([]);
-      console.log('in if case reset');
+      this.setGridLock(false);
       this.shouldSafe$.next(true);
-      console.log('shouldSafe$', this.shouldSafe$.getValue());
-      console.log('gridSavePoint', this.gridSavePoint);
 
     } else {
       this.backwardStepsAmount$.next(0);
@@ -390,7 +398,7 @@ export class SimulationService {
     return this.gridList$;
   }
 
-  public getGridSavePoint(): Node[][]  {
+  public getGridSavePoint(): Node[][] {
     return this.gridSavePoint;
   }
 

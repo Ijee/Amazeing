@@ -24,6 +24,7 @@
       <p class="control">
         <button class="button is-outlined"
                 [ngClass]="simulationService.getDrawingMode() === 1 ? 'is-active' : ''"
+                [disabled]="this.simulationService.getGridLock() | async"
                 (click)="simulationService.setDrawingMode(1)">
                 <span class="icon start-icon">
                   <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
@@ -32,7 +33,8 @@
         </button>
       </p>
       <p class="control">
-        <button [disabled]="true" class="button is-outlined">
+        <button class="button is-outlined"
+                [disabled]="!(this.simulationService.getGridLock() | async)">
                 <span class="icon">
                   <fa-icon [icon]="['fas', 'balance-scale-right']"></fa-icon>
                 </span>
@@ -42,6 +44,7 @@
       <p class="control">
         <button class="button is-outlined"
                 [ngClass]="simulationService.getDrawingMode() === 2 ? 'is-active' : ''"
+                [disabled]="this.simulationService.getGridLock() | async"
                 (click)="simulationService.setDrawingMode(2)">
                 <span class="icon goal-icon">
                   <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
