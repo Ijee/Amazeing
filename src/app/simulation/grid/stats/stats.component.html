@@ -13,7 +13,7 @@
          [class]="(settingsService.getAlgorithmMode() | async) === 'maze' ? 'has-text-primary' : 'has-text-danger'"
          appCountAnimation
          [newValue]="simulationService.getNodeCount() | async"
-         [disableAnimation]="isMouseDown">
+         [disableAnimation]="isMouseDown || (settingsService.getAnimationsSetting() | async)">
         0
       </p>
     </strong>
@@ -25,7 +25,7 @@
          [class]="(settingsService.getAlgorithmMode() | async) === 'maze' ? 'has-text-primary' : 'has-text-danger'"
          appCountAnimation
          [newValue]="simulationService.getCellsAlive() | async"
-         [disableAnimation]="isMouseDown">
+         [disableAnimation]="isMouseDown || (settingsService.getAnimationsSetting() | async)">
         {{ simulationService.getCellsAlive() | async }}
       </p>
     </strong>
@@ -37,7 +37,7 @@
          [class]="(settingsService.getAlgorithmMode() | async) === 'maze' ? 'has-text-primary' : 'has-text-danger'"
          appCountAnimation
          [newValue]="simulationService.getCellsCreated() | async"
-         [disableAnimation]=isMouseDown>
+         [disableAnimation]="isMouseDown || (settingsService.getAnimationsSetting() | async)">
         0
       </p>
     </strong>

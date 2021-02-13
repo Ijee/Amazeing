@@ -1,43 +1,95 @@
 <div class="amazeing is-fullheight">
-<section class="section p-0">
-  <nav class="navbar is-transparent">
-    <div class="navbar-brand">
-      <a class="navbar-item" style="color: #fff">
+  <section class="section p-0">
+    <nav class="navbar is-transparent">
+      <div class="navbar-brand">
+        <a class="navbar-item" style="color: #fff">
               <span class="icon">
                 <fa-icon [icon]="['fas', 'code']"></fa-icon>
               </span>
-        <span><b>A<i>maze</i>ing</b></span>
-      </a>
-      <span [ngClass]="{'is-active': isNavbar}"
-            class="navbar-burger burger  font-white"
-            data-target="navbarMenuHeroA"
-            (click)="isNavbar = !isNavbar">
+          <span><b>A<i>maze</i>ing</b></span>
+        </a>
+        <span class="navbar-burger burger  font-white"
+              data-target="navbarMenuHeroA"
+              [ngClass]="{'is-active': isNavbar}"
+              (click)="isNavbar = !isNavbar">
              <span aria-hidden="true"></span>
              <span aria-hidden="true"></span>
              <span aria-hidden="true"></span>
             </span>
-    </div>
-    <div id="navbarMenuHeroA" [ngClass]="{ 'is-active': isNavbar }" class="navbar-menu">
-      <div class="navbar-end">
-        <a class="navbar-item font-white"
-           routerLink="/simulation"
-           (click)="simulationService.setGameStatus(false)">
+      </div>
+      <div id="navbarMenuHeroA" [ngClass]="{ 'is-active': isNavbar }" class="navbar-menu">
+        <div class="navbar-end">
+          <a class="navbar-item font-white"
+             routerLink="/simulation"
+             (click)="simulationService.setGameStatus(false)">
                 <span class="icon">
                   <fa-icon [icon]="['fas', 'microchip']"></fa-icon>
                 </span>
-          <span><b>SIMULATION</b></span>
-        </a>
-        <a class="navbar-item font-white"
-           routerLink="/about"
-           (click)="simulationService.setGameStatus(false)">
+            <span><b>SIMULATION</b></span>
+          </a>
+          <a class="navbar-item font-white"
+             routerLink="/about"
+             (click)="simulationService.setGameStatus(false)">
                 <span class="icon">
                   <fa-icon [icon]="['fas', 'info']"></fa-icon>
                 </span>
-          <span><b>ABOUT</b></span>
-        </a>
-        <span class="navbar-item">
+            <span><b>ABOUT</b></span>
+          </a>
+          <div class="navbar-item"
+               [ngClass]="{'is-active': isSettingsDropdown}"
+               (click)="isSettingsDropdown = !isSettingsDropdown">
+            <a class="navbar-link font-white">
+            <span class="icon">
+                  <fa-icon [icon]="['fas', 'cog']"></fa-icon>
+            </span>
+              <span><b>SETTINGS</b></span>
+            </a>
+            <div class="navbar-dropdown">
+              <div class="navbar-item">
+              <span class="icon">
+                  <fa-icon [icon]="['fas', 'adjust']"></fa-icon>
+            </span>
+                <span><b>Dark mode</b></span>
+                <button class="button is-small dropdown-button"
+                        [class]="(settingsService.getAlgorithmMode() | async) === 'maze' ? 'is-primary' : 'is-danger'"
+                        (click)="settingsService.setDarkModeSetting()">
+                  <b>{{ (settingsService.getdarkModeSetting() | async) ? 'ON' : 'OFF' }}</b>
+                </button>
+              </div>
+              <div class="navbar-item">
+              <span class="icon">
+                  <fa-icon [icon]="['fas', 'wind']"></fa-icon>
+            </span>
+                <span><b>Animations</b></span>
+                <button class="button is-small dropdown-button"
+                        [class]="(settingsService.getAlgorithmMode() | async) === 'maze' ? 'is-primary' : 'is-danger'"
+                        (click)="settingsService.setAnimationSetting()">
+                  <b>{{ (settingsService.getAnimationsSetting() | async) ? 'ON' : 'OFF' }}</b>
+                </button>
+              </div>
+              <div class="navbar-item">
+              <span class="icon">
+                  <fa-icon [icon]="['fas', 'ban']"></fa-icon>
+            </span>
+                <span><b>Warnings</b></span>
+                <button class="button is-small dropdown-button"
+                        [class]="(settingsService.getAlgorithmMode() | async) === 'maze' ? 'is-primary' : 'is-danger'"
+                        (click)="settingsService.setWarningsSetting()">
+                  <b>{{ (settingsService.getWarningsSetting() | async) ? 'ON' : 'OFF' }}</b>
+                </button>
+              </div>
+              <hr class="navbar-divider">
+              <div class="navbar-item">
+                Version 0.9.1
+              </div>
+              <div class="navbar-item">
+                Changelog
+              </div>
+            </div>
+          </div>
+          <span class="navbar-item">
                 <a class="button is-info"
-                   href="https://github.com/Ijee/Game-of-Life-Angular"
+                   href="https://github.com/Ijee/Amazeing"
                    target="_blank"
                    rel="noopener">
                   <span class="icon">
@@ -48,24 +100,24 @@
                   </span>
                 </a>
               </span>
+        </div>
+      </div>
+    </nav>
+  </section>
+  <div class="section p-3">
+    <div class="columns is-multiline" [@fadeAnimation]="getRouterOutletState(o)">
+      <main class="column is-12">
+        <router-outlet #o="outlet"></router-outlet>
+      </main>
+    </div>
+  </div>
+  <footer class="footer p-3 m-0">
+    <div class="columns">
+      <div class="column is-12">
+        <app-controller class="box "></app-controller>
       </div>
     </div>
-  </nav>
-</section>
-<div class="section p-3">
-  <div class="columns is-multiline" [@fadeAnimation]="getRouterOutletState(o)">
-    <main class="column is-12">
-      <router-outlet #o="outlet"></router-outlet>
-    </main>
-  </div>
-</div>
-<footer class="footer p-3 m-0">
-  <div class="columns">
-    <div class="column is-12">
-      <app-controller class="box "></app-controller>
-    </div>
-  </div>
-</footer>
+  </footer>
 </div>
 <app-import-modal></app-import-modal>
 <app-export-modal></app-export-modal>

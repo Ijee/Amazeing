@@ -8,6 +8,7 @@ import {SimulationService} from './@core/services/simulation.service';
 import {fadeAnimation} from './@shared/animations/fadeAnimation';
 import {Subject} from 'rxjs';
 import {Router} from '@angular/router';
+import {SettingsService} from './@core/services/settings.service';
 
 @Component({
   selector: 'app-root',
@@ -17,13 +18,16 @@ import {Router} from '@angular/router';
 })
 export class AppComponent implements OnInit, OnDestroy {
   public isNavbar: boolean;
+  public isSettingsDropdown: boolean;
   public isImport: boolean;
   public isExport: boolean;
 
 
   private readonly destroyed$: Subject<void>;
 
-  constructor(library: FaIconLibrary, public simulationService: SimulationService,
+  constructor(library: FaIconLibrary,
+              public simulationService: SimulationService,
+              public settingsService: SettingsService,
               private router: Router,
               private location: Location) {
     library.addIconPacks(fas, fab, far);
