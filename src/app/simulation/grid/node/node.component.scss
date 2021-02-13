@@ -1,4 +1,4 @@
-.cell {
+.node {
   flex: 1;
   user-select: none;
   border-right: 1px solid #1a0707;
@@ -6,8 +6,8 @@
   padding-bottom: 100%;
 }
 
-.cell:hover {
-  background-color: rgba(132, 26, 26, 0.6);
+.node:hover {
+  background-color: rgba(129, 128, 120, 0.6);
 }
 
 .wall {

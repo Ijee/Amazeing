@@ -2,7 +2,7 @@
   <section class="section p-0">
     <nav class="navbar is-transparent">
       <div class="navbar-brand">
-        <a class="navbar-item" style="color: #fff">
+        <a class="navbar-item is-unselectable" style="color: #fff">
               <span class="icon">
                 <fa-icon [icon]="['fas', 'code']"></fa-icon>
               </span>
@@ -19,7 +19,7 @@
       </div>
       <div id="navbarMenuHeroA" [ngClass]="{ 'is-active': isNavbar }" class="navbar-menu">
         <div class="navbar-end">
-          <a class="navbar-item font-white"
+          <a class="navbar-item is-unselectable font-white"
              routerLink="/simulation"
              (click)="simulationService.setGameStatus(false)">
                 <span class="icon">
@@ -27,15 +27,15 @@
                 </span>
             <span><b>SIMULATION</b></span>
           </a>
-          <a class="navbar-item font-white"
+          <a class="navbar-item is-unselectable font-white"
              routerLink="/about"
              (click)="simulationService.setGameStatus(false)">
                 <span class="icon">
-                  <fa-icon [icon]="['fas', 'info']"></fa-icon>
+                  <fa-icon [icon]="['fas', 'info-circle']"></fa-icon>
                 </span>
             <span><b>ABOUT</b></span>
           </a>
-          <div class="navbar-item"
+          <div class="navbar-item is-unselectable"
                [ngClass]="{'is-active': isSettingsDropdown}"
                (click)="isSettingsDropdown = !isSettingsDropdown">
             <a class="navbar-link font-white">
@@ -53,7 +53,7 @@
                 <button class="button is-small dropdown-button"
                         [class]="(settingsService.getAlgorithmMode() | async) === 'maze' ? 'is-primary' : 'is-danger'"
                         (click)="settingsService.setDarkModeSetting()">
-                  <b>{{ (settingsService.getdarkModeSetting() | async) ? 'ON' : 'OFF' }}</b>
+                  <b>{{ (settingsService.getdarkModeSetting() | async) ? 'OFF' : 'ON' }}</b>
                 </button>
               </div>
               <div class="navbar-item">
@@ -64,7 +64,7 @@
                 <button class="button is-small dropdown-button"
                         [class]="(settingsService.getAlgorithmMode() | async) === 'maze' ? 'is-primary' : 'is-danger'"
                         (click)="settingsService.setAnimationSetting()">
-                  <b>{{ (settingsService.getAnimationsSetting() | async) ? 'ON' : 'OFF' }}</b>
+                  <b>{{ (settingsService.getAnimationsSetting() | async) ? 'OFF' : 'ON' }}</b>
                 </button>
               </div>
               <div class="navbar-item">
@@ -75,7 +75,7 @@
                 <button class="button is-small dropdown-button"
                         [class]="(settingsService.getAlgorithmMode() | async) === 'maze' ? 'is-primary' : 'is-danger'"
                         (click)="settingsService.setWarningsSetting()">
-                  <b>{{ (settingsService.getWarningsSetting() | async) ? 'ON' : 'OFF' }}</b>
+                  <b>{{ (settingsService.getWarningsSetting() | async) ? 'OFF' : 'ON' }}</b>
                 </button>
               </div>
               <hr class="navbar-divider">
