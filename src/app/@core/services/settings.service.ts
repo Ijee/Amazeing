@@ -18,7 +18,7 @@ export class SettingsService {
   constructor() {
     this.algorithmMode = 'maze';
     this.currentMazeAlgorithm = 'prims';
-    this.currentPathAlgorithm = 'prims';
+    this.currentPathAlgorithm = 'a-star';
     this.currentHeuristic = 'manhattan';
     this.darkModeSetting = false;
     this.animationsSetting = false;
