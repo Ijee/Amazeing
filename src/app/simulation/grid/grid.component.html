@@ -34,7 +34,7 @@
       </p>
       <p class="control">
         <button class="button is-outlined"
-                [disabled]="!(this.simulationService.getGridLock() | async)">
+                [disabled]="!(this.simulationService.getGridLock() | async) && !(settingsService.getAlgorithmMode() === 'pathFinding')">
                 <span class="icon">
                   <fa-icon [icon]="['fas', 'balance-scale-right']"></fa-icon>
                 </span>

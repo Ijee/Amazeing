@@ -33,6 +33,8 @@ export class GridComponent implements OnInit, OnDestroy {
       }
     }
 
+
+
     this.destroyed$ = new Subject<void>();
   }
 
@@ -74,6 +76,12 @@ export class GridComponent implements OnInit, OnDestroy {
       this.exportSession();
     });
     this.isInitialized = true;
+    // TODO why does this work only here?
+    const initialStartX = Math.round( (33 * this.width) / 100);
+    const initialGoalX = Math.round( (66 * this.width) / 100);
+    const initialNodeHeightY = Math.round((50 * this.height) / 100);
+    this.gridList[initialStartX][initialNodeHeightY].nodeStatus = 1;
+    this.gridList[initialGoalX][initialNodeHeightY].nodeStatus = 2;
   }
 
   ngOnDestroy(): void {
