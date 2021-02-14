@@ -1,23 +1,53 @@
 <div class="columns is-multiline is-gapless">
-  <div class="column is-12">
+  <div class="column is-full">
     <hr class="hr-text m-1" data-content="ALGORITHM MODE">
   </div>
   <div class="column is-half">
     <button class="button maze-button is-medium is-fullwidth"
-            [ngClass]="(this.settingsService.getAlgorithmMode() | async) === 'maze' ? 'is-primary' : 'has-background-primary-light'"
-            (click)="this.settingsService.setAlgorithmMode('maze')">
+            [ngClass]="this.settingsService.getAlgorithmMode() === 'maze' ? 'is-primary' : 'has-background-primary-light'"
+            (click)="handleWarning('maze', false)">
       <b>MAZE</b>
     </button>
   </div>
   <div class="column is-half">
     <button class="button path-button is-medium is-fullwidth"
-            [ngClass]="(this.settingsService.getAlgorithmMode() | async) === 'pathFinding' ? 'is-danger' : 'has-background-danger-light'"
-            (click)="this.settingsService.setAlgorithmMode('pathFinding')">
+            [ngClass]="this.settingsService.getAlgorithmMode() === 'pathFinding' ? 'is-danger' : 'has-background-danger-light'"
+            (click)="handleWarning('pathFinding', false)">
       <b>PATHFINDING</b>
     </button>
   </div>
+  <div *ngIf="showWarning" class="column is-full">
+    <div class="is-warning-box has-background-warning p-2">
+      <div class="columns is-multiline is-gapless">
+        <div class="column is-full has-text-centered m-1">
+          <b>
+            {{ "Doing this will reset the grid" | uppercase }}
+          </b>
+        </div>
+        <div class="column is-full">
+          <div class="buttons is-centered ">
+            <button class="button danger-button is-small is-warning has-text-white"
+                    (click)="handleWarning(switchtoOtherMode(), true)">
+              <span class="icon">
+                <fa-icon [icon]="['fas', 'check']"></fa-icon>
+              </span>
+              <span><b>Continue</b></span>
+            </button>
+            <button class="button danger-button is-small is-warning has-text-white"
+                    (click)="showWarning = false">
+              <span class="icon">
+                <fa-icon [icon]="['fas', 'times']"></fa-icon>
+              </span>
+              <span><b>Cancel</b></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="column is-full">
-    <app-maze-settings *ngIf="(this.settingsService.getAlgorithmMode() | async) === 'maze'"></app-maze-settings>
-    <app-pathfinding-settings  *ngIf="(this.settingsService.getAlgorithmMode() | async) === 'pathFinding'"></app-pathfinding-settings>
+    <app-maze-settings *ngIf="settingsService.getAlgorithmMode() === 'maze'"></app-maze-settings>
+    <app-pathfinding-settings
+      *ngIf="settingsService.getAlgorithmMode() === 'pathFinding'"></app-pathfinding-settings>
   </div>
 </div>

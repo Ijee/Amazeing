@@ -1,5 +1,5 @@
 <div class="columns is-fullwidth is-gapless">
-  <div class="column is-half-mobile">
+  <div class="column is-full-mobile">
     <strong class="has-text-centered">
       <p class="heading is-size-6-mobile">Tick</p>
       <p class="title is-size-6-mobile"
@@ -10,10 +10,10 @@
     <strong class="has-text-centered">
       <p class="heading is-size-6-mobile">Node Count</p>
       <p class="title is-size-6-mobile"
-         [class]="(settingsService.getAlgorithmMode() | async) === 'maze' ? 'has-text-primary' : 'has-text-danger'"
+         [class]="settingsService.getAlgorithmMode()=== 'maze' ? 'has-text-primary' : 'has-text-danger'"
          appCountAnimation
          [newValue]="simulationService.getNodeCount() | async"
-         [disableAnimation]="isMouseDown || (settingsService.getAnimationsSetting() | async)">
+         [disableAnimation]="isMouseDown || !settingsService.getAnimationsSetting()">
         0
       </p>
     </strong>
@@ -22,10 +22,10 @@
     <strong class="has-text-centered">
       <p class="heading is-size-6-mobile">Nodes Discovered</p>
       <p class="title is-size-6-mobile"
-         [class]="(settingsService.getAlgorithmMode() | async) === 'maze' ? 'has-text-primary' : 'has-text-danger'"
+         [class]="settingsService.getAlgorithmMode() === 'maze' ? 'has-text-primary' : 'has-text-danger'"
          appCountAnimation
          [newValue]="simulationService.getCellsAlive() | async"
-         [disableAnimation]="isMouseDown || (settingsService.getAnimationsSetting() | async)">
+         [disableAnimation]="isMouseDown || !settingsService.getAnimationsSetting()">
         {{ simulationService.getCellsAlive() | async }}
       </p>
     </strong>
@@ -34,10 +34,10 @@
     <strong class="has-text-centered">
       <p class="heading is-size-6-mobile">Nodes Created</p>
       <p class="title is-size-6-mobile"
-         [class]="(settingsService.getAlgorithmMode() | async) === 'maze' ? 'has-text-primary' : 'has-text-danger'"
+         [class]="settingsService.getAlgorithmMode() === 'maze' ? 'has-text-primary' : 'has-text-danger'"
          appCountAnimation
          [newValue]="simulationService.getCellsCreated() | async"
-         [disableAnimation]="isMouseDown || (settingsService.getAnimationsSetting() | async)">
+         [disableAnimation]="isMouseDown || !settingsService.getAnimationsSetting()">
         0
       </p>
     </strong>
@@ -46,7 +46,7 @@
     <strong class="has-text-centered">
       <p class="heading is-size-6-mobile">Speed</p>
       <p class="title is-size-6-mobile"
-         [class]="(settingsService.getAlgorithmMode() | async) === 'maze' ? 'has-text-primary' : 'has-text-danger'"
+         [class]="settingsService.getAlgorithmMode() === 'maze' ? 'has-text-primary' : 'has-text-danger'"
       >{{ simulationService.getGameSpeed() | async }}%</p>
     </strong>
   </div>

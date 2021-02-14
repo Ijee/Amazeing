@@ -25,7 +25,8 @@ export class MazeSettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    hljs.initHighlighting();
+    // deprecated? hljs.initHighlighting();
+    hljs.highlightAll();
   }
 
 }

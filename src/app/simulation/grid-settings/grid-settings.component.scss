@@ -8,6 +8,17 @@
   border-width: 2px;
 }
 
+.is-warning-box {
+  border-radius: 0 0 8px 8px;
+}
+
+.danger-button {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.danger-button:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
 .button {
   border-radius: 0;
 }

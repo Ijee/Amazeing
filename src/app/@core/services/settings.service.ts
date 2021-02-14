@@ -5,89 +5,99 @@ import {BehaviorSubject, Observable, Subject} from 'rxjs';
   providedIn: 'root'
 })
 export class SettingsService {
-  private readonly algorithmMode: BehaviorSubject<string>;
-  private readonly currentAlgorithm: BehaviorSubject<string>;
-  private readonly currentHeuristic: BehaviorSubject<string>;
+  private algorithmMode: string;
+  private currentMazeAlgorithm: string;
+  private currentPathAlgorithm: string;
+  private currentHeuristic: string;
   // Settings
-  private readonly darkModeSetting: BehaviorSubject<boolean>;
-  private readonly animationsSetting: BehaviorSubject<boolean>;
-  private readonly warningsSetting: BehaviorSubject<boolean>;
+  private darkModeSetting: boolean;
+  private animationsSetting: boolean;
+  private warningsSetting: boolean;
 
 
   constructor() {
-    this.algorithmMode = new BehaviorSubject<string>('maze');
-    this.currentAlgorithm = new BehaviorSubject<string>('prims');
-    this.currentHeuristic = new BehaviorSubject<string>('manhattan');
-    this.darkModeSetting = new BehaviorSubject<boolean>(false);
-    this.animationsSetting = new BehaviorSubject<boolean>(false);
-    this.warningsSetting = new BehaviorSubject<boolean>(false);
+    this.algorithmMode = 'maze';
+    this.currentMazeAlgorithm = 'prims';
+    this.currentPathAlgorithm = 'prims';
+    this.currentHeuristic = 'manhattan';
+    this.darkModeSetting = false;
+    this.animationsSetting = false;
+    this.warningsSetting =  false;
 
     // get the old settings, this converts it back (also if undefined === true -> false, thanks js)
-    this.darkModeSetting.next(localStorage.getItem('darkModeSetting') === 'true');
-    this.animationsSetting.next(localStorage.getItem('animationsSetting') === 'true');
-    this.warningsSetting.next(localStorage.getItem('warningsSetting') === 'true');
+    this.darkModeSetting = localStorage.getItem('darkModeSetting') === 'true';
+    this.animationsSetting = localStorage.getItem('animationsSetting') === 'true';
+    this.warningsSetting = localStorage.getItem('warningsSetting') === 'true';
   }
 
   public setAlgorithmMode(newMode: string): void {
-    this.algorithmMode.next(newMode);
+    this.algorithmMode = newMode;
   }
 
-  public setCurrentAlgorithm(newAlgorithm: string): void {
-    this.currentAlgorithm.next(newAlgorithm);
+  public setCurrentMazeAlgorithm(newAlgorithm: string): void {
+    this.currentMazeAlgorithm = newAlgorithm;
+  }
+
+  public setCurrentPathAlgorithm(newAlgorithm: string): void {
+    this.currentPathAlgorithm = newAlgorithm;
   }
 
   public setCurrentHeuristic(newHeuristic): void {
-    this.currentHeuristic.next(newHeuristic);
+    this.currentHeuristic = newHeuristic;
   }
 
   public setDarkModeSetting(newOption?: boolean): void {
     if (newOption !== undefined) {
-      this.darkModeSetting.next(newOption);
+      this.darkModeSetting = newOption;
     } else {
-      this.darkModeSetting.next(!(this.darkModeSetting.getValue()));
+      this.darkModeSetting = !this.darkModeSetting;
     }
-    localStorage.setItem('darkModeSetting', String(this.darkModeSetting.getValue()));
+    localStorage.setItem('darkModeSetting', String(this.darkModeSetting));
   }
 
   public setAnimationSetting(newOption?: boolean): void {
     if (newOption !== undefined) {
-      this.animationsSetting.next(newOption);
+      this.darkModeSetting = newOption;
     } else {
-      this.animationsSetting.next(!(this.animationsSetting.getValue()));
+      this.animationsSetting = !this.animationsSetting;
     }
-    localStorage.setItem('animationsSetting', String(this.animationsSetting.getValue()));
+    localStorage.setItem('animationsSetting', String(this.animationsSetting));
   }
 
   public setWarningsSetting(newOption?: boolean): void {
     if (newOption !== undefined) {
-      this.warningsSetting.next(newOption);
+      this.warningsSetting = newOption;
     } else {
-      this.warningsSetting.next(!(this.warningsSetting.getValue()));
+      this.warningsSetting = !this.warningsSetting;
     }
-    localStorage.setItem('warningsSetting', String(this.warningsSetting.getValue()));
+    localStorage.setItem('warningsSetting', String(this.warningsSetting));
   }
 
-  public getAlgorithmMode(): Observable<string> {
+  public getAlgorithmMode(): string {
     return this.algorithmMode;
   }
 
-  public getcurrentAlgorithm(): Observable<string> {
-    return this.currentAlgorithm;
+  public getcurrentMazeAlgorithm(): string {
+    return this.currentMazeAlgorithm;
   }
 
-  public getCurrentHeuristic(): Observable<string> {
+  public getcurrentPathAlgorithm(): string {
+    return this.currentPathAlgorithm;
+  }
+
+  public getCurrentHeuristic(): string {
     return this.currentHeuristic;
   }
 
-  public getdarkModeSetting(): Observable<boolean> {
+  public getdarkModeSetting(): boolean {
     return this.darkModeSetting;
   }
 
-  public getAnimationsSetting(): Observable<boolean> {
+  public getAnimationsSetting(): boolean {
     return this.animationsSetting;
   }
 
-  public getWarningsSetting(): Observable<boolean> {
+  public getWarningsSetting(): boolean {
     return this.warningsSetting;
   }
 }

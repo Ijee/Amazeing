@@ -51,10 +51,10 @@
             </span>
                 <span><b>Dark mode</b></span>
                 <button class="button is-small dropdown-button"
-                        disabled="true"
-                        [class]="(settingsService.getAlgorithmMode() | async) === 'maze' ? 'is-primary' : 'is-danger'"
+                        disabled
+                        [class]="settingsService.getAlgorithmMode() === 'maze' ? 'is-primary' : 'is-danger'"
                         (click)="settingsService.setDarkModeSetting()">
-                  <b>{{ (settingsService.getdarkModeSetting() | async) ? 'OFF' : 'ON' }}</b>
+                  <b>{{ settingsService.getdarkModeSetting() ? 'ON' : 'OFF' }}</b>
                 </button>
               </div>
               <div class="navbar-item">
@@ -63,9 +63,9 @@
             </span>
                 <span><b>Animations</b></span>
                 <button class="button is-small dropdown-button"
-                        [class]="(settingsService.getAlgorithmMode() | async) === 'maze' ? 'is-primary' : 'is-danger'"
+                        [class]="settingsService.getAlgorithmMode() === 'maze' ? 'is-primary' : 'is-danger'"
                         (click)="settingsService.setAnimationSetting()">
-                  <b>{{ (settingsService.getAnimationsSetting() | async) ? 'OFF' : 'ON' }}</b>
+                  <b>{{ settingsService.getAnimationsSetting() ? 'ON' : 'OFF' }}</b>
                 </button>
               </div>
               <div class="navbar-item">
@@ -74,9 +74,9 @@
             </span>
                 <span><b>Warnings</b></span>
                 <button class="button is-small dropdown-button"
-                        [class]="(settingsService.getAlgorithmMode() | async) === 'maze' ? 'is-primary' : 'is-danger'"
+                        [class]="settingsService.getAlgorithmMode() === 'maze' ? 'is-primary' : 'is-danger'"
                         (click)="settingsService.setWarningsSetting()">
-                  <b>{{ (settingsService.getWarningsSetting() | async) ? 'OFF' : 'ON' }}</b>
+                  <b>{{ settingsService.getWarningsSetting() ? 'ON' : 'OFF' }}</b>
                 </button>
               </div>
               <hr class="navbar-divider">

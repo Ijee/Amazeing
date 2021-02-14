@@ -214,7 +214,6 @@ export class SimulationService {
     }
     // only saves the current state before the first step is being done
     if (this.shouldSafe$.getValue()) {
-      console.log('yo');
       this.gridSavePointStats = {
         tick: this.tick$.getValue(),
         cellsAlive: this.cellsAlive$.getValue(),
