@@ -32,7 +32,6 @@ export class GridSettingsComponent implements OnInit {
       // so that it does not reset twice when going back and forth betweeen the modes
       if (this.simulationService.getGridSavePoint().length > 0) {
         this.simulationService.reset();
-        this.simulationService.setGridLock(false);
       }
       this.settingsService.setAlgorithmMode(algoMode);
       // console.log('algoMode in service', this.settingsService.getAlgorithmMode());

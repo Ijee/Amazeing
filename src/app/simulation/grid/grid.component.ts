@@ -39,6 +39,14 @@ export class GridComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    const initialStartX = Math.round( (33 * this.width) / 100);
+    const initialGoalX = Math.round( (66 * this.width) / 100);
+    const initialNodeHeightY = Math.round((50 * this.height) / 100);
+    this.gridList[initialStartX][initialNodeHeightY].nodeStatus = 1;
+    this.simulationService.setGridStartLocation(initialStartX, initialNodeHeightY);
+    this.gridList[initialGoalX][initialNodeHeightY].nodeStatus = 2;
+    this.simulationService.setGridGoalLocation(initialGoalX, initialNodeHeightY);
+    this.simulationService.setGridList(this.gridList);
     this.simulationService.setCellCount(this.width * this.height);
     // if you're asking yourself: 'why did this madman use a replaysubject?
     // I liked the name and also no it is not better to use than a normal array as
@@ -57,6 +65,7 @@ export class GridComponent implements OnInit, OnDestroy {
         this.simulationService.setHistory(data);
       }
     });
+
     this.simulationService.getBackwardStep().pipe(takeUntil(this.destroyed$)).subscribe(() => {
       this.simulationService.setRewritingHistory(true);
       this.simulationService.manipulateHistory();
@@ -76,12 +85,6 @@ export class GridComponent implements OnInit, OnDestroy {
       this.exportSession();
     });
     this.isInitialized = true;
-    // TODO why does this work only here?
-    const initialStartX = Math.round( (33 * this.width) / 100);
-    const initialGoalX = Math.round( (66 * this.width) / 100);
-    const initialNodeHeightY = Math.round((50 * this.height) / 100);
-    this.gridList[initialStartX][initialNodeHeightY].nodeStatus = 1;
-    this.gridList[initialGoalX][initialNodeHeightY].nodeStatus = 2;
   }
 
   ngOnDestroy(): void {
@@ -96,9 +99,13 @@ export class GridComponent implements OnInit, OnDestroy {
   onMouseUp(): void {
     if (this.isMouseDown) {
       this.isMouseDown = false;
-      // forces drawing a line / cells to be a tick in the simulation until the mouse releases
-      // this.gameService.setStep(_.cloneDeep(this.gridList));
-      this.simulationService.setStep(_.cloneDeep(this.gridList));
+      switch (this.simulationService.getDrawingMode()) {
+        case -1:
+        case 0:
+          this.simulationService.save(_.cloneDeep(this.gridList));
+          break;
+      }
+      this.simulationService.setDrawingMode(-2);
     }
   }
 
@@ -108,32 +115,49 @@ export class GridComponent implements OnInit, OnDestroy {
    * @param newValue - the new cell status
    */
   updateCellStats(newValue: number): void {
-    if (newValue >= 0) {
-      this.simulationService.changeCellsAlive(1);
-      this.simulationService.changeCellsCreated(1);
-    } else {
-      this.simulationService.changeCellsAlive(-1);
+    switch (newValue) {
+      case -1:
+        this.simulationService.changeCellsAlive(-1);
+        break;
+      case 0:
+        this.simulationService.changeCellsAlive(1);
+        this.simulationService.changeCellsCreated(1);
+        break;
     }
   }
 
-  drawModeLogic(event: string, col: number, row: number): void {
-    switch (event) {
-      case 'startOrGoal':
-        this.isMouseDown = false;
-        this.simulationService.setDrawingMode(0);
-        // removes all existing start or goal nodes but the newly placed one
-        const startOrGoal = this.gridList[col][row].nodeStatus;
-        for (let i = 0; i < this.gridList.length; i++) {
-          for (let j = 0; j < this.gridList[i].length; j++) {
-            if (this.gridList[i][j].nodeStatus === startOrGoal && !(col === i && row === j)) {
-              this.gridList[i][j].nodeStatus = -1;
-            }
-          }
-        }
+  drawModeLogic(col: number, row: number): void {
+    const oldStatus = this.gridList[col][row].nodeStatus;
+    let drawMode = this.simulationService.getDrawingMode();
+    if (drawMode < -1) {
+      if (oldStatus === 0) {
+        drawMode = -1;
+      } else {
+        drawMode = 0;
+      }
+      this.simulationService.setDrawingMode(drawMode);
+    }
+    if (oldStatus === 1 || oldStatus === 2 || oldStatus === drawMode) {
+      return;
+    }
+    switch (drawMode) {
+      case 1:
+        const startLocation = this.simulationService.getGridStartLocation();
+        this.gridList[startLocation.x][startLocation.y].nodeStatus = -1;
+        this.simulationService.setGridStartLocation(col, row);
+        this.onMouseUp();
+        break;
+      case 2:
+        const goalLocation = this.simulationService.getGridGoalLocation();
+        this.gridList[goalLocation.x][goalLocation.y].nodeStatus = -1;
+        this.simulationService.setGridGoalLocation(col, row);
+        this.onMouseUp();
         break;
       default:
         break;
     }
+    this.gridList[col][row].nodeStatus = drawMode;
+    this.updateCellStats(drawMode);
   }
 
   /**
@@ -245,6 +269,10 @@ export class GridComponent implements OnInit, OnDestroy {
         cell.nodeStatus = -1;
       });
     });
+    const startLocation = this.simulationService.getGridStartLocation();
+    this.gridList[startLocation.x][startLocation.y].nodeStatus = 1;
+    const goalLocation = this.simulationService.getGridGoalLocation();
+    this.gridList[goalLocation.x][goalLocation.y].nodeStatus = 2;
   }
 
   /**
@@ -252,7 +280,6 @@ export class GridComponent implements OnInit, OnDestroy {
    */
   private randomSeed(): void {
     this.simulationService.reset();
-    this.simulationService.setStep(_.cloneDeep(this.gridList));
     for (let i = 0; i < this.width; i++) {
       for (let j = 0; j < this.height; j++) {
         const rand = Math.random();
@@ -263,6 +290,11 @@ export class GridComponent implements OnInit, OnDestroy {
         }
       }
     }
+    const startLocation = this.simulationService.getGridStartLocation();
+    this.gridList[startLocation.x][startLocation.y].nodeStatus = 1;
+    const goalLocation = this.simulationService.getGridGoalLocation();
+    this.gridList[goalLocation.x][goalLocation.y].nodeStatus = 2;
+    this.simulationService.save(_.cloneDeep(this.gridList));
   }
 
   /**

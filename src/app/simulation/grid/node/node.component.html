@@ -1,2 +1,2 @@
-<div [ngClass]="determineStatus()" class="node is-danger "
+<div [ngClass]="getNodeClasses()" class="node"
      (mousedown)="setNewStatus(true)" (mouseover)="setNewStatus(isMouseDown)"></div>

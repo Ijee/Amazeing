@@ -30,12 +30,11 @@
     <button class="button is-outlined"
             title="clear grid"
             [disabled]="(simulationService.getDisableController() | async)
-            || ((simulationService.getGridList() | async).length === 0
-            && (simulationService.getShouldSave() | async))"
+            || (simulationService.getGridList() | async).length === 0
+            || (simulationService.getGameStatus() | async)"
             (click)="simulationService.reset()">
-      <fa-icon class="fa-flip-horizontal" [icon]="['fas', 'redo']"
-               *ngIf="!(simulationService.getShouldSave() | async)"></fa-icon>
-      <fa-icon *ngIf="(simulationService.getShouldSave() | async)" [icon]="['fas', 'trash']"></fa-icon>
+      <fa-icon *ngIf="(simulationService.getTick() | async) > 0" class="fa-flip-horizontal" [icon]="['fas', 'redo']"></fa-icon>
+      <fa-icon *ngIf="(simulationService.getTick() | async) === 0" [icon]="['fas', 'trash']"></fa-icon>
     </button>
   </p>
   <p class="control">

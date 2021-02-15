@@ -7,3 +7,8 @@ export type SavePointStats = {
   cellsAlive: number;
   cellsCreated: number;
 };
+
+export type GridLocation = {
+  x: number;
+  y: number;
+};

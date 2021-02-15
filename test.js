@@ -15,4 +15,26 @@ function kthLargestElement (array, number)  {
 }
 const arguments = [9,3,6];
 console.log("The average of " + arguments + " is " + arguments.reduce( ( p, c ) => p + c, 0 ) / arguments.length);
+const wordChoice = 'word'
 
+
+let random = ['0','1','2','3','4','5','6','7','8','9']
+let randomIndex = []
+let randomValues = []
+let res
+randomIndexValue =  Math.floor(Math.random() * wordChoice.length);
+randomValue = Math.floor(Math.random() * random.length);
+randomIndex.push(randomIndexValue)
+randomValues.push(randomValue)
+
+for(i = 0; i < wordChoice.length; i++){
+
+
+  for(j = 0; j < random.length; j ++ ){
+
+    res = wordChoice.replace(wordChoice[randomIndex], random[randomValues]);
+
+  }
+
+}
+console.log(res)

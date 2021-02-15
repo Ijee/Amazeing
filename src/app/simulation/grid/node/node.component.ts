@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {Node} from '../../../../types';
 import {SimulationService} from '../../../@core/services/simulation.service';
 
 @Component({
@@ -8,14 +7,27 @@ import {SimulationService} from '../../../@core/services/simulation.service';
   styleUrls: ['./node.component.scss']
 })
 export class NodeComponent {
-  @Input('status-obj') statusObj: Node;
+  @Input() status: number;
   @Input('is-mouse-down') isMouseDown: boolean;
-  @Output() wasUpdated: EventEmitter<number>;
-  @Output() drawModeLogic: EventEmitter<string>;
+  @Output() wasUpdated: EventEmitter<void>;
 
   constructor(private simulationService: SimulationService) {
-    this.wasUpdated = new EventEmitter<number>();
-    this.drawModeLogic = new EventEmitter<string>();
+    this.wasUpdated = new EventEmitter<void>();
+  }
+
+  getNodeClasses(): string {
+    const first = this.determineStatus();
+    const second = this.determineDrawMode();
+    return second ? first + ' ' + second : first;
+  }
+
+  determineDrawMode(): string {
+    switch (this.simulationService.getDrawingMode()) {
+      case 1:
+        return 'start';
+      case 2:
+        return 'goal';
+    }
   }
 
   /**
@@ -24,7 +36,7 @@ export class NodeComponent {
    *
    */
   determineStatus(): string {
-    switch (this.statusObj.nodeStatus) {
+    switch (this.status) {
       case 0:
         return 'wall';
       case 1:
@@ -45,14 +57,7 @@ export class NodeComponent {
    */
   setNewStatus(bool: boolean): void {
     if (bool) {
-      this.statusObj.nodeStatus = this.simulationService.getDrawingMode();
-      // let's you only draw one start / goal
-      if (this.simulationService.getDrawingMode() === 1  ||
-        this.simulationService.getDrawingMode() ===  2) {
-        console.log('yo trying to emit');
-        this.drawModeLogic.emit('startOrGoal');
-      }
-      this.wasUpdated.emit(this.statusObj.nodeStatus);
+      this.wasUpdated.emit();
     }
   }
 }

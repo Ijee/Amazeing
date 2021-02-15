@@ -1,17 +1,16 @@
 <app-stats class="box" [isMouseDown]="isMouseDown"></app-stats>
-<div class="column" [ngClass]="{'wrapper-forbidden': simulationService.getGridLock() | async}">
+<div class="column" [ngClass]="{'wrapper-forbidden': (simulationService.getTick() | async) > 0}">
   <div class="column is-12 m-0 p-0">
     <div class="game-grid"
-         [ngClass]="{'game-grid-lock': simulationService.getGridLock() | async}"
+         [ngClass]="{'game-grid-lock': (simulationService.getTick() | async) > 0}"
          (mousedown)="isMouseDown = true"
          (mouseup)="onMouseUp()"
          (mouseleave)="onMouseUp()">
       <div *ngFor="let col of gridList; let i=index" class="game-column">
-        <app-node *ngFor="let nodeStatus of col; let j=index"
-                  [status-obj]="nodeStatus"
+        <app-node *ngFor="let node of col; let j=index"
+                  [status]="node.nodeStatus"
                   [is-mouse-down]="isMouseDown"
-                  (wasUpdated)="updateCellStats($event)"
-                  (drawModeLogic)="drawModeLogic($event, i, j)"
+                  (wasUpdated)="drawModeLogic(i, j)"
         ></app-node>
       </div>
     </div>
@@ -24,7 +23,7 @@
       <p class="control">
         <button class="button is-outlined"
                 [ngClass]="simulationService.getDrawingMode() === 1 ? 'is-active' : ''"
-                [disabled]="this.simulationService.getGridLock() | async"
+                [disabled]="(this.simulationService.getTick() | async) > 0"
                 (click)="simulationService.setDrawingMode(1)">
                 <span class="icon start-icon">
                   <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
@@ -34,7 +33,7 @@
       </p>
       <p class="control">
         <button class="button is-outlined"
-                [disabled]="!(this.simulationService.getGridLock() | async) && !(settingsService.getAlgorithmMode() === 'pathFinding')">
+                [disabled]="(this.simulationService.getTick() | async) > 0 || !(settingsService.getAlgorithmMode() === 'pathFinding')">
                 <span class="icon">
                   <fa-icon [icon]="['fas', 'balance-scale-right']"></fa-icon>
                 </span>
@@ -44,7 +43,7 @@
       <p class="control">
         <button class="button is-outlined"
                 [ngClass]="simulationService.getDrawingMode() === 2 ? 'is-active' : ''"
-                [disabled]="this.simulationService.getGridLock() | async"
+                [disabled]="(this.simulationService.getTick() | async) > 0"
                 (click)="simulationService.setDrawingMode(2)">
                 <span class="icon goal-icon">
                   <fa-icon [icon]="['fas', 'square-full']"></fa-icon>

@@ -1,3 +1,5 @@
+@import '~bulma/bulma';
+
 .node {
   flex: 1;
   user-select: none;
@@ -10,6 +12,14 @@
   background-color: rgba(129, 128, 120, 0.6);
 }
 
+.start:hover {
+  background-color: fade-out($primary, 0.4);
+}
+
+.goal:hover {
+  background-color: fade-out($danger, 0.4);
+}
+
 .wall {
-  background-color: #818078 !important;
+  background-color: #818078;
 }
