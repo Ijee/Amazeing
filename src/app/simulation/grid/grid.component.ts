@@ -69,11 +69,11 @@ export class GridComponent implements OnInit, OnDestroy {
     this.simulationService.getBackwardStep().pipe(takeUntil(this.destroyed$)).subscribe(() => {
       this.simulationService.setRewritingHistory(true);
       this.simulationService.manipulateHistory();
-      this.simulationService.changeTick(-1);
+      this.simulationService.changeIteration(-1);
     });
     this.simulationService.getStep().pipe(takeUntil(this.destroyed$)).subscribe(() => {
       this.update();
-      this.simulationService.changeTick(1);
+      this.simulationService.changeIteration(1);
     });
     this.simulationService.getRandomSeed().pipe(takeUntil(this.destroyed$)).subscribe(() => {
       this.randomSeed();

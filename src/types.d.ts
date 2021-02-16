@@ -3,7 +3,7 @@ export type Node = {
 };
 
 export type SavePointStats = {
-  tick: number;
+  iteration: number;
   cellsAlive: number;
   cellsCreated: number;
 };

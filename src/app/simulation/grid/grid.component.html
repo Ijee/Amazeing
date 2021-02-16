@@ -1,8 +1,8 @@
 <app-stats class="box" [isMouseDown]="isMouseDown"></app-stats>
-<div class="column" [ngClass]="{'wrapper-forbidden': (simulationService.getTick() | async) > 0}">
+<div class="column" [ngClass]="{'wrapper-forbidden': (simulationService.getIteration() | async) > 0}">
   <div class="column is-12 m-0 p-0">
     <div class="game-grid"
-         [ngClass]="{'game-grid-lock': (simulationService.getTick() | async) > 0}"
+         [ngClass]="{'game-grid-lock': (simulationService.getIteration() | async) > 0}"
          (mousedown)="isMouseDown = true"
          (mouseup)="onMouseUp()"
          (mouseleave)="onMouseUp()">
@@ -23,7 +23,7 @@
       <p class="control">
         <button class="button is-outlined"
                 [ngClass]="simulationService.getDrawingMode() === 1 ? 'is-active' : ''"
-                [disabled]="(this.simulationService.getTick() | async) > 0"
+                [disabled]="(this.simulationService.getIteration() | async) > 0"
                 (click)="simulationService.setDrawingMode(1)">
                 <span class="icon start-icon">
                   <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
@@ -33,7 +33,7 @@
       </p>
       <p class="control">
         <button class="button is-outlined"
-                [disabled]="(this.simulationService.getTick() | async) > 0 || !(settingsService.getAlgorithmMode() === 'pathFinding')">
+                [disabled]="(this.simulationService.getIteration() | async) > 0 || !(settingsService.getAlgorithmMode() === 'pathFinding')">
                 <span class="icon">
                   <fa-icon [icon]="['fas', 'balance-scale-right']"></fa-icon>
                 </span>
@@ -41,9 +41,18 @@
         </button>
       </p>
       <p class="control">
+        <button [disabled]="(this.simulationService.getIteration() | async) > 0" class="button is-outlined" title="random"
+                (click)="simulationService.setRandomSeed()">
+        <span class="icon">
+          <fa-icon [icon]="['fas', 'random']"></fa-icon>
+        </span>
+          <b>Random</b>
+        </button>
+      </p>
+      <p class="control">
         <button class="button is-outlined"
                 [ngClass]="simulationService.getDrawingMode() === 2 ? 'is-active' : ''"
-                [disabled]="(this.simulationService.getTick() | async) > 0"
+                [disabled]="(this.simulationService.getIteration() | async) > 0"
                 (click)="simulationService.setDrawingMode(2)">
                 <span class="icon goal-icon">
                   <fa-icon [icon]="['fas', 'square-full']"></fa-icon>

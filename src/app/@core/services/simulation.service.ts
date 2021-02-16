@@ -13,7 +13,7 @@ export class SimulationService {
   private gridSavePointStats: SavePointStats;
   private gridStartLocation: GridLocation;
   private gridGoalLocation: GridLocation;
-  private readonly tick$: BehaviorSubject<number>;
+  private readonly iteration: BehaviorSubject<number>;
   private readonly nodeCount$: BehaviorSubject<number>;
   private readonly cellsAlive$: BehaviorSubject<number>;
   private readonly cellsAliveHistory: Array<number>;
@@ -43,7 +43,7 @@ export class SimulationService {
     this.gridStartLocation = null;
     this.gridGoalLocation = null;
     // Stats
-    this.tick$ = new BehaviorSubject<number>(0);
+    this.iteration = new BehaviorSubject<number>(0);
     this.nodeCount$ = new BehaviorSubject<number>(0);
     this.cellsAlive$ = new BehaviorSubject<number>(0);
     this.cellsAliveHistory = [0];
@@ -120,8 +120,8 @@ export class SimulationService {
    *
    * @param value - the new value to be added
    */
-  public changeTick(value: number): void {
-    this.tick$.next(this.tick$.getValue() + value);
+  public changeIteration(value: number): void {
+    this.iteration.next(this.iteration.getValue() + value);
   }
 
   /**
@@ -134,7 +134,7 @@ export class SimulationService {
   }
 
   /**
-   * Adds a new value to the current cellsAlive on every tick
+   * Adds a new value to the current cellsAlive on every iteration
    *
    * @param value - the new value to be added
    */
@@ -143,7 +143,7 @@ export class SimulationService {
   }
 
   /**
-   * Adds a new value to the current cellsCreated on every tick
+   * Adds a new value to the current cellsCreated on every iteration
    *
    * @param value - the new value to be added
    */
@@ -196,14 +196,14 @@ export class SimulationService {
   }
 
   /**
-   * Actually sets the step for the new tick
+   * Actually sets the step for the new iteration
    *
    * @param newGrid - the current grid
    */
   public save(newGrid: Node[][]): void {
     this.setGridList(newGrid);
     this.gridSavePointStats = {
-      tick: this.tick$.getValue(),
+      iteration: this.iteration.getValue(),
       cellsAlive: this.cellsAlive$.getValue(),
       cellsCreated: this.cellsCreated$.getValue()
     };
@@ -223,7 +223,7 @@ export class SimulationService {
 
   /**
    * Is responsible to save the current state of the stats and
-   * grids on a tick by tick basis so that it can be retrieved
+   * grids on a iteration by iteration basis so that it can be retrieved
    *
    * Also the maximum steps to be set are 9. The simulation needs n + 1 to work though
    *
@@ -313,13 +313,13 @@ export class SimulationService {
    */
   public reset(): void {
     this.setGameStatus(false);
-    if (this.tick$.value > 0) {
-      this.tick$.next(this.gridSavePointStats.tick);
+    if (this.iteration.value > 0) {
+      this.iteration.next(this.gridSavePointStats.iteration);
       this.cellsAlive$.next(this.gridSavePointStats.cellsAlive);
       this.cellsCreated$.next(this.gridSavePointStats.cellsCreated);
       this.gridList$.next(this.gridSavePoint);
     } else {
-      this.tick$.next(0);
+      this.iteration.next(0);
       this.cellsAlive$.next(0);
       this.cellsCreated$.next(0);
       this.gridList$.next([]);
@@ -401,10 +401,10 @@ export class SimulationService {
   }
 
   /**
-   * Returns the current tick
+   * Returns the current iteration
    */
-  public getTick(): Observable<number> {
-    return this.tick$;
+  public getIteration(): Observable<number> {
+    return this.iteration;
   }
 
   /**
