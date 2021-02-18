@@ -1,5 +1,5 @@
 <div class="modal" [@modalAnimation]="showImport" [ngClass]="showImport ? 'is-active' : 'inactive'">
-  <div class="modal-background"></div>
+  <div class="modal-background" (click)="showImport = false"></div>
   <div class="modal-card">
     <header class="modal-card-head">
       <p class="modal-card-title">

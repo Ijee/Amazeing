@@ -6,60 +6,76 @@
     <aside class="columns is-multiline is-gapless">
       <div class="column is-one-third">
         <button class="button algo-button is-fullwidth"
-                [ngClass]="settingsService.getcurrentPathAlgorithm()=== 'a-star' ? 'is-danger' : ''"
-                (click)="settingsService.setCurrentPathAlgorithm('a-star')">
+                [ngClass]="settingsService.getcurrentPathAlgorithm()=== 'A-Star' ? 'is-danger' : ''"
+                disabled
+                (click)="settingsService.setCurrentPathAlgorithm('A-Star')">
           <b>A*</b>
         </button>
       </div>
       <div class="column is-one-third">
         <button class="button algo-button is-fullwidth"
-                [ngClass]="settingsService.getcurrentPathAlgorithm() === 'ida-star' ? 'is-danger' : ''"
-                (click)="settingsService.setCurrentPathAlgorithm('ida-star')">
+                [ngClass]="settingsService.getcurrentPathAlgorithm() === 'IDA-Star' ? 'is-danger' : ''"
+                disabled
+                (click)="settingsService.setCurrentPathAlgorithm('IDA-Star')">
           <b>IDA*</b>
         </button>
       </div>
       <div class="column is-one-third">
         <button class="button algo-button is-fullwidth"
-                [ngClass]="settingsService.getcurrentPathAlgorithm() === 'breadth-fs' ? 'is-danger' : ''"
-                (click)="settingsService.setCurrentPathAlgorithm('breadth-fs')">
-          <b>Breadth-First-Search</b>
-        </button>
-      </div>
-      <div class="column is-one-third">
-        <button class="button algo-button is-fullwidth"
-                [ngClass]="settingsService.getcurrentPathAlgorithm() === 'best-fs' ? 'is-danger' : ''"
-                (click)="settingsService.setCurrentPathAlgorithm('best-fs')">
-          <b>Best-First-Search</b>
-        </button>
-      </div>
-      <div class="column is-one-third">
-        <button class="button algo-button is-fullwidth"
-                [ngClass]="settingsService.getcurrentPathAlgorithm() === 'dijkstra' ? 'is-danger' : ''"
-                (click)="settingsService.setCurrentPathAlgorithm('dijkstra')">
+                [ngClass]="settingsService.getcurrentPathAlgorithm() === 'Dijkstra' ? 'is-danger' : ''"
+                (click)="settingsService.setCurrentPathAlgorithm('Dijkstra')">
           <b>Dijkstra</b>
         </button>
       </div>
       <div class="column is-one-third">
         <button class="button algo-button is-fullwidth"
-                [ngClass]="settingsService.getcurrentPathAlgorithm() === 'jump-ps' ? 'is-danger' : ''"
-                (click)="settingsService.setCurrentPathAlgorithm('jump-ps')">
-          <b>Jump Point Search</b>
+                [ngClass]="settingsService.getcurrentPathAlgorithm() === 'Breadth-FS' ? 'is-danger' : ''"
+                disabled
+                (click)="settingsService.setCurrentPathAlgorithm('Breadth-FS')">
+          <b>Breadth-First-Search</b>
+        </button>
+      </div>
+      <div class="column is-one-third">
+        <button class="button algo-button is-fullwidth"
+                [ngClass]="settingsService.getcurrentPathAlgorithm() === 'Depth-FS' ? 'is-danger' : ''"
+                disabled
+                (click)="settingsService.setCurrentPathAlgorithm('Depth-FS')">
+          <b>Depth-First-Search</b>
+        </button>
+      </div>
+      <div class="column is-one-third">
+        <button class="button algo-button is-fullwidth"
+                [ngClass]="settingsService.getcurrentPathAlgorithm() === 'Best-FS' ? 'is-danger' : ''"
+                disabled
+                (click)="settingsService.setCurrentPathAlgorithm('Best-FS')">
+          <b>Best-First-Search</b>
         </button>
       </div>
       <div class="column is-half">
         <button class="button algo-button is-fullwidth"
-                [ngClass]="settingsService.getcurrentPathAlgorithm() === 'orthogonal-jump-ps' ? 'is-danger' : ''"
-                (click)="settingsService.setCurrentPathAlgorithm('orthogonal-jump-ps')">
-          <b>Orthogonal Jump Point Search</b>
-        </button>
-      </div>
-      <div class="column is-half">
-        <button class="button algo-button is-fullwidth"
-                [ngClass]="settingsService.getcurrentPathAlgorithm() === 'trace' ? 'is-danger' : ''"
-                (click)="settingsService.setCurrentPathAlgorithm('trace')">
+                [ngClass]="settingsService.getcurrentPathAlgorithm() === 'Trace' ? 'is-danger' : ''"
+                disabled
+                (click)="settingsService.setCurrentPathAlgorithm('Trace')">
           <b>Trace</b>
         </button>
       </div>
+      <div class="column is-half">
+        <button class="button algo-button is-fullwidth"
+                [ngClass]="settingsService.getcurrentPathAlgorithm() === 'Jump-PS' ? 'is-danger' : ''"
+                disabled
+                (click)="settingsService.setCurrentPathAlgorithm('Jump-PS')">
+          <b>Jump Point Search</b>
+        </button>
+      </div>
+      <div class="column is-full">
+        <button class="button algo-button is-fullwidth"
+                [ngClass]="settingsService.getcurrentPathAlgorithm() === 'Orthogonal-Jump-PS' ? 'is-danger' : ''"
+                disabled
+                (click)="settingsService.setCurrentPathAlgorithm('Orthogonal-Jump-PS')">
+          <b>Orthogonal Jump Point Search</b>
+        </button>
+      </div>
+
     </aside>
   </div>
   <div class="column is-full">

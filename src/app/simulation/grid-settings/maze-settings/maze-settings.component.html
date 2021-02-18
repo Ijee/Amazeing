@@ -6,86 +6,97 @@
     <aside class="columns is-multiline is-gapless">
       <div class="column is-one-third">
         <button class="button algo-button is-fullwidth"
-                [ngClass]="settingsService.getcurrentMazeAlgorithm()=== 'prims' ? 'is-primary' : ''"
-                (click)="settingsService.setCurrentMazeAlgorithm('prims')">
+                [ngClass]="settingsService.getcurrentMazeAlgorithm()=== 'Prims' ? 'is-primary' : ''"
+                (click)="settingsService.setCurrentMazeAlgorithm('Prims')">
           <b>Prim's</b>
         </button>
       </div>
       <div class="column is-one-third">
         <button class="button algo-button is-fullwidth"
-                [ngClass]="settingsService.getcurrentMazeAlgorithm() === 'kruskals' ? 'is-primary' : ''"
-                (click)="settingsService.setCurrentMazeAlgorithm('kruskals')">
+                [ngClass]="settingsService.getcurrentMazeAlgorithm() === 'Kruskals' ? 'is-primary' : ''"
+                disabled
+                (click)="settingsService.setCurrentMazeAlgorithm('Kruskals')">
           <b>Kruskal's</b>
         </button>
       </div>
       <div class="column is-one-third">
         <button class="button algo-button is-fullwidth"
-                [ngClass]="settingsService.getcurrentMazeAlgorithm()=== 'recursiveBacktracker' ? 'is-primary' : ''"
-                (click)="settingsService.setCurrentMazeAlgorithm('recursiveBacktracker')">
-          <b>Recursive-Backtracker</b>
-        </button>
-      </div>
-      <div class="column is-one-third">
-        <button class="button algo-button is-fullwidth"
-                [ngClass]="settingsService.getcurrentMazeAlgorithm() === 'aldousBroder' ? 'is-primary' : ''"
-                (click)="settingsService.setCurrentMazeAlgorithm('aldousBroder')">
+                [ngClass]="settingsService.getcurrentMazeAlgorithm() === 'Aldous Broder' ? 'is-primary' : ''"
+                disabled
+                (click)="settingsService.setCurrentMazeAlgorithm('Aldous-Broder')">
           <b>Aldous-Broder</b>
         </button>
       </div>
       <div class="column is-one-third">
         <button class="button algo-button is-fullwidth"
-                [ngClass]="settingsService.getcurrentMazeAlgorithm() === 'growingTree' ? 'is-primary' : ''"
-                (click)="settingsService.setCurrentMazeAlgorithm('growingTree')">
-          <b>Growing Tree</b>
-        </button>
-      </div>
-      <div class="column is-one-third">
-        <button class="button algo-button is-fullwidth"
-                [ngClass]="settingsService.getcurrentMazeAlgorithm() === 'huntAndKill' ? 'is-primary' : ''"
-                (click)="settingsService.setCurrentMazeAlgorithm('huntAndKill')">
-          <b>Hunt and Kill</b>
-        </button>
-      </div>
-      <div class="column is-one-third">
-        <button class="button algo-button is-fullwidth"
-                [ngClass]="settingsService.getcurrentMazeAlgorithm() === 'wilsons' ? 'is-primary' : ''"
-                (click)="settingsService.setCurrentMazeAlgorithm('wilsons')">
+                [ngClass]="settingsService.getcurrentMazeAlgorithm() === 'Wilsons' ? 'is-primary' : ''"
+                disabled
+                (click)="settingsService.setCurrentMazeAlgorithm('Wilsons')">
           <b>Wilson's</b>
         </button>
       </div>
       <div class="column is-one-third">
         <button class="button algo-button is-fullwidth"
-                [ngClass]="settingsService.getcurrentMazeAlgorithm() === 'ellers' ? 'is-primary' : ''"
-                (click)="settingsService.setCurrentMazeAlgorithm('ellers')">
+                [ngClass]="settingsService.getcurrentMazeAlgorithm() === 'Ellers' ? 'is-primary' : ''"
+                disabled
+                (click)="settingsService.setCurrentMazeAlgorithm('Ellers')">
           <b>Eller's</b>
         </button>
       </div>
       <div class="column is-one-third">
         <button class="button algo-button is-fullwidth"
-                [ngClass]="settingsService.getcurrentMazeAlgorithm() === 'cellularAutomation' ? 'is-primary' : ''"
-                (click)="settingsService.setCurrentMazeAlgorithm('cellularAutomation')">
-          <b>Cellular Automation</b>
-        </button>
-      </div>
-      <div class="column is-one-third">
-        <button class="button algo-button is-fullwidth"
-                [ngClass]="settingsService.getcurrentMazeAlgorithm()=== 'recursiveDivision' ? 'is-primary' : ''"
-                (click)="settingsService.setCurrentMazeAlgorithm('recursiveDivision')">
-          <b>Recursive Division</b>
-        </button>
-      </div>
-      <div class="column is-one-third">
-        <button class="button algo-button is-fullwidth"
-                [ngClass]="settingsService.getcurrentMazeAlgorithm() === 'sidewinder' ? 'is-primary' : ''"
-                (click)="settingsService.setCurrentMazeAlgorithm('sidewinder')">
+                [ngClass]="settingsService.getcurrentMazeAlgorithm() === 'Sidewinder' ? 'is-primary' : ''"
+                disabled
+                (click)="settingsService.setCurrentMazeAlgorithm('Sidewinder')">
           <b>Sidewinder</b>
         </button>
       </div>
       <div class="column is-one-third">
         <button class="button algo-button is-fullwidth"
-                [ngClass]="settingsService.getcurrentMazeAlgorithm()=== 'binaryTree' ? 'is-primary' : ''"
-                (click)="settingsService.setCurrentMazeAlgorithm('binaryTree')">
+                [ngClass]="settingsService.getcurrentMazeAlgorithm() === 'Hunt-and-Kill' ? 'is-primary' : ''"
+                disabled
+                (click)="settingsService.setCurrentMazeAlgorithm('Hunt-and-Kill')">
+          <b>Hunt and Kill</b>
+        </button>
+      </div>
+      <div class="column is-one-third">
+        <button class="button algo-button is-fullwidth"
+                [ngClass]="settingsService.getcurrentMazeAlgorithm() === 'Growing-Tree' ? 'is-primary' : ''"
+                disabled
+                (click)="settingsService.setCurrentMazeAlgorithm('Growing-Tree')">
+          <b>Growing Tree</b>
+        </button>
+      </div>
+      <div class="column is-one-third">
+        <button class="button algo-button is-fullwidth"
+                [ngClass]="settingsService.getcurrentMazeAlgorithm()=== 'Binary-Tree' ? 'is-primary' : ''"
+                disabled
+                (click)="settingsService.setCurrentMazeAlgorithm('Binary-Tree')">
           <b>Binary Tree</b>
+        </button>
+      </div>
+      <div class="column is-half">
+        <button class="button algo-button is-fullwidth"
+                [ngClass]="settingsService.getcurrentMazeAlgorithm()=== 'Recursive-Backtracker' ? 'is-primary' : ''"
+                disabled
+                (click)="settingsService.setCurrentMazeAlgorithm('Recursive-Backtracker')">
+          <b>Recursive-Backtracker</b>
+        </button>
+      </div>
+      <div class="column is-half">
+        <button class="button algo-button is-fullwidth"
+                [ngClass]="settingsService.getcurrentMazeAlgorithm()=== 'Recursive-Division' ? 'is-primary' : ''"
+                disabled
+                (click)="settingsService.setCurrentMazeAlgorithm('Recursive-Division')">
+          <b>Recursive Division</b>
+        </button>
+      </div>
+      <div class="column is-full">
+        <button class="button algo-button is-fullwidth"
+                [ngClass]="settingsService.getcurrentMazeAlgorithm() === 'Cellular-Automation' ? 'is-primary' : ''"
+                disabled
+                (click)="settingsService.setCurrentMazeAlgorithm('Cellular-Automation')">
+          <b>Cellular Automation</b>
         </button>
       </div>
     </aside>

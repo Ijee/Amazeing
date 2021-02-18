@@ -6,14 +6,21 @@ import { CountAnimationDirective } from './directives/count-animation/count-anim
 import { ExportModalComponent } from './modals/export-modal/export-modal.component';
 import {ImportModalComponent} from './modals/import-modal/import-modal.component';
 import {FormsModule} from '@angular/forms';
+import { LegendModalComponent } from './modals/legend/legend-modal.component';
 
 @NgModule({
-  declarations: [ControllerComponent, CountAnimationDirective, ImportModalComponent, ExportModalComponent],
+  declarations: [
+    ControllerComponent,
+    CountAnimationDirective,
+    ImportModalComponent,
+    ExportModalComponent,
+    LegendModalComponent],
   exports: [
     ControllerComponent,
     CountAnimationDirective,
     ImportModalComponent,
-    ExportModalComponent
+    ExportModalComponent,
+    LegendModalComponent
   ],
   imports: [
     CommonModule,

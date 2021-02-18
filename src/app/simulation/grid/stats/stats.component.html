@@ -24,9 +24,9 @@
       <p class="title is-size-6-mobile"
          [class]="settingsService.getAlgorithmMode() === 'maze' ? 'has-text-primary' : 'has-text-danger'"
          appCountAnimation
-         [newValue]="simulationService.getCellsAlive() | async"
+         [newValue]="simulationService.getNodesAlive() | async"
          [disableAnimation]="isMouseDown || !settingsService.getAnimationsSetting()">
-        {{ simulationService.getCellsAlive() | async }}
+        {{ simulationService.getNodesAlive() | async }}
       </p>
     </strong>
   </div>
@@ -36,7 +36,7 @@
       <p class="title is-size-6-mobile"
          [class]="settingsService.getAlgorithmMode() === 'maze' ? 'has-text-primary' : 'has-text-danger'"
          appCountAnimation
-         [newValue]="simulationService.getCellsCreated() | async"
+         [newValue]="simulationService.getNodesCreated() | async"
          [disableAnimation]="isMouseDown || !settingsService.getAnimationsSetting()">
         0
       </p>

@@ -1,6 +1,5 @@
 <app-stats class="box" [isMouseDown]="isMouseDown"></app-stats>
-<div class="column" [ngClass]="{'wrapper-forbidden': (simulationService.getIteration() | async) > 0}">
-  <div class="column is-12 m-0 p-0">
+  <div class="block outer-wall" [ngClass]="{'wrapper-forbidden': (simulationService.getIteration() | async) > 0}">
     <div class="game-grid"
          [ngClass]="{'game-grid-lock': (simulationService.getIteration() | async) > 0}"
          (mousedown)="isMouseDown = true"
@@ -15,7 +14,6 @@
       </div>
     </div>
   </div>
-</div>
 <hr class="hr-text m-2" data-content="GRID COTNROL">
 <div class="columns">
   <div class="column is-full">
@@ -41,7 +39,8 @@
         </button>
       </p>
       <p class="control">
-        <button [disabled]="(this.simulationService.getIteration() | async) > 0" class="button is-outlined" title="random"
+        <button [disabled]="(this.simulationService.getIteration() | async) > 0" class="button is-outlined"
+                title="random"
                 (click)="simulationService.setRandomSeed()">
         <span class="icon">
           <fa-icon [icon]="['fas', 'random']"></fa-icon>
@@ -61,7 +60,7 @@
         </button>
       </p>
       <p class="control control-pulled-right">
-        <button class="button is-outlined">
+        <button class="button is-outlined" (click)="simulationService.setLegend()">
                 <span class="icon">
                   <fa-icon [icon]="['fas', 'asterisk']"></fa-icon>
                 </span>

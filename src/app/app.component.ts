@@ -19,8 +19,8 @@ import {SettingsService} from './@core/services/settings.service';
 export class AppComponent implements OnInit, OnDestroy {
   public isNavbar: boolean;
   public isSettingsDropdown: boolean;
-  public isImport: boolean;
-  public isExport: boolean;
+  public isLegend: boolean;
+
 
 
   private readonly destroyed$: Subject<void>;

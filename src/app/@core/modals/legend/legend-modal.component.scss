@@ -1,0 +1,21 @@
+@import "~bulma/bulma";
+
+.start-icon {
+  color: $primary;
+}
+
+.goal-icon {
+  color: $danger;
+}
+
+.wall-icon {
+  color: $grey-dark;
+}
+
+.node-discovered {
+  color: $blue;
+}
+
+.node-fastest {
+  color: $yellow;
+}

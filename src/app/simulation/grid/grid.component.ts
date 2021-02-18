@@ -34,13 +34,13 @@ export class GridComponent implements OnInit, OnDestroy {
     }
 
 
-
     this.destroyed$ = new Subject<void>();
   }
 
   ngOnInit(): void {
-    const initialStartX = Math.round( (33 * this.width) / 100);
-    const initialGoalX = Math.round( (66 * this.width) / 100);
+    // set initial start and goal
+    const initialStartX = Math.round((33 * this.width) / 100);
+    const initialGoalX = Math.round((66 * this.width) / 100);
     const initialNodeHeightY = Math.round((50 * this.height) / 100);
     this.gridList[initialStartX][initialNodeHeightY].nodeStatus = 1;
     this.simulationService.setGridStartLocation(initialStartX, initialNodeHeightY);
@@ -117,10 +117,10 @@ export class GridComponent implements OnInit, OnDestroy {
   updateCellStats(newValue: number): void {
     switch (newValue) {
       case -1:
-        this.simulationService.changeCellsAlive(-1);
+        this.simulationService.changeNodesAlive(-1);
         break;
       case 0:
-        this.simulationService.changeCellsAlive(1);
+        this.simulationService.changeNodesAlive(1);
         this.simulationService.changeCellsCreated(1);
         break;
     }
@@ -257,6 +257,20 @@ export class GridComponent implements OnInit, OnDestroy {
     }
     // set new gridList content
     this.simulationService.setGridList(tempArr);
+  }
+
+  public update2(): void {
+    if (this.settingsService.getAlgorithmMode() === 'maze') {
+      switch (this.settingsService.getcurrentMazeAlgorithm()) {
+        case 'prims':
+          console.log('hi');
+          break;
+        default:
+          break;
+      }
+    } else {
+
+    }
   }
 
   /**

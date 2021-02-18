@@ -1,5 +1,11 @@
+@import "~bulma/bulma";
+
 :host {
   display: block;
+}
+
+.outer-wall {
+  border: 3px solid $grey-dark;
 }
 
 .game-grid {
@@ -30,11 +36,11 @@
 
 
 .start-icon {
-  color: #00D1B2;
+  color: $primary;
 }
 
 .goal-icon {
-  color: #FF0000;
+  color: $danger;
 }
 
 .control-button-wrapper:before {

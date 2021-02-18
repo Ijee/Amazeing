@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css?family=Open+Sans|Libre+Baskerville');
 @import "styles/bulma-variables";
+@import "styles/app-variables";
 
 html, body {
   background-image: linear-gradient(
@@ -17,6 +18,11 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
   margin: 0;
   height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
 }
 
 hr {

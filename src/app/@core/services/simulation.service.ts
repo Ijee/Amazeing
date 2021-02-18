@@ -15,10 +15,10 @@ export class SimulationService {
   private gridGoalLocation: GridLocation;
   private readonly iteration: BehaviorSubject<number>;
   private readonly nodeCount$: BehaviorSubject<number>;
-  private readonly cellsAlive$: BehaviorSubject<number>;
-  private readonly cellsAliveHistory: Array<number>;
-  private readonly cellsCreated$: BehaviorSubject<number>;
-  private readonly cellsCreatedHistory: Array<number>;
+  private readonly nodesAlive$: BehaviorSubject<number>;
+  private readonly nodesAliveHistory: Array<number>;
+  private readonly nodesCreated$: BehaviorSubject<number>;
+  private readonly nodesCreatedHistory: Array<number>;
   private rewritingHistory: boolean;
   private readonly gameSpeed$: BehaviorSubject<number>;
   private drawingMode: number;
@@ -28,6 +28,7 @@ export class SimulationService {
   private readonly backwardStepsAmount$: BehaviorSubject<number>;
   private readonly step$: Subject<void>;
   private readonly randomSeed$: Subject<void>;
+  private readonly legend$: Subject<void>;
   private readonly importSession$: Subject<void>;
   private readonly exportSession$: Subject<void>;
   private readonly exportToken$: Subject<string>;
@@ -45,10 +46,10 @@ export class SimulationService {
     // Stats
     this.iteration = new BehaviorSubject<number>(0);
     this.nodeCount$ = new BehaviorSubject<number>(0);
-    this.cellsAlive$ = new BehaviorSubject<number>(0);
-    this.cellsAliveHistory = [0];
-    this.cellsCreated$ = new BehaviorSubject<number>(0);
-    this.cellsCreatedHistory = [0];
+    this.nodesAlive$ = new BehaviorSubject<number>(0);
+    this.nodesAliveHistory = [0];
+    this.nodesCreated$ = new BehaviorSubject<number>(0);
+    this.nodesCreatedHistory = [0];
     this.rewritingHistory = false;
     // Responsible for controlling the simulation - also used to propagate
     // events from the controller component
@@ -60,6 +61,7 @@ export class SimulationService {
     this.backwardStepsAmount$ = new BehaviorSubject<number>(0);
     this.step$ = new Subject<void>();
     this.randomSeed$ = new Subject<void>();
+    this.legend$ = new Subject<void>();
     this.importSession$ = new Subject<void>();
     this.exportSession$ = new Subject<void>();
     this.exportToken$ = new Subject<string>();
@@ -134,12 +136,12 @@ export class SimulationService {
   }
 
   /**
-   * Adds a new value to the current cellsAlive on every iteration
+   * Adds a new value to the current nodesAlive on every iteration
    *
    * @param value - the new value to be added
    */
-  public changeCellsAlive(value: number): void {
-    this.cellsAlive$.next(this.cellsAlive$.getValue() + value);
+  public changeNodesAlive(value: number): void {
+    this.nodesAlive$.next(this.nodesAlive$.getValue() + value);
   }
 
   /**
@@ -148,7 +150,7 @@ export class SimulationService {
    * @param value - the new value to be added
    */
   public changeCellsCreated(value: number): void {
-    this.cellsCreated$.next(this.cellsCreated$.getValue() + value);
+    this.nodesCreated$.next(this.nodesCreated$.getValue() + value);
   }
 
   /**
@@ -204,8 +206,8 @@ export class SimulationService {
     this.setGridList(newGrid);
     this.gridSavePointStats = {
       iteration: this.iteration.getValue(),
-      cellsAlive: this.cellsAlive$.getValue(),
-      cellsCreated: this.cellsCreated$.getValue()
+      nodesAlive: this.nodesAlive$.getValue(),
+      nodesCreated: this.nodesCreated$.getValue()
     };
     this.gridSavePoint = newGrid;
   }
@@ -232,21 +234,21 @@ export class SimulationService {
   public setHistory(gridList: Node[][]): void {
     if (this.gridHistory.length >= 10) {
       this.gridHistory.shift();
-      this.cellsCreatedHistory.shift();
-      this.cellsAliveHistory.shift();
+      this.nodesCreatedHistory.shift();
+      this.nodesAliveHistory.shift();
       this.gridHistory.push(gridList);
       // TODO: this if fixes an issue that only happens when the grid component is being initialized
       //  and would put the the last value twice... (also the if below)
       //  see if there is another way to fix it
-      if (this.cellsCreatedHistory[this.cellsCreatedHistory.length - 1] !== this.cellsCreated$.getValue()) {
-        this.cellsCreatedHistory.push(this.cellsCreated$.getValue());
-        this.cellsAliveHistory.push(this.cellsAlive$.getValue());
+      if (this.nodesCreatedHistory[this.nodesCreatedHistory.length - 1] !== this.nodesCreated$.getValue()) {
+        this.nodesCreatedHistory.push(this.nodesCreated$.getValue());
+        this.nodesAliveHistory.push(this.nodesAlive$.getValue());
       }
     } else {
       this.gridHistory.push(gridList);
-      if (this.cellsCreatedHistory[this.cellsCreatedHistory.length - 1] !== this.cellsCreated$.getValue()) {
-        this.cellsCreatedHistory.push(this.cellsCreated$.getValue());
-        this.cellsAliveHistory.push(this.cellsAlive$.getValue());
+      if (this.nodesCreatedHistory[this.nodesCreatedHistory.length - 1] !== this.nodesCreated$.getValue()) {
+        this.nodesCreatedHistory.push(this.nodesCreated$.getValue());
+        this.nodesAliveHistory.push(this.nodesAlive$.getValue());
       }
     }
   }
@@ -268,10 +270,10 @@ export class SimulationService {
     this.gridHistory.pop();
     this.setGridList(this.gridHistory[this.gridHistory.length - 1]);
     this.setRewritingHistory(false);
-    this.cellsCreatedHistory.pop();
-    this.cellsCreated$.next(this.cellsCreatedHistory[this.cellsCreatedHistory.length - 1]);
-    this.cellsAliveHistory.pop();
-    this.cellsAlive$.next(this.cellsAliveHistory[this.cellsAliveHistory.length - 1]);
+    this.nodesCreatedHistory.pop();
+    this.nodesCreated$.next(this.nodesCreatedHistory[this.nodesCreatedHistory.length - 1]);
+    this.nodesAliveHistory.pop();
+    this.nodesAlive$.next(this.nodesAliveHistory[this.nodesAliveHistory.length - 1]);
   }
 
   /**
@@ -315,13 +317,13 @@ export class SimulationService {
     this.setGameStatus(false);
     if (this.iteration.value > 0) {
       this.iteration.next(this.gridSavePointStats.iteration);
-      this.cellsAlive$.next(this.gridSavePointStats.cellsAlive);
-      this.cellsCreated$.next(this.gridSavePointStats.cellsCreated);
+      this.nodesAlive$.next(this.gridSavePointStats.nodesAlive);
+      this.nodesCreated$.next(this.gridSavePointStats.nodesCreated);
       this.gridList$.next(this.gridSavePoint);
     } else {
       this.iteration.next(0);
-      this.cellsAlive$.next(0);
-      this.cellsCreated$.next(0);
+      this.nodesAlive$.next(0);
+      this.nodesCreated$.next(0);
       this.gridList$.next([]);
     }
     this.backwardStepsAmount$.next(0);
@@ -333,6 +335,13 @@ export class SimulationService {
    */
   public setRandomSeed(): void {
     this.randomSeed$.next();
+  }
+
+  /**
+   * Notifies all listener that a new legend is called
+   */
+  public setLegend(): void {
+    this.legend$.next();
   }
 
   /**
@@ -417,15 +426,15 @@ export class SimulationService {
   /**
    * Returns the current cellsAlive
    */
-  public getCellsAlive(): Observable<number> {
-    return this.cellsAlive$;
+  public getNodesAlive(): Observable<number> {
+    return this.nodesAlive$;
   }
 
   /**
    * Returns the current cellsCreated
    */
-  public getCellsCreated(): Observable<number> {
-    return this.cellsCreated$;
+  public getNodesCreated(): Observable<number> {
+    return this.nodesCreated$;
   }
 
   /**
@@ -457,7 +466,7 @@ export class SimulationService {
   }
 
   /**
-   * Returns when a new RandomSeed was set
+   * Returns the backwardStepsAmount
    */
   public getBackwardStepsAmount(): Observable<number> {
     return this.backwardStepsAmount$;
@@ -476,6 +485,15 @@ export class SimulationService {
   public getRandomSeed(): Observable<void> {
     return this.randomSeed$;
   }
+
+
+  /**
+   * Returns when a legend was clicked
+   */
+  public getLegend(): Observable<void> {
+    return this.legend$;
+  }
+
 
   /**
    * Returns when a new importSession was set

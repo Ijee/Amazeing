@@ -1,0 +1,75 @@
+<div class="modal" [@modalAnimation]="showLegend" [ngClass]="showLegend ? 'is-active' : 'inactive'">
+  <div class="modal-background" (click)="showLegend = false"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">
+        <span class="icon">
+          <fa-icon [icon]="['fas', 'asterisk']"></fa-icon>
+        </span>
+        <span>
+        Legend
+        </span>
+      </p>
+      <button class="delete" aria-label="close" (click)="showLegend = false"></button>
+    </header>
+    <section class="modal-card-body">
+      <div class="content">
+        The following node types are being used for the algorithms:
+        <table>
+          <thead>
+          <tr>
+            <th>Icon</th>
+            <th>Meaning</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>
+              <span class="icon start-icon">
+                <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
+              </span>
+            <td>Start</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="icon goal-icon">
+                <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
+              </span>
+            <td>Goal</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="icon wall-icon">
+                <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
+              </span>
+            <td>Wall</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="icon node-discovered">
+                <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
+              </span>
+            <td>Node discovered</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="icon node-fastest">
+                <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
+              </span>
+            <td>Fastest path</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-success" (click)="showLegend = false">
+         <span class="icon is-small">
+            <fa-icon [icon]="['fas', 'thumbs-up']"></fa-icon>
+        </span>
+        <span>Understood</span>
+      </button>
+    </footer>
+  </div>
+</div>

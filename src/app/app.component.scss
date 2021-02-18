@@ -14,10 +14,6 @@
   margin-left: auto;
 }
 
-.footer {
-  background-color: transparent;
-}
-
 .hr {
   position: relative;
   border-top: 2px solid #414b5c;
@@ -27,4 +23,13 @@
 
 .font-white {
   color: whitesmoke;;
+}
+
+.section {
+  flex: 1 0 auto;
+}
+
+.footer {
+  flex-shrink: 0;
+  background-color: transparent;
 }

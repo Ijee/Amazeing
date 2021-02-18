@@ -6,6 +6,14 @@
   border-right: 1px solid #1a0707;
   border-bottom: 1px solid #1a0707;
   padding-bottom: 100%;
+  text-align: justify;
+}
+
+.node:before {
+
+  position: absolute;
+  color: #000;
+  font-weight: bold;
 }
 
 .node:hover {
@@ -21,5 +29,5 @@
 }
 
 .wall {
-  background-color: #818078;
+  background-color: $grey-dark;
 }

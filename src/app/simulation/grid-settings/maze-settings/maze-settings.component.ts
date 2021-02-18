@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {SettingsService} from '../../../@core/services/settings.service';
 import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
+import {MazeAlgorithms} from '../../../../types';
 
 @Component({
   selector: 'app-maze-settings',
