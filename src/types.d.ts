@@ -17,7 +17,6 @@ export type MazeAlgorithms =
   'Prims'
   | 'Kruskals'
   | 'Aldous-Broder'
-  | 'Recursive Backtracker'
   | 'Wilsons'
   | 'Ellers'
   | 'Sidewinder'
@@ -43,4 +42,10 @@ export type PathFindingAlgorithms =
   | 'Best-FS'
   | 'Trace'
   | 'Jump-PS'
-  | 'Orthogonal-Jump-PS'
+  | 'Orthogonal-Jump-PS';
+
+export type PathFindingHeuristics =
+  'Manhattan'
+  | 'Euclidean'
+  | 'Octile'
+  | 'Chebyshev';

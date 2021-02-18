@@ -17,14 +17,11 @@ export class SettingsService {
 
   constructor() {
     this.algorithmMode = 'maze';
-    this.currentMazeAlgorithm = 'Prims';
-    this.currentPathAlgorithm = 'Dijkstra';
-    this.currentHeuristic = 'manhattan';
     this.darkModeSetting = false;
     this.animationsSetting = false;
     this.warningsSetting =  false;
 
-    // get the old settings, this converts it back (also if undefined === true -> false, thanks js)
+    // get the old settings, this converts it back
     this.darkModeSetting = localStorage.getItem('darkModeSetting') === 'true';
     this.animationsSetting = localStorage.getItem('animationsSetting') === 'true';
     this.warningsSetting = localStorage.getItem('warningsSetting') === 'true';
@@ -32,18 +29,6 @@ export class SettingsService {
 
   public setAlgorithmMode(newMode: string): void {
     this.algorithmMode = newMode;
-  }
-
-  public setCurrentMazeAlgorithm(newAlgorithm: MazeAlgorithms): void {
-    this.currentMazeAlgorithm = newAlgorithm;
-  }
-
-  public setCurrentPathAlgorithm(newAlgorithm: PathFindingAlgorithms): void {
-    this.currentPathAlgorithm = newAlgorithm;
-  }
-
-  public setCurrentHeuristic(newHeuristic): void {
-    this.currentHeuristic = newHeuristic;
   }
 
   public setDarkModeSetting(newOption?: boolean): void {
@@ -75,18 +60,6 @@ export class SettingsService {
 
   public getAlgorithmMode(): string {
     return this.algorithmMode;
-  }
-
-  public getcurrentMazeAlgorithm(): string {
-    return this.currentMazeAlgorithm;
-  }
-
-  public getcurrentPathAlgorithm(): string {
-    return this.currentPathAlgorithm;
-  }
-
-  public getCurrentHeuristic(): string {
-    return this.currentHeuristic;
   }
 
   public getdarkModeSetting(): boolean {

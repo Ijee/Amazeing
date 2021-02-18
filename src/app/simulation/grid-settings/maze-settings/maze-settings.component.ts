@@ -3,6 +3,7 @@ import {SettingsService} from '../../../@core/services/settings.service';
 import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
 import {MazeAlgorithms} from '../../../../types';
+import {MazeService} from '../../../@core/services/maze.service';
 
 @Component({
   selector: 'app-maze-settings',
@@ -12,7 +13,7 @@ import {MazeAlgorithms} from '../../../../types';
 export class MazeSettingsComponent implements OnInit {
   public testCode: string;
 
-  constructor(public settingsService: SettingsService) {
+  constructor(public settingsService: SettingsService, public mazeService: MazeService) {
     this.testCode = `export model = new Model({
       a:1,
       b:function(){}

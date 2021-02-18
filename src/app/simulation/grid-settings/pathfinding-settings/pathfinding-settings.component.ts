@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import hljs from 'highlight.js/lib/core';
 import {SettingsService} from '../../../@core/services/settings.service';
+import {PathFindingService} from '../../../@core/services/path-finding.service';
 
 @Component({
   selector: 'app-pathfinding-settings',
@@ -10,7 +11,7 @@ import {SettingsService} from '../../../@core/services/settings.service';
 export class PathfindingSettingsComponent implements OnInit {
   public testCode: string;
 
-  constructor(public settingsService: SettingsService) {
+  constructor(public settingsService: SettingsService, public pathFindingService: PathFindingService) {
     this.testCode = `
     export model = new Model({
       a:1,

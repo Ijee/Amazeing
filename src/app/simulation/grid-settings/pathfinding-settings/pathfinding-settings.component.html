@@ -6,72 +6,72 @@
     <aside class="columns is-multiline is-gapless">
       <div class="column is-one-third">
         <button class="button algo-button is-fullwidth"
-                [ngClass]="settingsService.getcurrentPathAlgorithm()=== 'A-Star' ? 'is-danger' : ''"
+                [ngClass]="pathFindingService.getAlgorithmName() === 'A-Star' ? 'is-danger' : ''"
                 disabled
-                (click)="settingsService.setCurrentPathAlgorithm('A-Star')">
+                (click)="pathFindingService.switchAlgorithm('A-Star')">
           <b>A*</b>
         </button>
       </div>
       <div class="column is-one-third">
         <button class="button algo-button is-fullwidth"
-                [ngClass]="settingsService.getcurrentPathAlgorithm() === 'IDA-Star' ? 'is-danger' : ''"
+                [ngClass]="pathFindingService.getAlgorithmName() === 'IDA-Star' ? 'is-danger' : ''"
                 disabled
-                (click)="settingsService.setCurrentPathAlgorithm('IDA-Star')">
+                (click)="pathFindingService.switchAlgorithm('IDA-Star')">
           <b>IDA*</b>
         </button>
       </div>
       <div class="column is-one-third">
         <button class="button algo-button is-fullwidth"
-                [ngClass]="settingsService.getcurrentPathAlgorithm() === 'Dijkstra' ? 'is-danger' : ''"
-                (click)="settingsService.setCurrentPathAlgorithm('Dijkstra')">
+                [ngClass]="pathFindingService.getAlgorithmName() === 'Dijkstra' ? 'is-danger' : ''"
+                (click)="pathFindingService.switchAlgorithm('Dijkstra')">
           <b>Dijkstra</b>
         </button>
       </div>
       <div class="column is-one-third">
         <button class="button algo-button is-fullwidth"
-                [ngClass]="settingsService.getcurrentPathAlgorithm() === 'Breadth-FS' ? 'is-danger' : ''"
+                [ngClass]="pathFindingService.getAlgorithmName() === 'Breadth-FS' ? 'is-danger' : ''"
                 disabled
-                (click)="settingsService.setCurrentPathAlgorithm('Breadth-FS')">
+                (click)="pathFindingService.switchAlgorithm('Breadth-FS')">
           <b>Breadth-First-Search</b>
         </button>
       </div>
       <div class="column is-one-third">
         <button class="button algo-button is-fullwidth"
-                [ngClass]="settingsService.getcurrentPathAlgorithm() === 'Depth-FS' ? 'is-danger' : ''"
+                [ngClass]="pathFindingService.getAlgorithmName() === 'Depth-FS' ? 'is-danger' : ''"
                 disabled
-                (click)="settingsService.setCurrentPathAlgorithm('Depth-FS')">
+                (click)="pathFindingService.switchAlgorithm('Depth-FS')">
           <b>Depth-First-Search</b>
         </button>
       </div>
       <div class="column is-one-third">
         <button class="button algo-button is-fullwidth"
-                [ngClass]="settingsService.getcurrentPathAlgorithm() === 'Best-FS' ? 'is-danger' : ''"
+                [ngClass]="pathFindingService.getAlgorithmName() === 'Best-FS' ? 'is-danger' : ''"
                 disabled
-                (click)="settingsService.setCurrentPathAlgorithm('Best-FS')">
+                (click)="pathFindingService.switchAlgorithm('Best-FS')">
           <b>Best-First-Search</b>
         </button>
       </div>
       <div class="column is-half">
         <button class="button algo-button is-fullwidth"
-                [ngClass]="settingsService.getcurrentPathAlgorithm() === 'Trace' ? 'is-danger' : ''"
+                [ngClass]="pathFindingService.getAlgorithmName() === 'Trace' ? 'is-danger' : ''"
                 disabled
-                (click)="settingsService.setCurrentPathAlgorithm('Trace')">
+                (click)="pathFindingService.switchAlgorithm('Trace')">
           <b>Trace</b>
         </button>
       </div>
       <div class="column is-half">
         <button class="button algo-button is-fullwidth"
-                [ngClass]="settingsService.getcurrentPathAlgorithm() === 'Jump-PS' ? 'is-danger' : ''"
+                [ngClass]="pathFindingService.getAlgorithmName() === 'Jump-PS' ? 'is-danger' : ''"
                 disabled
-                (click)="settingsService.setCurrentPathAlgorithm('Jump-PS')">
+                (click)="pathFindingService.switchAlgorithm('Jump-PS')">
           <b>Jump Point Search</b>
         </button>
       </div>
       <div class="column is-full">
         <button class="button algo-button is-fullwidth"
-                [ngClass]="settingsService.getcurrentPathAlgorithm() === 'Orthogonal-Jump-PS' ? 'is-danger' : ''"
+                [ngClass]="pathFindingService.getAlgorithmName() === 'Orthogonal-Jump-PS' ? 'is-danger' : ''"
                 disabled
-                (click)="settingsService.setCurrentPathAlgorithm('Orthogonal-Jump-PS')">
+                (click)="pathFindingService.switchAlgorithm('Orthogonal-Jump-PS')">
           <b>Orthogonal Jump Point Search</b>
         </button>
       </div>
@@ -86,23 +86,23 @@
       <div class="column is-full">
         <div class="buttons has-addons is-centered">
           <button class="button is-small"
-                  [ngClass]="settingsService.getCurrentHeuristic() === 'manhattan' ? 'is-danger' : ''"
-                  (click)="settingsService.setCurrentHeuristic('manhattan')">
+                  [ngClass]="pathFindingService.getCurrentHeuristic() === 'Manhattan' ? 'is-danger' : ''"
+                  (click)="pathFindingService.switchCurrentHeuristic('Manhattan')">
             <b>Manhattan</b>
           </button>
           <button class="button is-small"
-                  [ngClass]="settingsService.getCurrentHeuristic() === 'euclidean' ? 'is-danger' : ''"
-                  (click)="settingsService.setCurrentHeuristic('euclidean')">
+                  [ngClass]="pathFindingService.getCurrentHeuristic() === 'Euclidean' ? 'is-danger' : ''"
+                  (click)="pathFindingService.switchCurrentHeuristic('Euclidean')">
             <b>Euclidean</b>
           </button>
           <button class="button is-small"
-                  [ngClass]="settingsService.getCurrentHeuristic() === 'octile' ? 'is-danger' : ''"
-                  (click)="settingsService.setCurrentHeuristic('octile')">
+                  [ngClass]="pathFindingService.getCurrentHeuristic() === 'Octile' ? 'is-danger' : ''"
+                  (click)="pathFindingService.switchCurrentHeuristic('Octile')">
             <b>Octile</b>
           </button>
           <button class="button is-small"
-                  [ngClass]="settingsService.getCurrentHeuristic() === 'chebyshev' ? 'is-danger' : 't'"
-                  (click)="settingsService.setCurrentHeuristic('chebyshev')">
+                  [ngClass]="pathFindingService.getCurrentHeuristic() === 'Chebyshev' ? 'is-danger' : 't'"
+                  (click)="pathFindingService.switchCurrentHeuristic('Chebyshev')">
             <b>Chebyshev</b>
           </button>
         </div>
@@ -116,7 +116,7 @@
     <div class="columns">
       <div class="column is-full">
           <pre class="m-0 p-0">
-          <code class="javascript" [innerHTML]="testCode"></code>
+          <code class="javascript" [innerHTML]="pathFindingService.getPseudoCode()"></code>
           </pre>
       </div>
     </div>

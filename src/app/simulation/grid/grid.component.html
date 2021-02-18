@@ -1,20 +1,20 @@
 <app-stats class="box" [isMouseDown]="isMouseDown"></app-stats>
-  <div class="block outer-wall" [ngClass]="{'wrapper-forbidden': (simulationService.getIteration() | async) > 0}">
-    <div class="game-grid"
-         [ngClass]="{'game-grid-lock': (simulationService.getIteration() | async) > 0}"
-         (mousedown)="isMouseDown = true"
-         (mouseup)="onMouseUp()"
-         (mouseleave)="onMouseUp()">
-      <div *ngFor="let col of gridList; let i=index" class="game-column">
-        <app-node *ngFor="let node of col; let j=index"
-                  [status]="node.nodeStatus"
-                  [is-mouse-down]="isMouseDown"
-                  (wasUpdated)="drawModeLogic(i, j)"
-        ></app-node>
-      </div>
+<div class="block outer-wall" [ngClass]="{'wrapper-forbidden': (simulationService.getIteration() | async) > 0}">
+  <div class="game-grid"
+       [ngClass]="{'game-grid-lock': (simulationService.getIteration() | async) > 0}"
+       (mousedown)="isMouseDown = true"
+       (mouseup)="onMouseUp()"
+       (mouseleave)="onMouseUp()">
+    <div *ngFor="let col of gridList; let i=index" class="game-column">
+      <app-node *ngFor="let node of col; let j=index"
+                [status]="node.nodeStatus"
+                [is-mouse-down]="isMouseDown"
+                (wasUpdated)="drawModeLogic(i, j)">
+      </app-node>
     </div>
   </div>
-<hr class="hr-text m-2" data-content="GRID COTNROL">
+</div>
+<app-hr text="GRID CONTROL"></app-hr>
 <div class="columns">
   <div class="column is-full">
     <div class="field has-addons has-addons-centered is-marginless control-button-wrapper">

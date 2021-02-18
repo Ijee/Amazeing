@@ -5,6 +5,7 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import * as _ from 'lodash';
 import {SettingsService} from '../../@core/services/settings.service';
+import {MazeService} from '../../@core/services/maze.service';
 
 @Component({
   selector: 'app-grid',
@@ -21,7 +22,7 @@ export class GridComponent implements OnInit, OnDestroy {
   private readonly destroyed$: Subject<void>;
   private isInitialized: boolean;
 
-  constructor(public simulationService: SimulationService, public settingsService: SettingsService) {
+  constructor(public simulationService: SimulationService, public settingsService: SettingsService, public mazeService: MazeService) {
     this.width = 46;
     this.height = 20;
     this.gridList = [];
@@ -260,17 +261,7 @@ export class GridComponent implements OnInit, OnDestroy {
   }
 
   public update2(): void {
-    if (this.settingsService.getAlgorithmMode() === 'maze') {
-      switch (this.settingsService.getcurrentMazeAlgorithm()) {
-        case 'prims':
-          console.log('hi');
-          break;
-        default:
-          break;
-      }
-    } else {
-
-    }
+    this.mazeService.nextStep(this.gridList);
   }
 
   /**
