@@ -103,34 +103,50 @@
   </div>
   <div class="column is-full">
     <p class="menu-label has-text-centered">
-      <b>Options</b>
+      <b>Maze solving algorithm</b>
     </p>
-    <div class="columns">
-      <div class="column is-full">
-        <div class="buttons has-addons is-centered">
-          <button class="button is-small"
-                  [ngClass]="settingsService.getCurrentHeuristic() === 'manhattan' ? 'is-primary' : ''"
-                  (click)="settingsService.setCurrentHeuristic('manhattan')">
-            <b>Manhattan</b>
-          </button>
-          <button class="button is-small"
-                  [ngClass]="settingsService.getCurrentHeuristic() === 'euclidean' ? 'is-primary' : ''"
-                  (click)="settingsService.setCurrentHeuristic('euclidean')">
-            <b>Euclidean</b>
-          </button>
-          <button class="button is-small"
-                  [ngClass]="settingsService.getCurrentHeuristic() === 'octile' ? 'is-primary' : ''"
-                  (click)="settingsService.setCurrentHeuristic('octile')">
-            <b>Octile</b>
-          </button>
-          <button class="button is-small"
-                  [ngClass]="settingsService.getCurrentHeuristic() === 'chebyshev' ? 'is-primary' : 't'"
-                  (click)="settingsService.setCurrentHeuristic('chebyshev')">
-            <b>Chebyshev</b>
-          </button>
-        </div>
+    <aside class="columns is-multiline is-gapless">
+      <div class="column is-one-third">
+        <button class="button algo-button is-fullwidth"
+                [ngClass]="settingsService.getcurrentMazeAlgorithm()=== 'Pledge' ? 'is-primary' : ''"
+                disabled
+                (click)="settingsService.setCurrentMazeAlgorithm('Pledge')">
+          <b>Pledge</b>
+        </button>
       </div>
-    </div>
+      <div class="column is-one-third">
+        <button class="button algo-button is-fullwidth"
+                [ngClass]="settingsService.getcurrentMazeAlgorithm()=== 'Trémaux' ? 'is-primary' : ''"
+                disabled
+                (click)="settingsService.setCurrentMazeAlgorithm('Trémaux')">
+          <b>Trémaux's</b>
+        </button>
+      </div>
+      <div class="column is-one-third">
+        <button class="button algo-button is-fullwidth"
+                [ngClass]="settingsService.getcurrentMazeAlgorithm()=== 'Recursive' ? 'is-primary' : ''"
+                disabled
+                (click)="settingsService.setCurrentMazeAlgorithm('Recursive')">
+          <b>Recursive</b>
+        </button>
+      </div>
+      <div class="column is-half">
+        <button class="button algo-button is-fullwidth"
+                [ngClass]="settingsService.getcurrentMazeAlgorithm()=== 'Dead-End-Filling' ? 'is-primary' : ''"
+                disabled
+                (click)="settingsService.setCurrentMazeAlgorithm('Dead-End-Filling')">
+          <b>Dead-end filling</b>
+        </button>
+      </div>
+      <div class="column is-half">
+        <button class="button algo-button is-fullwidth"
+                [ngClass]="settingsService.getcurrentMazeAlgorithm()=== 'Maze-Routing' ? 'is-primary' : ''"
+                disabled
+                (click)="settingsService.setCurrentMazeAlgorithm('Maze-Routing')">
+          <b>Maze-Routing</b>
+        </button>
+      </div>
+    </aside>
   </div>
   <div class="column is-full">
     <p class="menu-label has-text-centered">

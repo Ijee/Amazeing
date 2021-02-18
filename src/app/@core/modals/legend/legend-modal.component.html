@@ -14,54 +14,85 @@
     </header>
     <section class="modal-card-body">
       <div class="content">
-        The following node types are being used for the algorithms:
-        <table>
-          <thead>
-          <tr>
-            <th>Icon</th>
-            <th>Meaning</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td>
+        <div class="columns is-multiline">
+          <div class="column is-full">
+            <b>If you didn't select to use custom weights each node will have the weight of <i>1</i></b>
+          </div>
+          <div class="column is-full has-text-centered">
+            <b class="">General Nodes:</b>
+          </div>
+          <div class="column is-full">
+            <table>
+              <thead>
+              <tr>
+                <th>Icon</th>
+                <th>Meaning</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>
               <span class="icon start-icon">
                 <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
               </span>
-            <td>Start</td>
-          </tr>
-          <tr>
-            <td>
+                <td>Start</td>
+              </tr>
+              <tr>
+                <td>
               <span class="icon goal-icon">
                 <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
               </span>
-            <td>Goal</td>
-          </tr>
-          <tr>
-            <td>
+                <td>Goal</td>
+              </tr>
+              <tr>
+                <td>
               <span class="icon wall-icon">
                 <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
               </span>
-            <td>Wall</td>
-          </tr>
-          <tr>
-            <td>
+                <td>Wall</td>
+              </tr>
+              <tr>
+                <td>
               <span class="icon node-discovered">
                 <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
               </span>
-            <td>Node discovered</td>
-          </tr>
-          <tr>
-            <td>
+                <td>Node discovered</td>
+              </tr>
+              <tr>
+                <td>
               <span class="icon node-fastest">
                 <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
               </span>
-            <td>Fastest path</td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
+                <td>Fastest path</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="column is-full has-text-centered">
+            <b class="">Maze-solving specific:</b>
+          </div>
+          <div class="column is-full">
+            <table>
+              <thead>
+              <tr>
+                <th>Icon</th>
+                <th>Meaning</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>
+              <span class="icon start-icon">
+                <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
+              </span>
+                <td>Marked</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
 
+      </div>
     </section>
     <footer class="modal-card-foot">
       <button class="button is-success" (click)="showLegend = false">

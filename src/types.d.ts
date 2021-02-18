@@ -26,7 +26,12 @@ export type MazeAlgorithms =
   | 'Binary-Tree'
   | 'Recursive-Backtracker'
   | 'Recursive-Division'
-  | 'Cellular-Automation';
+  | 'Cellular-Automation'
+  | 'Pledge'
+  | 'Trémaux'
+  | 'Recursive'
+  | 'Dead-End-Filling'
+  | 'Maze-Routing';
 
 
 export type PathFindingAlgorithms =
