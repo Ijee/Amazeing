@@ -1,14 +1,14 @@
 import {Injectable} from '@angular/core';
 import {SimulationService} from './simulation.service';
 import {MazeAlgorithms, Node} from '../../../types';
-import {MazeAlgorithm} from '../algorithm/maze/maze-algorithm';
-import {Prims} from '../algorithm/maze/prims';
+import {MazeAlgorithmInterface} from '../algorithm/maze/maze-algorithm.interface';
+import {Prims} from '../algorithm/maze/creation/prims';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MazeService {
-  private currentAlgorithm: MazeAlgorithm;
+  private currentAlgorithm: MazeAlgorithmInterface;
 
   constructor(private simulationService: SimulationService) {
     this.switchAlgorithm('Prims');

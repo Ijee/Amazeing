@@ -108,6 +108,14 @@
     <aside class="columns is-multiline is-gapless">
       <div class="column is-one-third">
         <button class="button algo-button is-fullwidth"
+                [ngClass]="mazeService.getAlgorithmName() === 'Wall-Follower' ? 'is-primary' : ''"
+                disabled
+                (click)="mazeService.switchAlgorithm('Wall-Follower')">
+          <b>Wall-Follower</b>
+        </button>
+      </div>
+      <div class="column is-one-third">
+        <button class="button algo-button is-fullwidth"
                 [ngClass]="mazeService.getAlgorithmName() === 'Pledge' ? 'is-primary' : ''"
                 disabled
                 (click)="mazeService.switchAlgorithm('Pledge')">
@@ -130,20 +138,20 @@
           <b>Recursive</b>
         </button>
       </div>
-      <div class="column is-half">
-        <button class="button algo-button is-fullwidth"
-                [ngClass]="mazeService.getAlgorithmName() === 'Dead-End-Filling' ? 'is-primary' : ''"
-                disabled
-                (click)="mazeService.switchAlgorithm('Dead-End-Filling')">
-          <b>Dead-end filling</b>
-        </button>
-      </div>
-      <div class="column is-half">
+      <div class="column is-one-third">
         <button class="button algo-button is-fullwidth"
                 [ngClass]="mazeService.getAlgorithmName() === 'Maze-Routing' ? 'is-primary' : ''"
                 disabled
                 (click)="mazeService.switchAlgorithm('Maze-Routing')">
           <b>Maze-Routing</b>
+        </button>
+      </div>
+      <div class="column is-one-third">
+        <button class="button algo-button is-fullwidth"
+                [ngClass]="mazeService.getAlgorithmName() === 'Dead-End-Filling' ? 'is-primary' : ''"
+                disabled
+                (click)="mazeService.switchAlgorithm('Dead-End-Filling')">
+          <b>Dead-end filling</b>
         </button>
       </div>
     </aside>

@@ -61,7 +61,7 @@ export class AppComponent implements OnInit, OnDestroy {
     } else if (event.code === 'ArrowLeft') {
       this.simulationService.setBackwardStep();
     } else if (event.code === 'Space') {
-      this.simulationService.setGameStatus();
+      this.simulationService.setSimulationStatus();
     } else if (event.code === 'NumpadAdd') {
       this.simulationService.setSpeedUp();
     } else if (event.code === 'NumpadSubtract') {

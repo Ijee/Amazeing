@@ -1,7 +1,12 @@
-import {PathFindingAlgorithm} from './path-finding-algorithm';
+import {PathFindingAlgorithmInterface} from './path-finding-algorithm.interface';
 import {PathFindingAlgorithms, Node, PathFindingHeuristics} from '../../../../types';
 
-export class Dijkstra implements PathFindingAlgorithm {
+export class Dijkstra implements PathFindingAlgorithmInterface {
+  isAlgorithmActive: boolean;
+
+  constructor() {
+    this.isAlgorithmActive = false;
+  }
 
   public completeAlgorithm(currentGrid: Node[][], currentHeuristic: PathFindingHeuristics): Node[][] {
     return currentGrid;
@@ -13,6 +18,14 @@ export class Dijkstra implements PathFindingAlgorithm {
 
   public getAlgorithmName(): PathFindingAlgorithms {
     return 'Dijkstra';
+  }
+
+  getUpdatedStats(): string {
+    return 'drölf';
+  }
+
+  getIsAlgorithmActive(): boolean {
+    return this.isAlgorithmActive;
   }
 
   /**

@@ -47,7 +47,7 @@
       <p class="heading is-size-6-mobile">Speed</p>
       <p class="title is-size-6-mobile"
          [class]="settingsService.getAlgorithmMode() === 'maze' ? 'has-text-primary' : 'has-text-danger'"
-      >{{ simulationService.getGameSpeed() | async }}%</p>
+      >{{ simulationService.getSimulationSpeed() | async }}%</p>
     </strong>
   </div>
 </div>

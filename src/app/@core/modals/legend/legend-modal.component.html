@@ -14,15 +14,18 @@
     </header>
     <section class="modal-card-body">
       <div class="content">
-        <div class="columns is-multiline">
+        <div class="columns is-multiline is-gapless">
           <div class="column is-full">
-            <b>If you didn't select to use custom weights each node will have the weight of <i>1</i></b>
+            <b>If you didn't select to use custom weights each node will have a weight of <i>1</i></b>
           </div>
-          <div class="column is-full has-text-centered">
-            <b class="">General Nodes:</b>
+          <div class="column is-half">
+            <app-hr text="General Nodes"></app-hr>
           </div>
-          <div class="column is-full">
-            <table>
+          <div class="column is-half">
+            <app-hr text="Maze-solving specific"></app-hr>
+          </div>
+          <div class="column is-half">
+            <table class="table has-text-centered">
               <thead>
               <tr>
                 <th>Icon</th>
@@ -68,11 +71,8 @@
               </tbody>
             </table>
           </div>
-          <div class="column is-full has-text-centered">
-            <b class="">Maze-solving specific:</b>
-          </div>
-          <div class="column is-full">
-            <table>
+          <div class="column is-half">
+            <table class="table has-text-centered">
               <thead>
               <tr>
                 <th>Icon</th>

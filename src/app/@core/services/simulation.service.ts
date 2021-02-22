@@ -20,10 +20,10 @@ export class SimulationService {
   private readonly nodesCreated$: BehaviorSubject<number>;
   private readonly nodesCreatedHistory: Array<number>;
   private rewritingHistory: boolean;
-  private readonly gameSpeed$: BehaviorSubject<number>;
+  private readonly simulationSpeed$: BehaviorSubject<number>;
   private drawingMode: number;
   private readonly disableController$: BehaviorSubject<boolean>;
-  private readonly isGameActive$: BehaviorSubject<boolean>;
+  private readonly isSimulationActive$: BehaviorSubject<boolean>;
   private readonly backwardStep$: Subject<void>;
   private readonly backwardStepsAmount$: BehaviorSubject<number>;
   private readonly step$: Subject<void>;
@@ -53,10 +53,10 @@ export class SimulationService {
     this.rewritingHistory = false;
     // Responsible for controlling the simulation - also used to propagate
     // events from the controller component
-    this.gameSpeed$ = new BehaviorSubject(100);
+    this.simulationSpeed$ = new BehaviorSubject(100);
     this.drawingMode = 0;
     this.disableController$ = new BehaviorSubject<boolean>(false);
-    this.isGameActive$ = new BehaviorSubject(false);
+    this.isSimulationActive$ = new BehaviorSubject(false);
     this.backwardStep$ = new Subject<void>();
     this.backwardStepsAmount$ = new BehaviorSubject<number>(0);
     this.step$ = new Subject<void>();
@@ -74,21 +74,21 @@ export class SimulationService {
    */
   private restartInterval(): void {
     clearInterval(this.intervalID);
-    if (this.isGameActive$.getValue()) {
-      this.intervalID = setInterval(() => this.addStep(), 50000 / this.gameSpeed$.getValue());
+    if (this.isSimulationActive$.getValue()) {
+      this.intervalID = setInterval(() => this.addStep(), 50000 / this.simulationSpeed$.getValue());
     }
   }
 
   /**
-   * Determines the new game status to be either active or inactive
+   * Determines the new simulation status to be either active or inactive
    *
    * @param status - the new status to be set and if not given will negate the current status
    */
-  public setGameStatus(status?: boolean): void {
+  public setSimulationStatus(status?: boolean): void {
     if (status !== undefined) {
-      this.isGameActive$.next(status);
+      this.isSimulationActive$.next(status);
     } else {
-      this.isGameActive$.next(!(this.isGameActive$.getValue()));
+      this.isSimulationActive$.next(!(this.isSimulationActive$.getValue()));
     }
     this.restartInterval();
   }
@@ -99,13 +99,13 @@ export class SimulationService {
    * @param speed - the new speed to be set
    * @private
    */
-  private setGameSpeed(speed: number): void {
-    const newSpeed = this.gameSpeed$.getValue() + speed;
-    this.gameSpeed$.next(newSpeed);
-    if (this.gameSpeed$.getValue() < 20) {
-      this.gameSpeed$.next(20);
-    } else if (this.gameSpeed$.getValue() > 500) {
-      this.gameSpeed$.next(500);
+  private setSimulationSpeed(speed: number): void {
+    const newSpeed = this.simulationSpeed$.getValue() + speed;
+    this.simulationSpeed$.next(newSpeed);
+    if (this.simulationSpeed$.getValue() < 20) {
+      this.simulationSpeed$.next(20);
+    } else if (this.simulationSpeed$.getValue() > 500) {
+      this.simulationSpeed$.next(500);
     }
   }
 
@@ -178,8 +178,8 @@ export class SimulationService {
    */
   public setBackwardStep(): void {
     // disables auto-play of the simulation
-    if (this.isGameActive$.getValue()) {
-      this.isGameActive$.next(false);
+    if (this.isSimulationActive$.getValue()) {
+      this.isSimulationActive$.next(false);
       this.restartInterval();
     }
     if (this.backwardStepsAmount$.getValue() > 0) {
@@ -214,7 +214,7 @@ export class SimulationService {
 
   /**
    * creates a new step and everything that is needed
-   * for step to continue. see grid component gameService.getStep
+   * for step to continue. see grid component SimulationService.getStep
    */
   public addStep(): void {
     this.step$.next();
@@ -280,7 +280,7 @@ export class SimulationService {
    * Sets the new speed down between boundaries
    */
   public setSpeedDown(): void {
-    this.gameSpeed$.getValue() > 100 ? this.setGameSpeed(-100) : this.setGameSpeed(-20);
+    this.simulationSpeed$.getValue() > 100 ? this.setSimulationSpeed(-100) : this.setSimulationSpeed(-20);
     this.restartInterval();
   }
 
@@ -288,7 +288,7 @@ export class SimulationService {
    * Sets the new speed up between boundaries
    */
   public setSpeedUp(): void {
-    this.gameSpeed$.getValue() < 100 ? this.setGameSpeed(20) : this.setGameSpeed(100);
+    this.simulationSpeed$.getValue() < 100 ? this.setSimulationSpeed(20) : this.setSimulationSpeed(100);
     this.restartInterval();
   }
 
@@ -314,7 +314,7 @@ export class SimulationService {
    * This resets all stats and as well as the gridList
    */
   public reset(): void {
-    this.setGameStatus(false);
+    this.setSimulationStatus(false);
     if (this.iteration.value > 0) {
       this.iteration.next(this.gridSavePointStats.iteration);
       this.nodesAlive$.next(this.gridSavePointStats.nodesAlive);
@@ -403,10 +403,10 @@ export class SimulationService {
   }
 
   /**
-   * Returns whether or not the game is currently active
+   * Returns whether or not the simulation is currently active
    */
-  public getGameStatus(): Observable<boolean> {
-    return this.isGameActive$;
+  public getSimulationStatus(): Observable<boolean> {
+    return this.isSimulationActive$;
   }
 
   /**
@@ -445,10 +445,10 @@ export class SimulationService {
   }
 
   /**
-   * Returns the current gameSpeed
+   * Returns the current simulation speed
    */
-  public getGameSpeed(): Observable<number> {
-    return this.gameSpeed$;
+  public getSimulationSpeed(): Observable<number> {
+    return this.simulationSpeed$;
   }
 
   /**

@@ -20,11 +20,11 @@
   </p>
   <p class="control">
     <button [disabled]="simulationService.getDisableController() | async"
-            [ngClass]="(simulationService.getGameStatus() | async) ? 'is-primary is-light' : 'is-danger is-light'"
+            [ngClass]="(simulationService.getSimulationStatus() | async) ? 'is-primary is-light' : 'is-danger is-light'"
             class="button"
-            title="play" (click)="simulationService.setGameStatus()">
-      <fa-icon *ngIf="simulationService.getGameStatus() | async" [icon]="['fas', 'stop']"></fa-icon>
-      <fa-icon *ngIf="!(simulationService.getGameStatus() | async)" [icon]="['fas', 'play']"></fa-icon>
+            title="play" (click)="simulationService.setSimulationStatus()">
+      <fa-icon *ngIf="simulationService.getSimulationStatus() | async" [icon]="['fas', 'stop']"></fa-icon>
+      <fa-icon *ngIf="!(simulationService.getSimulationStatus() | async)" [icon]="['fas', 'play']"></fa-icon>
     </button>
   </p>
   <p class="control">
@@ -32,7 +32,7 @@
             title="clear grid"
             [disabled]="(simulationService.getDisableController() | async)
             || (simulationService.getGridList() | async).length === 0
-            || (simulationService.getGameStatus() | async)"
+            || (simulationService.getSimulationStatus() | async)"
             (click)="simulationService.reset()">
       <fa-icon *ngIf="(simulationService.getIteration() | async) > 0" class="fa-flip-horizontal"
                [icon]="['fas', 'redo']"></fa-icon>
@@ -57,7 +57,7 @@
 <div class="field has-addons has-addons-centered is-marginless">
   <p class="control">
     <button [disabled]="simulationService.getDisableController() | async" class="button" title="import"
-            (click)="simulationService.setImportSession(); simulationService.setGameStatus(false)">
+            (click)="simulationService.setImportSession(); simulationService.setSimulationStatus(false)">
         <span class="icon">
           <fa-icon [icon]="['far', 'edit']"></fa-icon>
         </span>
@@ -66,7 +66,7 @@
   </p>
   <p class="control">
     <button [disabled]="simulationService.getDisableController() | async" class="button" title="export"
-            (click)="simulationService.setExportSession(); simulationService.setGameStatus(false)">
+            (click)="simulationService.setExportSession(); simulationService.setSimulationStatus(false)">
         <span class="icon">
           <fa-icon [icon]="['far', 'save']"></fa-icon>
         </span>

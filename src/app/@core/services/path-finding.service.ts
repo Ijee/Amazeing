@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {SimulationService} from './simulation.service';
 import {Node, PathFindingAlgorithms, PathFindingHeuristics} from '../../../types';
 import {AStar} from '../algorithm/path-finding/a-star';
-import {PathFindingAlgorithm} from '../algorithm/path-finding/path-finding-algorithm';
+import {PathFindingAlgorithmInterface} from '../algorithm/path-finding/path-finding-algorithm.interface';
 import {Dijkstra} from '../algorithm/path-finding/dijkstra';
 
 
@@ -10,7 +10,7 @@ import {Dijkstra} from '../algorithm/path-finding/dijkstra';
   providedIn: 'root'
 })
 export class PathFindingService {
-  private currentAlgorithm: PathFindingAlgorithm;
+  private currentAlgorithm: PathFindingAlgorithmInterface;
   private currentHeuristic: PathFindingHeuristics;
 
   constructor(private simulationService: SimulationService) {
@@ -19,7 +19,7 @@ export class PathFindingService {
   }
 
   /**
-   * Switches the current maze algorithm for the
+   * Switches the current path finding algorithm
    *
    * @param newAlgo - the new algorithm to be used
    */

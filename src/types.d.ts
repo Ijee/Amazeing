@@ -26,6 +26,7 @@ export type MazeAlgorithms =
   | 'Recursive-Backtracker'
   | 'Recursive-Division'
   | 'Cellular-Automation'
+  | 'Wall-Follower'
   | 'Pledge'
   | 'Trémaux'
   | 'Recursive'

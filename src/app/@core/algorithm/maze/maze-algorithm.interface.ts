@@ -1,6 +1,6 @@
 import {MazeAlgorithms, Node} from '../../../../types';
 
-export interface MazeAlgorithm {
+export interface MazeAlgorithmInterface {
 
   /**
    * Return the complete algorithm directly
@@ -20,6 +20,18 @@ export interface MazeAlgorithm {
    * Returns the name of the algorithm
    */
   getAlgorithmName(): MazeAlgorithms;
+
+  /**
+   * Returns the added stats for each step
+   */
+  getUpdatedStats(): string;
+
+
+  /**
+   * Returns whether or not the algorithm is currently active.
+   * This is different from SimulationService - isSimulationActive
+   */
+  getIsAlgorithmActive(): boolean;
 
   /**
    * Returns the current algorithm pseudo code

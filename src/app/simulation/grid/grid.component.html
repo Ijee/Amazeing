@@ -19,7 +19,7 @@
   <div class="column is-full">
     <div class="field has-addons has-addons-centered is-marginless control-button-wrapper">
       <p class="control">
-        <button class="button is-outlined"
+        <button class="button is-outlined is-size-7-mobile"
                 [ngClass]="simulationService.getDrawingMode() === 1 ? 'is-active' : ''"
                 [disabled]="(this.simulationService.getIteration() | async) > 0"
                 (click)="simulationService.setDrawingMode(1)">
@@ -30,7 +30,7 @@
         </button>
       </p>
       <p class="control">
-        <button class="button is-outlined"
+        <button class="button is-outlined is-size-7-mobile"
                 [disabled]="(this.simulationService.getIteration() | async) > 0 || !(settingsService.getAlgorithmMode() === 'pathFinding')">
                 <span class="icon">
                   <fa-icon [icon]="['fas', 'balance-scale-right']"></fa-icon>
@@ -39,7 +39,8 @@
         </button>
       </p>
       <p class="control">
-        <button [disabled]="(this.simulationService.getIteration() | async) > 0" class="button is-outlined"
+        <button class="button is-outlined is-size-7-mobile"
+                [disabled]="(this.simulationService.getIteration() | async) > 0"
                 title="random"
                 (click)="simulationService.setRandomSeed()">
         <span class="icon">
@@ -49,7 +50,7 @@
         </button>
       </p>
       <p class="control">
-        <button class="button is-outlined"
+        <button class="button is-outlined is-size-7-mobile"
                 [ngClass]="simulationService.getDrawingMode() === 2 ? 'is-active' : ''"
                 [disabled]="(this.simulationService.getIteration() | async) > 0"
                 (click)="simulationService.setDrawingMode(2)">
@@ -60,7 +61,7 @@
         </button>
       </p>
       <p class="control control-pulled-right">
-        <button class="button is-outlined" (click)="simulationService.setLegend()">
+        <button class="button is-outlined is-size-7-mobile" (click)="simulationService.setLegend()">
                 <span class="icon">
                   <fa-icon [icon]="['fas', 'asterisk']"></fa-icon>
                 </span>
