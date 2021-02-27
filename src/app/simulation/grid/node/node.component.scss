@@ -28,6 +28,14 @@
   background-color: fade-out($danger, 0.4);
 }
 
+.node-discovered {
+  background-color: $blue;
+}
+
+.node-in {
+  background-color: #cb7832;
+}
+
 .wall {
   background-color: $grey-dark;
 }

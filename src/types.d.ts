@@ -1,3 +1,5 @@
+import {EqualsHashCode} from './app/@shared/EqualsHashCode';
+
 export type Node = {
   nodeStatus: number;
 };
@@ -6,11 +8,6 @@ export type SavePointStats = {
   iteration: number;
   nodesAlive: number;
   nodesCreated: number;
-};
-
-export type GridLocation = {
-  x: number;
-  y: number;
 };
 
 export type MazeAlgorithms =

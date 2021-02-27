@@ -29,10 +29,7 @@ export class GridSettingsComponent implements OnInit {
     if (this.settingsService.getWarningsSetting() && !skipWarning) {
       this.showWarning = true;
     } else {
-      // so that it does not reset twice when going back and forth betweeen the modes
-      if (this.simulationService.getGridSavePoint().length > 0) {
-        this.simulationService.reset();
-      }
+      this.simulationService.softReset();
       this.settingsService.setAlgorithmMode(algoMode);
       // console.log('algoMode in service', this.settingsService.getAlgorithmMode());
       this.showWarning = false;
@@ -45,7 +42,7 @@ export class GridSettingsComponent implements OnInit {
    * that fits and makes sense when you skim over it for the other parts of the app when checking for it.
    *
    */
-  public switchtoOtherMode(): string {
+  public switchToOtherMode(): string {
     return this.settingsService.getAlgorithmMode() === 'maze' ? 'pathFinding' : 'maze';
   }
 }

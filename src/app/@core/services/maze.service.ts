@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {SimulationService} from './simulation.service';
 import {MazeAlgorithms, Node} from '../../../types';
 import {MazeAlgorithmInterface} from '../algorithm/maze/maze-algorithm.interface';
 import {Prims} from '../algorithm/maze/creation/prims';
+import {GridLocation} from '../../@shared/GridLocation';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ import {Prims} from '../algorithm/maze/creation/prims';
 export class MazeService {
   private currentAlgorithm: MazeAlgorithmInterface;
 
-  constructor(private simulationService: SimulationService) {
+  constructor() {
     this.switchAlgorithm('Prims');
   }
 
@@ -38,8 +38,6 @@ export class MazeService {
         break;
       case 'Growing-Tree':
         break;
-      case 'Growing-Tree':
-        break;
       case 'Binary-Tree':
         break;
       case 'Recursive-Backtracker':
@@ -63,14 +61,15 @@ export class MazeService {
     }
   }
 
+  public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
+    this.currentAlgorithm.setInitialData(currentGrid, currentStartPoint);
+  }
+
   /**
    * Sets the next step for the grid based on the current algorithm
-   *
-   * @param currentGrid - the current grid that is displayed on the site
    */
-  public nextStep(currentGrid: Node[][]): void {
-    const nextStep: Node[][] = this.currentAlgorithm.nextStep(currentGrid);
-    this.simulationService.setGridList(nextStep);
+  public getNextStep(): Node[][] {
+    return this.currentAlgorithm.nextStep();
   }
 
   /**

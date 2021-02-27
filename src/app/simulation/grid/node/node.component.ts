@@ -45,6 +45,10 @@ export class NodeComponent {
       case 2:
         // goal
         return 'has-background-danger';
+      case 3:
+        return 'node-discovered';
+      case 4:
+        return 'node-in';
       default:
         return 'dead';
     }

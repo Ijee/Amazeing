@@ -1,19 +1,24 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable, ReplaySubject, Subject} from 'rxjs';
-import {GridLocation, Node, SavePointStats} from '../../../types';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
+import * as _ from 'lodash';
+import {Node, SavePointStats} from '../../../types';
+import {SettingsService} from './settings.service';
+import {MazeService} from './maze.service';
+import {PathFindingService} from './path-finding.service';
+import {GridLocation} from '../../@shared/GridLocation';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class SimulationService {
-  private readonly gridList$: ReplaySubject<Node[][]>;
+  private readonly gridList$: BehaviorSubject<Node[][]>;
   private readonly gridHistory: Array<Node[][]>;
   private gridSavePoint: Node[][];
   private gridSavePointStats: SavePointStats;
   private gridStartLocation: GridLocation;
   private gridGoalLocation: GridLocation;
-  private readonly iteration: BehaviorSubject<number>;
+  private readonly iteration$: BehaviorSubject<number>;
   private readonly nodeCount$: BehaviorSubject<number>;
   private readonly nodesAlive$: BehaviorSubject<number>;
   private readonly nodesAliveHistory: Array<number>;
@@ -33,18 +38,18 @@ export class SimulationService {
   private readonly exportSession$: Subject<void>;
   private readonly exportToken$: Subject<string>;
   private readonly importToken$: Subject<string>;
-
   private intervalID: number;
 
-  constructor() {
-    this.gridList$ = new ReplaySubject<Node[][]>(5);
-    this.gridList$.next([]);
+  constructor(private settngsService: SettingsService,
+              private mazeService: MazeService,
+              private pahtFindingService: PathFindingService) {
+    this.gridList$ = new BehaviorSubject<Node[][]>([]);
     this.gridHistory = [];
     this.gridSavePoint = [];
     this.gridStartLocation = null;
     this.gridGoalLocation = null;
     // Stats
-    this.iteration = new BehaviorSubject<number>(0);
+    this.iteration$ = new BehaviorSubject<number>(0);
     this.nodeCount$ = new BehaviorSubject<number>(0);
     this.nodesAlive$ = new BehaviorSubject<number>(0);
     this.nodesAliveHistory = [0];
@@ -110,11 +115,11 @@ export class SimulationService {
   }
 
   public setGridStartLocation(column: number, row: number): void {
-    this.gridStartLocation = {x: column, y: row};
+    this.gridStartLocation = new GridLocation(column, row);
   }
 
   public setGridGoalLocation(column: number, row: number): void {
-    this.gridGoalLocation = {x: column, y: row};
+    this.gridGoalLocation = new GridLocation(column, row);
   }
 
   /**
@@ -123,7 +128,7 @@ export class SimulationService {
    * @param value - the new value to be added
    */
   public changeIteration(value: number): void {
-    this.iteration.next(this.iteration.getValue() + value);
+    this.iteration$.next(this.iteration$.getValue() + value);
   }
 
   /**
@@ -168,7 +173,7 @@ export class SimulationService {
    * @param newGrid - the new gridList
    */
   public setGridList(newGrid: Node[][]): void {
-    this.gridList$.next(newGrid);
+    this.gridList$.next(_.cloneDeep(newGrid));
   }
 
   /**
@@ -205,7 +210,7 @@ export class SimulationService {
   public save(newGrid: Node[][]): void {
     this.setGridList(newGrid);
     this.gridSavePointStats = {
-      iteration: this.iteration.getValue(),
+      iteration: this.iteration$.getValue(),
       nodesAlive: this.nodesAlive$.getValue(),
       nodesCreated: this.nodesCreated$.getValue()
     };
@@ -217,7 +222,22 @@ export class SimulationService {
    * for step to continue. see grid component SimulationService.getStep
    */
   public addStep(): void {
-    this.step$.next();
+    if (this.iteration$.getValue() === 0) {
+      this.mazeService.setInitialData(_.cloneDeep(this.gridList$.getValue()), this.getGridStartLocation());
+    }
+    this.changeIteration(1);
+    let newGrid: Node[][];
+    if (this.settngsService.getAlgorithmMode() === 'maze') {
+      newGrid = this.mazeService.getNextStep();
+    } else {
+      // TODO copy how the interface works from maze-algorithm.interface.ts
+      newGrid = this.pahtFindingService.getNextStep(this.gridList$.getValue());
+    }
+    if (newGrid) {
+      this.setGridList(newGrid);
+    } else {
+      this.setSimulationStatus();
+    }
     if (this.backwardStepsAmount$.getValue() < 9) {
       this.changeBackwardStepsAmount(1);
     }
@@ -315,17 +335,35 @@ export class SimulationService {
    */
   public reset(): void {
     this.setSimulationStatus(false);
-    if (this.iteration.value > 0) {
-      this.iteration.next(this.gridSavePointStats.iteration);
+    if (this.iteration$.value > 0) {
+      this.iteration$.next(this.gridSavePointStats.iteration);
       this.nodesAlive$.next(this.gridSavePointStats.nodesAlive);
       this.nodesCreated$.next(this.gridSavePointStats.nodesCreated);
       this.gridList$.next(this.gridSavePoint);
     } else {
-      this.iteration.next(0);
+      this.iteration$.next(0);
       this.nodesAlive$.next(0);
       this.nodesCreated$.next(0);
       this.gridList$.next([]);
     }
+    this.backwardStepsAmount$.next(0);
+    this.gridSavePoint = [];
+  }
+
+  public softReset(): void {
+    const grid = _.cloneDeep(this.gridList$.value);
+    grid.forEach(column => {
+      column.forEach(node => {
+        const status = node.nodeStatus;
+        if (status !== 0 && status !== 1 && status !== 2) {
+          node.nodeStatus = -1;
+        }
+      });
+    });
+    this.gridList$.next(grid);
+    this.iteration$.next(0);
+    this.nodesAlive$.next(0);
+    this.nodesCreated$.next(0);
     this.backwardStepsAmount$.next(0);
     this.gridSavePoint = [];
   }
@@ -413,7 +451,7 @@ export class SimulationService {
    * Returns the current iteration
    */
   public getIteration(): Observable<number> {
-    return this.iteration;
+    return this.iteration$;
   }
 
   /**
@@ -470,13 +508,6 @@ export class SimulationService {
    */
   public getBackwardStepsAmount(): Observable<number> {
     return this.backwardStepsAmount$;
-  }
-
-  /**
-   * Returns when a new step was called
-   */
-  public getStep(): Observable<void> {
-    return this.step$;
   }
 
   /**

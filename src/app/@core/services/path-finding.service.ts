@@ -13,7 +13,7 @@ export class PathFindingService {
   private currentAlgorithm: PathFindingAlgorithmInterface;
   private currentHeuristic: PathFindingHeuristics;
 
-  constructor(private simulationService: SimulationService) {
+  constructor() {
     this.switchAlgorithm('Dijkstra');
     this.switchCurrentHeuristic('Manhattan');
   }
@@ -59,9 +59,8 @@ export class PathFindingService {
    *
    * @param currentGrid - the current grid that is displayed on the site
    */
-  public nextStep(currentGrid: Node[][]): void {
-    const nextStep: Node[][] = this.currentAlgorithm.nextStep(currentGrid, this.currentHeuristic);
-    this.simulationService.setGridList(nextStep);
+  public getNextStep(currentGrid: Node[][]): Node[][] {
+    return this.currentAlgorithm.nextStep(currentGrid, this.currentHeuristic);
   }
 
   /**

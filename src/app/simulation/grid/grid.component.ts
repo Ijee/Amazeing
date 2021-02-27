@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Node} from '../../../types';
 import {SimulationService} from '../../@core/services/simulation.service';
 import {Subject} from 'rxjs';
@@ -13,7 +13,6 @@ import {MazeService} from '../../@core/services/maze.service';
   styleUrls: ['./grid.component.scss']
 })
 export class GridComponent implements OnInit, OnDestroy {
-
   private readonly width: number;
   private readonly height: number;
   public gridList: Node[][];
@@ -22,9 +21,11 @@ export class GridComponent implements OnInit, OnDestroy {
   private readonly destroyed$: Subject<void>;
   private isInitialized: boolean;
 
-  constructor(public simulationService: SimulationService, public settingsService: SettingsService, public mazeService: MazeService) {
-    this.width = 46;
-    this.height = 20;
+  constructor(public simulationService: SimulationService,
+              public settingsService: SettingsService,
+              public mazeService: MazeService) {
+    this.width = 47;
+    this.height = 21;
     this.gridList = [];
     // init with no cells alive
     for (let i = 0; i < this.width; i++) {
@@ -72,10 +73,10 @@ export class GridComponent implements OnInit, OnDestroy {
       this.simulationService.manipulateHistory();
       this.simulationService.changeIteration(-1);
     });
-    this.simulationService.getStep().pipe(takeUntil(this.destroyed$)).subscribe(() => {
-      this.update();
-      this.simulationService.changeIteration(1);
-    });
+    // this.simulationService.getStep().pipe(takeUntil(this.destroyed$)).subscribe(() => {
+    //
+    //   this.simulationService.changeIteration(1);
+    // });
     this.simulationService.getRandomSeed().pipe(takeUntil(this.destroyed$)).subscribe(() => {
       this.randomSeed();
     });
@@ -258,10 +259,6 @@ export class GridComponent implements OnInit, OnDestroy {
     }
     // set new gridList content
     this.simulationService.setGridList(tempArr);
-  }
-
-  public update2(): void {
-    this.mazeService.nextStep(this.gridList);
   }
 
   /**
