@@ -31,7 +31,6 @@
     <button class="button is-outlined"
             title="clear grid"
             [disabled]="(simulationService.getDisableController() | async)
-            || (simulationService.getGridList() | async).length === 0
             || (simulationService.getSimulationStatus() | async)"
             (click)="simulationService.reset()">
       <fa-icon *ngIf="(simulationService.getIteration() | async) > 0" class="fa-flip-horizontal"

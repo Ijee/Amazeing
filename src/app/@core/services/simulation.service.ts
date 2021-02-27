@@ -80,7 +80,7 @@ export class SimulationService {
   private restartInterval(): void {
     clearInterval(this.intervalID);
     if (this.isSimulationActive$.getValue()) {
-      this.intervalID = setInterval(() => this.addStep(), 50000 / this.simulationSpeed$.getValue());
+      this.intervalID = setInterval(() => this.addStep(), 10000 / this.simulationSpeed$.getValue());
     }
   }
 
@@ -335,7 +335,7 @@ export class SimulationService {
    */
   public reset(): void {
     this.setSimulationStatus(false);
-    if (this.iteration$.value > 0) {
+    if (this.iteration$.value > 0 && this.gridSavePointStats) {
       this.iteration$.next(this.gridSavePointStats.iteration);
       this.nodesAlive$.next(this.gridSavePointStats.nodesAlive);
       this.nodesCreated$.next(this.gridSavePointStats.nodesCreated);
@@ -345,9 +345,10 @@ export class SimulationService {
       this.nodesAlive$.next(0);
       this.nodesCreated$.next(0);
       this.gridList$.next([]);
+      this.gridSavePoint = [];
+      this.gridSavePointStats = null;
     }
     this.backwardStepsAmount$.next(0);
-    this.gridSavePoint = [];
   }
 
   public softReset(): void {
@@ -366,6 +367,7 @@ export class SimulationService {
     this.nodesCreated$.next(0);
     this.backwardStepsAmount$.next(0);
     this.gridSavePoint = [];
+    this.gridSavePointStats = null;
   }
 
   /**
@@ -419,10 +421,6 @@ export class SimulationService {
    */
   public getGridList(): Observable<Node[][]> {
     return this.gridList$;
-  }
-
-  public getGridSavePoint(): Node[][] {
-    return this.gridSavePoint;
   }
 
   public getGridStartLocation(): GridLocation {

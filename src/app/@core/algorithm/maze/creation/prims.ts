@@ -27,6 +27,8 @@ export class Prims implements MazeAlgorithmInterface {
       if (status === -1) {
         this.frontierNodes.add(new GridLocation(xAxis, yAxis));
         this.currentGrid[xAxis][yAxis].nodeStatus = 3;
+      } else if (status === 2) {
+        this.frontierNodes.add(new GridLocation(xAxis, yAxis));
       }
     }
   }
@@ -112,6 +114,7 @@ export class Prims implements MazeAlgorithmInterface {
   }
 
   public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
+    this.frontierNodes.clear();
     this.currentGrid = currentGrid;
     this.buildWalls(currentStartPoint);
     this.mark(currentStartPoint.x, currentStartPoint.y);

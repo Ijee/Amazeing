@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Node} from '../../../types';
 import {SimulationService} from '../../@core/services/simulation.service';
 import {Subject} from 'rxjs';
@@ -106,6 +106,10 @@ export class GridComponent implements OnInit, OnDestroy {
         case 0:
           this.simulationService.save(_.cloneDeep(this.gridList));
           break;
+        case 1:
+        case 2:
+          this.simulationService.setGridList(_.cloneDeep(this.gridList));
+          break;
       }
       this.simulationService.setDrawingMode(-2);
     }
@@ -185,83 +189,6 @@ export class GridComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Returns the amount of neighbours for
-   * a specific cell on the grid.
-   *
-   * @param posX - the x position
-   * @param posY - the Y position
-   * @return neighbours - amount of neighbours
-   */
-  private getNeighbours(posX: number, posY: number): number {
-    let neighbours = 0;
-    if (posX <= this.width && posY <= this.height) {
-      for (let offsetX = -1; offsetX < 2; offsetX++) {
-        for (let offsetY = -1; offsetY < 2; offsetY++) {
-          const newX = posX + offsetX;
-          const newY = posY + offsetY;
-          // check if offset is:
-          // on current cell, out of bounds and if nodeStatus
-          // for cell true
-          if (
-            (offsetX !== 0 || offsetY !== 0) &&
-            newX >= 0 &&
-            newX < this.width &&
-            newY >= 0 &&
-            newY < this.height &&
-            this.gridList[posX + offsetX][posY + offsetY].nodeStatus === 0
-          ) {
-            neighbours++;
-          }
-        }
-      }
-    }
-    return neighbours;
-  }
-
-  /**
-   * The main function that updates the grid
-   * every tick based on the game of life rules.
-   */
-  private update(): void {
-    const tempArr: Node[][] = [];
-    for (let i = 0; i < this.width; i++) {
-      tempArr[i] = [];
-      for (let j = 0; j < this.height; j++) {
-        const status = this.gridList[i][j].nodeStatus;
-        const neighbours = this.getNeighbours(i, j);
-        let result = -1;
-        // Rule 1:
-        // Any live cell with fewer than two live neighbours dies,
-        // as if by under population
-        if (status && neighbours < 2) {
-          result = -1;
-        }
-        // Rule 2:
-        // Any live cell with two or three neighbours lives on
-        // to the next generation
-        if ((status && neighbours === 2) || neighbours === 3) {
-          result = 0;
-        }
-        // Rule 3:
-        // Any live cell with more than three live neighbours dies,
-        // as if by overpopulation
-        if (status && neighbours > 3) {
-          result = -1;
-        }
-        // Rule 4:
-        // Any dead cell with exactly three live neighbours becomes
-        // a live cell, as if by reproduction
-        if (!status && neighbours === 3) {
-          result = 0;
-        }
-        tempArr[i][j] = {nodeStatus: result};
-      }
-    }
-    // set new gridList content
-    this.simulationService.setGridList(tempArr);
-  }
-
-  /**
    * Resets all gridList cells back to the
    * start value.
    */
@@ -275,6 +202,7 @@ export class GridComponent implements OnInit, OnDestroy {
     this.gridList[startLocation.x][startLocation.y].nodeStatus = 1;
     const goalLocation = this.simulationService.getGridGoalLocation();
     this.gridList[goalLocation.x][goalLocation.y].nodeStatus = 2;
+    this.simulationService.setGridList(_.cloneDeep(this.gridList));
   }
 
   /**
@@ -309,14 +237,15 @@ export class GridComponent implements OnInit, OnDestroy {
    */
   private importToken(token: string): void {
     this.reset();
-    const regex = /\[\d+,\d+\]/gm;
+    const regex = /\[\d+,\d+,\d+\]/gm;
     const tempArr = token.match(regex);
     if (tempArr) {
       tempArr.forEach((element) => {
         element = element.substring(1, element.length - 1);
-        const xy = element.split(',');
-        this.setCell(+xy[0], +xy[1], 0);
+        const xyz = element.split(',');
+        this.setCell(+xyz[0], +xyz[1], +xyz[2]);
       });
+      this.simulationService.setGridList(_.cloneDeep(this.gridList));
     }
   }
 
@@ -329,8 +258,9 @@ export class GridComponent implements OnInit, OnDestroy {
     let exportToken = '';
     for (let i = 0; i < this.width; i++) {
       for (let j = 0; j < this.height; j++) {
-        if (this.gridList[i][j].nodeStatus) {
-          exportToken += '[' + i + ',' + j + ']';
+        const status = this.gridList[i][j].nodeStatus;
+        if (status >= 0) {
+          exportToken += '[' + i + ',' + j + ',' + status + ']';
         }
       }
     }

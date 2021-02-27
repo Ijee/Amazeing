@@ -53,10 +53,8 @@ export class ExportModalComponent implements OnInit, OnDestroy {
    */
   toClipboard(): void {
     this.showExport = false;
-    const copyString = document.querySelector('#copystring') as HTMLInputElement;
-    copyString.setAttribute('type', 'text');
+    const copyString = document.querySelector('#exportArea') as HTMLTextAreaElement;
     copyString.select();
     document.execCommand('copy');
   }
-
 }
