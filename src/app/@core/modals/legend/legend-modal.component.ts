@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {SimulationService} from '../../services/simulation.service';
@@ -15,9 +15,8 @@ export class LegendModalComponent implements OnInit, OnDestroy {
 
   private readonly destroyed$: Subject<void>;
 
-  constructor(public simulationService: SimulationService, private elementRef: ElementRef) {
+  constructor(public simulationService: SimulationService) {
     this.showLegend = false;
-    console.log('i am a legend');
 
     this.destroyed$ = new Subject<void>();
   }

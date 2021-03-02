@@ -14,8 +14,6 @@ export interface MazeAlgorithmInterface {
 
   /**
    * Returns the new step / iteration based on the currentGrid
-   *
-   * @param currentGrid - the current grid that is displayed on the site
    */
   nextStep(): Node[][];
 

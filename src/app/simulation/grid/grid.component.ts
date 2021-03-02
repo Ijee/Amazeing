@@ -50,9 +50,6 @@ export class GridComponent implements OnInit, OnDestroy {
     this.simulationService.setGridGoalLocation(initialGoalX, initialNodeHeightY);
     this.simulationService.setGridList(this.gridList);
     this.simulationService.setCellCount(this.width * this.height);
-    // if you're asking yourself: 'why did this madman use a replaysubject?
-    // I liked the name and also no it is not better to use than a normal array as
-    // also have the gridHistory in the gameService.
     this.simulationService.getGridList().pipe(takeUntil(this.destroyed$)).subscribe(data => {
       if (data.length) {
         data.forEach((column, i) => {
