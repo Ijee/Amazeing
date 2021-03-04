@@ -1,7 +1,7 @@
 <app-stats class="box" [isMouseDown]="isMouseDown"></app-stats>
-<div class="block outer-wall" [ngClass]="{'wrapper-forbidden': (simulationService.getIteration() | async) > 0}">
+<div class="block outer-wall" [ngClass]="{'wrapper-forbidden': recordService.getIteration() > 0}">
   <div class="game-grid"
-       [ngClass]="{'game-grid-lock': (simulationService.getIteration() | async) > 0}"
+       [ngClass]="{'game-grid-lock': recordService.getIteration()> 0}"
        (mousedown)="isMouseDown = true"
        (mouseup)="onMouseUp()"
        (mouseleave)="onMouseUp()">
@@ -21,7 +21,7 @@
       <p class="control">
         <button class="button is-outlined is-size-7-mobile"
                 [ngClass]="simulationService.getDrawingMode() === 1 ? 'is-active' : ''"
-                [disabled]="(this.simulationService.getIteration() | async) > 0"
+                [disabled]="recordService.getIteration() > 0"
                 (click)="simulationService.setDrawingMode(1)">
                 <span class="icon start-icon">
                   <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
@@ -31,7 +31,7 @@
       </p>
       <p class="control">
         <button class="button is-outlined is-size-7-mobile"
-                [disabled]="(this.simulationService.getIteration() | async) > 0 || !(settingsService.getAlgorithmMode() === 'pathFinding')">
+                [disabled]="this.recordService.getIteration()> 0 || !(settingsService.getAlgorithmMode() === 'pathFinding')">
                 <span class="icon">
                   <fa-icon [icon]="['fas', 'balance-scale-right']"></fa-icon>
                 </span>
@@ -40,7 +40,7 @@
       </p>
       <p class="control">
         <button class="button is-outlined is-size-7-mobile"
-                [disabled]="(this.simulationService.getIteration() | async) > 0"
+                [disabled]="this.recordService.getIteration() > 0"
                 title="random"
                 (click)="simulationService.setRandomSeed()">
         <span class="icon">
@@ -52,7 +52,7 @@
       <p class="control">
         <button class="button is-outlined is-size-7-mobile"
                 [ngClass]="simulationService.getDrawingMode() === 2 ? 'is-active' : ''"
-                [disabled]="(this.simulationService.getIteration() | async) > 0"
+                [disabled]="recordService.getIteration() > 0"
                 (click)="simulationService.setDrawingMode(2)">
                 <span class="icon goal-icon">
                   <fa-icon [icon]="['fas', 'square-full']"></fa-icon>

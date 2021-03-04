@@ -3,7 +3,7 @@
     <strong class="has-text-centered">
       <p class="heading is-size-6-mobile">Iteration</p>
       <p class="title is-size-6-mobile"
-      >{{ simulationService.getIteration() | async }}</p>
+      >{{ recordService.getIteration() }}</p>
     </strong>
   </div>
   <div class="column is-half-mobile">
@@ -12,7 +12,7 @@
       <p class="title is-size-6-mobile"
          [class]="settingsService.getAlgorithmMode()=== 'maze' ? 'has-text-primary' : 'has-text-danger'"
          appCountAnimation
-         [newValue]="simulationService.getNodeCount() | async"
+         [newValue]="recordService.getNodeCount()"
          [disableAnimation]="isMouseDown || !settingsService.getAnimationsSetting()">
         0
       </p>
@@ -24,9 +24,9 @@
       <p class="title is-size-6-mobile"
          [class]="settingsService.getAlgorithmMode() === 'maze' ? 'has-text-primary' : 'has-text-danger'"
          appCountAnimation
-         [newValue]="simulationService.getNodesAlive() | async"
+         [newValue]="recordService.getNodesAlive()"
          [disableAnimation]="isMouseDown || !settingsService.getAnimationsSetting()">
-        {{ simulationService.getNodesAlive() | async }}
+        {{ recordService.getNodesAlive() }}
       </p>
     </strong>
   </div>
@@ -36,7 +36,7 @@
       <p class="title is-size-6-mobile"
          [class]="settingsService.getAlgorithmMode() === 'maze' ? 'has-text-primary' : 'has-text-danger'"
          appCountAnimation
-         [newValue]="simulationService.getNodesCreated() | async"
+         [newValue]="recordService.getNodesCreated()"
          [disableAnimation]="isMouseDown || !settingsService.getAnimationsSetting()">
         0
       </p>

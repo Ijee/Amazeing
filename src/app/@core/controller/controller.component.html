@@ -33,9 +33,9 @@
             [disabled]="(simulationService.getDisableController() | async)
             || (simulationService.getSimulationStatus() | async)"
             (click)="simulationService.reset()">
-      <fa-icon *ngIf="(simulationService.getIteration() | async) > 0" class="fa-flip-horizontal"
+      <fa-icon *ngIf="recordService.getIteration() > 0" class="fa-flip-horizontal"
                [icon]="['fas', 'redo']"></fa-icon>
-      <fa-icon *ngIf="(simulationService.getIteration() | async) === 0" [icon]="['fas', 'trash']"></fa-icon>
+      <fa-icon *ngIf="recordService.getIteration() === 0" [icon]="['fas', 'trash']"></fa-icon>
     </button>
   </p>
   <p class="control">

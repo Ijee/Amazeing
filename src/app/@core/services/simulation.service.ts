@@ -6,6 +6,7 @@ import {SettingsService} from './settings.service';
 import {MazeService} from './maze.service';
 import {PathFindingService} from './path-finding.service';
 import {GridLocation} from '../../@shared/GridLocation';
+import {RecordService} from './record.service';
 
 
 @Injectable({
@@ -13,18 +14,12 @@ import {GridLocation} from '../../@shared/GridLocation';
 })
 export class SimulationService {
   private readonly gridList$: BehaviorSubject<Node[][]>;
-  private readonly gridHistory: Array<Node[][]>;
+
   private gridSavePoint: Node[][];
   private gridSavePointStats: SavePointStats;
   private gridStartLocation: GridLocation;
   private gridGoalLocation: GridLocation;
-  private readonly iteration$: BehaviorSubject<number>;
-  private readonly nodeCount$: BehaviorSubject<number>;
-  private readonly nodesAlive$: BehaviorSubject<number>;
-  private readonly nodesAliveHistory: Array<number>;
-  private readonly nodesCreated$: BehaviorSubject<number>;
-  private readonly nodesCreatedHistory: Array<number>;
-  private rewritingHistory: boolean;
+
   private readonly simulationSpeed$: BehaviorSubject<number>;
   private drawingMode: number;
   private readonly disableController$: BehaviorSubject<boolean>;
@@ -41,21 +36,15 @@ export class SimulationService {
   private intervalID: number;
 
   constructor(private settngsService: SettingsService,
+              private recordService: RecordService,
               private mazeService: MazeService,
               private pahtFindingService: PathFindingService) {
     this.gridList$ = new BehaviorSubject<Node[][]>([]);
-    this.gridHistory = [];
+
     this.gridSavePoint = [];
     this.gridStartLocation = null;
     this.gridGoalLocation = null;
-    // Stats
-    this.iteration$ = new BehaviorSubject<number>(0);
-    this.nodeCount$ = new BehaviorSubject<number>(0);
-    this.nodesAlive$ = new BehaviorSubject<number>(0);
-    this.nodesAliveHistory = [0];
-    this.nodesCreated$ = new BehaviorSubject<number>(0);
-    this.nodesCreatedHistory = [0];
-    this.rewritingHistory = false;
+
     // Responsible for controlling the simulation - also used to propagate
     // events from the controller component
     this.simulationSpeed$ = new BehaviorSubject(100);
@@ -123,42 +112,6 @@ export class SimulationService {
   }
 
   /**
-   * Adds a new value to the current tick on every tick (very noice)
-   *
-   * @param value - the new value to be added
-   */
-  public changeIteration(value: number): void {
-    this.iteration$.next(this.iteration$.getValue() + value);
-  }
-
-  /**
-   * Sets a new value to the current cellCount
-   *
-   * @param newCellCount - the new cellCount to be set
-   */
-  public setCellCount(newCellCount: number): void {
-    this.nodeCount$.next(newCellCount);
-  }
-
-  /**
-   * Adds a new value to the current nodesAlive on every iteration
-   *
-   * @param value - the new value to be added
-   */
-  public changeNodesAlive(value: number): void {
-    this.nodesAlive$.next(this.nodesAlive$.getValue() + value);
-  }
-
-  /**
-   * Adds a new value to the current cellsCreated on every iteration
-   *
-   * @param value - the new value to be added
-   */
-  public changeCellsCreated(value: number): void {
-    this.nodesCreated$.next(this.nodesCreated$.getValue() + value);
-  }
-
-  /**
    * Sets the new status of the controller to enabled or disabled
    *
    * @param disabled - whether or not it should be disabled
@@ -210,9 +163,9 @@ export class SimulationService {
   public save(newGrid: Node[][]): void {
     this.setGridList(newGrid);
     this.gridSavePointStats = {
-      iteration: this.iteration$.getValue(),
-      nodesAlive: this.nodesAlive$.getValue(),
-      nodesCreated: this.nodesCreated$.getValue()
+      iteration: this.recordService.getIteration(),
+      nodesAlive: this.recordService.getNodesAlive(),
+      nodesCreated: this.recordService.getNodesCreated()
     };
     this.gridSavePoint = newGrid;
   }
@@ -222,10 +175,10 @@ export class SimulationService {
    * for step to continue. see grid component SimulationService.getStep
    */
   public addStep(): void {
-    if (this.iteration$.getValue() === 0) {
+    if (this.recordService.getIteration() === 0) {
       this.mazeService.setInitialData(_.cloneDeep(this.gridList$.getValue()), this.getGridStartLocation());
     }
-    this.changeIteration(1);
+    this.recordService.setIteration(this.recordService.getIteration() + 1);
     let newGrid: Node[][];
     if (this.settngsService.getAlgorithmMode() === 'maze') {
       newGrid = this.mazeService.getNextStep();
@@ -243,57 +196,22 @@ export class SimulationService {
     }
   }
 
-  /**
-   * Is responsible to save the current state of the stats and
-   * grids on a iteration by iteration basis so that it can be retrieved
-   *
-   * Also the maximum steps to be set are 9. The simulation needs n + 1 to work though
-   *
-   * @param gridList - the gridList used in the grid component
-   */
-  public setHistory(gridList: Node[][]): void {
-    if (this.gridHistory.length >= 10) {
-      this.gridHistory.shift();
-      this.nodesCreatedHistory.shift();
-      this.nodesAliveHistory.shift();
-      this.gridHistory.push(gridList);
-      // TODO: this if fixes an issue that only happens when the grid component is being initialized
-      //  and would put the the last value twice... (also the if below)
-      //  see if there is another way to fix it
-      if (this.nodesCreatedHistory[this.nodesCreatedHistory.length - 1] !== this.nodesCreated$.getValue()) {
-        this.nodesCreatedHistory.push(this.nodesCreated$.getValue());
-        this.nodesAliveHistory.push(this.nodesAlive$.getValue());
-      }
-    } else {
-      this.gridHistory.push(gridList);
-      if (this.nodesCreatedHistory[this.nodesCreatedHistory.length - 1] !== this.nodesCreated$.getValue()) {
-        this.nodesCreatedHistory.push(this.nodesCreated$.getValue());
-        this.nodesAliveHistory.push(this.nodesAlive$.getValue());
-      }
-    }
-  }
 
-  /**
-   * A flag that has to be set in order not to overwrite the
-   * history of the stats/gridList
-   * @param newValue - a boolean that determines the status
-   */
-  public setRewritingHistory(newValue: boolean): void {
-    this.rewritingHistory = newValue;
-  }
+
+
 
   /**
    * This manipulates the history of all tracked stats aas well as tge gridList
    * when the backwardsStep is called on the controller
    */
   public manipulateHistory(): void {
-    this.gridHistory.pop();
-    this.setGridList(this.gridHistory[this.gridHistory.length - 1]);
-    this.setRewritingHistory(false);
-    this.nodesCreatedHistory.pop();
-    this.nodesCreated$.next(this.nodesCreatedHistory[this.nodesCreatedHistory.length - 1]);
-    this.nodesAliveHistory.pop();
-    this.nodesAlive$.next(this.nodesAliveHistory[this.nodesAliveHistory.length - 1]);
+    this.recordService.setGridHistory(this.recordService.getGridHistory().slice(0, -1));
+    this.setGridList(this.recordService.getGridHistory()[this.recordService.getGridHistory().length - 1]);
+    this.recordService.setRewritingHistory(false);
+    this.recordService.popNodesCreatedHistory();
+    this.recordService.setNodesCreated(this.recordService.getNodesCreatedHistory().length - 1);
+    this.recordService.popNodesAliveHistory();
+    this.recordService.setNodesAlive(this.recordService.getNodesAliveHistory().length - 1);
   }
 
   /**
@@ -335,15 +253,15 @@ export class SimulationService {
    */
   public reset(): void {
     this.setSimulationStatus(false);
-    if (this.iteration$.value > 0 && this.gridSavePointStats) {
-      this.iteration$.next(this.gridSavePointStats.iteration);
-      this.nodesAlive$.next(this.gridSavePointStats.nodesAlive);
-      this.nodesCreated$.next(this.gridSavePointStats.nodesCreated);
+    if (this.recordService.getIteration() > 0 && this.gridSavePointStats) {
+      this.recordService.setIteration(this.gridSavePointStats.iteration);
+      this.recordService.setNodesAlive(this.gridSavePointStats.nodesAlive);
+      this.recordService.setNodesCreated(this.gridSavePointStats.nodesCreated);
       this.gridList$.next(this.gridSavePoint);
     } else {
-      this.iteration$.next(0);
-      this.nodesAlive$.next(0);
-      this.nodesCreated$.next(0);
+      this.recordService.setIteration(0);
+      this.recordService.setNodesAlive(0);
+      this.recordService.setNodesCreated(0);
       this.gridList$.next([]);
       this.gridSavePoint = [];
       this.gridSavePointStats = null;
@@ -362,9 +280,9 @@ export class SimulationService {
       });
     });
     this.gridList$.next(grid);
-    this.iteration$.next(0);
-    this.nodesAlive$.next(0);
-    this.nodesCreated$.next(0);
+    this.recordService.setIteration(0);
+    this.recordService.setNodesAlive(0);
+    this.recordService.setNodesCreated(0);
     this.backwardStepsAmount$.next(0);
     this.gridSavePoint = [];
     this.gridSavePointStats = null;
@@ -445,40 +363,7 @@ export class SimulationService {
     return this.isSimulationActive$;
   }
 
-  /**
-   * Returns the current iteration
-   */
-  public getIteration(): Observable<number> {
-    return this.iteration$;
-  }
 
-  /**
-   * Returns the current cellCount
-   */
-  public getNodeCount(): Observable<number> {
-    return this.nodeCount$;
-  }
-
-  /**
-   * Returns the current cellsAlive
-   */
-  public getNodesAlive(): Observable<number> {
-    return this.nodesAlive$;
-  }
-
-  /**
-   * Returns the current cellsCreated
-   */
-  public getNodesCreated(): Observable<number> {
-    return this.nodesCreated$;
-  }
-
-  /**
-   * Returns the current rewritingHistory value
-   */
-  public getRewritingHistory(): boolean {
-    return this.rewritingHistory;
-  }
 
   /**
    * Returns the current simulation speed

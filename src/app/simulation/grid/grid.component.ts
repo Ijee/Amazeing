@@ -6,6 +6,7 @@ import {takeUntil} from 'rxjs/operators';
 import * as _ from 'lodash';
 import {SettingsService} from '../../@core/services/settings.service';
 import {MazeService} from '../../@core/services/maze.service';
+import {RecordService} from '../../@core/services/record.service';
 
 @Component({
   selector: 'app-grid',
@@ -22,6 +23,7 @@ export class GridComponent implements OnInit, OnDestroy {
   private isInitialized: boolean;
 
   constructor(public simulationService: SimulationService,
+              public recordService: RecordService,
               public settingsService: SettingsService,
               public mazeService: MazeService) {
     this.width = 47;
@@ -49,7 +51,7 @@ export class GridComponent implements OnInit, OnDestroy {
     this.gridList[initialGoalX][initialNodeHeightY].nodeStatus = 2;
     this.simulationService.setGridGoalLocation(initialGoalX, initialNodeHeightY);
     this.simulationService.setGridList(this.gridList);
-    this.simulationService.setCellCount(this.width * this.height);
+    this.recordService.setNodeCount(this.width * this.height);
     this.simulationService.getGridList().pipe(takeUntil(this.destroyed$)).subscribe(data => {
       if (data.length) {
         data.forEach((column, i) => {
@@ -60,15 +62,15 @@ export class GridComponent implements OnInit, OnDestroy {
       } else {
         this.reset();
       }
-      if (!this.simulationService.getRewritingHistory()) {
-        this.simulationService.setHistory(data);
+      if (!this.recordService.getRewritingHistory()) {
+        this.recordService.setHistory(data);
       }
     });
 
     this.simulationService.getBackwardStep().pipe(takeUntil(this.destroyed$)).subscribe(() => {
-      this.simulationService.setRewritingHistory(true);
+      this.recordService.setRewritingHistory(true);
       this.simulationService.manipulateHistory();
-      this.simulationService.changeIteration(-1);
+      this.recordService.setIteration(this.recordService.getIteration() - 1);
     });
     // this.simulationService.getStep().pipe(takeUntil(this.destroyed$)).subscribe(() => {
     //
@@ -120,11 +122,11 @@ export class GridComponent implements OnInit, OnDestroy {
   updateCellStats(newValue: number): void {
     switch (newValue) {
       case -1:
-        this.simulationService.changeNodesAlive(-1);
+        this.recordService.setNodesAlive(this.recordService.getNodesAlive() - 1);
         break;
       case 0:
-        this.simulationService.changeNodesAlive(1);
-        this.simulationService.changeCellsCreated(1);
+        this.recordService.setNodesAlive(this.recordService.getNodesAlive() + 1);
+        this.recordService.setNodesCreated(this.recordService.getNodesCreated() + 1);
         break;
     }
   }
