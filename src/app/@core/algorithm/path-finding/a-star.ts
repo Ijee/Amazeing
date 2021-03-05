@@ -1,32 +1,37 @@
 import {PathFindingAlgorithmInterface} from './path-finding-algorithm.interface';
-import {PathFindingAlgorithms, Node, PathFindingHeuristics} from '../../../../types';
+import {PathFindingAlgorithms, Node, PathFindingHeuristics, algoStatNames} from '../../../../types';
+import {GridLocation} from '../../../@shared/GridLocation';
 
 export class AStar implements PathFindingAlgorithmInterface {
-  isAlgorithmActive: boolean;
+  currentGrid: Node[][];
+  algoStatNames: algoStatNames;
 
   constructor() {
-    this.isAlgorithmActive = false;
+    this.algoStatNames = {
+      algoStatName1: 'TODO',
+      algoStatName2: 'TODO',
+      algoStatName3: 'TODO'
+    };
   }
 
-
-  public completeAlgorithm(currentGrid: Node[][], currentHeuristic: PathFindingHeuristics): Node[][] {
-    return currentGrid;
+  public nextStep(): Node[][] {
+    return this.currentGrid;
   }
 
-  public nextStep(currentGrid: Node[][], currentHeuristic: PathFindingHeuristics): Node[][] {
-    return currentGrid;
+  public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation, currentHeuristic: PathFindingHeuristics): void {
+    return null;
   }
 
   public getAlgorithmName(): PathFindingAlgorithms {
     return 'A-Star';
   }
 
-  getUpdatedStats(): string {
-    return 'drölf';
+  getAlgorithmStatNames(): algoStatNames {
+    return this.algoStatNames;
   }
 
-  getIsAlgorithmActive(): boolean {
-    return this.isAlgorithmActive;
+  getUpdatedStats(): string {
+    return 'drölf';
   }
 
   /**

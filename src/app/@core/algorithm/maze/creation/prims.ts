@@ -1,5 +1,5 @@
 import {MazeAlgorithmInterface} from '../maze-algorithm.interface';
-import {MazeAlgorithms, Node} from '../../../../../types';
+import {algoStatNames, MazeAlgorithms, Node} from '../../../../../types';
 import {HashSet} from '../../../../@shared/HashSet';
 import {GridLocation} from '../../../../@shared/GridLocation';
 
@@ -11,13 +11,17 @@ import {GridLocation} from '../../../../@shared/GridLocation';
  * All mazes are also based on the fact that a node can either be a wall or an empty node.
  */
 export class Prims implements MazeAlgorithmInterface {
-  isAlgorithmActive: boolean;
   currentGrid: Node[][];
+  algoStatNames: algoStatNames;
   private readonly frontierNodes: HashSet<GridLocation>;
 
 
   constructor() {
-    this.isAlgorithmActive = false;
+    this.algoStatNames = {
+      algoStatName1: 'Node Count',
+      algoStatName2: 'Frontier Nodes',
+      algoStatName3: 'Walls Created'
+    };
     this.frontierNodes = new HashSet<GridLocation>();
   }
 
@@ -128,12 +132,12 @@ export class Prims implements MazeAlgorithmInterface {
     return 'Prims';
   }
 
-  getUpdatedStats(): string {
-    return 'drölf';
+  public getAlgorithmStatNames(): algoStatNames {
+    return this.algoStatNames;
   }
 
-  public getIsAlgorithmActive(): boolean {
-    return this.isAlgorithmActive;
+  getUpdatedStats(): string {
+    return 'drölf';
   }
 
   /**

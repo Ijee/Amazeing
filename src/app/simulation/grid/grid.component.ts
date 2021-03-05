@@ -51,7 +51,7 @@ export class GridComponent implements OnInit, OnDestroy {
     this.gridList[initialGoalX][initialNodeHeightY].nodeStatus = 2;
     this.simulationService.setGridGoalLocation(initialGoalX, initialNodeHeightY);
     this.simulationService.setGridList(this.gridList);
-    this.recordService.setNodeCount(this.width * this.height);
+    this.recordService.setAlgoStat1(this.width * this.height);
     this.simulationService.getGridList().pipe(takeUntil(this.destroyed$)).subscribe(data => {
       if (data.length) {
         data.forEach((column, i) => {
@@ -122,11 +122,11 @@ export class GridComponent implements OnInit, OnDestroy {
   updateCellStats(newValue: number): void {
     switch (newValue) {
       case -1:
-        this.recordService.setNodesAlive(this.recordService.getNodesAlive() - 1);
+        this.recordService.setAlgoStat2(this.recordService.getAlgoStat2() - 1);
         break;
       case 0:
-        this.recordService.setNodesAlive(this.recordService.getNodesAlive() + 1);
-        this.recordService.setNodesCreated(this.recordService.getNodesCreated() + 1);
+        this.recordService.setAlgoStat2(this.recordService.getAlgoStat2() + 1);
+        this.recordService.setAlgoStat3(this.recordService.getAlgoStat3() + 1);
         break;
     }
   }

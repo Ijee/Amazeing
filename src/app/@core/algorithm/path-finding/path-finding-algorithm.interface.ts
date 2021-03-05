@@ -1,22 +1,24 @@
-import {Node, PathFindingAlgorithms, PathFindingHeuristics} from '../../../../types';
+import {algoStatNames, Node, PathFindingAlgorithms, PathFindingHeuristics} from '../../../../types';
+import {GridLocation} from '../../../@shared/GridLocation';
 
 export interface PathFindingAlgorithmInterface {
-
-  /**
-   * Return the complete algorithm directly
-   *
-   * @param currentGrid - the current grid that is displayed on the site
-   * @param currentHeuristic - the current heuristic that is set
-   */
-  completeAlgorithm(currentGrid: Node[][], currentHeuristic: PathFindingHeuristics): Node[][];
+  currentGrid: Node[][];
+  algoStatNames: algoStatNames;
 
   /**
    * Returns the new step / iteration based on the currentGrid
-   *
-   * @param currentGrid - the current grid that is displayed on the site
-   * @param currentHeuristic - the current heuristic that is set
    */
-  nextStep(currentGrid: Node[][], currentHeuristic: PathFindingHeuristics): Node[][];
+  nextStep(): Node[][];
+
+  /**
+   * Sets the starting point for the algorithm to the one
+   * the user set on the grid
+   *
+   * @param currentGrid - the current grid from the simulation service
+   * @param currentStartPoint - the starting point for the algorithm
+   * @param currentHeuristic - what heuristic should be used for the algorithm
+   */
+  setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation, currentHeuristic: PathFindingHeuristics): void;
 
   /**
    * Returns the name of the algorithm
@@ -24,15 +26,14 @@ export interface PathFindingAlgorithmInterface {
   getAlgorithmName(): PathFindingAlgorithms;
 
   /**
+   * Returns an object that determines what the stat is supposed to represent
+   */
+  getAlgorithmStatNames(): algoStatNames;
+
+  /**
    * Returns the added stats for each step
    */
   getUpdatedStats(): string;
-
-  /**
-   * Returns whether or not the algorithm is currently active.
-   * This is different from SimulationService - isSimulationActive
-   */
-  getIsAlgorithmActive(): boolean;
 
 
   /**

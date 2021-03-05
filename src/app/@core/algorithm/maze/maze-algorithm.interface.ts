@@ -1,9 +1,9 @@
-import {MazeAlgorithms, Node} from '../../../../types';
+import {algoStatNames, MazeAlgorithms, Node} from '../../../../types';
 import {GridLocation} from '../../../@shared/GridLocation';
 
 export interface MazeAlgorithmInterface {
   currentGrid: Node[][];
-  isAlgorithmActive: boolean;
+  algoStatNames: algoStatNames;
 
   /**
    * Return the complete algorithm directly
@@ -33,16 +33,14 @@ export interface MazeAlgorithmInterface {
   getAlgorithmName(): MazeAlgorithms;
 
   /**
+   * Returns an object that determines what the stat is supposed to represent
+   */
+  getAlgorithmStatNames(): algoStatNames;
+
+  /**
    * Returns the added stats for each step
    */
   getUpdatedStats(): string;
-
-
-  /**
-   * Returns whether or not the algorithm is currently active.
-   * This is different from SimulationService - isSimulationActive
-   */
-  getIsAlgorithmActive(): boolean;
 
   /**
    * Returns the current algorithm pseudo code

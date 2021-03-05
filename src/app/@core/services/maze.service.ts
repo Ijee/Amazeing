@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {MazeAlgorithms, Node} from '../../../types';
+import {algoStatNames, MazeAlgorithms, Node} from '../../../types';
 import {MazeAlgorithmInterface} from '../algorithm/maze/maze-algorithm.interface';
 import {Prims} from '../algorithm/maze/creation/prims';
 import {GridLocation} from '../../@shared/GridLocation';
@@ -79,6 +79,16 @@ export class MazeService {
     return this.currentAlgorithm.getAlgorithmName();
   }
 
+  /**
+   * Returns an object that determines what the stat is supposed to represent
+   */
+  public getAlgorithmStatNames(): algoStatNames {
+    return this.currentAlgorithm.getAlgorithmStatNames();
+  }
+
+  /**
+   * Returns the pseudocode for the currently selected algorithm
+   */
   public getPseudoCode(): string {
     return this.currentAlgorithm.getPseudoCode();
   }

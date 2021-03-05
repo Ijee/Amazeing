@@ -1,4 +1,8 @@
-import {EqualsHashCode} from './app/@shared/EqualsHashCode';
+export type algoStatNames = {
+  algoStatName1: string | null,
+  algoStatName2: string | null,
+  algoStatName3: string | null,
+}
 
 export type Node = {
   nodeStatus: number;
@@ -6,8 +10,9 @@ export type Node = {
 
 export type SavePointStats = {
   iteration: number;
-  nodesAlive: number;
-  nodesCreated: number;
+  algoStat1: number;
+  algoStat2: number;
+  algoStat3: number;
 };
 
 export type MazeAlgorithms =

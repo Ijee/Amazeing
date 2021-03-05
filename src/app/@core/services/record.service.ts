@@ -8,22 +8,24 @@ import {Node} from '../../../types';
 export class RecordService {
   private gridHistory: Array<Node[][]>;
   private iteration: number;
-  private nodeCount: number;
-  private nodesAlive: number;
-  private nodesAliveHistory: Array<number>;
-  private nodesCreated: number;
-  private nodesCreatedHistory: Array<number>;
+  private algoStat1: number;
+  private algoStat1History: Array<number>;
+  private algoStat2: number;
+  private algoStat2History: Array<number>;
+  private algoStat3: number;
+  private algoStat3History: Array<number>;
   private rewritingHistory: boolean;
 
   constructor() {
     this.gridHistory = [];
     // Stats
     this.iteration = 0;
-    this.nodeCount = 0;
-    this.nodesAlive = 0;
-    this.nodesAliveHistory = [0];
-    this.nodesCreated = 0;
-    this.nodesCreatedHistory = [0];
+    this.algoStat1 = 0;
+    this.algoStat1History = [0];
+    this.algoStat2 = 0;
+    this.algoStat2History = [0];
+    this.algoStat3 = 0;
+    this.algoStat3History = [0];
     this.rewritingHistory = false;
   }
 
@@ -38,23 +40,30 @@ export class RecordService {
   public setHistory(gridList: Node[][]): void {
     if (this.gridHistory.length >= 10) {
       this.gridHistory.shift();
-      this.nodesCreatedHistory.shift();
-      this.nodesAliveHistory.shift();
+      this.algoStat3History.shift();
+      this.algoStat2History.shift();
+      this.algoStat1History.shift();
       this.gridHistory.push(gridList);
       // TODO: this if fixes an issue that only happens when the grid component is being initialized
       //  and would put the the last value twice... (also the if below)
       //  see if there is another way to fix it
-      if (this.nodesCreatedHistory[this.nodesCreatedHistory.length - 1] !== this.nodesCreated) {
-        this.nodesCreatedHistory.push(this.nodesCreated);
-        this.nodesAliveHistory.push(this.nodesAlive);
+      if (this.algoStat3History[this.algoStat3History.length - 1] !== this.algoStat3) {
+        this.algoStat3History.push(this.algoStat3);
+        this.algoStat2History.push(this.algoStat2);
+        this.algoStat1History.push(this.algoStat1);
       }
     } else {
       this.gridHistory.push(gridList);
-      if (this.nodesCreatedHistory[this.nodesCreatedHistory.length - 1] !== this.nodesCreated) {
-        this.nodesCreatedHistory.push(this.nodesCreated);
-        this.nodesAliveHistory.push(this.nodesAlive);
+      if (this.algoStat3History[this.algoStat3History.length - 1] !== this.algoStat3) {
+        this.algoStat3History.push(this.algoStat3);
+        this.algoStat2History.push(this.algoStat2);
+        this.algoStat1History.push(this.algoStat1);
       }
     }
+  }
+
+  public updateAlgorithmStats(): void {
+    return null;
   }
 
 
@@ -73,51 +82,57 @@ export class RecordService {
   }
 
   /**
-   * Sets a new value to the current cellCount
-   *
-   * @param newNodeCount - the new cellCount to be set
-   */
-  public setNodeCount(newNodeCount: number): void {
-    this.nodeCount = newNodeCount;
-  }
-
-  /**
-   * Adds a new value to the current nodesAlive on every iteration
+   * Sets the new value for the first tracked algorithm stat
    *
    * @param value - the new value to be set
    */
-  public setNodesAlive(value: number): void {
-    this.nodesAlive = value;
-  }
-
-  public setNodesAliveHistory(value: Array<number>): void {
-    this.nodesAliveHistory = value;
-  }
-
-  public popNodesAliveHistory(): void {
-    this.nodesAliveHistory.pop();
+  public setAlgoStat1(value: number): void {
+    this.algoStat1 = value;
   }
 
   /**
-   * Adds a new value to the current cellsCreated on every iteration
+   * Sets the history that is being tracked on each iteration for the first algorithm stat
+   *
+   * @param value - the new arr to be set
+   */
+  public setAlgoStat1History(value: Array<number>): void {
+    this.algoStat1History = value;
+  }
+
+  /**
+   * Sets the new value for the second tracked algorithm stat
    *
    * @param value - the new value to be set
    */
-  public setNodesCreated(value: number): void {
-    this.nodesCreated = value;
+  public setAlgoStat2(value: number): void {
+    this.algoStat2 = value;
   }
 
-  public setNodesCreatedHistory(newArr: Array<number>): void {
-    this.nodesCreatedHistory = newArr;
+  /**
+   * Sets the history that is being tracked on each iteration for the second algorithm stat
+   *
+   * @param value - the new arr to be set
+   */
+  public setAlgoStat2History(value: Array<number>): void {
+    this.algoStat2History = value;
   }
 
-  public addNodesCreatedHistory(value: number): void {
-    this.nodesCreatedHistory.push(value);
+  /**
+   * Sets the new value for the third tracked algorithm stat
+   *
+   * @param value - the new value to be set
+   */
+  public setAlgoStat3(value: number): void {
+    this.algoStat3 = value;
   }
 
-
-  public popNodesCreatedHistory(): void {
-    this.nodesCreatedHistory.pop();
+  /**
+   * Sets the history that is being tracked on each iteration for the third algorithm stat
+   *
+   * @param value - the new arr to be set
+   */
+  public setAlgoStat3History(value: Array<number>): void {
+    this.algoStat3History = value;
   }
 
   /**
@@ -141,32 +156,45 @@ export class RecordService {
   }
 
   /**
-   * Returns the current cellCount
+   * Returns the algorithm stats that is tracked on the first variable
    */
-  public getNodeCount(): number {
-    return this.nodeCount;
+  public getAlgoStat1(): number {
+    return this.algoStat1;
   }
 
   /**
-   * Returns the current cellsAlive
+   * Returns the history of the first tracked algorithm stat
    */
-  public getNodesAlive(): number {
-    return this.nodesAlive;
-  }
-
-  public getNodesAliveHistory(): Array<number> {
-    return this.nodesAliveHistory;
+  public getAlgoStat1History(): Array<number> {
+    return this.algoStat1History;
   }
 
   /**
-   * Returns the current cellsCreated
+   * Returns the algorithm stats that is tracked on the second variable
    */
-  public getNodesCreated(): number {
-    return this.nodesCreated;
+  public getAlgoStat2(): number {
+    return this.algoStat2;
   }
 
-  public getNodesCreatedHistory(): Array<number> {
-    return this.nodesAliveHistory;
+  /**
+   * Returns the history of the second tracked algorithm stat
+   */
+  public getAlgoStat2History(): Array<number> {
+    return this.algoStat2History;
+  }
+
+  /**
+   * Returns the algorithm stats that is tracked on the third variable
+   */
+  public getAlgoStat3(): number {
+    return this.algoStat3;
+  }
+
+  /**
+   * Returns the history of the third tracked algorithm stat
+   */
+  public getAlgoStat3History(): Array<number> {
+    return this.algoStat3History;
   }
 
   /**

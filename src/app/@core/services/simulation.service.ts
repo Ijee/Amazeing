@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import * as _ from 'lodash';
-import {Node, SavePointStats} from '../../../types';
+import {algoStatNames, Node, SavePointStats} from '../../../types';
 import {SettingsService} from './settings.service';
 import {MazeService} from './maze.service';
 import {PathFindingService} from './path-finding.service';
@@ -164,8 +164,9 @@ export class SimulationService {
     this.setGridList(newGrid);
     this.gridSavePointStats = {
       iteration: this.recordService.getIteration(),
-      nodesAlive: this.recordService.getNodesAlive(),
-      nodesCreated: this.recordService.getNodesCreated()
+      algoStat1: this.recordService.getAlgoStat1(),
+      algoStat2: this.recordService.getAlgoStat2(),
+      algoStat3: this.recordService.getAlgoStat3()
     };
     this.gridSavePoint = newGrid;
   }
@@ -175,19 +176,23 @@ export class SimulationService {
    * for step to continue. see grid component SimulationService.getStep
    */
   public addStep(): void {
-    if (this.recordService.getIteration() === 0) {
-      this.mazeService.setInitialData(_.cloneDeep(this.gridList$.getValue()), this.getGridStartLocation());
-    }
-    this.recordService.setIteration(this.recordService.getIteration() + 1);
     let newGrid: Node[][];
     if (this.settngsService.getAlgorithmMode() === 'maze') {
+      if (this.recordService.getIteration() === 0) {
+        console.log('test this shit!');
+        this.mazeService.setInitialData(_.cloneDeep(this.gridList$.getValue()), this.getGridStartLocation());
+      }
+
       newGrid = this.mazeService.getNextStep();
     } else {
-      // TODO copy how the interface works from maze-algorithm.interface.ts
-      newGrid = this.pahtFindingService.getNextStep(this.gridList$.getValue());
+      if (this.recordService.getIteration() === 0) {
+        this.pahtFindingService.setInitialData(_.cloneDeep(this.gridList$.getValue()), this.getGridStartLocation());
+      }
+      newGrid = this.pahtFindingService.getNextStep();
     }
     if (newGrid) {
       this.setGridList(newGrid);
+      this.recordService.setIteration(this.recordService.getIteration() + 1);
     } else {
       this.setSimulationStatus();
     }
@@ -195,10 +200,6 @@ export class SimulationService {
       this.changeBackwardStepsAmount(1);
     }
   }
-
-
-
-
 
   /**
    * This manipulates the history of all tracked stats aas well as tge gridList
@@ -208,10 +209,12 @@ export class SimulationService {
     this.recordService.setGridHistory(this.recordService.getGridHistory().slice(0, -1));
     this.setGridList(this.recordService.getGridHistory()[this.recordService.getGridHistory().length - 1]);
     this.recordService.setRewritingHistory(false);
-    this.recordService.popNodesCreatedHistory();
-    this.recordService.setNodesCreated(this.recordService.getNodesCreatedHistory().length - 1);
-    this.recordService.popNodesAliveHistory();
-    this.recordService.setNodesAlive(this.recordService.getNodesAliveHistory().length - 1);
+    this.recordService.setAlgoStat3History(this.recordService.getAlgoStat3History().slice(0, -1));
+    this.recordService.setAlgoStat3(this.recordService.getAlgoStat3History().length - 1);
+    this.recordService.setAlgoStat2History(this.recordService.getAlgoStat2History().slice(0, -1));
+    this.recordService.setAlgoStat2(this.recordService.getAlgoStat2History().length - 1);
+    this.recordService.setAlgoStat1History(this.recordService.getAlgoStat1History().slice(0, -1));
+    this.recordService.setAlgoStat1(this.recordService.getAlgoStat1History().length - 1);
   }
 
   /**
@@ -255,13 +258,15 @@ export class SimulationService {
     this.setSimulationStatus(false);
     if (this.recordService.getIteration() > 0 && this.gridSavePointStats) {
       this.recordService.setIteration(this.gridSavePointStats.iteration);
-      this.recordService.setNodesAlive(this.gridSavePointStats.nodesAlive);
-      this.recordService.setNodesCreated(this.gridSavePointStats.nodesCreated);
+      this.recordService.setAlgoStat1(this.gridSavePointStats.algoStat1);
+      this.recordService.setAlgoStat2(this.gridSavePointStats.algoStat2);
+      this.recordService.setAlgoStat3(this.gridSavePointStats.algoStat3);
       this.gridList$.next(this.gridSavePoint);
     } else {
       this.recordService.setIteration(0);
-      this.recordService.setNodesAlive(0);
-      this.recordService.setNodesCreated(0);
+      this.recordService.setAlgoStat1(0);
+      this.recordService.setAlgoStat2(0);
+      this.recordService.setAlgoStat3(0);
       this.gridList$.next([]);
       this.gridSavePoint = [];
       this.gridSavePointStats = null;
@@ -281,8 +286,9 @@ export class SimulationService {
     });
     this.gridList$.next(grid);
     this.recordService.setIteration(0);
-    this.recordService.setNodesAlive(0);
-    this.recordService.setNodesCreated(0);
+    this.recordService.setAlgoStat1(0);
+    this.recordService.setAlgoStat2(0);
+    this.recordService.setAlgoStat3(0);
     this.backwardStepsAmount$.next(0);
     this.gridSavePoint = [];
     this.gridSavePointStats = null;
@@ -435,5 +441,14 @@ export class SimulationService {
    */
   public getImportToken(): Observable<string> {
     return this.importToken$;
+  }
+
+  // TODO does this make sense here? I don't think so
+  public getAlgorithmStatNames(): algoStatNames {
+    if (this.settngsService.getAlgorithmMode() === 'maze') {
+      return this.mazeService.getAlgorithmStatNames();
+    } else {
+      return this.pahtFindingService.getAlgorithmStatNames();
+    }
   }
 }

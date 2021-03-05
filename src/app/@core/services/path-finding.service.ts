@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {SimulationService} from './simulation.service';
-import {Node, PathFindingAlgorithms, PathFindingHeuristics} from '../../../types';
+import {algoStatNames, Node, PathFindingAlgorithms, PathFindingHeuristics} from '../../../types';
 import {AStar} from '../algorithm/path-finding/a-star';
 import {PathFindingAlgorithmInterface} from '../algorithm/path-finding/path-finding-algorithm.interface';
 import {Dijkstra} from '../algorithm/path-finding/dijkstra';
+import {GridLocation} from '../../@shared/GridLocation';
 
 
 @Injectable({
@@ -54,13 +55,15 @@ export class PathFindingService {
     this.currentHeuristic = newHeuristic;
   }
 
+  public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
+    this.currentAlgorithm.setInitialData(currentGrid, currentStartPoint, this.currentHeuristic);
+  }
+
   /**
    * Sets the next step for the grid based on the current algorithm
-   *
-   * @param currentGrid - the current grid that is displayed on the site
    */
-  public getNextStep(currentGrid: Node[][]): Node[][] {
-    return this.currentAlgorithm.nextStep(currentGrid, this.currentHeuristic);
+  public getNextStep(): Node[][] {
+    return this.currentAlgorithm.nextStep();
   }
 
   /**
@@ -70,10 +73,23 @@ export class PathFindingService {
     return this.currentAlgorithm.getAlgorithmName();
   }
 
+  /**
+   * Returns an object that determines what the stat is supposed to represent
+   */
+  public getAlgorithmStatNames(): algoStatNames {
+    return this.currentAlgorithm.getAlgorithmStatNames();
+  }
+
+  /**
+   * Returns the currently selected heuristic
+   */
   public getCurrentHeuristic(): PathFindingHeuristics {
     return this.currentHeuristic;
   }
 
+  /**
+   * Returns the pseudocode for the currently selected algorithm
+   */
   public getPseudoCode(): string {
     return this.currentAlgorithm.getPseudoCode();
   }
