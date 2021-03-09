@@ -1,5 +1,5 @@
 <div class="columns is-multiline is-gapless">
-  <div class="column is-full">
+  <div class="column is-full p-1">
     <app-hr text="ALGORITHM MODE"></app-hr>
   </div>
   <div class="column is-half">
@@ -11,8 +11,8 @@
   </div>
   <div class="column is-half">
     <button class="button path-button is-medium is-fullwidth"
-            [ngClass]="this.settingsService.getAlgorithmMode() === 'pathFinding' ? 'is-danger' : 'has-background-danger-light'"
-            (click)="handleWarning('pathFinding', false)">
+            [ngClass]="this.settingsService.getAlgorithmMode() === 'path-finding' ? 'is-danger' : 'has-background-danger-light'"
+            (click)="handleWarning('path-finding', false)">
       <b>PATHFINDING</b>
     </button>
   </div>
@@ -46,8 +46,6 @@
     </div>
   </div>
   <div class="column is-full">
-    <app-maze-settings *ngIf="settingsService.getAlgorithmMode() === 'maze'"></app-maze-settings>
-    <app-pathfinding-settings
-      *ngIf="settingsService.getAlgorithmMode() === 'pathFinding'"></app-pathfinding-settings>
+    <router-outlet></router-outlet>
   </div>
 </div>

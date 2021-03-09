@@ -1,5 +1,5 @@
 <app-stats class="box" [isMouseDown]="isMouseDown"></app-stats>
-<div class="block outer-wall" [ngClass]="{'wrapper-forbidden': recordService.getIteration() > 0}">
+<div class="block outer-wall m-1" [ngClass]="{'wrapper-forbidden': recordService.getIteration() > 0}">
   <div class="game-grid"
        [ngClass]="{'game-grid-lock': recordService.getIteration()> 0}"
        (mousedown)="isMouseDown = true"
@@ -19,7 +19,7 @@
   <div class="column is-full">
     <div class="field has-addons has-addons-centered is-marginless control-button-wrapper">
       <p class="control">
-        <button class="button is-outlined is-size-7-mobile"
+        <button class="button is-outlined is-size-7-mobile is-size-6-tablet"
                 [ngClass]="simulationService.getDrawingMode() === 1 ? 'is-active' : ''"
                 [disabled]="recordService.getIteration() > 0"
                 (click)="simulationService.setDrawingMode(1)">
@@ -30,7 +30,7 @@
         </button>
       </p>
       <p class="control">
-        <button class="button is-outlined is-size-7-mobile"
+        <button class="button is-outlined is-size-7-mobile is-size-6-tablet"
                 [disabled]="this.recordService.getIteration()> 0 || !(settingsService.getAlgorithmMode() === 'pathFinding')">
                 <span class="icon">
                   <fa-icon [icon]="['fas', 'balance-scale-right']"></fa-icon>
@@ -39,7 +39,7 @@
         </button>
       </p>
       <p class="control">
-        <button class="button is-outlined is-size-7-mobile"
+        <button class="button is-outlined is-size-7-mobile is-size-6-tablet"
                 [disabled]="this.recordService.getIteration() > 0"
                 title="random"
                 (click)="simulationService.setRandomSeed()">
@@ -50,7 +50,7 @@
         </button>
       </p>
       <p class="control">
-        <button class="button is-outlined is-size-7-mobile"
+        <button class="button is-outlined is-size-7-mobile is-size-6-tablet"
                 [ngClass]="simulationService.getDrawingMode() === 2 ? 'is-active' : ''"
                 [disabled]="recordService.getIteration() > 0"
                 (click)="simulationService.setDrawingMode(2)">
@@ -60,7 +60,7 @@
           <b>Set Goal</b>
         </button>
       </p>
-      <p class="control control-pulled-right">
+      <p class="control control-pulled-right is-size-6-tablet">
         <button class="button is-outlined is-size-7-mobile" (click)="simulationService.setLegend()">
                 <span class="icon">
                   <fa-icon [icon]="['fas', 'asterisk']"></fa-icon>

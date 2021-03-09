@@ -15,15 +15,10 @@ import {RecordService} from './record.service';
 export class SimulationService {
   private readonly gridList$: BehaviorSubject<Node[][]>;
 
-  private gridSavePoint: Node[][];
-  private gridSavePointStats: SavePointStats;
-  private gridStartLocation: GridLocation;
-  private gridGoalLocation: GridLocation;
-
-  private readonly simulationSpeed$: BehaviorSubject<number>;
   private drawingMode: number;
-  private readonly disableController$: BehaviorSubject<boolean>;
+  private readonly simulationSpeed$: BehaviorSubject<number>;
   private readonly isSimulationActive$: BehaviorSubject<boolean>;
+  private readonly disableController$: BehaviorSubject<boolean>;
   private readonly backwardStep$: Subject<void>;
   private readonly backwardStepsAmount$: BehaviorSubject<number>;
   private readonly step$: Subject<void>;
@@ -35,20 +30,13 @@ export class SimulationService {
   private readonly importToken$: Subject<string>;
   private intervalID: number;
 
-  constructor(private settngsService: SettingsService,
+  constructor(private settingsService: SettingsService,
               private recordService: RecordService,
               private mazeService: MazeService,
-              private pahtFindingService: PathFindingService) {
+              private pathFindingService: PathFindingService) {
     this.gridList$ = new BehaviorSubject<Node[][]>([]);
-
-    this.gridSavePoint = [];
-    this.gridStartLocation = null;
-    this.gridGoalLocation = null;
-
-    // Responsible for controlling the simulation - also used to propagate
-    // events from the controller component
-    this.simulationSpeed$ = new BehaviorSubject(100);
     this.drawingMode = 0;
+    this.simulationSpeed$ = new BehaviorSubject(100);
     this.disableController$ = new BehaviorSubject<boolean>(false);
     this.isSimulationActive$ = new BehaviorSubject(false);
     this.backwardStep$ = new Subject<void>();
@@ -103,13 +91,7 @@ export class SimulationService {
     }
   }
 
-  public setGridStartLocation(column: number, row: number): void {
-    this.gridStartLocation = new GridLocation(column, row);
-  }
 
-  public setGridGoalLocation(column: number, row: number): void {
-    this.gridGoalLocation = new GridLocation(column, row);
-  }
 
   /**
    * Sets the new status of the controller to enabled or disabled
@@ -162,13 +144,14 @@ export class SimulationService {
    */
   public save(newGrid: Node[][]): void {
     this.setGridList(newGrid);
-    this.gridSavePointStats = {
+    this.recordService.setGridSavePointStats({
       iteration: this.recordService.getIteration(),
       algoStat1: this.recordService.getAlgoStat1(),
       algoStat2: this.recordService.getAlgoStat2(),
       algoStat3: this.recordService.getAlgoStat3()
-    };
-    this.gridSavePoint = newGrid;
+    });
+    // TODO CHECK IF WORKS
+    this.recordService.setGridSavePoint(newGrid);
   }
 
   /**
@@ -177,18 +160,18 @@ export class SimulationService {
    */
   public addStep(): void {
     let newGrid: Node[][];
-    if (this.settngsService.getAlgorithmMode() === 'maze') {
+    if (this.settingsService.getAlgorithmMode() === 'maze') {
       if (this.recordService.getIteration() === 0) {
-        console.log('test this shit!');
-        this.mazeService.setInitialData(_.cloneDeep(this.gridList$.getValue()), this.getGridStartLocation());
+        this.mazeService.setInitialData(_.cloneDeep(
+          this.gridList$.getValue()), this.recordService.getGridStartLocation());
       }
-
       newGrid = this.mazeService.getNextStep();
     } else {
       if (this.recordService.getIteration() === 0) {
-        this.pahtFindingService.setInitialData(_.cloneDeep(this.gridList$.getValue()), this.getGridStartLocation());
+        this.pathFindingService.setInitialData(_.cloneDeep(
+          this.gridList$.getValue()), this.recordService.getGridStartLocation());
       }
-      newGrid = this.pahtFindingService.getNextStep();
+      newGrid = this.pathFindingService.getNextStep();
     }
     if (newGrid) {
       this.setGridList(newGrid);
@@ -256,24 +239,27 @@ export class SimulationService {
    */
   public reset(): void {
     this.setSimulationStatus(false);
-    if (this.recordService.getIteration() > 0 && this.gridSavePointStats) {
-      this.recordService.setIteration(this.gridSavePointStats.iteration);
-      this.recordService.setAlgoStat1(this.gridSavePointStats.algoStat1);
-      this.recordService.setAlgoStat2(this.gridSavePointStats.algoStat2);
-      this.recordService.setAlgoStat3(this.gridSavePointStats.algoStat3);
-      this.gridList$.next(this.gridSavePoint);
+    if (this.recordService.getIteration() > 0 && this.recordService.getGridSavePointStats()) {
+      this.recordService.setIteration(this.recordService.getGridSavePointStats().iteration);
+      this.recordService.setAlgoStat1(this.recordService.getGridSavePointStats().algoStat1);
+      this.recordService.setAlgoStat2(this.recordService.getGridSavePointStats().algoStat2);
+      this.recordService.setAlgoStat3(this.recordService.getGridSavePointStats().algoStat3);
+      this.gridList$.next(this.recordService.getGridSavePoint());
     } else {
       this.recordService.setIteration(0);
       this.recordService.setAlgoStat1(0);
       this.recordService.setAlgoStat2(0);
       this.recordService.setAlgoStat3(0);
       this.gridList$.next([]);
-      this.gridSavePoint = [];
-      this.gridSavePointStats = null;
+      this.recordService.setGridSavePoint([]);
+      this.recordService.setGridSavePointStats(null);
     }
     this.backwardStepsAmount$.next(0);
   }
 
+  /**
+   * This removes algorithm specific grid states as well as the stats
+   */
   public softReset(): void {
     const grid = _.cloneDeep(this.gridList$.value);
     grid.forEach(column => {
@@ -290,8 +276,8 @@ export class SimulationService {
     this.recordService.setAlgoStat2(0);
     this.recordService.setAlgoStat3(0);
     this.backwardStepsAmount$.next(0);
-    this.gridSavePoint = [];
-    this.gridSavePointStats = null;
+    this.recordService.setGridSavePoint([]);
+    this.recordService.setGridSavePointStats(null);
   }
 
   /**
@@ -345,14 +331,6 @@ export class SimulationService {
    */
   public getGridList(): Observable<Node[][]> {
     return this.gridList$;
-  }
-
-  public getGridStartLocation(): GridLocation {
-    return this.gridStartLocation;
-  }
-
-  public getGridGoalLocation(): GridLocation {
-    return this.gridGoalLocation;
   }
 
   /**
@@ -445,10 +423,10 @@ export class SimulationService {
 
   // TODO does this make sense here? I don't think so
   public getAlgorithmStatNames(): algoStatNames {
-    if (this.settngsService.getAlgorithmMode() === 'maze') {
+    if (this.settingsService.getAlgorithmMode() === 'maze') {
       return this.mazeService.getAlgorithmStatNames();
     } else {
-      return this.pahtFindingService.getAlgorithmStatNames();
+      return this.pathFindingService.getAlgorithmStatNames();
     }
   }
 }

@@ -6,10 +6,10 @@ import {far} from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'app-info',
-  templateUrl: './about.component.html',
-  styleUrls: ['./about.component.scss'],
+  templateUrl: './learn.component.html',
+  styleUrls: ['./learn.component.scss'],
 })
-export class AboutComponent {
+export class LearnComponent {
   constructor(private library: FaIconLibrary) {
     library.addIconPacks(fas, fab, far);
   }

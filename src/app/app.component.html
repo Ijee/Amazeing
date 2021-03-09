@@ -19,7 +19,8 @@
     <div id="navbarMenuHeroA" [ngClass]="{ 'is-active': isNavbar }" class="navbar-menu">
       <div class="navbar-end">
         <a class="navbar-item is-unselectable font-white"
-           routerLink="/simulation"
+           routerLink="simulation"
+           routerLinkActive="is-tab"
            (click)="simulationService.setSimulationStatus(false)">
                 <span class="icon">
                   <fa-icon [icon]="['fas', 'microchip']"></fa-icon>
@@ -27,12 +28,13 @@
           <span><b>SIMULATION</b></span>
         </a>
         <a class="navbar-item is-unselectable font-white"
-           routerLink="/about"
+           routerLink="learn"
+           routerLinkActive="is-tab"
            (click)="simulationService.setSimulationStatus(false)">
                 <span class="icon">
-                  <fa-icon [icon]="['fas', 'info-circle']"></fa-icon>
+                  <fa-icon [icon]="['fas', 'chalkboard-teacher']"></fa-icon>
                 </span>
-          <span><b>ABOUT</b></span>
+          <span><b>LEARN</b></span>
         </a>
         <div class="navbar-item is-unselectable"
              [ngClass]="{'is-active': isSettingsDropdown}"
@@ -103,7 +105,6 @@
       </div>
     </div>
   </nav>
-
   <div class="section p-3">
     <div class="columns is-multiline" [@fadeAnimation]="getRouterOutletState(o)">
       <main class="column is-12">
@@ -114,7 +115,7 @@
   <footer class="footer p-3 m-0">
     <div class="columns">
       <div class="column is-12">
-        <app-controller class="box"></app-controller>
+        <app-controller class="box p-2"></app-controller>
       </div>
     </div>
   </footer>

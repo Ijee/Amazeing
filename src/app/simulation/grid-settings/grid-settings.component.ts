@@ -5,6 +5,7 @@ import {fab} from '@fortawesome/free-brands-svg-icons';
 import {far} from '@fortawesome/free-regular-svg-icons';
 import {SettingsService} from '../../@core/services/settings.service';
 import {SimulationService} from '../../@core/services/simulation.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-grid-settings',
@@ -14,7 +15,9 @@ import {SimulationService} from '../../@core/services/simulation.service';
 export class GridSettingsComponent implements OnInit {
   public showWarning: boolean;
 
-  constructor(private library: FaIconLibrary,
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private library: FaIconLibrary,
               public simulationService: SimulationService,
               public settingsService: SettingsService) {
     library.addIconPacks(fas, fab, far);
@@ -23,26 +26,38 @@ export class GridSettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const x = {
+      a: 'a',
+      b: 'b'
+    };
+    x.b = 'b';
+
   }
 
+  /**
+   * This switches to the other algorithm mode and handles the warning shown to the client
+   *
+   * @param algoMode - the new algorithm mode to be set
+   * @param skipWarning - whether or not to skip the warning or not
+   */
   public handleWarning(algoMode: string, skipWarning: boolean): void {
-    if (this.settingsService.getWarningsSetting() && !skipWarning) {
-      this.showWarning = true;
-    } else {
-      this.simulationService.softReset();
-      this.settingsService.setAlgorithmMode(algoMode);
-      // console.log('algoMode in service', this.settingsService.getAlgorithmMode());
-      this.showWarning = false;
+    if (this.settingsService.getAlgorithmMode() !== algoMode){
+      if (this.settingsService.getWarningsSetting() && !skipWarning) {
+        this.showWarning = true;
+      } else {
+        this.simulationService.softReset();
+        this.settingsService.setAlgorithmMode(algoMode);
+        this.showWarning = false;
+        this.router.navigate([algoMode], {relativeTo: this.route});
+        // console.log('algoMode in service', this.settingsService.getAlgorithmMode());
+      }
     }
   }
 
   /**
-   * this switches to the other algorithm mode
-   * I am aware that it could have been a boolean but I could not find a variable name
-   * that fits and makes sense when you skim over it for the other parts of the app when checking for it.
-   *
+   * Returns the other algoMode based on the one it is currently set to.
    */
   public switchToOtherMode(): string {
-    return this.settingsService.getAlgorithmMode() === 'maze' ? 'pathFinding' : 'maze';
+    return this.settingsService.getAlgorithmMode() === 'maze' ? 'path-finding' : 'maze';
   }
 }

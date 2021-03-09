@@ -1,15 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {AboutComponent} from './about.component';
-import { AboutRoutingModule } from './about-routing.module';
+import {LearnComponent} from './learn.component';
+import { LearnRoutingModule } from './learn-routing.module';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {SharedModule} from '../@shared/shared.module';
+import { LearnPrimsComponent } from './learn-prims/learn-prims.component';
 
 @NgModule({
-  declarations: [AboutComponent],
-    imports: [
-        CommonModule,
-        AboutRoutingModule,
-        FontAwesomeModule
-    ]
+  declarations: [LearnComponent, LearnPrimsComponent],
+  imports: [
+    CommonModule,
+    LearnRoutingModule,
+    FontAwesomeModule,
+    SharedModule
+  ]
 })
-export class AboutModule { }
+export class LearnModule { }

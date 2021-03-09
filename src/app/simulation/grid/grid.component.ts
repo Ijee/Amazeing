@@ -47,9 +47,9 @@ export class GridComponent implements OnInit, OnDestroy {
     const initialGoalX = Math.round((66 * this.width) / 100);
     const initialNodeHeightY = Math.round((50 * this.height) / 100);
     this.gridList[initialStartX][initialNodeHeightY].nodeStatus = 1;
-    this.simulationService.setGridStartLocation(initialStartX, initialNodeHeightY);
+    this.recordService.setGridStartLocation(initialStartX, initialNodeHeightY);
     this.gridList[initialGoalX][initialNodeHeightY].nodeStatus = 2;
-    this.simulationService.setGridGoalLocation(initialGoalX, initialNodeHeightY);
+    this.recordService.setGridGoalLocation(initialGoalX, initialNodeHeightY);
     this.simulationService.setGridList(this.gridList);
     this.recordService.setAlgoStat1(this.width * this.height);
     this.simulationService.getGridList().pipe(takeUntil(this.destroyed$)).subscribe(data => {
@@ -147,15 +147,15 @@ export class GridComponent implements OnInit, OnDestroy {
     }
     switch (drawMode) {
       case 1:
-        const startLocation = this.simulationService.getGridStartLocation();
+        const startLocation = this.recordService.getGridStartLocation();
         this.gridList[startLocation.x][startLocation.y].nodeStatus = -1;
-        this.simulationService.setGridStartLocation(col, row);
+        this.recordService.setGridStartLocation(col, row);
         this.onMouseUp();
         break;
       case 2:
-        const goalLocation = this.simulationService.getGridGoalLocation();
+        const goalLocation = this.recordService.getGridGoalLocation();
         this.gridList[goalLocation.x][goalLocation.y].nodeStatus = -1;
-        this.simulationService.setGridGoalLocation(col, row);
+        this.recordService.setGridGoalLocation(col, row);
         this.onMouseUp();
         break;
       default:
@@ -197,9 +197,9 @@ export class GridComponent implements OnInit, OnDestroy {
         cell.nodeStatus = -1;
       });
     });
-    const startLocation = this.simulationService.getGridStartLocation();
+    const startLocation = this.recordService.getGridStartLocation();
     this.gridList[startLocation.x][startLocation.y].nodeStatus = 1;
-    const goalLocation = this.simulationService.getGridGoalLocation();
+    const goalLocation = this.recordService.getGridGoalLocation();
     this.gridList[goalLocation.x][goalLocation.y].nodeStatus = 2;
     this.simulationService.setGridList(_.cloneDeep(this.gridList));
   }
@@ -219,9 +219,9 @@ export class GridComponent implements OnInit, OnDestroy {
         }
       }
     }
-    const startLocation = this.simulationService.getGridStartLocation();
+    const startLocation = this.recordService.getGridStartLocation();
     this.gridList[startLocation.x][startLocation.y].nodeStatus = 1;
-    const goalLocation = this.simulationService.getGridGoalLocation();
+    const goalLocation = this.recordService.getGridGoalLocation();
     this.gridList[goalLocation.x][goalLocation.y].nodeStatus = 2;
     this.simulationService.save(_.cloneDeep(this.gridList));
   }

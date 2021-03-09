@@ -1,8 +1,10 @@
-<div class="columns is-multiline">
+<div class="columns is-variable is-2 is-multiline">
   <div class="column is-8">
     <app-grid class="p-5 box"></app-grid>
   </div>
   <div class="column is-4">
-    <app-grid-settings class="box"></app-grid-settings>
+    <div class="box">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>

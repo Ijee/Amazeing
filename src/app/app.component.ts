@@ -38,10 +38,10 @@ export class AppComponent implements OnInit, OnDestroy {
     // sets the controller status based on route so that it is
     // only available on the game page
     this.router.events.subscribe(() => {
-      if (this.location.path() === '/simulation') {
-        this.simulationService.setDisableController(false);
-      } else {
+      if (this.location.path() === '/learn') {
         this.simulationService.setDisableController(true);
+      } else {
+        this.simulationService.setDisableController(false);
       }
     });
   }

@@ -1,12 +1,17 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {Node} from '../../../types';
+import {Node, SavePointStats} from '../../../types';
+import {GridLocation} from '../../@shared/GridLocation';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecordService {
   private gridHistory: Array<Node[][]>;
+  private gridSavePoint: Node[][];
+  private gridSavePointStats: SavePointStats;
+  private gridStartLocation: GridLocation;
+  private gridGoalLocation: GridLocation;
   private iteration: number;
   private algoStat1: number;
   private algoStat1History: Array<number>;
@@ -18,6 +23,9 @@ export class RecordService {
 
   constructor() {
     this.gridHistory = [];
+    this.gridSavePoint = [];
+    this.gridStartLocation = null;
+    this.gridGoalLocation = null;
     // Stats
     this.iteration = 0;
     this.algoStat1 = 0;
@@ -66,11 +74,25 @@ export class RecordService {
     return null;
   }
 
-
   public setGridHistory(newGridHistory: Array<Node[][]>): void {
     this.gridHistory = newGridHistory;
   }
 
+  public setGridSavePoint(newSavePoint: Node[][]): void {
+    this.gridSavePoint = newSavePoint;
+  }
+
+  public setGridSavePointStats(newSavePointStats: SavePointStats): void {
+    this.gridSavePointStats = newSavePointStats;
+  }
+
+  public setGridStartLocation(column: number, row: number): void {
+    this.gridStartLocation = new GridLocation(column, row);
+  }
+
+  public setGridGoalLocation(column: number, row: number): void {
+    this.gridGoalLocation = new GridLocation(column, row);
+  }
 
   /**
    * Adds a new value to the current tick on every tick (very noice)
@@ -146,6 +168,22 @@ export class RecordService {
 
   public getGridHistory(): Array<Node[][]> {
     return this.gridHistory;
+  }
+
+  public getGridSavePoint(): Node[][] {
+    return this.gridSavePoint;
+  }
+
+  public getGridSavePointStats(): SavePointStats {
+    return this.gridSavePointStats;
+  }
+
+  public getGridStartLocation(): GridLocation {
+    return this.gridStartLocation;
+  }
+
+  public getGridGoalLocation(): GridLocation {
+    return this.gridGoalLocation;
   }
 
   /**

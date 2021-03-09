@@ -10,19 +10,23 @@ const routes: Routes = [
 
   },
   {
-    path: 'about',
-    loadChildren: () => import('./about/about.module').then(m => m.AboutModule),
-    data: { reuse: false, key: 'about' }
+    path: 'learn',
+    loadChildren: () => import('./about/learn.module').then(m => m.LearnModule),
+    data: { reuse: false, key: 'learn' }
   },
   {
     path: '',
-    redirectTo: '/simulation',
+    redirectTo: 'simulation',
     pathMatch: 'full'
   },
+  {
+    path: '**',
+    redirectTo: 'simulation',
+  }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
   providers: [],
 })
