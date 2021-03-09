@@ -24,7 +24,7 @@
 ---
 ## Screenshot
 
-![Angular - Game of Life Promot](https://imgur.com/Kzu3Fru.png "Promo")
+![Angular - Game of Life Promot](https://i.imgur.com/KkQx8Bt.png "Promo")
 
 ---
 ## Contributions
