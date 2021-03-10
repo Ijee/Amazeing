@@ -6,6 +6,8 @@ import {far} from '@fortawesome/free-regular-svg-icons';
 import {SettingsService} from '../../@core/services/settings.service';
 import {SimulationService} from '../../@core/services/simulation.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {MazeService} from '../../@core/services/maze.service';
+import {PathFindingService} from '../../@core/services/path-finding.service';
 
 @Component({
   selector: 'app-grid-settings',
@@ -18,6 +20,8 @@ export class GridSettingsComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private library: FaIconLibrary,
+              private mazeService: MazeService,
+              private pathFindingService: PathFindingService,
               public simulationService: SimulationService,
               public settingsService: SettingsService) {
     library.addIconPacks(fas, fab, far);
@@ -59,5 +63,15 @@ export class GridSettingsComponent implements OnInit {
    */
   public switchToOtherMode(): string {
     return this.settingsService.getAlgorithmMode() === 'maze' ? 'path-finding' : 'maze';
+  }
+
+  public navigateToLearn(): void {
+    let algoName: string;
+    if (this.settingsService.getAlgorithmMode() === 'maze') {
+      algoName = this.mazeService.getAlgorithmName();
+    } else {
+      algoName = this.pathFindingService.getAlgorithmName();
+    }
+    this.router.navigate(['/learn'], {queryParams: {algorithm: algoName}});
   }
 }
