@@ -1,10 +1,10 @@
 import {PathFindingAlgorithmInterface} from './path-finding-algorithm.interface';
-import {PathFindingAlgorithms, Node, PathFindingHeuristics, algoStatNames} from '../../../../types';
+import {PathFindingAlgorithms, Node, PathFindingHeuristics, AlgoStatNames} from '../../../../types';
 import {GridLocation} from '../../../@shared/GridLocation';
 
 export class Dijkstra implements PathFindingAlgorithmInterface {
   currentGrid: Node[][];
-  algoStatNames: algoStatNames;
+  algoStatNames: AlgoStatNames;
 
   constructor() {
     this.algoStatNames = {
@@ -28,7 +28,7 @@ export class Dijkstra implements PathFindingAlgorithmInterface {
     return 'Dijkstra';
   }
 
-  getAlgorithmStatNames(): algoStatNames {
+  getAlgorithmStatNames(): AlgoStatNames {
     return this.algoStatNames;
   }
 

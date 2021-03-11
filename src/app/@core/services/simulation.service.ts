@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import * as _ from 'lodash';
-import {algoStatNames, Node, SavePointStats} from '../../../types';
+import {AlgoStatNames, Node, SavePointStats} from '../../../types';
 import {SettingsService} from './settings.service';
 import {MazeService} from './maze.service';
 import {PathFindingService} from './path-finding.service';
@@ -18,6 +18,7 @@ export class SimulationService {
   private drawingMode: number;
   private readonly simulationSpeed$: BehaviorSubject<number>;
   private readonly isSimulationActive$: BehaviorSubject<boolean>;
+  //  THIS IS CURRENTLY NOT BEING USED BUT MAY END UP BEING USEFUL AGAIN
   private readonly disableController$: BehaviorSubject<boolean>;
   private readonly backwardStep$: Subject<void>;
   private readonly backwardStepsAmount$: BehaviorSubject<number>;
@@ -95,6 +96,8 @@ export class SimulationService {
 
   /**
    * Sets the new status of the controller to enabled or disabled
+   *
+   *  THIS IS CURRENTLY NOT BEING USED BUT MAY END UP BEING USEFUL AGAIN
    *
    * @param disabled - whether or not it should be disabled
    */
@@ -335,6 +338,8 @@ export class SimulationService {
 
   /**
    * Returns the status whether or not to disable the controller buttons
+   *
+   * THIS IS CURRENTLY NOT BEING USED BUT MAY END UP BEING USEFUL AGAIN
    */
   public getDisableController(): Observable<boolean> {
     return this.disableController$;
@@ -422,7 +427,7 @@ export class SimulationService {
   }
 
   // TODO does this make sense here? I don't think so
-  public getAlgorithmStatNames(): algoStatNames {
+  public getAlgorithmStatNames(): AlgoStatNames {
     if (this.settingsService.getAlgorithmMode() === 'maze') {
       return this.mazeService.getAlgorithmStatNames();
     } else {

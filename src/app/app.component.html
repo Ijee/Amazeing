@@ -105,20 +105,11 @@
       </div>
     </div>
   </nav>
-  <div class="section p-3">
-    <div class="columns is-multiline" [@fadeAnimation]="getRouterOutletState(o)">
-      <main class="column is-12">
-        <router-outlet #o="outlet"></router-outlet>
-      </main>
-    </div>
+  <div class="columns is-multiline p-3" [@fadeAnimation]="getRouterOutletState(o)">
+    <main class="column is-12">
+      <router-outlet #o="outlet"></router-outlet>
+    </main>
   </div>
-  <footer class="footer p-3 m-0">
-    <div class="columns">
-      <div class="column is-12">
-        <app-controller class="box p-2"></app-controller>
-      </div>
-    </div>
-  </footer>
 </div>
 <app-legend-modal></app-legend-modal>
 <app-import-modal></app-import-modal>

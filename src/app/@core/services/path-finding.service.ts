@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {SimulationService} from './simulation.service';
-import {algoStatNames, Node, PathFindingAlgorithms, PathFindingHeuristics} from '../../../types';
+import {AlgoStatNames, Node, PathFindingAlgorithms, PathFindingHeuristics} from '../../../types';
 import {AStar} from '../algorithm/path-finding/a-star';
 import {PathFindingAlgorithmInterface} from '../algorithm/path-finding/path-finding-algorithm.interface';
 import {Dijkstra} from '../algorithm/path-finding/dijkstra';
@@ -76,7 +76,7 @@ export class PathFindingService {
   /**
    * Returns an object that determines what the stat is supposed to represent
    */
-  public getAlgorithmStatNames(): algoStatNames {
+  public getAlgorithmStatNames(): AlgoStatNames {
     return this.currentAlgorithm.getAlgorithmStatNames();
   }
 

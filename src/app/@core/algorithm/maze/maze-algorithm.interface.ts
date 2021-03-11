@@ -1,9 +1,9 @@
-import {algoStatNames, MazeAlgorithms, Node} from '../../../../types';
+import {AlgoStatNames, MazeAlgorithms, Node} from '../../../../types';
 import {GridLocation} from '../../../@shared/GridLocation';
 
 export interface MazeAlgorithmInterface {
   currentGrid: Node[][];
-  algoStatNames: algoStatNames;
+  algoStatNames: AlgoStatNames;
 
   /**
    * Return the complete algorithm directly
@@ -35,7 +35,7 @@ export interface MazeAlgorithmInterface {
   /**
    * Returns an object that determines what the stat is supposed to represent
    */
-  getAlgorithmStatNames(): algoStatNames;
+  getAlgorithmStatNames(): AlgoStatNames;
 
   /**
    * Returns the added stats for each step

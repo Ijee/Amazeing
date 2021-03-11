@@ -1,8 +1,14 @@
-export type algoStatNames = {
-  algoStatName1: string | null,
-  algoStatName2: string | null,
-  algoStatName3: string | null,
-}
+export type AlgoStatNames = {
+  algoStatName1?: string,
+  algoStatName2?: string,
+  algoStatName3?: string,
+};
+
+export type Mapping<T> = {
+  [key: string]: string;
+  []
+};
+
 
 export type Node = {
   nodeStatus: number;

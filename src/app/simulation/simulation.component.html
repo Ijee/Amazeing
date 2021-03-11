@@ -1,10 +1,17 @@
-<div class="columns is-variable is-2 is-multiline">
-  <div class="column is-8">
-    <app-grid class="p-5 box"></app-grid>
-  </div>
-  <div class="column is-4">
-    <div class="box">
-      <router-outlet></router-outlet>
+<section>
+  <div class="columns is-variable is-2 is-multiline">
+    <div class="column is-8">
+      <app-grid class="p-5 box"></app-grid>
     </div>
+    <div class="column is-4">
+      <div class="box">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="columns end-align">
+  <div class="column is-12">
+    <app-controller class="box p-2"></app-controller>
   </div>
 </div>

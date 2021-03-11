@@ -16,7 +16,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
   ],
   imports: [
     RouterModule.forRoot([], {
-      enableTracing: true,
+      enableTracing: false,
       onSameUrlNavigation: 'reload'
     }),
     AppRoutingModule,

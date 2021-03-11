@@ -19,7 +19,6 @@ import {SettingsService} from './@core/services/settings.service';
 export class AppComponent implements OnInit, OnDestroy {
   public isNavbar: boolean;
   public isSettingsDropdown: boolean;
-  public isLegend: boolean;
 
 
 
@@ -27,23 +26,12 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(library: FaIconLibrary,
               public simulationService: SimulationService,
-              public settingsService: SettingsService,
-              private router: Router,
-              private location: Location) {
+              public settingsService: SettingsService){
     library.addIconPacks(fas, fab, far);
     this.destroyed$ = new Subject<void>();
   }
 
   ngOnInit(): void {
-    // sets the controller status based on route so that it is
-    // only available on the game page
-    this.router.events.subscribe(() => {
-      if (this.location.path() === '/learn') {
-        this.simulationService.setDisableController(true);
-      } else {
-        this.simulationService.setDisableController(false);
-      }
-    });
   }
 
   ngOnDestroy(): void {

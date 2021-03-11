@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {ControllerComponent} from './controller/controller.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {CountAnimationDirective} from './directives/count-animation/count-animation.directive';
 import {ExportModalComponent} from './modals/export-modal/export-modal.component';
@@ -11,13 +10,11 @@ import {SharedModule} from '../@shared/shared.module';
 
 @NgModule({
   declarations: [
-    ControllerComponent,
     CountAnimationDirective,
     ImportModalComponent,
     ExportModalComponent,
     LegendModalComponent],
   exports: [
-    ControllerComponent,
     CountAnimationDirective,
     ImportModalComponent,
     ExportModalComponent,

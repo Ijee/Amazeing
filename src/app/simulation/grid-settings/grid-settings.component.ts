@@ -30,12 +30,6 @@ export class GridSettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const x = {
-      a: 'a',
-      b: 'b'
-    };
-    x.b = 'b';
-
   }
 
   /**
@@ -65,6 +59,9 @@ export class GridSettingsComponent implements OnInit {
     return this.settingsService.getAlgorithmMode() === 'maze' ? 'path-finding' : 'maze';
   }
 
+  /**
+   * Navigates to the /learn route with the current selected algorithm as a query param.
+   */
   public navigateToLearn(): void {
     let algoName: string;
     if (this.settingsService.getAlgorithmMode() === 'maze') {

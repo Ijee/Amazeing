@@ -1,10 +1,10 @@
 import {PathFindingAlgorithmInterface} from './path-finding-algorithm.interface';
-import {PathFindingAlgorithms, Node, PathFindingHeuristics, algoStatNames} from '../../../../types';
+import {PathFindingAlgorithms, Node, PathFindingHeuristics, AlgoStatNames} from '../../../../types';
 import {GridLocation} from '../../../@shared/GridLocation';
 
 export class AStar implements PathFindingAlgorithmInterface {
   currentGrid: Node[][];
-  algoStatNames: algoStatNames;
+  algoStatNames: AlgoStatNames;
 
   constructor() {
     this.algoStatNames = {
@@ -26,7 +26,7 @@ export class AStar implements PathFindingAlgorithmInterface {
     return 'A-Star';
   }
 
-  getAlgorithmStatNames(): algoStatNames {
+  getAlgorithmStatNames(): AlgoStatNames {
     return this.algoStatNames;
   }
 

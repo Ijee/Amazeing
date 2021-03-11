@@ -1,5 +1,5 @@
 import {MazeAlgorithmInterface} from '../maze-algorithm.interface';
-import {algoStatNames, MazeAlgorithms, Node} from '../../../../../types';
+import {AlgoStatNames, MazeAlgorithms, Node} from '../../../../../types';
 import {HashSet} from '../../../../@shared/HashSet';
 import {GridLocation} from '../../../../@shared/GridLocation';
 
@@ -12,15 +12,14 @@ import {GridLocation} from '../../../../@shared/GridLocation';
  */
 export class Prims implements MazeAlgorithmInterface {
   currentGrid: Node[][];
-  algoStatNames: algoStatNames;
+  algoStatNames: AlgoStatNames;
   private readonly frontierNodes: HashSet<GridLocation>;
 
 
   constructor() {
     this.algoStatNames = {
       algoStatName1: 'Node Count',
-      algoStatName2: 'Frontier Nodes',
-      algoStatName3: 'Walls Created'
+      algoStatName2: 'Frontier Nodes'
     };
     this.frontierNodes = new HashSet<GridLocation>();
   }
@@ -132,7 +131,7 @@ export class Prims implements MazeAlgorithmInterface {
     return 'Prims';
   }
 
-  public getAlgorithmStatNames(): algoStatNames {
+  public getAlgorithmStatNames(): AlgoStatNames {
     return this.algoStatNames;
   }
 

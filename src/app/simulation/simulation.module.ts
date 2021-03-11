@@ -11,10 +11,11 @@ import {GridSettingsComponent} from './grid-settings/grid-settings.component';
 import {MazeSettingsComponent} from './grid-settings/maze-settings/maze-settings.component';
 import {PathfindingSettingsComponent} from './grid-settings/pathfinding-settings/pathfinding-settings.component';
 import {SharedModule} from '../@shared/shared.module';
+import {ControllerComponent} from './controller/controller.component';
 
 @NgModule({
   declarations: [SimulationComponent, GridComponent, NodeComponent, StatsComponent,
-    GridSettingsComponent, MazeSettingsComponent, PathfindingSettingsComponent],
+    GridSettingsComponent, MazeSettingsComponent, PathfindingSettingsComponent, ControllerComponent],
   imports: [
     CommonModule,
     SimulationRoutingModule,
