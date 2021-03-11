@@ -6,7 +6,6 @@ export type AlgoStatNames = {
 
 export type Mapping<T> = {
   [key: string]: string;
-  []
 };
 
 

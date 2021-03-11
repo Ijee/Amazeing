@@ -6,7 +6,7 @@
       >{{ recordService.getIteration() }}</p>
     </strong>
   </div>
-  <div *ngIf="simulationService.getAlgorithmStatNames().algoStatName1 !== null" class="column is-half-mobile">
+  <div *ngIf="simulationService.getAlgorithmStatNames().algoStatName1" class="column is-half-mobile">
     <strong class="has-text-centered">
       <p class="heading is-size-6-mobile">{{ this.simulationService.getAlgorithmStatNames().algoStatName1 }}</p>
       <p class="title is-size-6-mobile"
@@ -18,7 +18,7 @@
       </p>
     </strong>
   </div>
-  <div *ngIf="simulationService.getAlgorithmStatNames().algoStatName2 !== null" class="column is-size-7-mobile is-half-mobile">
+  <div *ngIf="simulationService.getAlgorithmStatNames().algoStatName2" class="column is-size-7-mobile is-half-mobile">
     <strong class="has-text-centered">
       <p class="heading is-size-6-mobile">{{ this.simulationService.getAlgorithmStatNames().algoStatName2 }}</p>
       <p class="title is-size-6-mobile"
@@ -30,7 +30,7 @@
       </p>
     </strong>
   </div>
-  <div *ngIf="simulationService.getAlgorithmStatNames().algoStatName3 !== null" class="column is-size-7-mobile is-half-mobile">
+  <div *ngIf="simulationService.getAlgorithmStatNames().algoStatName3" class="column is-size-7-mobile is-half-mobile">
     <strong class="has-text-centered">
       <p class="heading is-size-6-mobile">{{ this.simulationService.getAlgorithmStatNames().algoStatName3 }}</p>
       <p class="title is-size-6-mobile"
