@@ -19,7 +19,7 @@
     <div id="navbarMenuHeroA" [ngClass]="{ 'is-active': isNavbar }" class="navbar-menu">
       <div class="navbar-end">
         <a class="navbar-item is-unselectable font-white"
-           routerLink="simulation"
+           [routerLink]="'simulation/' + settingsService.getAlgorithmMode()"
            routerLinkActive="is-tab"
            (click)="simulationService.setSimulationStatus(false)">
                 <span class="icon">
