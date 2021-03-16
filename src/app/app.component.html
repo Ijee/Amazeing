@@ -55,7 +55,7 @@
                       disabled
                       [class]="settingsService.getAlgorithmMode() === 'maze' ? 'is-primary' : 'is-danger'"
                       (click)="settingsService.setDarkModeSetting()">
-                <b>{{ settingsService.getdarkModeSetting() ? 'ON' : 'OFF' }}</b>
+                <b>{{ settingsService.isDarkModeSetting() ? 'ON' : 'OFF' }}</b>
               </button>
             </div>
             <div class="navbar-item">
@@ -66,7 +66,7 @@
               <button class="button is-small dropdown-button"
                       [class]="settingsService.getAlgorithmMode() === 'maze' ? 'is-primary' : 'is-danger'"
                       (click)="settingsService.setAnimationSetting()">
-                <b>{{ settingsService.getAnimationsSetting() ? 'ON' : 'OFF' }}</b>
+                <b>{{ settingsService.isAnimationsSetting() ? 'ON' : 'OFF' }}</b>
               </button>
             </div>
             <div class="navbar-item">
@@ -77,7 +77,7 @@
               <button class="button is-small dropdown-button"
                       [class]="settingsService.getAlgorithmMode() === 'maze' ? 'is-primary' : 'is-danger'"
                       (click)="settingsService.setWarningsSetting()">
-                <b>{{ settingsService.getWarningsSetting() ? 'ON' : 'OFF' }}</b>
+                <b>{{ settingsService.isWarningsSetting() ? 'ON' : 'OFF' }}</b>
               </button>
             </div>
             <hr class="navbar-divider">
@@ -111,6 +111,7 @@
     </main>
   </div>
 </div>
+<app-warning-modal></app-warning-modal>
 <app-legend-modal></app-legend-modal>
 <app-import-modal></app-import-modal>
 <app-export-modal></app-export-modal>

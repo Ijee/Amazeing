@@ -43,14 +43,17 @@ export class GridComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // set initial start and goal
-    const initialStartX = Math.round((33 * this.width) / 100);
-    const initialGoalX = Math.round((66 * this.width) / 100);
-    const initialNodeHeightY = Math.round((50 * this.height) / 100);
-    this.gridList[initialStartX][initialNodeHeightY].nodeStatus = 1;
-    this.recordService.setGridStartLocation(initialStartX, initialNodeHeightY);
-    this.gridList[initialGoalX][initialNodeHeightY].nodeStatus = 2;
-    this.recordService.setGridGoalLocation(initialGoalX, initialNodeHeightY);
-    this.simulationService.setGridList(this.gridList);
+    if (!this.recordService.getGridSavePointStats()) {
+      console.log('yo');
+      const initialStartX = Math.round((33 * this.width) / 100);
+      const initialGoalX = Math.round((66 * this.width) / 100);
+      const initialNodeHeightY = Math.round((50 * this.height) / 100);
+      this.gridList[initialStartX][initialNodeHeightY].nodeStatus = 1;
+      this.recordService.setGridStartLocation(initialStartX, initialNodeHeightY);
+      this.gridList[initialGoalX][initialNodeHeightY].nodeStatus = 2;
+      this.recordService.setGridGoalLocation(initialGoalX, initialNodeHeightY);
+      this.simulationService.setGridList(this.gridList);
+    }
     // this.recordService.setAlgoStat1(this.width * this.height);
     this.simulationService.getGridList().pipe(takeUntil(this.destroyed$)).subscribe(data => {
       if (data.length) {

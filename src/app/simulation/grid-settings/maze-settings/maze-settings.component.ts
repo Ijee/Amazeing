@@ -1,23 +1,25 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SettingsService} from '../../../@core/services/settings.service';
-import hljs from 'highlight.js/lib/core';
-import javascript from 'highlight.js/lib/languages/javascript';
 import {MazeService} from '../../../@core/services/maze.service';
-import {MazeAlgorithm, PathFindingAlgorithm} from '../../../../types';
+import {MazeAlgorithm} from '../../../../types';
 import {ActivatedRoute, Router} from '@angular/router';
 import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
+import {WarningDialogService} from '../../../@shared/components/warning-modal/warning-dialog.service';
+import {SimulationService} from '../../../@core/services/simulation.service';
 
 @Component({
   selector: 'app-maze-settings',
   templateUrl: './maze-settings.component.html',
   styleUrls: ['./maze-settings.component.scss']
 })
-export class MazeSettingsComponent implements OnInit {
+export class MazeSettingsComponent implements OnInit, OnDestroy {
   private readonly destroyed$: Subject<void>;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
+              private warningDialog: WarningDialogService,
+              public simulationService: SimulationService,
               public settingsService: SettingsService,
               public mazeService: MazeService) {
     this.destroyed$ = new Subject<void>();
@@ -43,8 +45,30 @@ export class MazeSettingsComponent implements OnInit {
     this.destroyed$.complete();
   }
 
-  public handleAlgorithmChange(newAlgorithm: MazeAlgorithm): void {
+  public handleWarning(newAlgorithm: MazeAlgorithm): void {
+    if (this.settingsService.isWarningsSetting()) {
+      this.warningDialog.openDialog();
+      this.warningDialog.afterClosed().pipe(takeUntil(this.destroyed$)).subscribe(result => {
+        if (result === 'continue') {
+          this.handleAlgorithmSwitch(newAlgorithm);
+        } else {
+          return;
+        }
+      });
+    } else {
+      this.handleAlgorithmSwitch(newAlgorithm);
+    }
+  }
+
+  /**
+   * Switches the algorithm and appends the query param to the url.
+   *
+   * @param newAlgorithm - the new algorithm to be set
+   */
+  private handleAlgorithmSwitch(newAlgorithm: MazeAlgorithm): void {
     this.mazeService.switchAlgorithm(newAlgorithm);
+    // TODO soft reset or hard reset / grid savepoint?
+    this.simulationService.softReset();
     this.router.navigate(
       [],
       {

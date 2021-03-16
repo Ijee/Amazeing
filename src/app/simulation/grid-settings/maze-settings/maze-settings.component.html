@@ -7,7 +7,7 @@
       <div class="column is-one-third">
         <button class="button algo-button is-fullwidth"
                 [ngClass]="mazeService.getAlgorithmName() === 'Prims' ? 'is-primary' : ''"
-                (click)="handleAlgorithmChange('Prims')">
+                (click)="handleWarning('Prims')">
           <b>Prim's</b>
         </button>
       </div>
@@ -15,7 +15,7 @@
         <button class="button algo-button is-fullwidth"
                 [ngClass]="mazeService.getAlgorithmName() === 'Kruskals' ? 'is-primary' : ''"
                 disabled
-                (click)="handleAlgorithmChange('Kruskals')">
+                (click)="handleWarning('Kruskals')">
           <b>Kruskal's</b>
         </button>
       </div>
@@ -23,7 +23,7 @@
         <button class="button algo-button is-fullwidth"
                 [ngClass]="mazeService.getAlgorithmName() === 'Aldous-Broder' ? 'is-primary' : ''"
                 disabled
-                (click)="handleAlgorithmChange('Aldous-Broder')">
+                (click)="handleWarning('Aldous-Broder')">
           <b>Aldous-Broder</b>
         </button>
       </div>
@@ -31,7 +31,7 @@
         <button class="button algo-button is-fullwidth"
                 [ngClass]="mazeService.getAlgorithmName() === 'Wilsons' ? 'is-primary' : ''"
                 disabled
-                (click)="handleAlgorithmChange('Wilsons')">
+                (click)="handleWarning('Wilsons')">
           <b>Wilson's</b>
         </button>
       </div>
@@ -39,7 +39,7 @@
         <button class="button algo-button is-fullwidth"
                 [ngClass]="mazeService.getAlgorithmName() === 'Ellers' ? 'is-primary' : ''"
                 disabled
-                (click)="handleAlgorithmChange('Ellers')">
+                (click)="handleWarning('Ellers')">
           <b>Eller's</b>
         </button>
       </div>
@@ -47,7 +47,7 @@
         <button class="button algo-button is-fullwidth"
                 [ngClass]="mazeService.getAlgorithmName() === 'Sidewinder' ? 'is-primary' : ''"
                 disabled
-                (click)="handleAlgorithmChange('Sidewinder')">
+                (click)="handleWarning('Sidewinder')">
           <b>Sidewinder</b>
         </button>
       </div>
@@ -55,7 +55,7 @@
         <button class="button algo-button is-fullwidth"
                 [ngClass]="mazeService.getAlgorithmName() === 'Hunt-and-Kill' ? 'is-primary' : ''"
                 disabled
-                (click)="handleAlgorithmChange('Hunt-and-Kill')">
+                (click)="handleWarning('Hunt-and-Kill')">
           <b>Hunt and Kill</b>
         </button>
       </div>
@@ -63,7 +63,7 @@
         <button class="button algo-button is-fullwidth"
                 [ngClass]="mazeService.getAlgorithmName() === 'Growing-Tree' ? 'is-primary' : ''"
                 disabled
-                (click)="handleAlgorithmChange('Growing-Tree')">
+                (click)="handleWarning('Growing-Tree')">
           <b>Growing Tree</b>
         </button>
       </div>
@@ -71,7 +71,7 @@
         <button class="button algo-button is-fullwidth"
                 [ngClass]="mazeService.getAlgorithmName()=== 'Binary-Tree' ? 'is-primary' : ''"
                 disabled
-                (click)="handleAlgorithmChange('Binary-Tree')">
+                (click)="handleWarning('Binary-Tree')">
           <b>Binary Tree</b>
         </button>
       </div>
@@ -79,7 +79,7 @@
         <button class="button algo-button is-fullwidth"
                 [ngClass]="mazeService.getAlgorithmName() === 'Recursive-Backtracker' ? 'is-primary' : ''"
                 disabled
-                (click)="handleAlgorithmChange('Recursive-Backtracker')">
+                (click)="handleWarning('Recursive-Backtracker')">
           <b>Recursive-Backtracker</b>
         </button>
       </div>
@@ -87,7 +87,7 @@
         <button class="button algo-button is-fullwidth"
                 [ngClass]="mazeService.getAlgorithmName() === 'Recursive-Division' ? 'is-primary' : ''"
                 disabled
-                (click)="handleAlgorithmChange('Recursive-Division')">
+                (click)="handleWarning('Recursive-Division')">
           <b>Recursive Division</b>
         </button>
       </div>
@@ -95,7 +95,7 @@
         <button class="button algo-button is-fullwidth"
                 [ngClass]="mazeService.getAlgorithmName()  === 'Cellular-Automation' ? 'is-primary' : ''"
                 disabled
-                (click)="handleAlgorithmChange('Cellular-Automation')">
+                (click)="handleWarning('Cellular-Automation')">
           <b>Cellular Automation</b>
         </button>
       </div>
@@ -110,7 +110,7 @@
         <button class="button algo-button is-fullwidth"
                 [ngClass]="mazeService.getAlgorithmName() === 'Wall-Follower' ? 'is-primary' : ''"
                 disabled
-                (click)="handleAlgorithmChange('Wall-Follower')">
+                (click)="handleWarning('Wall-Follower')">
           <b>Wall-Follower</b>
         </button>
       </div>
@@ -118,7 +118,7 @@
         <button class="button algo-button is-fullwidth"
                 [ngClass]="mazeService.getAlgorithmName() === 'Pledge' ? 'is-primary' : ''"
                 disabled
-                (click)="handleAlgorithmChange('Pledge')">
+                (click)="handleWarning('Pledge')">
           <b>Pledge</b>
         </button>
       </div>
@@ -126,7 +126,7 @@
         <button class="button algo-button is-fullwidth"
                 [ngClass]="mazeService.getAlgorithmName() === 'Trémaux' ? 'is-primary' : ''"
                 disabled
-                (click)="handleAlgorithmChange('Trémaux')">
+                (click)="handleWarning('Trémaux')">
           <b>Trémaux's</b>
         </button>
       </div>
@@ -134,7 +134,7 @@
         <button class="button algo-button is-fullwidth"
                 [ngClass]="mazeService.getAlgorithmName() === 'Recursive' ? 'is-primary' : ''"
                 disabled
-                (click)="handleAlgorithmChange('Recursive')">
+                (click)="handleWarning('Recursive')">
           <b>Recursive</b>
         </button>
       </div>
@@ -142,7 +142,7 @@
         <button class="button algo-button is-fullwidth"
                 [ngClass]="mazeService.getAlgorithmName() === 'Maze-Routing' ? 'is-primary' : ''"
                 disabled
-                (click)="handleAlgorithmChange('Maze-Routing')">
+                (click)="handleWarning('Maze-Routing')">
           <b>Maze-Routing</b>
         </button>
       </div>
@@ -150,7 +150,7 @@
         <button class="button algo-button is-fullwidth"
                 [ngClass]="mazeService.getAlgorithmName() === 'Dead-End-Filling' ? 'is-primary' : ''"
                 disabled
-                (click)="handleAlgorithmChange('Dead-End-Filling')">
+                (click)="handleWarning('Dead-End-Filling')">
           <b>Dead-End Filling</b>
         </button>
       </div>

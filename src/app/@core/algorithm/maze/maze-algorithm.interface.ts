@@ -16,7 +16,7 @@ export interface MazeAlgorithmInterface {
   /**
    * Returns the new step / iteration based on the currentGrid
    */
-  nextStep(): Node[][];
+  nextStep(): Node[][] | null;
 
   /**
    * Sets the starting point for the algorithm to the one

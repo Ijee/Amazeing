@@ -112,7 +112,7 @@ export class Prims implements MazeAlgorithmInterface {
     }
   }
 
-  public nextStep(): Node[][] {
+  public nextStep(): Node[][] | null {
     if (this.frontierNodes.size() !== 0) {
       const randomFrontierItem = this.frontierNodes.getRandomItem();
       this.frontierNodes.remove(randomFrontierItem);

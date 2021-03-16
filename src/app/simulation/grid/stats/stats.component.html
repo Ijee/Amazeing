@@ -13,7 +13,7 @@
          [class]="settingsService.getAlgorithmMode()=== 'maze' ? 'has-text-primary' : 'has-text-danger'"
          appCountAnimation
          [newValue]="recordService.getCurrentStats().algoStat1"
-         [disableAnimation]="isMouseDown || !settingsService.getAnimationsSetting()">
+         [disableAnimation]="isMouseDown || !settingsService.isAnimationsSetting()">
         0
       </p>
     </strong>
@@ -25,7 +25,7 @@
          [class]="settingsService.getAlgorithmMode() === 'maze' ? 'has-text-primary' : 'has-text-danger'"
          appCountAnimation
          [newValue]="recordService.getCurrentStats().algoStat2"
-         [disableAnimation]="isMouseDown || !settingsService.getAnimationsSetting()">
+         [disableAnimation]="isMouseDown || !settingsService.isAnimationsSetting()">
         0
       </p>
     </strong>
@@ -37,7 +37,7 @@
          [class]="settingsService.getAlgorithmMode() === 'maze' ? 'has-text-primary' : 'has-text-danger'"
          appCountAnimation
          [newValue]="recordService.getCurrentStats().algoStat3"
-         [disableAnimation]="isMouseDown || !settingsService.getAnimationsSetting()">
+         [disableAnimation]="isMouseDown || !settingsService.isAnimationsSetting()">
         0
       </p>
     </strong>

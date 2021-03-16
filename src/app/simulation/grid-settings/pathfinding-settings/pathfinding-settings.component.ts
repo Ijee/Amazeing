@@ -6,6 +6,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {PathFindingAlgorithm} from '../../../../types';
+import {WarningDialogService} from '../../../@shared/components/warning-modal/warning-dialog.service';
+import {SimulationService} from '../../../@core/services/simulation.service';
 
 @Component({
   selector: 'app-pathfinding-settings',
@@ -18,6 +20,8 @@ export class PathfindingSettingsComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
+              private warningDialog: WarningDialogService,
+              public simulationService: SimulationService,
               public settingsService: SettingsService,
               public pathFindingService: PathFindingService) {
     this.destroyed$ = new Subject<void>();
@@ -42,12 +46,34 @@ export class PathfindingSettingsComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Handles appending the query param to the url and switching the algorithm based on click.
+   * Handles the warning settings the user set and delegates the correct action accordingly.
    *
    * @param newAlgorithm - the new algorithm to be set
    */
-  public handleAlgorithmChange(newAlgorithm: PathFindingAlgorithm): void {
+  public handleWarning(newAlgorithm: PathFindingAlgorithm): void {
+    if (this.settingsService.isWarningsSetting()) {
+      this.warningDialog.openDialog();
+      this.warningDialog.afterClosed().pipe(takeUntil(this.destroyed$)).subscribe(result => {
+        if (result === 'continue') {
+          this.handleAlgorithmSwitch(newAlgorithm);
+        } else {
+          return;
+        }
+      });
+    } else {
+      this.handleAlgorithmSwitch(newAlgorithm);
+    }
+  }
+
+  /**
+   * Switches the algorithm and appends the query param to the url.
+   *
+   * @param newAlgorithm - the new algorithm to be set
+   */
+  private handleAlgorithmSwitch(newAlgorithm: PathFindingAlgorithm): void {
     this.pathFindingService.switchAlgorithm(newAlgorithm);
+    // TODO soft reset or hard reset / grid savepoint?
+    this.simulationService.softReset();
     this.router.navigate(
       [],
       {
