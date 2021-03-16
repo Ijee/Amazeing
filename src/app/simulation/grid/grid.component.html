@@ -20,6 +20,7 @@
     <div class="field has-addons has-addons-centered is-marginless control-button-wrapper">
       <p class="control">
         <button class="button is-outlined is-size-7-mobile is-size-7-touch is-size-6-desktop"
+                title="Set start"
                 [ngClass]="simulationService.getDrawingMode() === 1 ? 'is-active' : ''"
                 [disabled]="recordService.getIteration() > 0"
                 (click)="simulationService.setDrawingMode(1)">
@@ -30,18 +31,27 @@
         </button>
       </p>
       <p class="control">
-        <button class="button is-outlined  is-size-7-mobile is-size-7-touch is-size-6-desktop"
-                [disabled]="this.recordService.getIteration()> 0 || !(settingsService.getAlgorithmMode() === 'pathFinding')">
+        <button class="button is-outlined is-size-7-mobile is-size-7-touch is-size-6-desktop"
+                title="Random weights"
+                [disabled]="this.recordService.getIteration() > 0 || !(settingsService.getAlgorithmMode() === 'path-finding')">
                 <span class="icon">
                   <fa-icon [icon]="['fas', 'balance-scale-right']"></fa-icon>
                 </span>
-          <b>Add weights</b>
+          <b>Random weights</b>
+        </button>
+      </p>
+      <p class="control">
+        <button class="button is-primary m-0 is-pulled-right is-size-7-mobile is-size-7-touch is-size-6-desktop"
+                title="Show / hide weights">
+                <span class="icon">
+                  <fa-icon [icon]="['fas', 'eye']"></fa-icon>
+                </span>
         </button>
       </p>
       <p class="control">
         <button class="button is-outlined is-size-7-mobile is-size-7-touch is-size-6-desktop"
-                [disabled]="this.recordService.getIteration() > 0"
                 title="random"
+                [disabled]="this.recordService.getIteration() > 0"
                 (click)="simulationService.setRandomSeed()">
         <span class="icon">
           <fa-icon [icon]="['fas', 'random']"></fa-icon>
@@ -61,7 +71,9 @@
         </button>
       </p>
       <p class="control control-pulled-right">
-        <button class="button is-outlined is-size-7-touch is-size-6-desktop" (click)="simulationService.setLegend()">
+        <button class="button is-outlined is-size-7-touch is-size-6-desktop"
+                title="Legend"
+                (click)="simulationService.setLegend()">
                 <span class="icon">
                   <fa-icon [icon]="['fas', 'asterisk']"></fa-icon>
                 </span>
