@@ -29,15 +29,6 @@ export class RecordService {
       algoStat3: 0
     }];
     this.rewritingHistory = false;
-
-    const test: GridStatHistory = {
-      1: [1],
-      2: [1]
-    };
-    console.log('yo', test);
-    test[1].push(3);
-    console.log('ho', test[0]);
-    console.log('ho', test[1]);
   }
 
   /**
@@ -49,7 +40,6 @@ export class RecordService {
    * @param gridList - the gridList used in the grid component
    */
   public manageHistory(gridList: Node[][]): void {
-    console.log('gridHistory length:', this.gridHistory.length);
     if (this.gridHistory.length >= 10) {
       this.gridHistory.shift();
       this.statRecordHistory.shift();
@@ -64,12 +54,9 @@ export class RecordService {
    * when the backwardsStep is called on the controller
    */
   public manipulateHistory(): void {
-    console.log('gridHistory length (in backwardsStep) ', this.getGridHistory().length);
     this.setIteration(this.iteration - 1);
     this.gridHistory.pop();
-    // this.gridHistory.slice(0, -1);
     this.statRecordHistory.pop();
-    // this.statRecordHistory.slice(0, -1);
     this.setRewritingHistory(false);
   }
 
@@ -108,7 +95,6 @@ export class RecordService {
    * @param newRecord - the new stat record
    */
   public addStatRecord(newRecord: StatRecord): void {
-    // this.statRecordHistory.push(newRecord);
     this.statRecordHistory = [...this.statRecordHistory, _.clone(newRecord)];
   }
 
@@ -140,14 +126,23 @@ export class RecordService {
     return this.gridSavePoint;
   }
 
+  /**
+   * Returns the grid save point.
+   */
   public getGridSavePointStats(): StatRecord {
     return this.gridSavePointStats;
   }
 
+  /**
+   * Returns the grid start location.
+   */
   public getGridStartLocation(): GridLocation {
     return this.gridStartLocation;
   }
 
+  /**
+   * Returns the grid goal location.
+   */
   public getGridGoalLocation(): GridLocation {
     return this.gridGoalLocation;
   }

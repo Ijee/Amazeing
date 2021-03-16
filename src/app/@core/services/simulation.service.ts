@@ -186,8 +186,6 @@ export class SimulationService {
       }
       newGrid = this.mazeService.getNextStep();
       newStats = this.mazeService.getUpdatedStats();
-      // const newStatHistory = [this.recordService.getStatRecordHistory(), newStats];
-      // this.recordService.setStatRecordHistory(newStatHistory);
     } else {
       if (this.recordService.getIteration() === 0) {
         this.pathFindingService.setInitialData(_.cloneDeep(
@@ -200,7 +198,6 @@ export class SimulationService {
       this.setGridList(newGrid);
       this.recordService.setIteration(this.recordService.getIteration() + 1);
       this.recordService.addStatRecord(newStats);
-
     } else {
       this.setSimulationStatus();
     }
@@ -244,13 +241,15 @@ export class SimulationService {
   }
 
   /**
-   * This resets
+   * This resets the grid and everythign associated with it.
+   * First resets does a reset to the grid save point.
+   * Second one does a hard reset
    */
   public reset(): void {
     this.setSimulationStatus(false);
     this.recordService.setIteration(0);
     if (this.recordService.getIteration() > 0 && this.recordService.getGridSavePointStats()) {
-      // Soft reset
+      // Resets to save point
       this.recordService.addStatRecord(this.recordService.getGridSavePointStats());
       this.gridList$.next(this.recordService.getGridSavePoint());
     } else {
