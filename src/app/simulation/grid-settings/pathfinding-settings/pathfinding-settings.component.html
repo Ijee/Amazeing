@@ -8,22 +8,21 @@
         <button class="button algo-button is-fullwidth"
                 [ngClass]="pathFindingService.getAlgorithmName() === 'A-Star' ? 'is-danger' : ''"
                 disabled
-                (click)="pathFindingService.switchAlgorithm('A-Star')">
+                (click)="handleAlgorithmChange('A-Star')">
           <b>A*</b>
         </button>
       </div>
       <div class="column is-one-third">
         <button class="button algo-button is-fullwidth"
                 [ngClass]="pathFindingService.getAlgorithmName() === 'IDA-Star' ? 'is-danger' : ''"
-                disabled
-                (click)="pathFindingService.switchAlgorithm('IDA-Star')">
+                (click)="handleAlgorithmChange('IDA-Star')">
           <b>IDA*</b>
         </button>
       </div>
       <div class="column is-one-third">
         <button class="button algo-button is-fullwidth"
                 [ngClass]="pathFindingService.getAlgorithmName() === 'Dijkstra' ? 'is-danger' : ''"
-                (click)="pathFindingService.switchAlgorithm('Dijkstra')">
+                (click)="handleAlgorithmChange('Dijkstra')">
           <b>Dijkstra</b>
         </button>
       </div>
@@ -31,7 +30,7 @@
         <button class="button algo-button is-fullwidth"
                 [ngClass]="pathFindingService.getAlgorithmName() === 'Breadth-FS' ? 'is-danger' : ''"
                 disabled
-                (click)="pathFindingService.switchAlgorithm('Breadth-FS')">
+                (click)="handleAlgorithmChange('Breadth-FS')">
           <b>Breadth-First-Search</b>
         </button>
       </div>
@@ -39,7 +38,7 @@
         <button class="button algo-button is-fullwidth"
                 [ngClass]="pathFindingService.getAlgorithmName() === 'Depth-FS' ? 'is-danger' : ''"
                 disabled
-                (click)="pathFindingService.switchAlgorithm('Depth-FS')">
+                (click)="handleAlgorithmChange('Depth-FS')">
           <b>Depth-First-Search</b>
         </button>
       </div>
@@ -47,7 +46,7 @@
         <button class="button algo-button is-fullwidth"
                 [ngClass]="pathFindingService.getAlgorithmName() === 'Best-FS' ? 'is-danger' : ''"
                 disabled
-                (click)="pathFindingService.switchAlgorithm('Best-FS')">
+                (click)="handleAlgorithmChange('Best-FS')">
           <b>Best-First-Search</b>
         </button>
       </div>
@@ -55,7 +54,7 @@
         <button class="button algo-button is-fullwidth"
                 [ngClass]="pathFindingService.getAlgorithmName() === 'Trace' ? 'is-danger' : ''"
                 disabled
-                (click)="pathFindingService.switchAlgorithm('Trace')">
+                (click)="handleAlgorithmChange('Trace')">
           <b>Trace</b>
         </button>
       </div>
@@ -63,7 +62,7 @@
         <button class="button algo-button is-fullwidth"
                 [ngClass]="pathFindingService.getAlgorithmName() === 'Jump-PS' ? 'is-danger' : ''"
                 disabled
-                (click)="pathFindingService.switchAlgorithm('Jump-PS')">
+                (click)="handleAlgorithmChange('Jump-PS')">
           <b>Jump Point Search</b>
         </button>
       </div>
@@ -71,7 +70,7 @@
         <button class="button algo-button is-fullwidth"
                 [ngClass]="pathFindingService.getAlgorithmName() === 'Orthogonal-Jump-PS' ? 'is-danger' : ''"
                 disabled
-                (click)="pathFindingService.switchAlgorithm('Orthogonal-Jump-PS')">
+                (click)="handleAlgorithmChange('Orthogonal-Jump-PS')">
           <b>Orthogonal Jump Point Search</b>
         </button>
       </div>

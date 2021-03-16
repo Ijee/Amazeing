@@ -8,19 +8,22 @@ export type Mapping<T> = {
   [key: string]: string;
 };
 
+export type GridStatHistory = {
+  [key: string]: number[];
+};
+
 
 export type Node = {
   nodeStatus: number;
 };
 
-export type SavePointStats = {
-  iteration: number;
+export type StatRecord = {
   algoStat1: number;
   algoStat2: number;
   algoStat3: number;
 };
 
-export type MazeAlgorithms =
+export type MazeAlgorithm =
   'Prims'
   | 'Kruskals'
   | 'Aldous-Broder'
@@ -41,7 +44,7 @@ export type MazeAlgorithms =
   | 'Maze-Routing';
 
 
-export type PathFindingAlgorithms =
+export type PathFindingAlgorithm =
   'A-Star'
   | 'IDA-Star'
   | 'Dijkstra'

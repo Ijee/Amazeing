@@ -1,4 +1,4 @@
-import {AlgoStatNames, Node, PathFindingAlgorithms, PathFindingHeuristics} from '../../../../types';
+import {AlgoStatNames, Node, PathFindingAlgorithm, PathFindingHeuristics} from '../../../../types';
 import {GridLocation} from '../../../@shared/GridLocation';
 
 export interface PathFindingAlgorithmInterface {
@@ -23,7 +23,7 @@ export interface PathFindingAlgorithmInterface {
   /**
    * Returns the name of the algorithm
    */
-  getAlgorithmName(): PathFindingAlgorithms;
+  getAlgorithmName(): PathFindingAlgorithm;
 
   /**
    * Returns an object that determines what the stat is supposed to represent

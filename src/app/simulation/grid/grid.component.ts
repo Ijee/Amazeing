@@ -51,7 +51,7 @@ export class GridComponent implements OnInit, OnDestroy {
     this.gridList[initialGoalX][initialNodeHeightY].nodeStatus = 2;
     this.recordService.setGridGoalLocation(initialGoalX, initialNodeHeightY);
     this.simulationService.setGridList(this.gridList);
-    this.recordService.setAlgoStat1(this.width * this.height);
+    // this.recordService.setAlgoStat1(this.width * this.height);
     this.simulationService.getGridList().pipe(takeUntil(this.destroyed$)).subscribe(data => {
       if (data.length) {
         data.forEach((column, i) => {
@@ -63,19 +63,18 @@ export class GridComponent implements OnInit, OnDestroy {
         this.reset();
       }
       if (!this.recordService.getRewritingHistory()) {
-        this.recordService.setHistory(data);
+        this.recordService.manageHistory(data);
       }
     });
 
     this.simulationService.getBackwardStep().pipe(takeUntil(this.destroyed$)).subscribe(() => {
       this.recordService.setRewritingHistory(true);
-      this.simulationService.manipulateHistory();
-      this.recordService.setIteration(this.recordService.getIteration() - 1);
+      // length - 2 because it is not possible to call this in recordService beforehand
+      // -> gridList is currently still in simulationService
+      this.simulationService.setGridList(this.recordService
+        .getGridHistory()[this.recordService.getGridHistory().length - 2]);
+      this.recordService.manipulateHistory();
     });
-    // this.simulationService.getStep().pipe(takeUntil(this.destroyed$)).subscribe(() => {
-    //
-    //   this.simulationService.changeIteration(1);
-    // });
     this.simulationService.getRandomSeed().pipe(takeUntil(this.destroyed$)).subscribe(() => {
       this.randomSeed();
     });
@@ -119,17 +118,17 @@ export class GridComponent implements OnInit, OnDestroy {
    *
    * @param newValue - the new cell status
    */
-  updateCellStats(newValue: number): void {
-    switch (newValue) {
-      case -1:
-        this.recordService.setAlgoStat2(this.recordService.getAlgoStat2() - 1);
-        break;
-      case 0:
-        this.recordService.setAlgoStat2(this.recordService.getAlgoStat2() + 1);
-        this.recordService.setAlgoStat3(this.recordService.getAlgoStat3() + 1);
-        break;
-    }
-  }
+  // updateCellStats(newValue: number): void {
+  //   switch (newValue) {
+  //     case -1:
+  //       this.recordService.setAlgoStat2(this.recordService.getAlgoStat2() - 1);
+  //       break;
+  //     case 0:
+  //       this.recordService.setAlgoStat2(this.recordService.getAlgoStat2() + 1);
+  //       this.recordService.setAlgoStat3(this.recordService.getAlgoStat3() + 1);
+  //       break;
+  //   }
+  // }
 
   drawModeLogic(col: number, row: number): void {
     const oldStatus = this.gridList[col][row].nodeStatus;
@@ -162,7 +161,7 @@ export class GridComponent implements OnInit, OnDestroy {
         break;
     }
     this.gridList[col][row].nodeStatus = drawMode;
-    this.updateCellStats(drawMode);
+    // this.updateCellStats(drawMode);
   }
 
   /**
@@ -178,9 +177,9 @@ export class GridComponent implements OnInit, OnDestroy {
     if (this.gridList[x][y].nodeStatus !== nodeStatus) {
       this.gridList[x][y].nodeStatus = nodeStatus;
 
-      if (this.isInitialized) {
-        this.updateCellStats(nodeStatus);
-      }
+      // if (this.isInitialized) {
+      //   this.updateCellStats(nodeStatus);
+      // }
     }
     // let row = this.gridList[x];
     // row.splice(y, 1, {nodeStatus: true});

@@ -1,5 +1,5 @@
 import {PathFindingAlgorithmInterface} from './path-finding-algorithm.interface';
-import {PathFindingAlgorithms, Node, PathFindingHeuristics, AlgoStatNames} from '../../../../types';
+import {PathFindingAlgorithm, Node, PathFindingHeuristics, AlgoStatNames} from '../../../../types';
 import {GridLocation} from '../../../@shared/GridLocation';
 
 export class Dijkstra implements PathFindingAlgorithmInterface {
@@ -24,7 +24,7 @@ export class Dijkstra implements PathFindingAlgorithmInterface {
     return null;
   }
 
-  public getAlgorithmName(): PathFindingAlgorithms {
+  public getAlgorithmName(): PathFindingAlgorithm {
     return 'Dijkstra';
   }
 

@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
-import {MazeAlgorithms, PathFindingAlgorithms} from '../../../types';
+import {MazeAlgorithm, PathFindingAlgorithm} from '../../../types';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SettingsService {
   private algorithmMode: string;
-  private currentMazeAlgorithm: MazeAlgorithms;
-  private currentPathAlgorithm: PathFindingAlgorithms;
+  private currentMazeAlgorithm: MazeAlgorithm;
+  private currentPathAlgorithm: PathFindingAlgorithm;
   private currentHeuristic: string;
   // Settings
   private darkModeSetting: boolean;
@@ -16,7 +16,6 @@ export class SettingsService {
 
 
   constructor() {
-    this.algorithmMode = 'maze';
     this.darkModeSetting = false;
     this.animationsSetting = false;
     this.warningsSetting =  false;

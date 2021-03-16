@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FaIconLibrary} from '@fortawesome/angular-fontawesome';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import {fab} from '@fortawesome/free-brands-svg-icons';
@@ -8,14 +8,17 @@ import {SimulationService} from '../../@core/services/simulation.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MazeService} from '../../@core/services/maze.service';
 import {PathFindingService} from '../../@core/services/path-finding.service';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-grid-settings',
   templateUrl: './grid-settings.component.html',
   styleUrls: ['./grid-settings.component.scss']
 })
-export class GridSettingsComponent implements OnInit {
+export class GridSettingsComponent implements OnDestroy{
   public showWarning: boolean;
+
+  private readonly destroyed$: Subject<void>;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -27,9 +30,19 @@ export class GridSettingsComponent implements OnInit {
     library.addIconPacks(fas, fab, far);
 
     this.showWarning = false;
+    // activates the right algorithm mode button based on the matched url
+    if (this.router.url.includes('maze')) {
+      this.settingsService.setAlgorithmMode('maze');
+    } else {
+      this.settingsService.setAlgorithmMode('path-finding');
+    }
+
+    this.destroyed$ = new Subject<void>();
   }
 
-  ngOnInit(): void {
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
   }
 
   /**
@@ -46,7 +59,15 @@ export class GridSettingsComponent implements OnInit {
         this.simulationService.softReset();
         this.settingsService.setAlgorithmMode(algoMode);
         this.showWarning = false;
-        this.router.navigate([algoMode], {relativeTo: this.route});
+        let currentAlgorithm: string;
+        if (this.settingsService.getAlgorithmMode() === 'maze') {
+          currentAlgorithm = this.mazeService.getAlgorithmName();
+        } else {
+         currentAlgorithm = this.pathFindingService.getAlgorithmName();
+        }
+        console.log(currentAlgorithm);
+        this.router.navigate([algoMode],
+          {relativeTo: this.route, queryParams: {algorithm: currentAlgorithm}});
         // console.log('algoMode in service', this.settingsService.getAlgorithmMode());
       }
     }

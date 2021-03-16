@@ -29,7 +29,7 @@
         </a>
         <a class="navbar-item is-unselectable font-white"
            routerLink="learn"
-           routerLinkActive="is-tab"
+           [routerLinkActive]="['is-tab']"
            (click)="simulationService.setSimulationStatus(false)">
                 <span class="icon">
                   <fa-icon [icon]="['fas', 'chalkboard-teacher']"></fa-icon>

@@ -1,11 +1,10 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import * as _ from 'lodash';
-import {AlgoStatNames, Node, SavePointStats} from '../../../types';
+import {AlgoStatNames, MazeAlgorithm, Node, PathFindingAlgorithm, StatRecord} from '../../../types';
 import {SettingsService} from './settings.service';
 import {MazeService} from './maze.service';
 import {PathFindingService} from './path-finding.service';
-import {GridLocation} from '../../@shared/GridLocation';
 import {RecordService} from './record.service';
 
 
@@ -58,7 +57,24 @@ export class SimulationService {
   private restartInterval(): void {
     clearInterval(this.intervalID);
     if (this.isSimulationActive$.getValue()) {
-      this.intervalID = setInterval(() => this.addStep(), 10000 / this.simulationSpeed$.getValue());
+      this.intervalID = setInterval(() => this.addIteration(), 10000 / this.simulationSpeed$.getValue());
+    }
+  }
+
+  public getAlgorithmName(): MazeAlgorithm | PathFindingAlgorithm {
+    if (this.settingsService.getAlgorithmMode() === 'maze') {
+      return this.mazeService.getAlgorithmName();
+    } else {
+      return this.pathFindingService.getAlgorithmName();
+    }
+  }
+
+  // TODO does this make sense here?
+  public getAlgorithmStatNames(): AlgoStatNames {
+    if (this.settingsService.getAlgorithmMode() === 'maze') {
+      return this.mazeService.getAlgorithmStatNames();
+    } else {
+      return this.pathFindingService.getAlgorithmStatNames();
     }
   }
 
@@ -141,66 +157,56 @@ export class SimulationService {
   }
 
   /**
-   * Actually sets the step for the new iteration
+   * Actually sets a step as a new iteration
    *
    * @param newGrid - the current grid
    */
   public save(newGrid: Node[][]): void {
     this.setGridList(newGrid);
+    const currentStats = this.recordService.getCurrentStats();
     this.recordService.setGridSavePointStats({
-      iteration: this.recordService.getIteration(),
-      algoStat1: this.recordService.getAlgoStat1(),
-      algoStat2: this.recordService.getAlgoStat2(),
-      algoStat3: this.recordService.getAlgoStat3()
+      algoStat1: currentStats.algoStat1,
+      algoStat2: currentStats.algoStat2,
+      algoStat3: currentStats.algoStat3,
     });
-    // TODO CHECK IF WORKS
     this.recordService.setGridSavePoint(newGrid);
   }
 
   /**
-   * creates a new step and everything that is needed
-   * for step to continue. see grid component SimulationService.getStep
+   * creates a new iteration and everything that is needed
+   * for the iteration to continue.
    */
-  public addStep(): void {
+  public addIteration(): void {
     let newGrid: Node[][];
+    let newStats: StatRecord;
     if (this.settingsService.getAlgorithmMode() === 'maze') {
       if (this.recordService.getIteration() === 0) {
         this.mazeService.setInitialData(_.cloneDeep(
           this.gridList$.getValue()), this.recordService.getGridStartLocation());
       }
       newGrid = this.mazeService.getNextStep();
+      newStats = this.mazeService.getUpdatedStats();
+      // const newStatHistory = [this.recordService.getStatRecordHistory(), newStats];
+      // this.recordService.setStatRecordHistory(newStatHistory);
     } else {
       if (this.recordService.getIteration() === 0) {
         this.pathFindingService.setInitialData(_.cloneDeep(
           this.gridList$.getValue()), this.recordService.getGridStartLocation());
       }
       newGrid = this.pathFindingService.getNextStep();
+      // TODO update path-finding interface + implementation like mazeService
     }
     if (newGrid) {
       this.setGridList(newGrid);
       this.recordService.setIteration(this.recordService.getIteration() + 1);
+      this.recordService.addStatRecord(newStats);
+
     } else {
       this.setSimulationStatus();
     }
     if (this.backwardStepsAmount$.getValue() < 9) {
       this.changeBackwardStepsAmount(1);
     }
-  }
-
-  /**
-   * This manipulates the history of all tracked stats aas well as tge gridList
-   * when the backwardsStep is called on the controller
-   */
-  public manipulateHistory(): void {
-    this.recordService.setGridHistory(this.recordService.getGridHistory().slice(0, -1));
-    this.setGridList(this.recordService.getGridHistory()[this.recordService.getGridHistory().length - 1]);
-    this.recordService.setRewritingHistory(false);
-    this.recordService.setAlgoStat3History(this.recordService.getAlgoStat3History().slice(0, -1));
-    this.recordService.setAlgoStat3(this.recordService.getAlgoStat3History().length - 1);
-    this.recordService.setAlgoStat2History(this.recordService.getAlgoStat2History().slice(0, -1));
-    this.recordService.setAlgoStat2(this.recordService.getAlgoStat2History().length - 1);
-    this.recordService.setAlgoStat1History(this.recordService.getAlgoStat1History().slice(0, -1));
-    this.recordService.setAlgoStat1(this.recordService.getAlgoStat1History().length - 1);
   }
 
   /**
@@ -238,21 +244,19 @@ export class SimulationService {
   }
 
   /**
-   * This resets all stats and as well as the gridList
+   * This resets
    */
   public reset(): void {
     this.setSimulationStatus(false);
+    this.recordService.setIteration(0);
     if (this.recordService.getIteration() > 0 && this.recordService.getGridSavePointStats()) {
-      this.recordService.setIteration(this.recordService.getGridSavePointStats().iteration);
-      this.recordService.setAlgoStat1(this.recordService.getGridSavePointStats().algoStat1);
-      this.recordService.setAlgoStat2(this.recordService.getGridSavePointStats().algoStat2);
-      this.recordService.setAlgoStat3(this.recordService.getGridSavePointStats().algoStat3);
+      // Soft reset
+      this.recordService.addStatRecord(this.recordService.getGridSavePointStats());
       this.gridList$.next(this.recordService.getGridSavePoint());
     } else {
-      this.recordService.setIteration(0);
-      this.recordService.setAlgoStat1(0);
-      this.recordService.setAlgoStat2(0);
-      this.recordService.setAlgoStat3(0);
+      // Hard reset
+      console.log('in hard reset');
+      this.recordService.resetHistory();
       this.gridList$.next([]);
       this.recordService.setGridSavePoint([]);
       this.recordService.setGridSavePointStats(null);
@@ -264,6 +268,7 @@ export class SimulationService {
    * This removes algorithm specific grid states as well as the stats
    */
   public softReset(): void {
+    // deletes all the algorithm specific nodes from the grid
     const grid = _.cloneDeep(this.gridList$.value);
     grid.forEach(column => {
       column.forEach(node => {
@@ -275,9 +280,7 @@ export class SimulationService {
     });
     this.gridList$.next(grid);
     this.recordService.setIteration(0);
-    this.recordService.setAlgoStat1(0);
-    this.recordService.setAlgoStat2(0);
-    this.recordService.setAlgoStat3(0);
+    this.recordService.resetHistory();
     this.backwardStepsAmount$.next(0);
     this.recordService.setGridSavePoint([]);
     this.recordService.setGridSavePointStats(null);
@@ -424,14 +427,5 @@ export class SimulationService {
    */
   public getImportToken(): Observable<string> {
     return this.importToken$;
-  }
-
-  // TODO does this make sense here? I don't think so
-  public getAlgorithmStatNames(): AlgoStatNames {
-    if (this.settingsService.getAlgorithmMode() === 'maze') {
-      return this.mazeService.getAlgorithmStatNames();
-    } else {
-      return this.pathFindingService.getAlgorithmStatNames();
-    }
   }
 }

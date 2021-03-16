@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {Node, SavePointStats} from '../../../types';
+import {GridStatHistory, Node, StatRecord} from '../../../types';
 import {GridLocation} from '../../@shared/GridLocation';
+import * as _ from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -9,16 +9,11 @@ import {GridLocation} from '../../@shared/GridLocation';
 export class RecordService {
   private gridHistory: Array<Node[][]>;
   private gridSavePoint: Node[][];
-  private gridSavePointStats: SavePointStats;
+  private gridSavePointStats: StatRecord;
   private gridStartLocation: GridLocation;
   private gridGoalLocation: GridLocation;
   private iteration: number;
-  private algoStat1: number;
-  private algoStat1History: Array<number>;
-  private algoStat2: number;
-  private algoStat2History: Array<number>;
-  private algoStat3: number;
-  private algoStat3History: Array<number>;
+  private statRecordHistory: Array<StatRecord>;
   private rewritingHistory: boolean;
 
   constructor() {
@@ -28,13 +23,21 @@ export class RecordService {
     this.gridGoalLocation = null;
     // Stats
     this.iteration = 0;
-    this.algoStat1 = 0;
-    this.algoStat1History = [0];
-    this.algoStat2 = 0;
-    this.algoStat2History = [0];
-    this.algoStat3 = 0;
-    this.algoStat3History = [0];
+    this.statRecordHistory = [{
+      algoStat1: 0,
+      algoStat2: 0,
+      algoStat3: 0
+    }];
     this.rewritingHistory = false;
+
+    const test: GridStatHistory = {
+      1: [1],
+      2: [1]
+    };
+    console.log('yo', test);
+    test[1].push(3);
+    console.log('ho', test[0]);
+    console.log('ho', test[1]);
   }
 
   /**
@@ -45,33 +48,29 @@ export class RecordService {
    *
    * @param gridList - the gridList used in the grid component
    */
-  public setHistory(gridList: Node[][]): void {
+  public manageHistory(gridList: Node[][]): void {
+    console.log('gridHistory length:', this.gridHistory.length);
     if (this.gridHistory.length >= 10) {
       this.gridHistory.shift();
-      this.algoStat3History.shift();
-      this.algoStat2History.shift();
-      this.algoStat1History.shift();
+      this.statRecordHistory.shift();
       this.gridHistory.push(gridList);
-      // TODO: this if fixes an issue that only happens when the grid component is being initialized
-      //  and would put the the last value twice... (also the if below)
-      //  see if there is another way to fix it
-      if (this.algoStat3History[this.algoStat3History.length - 1] !== this.algoStat3) {
-        this.algoStat3History.push(this.algoStat3);
-        this.algoStat2History.push(this.algoStat2);
-        this.algoStat1History.push(this.algoStat1);
-      }
     } else {
       this.gridHistory.push(gridList);
-      if (this.algoStat3History[this.algoStat3History.length - 1] !== this.algoStat3) {
-        this.algoStat3History.push(this.algoStat3);
-        this.algoStat2History.push(this.algoStat2);
-        this.algoStat1History.push(this.algoStat1);
-      }
     }
   }
 
-  public updateAlgorithmStats(): void {
-    return null;
+  /**
+   * This manipulates the history of all tracked stats aas well as tge gridList
+   * when the backwardsStep is called on the controller
+   */
+  public manipulateHistory(): void {
+    console.log('gridHistory length (in backwardsStep) ', this.getGridHistory().length);
+    this.setIteration(this.iteration - 1);
+    this.gridHistory.pop();
+    // this.gridHistory.slice(0, -1);
+    this.statRecordHistory.pop();
+    // this.statRecordHistory.slice(0, -1);
+    this.setRewritingHistory(false);
   }
 
   public setGridHistory(newGridHistory: Array<Node[][]>): void {
@@ -82,7 +81,7 @@ export class RecordService {
     this.gridSavePoint = newSavePoint;
   }
 
-  public setGridSavePointStats(newSavePointStats: SavePointStats): void {
+  public setGridSavePointStats(newSavePointStats: StatRecord): void {
     this.gridSavePointStats = newSavePointStats;
   }
 
@@ -95,7 +94,7 @@ export class RecordService {
   }
 
   /**
-   * Adds a new value to the current tick on every tick (very noice)
+   * Sets the  new value to the current tick on every tick.
    *
    * @param value - the new value to be set
    */
@@ -104,57 +103,24 @@ export class RecordService {
   }
 
   /**
-   * Sets the new value for the first tracked algorithm stat
+   * Adds a new entry to the stat history.
    *
-   * @param value - the new value to be set
+   * @param newRecord - the new stat record
    */
-  public setAlgoStat1(value: number): void {
-    this.algoStat1 = value;
+  public addStatRecord(newRecord: StatRecord): void {
+    // this.statRecordHistory.push(newRecord);
+    this.statRecordHistory = [...this.statRecordHistory, _.clone(newRecord)];
   }
 
   /**
-   * Sets the history that is being tracked on each iteration for the first algorithm stat
-   *
-   * @param value - the new arr to be set
+   * Fully resets the algorithm stats.
    */
-  public setAlgoStat1History(value: Array<number>): void {
-    this.algoStat1History = value;
-  }
-
-  /**
-   * Sets the new value for the second tracked algorithm stat
-   *
-   * @param value - the new value to be set
-   */
-  public setAlgoStat2(value: number): void {
-    this.algoStat2 = value;
-  }
-
-  /**
-   * Sets the history that is being tracked on each iteration for the second algorithm stat
-   *
-   * @param value - the new arr to be set
-   */
-  public setAlgoStat2History(value: Array<number>): void {
-    this.algoStat2History = value;
-  }
-
-  /**
-   * Sets the new value for the third tracked algorithm stat
-   *
-   * @param value - the new value to be set
-   */
-  public setAlgoStat3(value: number): void {
-    this.algoStat3 = value;
-  }
-
-  /**
-   * Sets the history that is being tracked on each iteration for the third algorithm stat
-   *
-   * @param value - the new arr to be set
-   */
-  public setAlgoStat3History(value: Array<number>): void {
-    this.algoStat3History = value;
+  public resetHistory(): void {
+    this.statRecordHistory = [{
+      algoStat1: 0,
+      algoStat2: 0,
+      algoStat3: 0
+    }];
   }
 
   /**
@@ -174,7 +140,7 @@ export class RecordService {
     return this.gridSavePoint;
   }
 
-  public getGridSavePointStats(): SavePointStats {
+  public getGridSavePointStats(): StatRecord {
     return this.gridSavePointStats;
   }
 
@@ -194,45 +160,10 @@ export class RecordService {
   }
 
   /**
-   * Returns the algorithm stats that is tracked on the first variable
+   * Returns the current statRecordHistory
    */
-  public getAlgoStat1(): number {
-    return this.algoStat1;
-  }
-
-  /**
-   * Returns the history of the first tracked algorithm stat
-   */
-  public getAlgoStat1History(): Array<number> {
-    return this.algoStat1History;
-  }
-
-  /**
-   * Returns the algorithm stats that is tracked on the second variable
-   */
-  public getAlgoStat2(): number {
-    return this.algoStat2;
-  }
-
-  /**
-   * Returns the history of the second tracked algorithm stat
-   */
-  public getAlgoStat2History(): Array<number> {
-    return this.algoStat2History;
-  }
-
-  /**
-   * Returns the algorithm stats that is tracked on the third variable
-   */
-  public getAlgoStat3(): number {
-    return this.algoStat3;
-  }
-
-  /**
-   * Returns the history of the third tracked algorithm stat
-   */
-  public getAlgoStat3History(): Array<number> {
-    return this.algoStat3History;
+  public getCurrentStats(): StatRecord {
+    return this.statRecordHistory[this.statRecordHistory.length - 1];
   }
 
   /**

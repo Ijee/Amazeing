@@ -22,7 +22,7 @@
             <app-hr text="General Nodes"></app-hr>
           </div>
           <div class="column is-half">
-            <app-hr text="Maze-solving specific"></app-hr>
+            <app-hr [text]="simulationService.getAlgorithmName() + ' algorithm'"></app-hr>
           </div>
           <div class="column is-half">
             <table class="table has-text-centered">

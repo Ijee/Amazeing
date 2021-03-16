@@ -1,5 +1,5 @@
 import {PathFindingAlgorithmInterface} from './path-finding-algorithm.interface';
-import {PathFindingAlgorithms, Node, PathFindingHeuristics, AlgoStatNames} from '../../../../types';
+import {PathFindingAlgorithm, Node, PathFindingHeuristics, AlgoStatNames} from '../../../../types';
 import {GridLocation} from '../../../@shared/GridLocation';
 
 export class AStar implements PathFindingAlgorithmInterface {
@@ -22,7 +22,7 @@ export class AStar implements PathFindingAlgorithmInterface {
     return null;
   }
 
-  public getAlgorithmName(): PathFindingAlgorithms {
+  public getAlgorithmName(): PathFindingAlgorithm {
     return 'A-Star';
   }
 

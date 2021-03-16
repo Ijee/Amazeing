@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {SimulationService} from './simulation.service';
-import {AlgoStatNames, Node, PathFindingAlgorithms, PathFindingHeuristics} from '../../../types';
+import {AlgoStatNames, Node, PathFindingAlgorithm, PathFindingHeuristics} from '../../../types';
 import {AStar} from '../algorithm/path-finding/a-star';
 import {PathFindingAlgorithmInterface} from '../algorithm/path-finding/path-finding-algorithm.interface';
 import {Dijkstra} from '../algorithm/path-finding/dijkstra';
@@ -24,7 +24,7 @@ export class PathFindingService {
    *
    * @param newAlgo - the new algorithm to be used
    */
-  public switchAlgorithm(newAlgo: PathFindingAlgorithms): void {
+  public switchAlgorithm(newAlgo: PathFindingAlgorithm): void {
     switch (newAlgo) {
       case 'A-Star':
         this.currentAlgorithm = new AStar();
@@ -69,7 +69,7 @@ export class PathFindingService {
   /**
    * Returns the name of the current algorithm
    */
-  public getAlgorithmName(): PathFindingAlgorithms {
+  public getAlgorithmName(): PathFindingAlgorithm {
     return this.currentAlgorithm.getAlgorithmName();
   }
 

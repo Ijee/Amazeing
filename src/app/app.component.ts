@@ -45,7 +45,7 @@ export class AppComponent implements OnInit, OnDestroy {
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent): void {
     if (event.code === 'ArrowRight') {
-      this.simulationService.addStep();
+      this.simulationService.addIteration();
     } else if (event.code === 'ArrowLeft') {
       this.simulationService.setBackwardStep();
     } else if (event.code === 'Space') {

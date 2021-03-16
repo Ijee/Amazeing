@@ -1,5 +1,5 @@
 import {MazeAlgorithmInterface} from '../maze-algorithm.interface';
-import {AlgoStatNames, MazeAlgorithms, Node} from '../../../../../types';
+import {AlgoStatNames, MazeAlgorithm, Node, StatRecord} from '../../../../../types';
 import {HashSet} from '../../../../@shared/HashSet';
 import {GridLocation} from '../../../../@shared/GridLocation';
 
@@ -8,11 +8,14 @@ import {GridLocation} from '../../../../@shared/GridLocation';
  * This is the implementation of the prims algorithm tailored for creating
  * a maze.
  *
- * All mazes are also based on the fact that a node can either be a wall or an empty node.
+ *
+ * Algorithm stats meaning:
+ *
  */
 export class Prims implements MazeAlgorithmInterface {
   currentGrid: Node[][];
   algoStatNames: AlgoStatNames;
+  algoStats: StatRecord;
   private readonly frontierNodes: HashSet<GridLocation>;
 
 
@@ -21,15 +24,22 @@ export class Prims implements MazeAlgorithmInterface {
       algoStatName1: 'Node Count',
       algoStatName2: 'Frontier Nodes'
     };
+    this.algoStats = {
+      algoStat1: 0,
+      algoStat2: 0,
+      algoStat3: 0
+    };
     this.frontierNodes = new HashSet<GridLocation>();
   }
 
   private addFrontier(xAxis: number, yAxis: number): void {
-    if (xAxis >= 0 && yAxis >= 0 && xAxis < this.currentGrid.length && yAxis < this.currentGrid[0].length) {
+    if (xAxis >= 0 && yAxis >= 0 && xAxis < this.currentGrid.length
+      && yAxis < this.currentGrid[0].length) {
       const status = this.currentGrid[xAxis][yAxis].nodeStatus;
       if (status === -1) {
         this.frontierNodes.add(new GridLocation(xAxis, yAxis));
         this.currentGrid[xAxis][yAxis].nodeStatus = 3;
+        this.algoStats.algoStat1 += 1;
       } else if (status === 2) {
         this.frontierNodes.add(new GridLocation(xAxis, yAxis));
       }
@@ -127,7 +137,7 @@ export class Prims implements MazeAlgorithmInterface {
     return currentGrid;
   }
 
-  public getAlgorithmName(): MazeAlgorithms {
+  public getAlgorithmName(): MazeAlgorithm {
     return 'Prims';
   }
 
@@ -135,8 +145,8 @@ export class Prims implements MazeAlgorithmInterface {
     return this.algoStatNames;
   }
 
-  getUpdatedStats(): string {
-    return 'drölf';
+  getUpdatedStats(): StatRecord {
+    return  this.algoStats;
   }
 
   /**

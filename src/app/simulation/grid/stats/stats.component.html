@@ -12,7 +12,7 @@
       <p class="title is-size-6-mobile"
          [class]="settingsService.getAlgorithmMode()=== 'maze' ? 'has-text-primary' : 'has-text-danger'"
          appCountAnimation
-         [newValue]="recordService.getAlgoStat1()"
+         [newValue]="recordService.getCurrentStats().algoStat1"
          [disableAnimation]="isMouseDown || !settingsService.getAnimationsSetting()">
         0
       </p>
@@ -24,9 +24,9 @@
       <p class="title is-size-6-mobile"
          [class]="settingsService.getAlgorithmMode() === 'maze' ? 'has-text-primary' : 'has-text-danger'"
          appCountAnimation
-         [newValue]="recordService.getAlgoStat2()"
+         [newValue]="recordService.getCurrentStats().algoStat2"
          [disableAnimation]="isMouseDown || !settingsService.getAnimationsSetting()">
-        {{ recordService.getAlgoStat2() }}
+        0
       </p>
     </strong>
   </div>
@@ -36,7 +36,7 @@
       <p class="title is-size-6-mobile"
          [class]="settingsService.getAlgorithmMode() === 'maze' ? 'has-text-primary' : 'has-text-danger'"
          appCountAnimation
-         [newValue]="recordService.getAlgoStat3()"
+         [newValue]="recordService.getCurrentStats().algoStat3"
          [disableAnimation]="isMouseDown || !settingsService.getAnimationsSetting()">
         0
       </p>

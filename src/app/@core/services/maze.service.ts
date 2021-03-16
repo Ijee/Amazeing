@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {AlgoStatNames, MazeAlgorithms, Node} from '../../../types';
+import {AlgoStatNames, MazeAlgorithm, Node, StatRecord} from '../../../types';
 import {MazeAlgorithmInterface} from '../algorithm/maze/maze-algorithm.interface';
 import {Prims} from '../algorithm/maze/creation/prims';
 import {GridLocation} from '../../@shared/GridLocation';
@@ -19,7 +19,7 @@ export class MazeService {
    *
    * @param newAlgo - the new algorithm to be used
    */
-  public switchAlgorithm(newAlgo: MazeAlgorithms): void {
+  public switchAlgorithm(newAlgo: MazeAlgorithm): void {
     switch (newAlgo) {
       case 'Prims':
         this.currentAlgorithm = new Prims();
@@ -75,7 +75,7 @@ export class MazeService {
   /**
    * Returns the name of the current algorithm
    */
-  public getAlgorithmName(): MazeAlgorithms {
+  public getAlgorithmName(): MazeAlgorithm {
     return this.currentAlgorithm.getAlgorithmName();
   }
 
@@ -84,6 +84,13 @@ export class MazeService {
    */
   public getAlgorithmStatNames(): AlgoStatNames {
     return this.currentAlgorithm.getAlgorithmStatNames();
+  }
+
+  /**
+   * Returns the stats for the current iteration
+   */
+  public getUpdatedStats(): StatRecord {
+    return this.currentAlgorithm.getUpdatedStats();
   }
 
   /**
