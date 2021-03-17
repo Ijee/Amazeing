@@ -1,6 +1,8 @@
 @import '~bulma/bulma';
 
 .node {
+  display: flex;
+  position: relative;
   flex: 1;
   user-select: none;
   border-right: 1px solid #1a0707;
@@ -11,10 +13,15 @@
 }
 
 .node:before {
+  display: flex;
   content: attr(text);
   position: absolute;
   color: #000;
+  height: 100%;
+  width: 100%;
   font-weight: bold;
+  align-items: center;
+  justify-content: center;
 }
 
 .node:hover {

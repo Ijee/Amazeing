@@ -289,7 +289,6 @@ export class SimulationService {
   }
 
   public toggleWeightStatus(): void {
-    console.log('toggleWeightStatus:', this.toggleWeightStatus$.getValue());
     this.toggleWeightStatus$.next(!this.toggleWeightStatus$.getValue());
   }
 
