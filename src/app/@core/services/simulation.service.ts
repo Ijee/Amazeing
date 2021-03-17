@@ -22,6 +22,7 @@ export class SimulationService {
   private readonly backwardStep$: Subject<void>;
   private readonly backwardStepsAmount$: BehaviorSubject<number>;
   private readonly step$: Subject<void>;
+  private readonly toggleWeightStatus$: BehaviorSubject<boolean>;
   private readonly randomSeed$: Subject<void>;
   private readonly legend$: Subject<void>;
   private readonly importSession$: Subject<void>;
@@ -42,6 +43,7 @@ export class SimulationService {
     this.backwardStep$ = new Subject<void>();
     this.backwardStepsAmount$ = new BehaviorSubject<number>(0);
     this.step$ = new Subject<void>();
+    this.toggleWeightStatus$ = new BehaviorSubject<boolean>(false);
     this.randomSeed$ = new Subject<void>();
     this.legend$ = new Subject<void>();
     this.importSession$ = new Subject<void>();
@@ -274,6 +276,7 @@ export class SimulationService {
         const status = node.nodeStatus;
         if (status !== 0 && status !== 1 && status !== 2) {
           node.nodeStatus = -1;
+          node.nodeWeight = 1;
         }
       });
     });
@@ -285,36 +288,41 @@ export class SimulationService {
     this.recordService.setGridSavePointStats(null);
   }
 
+  public toggleWeightStatus(): void {
+    console.log('toggleWeightStatus:', this.toggleWeightStatus$.getValue());
+    this.toggleWeightStatus$.next(!this.toggleWeightStatus$.getValue());
+  }
+
   /**
-   * Notifies all listener that a new randomSeed is called
+   * Notifies all listener that a new randomSeed is called.
    */
   public setRandomSeed(): void {
     this.randomSeed$.next();
   }
 
   /**
-   * Notifies all listener that a new legend is called
+   * Notifies all listener that a new legend is called.
    */
   public setLegend(): void {
     this.legend$.next();
   }
 
   /**
-   * Notifies all listener that a new importSession is called
+   * Notifies all listener that a new importSession is called.
    */
   public setImportSession(): void {
     this.importSession$.next();
   }
 
   /**
-   * Notifies all listener that a new exportSession is called
+   * Notifies all listener that a new exportSession is called.
    */
   public setExportSession(): void {
     this.exportSession$.next();
   }
 
   /**
-   * Sets the new exportToken
+   * Sets the new exportToken.
    *
    * @param token - the new token to be set
    */
@@ -323,7 +331,7 @@ export class SimulationService {
   }
 
   /**
-   * Sets the new importToken
+   * Sets the new importToken.
    *
    * @param token - the new token to be set
    */
@@ -332,14 +340,14 @@ export class SimulationService {
   }
 
   /**
-   * Returns the current gridList to any subscriber
+   * Returns the current gridList to any subscriber.
    */
   public getGridList(): Observable<Node[][]> {
     return this.gridList$;
   }
 
   /**
-   * Returns the status whether or not to disable the controller buttons
+   * Returns the status whether or not to disable the controller buttons.
    *
    * THIS IS CURRENTLY NOT BEING USED BUT MAY END UP BEING USEFUL AGAIN
    */
@@ -348,7 +356,7 @@ export class SimulationService {
   }
 
   /**
-   * Returns whether or not the simulation is currently active
+   * Returns whether or not the simulation is currently active.
    */
   public getSimulationStatus(): Observable<boolean> {
     return this.isSimulationActive$;
@@ -357,35 +365,42 @@ export class SimulationService {
 
 
   /**
-   * Returns the current simulation speed
+   * Returns the current simulation speed.
    */
   public getSimulationSpeed(): Observable<number> {
     return this.simulationSpeed$;
   }
 
   /**
-   * Returns the current drawingMode
+   * Returns the current drawingMode.
    */
   public getDrawingMode(): number {
     return this.drawingMode;
   }
 
   /**
-   * Returns when a new backwardStep was called
+   * Returns when a new backwardStep was called.
    */
   public getBackwardStep(): Observable<void> {
     return this.backwardStep$;
   }
 
   /**
-   * Returns the backwardStepsAmount
+   * Returns the backwardStepsAmount.
    */
   public getBackwardStepsAmount(): Observable<number> {
     return this.backwardStepsAmount$;
   }
 
   /**
-   * Returns when a new RandomSeed was set
+   * Returns when the toggle was clicked.
+   */
+  public getToggleWeightStatus(): Observable<boolean> {
+    return this.toggleWeightStatus$;
+  }
+
+  /**
+   * Returns when a new RandomSeed was set.
    */
   public getRandomSeed(): Observable<void> {
     return this.randomSeed$;
@@ -393,7 +408,7 @@ export class SimulationService {
 
 
   /**
-   * Returns when a legend was clicked
+   * Returns when a legend was clicked.
    */
   public getLegend(): Observable<void> {
     return this.legend$;
@@ -401,28 +416,28 @@ export class SimulationService {
 
 
   /**
-   * Returns when a new importSession was set
+   * Returns when a new importSession was set.
    */
   public getImportSession(): Observable<void> {
     return this.importSession$;
   }
 
   /**
-   * Returns when a new exportSession was set
+   * Returns when a new exportSession was set.
    */
   public getExportSession(): Observable<void> {
     return this.exportSession$;
   }
 
   /**
-   * Returns when a new exportToken was set
+   * Returns when a new exportToken was set.
    */
   public getExportToken(): Observable<string> {
     return this.exportToken$;
   }
 
   /**
-   * Returns when a new importToken was set
+   * Returns when a new importToken was set.
    */
   public getImportToken(): Observable<string> {
     return this.importToken$;

@@ -33,7 +33,7 @@ export class GridComponent implements OnInit, OnDestroy {
     for (let i = 0; i < this.width; i++) {
       this.gridList[i] = [];
       for (let j = 0; j < this.height; j++) {
-        this.gridList[i][j] = {nodeStatus: -1};
+        this.gridList[i][j] = {nodeStatus: -1, nodeWeight: 1};
       }
     }
 
@@ -190,13 +190,27 @@ export class GridComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Add random node weights between 0 - 9 to each node in the grid
+   * and then saves it to the service.
+   */
+  public addNodeWeights(): void {
+    this.gridList.forEach(column => {
+      column.forEach(node => {
+        node.nodeWeight = Math.floor(Math.random() * 10);
+      });
+    });
+    this.simulationService.setGridList(_.cloneDeep(this.gridList));
+  }
+
+  /**
    * Resets all gridList cells back to the
    * start value.
    */
   private reset(): void {
-    this.gridList.forEach(col => {
-      col.forEach(cell => {
-        cell.nodeStatus = -1;
+    this.gridList.forEach(column => {
+      column.forEach(node => {
+        node.nodeStatus = -1
+        node.nodeWeight = 1;
       });
     });
     const startLocation = this.recordService.getGridStartLocation();

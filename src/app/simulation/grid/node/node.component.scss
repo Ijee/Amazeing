@@ -11,6 +11,7 @@
 }
 
 .node:before {
+  content: attr(text);
   position: absolute;
   color: #000;
   font-weight: bold;

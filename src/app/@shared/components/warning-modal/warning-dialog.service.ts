@@ -1,16 +1,16 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WarningDialogService {
   private showDialog: boolean;
-  private readonly result: BehaviorSubject<string>;
+  private readonly result: Subject<string>;
 
   constructor() {
     this.showDialog = false;
-    this.result = new BehaviorSubject<string>(null);
+    this.result = new Subject<string>();
   }
 
   /**

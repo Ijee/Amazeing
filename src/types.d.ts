@@ -15,6 +15,7 @@ export type GridStatHistory = {
 
 export type Node = {
   nodeStatus: number;
+  nodeWeight: number;
 };
 
 export type StatRecord = {

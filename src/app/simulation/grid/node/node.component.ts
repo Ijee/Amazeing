@@ -8,6 +8,7 @@ import {SimulationService} from '../../../@core/services/simulation.service';
 })
 export class NodeComponent {
   @Input() status: number;
+  @Input() weight?: number;
   @Input('is-mouse-down') isMouseDown: boolean;
   @Output() wasUpdated: EventEmitter<void>;
 

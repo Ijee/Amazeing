@@ -1,2 +1,5 @@
 <div [ngClass]="getNodeClasses()" class="node is-size-7-mobile"
-     (mousedown)="setNewStatus(true)" (mouseover)="setNewStatus(isMouseDown)"></div>
+     [attr.text]="weight && status !== 0 && status !== 1 && status !== 2 ? weight : null"
+     (mousedown)="setNewStatus(true)"
+     (mouseover)="setNewStatus(isMouseDown)">
+</div>
