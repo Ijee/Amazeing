@@ -4,15 +4,6 @@ export type AlgoStatNames = {
   algoStatName3?: string,
 };
 
-export type Mapping<T> = {
-  [key: string]: string;
-};
-
-export type GridStatHistory = {
-  [key: string]: number[];
-};
-
-
 export type Node = {
   nodeStatus: number;
   nodeWeight: number;

@@ -8,7 +8,7 @@
     <div *ngFor="let col of gridList; let i=index" class="game-column">
       <app-node *ngFor="let node of col; let j=index"
                 [status]="node.nodeStatus"
-                [weight]="(simulationService.getToggleWeightStatus() | async) ? node.nodeWeight : null"
+                [weight]="node.nodeWeight"
                 [is-mouse-down]="isMouseDown"
                 (wasUpdated)="drawModeLogic(i, j)">
       </app-node>
@@ -45,13 +45,13 @@
       <p class="control">
         <button
           class="button is-pulled-right is-outlined is-size-7-mobile is-size-7-touch is-size-6-desktop"
-          [ngClass]="(simulationService.getToggleWeightStatus() | async) ? 'is-primary is-light' : 'is-danger is-light'"
+          [ngClass]="simulationService.getShowWeightStatus() ? 'is-primary is-light' : 'is-danger is-light'"
           title="Toggle weights"
           (click)="simulationService.toggleWeightStatus()">
                 <span class="icon">
-                  <fa-icon *ngIf="simulationService.getToggleWeightStatus() | async"
+                  <fa-icon *ngIf="simulationService.getShowWeightStatus()"
                            [icon]="['fas', 'eye']"></fa-icon>
-                  <fa-icon *ngIf="!(simulationService.getToggleWeightStatus() | async)"
+                  <fa-icon *ngIf="!simulationService.getShowWeightStatus()"
                            [icon]="['fas', 'eye-slash']"></fa-icon>
                 </span>
         </button>
@@ -80,3 +80,4 @@
       </p>
     </div>
   </div>
+</div>

@@ -19,10 +19,9 @@ export class SimulationService {
   private readonly isSimulationActive$: BehaviorSubject<boolean>;
   //  THIS IS CURRENTLY NOT BEING USED BUT MAY END UP BEING USEFUL AGAIN
   private readonly disableController$: BehaviorSubject<boolean>;
-  private readonly backwardStep$: Subject<void>;
   private readonly backwardStepsAmount$: BehaviorSubject<number>;
   private readonly step$: Subject<void>;
-  private readonly toggleWeightStatus$: BehaviorSubject<boolean>;
+  private showWeightStatus: boolean;
   private readonly randomSeed$: Subject<void>;
   private readonly legend$: Subject<void>;
   private readonly importSession$: Subject<void>;
@@ -40,10 +39,8 @@ export class SimulationService {
     this.simulationSpeed$ = new BehaviorSubject(100);
     this.disableController$ = new BehaviorSubject<boolean>(false);
     this.isSimulationActive$ = new BehaviorSubject(false);
-    this.backwardStep$ = new Subject<void>();
     this.backwardStepsAmount$ = new BehaviorSubject<number>(0);
     this.step$ = new Subject<void>();
-    this.toggleWeightStatus$ = new BehaviorSubject<boolean>(false);
     this.randomSeed$ = new Subject<void>();
     this.legend$ = new Subject<void>();
     this.importSession$ = new Subject<void>();
@@ -129,7 +126,9 @@ export class SimulationService {
    * @param newGrid - the new gridList
    */
   public setGridList(newGrid: Node[][]): void {
-    this.gridList$.next(_.cloneDeep(newGrid));
+    const grid = _.cloneDeep(newGrid);
+    this.gridList$.next(grid);
+    this.recordService.manageHistory(grid);
   }
 
   /**
@@ -145,7 +144,8 @@ export class SimulationService {
     }
     if (this.backwardStepsAmount$.getValue() > 0) {
       this.changeBackwardStepsAmount(-1);
-      this.backwardStep$.next();
+      this.recordService.manipulateHistory();
+      this.gridList$.next(this.recordService.getCurrentGrid());
     }
   }
 
@@ -249,14 +249,15 @@ export class SimulationService {
    */
   public reset(): void {
     this.setSimulationStatus(false);
-    this.recordService.setIteration(0);
     if (this.recordService.getIteration() > 0 && this.recordService.getGridSavePointStats()) {
       // Resets to save point
+      this.recordService.setIteration(0);
       this.recordService.addStatRecord(this.recordService.getGridSavePointStats());
       this.gridList$.next(this.recordService.getGridSavePoint());
     } else {
       // Hard reset
       console.log('in hard reset');
+      this.recordService.setIteration(0);
       this.recordService.resetHistory();
       this.gridList$.next([]);
       this.recordService.setGridSavePoint([]);
@@ -274,9 +275,8 @@ export class SimulationService {
     grid.forEach(column => {
       column.forEach(node => {
         const status = node.nodeStatus;
-        if (status !== 0 && status !== 1 && status !== 2) {
+        if (status > 2) {
           node.nodeStatus = -1;
-          node.nodeWeight = 1;
         }
       });
     });
@@ -289,7 +289,7 @@ export class SimulationService {
   }
 
   public toggleWeightStatus(): void {
-    this.toggleWeightStatus$.next(!this.toggleWeightStatus$.getValue());
+    this.showWeightStatus = !this.showWeightStatus;
   }
 
   /**
@@ -378,13 +378,6 @@ export class SimulationService {
   }
 
   /**
-   * Returns when a new backwardStep was called.
-   */
-  public getBackwardStep(): Observable<void> {
-    return this.backwardStep$;
-  }
-
-  /**
    * Returns the backwardStepsAmount.
    */
   public getBackwardStepsAmount(): Observable<number> {
@@ -394,8 +387,8 @@ export class SimulationService {
   /**
    * Returns when the toggle was clicked.
    */
-  public getToggleWeightStatus(): Observable<boolean> {
-    return this.toggleWeightStatus$;
+  public getShowWeightStatus(): boolean {
+    return this.showWeightStatus;
   }
 
   /**

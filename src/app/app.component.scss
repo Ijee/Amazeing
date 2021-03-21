@@ -1,7 +1,14 @@
 .amazeing {
   display: flex;
-  min-height: 100vh;
+  height: 100%;
   flex-direction: column;
+}
+
+main {
+  overflow-y: auto;
+  flex: 1 0;
+  display: flex;
+  flex-flow: column;
 }
 
 .hero-body {

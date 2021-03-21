@@ -45,8 +45,8 @@
       </div>
     </div>
   </div>
-  <div class="column is-full m-2">
-    <router-outlet></router-outlet>
+  <div class="column is-full m-2" [@fadeAnimationSafe]="o.isActivated && o.activatedRoute">
+    <router-outlet #o="outlet"></router-outlet>
   </div>
   <div class="column is-full">
     <a class="button is-info is-fullwidth"

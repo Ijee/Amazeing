@@ -8,12 +8,17 @@ import {SimulationService} from '../../../@core/services/simulation.service';
 })
 export class NodeComponent {
   @Input() status: number;
-  @Input() weight?: number;
+  @Input() weight: number;
   @Input('is-mouse-down') isMouseDown: boolean;
   @Output() wasUpdated: EventEmitter<void>;
 
   constructor(private simulationService: SimulationService) {
     this.wasUpdated = new EventEmitter<void>();
+  }
+
+  getWeight(): number {
+    return this.simulationService.getShowWeightStatus() &&
+    this.status !== 0 && this.status !== 1 && this.status !== 2 ? this.weight : undefined;
   }
 
   getNodeClasses(): string {

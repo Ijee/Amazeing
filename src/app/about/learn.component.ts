@@ -5,7 +5,7 @@ import {fab} from '@fortawesome/free-brands-svg-icons';
 import {far} from '@fortawesome/free-regular-svg-icons';
 
 @Component({
-  selector: 'app-info',
+  selector: 'app-learn',
   templateUrl: './learn.component.html',
   styleUrls: ['./learn.component.scss'],
 })

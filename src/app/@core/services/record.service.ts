@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {GridStatHistory, Node, StatRecord} from '../../../types';
+import {Node, StatRecord} from '../../../types';
 import {GridLocation} from '../../@shared/GridLocation';
 import * as _ from 'lodash';
 
@@ -7,14 +7,19 @@ import * as _ from 'lodash';
   providedIn: 'root'
 })
 export class RecordService {
-  private gridHistory: Array<Node[][]>;
+  private static readonly EMPTY_STAT_RECORD = {
+    algoStat1: 0,
+    algoStat2: 0,
+    algoStat3: 0
+  };
+
+  private gridHistory: Node[][][];
   private gridSavePoint: Node[][];
   private gridSavePointStats: StatRecord;
   private gridStartLocation: GridLocation;
   private gridGoalLocation: GridLocation;
   private iteration: number;
   private statRecordHistory: Array<StatRecord>;
-  private rewritingHistory: boolean;
 
   constructor() {
     this.gridHistory = [];
@@ -23,12 +28,7 @@ export class RecordService {
     this.gridGoalLocation = null;
     // Stats
     this.iteration = 0;
-    this.statRecordHistory = [{
-      algoStat1: 0,
-      algoStat2: 0,
-      algoStat3: 0
-    }];
-    this.rewritingHistory = false;
+    this.statRecordHistory = [RecordService.EMPTY_STAT_RECORD];
   }
 
   /**
@@ -42,11 +42,8 @@ export class RecordService {
   public manageHistory(gridList: Node[][]): void {
     if (this.gridHistory.length >= 10) {
       this.gridHistory.shift();
-      this.statRecordHistory.shift();
-      this.gridHistory.push(gridList);
-    } else {
-      this.gridHistory.push(gridList);
     }
+    this.gridHistory.push(gridList);
   }
 
   /**
@@ -54,10 +51,9 @@ export class RecordService {
    * when the backwardsStep is called on the controller
    */
   public manipulateHistory(): void {
-    this.setIteration(this.iteration - 1);
+    this.iteration--;
     this.gridHistory.pop();
     this.statRecordHistory.pop();
-    this.setRewritingHistory(false);
   }
 
   public setGridHistory(newGridHistory: Array<Node[][]>): void {
@@ -95,31 +91,17 @@ export class RecordService {
    * @param newRecord - the new stat record
    */
   public addStatRecord(newRecord: StatRecord): void {
-    this.statRecordHistory = [...this.statRecordHistory, _.clone(newRecord)];
+    if (this.statRecordHistory.length >= 10) {
+      this.statRecordHistory.shift();
+    }
+    this.statRecordHistory.push(_.clone(newRecord));
   }
 
   /**
    * Fully resets the algorithm stats.
    */
   public resetHistory(): void {
-    this.statRecordHistory = [{
-      algoStat1: 0,
-      algoStat2: 0,
-      algoStat3: 0
-    }];
-  }
-
-  /**
-   * A flag that has to be set in order not to overwrite the
-   * history of the stats/gridList
-   * @param newValue - a boolean that determines the status
-   */
-  public setRewritingHistory(newValue: boolean): void {
-    this.rewritingHistory = newValue;
-  }
-
-  public getGridHistory(): Array<Node[][]> {
-    return this.gridHistory;
+    this.statRecordHistory = [RecordService.EMPTY_STAT_RECORD];
   }
 
   public getGridSavePoint(): Node[][] {
@@ -161,10 +143,7 @@ export class RecordService {
     return this.statRecordHistory[this.statRecordHistory.length - 1];
   }
 
-  /**
-   * Returns the current rewritingHistory value
-   */
-  public getRewritingHistory(): boolean {
-    return this.rewritingHistory;
+  public getCurrentGrid(): Node[][] {
+    return this.gridHistory[this.gridHistory.length - 1];
   }
 }

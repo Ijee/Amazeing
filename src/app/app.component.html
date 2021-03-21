@@ -1,4 +1,4 @@
-<div class="amazeing is-fullheight">
+<div class="amazeing">
   <nav class="navbar is-transparent p-2">
     <div class="navbar-brand">
       <a class="navbar-item is-unselectable" style="color: #fff">
@@ -20,7 +20,7 @@
       <div class="navbar-end">
         <a class="navbar-item is-unselectable font-white"
            [routerLink]="'simulation/' + settingsService.getAlgorithmMode()"
-           routerLinkActive="is-tab"
+           routerLinkActive="has-text-info"
            (click)="simulationService.setSimulationStatus(false)">
                 <span class="icon">
                   <fa-icon [icon]="['fas', 'microchip']"></fa-icon>
@@ -29,7 +29,7 @@
         </a>
         <a class="navbar-item is-unselectable font-white"
            routerLink="learn"
-           [routerLinkActive]="['is-tab']"
+           routerLinkActive="has-text-info"
            (click)="simulationService.setSimulationStatus(false)">
                 <span class="icon">
                   <fa-icon [icon]="['fas', 'chalkboard-teacher']"></fa-icon>
@@ -38,14 +38,14 @@
         </a>
         <div class="navbar-item is-unselectable"
              [ngClass]="{'is-active': isSettingsDropdown}"
-             (click)="isSettingsDropdown = !isSettingsDropdown">
+             (click)="isSettingsDropdown = !isSettingsDropdown; $event.stopPropagation()">
           <a class="navbar-link font-white">
             <span class="icon">
                   <fa-icon [icon]="['fas', 'cog']"></fa-icon>
             </span>
             <span><b>SETTINGS</b></span>
           </a>
-          <div class="navbar-dropdown">
+          <div class="navbar-dropdown is-boxed">
             <div class="navbar-item">
               <span class="icon">
                   <fa-icon [icon]="['fas', 'adjust']"></fa-icon>
@@ -87,6 +87,14 @@
             <div class="navbar-item">
               Changelog
             </div>
+            <div class="navbar-item">
+              <a class="button dropdown-button is-info is-fullwidth"
+                 href="https://github.com/Ijee/Amazeing/issues"
+                 target="_blank"
+                 rel="noopener">
+                <b>Found a bug?</b>
+              </a>
+            </div>
           </div>
         </div>
         <span class="navbar-item">
@@ -105,11 +113,9 @@
       </div>
     </div>
   </nav>
-  <div class="columns is-multiline p-3" [@fadeAnimation]="getRouterOutletState(o)">
-    <main class="column is-12">
+  <main class="p-3" [@fadeAnimation]="getRouterOutletState(o)">
       <router-outlet #o="outlet"></router-outlet>
-    </main>
-  </div>
+  </main>
 </div>
 <app-warning-modal></app-warning-modal>
 <app-legend-modal></app-legend-modal>

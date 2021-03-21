@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {FaIconLibrary} from '@fortawesome/angular-fontawesome';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import {fab} from '@fortawesome/free-brands-svg-icons';
@@ -9,11 +9,13 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {MazeService} from '../../@core/services/maze.service';
 import {PathFindingService} from '../../@core/services/path-finding.service';
 import {Subject} from 'rxjs';
+import {fadeAnimationSafe} from '../../@shared/animations/fadeAnimation';
 
 @Component({
   selector: 'app-grid-settings',
   templateUrl: './grid-settings.component.html',
-  styleUrls: ['./grid-settings.component.scss']
+  styleUrls: ['./grid-settings.component.scss'],
+  animations: [fadeAnimationSafe]
 })
 export class GridSettingsComponent implements OnDestroy{
   public showWarning: boolean;

@@ -65,19 +65,8 @@ export class GridComponent implements OnInit, OnDestroy {
       } else {
         this.reset();
       }
-      if (!this.recordService.getRewritingHistory()) {
-        this.recordService.manageHistory(data);
-      }
     });
 
-    this.simulationService.getBackwardStep().pipe(takeUntil(this.destroyed$)).subscribe(() => {
-      this.recordService.setRewritingHistory(true);
-      // length - 2 because it is not possible to call this in recordService beforehand
-      // -> gridList is currently still in simulationService
-      this.simulationService.setGridList(this.recordService
-        .getGridHistory()[this.recordService.getGridHistory().length - 2]);
-      this.recordService.manipulateHistory();
-    });
     this.simulationService.getRandomSeed().pipe(takeUntil(this.destroyed$)).subscribe(() => {
       this.randomSeed();
     });
@@ -115,23 +104,6 @@ export class GridComponent implements OnInit, OnDestroy {
       this.simulationService.setDrawingMode(-2);
     }
   }
-
-  /**
-   * Updates the current cell stats on each new tick.
-   *
-   * @param newValue - the new cell status
-   */
-  // updateCellStats(newValue: number): void {
-  //   switch (newValue) {
-  //     case -1:
-  //       this.recordService.setAlgoStat2(this.recordService.getAlgoStat2() - 1);
-  //       break;
-  //     case 0:
-  //       this.recordService.setAlgoStat2(this.recordService.getAlgoStat2() + 1);
-  //       this.recordService.setAlgoStat3(this.recordService.getAlgoStat3() + 1);
-  //       break;
-  //   }
-  // }
 
   drawModeLogic(col: number, row: number): void {
     const oldStatus = this.gridList[col][row].nodeStatus;
@@ -209,7 +181,7 @@ export class GridComponent implements OnInit, OnDestroy {
   private reset(): void {
     this.gridList.forEach(column => {
       column.forEach(node => {
-        node.nodeStatus = -1
+        node.nodeStatus = -1;
         node.nodeWeight = 1;
       });
     });
