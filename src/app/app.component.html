@@ -1,69 +1,90 @@
 <div class="amazeing">
-  <nav class="navbar is-transparent p-2">
+  <nav class="navbar is-transparent p-2"
+       [ngClass]="{'transparent-navbar': !isBurgerMenu}">
     <div class="navbar-brand">
-      <a class="navbar-item is-unselectable" style="color: #fff">
+      <a class="navbar-item is-unselectable">
               <span class="icon">
                 <fa-icon [icon]="['fas', 'code']"></fa-icon>
               </span>
-        <span><b>A<i>maze</i>ing</b></span>
+        <span [ngClass]="{'font-white': !isBurgerMenu}">
+          <b>A<i>maze</i>ing</b>
+        </span>
       </a>
-      <span class="navbar-burger burger  font-white"
+      <span class="navbar-item is-align-self-flex-end is-hidden-desktop">
+          <a class="button is-info is-pulled-right"
+             href="https://github.com/Ijee/Amazeing"
+             target="_blank"
+             rel="noopener">
+            <span class="icon">
+              <fa-icon [icon]="['fab', 'github']"></fa-icon>
+            </span>
+            <span>
+              <b>Ijee</b>
+            </span>
+          </a>
+        </span>
+      <span class="navbar-burger burger" style="color: #000"
             data-target="navbarMenuHeroA"
             [ngClass]="{'is-active': isNavbar}"
             (click)="isNavbar = !isNavbar">
              <span aria-hidden="true"></span>
              <span aria-hidden="true"></span>
              <span aria-hidden="true"></span>
-            </span>
+      </span>
+
     </div>
-    <div id="navbarMenuHeroA" [ngClass]="{ 'is-active': isNavbar }" class="navbar-menu">
+    <div id="navbarMenuHeroA" [ngClass]="{ 'is-active': isNavbar, 'transparent-navbar': !isBurgerMenu}" class="navbar-menu">
       <div class="navbar-end">
-        <a class="navbar-item is-unselectable font-white"
+        <a class="navbar-item is-unselectable"
+           [ngClass]="!isBurgerMenu ? 'font-white' : ''"
            [routerLink]="'simulation/' + settingsService.getAlgorithmMode()"
            routerLinkActive="has-text-info"
            (click)="simulationService.setSimulationStatus(false)">
                 <span class="icon">
                   <fa-icon [icon]="['fas', 'microchip']"></fa-icon>
                 </span>
-          <span><b>SIMULATION</b></span>
+          <span routerLinkActive="simple-border-bottom"><b>SIMULATION</b></span>
         </a>
-        <a class="navbar-item is-unselectable font-white"
+        <a class="navbar-item is-unselectable"
+           [ngClass]="!isBurgerMenu ? 'font-white' : ''"
            routerLink="learn"
            routerLinkActive="has-text-info"
            (click)="simulationService.setSimulationStatus(false)">
                 <span class="icon">
                   <fa-icon [icon]="['fas', 'chalkboard-teacher']"></fa-icon>
                 </span>
-          <span><b>LEARN</b></span>
+          <span routerLinkActive="simple-border-bottom"><b>LEARN</b></span>
         </a>
-        <div class="navbar-item is-unselectable"
+        <div class="navbar-item is-unselectable "
              [ngClass]="{'is-active': isSettingsDropdown}"
              (click)="isSettingsDropdown = !isSettingsDropdown; $event.stopPropagation()">
-          <a class="navbar-link font-white">
+          <a class="navbar-link"
+             [ngClass]="{'font-white': !isBurgerMenu}">
             <span class="icon">
                   <fa-icon [icon]="['fas', 'cog']"></fa-icon>
             </span>
             <span><b>SETTINGS</b></span>
           </a>
-          <div class="navbar-dropdown is-boxed">
-            <div class="navbar-item">
+          <div class="navbar-dropdown is-boxed"
+          [ngClass]="{'is-active': isSettingsDropdown}">
+            <a class="navbar-item">
               <span class="icon">
                   <fa-icon [icon]="['fas', 'adjust']"></fa-icon>
             </span>
               <span><b>Dark mode</b></span>
-              <button class="button is-small dropdown-button"
+              <button class="button dropdown-button is-pulled-right"
                       disabled
                       [class]="settingsService.getAlgorithmMode() === 'maze' ? 'is-primary' : 'is-danger'"
                       (click)="settingsService.setDarkModeSetting()">
                 <b>{{ settingsService.isDarkModeSetting() ? 'ON' : 'OFF' }}</b>
               </button>
-            </div>
+            </a>
             <div class="navbar-item">
               <span class="icon">
                   <fa-icon [icon]="['fas', 'wind']"></fa-icon>
             </span>
               <span><b>Animations</b></span>
-              <button class="button is-small dropdown-button"
+              <button class="button dropdown-button is-pulled-right"
                       [class]="settingsService.getAlgorithmMode() === 'maze' ? 'is-primary' : 'is-danger'"
                       (click)="settingsService.setAnimationSetting()">
                 <b>{{ settingsService.isAnimationsSetting() ? 'ON' : 'OFF' }}</b>
@@ -74,7 +95,7 @@
                   <fa-icon [icon]="['fas', 'ban']"></fa-icon>
             </span>
               <span><b>Warnings</b></span>
-              <button class="button is-small dropdown-button"
+              <button class="button dropdown-button is-pulled-right"
                       [class]="settingsService.getAlgorithmMode() === 'maze' ? 'is-primary' : 'is-danger'"
                       (click)="settingsService.setWarningsSetting()">
                 <b>{{ settingsService.isWarningsSetting() ? 'ON' : 'OFF' }}</b>
@@ -82,39 +103,39 @@
             </div>
             <hr class="navbar-divider">
             <div class="navbar-item">
-              Version 0.9.1
+              <b>Version 0.9.1</b>
             </div>
             <div class="navbar-item">
-              Changelog
+              <b>Changelog</b>
             </div>
             <div class="navbar-item">
               <a class="button dropdown-button is-info is-fullwidth"
                  href="https://github.com/Ijee/Amazeing/issues"
                  target="_blank"
                  rel="noopener">
-                <b>Found a bug?</b>
+                <b>REPORT A PROBLEM</b>
               </a>
             </div>
           </div>
         </div>
-        <span class="navbar-item">
-                <a class="button is-info"
-                   href="https://github.com/Ijee/Amazeing"
-                   target="_blank"
-                   rel="noopener">
-                  <span class="icon">
-                    <fa-icon [icon]="['fab', 'github']"></fa-icon>
-                  </span>
-                  <span>
-                    <b>Ijee</b>
-                  </span>
-                </a>
-              </span>
+        <span *ngIf="!isBurgerMenu" class="navbar-item">
+          <a class="button is-info"
+             href="https://github.com/Ijee/Amazeing"
+             target="_blank"
+             rel="noopener">
+            <span class="icon">
+              <fa-icon [icon]="['fab', 'github']"></fa-icon>
+            </span>
+            <span>
+              <b>Ijee</b>
+            </span>
+          </a>
+        </span>
       </div>
     </div>
   </nav>
   <main class="p-3" [@fadeAnimation]="getRouterOutletState(o)">
-      <router-outlet #o="outlet"></router-outlet>
+    <router-outlet #o="outlet"></router-outlet>
   </main>
 </div>
 <app-warning-modal></app-warning-modal>

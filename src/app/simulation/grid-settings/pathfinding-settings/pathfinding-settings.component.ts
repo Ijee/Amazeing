@@ -73,7 +73,7 @@ export class PathfindingSettingsComponent implements OnInit, OnDestroy {
   private handleAlgorithmSwitch(newAlgorithm: PathFindingAlgorithm): void {
     this.pathFindingService.switchAlgorithm(newAlgorithm);
     // TODO soft reset or hard reset / grid savepoint?
-    this.simulationService.softReset();
+    this.simulationService.prepareGrid();
     this.router.navigate(
       [],
       {

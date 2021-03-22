@@ -14,10 +14,10 @@ export const fadeAnimation = trigger('fadeAnimation', [
   transition('* => *', [
     query(':enter', [style({opacity: 0, height: 0})], {optional: true}),
     query(':leave', [style({height: '*'})], {optional: true}),
-    query(':leave', [animate('0.25s ease-out', style({opacity: 0, height: '*'}))], {optional: true}),
+    query(':leave', [animate('0.15s ease-out', style({opacity: 0, height: '*'}))], {optional: true}),
     query(':leave', [style({height: 0})], {optional: true}),
     query(':enter', [style({height: '*'})], {optional: true}),
-    query(':enter', [animate('0.25s 0.25s ease-in'), style({opacity: 1})], {optional: true}),
+    query(':enter', [animate('0.15s 0.15s ease-in'), style({opacity: 1})], {optional: true}),
   ])
 ]);
 

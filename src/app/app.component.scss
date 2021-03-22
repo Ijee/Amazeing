@@ -11,15 +11,26 @@ main {
   flex-flow: column;
 }
 
-.hero-body {
-  align-items: stretch !important;
-  padding-top: 18px;
-  padding-bottom: 12px;
-}
-
 .dropdown-button {
   margin-left: auto;
 }
+@media screen and (max-width: 1024px) {
+  .navbar-dropdown .is-active {
+    display: block;
+  }
+  .navbar-dropdown:not(.is-active) {
+    display: none;
+  }
+}
+
+.transparent-navbar {
+  background-color: transparent;
+}
+
+.simple-border-bottom {
+  border-bottom: 2px solid #DBDBDB;
+}
+
 
 .hr {
   position: relative;
@@ -30,11 +41,4 @@ main {
 
 .font-white {
   color: whitesmoke;;
-}
-
-.footer {
-  flex-basis: auto;
-  flex-grow: 0;
-  flex-shrink: 0;
-  background-color: transparent;
 }

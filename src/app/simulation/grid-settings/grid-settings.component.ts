@@ -58,7 +58,7 @@ export class GridSettingsComponent implements OnDestroy{
       if (this.settingsService.isWarningsSetting() && !skipWarning) {
         this.showWarning = true;
       } else {
-        this.simulationService.softReset();
+        this.simulationService.prepareGrid();
         this.settingsService.setAlgorithmMode(algoMode);
         this.showWarning = false;
         let currentAlgorithm: string;

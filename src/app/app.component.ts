@@ -17,17 +17,19 @@ import {SettingsService} from './@core/services/settings.service';
   animations: [fadeAnimation]
 })
 export class AppComponent implements OnInit, OnDestroy {
+  public isBurgerMenu: boolean;
   public isNavbar: boolean;
   public isSettingsDropdown: boolean;
-
 
 
   private readonly destroyed$: Subject<void>;
 
   constructor(library: FaIconLibrary,
               public simulationService: SimulationService,
-              public settingsService: SettingsService){
+              public settingsService: SettingsService) {
     library.addIconPacks(fas, fab, far);
+    this.isBurgerMenu = window.innerWidth <= 1023;
+
     this.destroyed$ = new Subject<void>();
   }
 
@@ -59,14 +61,30 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
+  // /**
+  //  * Fixes mobile viewport for mobile chrome, etc.
+  //  * See: https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
+  //  */
+  // @HostListener('resize', ['$event'])
+  // handleResizeEvent(): void {
+  //   const vh = window.innerHeight * 0.01;
+  //   document.documentElement.style.setProperty('--vh', `${vh}px`);
+  // }
+
+
   /**
-   * Fixes mobile viewport for mobile chrome, etc.
-   * See: https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
+   *
+   *
+   * @param event
    */
-  @HostListener('resize', ['$event'])
+  @HostListener('window:resize', ['$event'])
   handleResizeEvent(): void {
-    const vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
+    if (window.innerWidth <= 1023) {
+      this.isBurgerMenu = true;
+    } else {
+      this.isBurgerMenu = false;
+    }
+    console.log('isBurgerMenu:', this.isBurgerMenu);
   }
 
   /**

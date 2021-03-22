@@ -256,7 +256,6 @@ export class SimulationService {
       this.gridList$.next(this.recordService.getGridSavePoint());
     } else {
       // Hard reset
-      console.log('in hard reset');
       this.recordService.setIteration(0);
       this.recordService.resetHistory();
       this.gridList$.next([]);
@@ -267,9 +266,9 @@ export class SimulationService {
   }
 
   /**
-   * This removes algorithm specific grid states as well as the stats
+   * This prepares or rather removes algorithm specific grid states and stats
    */
-  public softReset(): void {
+  public prepareGrid(): void {
     // deletes all the algorithm specific nodes from the grid
     const grid = _.cloneDeep(this.gridList$.value);
     grid.forEach(column => {
