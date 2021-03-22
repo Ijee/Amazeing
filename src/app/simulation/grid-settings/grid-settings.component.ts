@@ -5,7 +5,7 @@ import {fab} from '@fortawesome/free-brands-svg-icons';
 import {far} from '@fortawesome/free-regular-svg-icons';
 import {SettingsService} from '../../@core/services/settings.service';
 import {SimulationService} from '../../@core/services/simulation.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Router, RouterOutlet} from '@angular/router';
 import {MazeService} from '../../@core/services/maze.service';
 import {PathFindingService} from '../../@core/services/path-finding.service';
 import {Subject} from 'rxjs';

@@ -1,5 +1,4 @@
 import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
-import {Location} from '@angular/common';
 import {FaIconLibrary} from '@fortawesome/angular-fontawesome';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import {fab} from '@fortawesome/free-brands-svg-icons';
@@ -7,8 +6,8 @@ import {far} from '@fortawesome/free-regular-svg-icons';
 import {SimulationService} from './@core/services/simulation.service';
 import {fadeAnimation} from './@shared/animations/fadeAnimation';
 import {Subject} from 'rxjs';
-import {Router} from '@angular/router';
 import {SettingsService} from './@core/services/settings.service';
+import {RouterOutlet} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -94,7 +93,7 @@ export class AppComponent implements OnInit, OnDestroy {
    *
    * @return a boolean or an empty string that triggers the animation
    */
-  public getRouterOutletState(outlet): void {
-    return outlet.isActivated ? outlet.activatedRoute : '';
+  public getRouterOutletState(outlet: RouterOutlet): string {
+    return outlet.isActivated ? 'active' : 'inactive';
   }
 }

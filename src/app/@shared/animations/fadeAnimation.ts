@@ -4,7 +4,7 @@ import {
   transition,
   style,
   query,
-  sequence
+  sequence, state
 } from '@angular/animations';
 
 /**
@@ -24,7 +24,8 @@ export const fadeAnimation = trigger('fadeAnimation', [
 export const fadeAnimationSafe = trigger('fadeAnimationSafe', [
   transition('* => *', [
     sequence([
-      query(':leave', [animate('0.25s ease-out')], {optional: true})
+      query(':enter', [style({display: 'none'})], {optional: true}),
+      query(':leave', [animate('0.15s')], {optional: true})
     ])
   ])
 ]);
