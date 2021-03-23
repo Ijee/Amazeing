@@ -1,16 +1,17 @@
 <div class="amazeing">
   <nav class="navbar is-transparent p-2"
        [ngClass]="{'transparent-navbar': !isBurgerMenu}">
-    <div class="navbar-brand">
-      <a class="navbar-item is-unselectable">
+    <div class="container is-fullhd">
+      <div class="navbar-brand">
+        <a class="navbar-item is-unselectable">
               <span class="icon">
                 <fa-icon [icon]="['fas', 'code']"></fa-icon>
               </span>
-        <span [ngClass]="{'font-white': !isBurgerMenu}">
+          <span [ngClass]="{'font-white': !isBurgerMenu}">
           <b>A<i>maze</i>ing</b>
         </span>
-      </a>
-      <span class="navbar-item is-align-self-flex-end is-hidden-desktop">
+        </a>
+        <span class="navbar-item is-align-self-flex-end is-hidden-desktop">
           <a class="button is-info is-pulled-right"
              href="https://github.com/Ijee/Amazeing"
              target="_blank"
@@ -23,111 +24,111 @@
             </span>
           </a>
         </span>
-      <span class="navbar-burger burger" style="color: #000"
-            data-target="navbarMenuHeroA"
-            [ngClass]="{'is-active': isNavbar}"
-            (click)="isNavbar = !isNavbar">
+        <span class="navbar-burger burger" style="color: #000"
+              data-target="navbarMenuHeroA"
+              [ngClass]="{'is-active': isNavbar}"
+              (click)="isNavbar = !isNavbar">
              <span aria-hidden="true"></span>
              <span aria-hidden="true"></span>
              <span aria-hidden="true"></span>
       </span>
 
-    </div>
-    <div id="navbarMenuHeroA" [ngClass]="{ 'is-active': isNavbar, 'transparent-navbar': !isBurgerMenu}"
-         class="navbar-menu">
-      <div class="navbar-end">
-        <a class="navbar-item is-unselectable"
-           [ngClass]="!isBurgerMenu ? 'font-white' : ''"
-           [routerLink]="'simulation/' + settingsService.getAlgorithmMode()"
-           (click)="simulationService.setSimulationStatus(false)">
+      </div>
+      <div id="navbarMenuHeroA" [ngClass]="{ 'is-active': isNavbar, 'transparent-navbar': !isBurgerMenu}"
+           class="navbar-menu">
+        <div class="navbar-end">
+          <a class="navbar-item is-unselectable"
+             [ngClass]="!isBurgerMenu ? 'font-white' : ''"
+             [routerLink]="'simulation/' + settingsService.getAlgorithmMode()"
+             (click)="simulationService.setSimulationStatus(false)">
                 <span class="icon">
                   <fa-icon [icon]="['fas', 'microchip']"></fa-icon>
                 </span>
-          <span routerLinkActive="simple-border-bottom"><b>SIMULATION</b></span>
-        </a>
-        <a class="navbar-item is-unselectable"
-           [ngClass]="!isBurgerMenu ? 'font-white' : ''"
-           routerLink="learn"
-           (click)="simulationService.setSimulationStatus(false)">
+            <span routerLinkActive="simple-border-bottom"><b>SIMULATION</b></span>
+          </a>
+          <a class="navbar-item is-unselectable"
+             [ngClass]="!isBurgerMenu ? 'font-white' : ''"
+             routerLink="learn"
+             (click)="simulationService.setSimulationStatus(false)">
                 <span class="icon">
                   <fa-icon [icon]="['fas', 'chalkboard-teacher']"></fa-icon>
                 </span>
-          <span routerLinkActive="simple-border-bottom"><b>LEARN</b></span>
-        </a>
-        <div class="navbar-item has-dropdown is-unselectable "
-             [ngClass]="{'is-active': isSettingsDropdown}"
-             (click)="isSettingsDropdown = !isSettingsDropdown; $event.stopPropagation()">
-          <a class="navbar-link"
-             [ngClass]="{'font-white': !isBurgerMenu}">
+            <span routerLinkActive="simple-border-bottom"><b>LEARN</b></span>
+          </a>
+          <div class="navbar-item has-dropdown is-unselectable "
+               [ngClass]="{'is-active': isSettingsDropdown}"
+               (click)="isSettingsDropdown = !isSettingsDropdown; $event.stopPropagation()">
+            <a class="navbar-link"
+               [ngClass]="{'font-white': !isBurgerMenu}">
             <span class="icon">
                   <fa-icon [icon]="['fas', 'cog']"></fa-icon>
             </span>
-            <span><b>SETTINGS</b></span>
-          </a>
-          <div class="navbar-dropdown is-boxed"
-               [ngClass]="{'is-active': isSettingsDropdown}">
-            <div class="navbar-item">
+              <span><b>SETTINGS</b></span>
+            </a>
+            <div class="navbar-dropdown is-boxed"
+                 [ngClass]="{'is-active': isSettingsDropdown}">
+              <div class="navbar-item">
               <span class="icon">
                   <fa-icon [icon]="['fas', 'adjust']"></fa-icon>
             </span>
-              <span><b>Dark mode</b></span>
-              <button class="button dropdown-button is-pulled-right"
-                      disabled
-                      [class]="settingsService.getAlgorithmMode() === 'maze' ? 'is-primary' : 'is-danger'"
-                      (click)="settingsService.setDarkModeSetting()">
-                <b>{{ settingsService.isDarkModeSetting() ? 'ON' : 'OFF' }}</b>
-              </button>
-            </div>
-            <div class="navbar-item">
+                <span><b>Dark mode</b></span>
+                <button class="button dropdown-button is-pulled-right"
+                        disabled
+                        [class]="settingsService.getAlgorithmMode() === 'maze' ? 'is-primary' : 'is-danger'"
+                        (click)="settingsService.setDarkModeSetting()">
+                  <b>{{ settingsService.isDarkModeSetting() ? 'ON' : 'OFF' }}</b>
+                </button>
+              </div>
+              <div class="navbar-item">
               <span class="icon">
                   <fa-icon [icon]="['fas', 'wind']"></fa-icon>
               </span>
-              <span><b>Animations</b></span>
-              <button class="button dropdown-button is-pulled-right"
-                      [class]="settingsService.getAlgorithmMode() === 'maze' ? 'is-primary' : 'is-danger'"
-                      (click)="settingsService.setAnimationSetting()">
-                <b>{{ settingsService.isAnimationsSetting() ? 'ON' : 'OFF' }}</b>
-              </button>
-            </div>
-            <div class="navbar-item">
+                <span><b>Animations</b></span>
+                <button class="button dropdown-button is-pulled-right"
+                        [class]="settingsService.getAlgorithmMode() === 'maze' ? 'is-primary' : 'is-danger'"
+                        (click)="settingsService.setAnimationSetting()">
+                  <b>{{ settingsService.isAnimationsSetting() ? 'ON' : 'OFF' }}</b>
+                </button>
+              </div>
+              <div class="navbar-item">
               <span class="icon">
                   <fa-icon [icon]="['fas', 'ban']"></fa-icon>
             </span>
-              <span><b>Warnings</b></span>
-              <button class="button dropdown-button is-pulled-right"
-                      [class]="settingsService.getAlgorithmMode() === 'maze' ? 'is-primary' : 'is-danger'"
-                      (click)="settingsService.setWarningsSetting()">
-                <b>{{ settingsService.isWarningsSetting() ? 'ON' : 'OFF' }}</b>
-              </button>
-            </div>
-            <hr class="navbar-divider">
-            <div class="navbar-item has-text-danger">
+                <span><b>Warnings</b></span>
+                <button class="button dropdown-button is-pulled-right"
+                        [class]="settingsService.getAlgorithmMode() === 'maze' ? 'is-primary' : 'is-danger'"
+                        (click)="settingsService.setWarningsSetting()">
+                  <b>{{ settingsService.isWarningsSetting() ? 'ON' : 'OFF' }}</b>
+                </button>
+              </div>
+              <hr class="navbar-divider">
+              <div class="navbar-item has-text-danger">
                <span class="icon">
                   <fa-icon [icon]="['fas', 'info-circle']"></fa-icon>
               </span>
-              <b>Version 0.9.1</b>
-              <span class="subtitle"></span>
-            </div>
-            <a class="navbar-item has-text-info"
-               href="https://github.com/Ijee/Amazeing/issues"
-               target="_blank"
-               rel="noopener">
-                <span class="icon">
-                  <fa-icon [icon]="['fas', 'info-circle']"></fa-icon>
-              </span>
-              <b>Changelog</b>
-            </a>
-            <div class="navbar-item">
-              <a class="button dropdown-button is-info is-fullwidth"
+                <b>Version 0.9.1</b>
+                <span class="subtitle"></span>
+              </div>
+              <a class="navbar-item has-text-info"
                  href="https://github.com/Ijee/Amazeing/issues"
                  target="_blank"
                  rel="noopener">
-                <b>REPORT A PROBLEM</b>
+                <span class="icon">
+                  <fa-icon [icon]="['fas', 'info-circle']"></fa-icon>
+              </span>
+                <b>Changelog</b>
               </a>
+              <div class="navbar-item">
+                <a class="button dropdown-button is-info is-fullwidth"
+                   href="https://github.com/Ijee/Amazeing/issues"
+                   target="_blank"
+                   rel="noopener">
+                  <b>REPORT A PROBLEM</b>
+                </a>
+              </div>
             </div>
           </div>
-        </div>
-        <span *ngIf="!isBurgerMenu" class="navbar-item">
+          <span *ngIf="!isBurgerMenu" class="navbar-item">
           <a class="button is-info"
              href="https://github.com/Ijee/Amazeing"
              target="_blank"
@@ -140,10 +141,11 @@
             </span>
           </a>
         </span>
+        </div>
       </div>
     </div>
   </nav>
-  <main class="p-3" [@fadeAnimation]="getRouterOutletState(o)">
+  <main class="container is-fullhd p-3" [@fadeAnimation]="getRouterOutletState(o)">
     <router-outlet #o="outlet"></router-outlet>
   </main>
 </div>
