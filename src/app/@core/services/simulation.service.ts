@@ -60,6 +60,22 @@ export class SimulationService {
     }
   }
 
+  /**
+   * Completes the current algorithm fully.
+   */
+  public completeAlgorthm(): void {
+    if (this.settingsService.getAlgorithmMode() === 'maze') {
+      if (this.recordService.getIteration() === 0) {
+        this.mazeService.setInitialData(this.gridList$.getValue(), this.recordService.getGridStartLocation());
+      }
+      this.setGridList(this.mazeService.completeAlgorithm(this.gridList$.getValue()));
+    } else {
+      // TODO for path-finding service
+      // this.setGridList(this.pathFindingService.completeAlgorithm(this.gridList$.getValue()));
+    }
+    this.setSimulationStatus(false);
+  }
+
   public getAlgorithmName(): MazeAlgorithm | PathFindingAlgorithm {
     if (this.settingsService.getAlgorithmMode() === 'maze') {
       return this.mazeService.getAlgorithmName();

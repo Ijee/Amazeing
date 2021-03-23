@@ -52,6 +52,13 @@
       <fa-icon [icon]="['fas', 'forward']"></fa-icon>
     </button>
   </p>
+  <p class="control">
+    <button [disabled]="simulationService.getDisableController() | async" class="button is-outlined"
+            title="complete algorithm"
+            (click)="simulationService.completeAlgorthm()">
+      <fa-icon [icon]="['fas', 'fast-forward']"></fa-icon>
+    </button>
+  </p>
 </div>
 <div class="field has-addons has-addons-centered is-marginless">
   <p class="control">

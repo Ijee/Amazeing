@@ -44,7 +44,7 @@ export class NodeComponent {
   determineStatus(): string {
     switch (this.status) {
       case 0:
-        return 'wall';
+        return 'node-wall';
       case 1:
         // start
         return 'has-background-primary';

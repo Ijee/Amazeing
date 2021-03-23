@@ -1,5 +1,5 @@
 <div class="amazeing">
-  <nav class="navbar is-transparent p-2"
+  <nav class="navbar  is-transparent p-3"
        [ngClass]="{'transparent-navbar': !isBurgerMenu}">
     <div class="container is-fullhd">
       <div class="navbar-brand">
@@ -74,7 +74,7 @@
                 <span><b>Dark mode</b></span>
                 <button class="button dropdown-button is-pulled-right"
                         disabled
-                        [class]="settingsService.getAlgorithmMode() === 'maze' ? 'is-primary' : 'is-danger'"
+                        [class]="settingsService.isDarkModeSetting() ? 'is-primary' : 'is-danger'"
                         (click)="settingsService.setDarkModeSetting()">
                   <b>{{ settingsService.isDarkModeSetting() ? 'ON' : 'OFF' }}</b>
                 </button>
@@ -85,7 +85,7 @@
               </span>
                 <span><b>Animations</b></span>
                 <button class="button dropdown-button is-pulled-right"
-                        [class]="settingsService.getAlgorithmMode() === 'maze' ? 'is-primary' : 'is-danger'"
+                        [class]="settingsService.isAnimationsSetting() ? 'is-primary' : 'is-danger'"
                         (click)="settingsService.setAnimationSetting()">
                   <b>{{ settingsService.isAnimationsSetting() ? 'ON' : 'OFF' }}</b>
                 </button>
@@ -96,7 +96,7 @@
             </span>
                 <span><b>Warnings</b></span>
                 <button class="button dropdown-button is-pulled-right"
-                        [class]="settingsService.getAlgorithmMode() === 'maze' ? 'is-primary' : 'is-danger'"
+                        [class]="settingsService.isWarningsSetting() ? 'is-primary' : 'is-danger'"
                         (click)="settingsService.setWarningsSetting()">
                   <b>{{ settingsService.isWarningsSetting() ? 'ON' : 'OFF' }}</b>
                 </button>
@@ -145,7 +145,7 @@
       </div>
     </div>
   </nav>
-  <main class="container is-fullhd p-3" [@fadeAnimation]="getRouterOutletState(o)">
+  <main class="container is-fullhd p-2" [@fadeAnimation]="getRouterOutletState(o)">
     <router-outlet #o="outlet"></router-outlet>
   </main>
 </div>

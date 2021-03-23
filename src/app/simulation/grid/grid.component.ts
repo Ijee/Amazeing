@@ -172,6 +172,9 @@ export class GridComponent implements OnInit, OnDestroy {
       });
     });
     this.simulationService.setGridList(_.cloneDeep(this.gridList));
+    if (!this.simulationService.getShowWeightStatus()) {
+      this.simulationService.toggleWeightStatus();
+    }
   }
 
   /**

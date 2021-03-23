@@ -73,6 +73,28 @@ export class MazeService {
   }
 
   /**
+   * Returns the last step of an algorithm.
+   * Or rather - it completed the algorithm entirely.
+   *
+   * @param currentGrid - the currentGrid
+   */
+  public completeAlgorithm(currentGrid: Node[][]): Node[][] {
+    let algorithmEnded = false;
+    let lastGrid: Node[][];
+    while (!algorithmEnded) {
+      console.log('completeAlgorithm while');
+      const tempGrid = this.getNextStep();
+      if (tempGrid === null) {
+        algorithmEnded = true;
+      } else {
+        lastGrid = tempGrid;
+        console.log('in else');
+      }
+    }
+    return lastGrid;
+  }
+
+  /**
    * Returns the name of the current algorithm
    */
   public getAlgorithmName(): MazeAlgorithm {

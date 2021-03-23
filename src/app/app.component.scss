@@ -1,20 +1,17 @@
-.amazeing {
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-}
+@import "~bulma/bulma";
 
-main {
-  overflow-y: auto;
-  flex: 1 0;
-  display: flex;
-  flex-flow: column;
-}
+//.amazeing {
+//  display: flex;
+//  height: 100%;
+//  flex-direction: column;
+//}
 
-.dropdown-button {
-  margin-left: auto;
-}
+$input-arrow: $white;
+
 @media screen and (max-width: 1024px) {
+  nav {
+    border-bottom: 2px solid #cccaca;
+  }
   .navbar-dropdown .is-active {
     display: block;
   }
@@ -22,6 +19,18 @@ main {
     display: none;
   }
 }
+
+//main {
+//  overflow-y: auto;
+//  flex: 1 0;
+//  display: flex;
+//  flex-flow: column;
+//}
+
+.dropdown-button {
+  margin-left: auto;
+}
+
 
 .transparent-navbar {
   background-color: transparent;

@@ -6,6 +6,7 @@
     <aside class="columns is-multiline is-gapless">
       <div class="column is-one-third">
         <button class="button algo-button is-fullwidth"
+                disabled
                 [ngClass]="pathFindingService.getAlgorithmName() === 'A-Star' ? 'is-danger' : ''"
                 (click)="handleWarning('A-Star')">
           <b>A*</b>
@@ -21,6 +22,7 @@
       </div>
       <div class="column is-one-third">
         <button class="button algo-button is-fullwidth"
+                disabled
                 [ngClass]="pathFindingService.getAlgorithmName() === 'Dijkstra' ? 'is-danger' : ''"
                 (click)="handleWarning('Dijkstra')">
           <b>Dijkstra</b>

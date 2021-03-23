@@ -20,7 +20,7 @@
   <div class="column is-full">
     <div class="field has-addons has-addons-centered is-marginless control-button-wrapper">
       <p class="control">
-        <button class="button is-outlined is-size-7-mobile is-size-7-touch is-size-6-desktop"
+        <button class="button is-outlined mr-3 is-size-7-mobile is-size-7-touch is-size-6-desktop"
                 title="Set start"
                 [ngClass]="simulationService.getDrawingMode() === 1 ? 'is-active' : ''"
                 [disabled]="recordService.getIteration() > 0"
@@ -35,7 +35,7 @@
         <button class="button is-outlined is-size-7-mobile is-size-7-touch is-size-6-desktop"
                 title="Random weights"
                 [disabled]="this.recordService.getIteration() > 0"
-                (click)="addNodeWeights()">
+                (click)="addNodeWeights();">
                 <span class="icon">
                   <fa-icon [icon]="['fas', 'balance-scale-right']"></fa-icon>
                 </span>
@@ -57,7 +57,7 @@
         </button>
       </p>
       <p class="control">
-        <button class="button is-outlined is-size-7-mobile is-size-7-touch is-size-6-desktop"
+        <button class="button is-outlined ml-3 is-size-7-mobile is-size-7-touch is-size-6-desktop"
                 title="Set goal"
                 [ngClass]="simulationService.getDrawingMode() === 2 ? 'is-active' : ''"
                 [disabled]="recordService.getIteration() > 0"
