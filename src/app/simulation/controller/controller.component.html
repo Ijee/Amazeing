@@ -19,15 +19,6 @@
     </button>
   </p>
   <p class="control">
-    <button [disabled]="simulationService.getDisableController() | async"
-            [ngClass]="(simulationService.getSimulationStatus() | async) ? 'is-primary is-light' : 'is-danger is-light'"
-            class="button"
-            title="play" (click)="simulationService.setSimulationStatus()">
-      <fa-icon *ngIf="simulationService.getSimulationStatus() | async" [icon]="['fas', 'stop']"></fa-icon>
-      <fa-icon *ngIf="!(simulationService.getSimulationStatus() | async)" [icon]="['fas', 'play']"></fa-icon>
-    </button>
-  </p>
-  <p class="control">
     <button class="button is-outlined"
             title="clear grid"
             [disabled]="(simulationService.getDisableController() | async)
@@ -36,6 +27,15 @@
       <fa-icon *ngIf="recordService.getIteration() > 0" class="fa-flip-horizontal"
                [icon]="['fas', 'redo']"></fa-icon>
       <fa-icon *ngIf="recordService.getIteration() === 0" [icon]="['fas', 'trash']"></fa-icon>
+    </button>
+  </p>
+  <p class="control">
+    <button [disabled]="simulationService.getDisableController() | async"
+            [ngClass]="(simulationService.getSimulationStatus() | async) ? 'is-primary is-light' : 'is-danger is-light'"
+            class="button"
+            title="play" (click)="simulationService.setSimulationStatus()">
+      <fa-icon *ngIf="simulationService.getSimulationStatus() | async" [icon]="['fas', 'stop']"></fa-icon>
+      <fa-icon *ngIf="!(simulationService.getSimulationStatus() | async)" [icon]="['fas', 'play']"></fa-icon>
     </button>
   </p>
   <p class="control">

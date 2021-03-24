@@ -52,11 +52,11 @@ export class NodeComponent {
         // goal
         return 'has-background-danger';
       case 3:
-        return 'node-discovered';
+        return 'node-status-3';
       case 4:
-        return 'node-in';
+        return 'node-status-4';
       default:
-        return 'dead';
+        return 'untouched';
     }
   }
 

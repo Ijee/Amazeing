@@ -28,6 +28,11 @@
   background-color: rgba(129, 128, 120, 0.6);
 }
 
+.node-wall {
+  background-color: $grey-dark;
+  // background-color: #3c4353;
+}
+
 .start:hover {
   background-color: fade-out($primary, 0.4);
 }
@@ -36,14 +41,15 @@
   background-color: fade-out($danger, 0.4);
 }
 
-.node-discovered {
-  background-color: $blue;
+.node-status-3 {
+  background-color: #6089ec;
 }
 
-.node-in {
-  background-color: #cb7832;
+.node-status-4 {
+  background-color: #f99a6d;
 }
 
-.node-wall {
-  background-color: $grey-dark;
-}
+
+
+
+

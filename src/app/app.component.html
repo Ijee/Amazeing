@@ -59,7 +59,7 @@
                [ngClass]="{'is-active': isSettingsDropdown}"
                (click)="isSettingsDropdown = !isSettingsDropdown; $event.stopPropagation()">
             <a class="navbar-link"
-               [ngClass]="{'font-white': !isBurgerMenu}">
+               [ngClass]="{'font-white is-arrowless': !isBurgerMenu}">
             <span class="icon">
                   <fa-icon [icon]="['fas', 'cog']"></fa-icon>
             </span>
