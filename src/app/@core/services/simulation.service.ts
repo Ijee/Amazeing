@@ -63,7 +63,7 @@ export class SimulationService {
   /**
    * Completes the current algorithm fully.
    */
-  public completeAlgorthm(): void {
+  public completeAlgorithm(): void {
     if (this.settingsService.getAlgorithmMode() === 'maze') {
       if (this.recordService.getIteration() === 0) {
         this.mazeService.setInitialData(this.gridList$.getValue(), this.recordService.getGridStartLocation());

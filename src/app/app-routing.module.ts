@@ -11,7 +11,7 @@ const routes: Routes = [
   },
   {
     path: 'learn',
-    loadChildren: () => import('./about/learn.module').then(m => m.LearnModule),
+    loadChildren: () => import('./learn/learn.module').then(m => m.LearnModule),
     data: { reuse: false, key: 'learn' }
   },
   {
