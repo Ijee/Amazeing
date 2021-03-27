@@ -15,11 +15,11 @@ export class SimulationService {
   private readonly gridList$: BehaviorSubject<Node[][]>;
 
   private drawingMode: number;
-  private readonly simulationSpeed$: BehaviorSubject<number>;
-  private readonly isSimulationActive$: BehaviorSubject<boolean>;
+  private simulationSpeed: number;
+  private isSimulationActive: boolean;
   //  THIS IS CURRENTLY NOT BEING USED BUT MAY END UP BEING USEFUL AGAIN
-  private readonly disableController$: BehaviorSubject<boolean>;
-  private readonly backwardStepsAmount$: BehaviorSubject<number>;
+  private disableController: boolean;
+  private backwardStepsAmount: number;
   private readonly step$: Subject<void>;
   private showWeightStatus: boolean;
   private readonly randomSeed$: Subject<void>;
@@ -36,10 +36,10 @@ export class SimulationService {
               private pathFindingService: PathFindingService) {
     this.gridList$ = new BehaviorSubject<Node[][]>([]);
     this.drawingMode = 0;
-    this.simulationSpeed$ = new BehaviorSubject(100);
-    this.disableController$ = new BehaviorSubject<boolean>(false);
-    this.isSimulationActive$ = new BehaviorSubject(false);
-    this.backwardStepsAmount$ = new BehaviorSubject<number>(0);
+    this.simulationSpeed = 100;
+    this.disableController = false;
+    this.isSimulationActive = false;
+    this.backwardStepsAmount = 0;
     this.step$ = new Subject<void>();
     this.randomSeed$ = new Subject<void>();
     this.legend$ = new Subject<void>();
@@ -55,8 +55,8 @@ export class SimulationService {
    */
   private restartInterval(): void {
     clearInterval(this.intervalID);
-    if (this.isSimulationActive$.getValue()) {
-      this.intervalID = setInterval(() => this.addIteration(), 10000 / this.simulationSpeed$.getValue());
+    if (this.isSimulationActive) {
+      this.intervalID = setInterval(() => this.addIteration(), 10000 / this.simulationSpeed);
     }
   }
 
@@ -100,9 +100,9 @@ export class SimulationService {
    */
   public setSimulationStatus(status?: boolean): void {
     if (status !== undefined) {
-      this.isSimulationActive$.next(status);
+      this.isSimulationActive = status;
     } else {
-      this.isSimulationActive$.next(!(this.isSimulationActive$.getValue()));
+      this.isSimulationActive = !this.isSimulationActive;
     }
     this.restartInterval();
   }
@@ -114,12 +114,12 @@ export class SimulationService {
    * @private
    */
   private setSimulationSpeed(speed: number): void {
-    const newSpeed = this.simulationSpeed$.getValue() + speed;
-    this.simulationSpeed$.next(newSpeed);
-    if (this.simulationSpeed$.getValue() < 20) {
-      this.simulationSpeed$.next(20);
-    } else if (this.simulationSpeed$.getValue() > 500) {
-      this.simulationSpeed$.next(500);
+    if (this.simulationSpeed < 20) {
+      this.simulationSpeed = 20;
+    } else if (this.simulationSpeed > 500) {
+      this.simulationSpeed = 500;
+    } else {
+      this.simulationSpeed = this.simulationSpeed + speed;
     }
   }
 
@@ -130,10 +130,10 @@ export class SimulationService {
    *
    *  THIS IS CURRENTLY NOT BEING USED BUT MAY END UP BEING USEFUL AGAIN
    *
-   * @param disabled - whether or not it should be disabled
+   * @param isDisabled - whether or not it should be disabled
    */
-  public setDisableController(disabled: boolean): void {
-    this.disableController$.next(disabled);
+  public setDisableController(isDisabled: boolean): void {
+    this.disableController = isDisabled;
   }
 
   /**
@@ -154,11 +154,11 @@ export class SimulationService {
    */
   public setBackwardStep(): void {
     // disables auto-play of the simulation
-    if (this.isSimulationActive$.getValue()) {
-      this.isSimulationActive$.next(false);
+    if (this.isSimulationActive) {
+      this.isSimulationActive = false;
       this.restartInterval();
     }
-    if (this.backwardStepsAmount$.getValue() > 0) {
+    if (this.backwardStepsAmount > 0) {
       this.changeBackwardStepsAmount(-1);
       this.recordService.manipulateHistory();
       this.gridList$.next(this.recordService.getCurrentGrid());
@@ -171,7 +171,7 @@ export class SimulationService {
    * @private
    */
   private changeBackwardStepsAmount(value: number): void {
-    this.backwardStepsAmount$.next(this.backwardStepsAmount$.value + value);
+    this.backwardStepsAmount = this.backwardStepsAmount + value;
   }
 
   /**
@@ -219,7 +219,7 @@ export class SimulationService {
     } else {
       this.setSimulationStatus();
     }
-    if (this.backwardStepsAmount$.getValue() < 9) {
+    if (this.backwardStepsAmount < 9) {
       this.changeBackwardStepsAmount(1);
     }
   }
@@ -228,7 +228,7 @@ export class SimulationService {
    * Sets the new speed down between boundaries
    */
   public setSpeedDown(): void {
-    this.simulationSpeed$.getValue() > 100 ? this.setSimulationSpeed(-100) : this.setSimulationSpeed(-20);
+    this.simulationSpeed > 100 ? this.setSimulationSpeed(-100) : this.setSimulationSpeed(-20);
     this.restartInterval();
   }
 
@@ -236,7 +236,7 @@ export class SimulationService {
    * Sets the new speed up between boundaries
    */
   public setSpeedUp(): void {
-    this.simulationSpeed$.getValue() < 100 ? this.setSimulationSpeed(20) : this.setSimulationSpeed(100);
+    this.simulationSpeed < 100 ? this.setSimulationSpeed(20) : this.setSimulationSpeed(100);
     this.restartInterval();
   }
 
@@ -278,7 +278,7 @@ export class SimulationService {
       this.recordService.setGridSavePoint([]);
       this.recordService.setGridSavePointStats(null);
     }
-    this.backwardStepsAmount$.next(0);
+    this.backwardStepsAmount = 0;
   }
 
   /**
@@ -298,7 +298,7 @@ export class SimulationService {
     this.gridList$.next(grid);
     this.recordService.setIteration(0);
     this.recordService.resetHistory();
-    this.backwardStepsAmount$.next(0);
+    this.backwardStepsAmount = 0;
     this.recordService.setGridSavePoint([]);
     this.recordService.setGridSavePointStats(null);
   }
@@ -365,15 +365,15 @@ export class SimulationService {
    *
    * THIS IS CURRENTLY NOT BEING USED BUT MAY END UP BEING USEFUL AGAIN
    */
-  public getDisableController(): Observable<boolean> {
-    return this.disableController$;
+  public getDisableController(): boolean {
+    return this.disableController;
   }
 
   /**
    * Returns whether or not the simulation is currently active.
    */
-  public getSimulationStatus(): Observable<boolean> {
-    return this.isSimulationActive$;
+  public getSimulationStatus(): boolean {
+    return this.isSimulationActive;
   }
 
 
@@ -381,8 +381,8 @@ export class SimulationService {
   /**
    * Returns the current simulation speed.
    */
-  public getSimulationSpeed(): Observable<number> {
-    return this.simulationSpeed$;
+  public getSimulationSpeed(): number {
+    return this.simulationSpeed;
   }
 
   /**
@@ -395,8 +395,8 @@ export class SimulationService {
   /**
    * Returns the backwardStepsAmount.
    */
-  public getBackwardStepsAmount(): Observable<number> {
-    return this.backwardStepsAmount$;
+  public getBackwardStepsAmount(): number {
+    return this.backwardStepsAmount;
   }
 
   /**
