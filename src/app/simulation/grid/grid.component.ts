@@ -7,6 +7,7 @@ import * as _ from 'lodash';
 import {SettingsService} from '../../@core/services/settings.service';
 import {MazeService} from '../../@core/services/maze.service';
 import {RecordService} from '../../@core/services/record.service';
+import {GridLocation} from '../../@shared/GridLocation';
 
 @Component({
   selector: 'app-grid',
@@ -48,10 +49,13 @@ export class GridComponent implements OnInit, OnDestroy {
       const initialStartX = Math.round((33 * this.width) / 100);
       const initialGoalX = Math.round((66 * this.width) / 100);
       const initialNodeHeightY = Math.round((50 * this.height) / 100);
-      this.gridList[initialStartX][initialNodeHeightY].nodeStatus = 1;
-      this.recordService.setGridStartLocation(initialStartX, initialNodeHeightY);
-      this.gridList[initialGoalX][initialNodeHeightY].nodeStatus = 2;
-      this.recordService.setGridGoalLocation(initialGoalX, initialNodeHeightY);
+      const startNode = this.gridList[initialStartX][initialNodeHeightY];
+      startNode.nodeStatus = 1;
+      this.recordService.setGridStartLocation(
+        new GridLocation(initialStartX, initialNodeHeightY, startNode.nodeWeight));
+      const goalNode = this.gridList[initialGoalX][initialNodeHeightY];
+      goalNode.nodeStatus = 2;
+      this.recordService.setGridGoalLocation(new GridLocation(initialGoalX, initialNodeHeightY, goalNode.nodeWeight));
       this.simulationService.setGridList(this.gridList);
     }
     // this.recordService.setAlgoStat1(this.width * this.height);
@@ -122,14 +126,16 @@ export class GridComponent implements OnInit, OnDestroy {
     switch (drawMode) {
       case 1:
         const startLocation = this.recordService.getGridStartLocation();
-        this.gridList[startLocation.x][startLocation.y].nodeStatus = -1;
-        this.recordService.setGridStartLocation(col, row);
+        const startNode = this.gridList[startLocation.x][startLocation.y];
+        startNode.nodeStatus = -1;
+        this.recordService.setGridStartLocation(new GridLocation(col, row, startNode.nodeWeight));
         this.onMouseUp();
         break;
       case 2:
         const goalLocation = this.recordService.getGridGoalLocation();
-        this.gridList[goalLocation.x][goalLocation.y].nodeStatus = -1;
-        this.recordService.setGridGoalLocation(col, row);
+        const goalNode = this.gridList[goalLocation.x][goalLocation.y];
+        goalNode.nodeStatus = -1;
+        this.recordService.setGridGoalLocation(new GridLocation(col, row, goalNode.nodeWeight));
         this.onMouseUp();
         break;
       default:

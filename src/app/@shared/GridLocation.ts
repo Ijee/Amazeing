@@ -1,7 +1,7 @@
 import {EqualsHashCode} from './EqualsHashCode';
 
 export class GridLocation implements EqualsHashCode  {
-  constructor(public x: number, public y: number) {}
+  constructor(public x: number, public y: number, public weight: number) {}
 
   equals(obj: any): boolean {
     if (obj instanceof GridLocation) {
@@ -11,6 +11,6 @@ export class GridLocation implements EqualsHashCode  {
   }
 
   hashCode(): number {
-    return 1337 * this.x + this.y;
+    return this.weight;
   }
 }

@@ -10,9 +10,9 @@ export type Node = {
 };
 
 export type StatRecord = {
-  algoStat1: number;
-  algoStat2: number;
-  algoStat3: number;
+  algoStat1?: number;
+  algoStat2?: number;
+  algoStat3?: number;
 };
 
 export type MazeAlgorithm =

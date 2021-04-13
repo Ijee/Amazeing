@@ -3,13 +3,13 @@ import {AlgoStatNames, MazeAlgorithm, Node, StatRecord} from '../../../types';
 import {MazeAlgorithmInterface} from '../algorithm/maze/maze-algorithm.interface';
 import {Prims} from '../algorithm/maze/creation/prims';
 import {GridLocation} from '../../@shared/GridLocation';
+import * as _ from 'lodash';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MazeService {
   private currentAlgorithm: MazeAlgorithmInterface;
-
   constructor() {
     this.switchAlgorithm('Prims');
   }
@@ -66,7 +66,7 @@ export class MazeService {
   }
 
   /**
-   * Sets the next step for the grid based on the current algorithm
+   * Sets the next step for the grid based on the current algorithm.
    */
   public getNextStep(): Node[][] {
     return this.currentAlgorithm.nextStep();
@@ -82,41 +82,61 @@ export class MazeService {
     let algorithmEnded = false;
     let lastGrid: Node[][];
     while (!algorithmEnded) {
-      console.log('completeAlgorithm while');
       const tempGrid = this.getNextStep();
       if (tempGrid === null) {
         algorithmEnded = true;
       } else {
         lastGrid = tempGrid;
-        console.log('in else');
       }
     }
     return lastGrid;
   }
 
   /**
-   * Returns the name of the current algorithm
+   * Updates the internal algorithm state and stats.
+   *
+   * @param algorithmState - the new algorithm state
+   * @param algorithmStats - the new algorithm stats
+   * @param newGrid - the current Grid
+   */
+  public updateAlgorithmState(newGrid: Node[][], algorithmState: any, algorithmStats: StatRecord): void {
+    if (_.isEmpty(algorithmState)) {
+      this.switchAlgorithm(this.getAlgorithmName());
+    } else {
+      this.currentAlgorithm.updateAlgorithmState(newGrid, algorithmState, algorithmStats);
+    }
+  }
+
+  /**
+   * Returns the name of the current algorithm.
    */
   public getAlgorithmName(): MazeAlgorithm {
     return this.currentAlgorithm.getAlgorithmName();
   }
 
   /**
-   * Returns an object that determines what the stat is supposed to represent
+   * Returns an object that determines what the stat is supposed to represent.
    */
   public getAlgorithmStatNames(): AlgoStatNames {
     return this.currentAlgorithm.getAlgorithmStatNames();
   }
 
   /**
-   * Returns the stats for the current iteration
+   * Returns the stats for the current iteration.
    */
   public getUpdatedStats(): StatRecord {
     return this.currentAlgorithm.getUpdatedStats();
   }
 
   /**
-   * Returns the pseudocode for the currently selected algorithm
+   * Returns the algorithm state for the current iteration.
+   */
+  public getCurrentAlgorithmState(): any {
+    return this.currentAlgorithm.getCurrentAlgorithmState();
+  }
+
+  /**
+   * Returns the pseudocode for the currently selected algorithm.
    */
   public getPseudoCode(): string {
     return this.currentAlgorithm.getPseudoCode();

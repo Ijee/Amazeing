@@ -20,6 +20,9 @@ export class RecordService {
   private gridGoalLocation: GridLocation;
   private iteration: number;
   private statRecordHistory: Array<StatRecord>;
+  // has to be any as there are a lot of algorithm and there
+  // is no benefit to type it as it can only break at two points
+  private algorithmStateHistory: Array<any>;
 
   constructor() {
     this.gridHistory = [];
@@ -29,6 +32,7 @@ export class RecordService {
     // Stats
     this.iteration = 0;
     this.statRecordHistory = [RecordService.EMPTY_STAT_RECORD];
+    this.algorithmStateHistory = [{}];
   }
 
   /**
@@ -39,7 +43,7 @@ export class RecordService {
    *
    * @param gridList - the gridList used in the grid component
    */
-  public manageHistory(gridList: Node[][]): void {
+  public manageGridHistory(gridList: Node[][]): void {
     if (this.gridHistory.length >= 10) {
       this.gridHistory.shift();
     }
@@ -47,13 +51,17 @@ export class RecordService {
   }
 
   /**
-   * This manipulates the history of all tracked stats aas well as tge gridList
+   * This manipulates the history of all tracked states as well as the gridList
    * when the backwardsStep is called on the controller
    */
   public manipulateHistory(): void {
     this.iteration--;
     this.gridHistory.pop();
     this.statRecordHistory.pop();
+    this.algorithmStateHistory.pop();
+
+    console.log('algorithmStateHistory', this.algorithmStateHistory);
+    console.log('gridHistory', this.gridHistory);
   }
 
   public setGridHistory(newGridHistory: Array<Node[][]>): void {
@@ -68,12 +76,12 @@ export class RecordService {
     this.gridSavePointStats = newSavePointStats;
   }
 
-  public setGridStartLocation(column: number, row: number): void {
-    this.gridStartLocation = new GridLocation(column, row);
+  public setGridStartLocation(loc: GridLocation): void {
+    this.gridStartLocation = loc;
   }
 
-  public setGridGoalLocation(column: number, row: number): void {
-    this.gridGoalLocation = new GridLocation(column, row);
+  public setGridGoalLocation(loc: GridLocation): void {
+    this.gridGoalLocation = loc;
   }
 
   /**
@@ -98,10 +106,36 @@ export class RecordService {
   }
 
   /**
+   * Adds a new entry to the algorithm state history.
+   *
+   * @param newState - the new stat record
+   */
+  public addAlgorithmState(newState: any): void {
+    if (this.algorithmStateHistory.length >= 10) {
+      this.algorithmStateHistory.shift();
+    }
+    this.algorithmStateHistory.push(_.cloneDeep(newState));
+  }
+
+  /**
    * Fully resets the algorithm stats.
    */
-  public resetHistory(): void {
+  public resetStatRecordHistory(): void {
     this.statRecordHistory = [RecordService.EMPTY_STAT_RECORD];
+  }
+
+  /**
+   * Fully resets the algorithm state history.
+   */
+  public resetAlgorithmStateHistory(): void {
+    this.algorithmStateHistory = [];
+  }
+
+  /**
+   * Returns the current Grid.
+   */
+  public getCurrentGrid(): Node[][] {
+    return this.gridHistory[this.gridHistory.length - 1];
   }
 
   public getGridSavePoint(): Node[][] {
@@ -130,20 +164,23 @@ export class RecordService {
   }
 
   /**
-   * Returns the current iteration
+   * Returns the current iteration.
    */
   public getIteration(): number {
     return this.iteration;
   }
 
   /**
-   * Returns the current statRecordHistory
+   * Returns the current statRecordHistory.
    */
   public getCurrentStats(): StatRecord {
     return this.statRecordHistory[this.statRecordHistory.length - 1];
   }
 
-  public getCurrentGrid(): Node[][] {
-    return this.gridHistory[this.gridHistory.length - 1];
+  /**
+   * Returns the current algorithmState.
+   */
+  public getCurrentAlgorithmState(): any {
+    return this.algorithmStateHistory[this.algorithmStateHistory.length - 1];
   }
 }

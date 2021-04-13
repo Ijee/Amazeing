@@ -7,13 +7,6 @@ export interface MazeAlgorithmInterface {
   algoStatNames: AlgoStatNames;
 
   /**
-   * Return the complete algorithm directly
-   *
-   * @param currentGrid - the current grid that is displayed on the site
-   */
-  completeAlgorithm(currentGrid: Node[][]): Node[][];
-
-  /**
    * Returns the new step / iteration based on the currentGrid
    */
   nextStep(): Node[][] | null;
@@ -27,6 +20,19 @@ export interface MazeAlgorithmInterface {
    */
   setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void;
 
+  /**
+   * Updates the algorithm state that needs to be done when
+   * either a backwards step has been set or the client
+   * tried to import from a string through the ui.
+   *
+   * Refer to how to load the state back in on what is being returned
+   * in getCurrentAlgorithmState
+   *
+   * @param algorithmState - the new algorithm state
+   * @param algorithmStats - the new algorithm stats
+   * @param currentGrid - the current Grid
+   */
+  updateAlgorithmState(currentGrid: Node[][], algorithmState: any, algorithmStats: StatRecord): void;
 
   /**
    * Returns the name of the algorithm
@@ -42,6 +48,12 @@ export interface MazeAlgorithmInterface {
    * Returns the added stats for each step
    */
   getUpdatedStats(): StatRecord;
+
+  /**
+   * Returns the current algorithm state that should at least
+   * be an object.
+   */
+  getCurrentAlgorithmState(): any;
 
   /**
    * Returns the current algorithm pseudo code

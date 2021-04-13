@@ -20,7 +20,6 @@ export class SimulationService {
   //  THIS IS CURRENTLY NOT BEING USED BUT MAY END UP BEING USEFUL AGAIN
   private disableController: boolean;
   private backwardStepsAmount: number;
-  private readonly step$: Subject<void>;
   private showWeightStatus: boolean;
   private readonly randomSeed$: Subject<void>;
   private readonly legend$: Subject<void>;
@@ -40,7 +39,6 @@ export class SimulationService {
     this.disableController = false;
     this.isSimulationActive = false;
     this.backwardStepsAmount = 0;
-    this.step$ = new Subject<void>();
     this.randomSeed$ = new Subject<void>();
     this.legend$ = new Subject<void>();
     this.importSession$ = new Subject<void>();
@@ -124,7 +122,6 @@ export class SimulationService {
   }
 
 
-
   /**
    * Sets the new status of the controller to enabled or disabled
    *
@@ -144,7 +141,7 @@ export class SimulationService {
   public setGridList(newGrid: Node[][]): void {
     const grid = _.cloneDeep(newGrid);
     this.gridList$.next(grid);
-    this.recordService.manageHistory(grid);
+    this.recordService.manageGridHistory(grid);
   }
 
   /**
@@ -161,6 +158,13 @@ export class SimulationService {
     if (this.backwardStepsAmount > 0) {
       this.changeBackwardStepsAmount(-1);
       this.recordService.manipulateHistory();
+      if (this.settingsService.getAlgorithmMode() === 'maze') {
+        this.mazeService.updateAlgorithmState(this.gridList$.getValue(),
+          this.recordService.getCurrentAlgorithmState(),
+          this.recordService.getCurrentStats());
+      } else {
+        // TODO update path-finding service to the new definitions on mazeService / the interface
+      }
       this.gridList$.next(this.recordService.getCurrentGrid());
     }
   }
@@ -197,6 +201,7 @@ export class SimulationService {
   public addIteration(): void {
     let newGrid: Node[][];
     let newStats: StatRecord;
+    let newAlgorithmState: any;
     if (this.settingsService.getAlgorithmMode() === 'maze') {
       if (this.recordService.getIteration() === 0) {
         this.mazeService.setInitialData(_.cloneDeep(
@@ -204,6 +209,8 @@ export class SimulationService {
       }
       newGrid = this.mazeService.getNextStep();
       newStats = this.mazeService.getUpdatedStats();
+      newAlgorithmState = this.mazeService.getCurrentAlgorithmState();
+      console.log('newAlgorithmState', newAlgorithmState);
     } else {
       if (this.recordService.getIteration() === 0) {
         this.pathFindingService.setInitialData(_.cloneDeep(
@@ -216,6 +223,7 @@ export class SimulationService {
       this.setGridList(newGrid);
       this.recordService.setIteration(this.recordService.getIteration() + 1);
       this.recordService.addStatRecord(newStats);
+      this.recordService.addAlgorithmState(newAlgorithmState);
     } else {
       this.setSimulationStatus();
     }
@@ -273,12 +281,13 @@ export class SimulationService {
     } else {
       // Hard reset
       this.recordService.setIteration(0);
-      this.recordService.resetHistory();
+      this.recordService.resetStatRecordHistory();
       this.gridList$.next([]);
       this.recordService.setGridSavePoint([]);
       this.recordService.setGridSavePointStats(null);
     }
     this.backwardStepsAmount = 0;
+    this.recordService.resetAlgorithmStateHistory();
   }
 
   /**
@@ -297,12 +306,15 @@ export class SimulationService {
     });
     this.gridList$.next(grid);
     this.recordService.setIteration(0);
-    this.recordService.resetHistory();
+    this.recordService.resetStatRecordHistory();
     this.backwardStepsAmount = 0;
     this.recordService.setGridSavePoint([]);
     this.recordService.setGridSavePointStats(null);
   }
 
+  /**
+   * This toggles whether or not to show weight status
+   */
   public toggleWeightStatus(): void {
     this.showWeightStatus = !this.showWeightStatus;
   }
@@ -375,8 +387,6 @@ export class SimulationService {
   public getSimulationStatus(): boolean {
     return this.isSimulationActive;
   }
-
-
 
   /**
    * Returns the current simulation speed.

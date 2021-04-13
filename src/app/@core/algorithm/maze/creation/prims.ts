@@ -8,15 +8,12 @@ import {GridLocation} from '../../../../@shared/GridLocation';
  * This is the implementation of the prims algorithm tailored for creating
  * a maze.
  *
- *
- * Algorithm stats meaning:
- *
  */
 export class Prims implements MazeAlgorithmInterface {
   currentGrid: Node[][];
   algoStatNames: AlgoStatNames;
   algoStats: StatRecord;
-  private readonly frontierNodes: HashSet<GridLocation>;
+  private frontierNodes: HashSet<GridLocation>;
 
 
   constructor() {
@@ -27,7 +24,6 @@ export class Prims implements MazeAlgorithmInterface {
     this.algoStats = {
       algoStat1: 0,
       algoStat2: 0,
-      algoStat3: 0
     };
     this.frontierNodes = new HashSet<GridLocation>();
   }
@@ -35,13 +31,14 @@ export class Prims implements MazeAlgorithmInterface {
   private addFrontier(xAxis: number, yAxis: number): void {
     if (xAxis >= 0 && yAxis >= 0 && xAxis < this.currentGrid.length
       && yAxis < this.currentGrid[0].length) {
-      const status = this.currentGrid[xAxis][yAxis].nodeStatus;
+      const node = this.currentGrid[xAxis][yAxis];
+      const status = node.nodeStatus;
       if (status === -1) {
-        this.frontierNodes.add(new GridLocation(xAxis, yAxis));
+        this.frontierNodes.add(new GridLocation(xAxis, yAxis, node.nodeWeight));
         this.currentGrid[xAxis][yAxis].nodeStatus = 3;
         this.algoStats.algoStat1 += 1;
       } else if (status === 2) {
-        this.frontierNodes.add(new GridLocation(xAxis, yAxis));
+        this.frontierNodes.add(new GridLocation(xAxis, yAxis, node.nodeWeight));
       }
     }
   }
@@ -62,27 +59,31 @@ export class Prims implements MazeAlgorithmInterface {
   private neighbours(loc: GridLocation): GridLocation[] {
     const res: GridLocation[] = [];
     if (loc.y < this.currentGrid[0].length - 2) {
-      const status = this.currentGrid[loc.x][loc.y + 2].nodeStatus;
+      const node = this.currentGrid[loc.x][loc.y + 2];
+      const status = node.nodeStatus;
       if (status === 1 || status === 2 || status === 4) {
-        res.push(new GridLocation(loc.x, loc.y + 2));
+        res.push(new GridLocation(loc.x, loc.y + 2, node.nodeWeight));
       }
     }
     if (loc.x < this.currentGrid.length - 2) {
-      const status = this.currentGrid[loc.x + 2][loc.y].nodeStatus;
+      const node = this.currentGrid[loc.x + 2][loc.y];
+      const status = node.nodeStatus;
       if (status === 1 || status === 2 || status === 4) {
-        res.push(new GridLocation(loc.x + 2, loc.y));
+        res.push(new GridLocation(loc.x + 2, loc.y, node.nodeWeight));
       }
     }
     if (loc.y >= 2) {
-      const status = this.currentGrid[loc.x][loc.y - 2].nodeStatus;
+      const node = this.currentGrid[loc.x][loc.y - 2];
+      const status = node.nodeStatus;
       if (status === 1 || status === 2 || status === 4) {
-        res.push(new GridLocation(loc.x, loc.y - 2));
+        res.push(new GridLocation(loc.x, loc.y - 2, node.nodeWeight));
       }
     }
     if (loc.x >= 2) {
-      const status = this.currentGrid[loc.x - 2][loc.y].nodeStatus;
+      const node = this.currentGrid[loc.x - 2][loc.y];
+      const status = node.nodeStatus;
       if (status === 1 || status === 2 || status === 4) {
-        res.push(new GridLocation(loc.x - 2, loc.y));
+        res.push(new GridLocation(loc.x - 2, loc.y, node.nodeWeight));
       }
     }
     return res;
@@ -114,13 +115,26 @@ export class Prims implements MazeAlgorithmInterface {
 
   public nextStep(): Node[][] | null {
     if (this.frontierNodes.size() !== 0) {
-      const randomFrontierItem = this.frontierNodes.getRandomItem();
-      this.frontierNodes.remove(randomFrontierItem);
-      this.buildWalls(randomFrontierItem);
-      const neighbours = this.neighbours(randomFrontierItem);
+      // const randomFrontierItem = this.frontierNodes.getRandomItem();
+      let lowestWeightFrontiers: Array<GridLocation> = [];
+      this.frontierNodes.forEach(item => {
+        if (lowestWeightFrontiers.length === 0) {
+          lowestWeightFrontiers.push(item);
+        } else if (item.weight < lowestWeightFrontiers[lowestWeightFrontiers.length - 1].weight) {
+          lowestWeightFrontiers = [];
+          lowestWeightFrontiers.push(item);
+        } else if  (item.weight === lowestWeightFrontiers[lowestWeightFrontiers.length - 1].weight) {
+          lowestWeightFrontiers.push(item);
+        }
+      });
+      // select one item from the lowest weighted items randomly
+      const selectedFrontierItem = lowestWeightFrontiers[Math.floor(Math.random() * lowestWeightFrontiers.length)];
+      this.frontierNodes.remove(selectedFrontierItem);
+      this.buildWalls(selectedFrontierItem);
+      const neighbours = this.neighbours(selectedFrontierItem);
       const randomNeighbour = neighbours[Math.floor(Math.random() * neighbours.length)];
-      this.buildWayBetween(randomFrontierItem, randomNeighbour);
-      this.mark(randomFrontierItem.x, randomFrontierItem.y);
+      this.buildWayBetween(selectedFrontierItem, randomNeighbour);
+      this.mark(selectedFrontierItem.x, selectedFrontierItem.y);
       return this.currentGrid;
     }
     return null;
@@ -133,8 +147,12 @@ export class Prims implements MazeAlgorithmInterface {
     this.mark(currentStartPoint.x, currentStartPoint.y);
   }
 
-  public completeAlgorithm(currentGrid: Node[][]): Node[][] {
-    return currentGrid;
+  public updateAlgorithmState(newGrid: Node[][], algorithmState: any, algorithmStats: StatRecord): void {
+    this.currentGrid = newGrid;
+    this.algoStats = algorithmStats;
+    console.log('before zuweisung:', this.frontierNodes.size());
+    this.frontierNodes = algorithmState.frontierNodes;
+    console.log('after zuweisung:', this.frontierNodes.size());
   }
 
   public getAlgorithmName(): MazeAlgorithm {
@@ -145,8 +163,14 @@ export class Prims implements MazeAlgorithmInterface {
     return this.algoStatNames;
   }
 
-  getUpdatedStats(): StatRecord {
-    return  this.algoStats;
+  public getUpdatedStats(): StatRecord {
+    return this.algoStats;
+  }
+
+  public getCurrentAlgorithmState(): any {
+    return {
+      frontierNodes: this.frontierNodes
+    };
   }
 
   /**
