@@ -1,7 +1,16 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import * as _ from 'lodash';
-import {AlgoStatNames, MazeAlgorithm, Node, PathFindingAlgorithm, StatRecord} from '../../../types';
+import * as pako from 'pako';
+import {
+  AlgoStatNames,
+  MazeAlgorithm,
+  Node,
+  PathFindingAlgorithm,
+  PathFindingHeuristic,
+  Session,
+  StatRecord
+} from '../../../types';
 import {SettingsService} from './settings.service';
 import {MazeService} from './maze.service';
 import {PathFindingService} from './path-finding.service';
@@ -23,10 +32,10 @@ export class SimulationService {
   private showWeightStatus: boolean;
   private readonly randomSeed$: Subject<void>;
   private readonly legend$: Subject<void>;
-  private readonly importSession$: Subject<void>;
-  private readonly exportSession$: Subject<void>;
-  private readonly exportToken$: Subject<string>;
-  private readonly importToken$: Subject<string>;
+  private showImportModal: boolean;
+  private showExportModal: boolean;
+  private exportToken: string;
+  private importToken: string;
   private intervalID: number;
 
   constructor(private settingsService: SettingsService,
@@ -41,10 +50,9 @@ export class SimulationService {
     this.backwardStepsAmount = 0;
     this.randomSeed$ = new Subject<void>();
     this.legend$ = new Subject<void>();
-    this.importSession$ = new Subject<void>();
-    this.exportSession$ = new Subject<void>();
-    this.exportToken$ = new Subject<string>();
-    this.importToken$ = new Subject<string>();
+    this.showImportModal = false;
+    this.showExportModal = false;
+    this.importToken = '';
   }
 
   /**
@@ -161,7 +169,8 @@ export class SimulationService {
       if (this.settingsService.getAlgorithmMode() === 'maze') {
         this.mazeService.updateAlgorithmState(this.gridList$.getValue(),
           this.recordService.getCurrentAlgorithmState(),
-          this.recordService.getCurrentStats());
+          this.recordService.getCurrentStats(),
+          false);
       } else {
         // TODO update path-finding service to the new definitions on mazeService / the interface
       }
@@ -170,8 +179,8 @@ export class SimulationService {
   }
 
   /**
-   * (Don't question good method names or I will haunt you)
-   * @param value
+   * Changes the backwardsStepAmount.
+   * @param value - the new value to be added
    * @private
    */
   private changeBackwardStepsAmount(value: number): void {
@@ -208,7 +217,7 @@ export class SimulationService {
           this.gridList$.getValue()), this.recordService.getGridStartLocation());
       }
       newGrid = this.mazeService.getNextStep();
-      newStats = this.mazeService.getUpdatedStats();
+      newStats = this.mazeService.getAlgorithmStats();
       newAlgorithmState = this.mazeService.getCurrentAlgorithmState();
       console.log('newAlgorithmState', newAlgorithmState);
     } else {
@@ -298,9 +307,9 @@ export class SimulationService {
     const grid = _.cloneDeep(this.gridList$.value);
     grid.forEach(column => {
       column.forEach(node => {
-        const status = node.nodeStatus;
+        const status = node.status;
         if (status > 2) {
-          node.nodeStatus = -1;
+          node.status = -1;
         }
       });
     });
@@ -327,6 +336,20 @@ export class SimulationService {
   }
 
   /**
+   * Toggles whether or not the import modal should be shown
+   */
+  public toggleShowImportModal(): void {
+    this.showImportModal = !this.showImportModal;
+  }
+
+  /**
+   * Toggles whether or not the export modal should be shown
+   */
+  public toggleShowExportModal(): void {
+    this.showExportModal = !this.showExportModal;
+  }
+
+  /**
    * Notifies all listener that a new legend is called.
    */
   public setLegend(): void {
@@ -334,35 +357,43 @@ export class SimulationService {
   }
 
   /**
-   * Notifies all listener that a new importSession is called.
-   */
-  public setImportSession(): void {
-    this.importSession$.next();
-  }
-
-  /**
-   * Notifies all listener that a new exportSession is called.
-   */
-  public setExportSession(): void {
-    this.exportSession$.next();
-  }
-
-  /**
-   * Sets the new exportToken.
+   * Tries to set all the important information for the new session.
    *
-   * @param token - the new token to be set
+   * @param session - the new session to be used
    */
-  public setExportToken(token: string): void {
-    this.exportToken$.next(token);
+  public importSession(session: Session): void {
+    let serializedInput: any;
+    try {
+      serializedInput = JSON.parse(pako.inflate(this.exportToken, { to: 'string' }));
+    } catch (error) {
+      throw new Error('Input string is invalid.');
+    }
+    this.settingsService.setAlgorithmMode(session.algorithmMode);
+    if (this.settingsService.getAlgorithmMode() === 'maze') {
+      this.mazeService.switchAlgorithm(session.algorithm as MazeAlgorithm);
+      this.mazeService.updateAlgorithmState(session.grid, session.algorithmState,
+        session.algorithmStats, true);
+    } else {
+      this.pathFindingService.switchAlgorithm(session.algorithm as PathFindingAlgorithm);
+      // TODO set path-finding updateAlgorithmState
+    }
+    // TODO set heuristic for path-finding service
   }
 
-  /**
-   * Sets the new importToken.
-   *
-   * @param token - the new token to be set
-   */
-  public setImportToken(token: string): void {
-    this.importToken$.next(token);
+  public exportSession(): void {
+    if (this.settingsService.getAlgorithmMode() === 'maze') {
+      const exportSession: Session = {
+        algorithm: this.mazeService.getAlgorithmName() as MazeAlgorithm,
+        algorithmMode: this.settingsService.getAlgorithmMode(),
+        algorithmState: this.mazeService.getSerializedState(),
+        algorithmStats: this.mazeService.getAlgorithmStats(),
+        grid: this.gridList$.getValue()
+      };
+      this.exportToken = pako.deflate(JSON.stringify(exportSession));
+    } else {
+      // TODO sync mazeService with path-finding service to make this object assignable
+    }
+
   }
 
   /**
@@ -433,30 +464,31 @@ export class SimulationService {
 
 
   /**
-   * Returns when a new importSession was set.
+   * Returns whether or not the import modal should be shown.
    */
-  public getImportSession(): Observable<void> {
-    return this.importSession$;
+  public get getShowImportModal(): boolean {
+    return this.showImportModal;
+  }
+
+
+  /**
+   * Returns whether or not the export modal should be shown.
+   */
+  public getShowExportModal(): boolean {
+    return this.showExportModal;
   }
 
   /**
-   * Returns when a new exportSession was set.
+   * Returns the current exportToken.
    */
-  public getExportSession(): Observable<void> {
-    return this.exportSession$;
-  }
-
-  /**
-   * Returns when a new exportToken was set.
-   */
-  public getExportToken(): Observable<string> {
-    return this.exportToken$;
+  public getExportToken(): string {
+    return this.exportToken;
   }
 
   /**
    * Returns when a new importToken was set.
    */
-  public getImportToken(): Observable<string> {
-    return this.importToken$;
+  public getImportToken(): string {
+    return this.importToken;
   }
 }

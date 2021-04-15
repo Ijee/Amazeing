@@ -5,8 +5,8 @@ export type AlgoStatNames = {
 };
 
 export type Node = {
-  nodeStatus: number;
-  nodeWeight: number;
+  status: number;
+  weight: number;
 };
 
 export type StatRecord = {
@@ -14,6 +14,8 @@ export type StatRecord = {
   algoStat2?: number;
   algoStat3?: number;
 };
+
+export type AlgorithmMode = 'maze' | 'path-finding';
 
 export type MazeAlgorithm =
   'Prims'
@@ -47,8 +49,18 @@ export type PathFindingAlgorithm =
   | 'Jump-PS'
   | 'Orthogonal-Jump-PS';
 
-export type PathFindingHeuristics =
+export type PathFindingHeuristic =
   'Manhattan'
   | 'Euclidean'
   | 'Octile'
   | 'Chebyshev';
+
+
+export type Session = {
+  algorithm: MazeAlgorithm | PathFindingAlgorithm,
+  algorithmMode: AlgorithmMode,
+  algorithmHeuristic?: PathFindingHeuristic,
+  algorithmState: any,
+  algorithmStats: StatRecord,
+  grid: Node[][],
+};

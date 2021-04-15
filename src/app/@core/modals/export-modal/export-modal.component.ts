@@ -14,22 +14,14 @@ import {modalAnimation} from '../../../@shared/animations/modalAnimation';
   styleUrls: ['./export-modal.component.scss'],
   animations: [modalAnimation]
 })
-export class ExportModalComponent implements OnInit, OnDestroy {
-  showExport: boolean;
+export class ExportModalComponent implements OnDestroy {
 
   private readonly destroyed$: Subject<void>;
 
   constructor(public simulationService: SimulationService, library: FaIconLibrary) {
     library.addIconPacks(fas, fab, far);
-    this.showExport = false;
 
     this.destroyed$ = new Subject<void>();
-  }
-
-  ngOnInit(): void {
-    this.simulationService.getExportSession().pipe(takeUntil(this.destroyed$)).subscribe(() => {
-      this.showExport = true;
-    });
   }
 
   ngOnDestroy(): void {
@@ -43,7 +35,7 @@ export class ExportModalComponent implements OnInit, OnDestroy {
    */
   exportSession(): void {
     this.toClipboard();
-    this.showExport = false;
+    this.simulationService.toggleShowExportModal();
   }
 
   /**
@@ -52,9 +44,12 @@ export class ExportModalComponent implements OnInit, OnDestroy {
    * some clients.
    */
   toClipboard(): void {
-    this.showExport = false;
     const copyString = document.querySelector('#exportArea') as HTMLTextAreaElement;
     copyString.select();
     document.execCommand('copy');
+  }
+
+  public transformExport(): string {
+    return this.simulationService.getExportToken();
   }
 }

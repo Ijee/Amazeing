@@ -7,8 +7,8 @@
        (mouseleave)="onMouseUp()">
     <div *ngFor="let col of gridList; let i=index" class="game-column">
       <app-node *ngFor="let node of col; let j=index"
-                [status]="node.nodeStatus"
-                [weight]="node.nodeWeight"
+                [status]="node.status"
+                [weight]="node.weight"
                 [is-mouse-down]="isMouseDown"
                 (wasUpdated)="drawModeLogic(i, j)">
       </app-node>

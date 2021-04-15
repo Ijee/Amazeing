@@ -57,7 +57,7 @@ export class MazeService {
       case 'Maze-Routing':
         break;
       default:
-        this.currentAlgorithm = new Prims();
+        throw new Error('Unknown maze algorithm selected!');
     }
   }
 
@@ -95,16 +95,33 @@ export class MazeService {
   /**
    * Updates the internal algorithm state and stats.
    *
+   * @param newGrid - the current Grid
    * @param algorithmState - the new algorithm state
    * @param algorithmStats - the new algorithm stats
-   * @param newGrid - the current Grid
+   * @param deserialize - whether or not to deserialize the state object before updating the algorithm state
    */
-  public updateAlgorithmState(newGrid: Node[][], algorithmState: any, algorithmStats: StatRecord): void {
+  public updateAlgorithmState(
+    newGrid: Node[][], algorithmState: any, algorithmStats: StatRecord, deserialize: boolean): void {
     if (_.isEmpty(algorithmState)) {
       this.switchAlgorithm(this.getAlgorithmName());
     } else {
-      this.currentAlgorithm.updateAlgorithmState(newGrid, algorithmState, algorithmStats);
+      try {
+        if (deserialize) {
+          this.currentAlgorithm.deserialize(newGrid, algorithmState, algorithmStats);
+        } else {
+          this.currentAlgorithm.updateAlgorithmState(newGrid, algorithmState, algorithmStats);
+        }
+      } catch (error) {
+        throw new Error('Can not set algorithm State');
+      }
     }
+  }
+
+  /**
+   * Returns the serialized internal state of the current algorithm
+   */
+  public getSerializedState(): any {
+    this.currentAlgorithm.getSerializedState();
   }
 
   /**
@@ -124,8 +141,8 @@ export class MazeService {
   /**
    * Returns the stats for the current iteration.
    */
-  public getUpdatedStats(): StatRecord {
-    return this.currentAlgorithm.getUpdatedStats();
+  public getAlgorithmStats(): StatRecord {
+    return this.currentAlgorithm.getAlgorithmStats();
   }
 
   /**

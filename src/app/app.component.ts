@@ -72,9 +72,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
 
   /**
-   *
-   *
-   * @param event
+   * Determines if the tablet version of the site is being displayed.
    */
   @HostListener('window:resize', ['$event'])
   handleResizeEvent(): void {
@@ -83,7 +81,6 @@ export class AppComponent implements OnInit, OnDestroy {
     } else {
       this.isBurgerMenu = false;
     }
-    console.log('isBurgerMenu:', this.isBurgerMenu);
   }
 
   /**

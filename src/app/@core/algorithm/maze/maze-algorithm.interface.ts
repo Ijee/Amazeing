@@ -32,7 +32,29 @@ export interface MazeAlgorithmInterface {
    * @param algorithmStats - the new algorithm stats
    * @param currentGrid - the current Grid
    */
+
   updateAlgorithmState(currentGrid: Node[][], algorithmState: any, algorithmStats: StatRecord): void;
+
+  /**
+   * This function is responsible for deserializing the internal state of the algorithm and
+   * then updating it by calling updateAlgorithmState with it.
+   *
+   * It is being called when the user tries to import a custom session into the app.
+   *
+   * @param newGrid - the current Grid
+   * @param serializedState - the serialized data
+   * @param algorithmStats - the new algorithm stats
+   */
+  deserialize(newGrid: Node[][], serializedState: any, algorithmStats: StatRecord): void;
+
+  /**
+   * This function serializes the internal state of the algorithm and then returns it as an object.
+   * This has to be done in order to make the state exportable as a JSON string.
+   *
+   * Remember that classes can not be serialized with JSON.stringify as they most often include functions.
+   */
+  getSerializedState(): any;
+
 
   /**
    * Returns the name of the algorithm
@@ -47,7 +69,7 @@ export interface MazeAlgorithmInterface {
   /**
    * Returns the added stats for each step
    */
-  getUpdatedStats(): StatRecord;
+  getAlgorithmStats(): StatRecord;
 
   /**
    * Returns the current algorithm state that should at least

@@ -10,6 +10,7 @@ import {MazeService} from '../../@core/services/maze.service';
 import {PathFindingService} from '../../@core/services/path-finding.service';
 import {Subject} from 'rxjs';
 import {fadeAnimationSafe} from '../../@shared/animations/fadeAnimation';
+import {AlgorithmMode} from '../../../types';
 
 @Component({
   selector: 'app-grid-settings',
@@ -53,7 +54,7 @@ export class GridSettingsComponent implements OnDestroy{
    * @param algoMode - the new algorithm mode to be set
    * @param skipWarning - whether or not to skip the warning or not
    */
-  public handleWarning(algoMode: string, skipWarning: boolean): void {
+  public handleWarning(algoMode: AlgorithmMode, skipWarning: boolean): void {
     if (this.settingsService.getAlgorithmMode() !== algoMode){
       if (this.settingsService.isWarningsSetting() && !skipWarning) {
         this.showWarning = true;

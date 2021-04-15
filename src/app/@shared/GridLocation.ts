@@ -13,4 +13,12 @@ export class GridLocation implements EqualsHashCode  {
   hashCode(): number {
     return this.weight;
   }
+
+  toObject(): object {
+    return {
+      x: this.x,
+      y: this.y,
+      weight: this.weight,
+    };
+  }
 }

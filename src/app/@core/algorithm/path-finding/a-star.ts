@@ -1,5 +1,5 @@
 import {PathFindingAlgorithmInterface} from './path-finding-algorithm.interface';
-import {PathFindingAlgorithm, Node, PathFindingHeuristics, AlgoStatNames} from '../../../../types';
+import {PathFindingAlgorithm, Node, PathFindingHeuristic, AlgoStatNames} from '../../../../types';
 import {GridLocation} from '../../../@shared/GridLocation';
 
 export class AStar implements PathFindingAlgorithmInterface {
@@ -18,7 +18,7 @@ export class AStar implements PathFindingAlgorithmInterface {
     return this.currentGrid;
   }
 
-  public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation, currentHeuristic: PathFindingHeuristics): void {
+  public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation, currentHeuristic: PathFindingHeuristic): void {
     return null;
   }
 

@@ -18,4 +18,10 @@ export class ControllerComponent {
               private library: FaIconLibrary) {
     library.addIconPacks(fas, fab, far);
   }
+
+  public handleExportLogic(): void {
+    this.simulationService.exportSession();
+    this.simulationService.toggleShowExportModal();
+    this.simulationService.setSimulationStatus(false);
+  }
 }

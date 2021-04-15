@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
+import {AlgorithmMode} from '../../../types';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SettingsService {
-  private algorithmMode: string;
+  private algorithmMode: AlgorithmMode;
   private darkModeSetting: boolean;
   private animationsSetting: boolean;
   private warningsSetting: boolean;
@@ -26,7 +27,7 @@ export class SettingsService {
    *
    * @param newMode - the new algorithm mode ('maze' | 'path-finding')
    */
-  public setAlgorithmMode(newMode: string): void {
+  public setAlgorithmMode(newMode: AlgorithmMode): void {
     this.algorithmMode = newMode;
   }
 
@@ -75,7 +76,7 @@ export class SettingsService {
   /**
    * Returns the current algorithm mode.
    */
-  public getAlgorithmMode(): string {
+  public getAlgorithmMode(): AlgorithmMode {
     return this.algorithmMode;
   }
 

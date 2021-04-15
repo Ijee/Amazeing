@@ -1,5 +1,6 @@
-<div class="modal" [@modalAnimation]="showExport" [ngClass]="showExport ? 'is-active' : 'inactive'">
-  <div class="modal-background" (click)="showExport = false"></div>
+<div class="modal" [@modalAnimation]="simulationService.getShowExportModal()"
+     [ngClass]="simulationService.getShowExportModal() ? 'is-active' : 'inactive'">
+  <div class="modal-background" (click)="simulationService.toggleShowExportModal()"></div>
   <div class="modal-card">
     <header class="modal-card-head">
       <p class="modal-card-title">
@@ -12,14 +13,15 @@
           </label>
         </span>
       </p>
-      <button class="delete" aria-label="close" (click)="showExport = false"></button>
+      <button class="delete" aria-label="close" (click)="simulationService.toggleShowExportModal()"></button>
     </header>
     <section class="modal-card-body">
               <textarea id="exportArea"
                         class="textarea is-primary"
                         type="text"
+                        readonly
                         (focus)="$event.target.select()"
-                        [ngModel]="simulationService.getExportToken() | async">
+                        [ngModel]="transformExport()">
               </textarea>
     </section>
     <footer class="modal-card-foot">
@@ -29,7 +31,7 @@
         </span>
         <span>Copy to clipboard</span>
       </button>
-      <button class="button" (click)="showExport = false">Cancel</button>
+      <button class="button" (click)="simulationService.toggleShowExportModal()">Cancel</button>
     </footer>
   </div>
 </div>

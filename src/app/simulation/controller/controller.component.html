@@ -63,7 +63,7 @@
 <div class="field has-addons has-addons-centered is-marginless">
   <p class="control">
     <button [disabled]="simulationService.getDisableController()" class="button" title="import"
-            (click)="simulationService.setImportSession(); simulationService.setSimulationStatus(false)">
+            (click)="simulationService.toggleShowImportModal(); simulationService.setSimulationStatus(false)">
         <span class="icon">
           <fa-icon [icon]="['far', 'edit']"></fa-icon>
         </span>
@@ -72,7 +72,7 @@
   </p>
   <p class="control">
     <button [disabled]="simulationService.getDisableController()" class="button" title="export"
-            (click)="simulationService.setExportSession(); simulationService.setSimulationStatus(false)">
+            (click)="handleExportLogic()">
         <span class="icon">
           <fa-icon [icon]="['far', 'save']"></fa-icon>
         </span>

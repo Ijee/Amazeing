@@ -32,22 +32,22 @@ export class Prims implements MazeAlgorithmInterface {
     if (xAxis >= 0 && yAxis >= 0 && xAxis < this.currentGrid.length
       && yAxis < this.currentGrid[0].length) {
       const node = this.currentGrid[xAxis][yAxis];
-      const status = node.nodeStatus;
+      const status = node.status;
       if (status === -1) {
-        this.frontierNodes.add(new GridLocation(xAxis, yAxis, node.nodeWeight));
-        this.currentGrid[xAxis][yAxis].nodeStatus = 3;
+        this.frontierNodes.add(new GridLocation(xAxis, yAxis, node.weight));
+        this.currentGrid[xAxis][yAxis].status = 3;
         this.algoStats.algoStat1 += 1;
       } else if (status === 2) {
-        this.frontierNodes.add(new GridLocation(xAxis, yAxis, node.nodeWeight));
+        this.frontierNodes.add(new GridLocation(xAxis, yAxis, node.weight));
       }
     }
   }
 
   private mark(xAxis: number, yAxis: number): void {
     const node = this.currentGrid[xAxis][yAxis];
-    if (node.nodeStatus === 3) {
+    if (node.status === 3) {
       // TODO 4 -> in
-      node.nodeStatus = 4;
+      node.status = 4;
     }
     // marks neighbours as frontierNodes
     this.addFrontier(xAxis - 2, yAxis);
@@ -60,30 +60,30 @@ export class Prims implements MazeAlgorithmInterface {
     const res: GridLocation[] = [];
     if (loc.y < this.currentGrid[0].length - 2) {
       const node = this.currentGrid[loc.x][loc.y + 2];
-      const status = node.nodeStatus;
+      const status = node.status;
       if (status === 1 || status === 2 || status === 4) {
-        res.push(new GridLocation(loc.x, loc.y + 2, node.nodeWeight));
+        res.push(new GridLocation(loc.x, loc.y + 2, node.weight));
       }
     }
     if (loc.x < this.currentGrid.length - 2) {
       const node = this.currentGrid[loc.x + 2][loc.y];
-      const status = node.nodeStatus;
+      const status = node.status;
       if (status === 1 || status === 2 || status === 4) {
-        res.push(new GridLocation(loc.x + 2, loc.y, node.nodeWeight));
+        res.push(new GridLocation(loc.x + 2, loc.y, node.weight));
       }
     }
     if (loc.y >= 2) {
       const node = this.currentGrid[loc.x][loc.y - 2];
-      const status = node.nodeStatus;
+      const status = node.status;
       if (status === 1 || status === 2 || status === 4) {
-        res.push(new GridLocation(loc.x, loc.y - 2, node.nodeWeight));
+        res.push(new GridLocation(loc.x, loc.y - 2, node.weight));
       }
     }
     if (loc.x >= 2) {
       const node = this.currentGrid[loc.x - 2][loc.y];
-      const status = node.nodeStatus;
+      const status = node.status;
       if (status === 1 || status === 2 || status === 4) {
-        res.push(new GridLocation(loc.x - 2, loc.y, node.nodeWeight));
+        res.push(new GridLocation(loc.x - 2, loc.y, node.weight));
       }
     }
     return res;
@@ -95,9 +95,9 @@ export class Prims implements MazeAlgorithmInterface {
         const xAxis = loc.x + i;
         const yAxis = loc.y + j;
         if (xAxis >= 0 && yAxis >= 0 && xAxis < this.currentGrid.length && yAxis < this.currentGrid[0].length) {
-          const status = this.currentGrid[xAxis][yAxis].nodeStatus;
+          const status = this.currentGrid[xAxis][yAxis].status;
           if (status === -1) {
-            this.currentGrid[xAxis][yAxis].nodeStatus = 0;
+            this.currentGrid[xAxis][yAxis].status = 0;
           }
         }
       }
@@ -108,8 +108,8 @@ export class Prims implements MazeAlgorithmInterface {
     const x = (loc1.x + loc2.x) / 2;
     const y = (loc1.y + loc2.y) / 2;
     const node = this.currentGrid[x][y];
-    if (node.nodeStatus === 0) {
-      node.nodeStatus = 4;
+    if (node.status === 0) {
+      node.status = 4;
     }
   }
 
@@ -150,9 +150,31 @@ export class Prims implements MazeAlgorithmInterface {
   public updateAlgorithmState(newGrid: Node[][], algorithmState: any, algorithmStats: StatRecord): void {
     this.currentGrid = newGrid;
     this.algoStats = algorithmStats;
-    console.log('before zuweisung:', this.frontierNodes.size());
     this.frontierNodes = algorithmState.frontierNodes;
-    console.log('after zuweisung:', this.frontierNodes.size());
+  }
+
+  public deserialize(newGrid: Node[][], serializedState: any, algorithmStats: StatRecord): void {
+    const tempFrontierNodes = new HashSet<GridLocation>();
+    serializedState.gridLocationArr.forEach(item => {
+      const tempGridLocation = new GridLocation(item.x, item.y, item.weight);
+      tempFrontierNodes.add(tempGridLocation);
+    });
+    const deserializedState = {
+      frontierNodes: tempFrontierNodes,
+    };
+    this.updateAlgorithmState(newGrid, deserializedState, algorithmStats);
+  }
+
+  public getSerializedState(): any {
+    const serializedState = {
+      gridLocations: []
+    };
+    this.frontierNodes.forEach(gridLocation => {
+      console.log('gridLocation', gridLocation);
+      serializedState.gridLocations.push(gridLocation.toObject());
+    });
+    console.log('algorithmState in getSerializedState()', serializedState);
+    return serializedState;
   }
 
   public getAlgorithmName(): MazeAlgorithm {
@@ -163,7 +185,7 @@ export class Prims implements MazeAlgorithmInterface {
     return this.algoStatNames;
   }
 
-  public getUpdatedStats(): StatRecord {
+  public getAlgorithmStats(): StatRecord {
     return this.algoStats;
   }
 

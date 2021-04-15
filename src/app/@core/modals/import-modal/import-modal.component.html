@@ -1,5 +1,6 @@
-<div class="modal" [@modalAnimation]="showImport" [ngClass]="showImport ? 'is-active' : 'inactive'">
-  <div class="modal-background" (click)="showImport = false"></div>
+<div class="modal" [@modalAnimation]="simulationService.getShowImportModal"
+     [ngClass]="simulationService.getShowImportModal ? 'is-active' : 'inactive'">
+  <div class="modal-background" (click)="simulationService.toggleShowImportModal()"></div>
   <div class="modal-card">
     <header class="modal-card-head">
       <p class="modal-card-title">
@@ -10,35 +11,24 @@
           <b> Import</b>
         </label>
       </p>
-      <button class="delete" aria-label="close" (click)="showImport = false"></button>
+      <button class="delete" aria-label="close" (click)="simulationService.toggleShowImportModal()"></button>
     </header>
     <section class="modal-card-body">
-              <textarea id="importArea"
-                        class="textarea is-primary"
-                        type="text"
-                        placeholder="Paste here"
-                        [(ngModel)]="importToken">
-              </textarea>
+       <textarea id="importArea"
+                 class="textarea"
+                 type="text"
+                 placeholder="Paste here"
+                 [ngClass]="importError ? 'is-danger' : 'is-primary'"
+                 [(ngModel)]="importToken"
+                 (ngModelChange)="importError = false">
+       </textarea>
+      <p *ngIf="importError" class="help is-danger has-text-weight-semibold">
+        <span>The given input is not valid. Please check again.</span>
+      </p>
     </section>
     <footer class="modal-card-foot">
-      <button class="button is-success" (click)="importSession()">Import</button>
-      <button class="button" (click)="showImport = false">Cancel</button>
-      <div class="field">
-        <p class="control has-icons-left">
-              <span class="select">
-                <select [ngModel]="selectedScenario" (ngModelChange)="scenarioSelected($event)">
-                  <option value="scenario" selected>Scenario</option>
-                  <option value="gosper">Gosper glider gun</option>
-                  <option value="multiple">Multiple patterns</option>
-                  <option value="chess">Chess board</option>
-                  <option value="mandala">Mandala</option>
-                </select>
-              </span>
-          <span class="icon is-small is-left">
-                <fa-icon [icon]="['fas', 'list']"></fa-icon>
-          </span>
-        </p>
-      </div>
+      <button class="button is-success" [disabled]="importError" (click)="importSession()">Import</button>
+      <button class="button" (click)="simulationService.toggleShowImportModal()">Cancel</button>
     </footer>
   </div>
 </div>

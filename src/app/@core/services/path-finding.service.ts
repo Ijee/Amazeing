@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {SimulationService} from './simulation.service';
-import {AlgoStatNames, Node, PathFindingAlgorithm, PathFindingHeuristics} from '../../../types';
+import {AlgoStatNames, Node, PathFindingAlgorithm, PathFindingHeuristic} from '../../../types';
 import {AStar} from '../algorithm/path-finding/a-star';
 import {PathFindingAlgorithmInterface} from '../algorithm/path-finding/path-finding-algorithm.interface';
 import {Dijkstra} from '../algorithm/path-finding/dijkstra';
@@ -12,7 +12,7 @@ import {GridLocation} from '../../@shared/GridLocation';
 })
 export class PathFindingService {
   private currentAlgorithm: PathFindingAlgorithmInterface;
-  private currentHeuristic: PathFindingHeuristics;
+  private currentHeuristic: PathFindingHeuristic;
 
   constructor() {
     this.switchAlgorithm('Dijkstra');
@@ -47,11 +47,11 @@ export class PathFindingService {
       case 'Orthogonal-Jump-PS':
         break;
       default:
-        break;
+        throw new Error('Unknown path-finding algorithm selected!');
     }
   }
 
-  public switchCurrentHeuristic(newHeuristic: PathFindingHeuristics): void {
+  public switchCurrentHeuristic(newHeuristic: PathFindingHeuristic): void {
     this.currentHeuristic = newHeuristic;
   }
 
@@ -83,7 +83,7 @@ export class PathFindingService {
   /**
    * Returns the currently selected heuristic
    */
-  public getCurrentHeuristic(): PathFindingHeuristics {
+  public getCurrentHeuristic(): PathFindingHeuristic {
     return this.currentHeuristic;
   }
 

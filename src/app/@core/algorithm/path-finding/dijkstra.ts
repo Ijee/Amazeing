@@ -1,5 +1,5 @@
 import {PathFindingAlgorithmInterface} from './path-finding-algorithm.interface';
-import {PathFindingAlgorithm, Node, PathFindingHeuristics, AlgoStatNames} from '../../../../types';
+import {PathFindingAlgorithm, Node, PathFindingHeuristic, AlgoStatNames} from '../../../../types';
 import {GridLocation} from '../../../@shared/GridLocation';
 
 export class Dijkstra implements PathFindingAlgorithmInterface {
@@ -20,7 +20,7 @@ export class Dijkstra implements PathFindingAlgorithmInterface {
 
   public setInitialData(currentGrid: Node[][],
                         currentStartPoint: GridLocation,
-                        currentHeuristic: PathFindingHeuristics): void {
+                        currentHeuristic: PathFindingHeuristic): void {
     return null;
   }
 

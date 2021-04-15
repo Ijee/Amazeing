@@ -1,4 +1,4 @@
-import {AlgoStatNames, Node, PathFindingAlgorithm, PathFindingHeuristics} from '../../../../types';
+import {AlgoStatNames, Node, PathFindingAlgorithm, PathFindingHeuristic} from '../../../../types';
 import {GridLocation} from '../../../@shared/GridLocation';
 
 export interface PathFindingAlgorithmInterface {
@@ -18,7 +18,7 @@ export interface PathFindingAlgorithmInterface {
    * @param currentStartPoint - the starting point for the algorithm
    * @param currentHeuristic - what heuristic should be used for the algorithm
    */
-  setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation, currentHeuristic: PathFindingHeuristics): void;
+  setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation, currentHeuristic: PathFindingHeuristic): void;
 
   /**
    * Returns the name of the algorithm

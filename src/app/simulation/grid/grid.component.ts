@@ -34,7 +34,7 @@ export class GridComponent implements OnInit, OnDestroy {
     for (let i = 0; i < this.width; i++) {
       this.gridList[i] = [];
       for (let j = 0; j < this.height; j++) {
-        this.gridList[i][j] = {nodeStatus: -1, nodeWeight: 1};
+        this.gridList[i][j] = {status: -1, weight: 1};
       }
     }
 
@@ -50,12 +50,12 @@ export class GridComponent implements OnInit, OnDestroy {
       const initialGoalX = Math.round((66 * this.width) / 100);
       const initialNodeHeightY = Math.round((50 * this.height) / 100);
       const startNode = this.gridList[initialStartX][initialNodeHeightY];
-      startNode.nodeStatus = 1;
+      startNode.status = 1;
       this.recordService.setGridStartLocation(
-        new GridLocation(initialStartX, initialNodeHeightY, startNode.nodeWeight));
+        new GridLocation(initialStartX, initialNodeHeightY, startNode.weight));
       const goalNode = this.gridList[initialGoalX][initialNodeHeightY];
-      goalNode.nodeStatus = 2;
-      this.recordService.setGridGoalLocation(new GridLocation(initialGoalX, initialNodeHeightY, goalNode.nodeWeight));
+      goalNode.status = 2;
+      this.recordService.setGridGoalLocation(new GridLocation(initialGoalX, initialNodeHeightY, goalNode.weight));
       this.simulationService.setGridList(this.gridList);
     }
     // this.recordService.setAlgoStat1(this.width * this.height);
@@ -63,22 +63,15 @@ export class GridComponent implements OnInit, OnDestroy {
       if (data.length) {
         data.forEach((column, i) => {
           column.forEach((cell, j) => {
-            this.setCell(i, j, cell.nodeStatus);
+            this.setCell(i, j, cell.status);
           });
         });
       } else {
         this.reset();
       }
     });
-
     this.simulationService.getRandomSeed().pipe(takeUntil(this.destroyed$)).subscribe(() => {
       this.randomSeed();
-    });
-    this.simulationService.getImportToken().pipe(takeUntil(this.destroyed$)).subscribe((token: string) => {
-      this.importToken(token);
-    });
-    this.simulationService.getExportSession().pipe(takeUntil(this.destroyed$)).subscribe(() => {
-      this.exportSession();
     });
     this.isInitialized = true;
   }
@@ -110,7 +103,7 @@ export class GridComponent implements OnInit, OnDestroy {
   }
 
   drawModeLogic(col: number, row: number): void {
-    const oldStatus = this.gridList[col][row].nodeStatus;
+    const oldStatus = this.gridList[col][row].status;
     let drawMode = this.simulationService.getDrawingMode();
     if (drawMode < -1) {
       if (oldStatus === 0) {
@@ -127,21 +120,21 @@ export class GridComponent implements OnInit, OnDestroy {
       case 1:
         const startLocation = this.recordService.getGridStartLocation();
         const startNode = this.gridList[startLocation.x][startLocation.y];
-        startNode.nodeStatus = -1;
-        this.recordService.setGridStartLocation(new GridLocation(col, row, startNode.nodeWeight));
+        startNode.status = -1;
+        this.recordService.setGridStartLocation(new GridLocation(col, row, startNode.weight));
         this.onMouseUp();
         break;
       case 2:
         const goalLocation = this.recordService.getGridGoalLocation();
         const goalNode = this.gridList[goalLocation.x][goalLocation.y];
-        goalNode.nodeStatus = -1;
-        this.recordService.setGridGoalLocation(new GridLocation(col, row, goalNode.nodeWeight));
+        goalNode.status = -1;
+        this.recordService.setGridGoalLocation(new GridLocation(col, row, goalNode.weight));
         this.onMouseUp();
         break;
       default:
         break;
     }
-    this.gridList[col][row].nodeStatus = drawMode;
+    this.gridList[col][row].status = drawMode;
     // this.updateCellStats(drawMode);
   }
 
@@ -155,8 +148,8 @@ export class GridComponent implements OnInit, OnDestroy {
    * @param nodeStatus - the new boolean
    */
   public setCell(x: number, y: number, nodeStatus: number): void {
-    if (this.gridList[x][y].nodeStatus !== nodeStatus) {
-      this.gridList[x][y].nodeStatus = nodeStatus;
+    if (this.gridList[x][y].status !== nodeStatus) {
+      this.gridList[x][y].status = nodeStatus;
 
       // if (this.isInitialized) {
       //   this.updateCellStats(nodeStatus);
@@ -174,7 +167,7 @@ export class GridComponent implements OnInit, OnDestroy {
   public addNodeWeights(): void {
     this.gridList.forEach(column => {
       column.forEach(node => {
-        node.nodeWeight = Math.floor(Math.random() * 10);
+        node.weight = Math.floor(Math.random() * 10);
       });
     });
     this.simulationService.setGridList(_.cloneDeep(this.gridList));
@@ -190,14 +183,14 @@ export class GridComponent implements OnInit, OnDestroy {
   private reset(): void {
     this.gridList.forEach(column => {
       column.forEach(node => {
-        node.nodeStatus = -1;
-        node.nodeWeight = 1;
+        node.status = -1;
+        node.weight = 1;
       });
     });
     const startLocation = this.recordService.getGridStartLocation();
-    this.gridList[startLocation.x][startLocation.y].nodeStatus = 1;
+    this.gridList[startLocation.x][startLocation.y].status = 1;
     const goalLocation = this.recordService.getGridGoalLocation();
-    this.gridList[goalLocation.x][goalLocation.y].nodeStatus = 2;
+    this.gridList[goalLocation.x][goalLocation.y].status = 2;
     this.simulationService.setGridList(_.cloneDeep(this.gridList));
   }
 
@@ -217,9 +210,9 @@ export class GridComponent implements OnInit, OnDestroy {
       }
     }
     const startLocation = this.recordService.getGridStartLocation();
-    this.gridList[startLocation.x][startLocation.y].nodeStatus = 1;
+    this.gridList[startLocation.x][startLocation.y].status = 1;
     const goalLocation = this.recordService.getGridGoalLocation();
-    this.gridList[goalLocation.x][goalLocation.y].nodeStatus = 2;
+    this.gridList[goalLocation.x][goalLocation.y].status = 2;
     this.simulationService.save(_.cloneDeep(this.gridList));
   }
 
@@ -254,12 +247,12 @@ export class GridComponent implements OnInit, OnDestroy {
     let exportToken = '';
     for (let i = 0; i < this.width; i++) {
       for (let j = 0; j < this.height; j++) {
-        const status = this.gridList[i][j].nodeStatus;
+        const status = this.gridList[i][j].status;
         if (status >= 0) {
           exportToken += '[' + i + ',' + j + ',' + status + ']';
         }
       }
     }
-    this.simulationService.setExportToken(exportToken);
+    // this.simulationService.setExportToken(exportToken);
   }
 }

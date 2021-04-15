@@ -1,4 +1,4 @@
-<div class="modal" [@modalAnimation]="" [ngClass]="warningDialog.getDialogStatus() ? 'is-active' : 'inactive'">
+<div class="modal" [@modalAnimation]="warningDialog.getDialogStatus()" [ngClass]="warningDialog.getDialogStatus() ? 'is-active' : 'inactive'">
   <div class="modal-background" (click)="warningDialog.closeDialog('cancel')"></div>
   <div class="modal-card">
     <header class="modal-card-head has-background-warning">
