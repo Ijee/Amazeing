@@ -112,7 +112,8 @@ export class MazeService {
           this.currentAlgorithm.updateAlgorithmState(newGrid, algorithmState, algorithmStats);
         }
       } catch (error) {
-        throw new Error('Can not set algorithm State');
+        // throw new Error('Can not set algorithm State');
+        console.error('Can not set algorithm State:', error);
       }
     }
   }
@@ -121,7 +122,7 @@ export class MazeService {
    * Returns the serialized internal state of the current algorithm
    */
   public getSerializedState(): any {
-    this.currentAlgorithm.getSerializedState();
+    return this.currentAlgorithm.getSerializedState();
   }
 
   /**

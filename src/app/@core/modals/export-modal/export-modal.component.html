@@ -19,9 +19,9 @@
               <textarea id="exportArea"
                         class="textarea is-primary"
                         type="text"
-                        readonly
+
                         (focus)="$event.target.select()"
-                        [ngModel]="transformExport()">
+                        [ngModel]="simulationService.getExportToken()">
               </textarea>
     </section>
     <footer class="modal-card-foot">

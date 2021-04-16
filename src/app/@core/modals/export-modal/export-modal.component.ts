@@ -48,8 +48,4 @@ export class ExportModalComponent implements OnDestroy {
     copyString.select();
     document.execCommand('copy');
   }
-
-  public transformExport(): string {
-    return this.simulationService.getExportToken();
-  }
 }

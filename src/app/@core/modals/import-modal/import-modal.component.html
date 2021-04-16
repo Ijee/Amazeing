@@ -1,5 +1,5 @@
 <div class="modal" [@modalAnimation]="simulationService.getShowImportModal"
-     [ngClass]="simulationService.getShowImportModal ? 'is-active' : 'inactive'">
+     [ngClass]="simulationService.getShowImportModal() ? 'is-active' : 'inactive'">
   <div class="modal-background" (click)="simulationService.toggleShowImportModal()"></div>
   <div class="modal-card">
     <header class="modal-card-head">
@@ -17,7 +17,7 @@
        <textarea id="importArea"
                  class="textarea"
                  type="text"
-                 placeholder="Paste here"
+                 placeholder="Paste here..."
                  [ngClass]="importError ? 'is-danger' : 'is-primary'"
                  [(ngModel)]="importToken"
                  (ngModelChange)="importError = false">

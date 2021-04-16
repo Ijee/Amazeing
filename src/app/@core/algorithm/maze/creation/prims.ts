@@ -155,7 +155,7 @@ export class Prims implements MazeAlgorithmInterface {
 
   public deserialize(newGrid: Node[][], serializedState: any, algorithmStats: StatRecord): void {
     const tempFrontierNodes = new HashSet<GridLocation>();
-    serializedState.gridLocationArr.forEach(item => {
+    serializedState.gridLocations.forEach(item => {
       const tempGridLocation = new GridLocation(item.x, item.y, item.weight);
       tempFrontierNodes.add(tempGridLocation);
     });
@@ -170,10 +170,8 @@ export class Prims implements MazeAlgorithmInterface {
       gridLocations: []
     };
     this.frontierNodes.forEach(gridLocation => {
-      console.log('gridLocation', gridLocation);
       serializedState.gridLocations.push(gridLocation.toObject());
     });
-    console.log('algorithmState in getSerializedState()', serializedState);
     return serializedState;
   }
 

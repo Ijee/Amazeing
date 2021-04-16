@@ -31,7 +31,7 @@ export class SimulationService {
   private backwardStepsAmount: number;
   private showWeightStatus: boolean;
   private readonly randomSeed$: Subject<void>;
-  private readonly legend$: Subject<void>;
+  private showLegendModal: boolean;
   private showImportModal: boolean;
   private showExportModal: boolean;
   private exportToken: string;
@@ -49,7 +49,7 @@ export class SimulationService {
     this.isSimulationActive = false;
     this.backwardStepsAmount = 0;
     this.randomSeed$ = new Subject<void>();
-    this.legend$ = new Subject<void>();
+    this.showLegendModal = false;
     this.showImportModal = false;
     this.showExportModal = false;
     this.importToken = '';
@@ -70,6 +70,7 @@ export class SimulationService {
    * Completes the current algorithm fully.
    */
   public completeAlgorithm(): void {
+    this.setSimulationStatus(false);
     if (this.settingsService.getAlgorithmMode() === 'maze') {
       if (this.recordService.getIteration() === 0) {
         this.mazeService.setInitialData(this.gridList$.getValue(), this.recordService.getGridStartLocation());
@@ -79,7 +80,6 @@ export class SimulationService {
       // TODO for path-finding service
       // this.setGridList(this.pathFindingService.completeAlgorithm(this.gridList$.getValue()));
     }
-    this.setSimulationStatus(false);
   }
 
   public getAlgorithmName(): MazeAlgorithm | PathFindingAlgorithm {
@@ -295,6 +295,7 @@ export class SimulationService {
       this.recordService.setGridSavePoint([]);
       this.recordService.setGridSavePointStats(null);
     }
+    this.exportToken = '';
     this.backwardStepsAmount = 0;
     this.recordService.resetAlgorithmStateHistory();
   }
@@ -350,23 +351,28 @@ export class SimulationService {
   }
 
   /**
-   * Notifies all listener that a new legend is called.
+   * Toggles whether or not the legend modal should be shown
    */
-  public setLegend(): void {
-    this.legend$.next();
+  public toggleShowLegendModal(): void {
+    this.showLegendModal = !this.showLegendModal;
   }
 
   /**
    * Tries to set all the important information for the new session.
    *
-   * @param session - the new session to be used
+   * @param importText - the new session to be used
    */
-  public importSession(session: Session): void {
-    let serializedInput: any;
+  public importSession(importText: string): void {
+    let session: Session;
+    console.log('what');
+
+    console.log('session:', JSON.parse(pako.inflate(importText, { to: 'string' })));
     try {
-      serializedInput = JSON.parse(pako.inflate(this.exportToken, { to: 'string' }));
+      session = JSON.parse(pako.inflate(importText, { to: 'string' }));
+
     } catch (error) {
-      throw new Error('Input string is invalid.');
+      // throw new Error('Input string is invalid.')
+      console.error('Input string is invalid.', error);
     }
     this.settingsService.setAlgorithmMode(session.algorithmMode);
     if (this.settingsService.getAlgorithmMode() === 'maze') {
@@ -380,16 +386,27 @@ export class SimulationService {
     // TODO set heuristic for path-finding service
   }
 
+  /**
+   * Responsible for creating the export object and deflating it with pako
+   * in order to minimize the visible output string for the end user as much
+   * as possible.
+   */
   public exportSession(): void {
     if (this.settingsService.getAlgorithmMode() === 'maze') {
-      const exportSession: Session = {
+      console.log('serializedState in exportSession()', this.mazeService.getSerializedState());
+      const session: Session = {
         algorithm: this.mazeService.getAlgorithmName() as MazeAlgorithm,
         algorithmMode: this.settingsService.getAlgorithmMode(),
         algorithmState: this.mazeService.getSerializedState(),
         algorithmStats: this.mazeService.getAlgorithmStats(),
         grid: this.gridList$.getValue()
       };
-      this.exportToken = pako.deflate(JSON.stringify(exportSession));
+      console.log('session', session);
+
+      this.exportToken = pako.deflate(JSON.stringify(session));
+      console.log('exportToken', this.exportToken);
+      console.log('session inflated:', JSON.parse(pako.inflate(this.exportToken, { to: 'string' })));
+
     } else {
       // TODO sync mazeService with path-finding service to make this object assignable
     }
@@ -456,17 +473,17 @@ export class SimulationService {
 
 
   /**
-   * Returns when a legend was clicked.
+   * Returns whether or not the legend modal should be shown.
    */
-  public getLegend(): Observable<void> {
-    return this.legend$;
+  public getShowLegendModal(): boolean {
+    return this.showLegendModal;
   }
 
 
   /**
    * Returns whether or not the import modal should be shown.
    */
-  public get getShowImportModal(): boolean {
+  public getShowImportModal(): boolean {
     return this.showImportModal;
   }
 

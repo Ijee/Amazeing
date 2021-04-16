@@ -16,7 +16,7 @@ import {Session} from '../../../../types';
   animations: [modalAnimation]
 })
 export class ImportModalComponent implements OnInit, OnDestroy {
-  public importToken: Session;
+  public importToken: string;
   public importError: boolean;
 
   private readonly destroyed$: Subject<void>;

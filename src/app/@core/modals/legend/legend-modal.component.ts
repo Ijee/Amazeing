@@ -1,6 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Component} from '@angular/core';
 import {SimulationService} from '../../services/simulation.service';
 import {modalAnimation} from '../../../@shared/animations/modalAnimation';
 
@@ -10,26 +8,6 @@ import {modalAnimation} from '../../../@shared/animations/modalAnimation';
   styleUrls: ['./legend-modal.component.scss'],
   animations: [modalAnimation]
 })
-export class LegendModalComponent implements OnInit, OnDestroy {
-  showLegend: boolean;
-
-  private readonly destroyed$: Subject<void>;
-
-  constructor(public simulationService: SimulationService) {
-    this.showLegend = false;
-
-    this.destroyed$ = new Subject<void>();
-  }
-
-
-  ngOnInit(): void {
-    this.simulationService.getLegend().pipe(takeUntil(this.destroyed$)).subscribe(() => {
-      this.showLegend = true;
-    });
-  }
-  ngOnDestroy(): void {
-    this.destroyed$.next();
-    this.destroyed$.complete();
-  }
-
+export class LegendModalComponent {
+  constructor(public simulationService: SimulationService) {}
 }
