@@ -96,24 +96,23 @@ export class MazeService {
    * Updates the internal algorithm state and stats.
    *
    * @param newGrid - the current Grid
-   * @param algorithmState - the new algorithm state
-   * @param algorithmStats - the new algorithm stats
+   * @param state - the new algorithm state
+   * @param stats - the new algorithm stats
    * @param deserialize - whether or not to deserialize the state object before updating the algorithm state
    */
   public updateAlgorithmState(
-    newGrid: Node[][], algorithmState: any, algorithmStats: StatRecord, deserialize: boolean): void {
-    if (_.isEmpty(algorithmState)) {
+    newGrid: Node[][], state: any, stats: StatRecord, deserialize: boolean): void {
+    if (_.isEmpty(state)) {
       this.switchAlgorithm(this.getAlgorithmName());
     } else {
       try {
         if (deserialize) {
-          this.currentAlgorithm.deserialize(newGrid, algorithmState, algorithmStats);
+          this.currentAlgorithm.deserialize(newGrid, state, stats);
         } else {
-          this.currentAlgorithm.updateAlgorithmState(newGrid, algorithmState, algorithmStats);
+          this.currentAlgorithm.updateAlgorithmState(newGrid, state, stats);
         }
       } catch (error) {
-        // throw new Error('Can not set algorithm State');
-        console.error('Can not set algorithm State:', error);
+        throw new Error('Can not set algorithm State');
       }
     }
   }
@@ -151,12 +150,5 @@ export class MazeService {
    */
   public getCurrentAlgorithmState(): any {
     return this.currentAlgorithm.getCurrentAlgorithmState();
-  }
-
-  /**
-   * Returns the pseudocode for the currently selected algorithm.
-   */
-  public getPseudoCode(): string {
-    return this.currentAlgorithm.getPseudoCode();
   }
 }

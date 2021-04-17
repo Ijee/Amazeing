@@ -236,7 +236,7 @@ export class SimulationService {
     } else {
       this.setSimulationStatus();
     }
-    if (this.backwardStepsAmount < 9) {
+    if (this.backwardStepsAmount < RecordService.MAX_SAVE_STEPS - 1) {
       this.changeBackwardStepsAmount(1);
     }
   }
@@ -364,26 +364,27 @@ export class SimulationService {
    */
   public importSession(importText: string): void {
     let session: Session;
-    console.log('what');
-
-    console.log('session:', JSON.parse(pako.inflate(importText, { to: 'string' })));
     try {
-      session = JSON.parse(pako.inflate(importText, { to: 'string' }));
-
+      const uint8arr = Uint8Array.from(importText.split(',').map(str => parseInt(str, 10)));
+      console.log('import (inflated):', JSON.parse(pako.inflate(uint8arr, { to: 'string' })));
+      session = JSON.parse(pako.inflate(uint8arr, { to: 'string' }));
+      this.settingsService.setAlgorithmMode(session.algorithmMode);
+      if (this.settingsService.getAlgorithmMode() === 'maze') {
+        this.mazeService.switchAlgorithm(session.algorithm as MazeAlgorithm);
+        this.mazeService.updateAlgorithmState(session.grid, session.state,
+          session.stats, true);
+      } else {
+        this.pathFindingService.switchAlgorithm(session.algorithm as PathFindingAlgorithm);
+        // TODO set path-finding updateAlgorithmState
+        // TODO set heuristic for path-finding service
+      }
+      this.recordService.setIteration(session.iteration);
+      this.recordService.addStatRecord(session.stats);
+      this.setGridList(session.grid);
     } catch (error) {
       // throw new Error('Input string is invalid.')
       console.error('Input string is invalid.', error);
     }
-    this.settingsService.setAlgorithmMode(session.algorithmMode);
-    if (this.settingsService.getAlgorithmMode() === 'maze') {
-      this.mazeService.switchAlgorithm(session.algorithm as MazeAlgorithm);
-      this.mazeService.updateAlgorithmState(session.grid, session.algorithmState,
-        session.algorithmStats, true);
-    } else {
-      this.pathFindingService.switchAlgorithm(session.algorithm as PathFindingAlgorithm);
-      // TODO set path-finding updateAlgorithmState
-    }
-    // TODO set heuristic for path-finding service
   }
 
   /**
@@ -397,8 +398,9 @@ export class SimulationService {
       const session: Session = {
         algorithm: this.mazeService.getAlgorithmName() as MazeAlgorithm,
         algorithmMode: this.settingsService.getAlgorithmMode(),
-        algorithmState: this.mazeService.getSerializedState(),
-        algorithmStats: this.mazeService.getAlgorithmStats(),
+        state: this.mazeService.getSerializedState(),
+        iteration: this.recordService.getIteration(),
+        stats: this.mazeService.getAlgorithmStats(),
         grid: this.gridList$.getValue()
       };
       console.log('session', session);

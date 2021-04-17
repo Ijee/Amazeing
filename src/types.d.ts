@@ -59,8 +59,9 @@ export type PathFindingHeuristic =
 export type Session = {
   algorithm: MazeAlgorithm | PathFindingAlgorithm,
   algorithmMode: AlgorithmMode,
-  algorithmHeuristic?: PathFindingHeuristic,
-  algorithmState: any,
-  algorithmStats: StatRecord,
+  heuristic?: PathFindingHeuristic,
+  state: any,
+  iteration: number,
+  stats: StatRecord,
   grid: Node[][],
 };

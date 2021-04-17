@@ -76,9 +76,4 @@ export interface MazeAlgorithmInterface {
    * be an object.
    */
   getCurrentAlgorithmState(): any;
-
-  /**
-   * Returns the current algorithm pseudo code
-   */
-  getPseudoCode(): string;
 }

@@ -15,7 +15,7 @@
       [ngClass]="{'buttonBackwards' : simulationService.getBackwardStepsAmount() < 1}"
       (click)="simulationService.setBackwardStep()">
       <fa-icon [icon]="['fas', 'step-backward']"></fa-icon>
-      <b> {{ simulationService.getBackwardStepsAmount() }} </b>
+      <b> {{ simulationService.getBackwardStepsAmount() | maxNumber:9 }} </b>
     </button>
   </p>
   <p class="control">
@@ -47,16 +47,16 @@
   </p>
   <p class="control">
     <button [disabled]="simulationService.getDisableController()" class="button is-outlined"
-            title="speed up"
-            (click)="simulationService.setSpeedUp()">
-      <fa-icon [icon]="['fas', 'forward']"></fa-icon>
+            title="complete algorithm"
+            (click)="simulationService.completeAlgorithm()">
+      <fa-icon [icon]="['fas', 'fast-forward']"></fa-icon>
     </button>
   </p>
   <p class="control">
     <button [disabled]="simulationService.getDisableController()" class="button is-outlined"
-            title="complete algorithm"
-            (click)="simulationService.completeAlgorithm()">
-      <fa-icon [icon]="['fas', 'fast-forward']"></fa-icon>
+            title="speed up"
+            (click)="simulationService.setSpeedUp()">
+      <fa-icon [icon]="['fas', 'forward']"></fa-icon>
     </button>
   </p>
 </div>

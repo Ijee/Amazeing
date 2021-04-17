@@ -12,6 +12,7 @@ export class RecordService {
     algoStat2: 0,
     algoStat3: 0
   };
+  public static readonly MAX_SAVE_STEPS = 21;
 
   private gridHistory: Node[][][];
   private gridSavePoint: Node[][];
@@ -44,7 +45,7 @@ export class RecordService {
    * @param gridList - the gridList used in the grid component
    */
   public manageGridHistory(gridList: Node[][]): void {
-    if (this.gridHistory.length >= 10) {
+    if (this.gridHistory.length >= RecordService.MAX_SAVE_STEPS) {
       this.gridHistory.shift();
     }
     this.gridHistory.push(gridList);
@@ -99,7 +100,7 @@ export class RecordService {
    * @param newRecord - the new stat record
    */
   public addStatRecord(newRecord: StatRecord): void {
-    if (this.statRecordHistory.length >= 10) {
+    if (this.statRecordHistory.length >= RecordService.MAX_SAVE_STEPS) {
       this.statRecordHistory.shift();
     }
     this.statRecordHistory.push(_.clone(newRecord));
@@ -111,7 +112,7 @@ export class RecordService {
    * @param newState - the new stat record
    */
   public addAlgorithmState(newState: any): void {
-    if (this.algorithmStateHistory.length >= 10) {
+    if (this.algorithmStateHistory.length >= RecordService.MAX_SAVE_STEPS) {
       this.algorithmStateHistory.shift();
     }
     this.algorithmStateHistory.push(_.cloneDeep(newState));

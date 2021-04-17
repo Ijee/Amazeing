@@ -45,7 +45,6 @@ export class GridComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // set initial start and goal
     if (!this.recordService.getGridSavePointStats()) {
-      console.log('yo');
       const initialStartX = Math.round((33 * this.width) / 100);
       const initialGoalX = Math.round((66 * this.width) / 100);
       const initialNodeHeightY = Math.round((50 * this.height) / 100);
@@ -63,7 +62,7 @@ export class GridComponent implements OnInit, OnDestroy {
       if (data.length) {
         data.forEach((column, i) => {
           column.forEach((cell, j) => {
-            this.setCell(i, j, cell.status);
+            this.setCell(i, j, cell);
           });
         });
       } else {
@@ -145,19 +144,12 @@ export class GridComponent implements OnInit, OnDestroy {
    *
    * @param x - the x position
    * @param y - the y position
-   * @param nodeStatus - the new boolean
+   * @param node - the node
    */
-  public setCell(x: number, y: number, nodeStatus: number): void {
-    if (this.gridList[x][y].status !== nodeStatus) {
-      this.gridList[x][y].status = nodeStatus;
-
-      // if (this.isInitialized) {
-      //   this.updateCellStats(nodeStatus);
-      // }
-    }
-    // let row = this.gridList[x];
-    // row.splice(y, 1, {nodeStatus: true});
-    // this.gridList.splice(x, 1, row);
+  public setCell(x: number, y: number, node: Node): void {
+      const cell = this.gridList[x][y];
+      cell.status = node.status;
+      cell.weight = node.weight;
   }
 
   /**
@@ -198,22 +190,22 @@ export class GridComponent implements OnInit, OnDestroy {
    * Populates and overwrites gridList with cells.
    */
   private randomSeed(): void {
-    this.simulationService.reset();
-    for (let i = 0; i < this.width; i++) {
-      for (let j = 0; j < this.height; j++) {
-        const rand = Math.random();
-        if (rand < 0.2) {
-          this.setCell(i, j, 0);
-        } else {
-          this.setCell(i, j, -1);
-        }
-      }
-    }
-    const startLocation = this.recordService.getGridStartLocation();
-    this.gridList[startLocation.x][startLocation.y].status = 1;
-    const goalLocation = this.recordService.getGridGoalLocation();
-    this.gridList[goalLocation.x][goalLocation.y].status = 2;
-    this.simulationService.save(_.cloneDeep(this.gridList));
+    // this.simulationService.reset();
+    // for (let i = 0; i < this.width; i++) {
+    //   for (let j = 0; j < this.height; j++) {
+    //     const rand = Math.random();
+    //     if (rand < 0.2) {
+    //       this.setCell(i, j, 0);
+    //     } else {
+    //       this.setCell(i, j, -1);
+    //     }
+    //   }
+    // }
+    // const startLocation = this.recordService.getGridStartLocation();
+    // this.gridList[startLocation.x][startLocation.y].status = 1;
+    // const goalLocation = this.recordService.getGridGoalLocation();
+    // this.gridList[goalLocation.x][goalLocation.y].status = 2;
+    // this.simulationService.save(_.cloneDeep(this.gridList));
   }
 
   /**
@@ -224,35 +216,35 @@ export class GridComponent implements OnInit, OnDestroy {
    * like this:
    * '[xPos,yPos],[xPos,yPos]...'.
    */
-  private importToken(token: string): void {
-    this.reset();
-    const regex = /\[\d+,\d+,\d+\]/gm;
-    const tempArr = token.match(regex);
-    if (tempArr) {
-      tempArr.forEach((element) => {
-        element = element.substring(1, element.length - 1);
-        const xyz = element.split(',');
-        this.setCell(+xyz[0], +xyz[1], +xyz[2]);
-      });
-      this.simulationService.setGridList(_.cloneDeep(this.gridList));
-    }
-  }
+  // private importToken(token: string): void {
+  //   this.reset();
+  //   const regex = /\[\d+,\d+,\d+\]/gm;
+  //   const tempArr = token.match(regex);
+  //   if (tempArr) {
+  //     tempArr.forEach((element) => {
+  //       element = element.substring(1, element.length - 1);
+  //       const xyz = element.split(',');
+  //       this.setCell(+xyz[0], +xyz[1], +xyz[2]);
+  //     });
+  //     this.simulationService.setGridList(_.cloneDeep(this.gridList));
+  //   }
+  // }
 
   /**
    * Uses gridList to create an exportToken and
    * emits it up to to the export modal through the gameService.
    * Same format as in importToken().
    */
-  private exportSession(): void {
-    let exportToken = '';
-    for (let i = 0; i < this.width; i++) {
-      for (let j = 0; j < this.height; j++) {
-        const status = this.gridList[i][j].status;
-        if (status >= 0) {
-          exportToken += '[' + i + ',' + j + ',' + status + ']';
-        }
-      }
-    }
-    // this.simulationService.setExportToken(exportToken);
-  }
+  // private exportSession(): void {
+  //   let exportToken = '';
+  //   for (let i = 0; i < this.width; i++) {
+  //     for (let j = 0; j < this.height; j++) {
+  //       const status = this.gridList[i][j].status;
+  //       if (status >= 0) {
+  //         exportToken += '[' + i + ',' + j + ',' + status + ']';
+  //       }
+  //     }
+  //   }
+  //   // this.simulationService.setExportToken(exportToken);
+  // }
 }

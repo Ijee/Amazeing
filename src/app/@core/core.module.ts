@@ -7,18 +7,21 @@ import {ImportModalComponent} from './modals/import-modal/import-modal.component
 import {FormsModule} from '@angular/forms';
 import {LegendModalComponent} from './modals/legend/legend-modal.component';
 import {SharedModule} from '../@shared/shared.module';
+import { MaxNumberPipe } from './pipes/max-number.pipe';
 
 @NgModule({
   declarations: [
     CountAnimationDirective,
     ImportModalComponent,
     ExportModalComponent,
-    LegendModalComponent],
+    LegendModalComponent,
+    MaxNumberPipe],
   exports: [
     CountAnimationDirective,
     ImportModalComponent,
     ExportModalComponent,
-    LegendModalComponent
+    LegendModalComponent,
+    MaxNumberPipe
   ],
   imports: [
     CommonModule,

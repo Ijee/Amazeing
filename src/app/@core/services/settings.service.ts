@@ -28,7 +28,11 @@ export class SettingsService {
    * @param newMode - the new algorithm mode ('maze' | 'path-finding')
    */
   public setAlgorithmMode(newMode: AlgorithmMode): void {
-    this.algorithmMode = newMode;
+    try {
+      this.algorithmMode = newMode;
+    } catch {
+      throw new Error('Could not set the algorithm mode!');
+    }
   }
 
   /**
