@@ -19,7 +19,6 @@
               <textarea id="exportArea"
                         class="textarea is-primary"
                         type="text"
-
                         (focus)="$event.target.select()"
                         [ngModel]="simulationService.getExportToken()">
               </textarea>
@@ -31,7 +30,17 @@
         </span>
         <span>Copy to clipboard</span>
       </button>
-      <button class="button" (click)="simulationService.toggleShowExportModal()">Cancel</button>
+      <button class="button is-warning" (click)="exportAsFile()">
+         <span class="icon is-small">
+            <fa-icon [icon]="['fas', 'download']"></fa-icon>
+        </span>
+        <span>Export as File</span>
+      </button>
+      <button class="button" (click)="simulationService.toggleShowExportModal()">
+        <span class="icon is-small">
+            <fa-icon [icon]="['fas', 'times-circle']"></fa-icon>
+        </span>
+        <span>Cancel</span></button>
     </footer>
   </div>
 </div>

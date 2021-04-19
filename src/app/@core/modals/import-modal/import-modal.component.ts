@@ -16,6 +16,8 @@ import {Session} from '../../../../types';
   animations: [modalAnimation]
 })
 export class ImportModalComponent implements OnInit, OnDestroy {
+  public usedFileUpload: boolean;
+  public fileName: string;
   public importToken: string;
   public importError: boolean;
 
@@ -23,8 +25,8 @@ export class ImportModalComponent implements OnInit, OnDestroy {
 
   constructor(public simulationService: SimulationService, library: FaIconLibrary) {
     library.addIconPacks(fas, fab, far);
+    this.fileName = 'No file selected...';
     this.importError = false;
-
     this.destroyed$ = new Subject<void>();
   }
 
@@ -49,6 +51,20 @@ export class ImportModalComponent implements OnInit, OnDestroy {
     } catch (error) {
       this.importError = true;
       this.simulationService.reset();
+    }
+  }
+
+  importFromFile(event): void {
+    try {
+      this.usedFileUpload = true;
+      const fileReader = new FileReader();
+      const uploadedFile: File = event.target.files[0];
+      fileReader.readAsText(uploadedFile);
+      fileReader.onloadend = (e) => {
+        this.importToken = fileReader.result as string;
+      };
+    } catch (error) {
+      console.error('Could not upload file.', error);
     }
   }
 }

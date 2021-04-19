@@ -2,11 +2,11 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subject} from 'rxjs';
 import {SimulationService} from '../../services/simulation.service';
 import {FaIconLibrary} from '@fortawesome/angular-fontawesome';
-import {takeUntil} from 'rxjs/operators';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import {fab} from '@fortawesome/free-brands-svg-icons';
 import {far} from '@fortawesome/free-regular-svg-icons';
 import {modalAnimation} from '../../../@shared/animations/modalAnimation';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-export-modal',
@@ -36,6 +36,24 @@ export class ExportModalComponent implements OnDestroy {
   exportSession(): void {
     this.toClipboard();
     this.simulationService.toggleShowExportModal();
+  }
+
+  /**
+   * Hides the modal froom the client
+   * and tries to download the export token as a file.
+   */
+  exportAsFile(): void {
+    try {
+      const exportToken = this.simulationService.getExportToken().toString();
+      const algorithmName = this.simulationService.getAlgorithmName().toLowerCase();
+      const currentTime = new Date().toISOString().split('T')[0];
+      const fileName = `amazeing_${algorithmName}_${currentTime}.txt`;
+      const exportBlob = new Blob([exportToken], {type: 'application/octet-stream'});
+      saveAs(exportBlob, fileName);
+      this.simulationService.toggleShowExportModal();
+    } catch (error) {
+      console.error('Could not download file. Please check if your browser is blocking downloads.');
+    }
   }
 
   /**

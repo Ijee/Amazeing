@@ -219,7 +219,6 @@ export class SimulationService {
       newGrid = this.mazeService.getNextStep();
       newStats = this.mazeService.getAlgorithmStats();
       newAlgorithmState = this.mazeService.getCurrentAlgorithmState();
-      console.log('newAlgorithmState', newAlgorithmState);
     } else {
       if (this.recordService.getIteration() === 0) {
         this.pathFindingService.setInitialData(_.cloneDeep(
