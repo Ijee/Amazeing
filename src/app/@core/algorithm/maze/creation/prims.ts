@@ -18,8 +18,8 @@ export class Prims implements MazeAlgorithmInterface {
 
   constructor() {
     this.algoStatNames = {
-      algoStatName1: 'Node Count',
-      algoStatName2: 'Frontier Nodes'
+      algoStatName1: 'Frontier Nodes',
+      algoStatName2: 'Test'
     };
     this.algoStats = {
       algoStat1: 0,

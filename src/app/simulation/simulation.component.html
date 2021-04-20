@@ -1,13 +1,13 @@
-<div class="columns is-multiline">
-  <div class="column is-8 is-12-touch">
+<div class="columns is-multiline ordered-touch">
+  <div class="column is-8 is-12-touch fl-1">
     <app-grid class="p-5 box"></app-grid>
   </div>
-  <div class="column is-4 is-12-touch">
+  <div class="column is-4 is-12-touch fl-3">
     <div class="box" [@fadeAnimationSafe]="o.isActivated && o.activatedRoute">
       <router-outlet #o="outlet"></router-outlet>
     </div>
   </div>
-  <div class="column is-12 push-to-bottom">
+  <div class="column is-12 fl-2">
     <app-controller class="box"></app-controller>
   </div>
 </div>

@@ -33,8 +33,9 @@
              <span aria-hidden="true"></span>
       </span>
     </div>
-    <div id="navbarMenuHeroA" [ngClass]="{ 'is-active': isNavbar, 'transparent-navbar': !isBurgerMenu}"
-         class="navbar-menu">
+    <div id="navbarMenuHeroA"
+         class="navbar-menu"
+         [ngClass]="{ 'is-active': isNavbar, 'transparent-navbar': !isBurgerMenu}">
       <div class="navbar-end">
         <a class="navbar-item is-unselectable"
            [ngClass]="!isBurgerMenu ? 'font-white' : ''"
