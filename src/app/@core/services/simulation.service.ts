@@ -26,8 +26,7 @@ export class SimulationService {
   private drawingMode: number;
   private simulationSpeed: number;
   private isSimulationActive: boolean;
-  //  THIS IS CURRENTLY NOT BEING USED BUT MAY END UP BEING USEFUL AGAIN
-  private disableController: boolean;
+  private disablePlay: boolean;
   private backwardStepsAmount: number;
   private showWeightStatus: boolean;
   private readonly randomSeed$: Subject<void>;
@@ -44,7 +43,7 @@ export class SimulationService {
     this.gridList$ = new BehaviorSubject<Node[][]>([]);
     this.drawingMode = 0;
     this.simulationSpeed = 100;
-    this.disableController = false;
+    this.disablePlay = false;
     this.isSimulationActive = false;
     this.backwardStepsAmount = 0;
     this.randomSeed$ = new Subject<void>();
@@ -69,6 +68,7 @@ export class SimulationService {
    */
   public completeAlgorithm(): void {
     this.setSimulationStatus(false);
+    this.setDisablePlay(true);
     if (this.settingsService.getAlgorithmMode() === 'maze') {
       if (this.recordService.getIteration() === 0) {
         this.mazeService.setInitialData(this.gridList$.getValue(), this.recordService.getGridStartLocation());
@@ -147,14 +147,12 @@ export class SimulationService {
 
 
   /**
-   * Sets the new status of the controller to enabled or disabled
+   * Toggles whether or not it should be possible to press play / next step / complete.
    *
-   *  THIS IS CURRENTLY NOT BEING USED BUT MAY END UP BEING USEFUL AGAIN
-   *
-   * @param isDisabled - whether or not it should be disabled
+   * @param isDisabled - the new value
    */
-  public setDisableController(isDisabled: boolean): void {
-    this.disableController = isDisabled;
+  public setDisablePlay(isDisabled: boolean): void {
+    this.disablePlay = isDisabled;
   }
 
   /**
@@ -181,6 +179,7 @@ export class SimulationService {
     }
     if (this.backwardStepsAmount > 0) {
       this.changeBackwardStepsAmount(-1);
+      this.setDisablePlay(false);
       this.recordService.manipulateHistory();
       if (this.settingsService.getAlgorithmMode() === 'maze') {
         this.mazeService.updateAlgorithmState(this.gridList$.getValue(),
@@ -249,6 +248,7 @@ export class SimulationService {
       this.recordService.addStatRecord(newStats);
       this.recordService.addAlgorithmState(newAlgorithmState);
     } else {
+      this.setDisablePlay(true);
       this.setSimulationStatus();
     }
     if (this.backwardStepsAmount < RecordService.MAX_SAVE_STEPS - 1) {
@@ -297,6 +297,7 @@ export class SimulationService {
    */
   public reset(): void {
     this.setSimulationStatus(false);
+    this.setDisablePlay(false);
     if (this.recordService.getIteration() > 0 && this.recordService.getGridSavePointStats()) {
       // Resets to save point
       this.recordService.setIteration(0);
@@ -437,8 +438,8 @@ export class SimulationService {
    *
    * THIS IS CURRENTLY NOT BEING USED BUT MAY END UP BEING USEFUL AGAIN
    */
-  public getDisableController(): boolean {
-    return this.disableController;
+  public getIsPlayDisabled(): boolean {
+    return this.disablePlay;
   }
 
   /**

@@ -1,7 +1,7 @@
 <app-hr text="SIMULATION CONTROL"></app-hr>
 <div class="field has-addons has-addons-centered is-marginless">
   <p class="control">
-    <button [disabled]="simulationService.getDisableController()" class="button is-outlined"
+    <button class="button is-outlined"
             title="slow down"
             (click)="simulationService.setSpeedDown()">
       <fa-icon [icon]="['fas', 'backward']"></fa-icon>
@@ -9,7 +9,7 @@
   </p>
   <p class="control">
     <button
-      [disabled]="simulationService.getDisableController() || simulationService.getBackwardStepsAmount() < 1"
+      [disabled]="simulationService.getBackwardStepsAmount() < 1"
       class="button is-outlined"
       title="last step"
       [ngClass]="{'buttonBackwards' : simulationService.getBackwardStepsAmount() < 1}"
@@ -21,8 +21,7 @@
   <p class="control">
     <button class="button is-outlined"
             title="clear grid"
-            [disabled]="simulationService.getDisableController()
-            || simulationService.getSimulationStatus()"
+            [disabled]="simulationService.getSimulationStatus()"
             (click)="simulationService.reset()">
       <fa-icon *ngIf="recordService.getIteration() > 0" class="fa-flip-horizontal"
                [icon]="['fas', 'redo']"></fa-icon>
@@ -30,7 +29,7 @@
     </button>
   </p>
   <p class="control">
-    <button [disabled]="simulationService.getDisableController()"
+    <button [disabled]="simulationService.getIsPlayDisabled()"
             [ngClass]="simulationService.getSimulationStatus() ? 'is-primary is-light' : 'is-danger is-light'"
             class="button"
             title="play" (click)="simulationService.setSimulationStatus()">
@@ -39,21 +38,21 @@
     </button>
   </p>
   <p class="control">
-    <button [disabled]="simulationService.getDisableController()" class="button is-outlined"
+    <button [disabled]="simulationService.getIsPlayDisabled()" class="button is-outlined"
             title="next step"
             (click)="simulationService.addIteration()">
       <fa-icon [icon]="['fas', 'step-forward']"></fa-icon>
     </button>
   </p>
   <p class="control">
-    <button [disabled]="simulationService.getDisableController()" class="button is-outlined"
+    <button [disabled]="simulationService.getIsPlayDisabled()" class="button is-outlined"
             title="complete algorithm"
             (click)="simulationService.completeAlgorithm()">
       <fa-icon [icon]="['fas', 'fast-forward']"></fa-icon>
     </button>
   </p>
   <p class="control">
-    <button [disabled]="simulationService.getDisableController()" class="button is-outlined"
+    <button class="button is-outlined"
             title="speed up"
             (click)="simulationService.setSpeedUp()">
       <fa-icon [icon]="['fas', 'forward']"></fa-icon>
@@ -62,7 +61,7 @@
 </div>
 <div class="field has-addons has-addons-centered is-marginless">
   <p class="control">
-    <button [disabled]="simulationService.getDisableController()" class="button" title="import"
+    <button class="button" title="import"
             (click)="simulationService.toggleShowImportModal(); simulationService.setSimulationStatus(false)">
         <span class="icon">
           <fa-icon [icon]="['far', 'edit']"></fa-icon>
@@ -71,7 +70,7 @@
     </button>
   </p>
   <p class="control">
-    <button [disabled]="simulationService.getDisableController()" class="button" title="export"
+    <button class="button" title="export"
             (click)="handleExportLogic()">
         <span class="icon">
           <fa-icon [icon]="['far', 'save']"></fa-icon>
