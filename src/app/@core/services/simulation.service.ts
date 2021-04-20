@@ -35,7 +35,6 @@ export class SimulationService {
   private showImportModal: boolean;
   private showExportModal: boolean;
   private exportToken: string;
-  private importToken: string;
   private intervalID: number;
 
   constructor(private settingsService: SettingsService,
@@ -52,7 +51,6 @@ export class SimulationService {
     this.showLegendModal = false;
     this.showImportModal = false;
     this.showExportModal = false;
-    this.importToken = '';
   }
 
   /**
@@ -365,7 +363,6 @@ export class SimulationService {
     let session: Session;
     try {
       const uint8arr = Uint8Array.from(importText.split(',').map(str => parseInt(str, 10)));
-      console.log('import (inflated):', JSON.parse(pako.inflate(uint8arr, { to: 'string' })));
       session = JSON.parse(pako.inflate(uint8arr, { to: 'string' }));
       this.settingsService.setAlgorithmMode(session.algorithmMode);
       if (this.settingsService.getAlgorithmMode() === 'maze') {
@@ -380,9 +377,9 @@ export class SimulationService {
       this.recordService.setIteration(session.iteration);
       this.recordService.addStatRecord(session.stats);
       this.setGridList(session.grid);
+      this.toggleShowImportModal();
     } catch (error) {
-      // throw new Error('Input string is invalid.')
-      console.error('Input string is invalid.', error);
+      throw new Error('Input String is invalid. ' +  error);
     }
   }
 
@@ -393,7 +390,6 @@ export class SimulationService {
    */
   public exportSession(): void {
     if (this.settingsService.getAlgorithmMode() === 'maze') {
-      console.log('serializedState in exportSession()', this.mazeService.getSerializedState());
       const session: Session = {
         algorithm: this.mazeService.getAlgorithmName() as MazeAlgorithm,
         algorithmMode: this.settingsService.getAlgorithmMode(),
@@ -402,11 +398,8 @@ export class SimulationService {
         stats: this.mazeService.getAlgorithmStats(),
         grid: this.gridList$.getValue()
       };
-      console.log('session', session);
 
       this.exportToken = pako.deflate(JSON.stringify(session));
-      console.log('exportToken', this.exportToken);
-      console.log('session inflated:', JSON.parse(pako.inflate(this.exportToken, { to: 'string' })));
 
     } else {
       // TODO sync mazeService with path-finding service to make this object assignable
@@ -501,12 +494,5 @@ export class SimulationService {
    */
   public getExportToken(): string {
     return this.exportToken;
-  }
-
-  /**
-   * Returns when a new importToken was set.
-   */
-  public getImportToken(): string {
-    return this.importToken;
   }
 }

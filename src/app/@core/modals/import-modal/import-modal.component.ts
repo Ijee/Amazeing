@@ -46,7 +46,6 @@ export class ImportModalComponent implements OnInit, OnDestroy {
     this.simulationService.reset();
     try {
       this.simulationService.importSession(this.importToken);
-      this.simulationService.toggleShowImportModal();
       this.importError = false;
     } catch (error) {
       this.importError = true;
@@ -54,16 +53,39 @@ export class ImportModalComponent implements OnInit, OnDestroy {
     }
   }
 
-  importFromFile(event): void {
+  /**
+   * Called when a file has been uploaded through the file explorer.
+   *
+   * @param event - the event that was being triggered.
+   */
+  uploadFile(event): void {
+    const uploadedFile: File = event.target.files[0];
+    this.importFromFile(uploadedFile);
+  }
+
+  /**
+   * Called when a file has been dropped on the upload DOM element.
+   * Only handles the first file that has been dragged in.
+   * Check drop-zone directive for further reading.
+   *
+   * @param file - the new file that comes from the directive.
+   */
+  droppedInFile(file): void {
+    this.importFromFile(file[0]);
+  }
+
+  importFromFile(newFile: File): void {
     try {
       this.usedFileUpload = true;
       const fileReader = new FileReader();
-      const uploadedFile: File = event.target.files[0];
-      fileReader.readAsText(uploadedFile);
+      this.fileName = newFile.name;
+      fileReader.readAsText(newFile);
       fileReader.onloadend = (e) => {
         this.importToken = fileReader.result as string;
       };
+      this.importError = false;
     } catch (error) {
+      this.fileName = 'No file selected...';
       console.error('Could not upload file.', error);
     }
   }

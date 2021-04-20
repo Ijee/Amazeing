@@ -23,12 +23,10 @@
                  [(ngModel)]="importToken"
                  (ngModelChange)="importError = false">
        </textarea>
-      <p *ngIf="importError" class="help is-danger has-text-weight-semibold">
-        <span>The given input is not valid. Please check again.</span>
-      </p>
       <app-hr></app-hr>
-      <div class="file has-name  is-fullwidth has-text-centered is-boxed"
-           (change)="importFromFile($event)">
+      <div appDropZone (fileDropped)="droppedInFile($event)" class="file has-name is-fullwidth has-text-centered is-boxed"
+           [ngClass]="{'is-danger': importError}"
+           (change)="uploadFile($event)">
         <label class="file-label">
           <input class="file-input" type="file" name="resume">
           <span class="file-cta">
@@ -46,6 +44,9 @@
           </span>
         </label>
       </div>
+      <p *ngIf="importError" class="help is-danger has-text-weight-semibold">
+        <span>The given input is not valid. Please check again.</span>
+      </p>
     </section>
     <footer class="modal-card-foot">
       <button class="button is-success" [disabled]="importError" (click)="importSession()">

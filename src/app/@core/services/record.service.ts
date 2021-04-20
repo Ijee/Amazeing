@@ -60,9 +60,6 @@ export class RecordService {
     this.gridHistory.pop();
     this.statRecordHistory.pop();
     this.algorithmStateHistory.pop();
-
-    console.log('algorithmStateHistory', this.algorithmStateHistory);
-    console.log('gridHistory', this.gridHistory);
   }
 
   public setGridHistory(newGridHistory: Array<Node[][]>): void {

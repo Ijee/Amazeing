@@ -68,12 +68,10 @@ export class GridSettingsComponent implements OnDestroy{
         } else {
          currentAlgorithm = this.pathFindingService.getAlgorithmName();
         }
-        console.log(currentAlgorithm);
         this.router.navigate([algoMode],
           {relativeTo: this.route, queryParams: {algorithm: currentAlgorithm}});
         // console.log('algoMode in service', this.settingsService.getAlgorithmMode());
-      }
-    }
+      }    }
   }
 
   /**
