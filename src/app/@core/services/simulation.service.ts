@@ -327,6 +327,7 @@ export class SimulationService {
         const status = node.status;
         if (status > 2) {
           node.status = -1;
+          node.weight = 1;
         }
       });
     });
