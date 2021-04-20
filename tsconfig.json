@@ -4,6 +4,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
+    "resolveJsonModule": true,
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,

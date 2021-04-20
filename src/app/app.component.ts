@@ -1,4 +1,5 @@
 import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
+import {version} from '../../package.json';
 import {FaIconLibrary} from '@fortawesome/angular-fontawesome';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import {fab} from '@fortawesome/free-brands-svg-icons';
@@ -16,6 +17,7 @@ import {RouterOutlet} from '@angular/router';
   animations: [fadeAnimation]
 })
 export class AppComponent implements OnInit, OnDestroy {
+  public version: string;
   public isBurgerMenu: boolean;
   public isNavbar: boolean;
   public isSettingsDropdown: boolean;
@@ -26,6 +28,7 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(library: FaIconLibrary,
               public simulationService: SimulationService,
               public settingsService: SettingsService) {
+    this.version = version;
     library.addIconPacks(fas, fab, far);
     this.isBurgerMenu = window.innerWidth <= 1023;
 
