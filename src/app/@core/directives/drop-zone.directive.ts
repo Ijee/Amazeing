@@ -16,13 +16,16 @@ export class DropZoneDirective {
   @Output() fileDropped = new EventEmitter<any>();
 
   // @HostBinding('style.background-color') private background = '';
+  @HostBinding('class') private class = '';
   @HostBinding('style.opacity') private opacity = '1';
+  private counter = 0;
 
   // Dragover listener
   @HostListener('dragover', ['$event']) onDragOver(e): void {
     e.preventDefault();
     e.stopPropagation();
-    // this.background = 'hsl(171, 100%, 41%)';
+    this.counter++;
+    this.class = 'is-primary';
     this.opacity = '0.8';
   }
 
@@ -30,15 +33,17 @@ export class DropZoneDirective {
   @HostListener('dragleave', ['$event']) public onDragLeave(e): void {
     e.preventDefault();
     e.stopPropagation();
-    // this.background = '';
-    this.opacity = '1';
+    this.counter--;
+    if (this.counter === 0) {
+      this.class = '';
+      this.opacity = '1';
+    }
   }
 
   // Drop listener
   @HostListener('drop', ['$event']) public ondrop(e): void {
     e.preventDefault();
     e.stopPropagation();
-    // this.background = 'hsl(171, 100%, 41%)';
     this.opacity = '1';
     const files = e.dataTransfer.files;
     if (files.length > 0) {
