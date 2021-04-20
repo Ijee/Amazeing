@@ -80,6 +80,9 @@ export class SimulationService {
     }
   }
 
+  /**
+   * Returns the current algorithm name.
+   */
   public getAlgorithmName(): MazeAlgorithm | PathFindingAlgorithm {
     if (this.settingsService.getAlgorithmMode() === 'maze') {
       return this.mazeService.getAlgorithmName();
@@ -89,11 +92,26 @@ export class SimulationService {
   }
 
   // TODO does this make sense here?
+  /**
+   * Returns the current algorithm stat names.
+   */
   public getAlgorithmStatNames(): AlgoStatNames {
     if (this.settingsService.getAlgorithmMode() === 'maze') {
       return this.mazeService.getAlgorithmStatNames();
     } else {
       return this.pathFindingService.getAlgorithmStatNames();
+    }
+  }
+
+  /**
+   * Returns whether or not the current algorithm uses node weights.
+   */
+  public usesNodeWeights(): boolean {
+    if (this.settingsService.getAlgorithmMode() === 'maze') {
+      return this.mazeService.usesNodeWeights();
+    } else {
+      return false;
+      // TODO update path-finding service based on maze interface.
     }
   }
 

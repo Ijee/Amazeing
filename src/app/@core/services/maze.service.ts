@@ -151,4 +151,11 @@ export class MazeService {
   public getCurrentAlgorithmState(): any {
     return this.currentAlgorithm.getCurrentAlgorithmState();
   }
+
+  /**
+   * Returns whether or not the current algorithm uses node weights.
+   */
+  public usesNodeWeights(): boolean {
+    return this.currentAlgorithm.usesNodeWeights();
+  }
 }

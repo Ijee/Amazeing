@@ -34,7 +34,7 @@
       <p class="control">
         <button class="button is-outlined is-size-7-mobile is-size-7-touch is-size-6-desktop"
                 title="Random weights"
-                [disabled]="this.recordService.getIteration() > 0"
+                [disabled]="!this.simulationService.usesNodeWeights() || this.recordService.getIteration() > 0"
                 (click)="addNodeWeights();">
                 <span class="icon">
                   <fa-icon [icon]="['fas', 'balance-scale-right']"></fa-icon>
@@ -46,6 +46,7 @@
         <button
           class="button is-pulled-right is-outlined is-size-7-mobile is-size-7-touch is-size-6-desktop"
           [ngClass]="simulationService.getShowWeightStatus() ? 'is-primary is-light' : 'is-danger is-light'"
+
           title="Toggle weights"
           (click)="simulationService.toggleWeightStatus()">
                 <span class="icon">

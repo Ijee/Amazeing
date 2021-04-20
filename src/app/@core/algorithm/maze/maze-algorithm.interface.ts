@@ -76,4 +76,9 @@ export interface MazeAlgorithmInterface {
    * be an object.
    */
   getCurrentAlgorithmState(): any;
+
+  /**
+   * Returns whether or not the current algorithm uses node weights.
+   */
+  usesNodeWeights(): boolean;
 }

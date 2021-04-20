@@ -123,7 +123,7 @@ export class Prims implements MazeAlgorithmInterface {
         } else if (item.weight < lowestWeightFrontiers[lowestWeightFrontiers.length - 1].weight) {
           lowestWeightFrontiers = [];
           lowestWeightFrontiers.push(item);
-        } else if  (item.weight === lowestWeightFrontiers[lowestWeightFrontiers.length - 1].weight) {
+        } else if (item.weight === lowestWeightFrontiers[lowestWeightFrontiers.length - 1].weight) {
           lowestWeightFrontiers.push(item);
         }
       });
@@ -191,5 +191,9 @@ export class Prims implements MazeAlgorithmInterface {
     return {
       frontierNodes: this.frontierNodes
     };
+  }
+
+  public usesNodeWeights(): boolean {
+    return true;
   }
 }
