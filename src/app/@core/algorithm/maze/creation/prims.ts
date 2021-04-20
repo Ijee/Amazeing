@@ -1,7 +1,7 @@
 import {MazeAlgorithmInterface} from '../maze-algorithm.interface';
 import {AlgoStatNames, MazeAlgorithm, Node, StatRecord} from '../../../../../types';
-import {HashSet} from '../../../../@shared/HashSet';
-import {GridLocation} from '../../../../@shared/GridLocation';
+import {HashSet} from '../../../../@shared/Classes/HashSet';
+import {GridLocation} from '../../../../@shared/Classes/GridLocation';
 
 
 /**

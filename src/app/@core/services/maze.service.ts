@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {AlgoStatNames, MazeAlgorithm, Node, StatRecord} from '../../../types';
 import {MazeAlgorithmInterface} from '../algorithm/maze/maze-algorithm.interface';
 import {Prims} from '../algorithm/maze/creation/prims';
-import {GridLocation} from '../../@shared/GridLocation';
+import {GridLocation} from '../../@shared/Classes/GridLocation';
 import * as _ from 'lodash';
 
 @Injectable({

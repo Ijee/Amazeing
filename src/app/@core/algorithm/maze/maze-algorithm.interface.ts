@@ -1,5 +1,5 @@
 import {AlgoStatNames, MazeAlgorithm, Node, StatRecord} from '../../../../types';
-import {GridLocation} from '../../../@shared/GridLocation';
+import {GridLocation} from '../../../@shared/Classes/GridLocation';
 
 export interface MazeAlgorithmInterface {
   currentGrid: Node[][];

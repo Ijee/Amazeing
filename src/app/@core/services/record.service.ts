@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Node, StatRecord} from '../../../types';
-import {GridLocation} from '../../@shared/GridLocation';
+import {GridLocation} from '../../@shared/Classes/GridLocation';
 import * as _ from 'lodash';
 
 @Injectable({

@@ -1,5 +1,5 @@
 import {AlgoStatNames, Node, PathFindingAlgorithm, PathFindingHeuristic} from '../../../../types';
-import {GridLocation} from '../../../@shared/GridLocation';
+import {GridLocation} from '../../../@shared/Classes/GridLocation';
 
 export interface PathFindingAlgorithmInterface {
   currentGrid: Node[][];

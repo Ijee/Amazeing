@@ -7,7 +7,7 @@ import * as _ from 'lodash';
 import {SettingsService} from '../../@core/services/settings.service';
 import {MazeService} from '../../@core/services/maze.service';
 import {RecordService} from '../../@core/services/record.service';
-import {GridLocation} from '../../@shared/GridLocation';
+import {GridLocation} from '../../@shared/Classes/GridLocation';
 
 @Component({
   selector: 'app-grid',
