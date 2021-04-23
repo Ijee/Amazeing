@@ -44,19 +44,17 @@ export class GridComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // set initial start and goal
-    if (!this.recordService.getGridSavePointStats()) {
-      const initialStartX = Math.round((33 * this.width) / 100);
-      const initialGoalX = Math.round((66 * this.width) / 100);
-      const initialNodeHeightY = Math.round((50 * this.height) / 100);
-      const startNode = this.gridList[initialStartX][initialNodeHeightY];
-      startNode.status = 1;
-      this.recordService.setGridStartLocation(
-        new GridLocation(initialStartX, initialNodeHeightY, startNode.weight));
-      const goalNode = this.gridList[initialGoalX][initialNodeHeightY];
-      goalNode.status = 2;
-      this.recordService.setGridGoalLocation(new GridLocation(initialGoalX, initialNodeHeightY, goalNode.weight));
-      this.simulationService.setGridList(this.gridList);
-    }
+    const initialStartX = Math.round((33 * this.width) / 100);
+    const initialGoalX = Math.round((66 * this.width) / 100);
+    const initialNodeHeightY = Math.round((50 * this.height) / 100);
+    const startNode = this.gridList[initialStartX][initialNodeHeightY];
+    startNode.status = 1;
+    this.recordService.setGridStartLocation(
+      new GridLocation(initialStartX, initialNodeHeightY, startNode.weight));
+    const goalNode = this.gridList[initialGoalX][initialNodeHeightY];
+    goalNode.status = 2;
+    this.recordService.setGridGoalLocation(new GridLocation(initialGoalX, initialNodeHeightY, goalNode.weight));
+    this.simulationService.setGridList(this.gridList);
     // this.recordService.setAlgoStat1(this.width * this.height);
     this.simulationService.getGridList().pipe(takeUntil(this.destroyed$)).subscribe(data => {
       if (data.length) {
@@ -147,9 +145,9 @@ export class GridComponent implements OnInit, OnDestroy {
    * @param node - the node
    */
   public setCell(x: number, y: number, node: Node): void {
-      const cell = this.gridList[x][y];
-      cell.status = node.status;
-      cell.weight = node.weight;
+    const cell = this.gridList[x][y];
+    cell.status = node.status;
+    cell.weight = node.weight;
   }
 
   /**
@@ -180,6 +178,7 @@ export class GridComponent implements OnInit, OnDestroy {
       });
     });
     const startLocation = this.recordService.getGridStartLocation();
+    console.log(startLocation);
     this.gridList[startLocation.x][startLocation.y].status = 1;
     const goalLocation = this.recordService.getGridGoalLocation();
     this.gridList[goalLocation.x][goalLocation.y].status = 2;

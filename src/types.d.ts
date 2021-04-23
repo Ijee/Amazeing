@@ -1,19 +1,14 @@
-export type AlgoStatNames = {
-  algoStatName1?: string,
-  algoStatName2?: string,
-  algoStatName3?: string,
-};
-
 export type Node = {
   status: number;
   weight: number;
 };
 
 export type StatRecord = {
-  algoStat1?: number;
-  algoStat2?: number;
-  algoStat3?: number;
+  name: string,
+  type: string,
+  currentValue?: number,
 };
+
 
 export type AlgorithmMode = 'maze' | 'path-finding';
 
@@ -62,6 +57,6 @@ export type Session = {
   heuristic?: PathFindingHeuristic,
   state: any,
   iteration: number,
-  stats: StatRecord,
+  stats: StatRecord[],
   grid: Node[][],
 };

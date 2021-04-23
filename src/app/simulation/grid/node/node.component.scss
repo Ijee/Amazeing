@@ -1,3 +1,4 @@
+@use './src/styles/colors';
 @import '~bulma/bulma';
 
 .node {
@@ -28,7 +29,7 @@
   background-color: rgba(129, 128, 120, 0.6);
 }
 
-.node-wall {
+.status-1 {
   background-color: $grey-dark;
   // background-color: #3c4353;
 }
@@ -41,14 +42,30 @@
   background-color: fade-out($danger, 0.4);
 }
 
-.node-status-3 {
-  background-color: #6089ec;
+.status-3 {
+  background-color: colors.$node-3;
 }
 
-.node-status-4 {
-  background-color: #f99a6d;
+.status-4 {
+  background-color: colors.$node-4;
+  // background-color: #f99a6d;
 }
 
+.status-5 {
+  background-color: colors.$node-5;
+}
+
+.status-6 {
+  background-color: colors.$node-6;
+}
+
+.status-7 {
+  background-color: colors.$node-7;
+}
+
+.status-8 {
+  background-color: colors.$node-8;
+}
 
 
 

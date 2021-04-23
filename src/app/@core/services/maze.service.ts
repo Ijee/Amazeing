@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {AlgoStatNames, MazeAlgorithm, Node, StatRecord} from '../../../types';
+import {MazeAlgorithm, Node, StatRecord} from '../../../types';
 import {MazeAlgorithmInterface} from '../algorithm/maze/maze-algorithm.interface';
 import {Prims} from '../algorithm/maze/creation/prims';
 import {GridLocation} from '../../@shared/Classes/GridLocation';
@@ -97,19 +97,19 @@ export class MazeService {
    *
    * @param newGrid - the current Grid
    * @param state - the new algorithm state
-   * @param stats - the new algorithm stats
+   * @param statRecord - the new statRecord
    * @param deserialize - whether or not to deserialize the state object before updating the algorithm state
    */
   public updateAlgorithmState(
-    newGrid: Node[][], state: any, stats: StatRecord, deserialize: boolean): void {
+    newGrid: Node[][], state: any, statRecord: StatRecord[], deserialize: boolean): void {
     if (_.isEmpty(state)) {
       this.switchAlgorithm(this.getAlgorithmName());
     } else {
       try {
         if (deserialize) {
-          this.currentAlgorithm.deserialize(newGrid, state, stats);
+          this.currentAlgorithm.deserialize(newGrid, state, statRecord);
         } else {
-          this.currentAlgorithm.updateAlgorithmState(newGrid, state, stats);
+          this.currentAlgorithm.updateAlgorithmState(newGrid, state, statRecord);
         }
       } catch (error) {
         throw new Error('Can not set algorithm State');
@@ -132,17 +132,10 @@ export class MazeService {
   }
 
   /**
-   * Returns an object that determines what the stat is supposed to represent.
-   */
-  public getAlgorithmStatNames(): AlgoStatNames {
-    return this.currentAlgorithm.getAlgorithmStatNames();
-  }
-
-  /**
    * Returns the stats for the current iteration.
    */
-  public getAlgorithmStats(): StatRecord {
-    return this.currentAlgorithm.getAlgorithmStats();
+  public getStatRecords(): StatRecord[] {
+    return this.currentAlgorithm.getStatRecords();
   }
 
   /**

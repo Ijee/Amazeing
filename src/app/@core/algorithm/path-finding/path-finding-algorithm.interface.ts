@@ -1,9 +1,8 @@
-import {AlgoStatNames, Node, PathFindingAlgorithm, PathFindingHeuristic} from '../../../../types';
+import {Node, PathFindingAlgorithm, PathFindingHeuristic} from '../../../../types';
 import {GridLocation} from '../../../@shared/Classes/GridLocation';
 
 export interface PathFindingAlgorithmInterface {
   currentGrid: Node[][];
-  algoStatNames: AlgoStatNames;
 
   /**
    * Returns the new step / iteration based on the currentGrid
@@ -24,11 +23,6 @@ export interface PathFindingAlgorithmInterface {
    * Returns the name of the algorithm
    */
   getAlgorithmName(): PathFindingAlgorithm;
-
-  /**
-   * Returns an object that determines what the stat is supposed to represent
-   */
-  getAlgorithmStatNames(): AlgoStatNames;
 
   /**
    * Returns the added stats for each step

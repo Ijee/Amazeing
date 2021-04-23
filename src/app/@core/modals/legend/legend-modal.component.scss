@@ -1,3 +1,4 @@
+@use './src/styles/colors';
 @import "~bulma/bulma";
 
 .start-icon {
@@ -8,14 +9,32 @@
   color: $danger;
 }
 
-.wall-icon {
+.status-1 {
   color: $grey-dark;
 }
 
-.node-discovered {
-  color: $blue;
+.status-3 {
+  color: colors.$node-3;
 }
 
-.node-fastest {
-  color: $yellow;
+.status-4 {
+  color: colors.$node-4;
+  // background-color: #f99a6d;
 }
+
+.status-5 {
+  color: colors.$node-5;
+}
+
+.status-6 {
+  color: colors.$node-6;
+}
+
+.status-7 {
+  color: colors.$node-7;
+}
+
+.status-8 {
+  color: colors.$node-8;
+}
+

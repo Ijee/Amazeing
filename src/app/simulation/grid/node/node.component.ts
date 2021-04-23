@@ -44,7 +44,8 @@ export class NodeComponent {
   determineStatus(): string {
     switch (this.status) {
       case 0:
-        return 'node-wall';
+        // TODO make all node.status + 1 accross the whole app - see grid component status -2 as the reason
+        return 'status-1';
       case 1:
         // start
         return 'has-background-primary';
@@ -52,11 +53,17 @@ export class NodeComponent {
         // goal
         return 'has-background-danger';
       case 3:
-        return 'node-status-3';
+        return 'status-3';
       case 4:
-        return 'node-status-4';
+        return 'status-4';
+      case 5:
+        return 'status-5';
+      case 6:
+        return 'status-6';
+      case 7:
+        return 'status-7';
       default:
-        return 'untouched';
+        return 'none';
     }
   }
 

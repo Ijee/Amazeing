@@ -16,9 +16,6 @@
     <section class="modal-card-body">
       <div class="content">
         <div class="columns is-multiline is-gapless">
-          <div class="column is-full">
-            <b>If you didn't select to use custom weights each node will have a weight of <i>1</i></b>
-          </div>
           <div class="column is-half">
             <app-hr text="General Nodes"></app-hr>
           </div>
@@ -81,27 +78,20 @@
               </tr>
               </thead>
               <tbody>
-              <tr>
+              <tr *ngFor="let stat of simulationService.getCurrentStatRecords()">
                 <td>
-                <span class="icon start-icon">
+                <span class="icon"
+                      [ngClass]="stat.type">
                   <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
                 </span>
-                <td>Marked</td>
+                </td>
+                <td>{{ stat.name }}</td>
               </tr>
               </tbody>
             </table>
           </div>
         </div>
-
       </div>
     </section>
-    <footer class="modal-card-foot">
-      <button class="button is-success" (click)="simulationService.toggleShowLegendModal()">
-         <span class="icon is-small">
-            <fa-icon [icon]="['fas', 'thumbs-up']"></fa-icon>
-        </span>
-        <span>Understood</span>
-      </button>
-    </footer>
   </div>
 </div>

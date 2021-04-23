@@ -1,10 +1,10 @@
-import {AlgoStatNames, MazeAlgorithm, Node, StatRecord} from '../../../../types';
+import {MazeAlgorithm, Node, StatRecord} from '../../../../types';
 import {GridLocation} from '../../../@shared/Classes/GridLocation';
 
 export interface MazeAlgorithmInterface {
   currentGrid: Node[][];
-  algoStats: StatRecord;
-  algoStatNames: AlgoStatNames;
+  statRecords: StatRecord[];
+
 
   /**
    * Returns the new step / iteration based on the currentGrid
@@ -29,11 +29,11 @@ export interface MazeAlgorithmInterface {
    * in getCurrentAlgorithmState
    *
    * @param algorithmState - the new algorithm state
-   * @param algorithmStats - the new algorithm stats
+   * @param statRecords - the new algorithm statRecords
    * @param currentGrid - the current Grid
    */
 
-  updateAlgorithmState(currentGrid: Node[][], algorithmState: any, algorithmStats: StatRecord): void;
+  updateAlgorithmState(currentGrid: Node[][], algorithmState: any, statRecords: StatRecord[]): void;
 
   /**
    * This function is responsible for deserializing the internal state of the algorithm and
@@ -43,9 +43,9 @@ export interface MazeAlgorithmInterface {
    *
    * @param newGrid - the current Grid
    * @param serializedState - the serialized data
-   * @param algorithmStats - the new algorithm stats
+   * @param statRecords - the new algorithm stats
    */
-  deserialize(newGrid: Node[][], serializedState: any, algorithmStats: StatRecord): void;
+  deserialize(newGrid: Node[][], serializedState: any, statRecords: StatRecord[]): void;
 
   /**
    * This function serializes the internal state of the algorithm and then returns it as an object.
@@ -57,19 +57,14 @@ export interface MazeAlgorithmInterface {
 
 
   /**
-   * Returns the name of the algorithm
+   * Returns the name of the algorithm.
    */
   getAlgorithmName(): MazeAlgorithm;
 
   /**
-   * Returns an object that determines what the stat is supposed to represent
+   * Returns the stat records for the algorithm,.
    */
-  getAlgorithmStatNames(): AlgoStatNames;
-
-  /**
-   * Returns the added stats for each step
-   */
-  getAlgorithmStats(): StatRecord;
+  getStatRecords(): StatRecord[];
 
   /**
    * Returns the current algorithm state that should at least

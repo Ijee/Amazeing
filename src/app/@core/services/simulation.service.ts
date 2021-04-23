@@ -3,7 +3,6 @@ import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import * as _ from 'lodash';
 import * as pako from 'pako';
 import {
-  AlgoStatNames,
   MazeAlgorithm,
   Node,
   PathFindingAlgorithm,
@@ -95,11 +94,11 @@ export class SimulationService {
   /**
    * Returns the current algorithm stat names.
    */
-  public getAlgorithmStatNames(): AlgoStatNames {
+  public getCurrentStatRecords(): StatRecord[] {
     if (this.settingsService.getAlgorithmMode() === 'maze') {
-      return this.mazeService.getAlgorithmStatNames();
+      return this.mazeService.getStatRecords();
     } else {
-      return this.pathFindingService.getAlgorithmStatNames();
+      // TODO
     }
   }
 
@@ -184,7 +183,7 @@ export class SimulationService {
       if (this.settingsService.getAlgorithmMode() === 'maze') {
         this.mazeService.updateAlgorithmState(this.gridList$.getValue(),
           this.recordService.getCurrentAlgorithmState(),
-          this.recordService.getCurrentStats(),
+          this.recordService.getCurrentStatRecords(),
           false);
       } else {
         // TODO update path-finding service to the new definitions on mazeService / the interface
@@ -209,12 +208,8 @@ export class SimulationService {
    */
   public save(newGrid: Node[][]): void {
     this.setGridList(newGrid);
-    const currentStats = this.recordService.getCurrentStats();
-    this.recordService.setGridSavePointStats({
-      algoStat1: currentStats.algoStat1,
-      algoStat2: currentStats.algoStat2,
-      algoStat3: currentStats.algoStat3,
-    });
+    const currentStats = this.recordService.getCurrentStatRecords();
+    this.recordService.setGridSavePointRecords(currentStats);
     this.recordService.setGridSavePoint(newGrid);
   }
 
@@ -224,7 +219,7 @@ export class SimulationService {
    */
   public addIteration(): void {
     let newGrid: Node[][];
-    let newStats: StatRecord;
+    let statRecord: StatRecord[];
     let newAlgorithmState: any;
     if (this.settingsService.getAlgorithmMode() === 'maze') {
       if (this.recordService.getIteration() === 0) {
@@ -232,7 +227,7 @@ export class SimulationService {
           this.gridList$.getValue()), this.recordService.getGridStartLocation());
       }
       newGrid = this.mazeService.getNextStep();
-      newStats = this.mazeService.getAlgorithmStats();
+      statRecord = this.mazeService.getStatRecords();
       newAlgorithmState = this.mazeService.getCurrentAlgorithmState();
     } else {
       if (this.recordService.getIteration() === 0) {
@@ -245,7 +240,7 @@ export class SimulationService {
     if (newGrid) {
       this.setGridList(newGrid);
       this.recordService.setIteration(this.recordService.getIteration() + 1);
-      this.recordService.addStatRecord(newStats);
+      this.recordService.addStatRecord(statRecord);
       this.recordService.addAlgorithmState(newAlgorithmState);
     } else {
       this.setDisablePlay(true);
@@ -298,10 +293,10 @@ export class SimulationService {
   public reset(): void {
     this.setSimulationStatus(false);
     this.setDisablePlay(false);
-    if (this.recordService.getIteration() > 0 && this.recordService.getGridSavePointStats()) {
+    if (this.recordService.getIteration() > 0 && this.recordService.getGridSavePointRecords()) {
       // Resets to save point
       this.recordService.setIteration(0);
-      this.recordService.addStatRecord(this.recordService.getGridSavePointStats());
+      this.recordService.addStatRecord(this.recordService.getGridSavePointRecords());
       this.gridList$.next(this.recordService.getGridSavePoint());
     } else {
       // Hard reset
@@ -309,7 +304,7 @@ export class SimulationService {
       this.recordService.resetStatRecordHistory();
       this.gridList$.next([]);
       this.recordService.setGridSavePoint([]);
-      this.recordService.setGridSavePointStats(null);
+      this.recordService.setGridSavePointRecords(null);
     }
     this.exportToken = '';
     this.backwardStepsAmount = 0;
@@ -336,7 +331,7 @@ export class SimulationService {
     this.recordService.resetStatRecordHistory();
     this.backwardStepsAmount = 0;
     this.recordService.setGridSavePoint([]);
-    this.recordService.setGridSavePointStats(null);
+    this.recordService.setGridSavePointRecords(null);
   }
 
   /**
@@ -415,7 +410,7 @@ export class SimulationService {
         algorithmMode: this.settingsService.getAlgorithmMode(),
         state: this.mazeService.getSerializedState(),
         iteration: this.recordService.getIteration(),
-        stats: this.mazeService.getAlgorithmStats(),
+        stats: this.mazeService.getStatRecords(),
         grid: this.gridList$.getValue()
       };
 

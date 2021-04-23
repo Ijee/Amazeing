@@ -7,20 +7,15 @@ import * as _ from 'lodash';
   providedIn: 'root'
 })
 export class RecordService {
-  private static readonly EMPTY_STAT_RECORD = {
-    algoStat1: 0,
-    algoStat2: 0,
-    algoStat3: 0
-  };
   public static readonly MAX_SAVE_STEPS = 21;
 
   private gridHistory: Node[][][];
   private gridSavePoint: Node[][];
-  private gridSavePointStats: StatRecord;
+  private gridSavePointRecords: StatRecord[];
+  private statRecordHistory: StatRecord[][];
   private gridStartLocation: GridLocation;
   private gridGoalLocation: GridLocation;
   private iteration: number;
-  private statRecordHistory: Array<StatRecord>;
   // has to be any as there are a lot of algorithm and there
   // is no benefit to type it as it can only break at two points
   private algorithmStateHistory: Array<any>;
@@ -28,11 +23,12 @@ export class RecordService {
   constructor() {
     this.gridHistory = [];
     this.gridSavePoint = [];
+    this.gridSavePointRecords = [];
+    this.statRecordHistory = [];
     this.gridStartLocation = null;
     this.gridGoalLocation = null;
     // Stats
     this.iteration = 0;
-    this.statRecordHistory = [RecordService.EMPTY_STAT_RECORD];
     this.algorithmStateHistory = [{}];
   }
 
@@ -70,8 +66,8 @@ export class RecordService {
     this.gridSavePoint = newSavePoint;
   }
 
-  public setGridSavePointStats(newSavePointStats: StatRecord): void {
-    this.gridSavePointStats = newSavePointStats;
+  public setGridSavePointRecords(newSavePointStats: StatRecord[]): void {
+    this.gridSavePointRecords = newSavePointStats;
   }
 
   public setGridStartLocation(loc: GridLocation): void {
@@ -96,11 +92,11 @@ export class RecordService {
    *
    * @param newRecord - the new stat record
    */
-  public addStatRecord(newRecord: StatRecord): void {
+  public addStatRecord(newRecord: StatRecord[]): void {
     if (this.statRecordHistory.length >= RecordService.MAX_SAVE_STEPS) {
       this.statRecordHistory.shift();
     }
-    this.statRecordHistory.push(_.clone(newRecord));
+    this.statRecordHistory.push(_.cloneDeep(newRecord));
   }
 
   /**
@@ -119,7 +115,7 @@ export class RecordService {
    * Fully resets the algorithm stats.
    */
   public resetStatRecordHistory(): void {
-    this.statRecordHistory = [RecordService.EMPTY_STAT_RECORD];
+    this.statRecordHistory = [];
   }
 
   /**
@@ -143,8 +139,8 @@ export class RecordService {
   /**
    * Returns the grid save point.
    */
-  public getGridSavePointStats(): StatRecord {
-    return this.gridSavePointStats;
+  public getGridSavePointRecords(): StatRecord[] {
+    return this.gridSavePointRecords;
   }
 
   /**
@@ -171,7 +167,7 @@ export class RecordService {
   /**
    * Returns the current statRecordHistory.
    */
-  public getCurrentStats(): StatRecord {
+  public getCurrentStatRecords(): StatRecord[] {
     return this.statRecordHistory[this.statRecordHistory.length - 1];
   }
 

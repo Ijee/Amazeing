@@ -1,5 +1,5 @@
 import {MazeAlgorithmInterface} from '../maze-algorithm.interface';
-import {AlgoStatNames, MazeAlgorithm, Node, StatRecord} from '../../../../../types';
+import {MazeAlgorithm, Node, StatRecord} from '../../../../../types';
 import {HashSet} from '../../../../@shared/Classes/HashSet';
 import {GridLocation} from '../../../../@shared/Classes/GridLocation';
 
@@ -11,20 +11,22 @@ import {GridLocation} from '../../../../@shared/Classes/GridLocation';
  */
 export class Prims implements MazeAlgorithmInterface {
   currentGrid: Node[][];
-  algoStatNames: AlgoStatNames;
-  algoStats: StatRecord;
+  statRecords: StatRecord[];
   private frontierNodes: HashSet<GridLocation>;
 
 
   constructor() {
-    this.algoStatNames = {
-      algoStatName1: 'Frontier Nodes',
-      algoStatName2: 'Test'
-    };
-    this.algoStats = {
-      algoStat1: 0,
-      algoStat2: 0,
-    };
+    this.statRecords = [
+      {
+        name: 'Frontier Nodes',
+        type: 'status-3',
+        currentValue: 0,
+      },
+      {
+        name: 'In',
+        type: 'status-4'
+      }
+    ];
     this.frontierNodes = new HashSet<GridLocation>();
   }
 
@@ -36,7 +38,7 @@ export class Prims implements MazeAlgorithmInterface {
       if (status === -1) {
         this.frontierNodes.add(new GridLocation(xAxis, yAxis, node.weight));
         this.currentGrid[xAxis][yAxis].status = 3;
-        this.algoStats.algoStat1 += 1;
+        this.statRecords[0].currentValue += 1;
       } else if (status === 2) {
         this.frontierNodes.add(new GridLocation(xAxis, yAxis, node.weight));
       }
@@ -147,13 +149,14 @@ export class Prims implements MazeAlgorithmInterface {
     this.mark(currentStartPoint.x, currentStartPoint.y);
   }
 
-  public updateAlgorithmState(newGrid: Node[][], algorithmState: any, algorithmStats: StatRecord): void {
+  public updateAlgorithmState(newGrid: Node[][], algorithmState: any, statRecords: StatRecord[]): void {
     this.currentGrid = newGrid;
-    this.algoStats = algorithmStats;
+    console.log('updateAlgorithmState', statRecords);
+    this.statRecords = statRecords;
     this.frontierNodes = algorithmState.frontierNodes;
   }
 
-  public deserialize(newGrid: Node[][], serializedState: any, algorithmStats: StatRecord): void {
+  public deserialize(newGrid: Node[][], serializedState: any, statRecords: StatRecord[]): void {
     const tempFrontierNodes = new HashSet<GridLocation>();
     serializedState.gridLocations.forEach(item => {
       const tempGridLocation = new GridLocation(item.x, item.y, item.weight);
@@ -162,7 +165,7 @@ export class Prims implements MazeAlgorithmInterface {
     const deserializedState = {
       frontierNodes: tempFrontierNodes,
     };
-    this.updateAlgorithmState(newGrid, deserializedState, algorithmStats);
+    this.updateAlgorithmState(newGrid, deserializedState, statRecords);
   }
 
   public getSerializedState(): any {
@@ -179,12 +182,8 @@ export class Prims implements MazeAlgorithmInterface {
     return 'Prims';
   }
 
-  public getAlgorithmStatNames(): AlgoStatNames {
-    return this.algoStatNames;
-  }
-
-  public getAlgorithmStats(): StatRecord {
-    return this.algoStats;
+  public getStatRecords(): StatRecord[] {
+    return this.statRecords;
   }
 
   public getCurrentAlgorithmState(): any {
