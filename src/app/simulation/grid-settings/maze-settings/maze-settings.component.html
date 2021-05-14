@@ -22,7 +22,6 @@
       <div class="column is-one-third">
         <button class="button algo-button is-fullwidth"
                 [ngClass]="mazeService.getAlgorithmName() === 'Aldous-Broder' ? 'is-primary' : ''"
-                disabled
                 (click)="handleWarning('Aldous-Broder')">
           <b>Aldous-Broder</b>
         </button>

@@ -137,7 +137,7 @@ export class SimulationService {
   private setSimulationSpeed(speed: number): void {
     if (this.simulationSpeed < 20) {
       this.simulationSpeed = 20;
-    } else if (this.simulationSpeed > 500) {
+    } else if (this.simulationSpeed >= 500) {
       this.simulationSpeed = 500;
     } else {
       this.simulationSpeed = this.simulationSpeed + speed;
@@ -293,11 +293,12 @@ export class SimulationService {
   public reset(): void {
     this.setSimulationStatus(false);
     this.setDisablePlay(false);
-    if (this.recordService.getIteration() > 0 && this.recordService.getGridSavePointRecords()) {
+    if (this.recordService.getIteration() > 0) {
       // Resets to save point
       this.recordService.setIteration(0);
       this.recordService.addStatRecord(this.recordService.getGridSavePointRecords());
-      this.gridList$.next(this.recordService.getGridSavePoint());
+      this.setGridList(this.recordService.getGridSavePoint());
+      // this.gridList$.next(this.recordService.getGridSavePoint());
     } else {
       // Hard reset
       this.recordService.setIteration(0);
@@ -327,6 +328,7 @@ export class SimulationService {
       });
     });
     this.gridList$.next(grid);
+    this.setDisablePlay(false);
     this.recordService.setIteration(0);
     this.recordService.resetStatRecordHistory();
     this.backwardStepsAmount = 0;

@@ -1,6 +1,6 @@
 import {PathFindingAlgorithmInterface} from './path-finding-algorithm.interface';
 import {PathFindingAlgorithm, Node, PathFindingHeuristic} from '../../../../types';
-import {GridLocation} from '../../../@shared/Classes/GridLocation';
+import {GridLocation} from '../../../@shared/classes/GridLocation';
 
 export class AStar implements PathFindingAlgorithmInterface {
   currentGrid: Node[][];

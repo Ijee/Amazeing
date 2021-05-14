@@ -7,7 +7,7 @@ import * as _ from 'lodash';
 import {SettingsService} from '../../@core/services/settings.service';
 import {MazeService} from '../../@core/services/maze.service';
 import {RecordService} from '../../@core/services/record.service';
-import {GridLocation} from '../../@shared/Classes/GridLocation';
+import {GridLocation} from '../../@shared/classes/GridLocation';
 
 @Component({
   selector: 'app-grid',
@@ -178,7 +178,6 @@ export class GridComponent implements OnInit, OnDestroy {
       });
     });
     const startLocation = this.recordService.getGridStartLocation();
-    console.log(startLocation);
     this.gridList[startLocation.x][startLocation.y].status = 1;
     const goalLocation = this.recordService.getGridGoalLocation();
     this.gridList[goalLocation.x][goalLocation.y].status = 2;

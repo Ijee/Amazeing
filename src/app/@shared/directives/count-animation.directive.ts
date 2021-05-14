@@ -13,6 +13,7 @@ export class CountAnimationDirective implements OnChanges {
 
 
   constructor(private elementRef: ElementRef) {
+    this.newValue = 0;
     // the duration in which the 'animation' has to be done
     this.duration = 300;
     this.disableAnimation = false;

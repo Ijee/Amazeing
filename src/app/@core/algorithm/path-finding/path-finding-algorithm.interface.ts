@@ -1,5 +1,5 @@
 import {Node, PathFindingAlgorithm, PathFindingHeuristic} from '../../../../types';
-import {GridLocation} from '../../../@shared/Classes/GridLocation';
+import {GridLocation} from '../../../@shared/classes/GridLocation';
 
 export interface PathFindingAlgorithmInterface {
   currentGrid: Node[][];

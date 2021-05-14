@@ -4,7 +4,7 @@ import {Node, PathFindingAlgorithm, PathFindingHeuristic, StatRecord} from '../.
 import {AStar} from '../algorithm/path-finding/a-star';
 import {PathFindingAlgorithmInterface} from '../algorithm/path-finding/path-finding-algorithm.interface';
 import {Dijkstra} from '../algorithm/path-finding/dijkstra';
-import {GridLocation} from '../../@shared/Classes/GridLocation';
+import {GridLocation} from '../../@shared/classes/GridLocation';
 
 
 @Injectable({

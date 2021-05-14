@@ -6,7 +6,7 @@
       >{{ recordService.getIteration() }}</p>
     </strong>
   </div>
-  <ng-container *ngFor="let stat of simulationService.getCurrentStatRecords()">
+  <ng-container *ngFor="let stat of simulationService.getCurrentStatRecords(); trackBy: trackByName">
     <div *ngIf="stat.currentValue !== undefined"
          class="column is-half-mobile">
       <strong class="has-text-centered">
@@ -16,7 +16,6 @@
            appCountAnimation
            [newValue]="stat.currentValue"
            [disableAnimation]="isMouseDown || !settingsService.isAnimationsSetting()">
-          0
         </p>
       </strong>
     </div>

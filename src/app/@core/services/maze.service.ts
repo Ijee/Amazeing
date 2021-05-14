@@ -2,8 +2,9 @@ import {Injectable} from '@angular/core';
 import {MazeAlgorithm, Node, StatRecord} from '../../../types';
 import {MazeAlgorithmInterface} from '../algorithm/maze/maze-algorithm.interface';
 import {Prims} from '../algorithm/maze/creation/prims';
-import {GridLocation} from '../../@shared/Classes/GridLocation';
+import {GridLocation} from '../../@shared/classes/GridLocation';
 import * as _ from 'lodash';
+import {AldousBroder} from '../algorithm/maze/creation/aldous-broder';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,7 @@ export class MazeService {
       case 'Kruskals':
         break;
       case 'Aldous-Broder':
+        this.currentAlgorithm = new AldousBroder();
         break;
       case 'Wilsons':
         break;
@@ -105,15 +107,15 @@ export class MazeService {
     if (_.isEmpty(state)) {
       this.switchAlgorithm(this.getAlgorithmName());
     } else {
-      try {
         if (deserialize) {
-          this.currentAlgorithm.deserialize(newGrid, state, statRecord);
+          try {
+            this.currentAlgorithm.deserialize(newGrid, state, statRecord);
+          } catch (error) {
+            throw new Error('Can not set algorithm State');
+          }
         } else {
           this.currentAlgorithm.updateAlgorithmState(newGrid, state, statRecord);
         }
-      } catch (error) {
-        throw new Error('Can not set algorithm State');
-      }
     }
   }
 

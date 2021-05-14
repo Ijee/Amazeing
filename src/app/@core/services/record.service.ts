@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Node, StatRecord} from '../../../types';
-import {GridLocation} from '../../@shared/Classes/GridLocation';
+import {GridLocation} from '../../@shared/classes/GridLocation';
 import * as _ from 'lodash';
 
 @Injectable({
@@ -168,8 +168,10 @@ export class RecordService {
    * Returns the current statRecordHistory.
    */
   public getCurrentStatRecords(): StatRecord[] {
+    console.log('statrecords', this.statRecordHistory);
     return this.statRecordHistory[this.statRecordHistory.length - 1];
   }
+
 
   /**
    * Returns the current algorithmState.

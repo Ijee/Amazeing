@@ -1,13 +1,12 @@
 import {MazeAlgorithmInterface} from '../maze-algorithm.interface';
 import {MazeAlgorithm, Node, StatRecord} from '../../../../../types';
-import {HashSet} from '../../../../@shared/Classes/HashSet';
-import {GridLocation} from '../../../../@shared/Classes/GridLocation';
+import {HashSet} from '../../../../@shared/classes/HashSet';
+import {GridLocation} from '../../../../@shared/classes/GridLocation';
 
 
 /**
- * This is the implementation of the prims algorithm tailored for creating
+ * This is the implementation of the Prims algorithm tailored for creating
  * a maze.
- *
  */
 export class Prims implements MazeAlgorithmInterface {
   currentGrid: Node[][];
@@ -151,7 +150,6 @@ export class Prims implements MazeAlgorithmInterface {
 
   public updateAlgorithmState(newGrid: Node[][], algorithmState: any, statRecords: StatRecord[]): void {
     this.currentGrid = newGrid;
-    console.log('updateAlgorithmState', statRecords);
     this.statRecords = statRecords;
     this.frontierNodes = algorithmState.frontierNodes;
   }

@@ -1,5 +1,5 @@
 import {MazeAlgorithm, Node, StatRecord} from '../../../../types';
-import {GridLocation} from '../../../@shared/Classes/GridLocation';
+import {GridLocation} from '../../../@shared/classes/GridLocation';
 
 export interface MazeAlgorithmInterface {
   currentGrid: Node[][];
@@ -30,10 +30,10 @@ export interface MazeAlgorithmInterface {
    *
    * @param algorithmState - the new algorithm state
    * @param statRecords - the new algorithm statRecords
-   * @param currentGrid - the current Grid
+   * @param newGrid - the current Grid
    */
 
-  updateAlgorithmState(currentGrid: Node[][], algorithmState: any, statRecords: StatRecord[]): void;
+  updateAlgorithmState(newGrid: Node[][], algorithmState: any, statRecords: StatRecord[]): void;
 
   /**
    * This function is responsible for deserializing the internal state of the algorithm and
