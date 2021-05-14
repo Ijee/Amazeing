@@ -8,6 +8,7 @@ import {SettingsService} from '../../@core/services/settings.service';
 import {MazeService} from '../../@core/services/maze.service';
 import {RecordService} from '../../@core/services/record.service';
 import {GridLocation} from '../../@shared/classes/GridLocation';
+import {BreakpointObserver} from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-grid',
@@ -19,6 +20,7 @@ export class GridComponent implements OnInit, OnDestroy {
   private readonly height: number;
   public gridList: Node[][];
   public isMouseDown: boolean;
+  public isMobile: boolean;
 
   private readonly destroyed$: Subject<void>;
   private isInitialized: boolean;
@@ -26,7 +28,8 @@ export class GridComponent implements OnInit, OnDestroy {
   constructor(public simulationService: SimulationService,
               public recordService: RecordService,
               public settingsService: SettingsService,
-              public mazeService: MazeService) {
+              public mazeService: MazeService,
+              public observer: BreakpointObserver) {
     this.width = 47;
     this.height = 21;
     this.gridList = [];
@@ -37,6 +40,11 @@ export class GridComponent implements OnInit, OnDestroy {
         this.gridList[i][j] = {status: -1, weight: 1};
       }
     }
+
+    this.observer.observe('(max-width: 768px)').subscribe(result => {
+      this.isMobile = result.matches;
+      console.log('isMobile?', this.isMobile);
+    });
 
 
     this.destroyed$ = new Subject<void>();

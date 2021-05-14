@@ -28,7 +28,7 @@
                 <span class="icon start-icon">
                   <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
                 </span>
-          <b>Set Start</b>
+          <b *ngIf="!isMobile">Set Start</b>
         </button>
       </p>
       <p class="control">
@@ -39,7 +39,7 @@
                 <span class="icon">
                   <fa-icon [icon]="['fas', 'balance-scale-right']"></fa-icon>
                 </span>
-          <b>Add Weights</b>
+          <b *ngIf="!isMobile">Add Weights</b>
         </button>
       </p>
       <p class="control">
@@ -58,7 +58,7 @@
         </button>
       </p>
       <p class="control">
-        <button class="button is-outlined ml-3 is-size-7-mobile is-size-7-touch is-size-6-desktop"
+        <button class="button border-radius-right is-outlined ml-3 mr-3 is-size-7-mobile is-size-7-touch is-size-6-desktop"
                 title="Set goal"
                 [ngClass]="simulationService.getDrawingMode() === 2 ? 'is-active' : ''"
                 [disabled]="recordService.getIteration() > 0"
@@ -66,7 +66,7 @@
                 <span class="icon goal-icon">
                   <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
                 </span>
-          <b>Set Goal</b>
+          <b *ngIf="!isMobile">Set Goal</b>
         </button>
       </p>
       <p class="control control-pulled-right">
@@ -76,7 +76,7 @@
                 <span class="icon has-text-info">
                   <fa-icon [icon]="['fas', 'info-circle']"></fa-icon>
                 </span>
-          <b>Legend</b>
+          <b *ngIf="!isMobile">Legend</b>
         </button>
       </p>
     </div>

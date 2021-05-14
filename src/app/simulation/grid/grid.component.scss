@@ -51,3 +51,16 @@
   flex: 1 0 0;
   text-align: end;
 }
+
+.control-pulled-right > .button {
+  border-radius: 0;
+}
+
+.control-button-wrapper {
+  border-radius: 0;
+}
+
+
+.border-radius-right {
+  border-radius: 0 4px 4px 0 !important;
+}
