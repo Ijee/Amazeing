@@ -14,13 +14,15 @@ html, body {
       #a34d91,
       #42448c
   );
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   color: #000;
   font-family: "Dosis", Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin: 0;
   padding: 0;
-  height: 100vh;
+  height: 100%;
   // overflow: auto;
 }
 
