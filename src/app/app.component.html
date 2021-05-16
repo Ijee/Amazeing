@@ -1,17 +1,16 @@
-<nav class="navbar is-transparent p-3"
-     [ngClass]="{'transparent-navbar': !isBurgerMenu}">
+<nav class="navbar is-transparent p-3">
   <div class="container is-fullhd">
     <div class="navbar-brand">
-      <a class="navbar-item is-unselectable"
+      <a class="navbar-item font-white is-unselectable"
          [routerLink]="'simulation/' + settingsService.getAlgorithmMode()">
               <span class="icon">
                 <fa-icon [icon]="['fas', 'code']"></fa-icon>
               </span>
-        <span [ngClass]="{'font-white': !isBurgerMenu}">
+        <span>
           <b>A<i>maze</i>ing</b>
         </span>
       </a>
-      <span class="navbar-item is-align-self-flex-end is-hidden-desktop">
+      <a class="navbar-item is-align-content-end is-hidden-desktop">
           <a class="button is-info is-pulled-right"
              href="https://github.com/Ijee/Amazeing"
              target="_blank"
@@ -23,8 +22,8 @@
               <b>Ijee</b>
             </span>
           </a>
-        </span>
-      <span class="navbar-burger burger" style="color: #000"
+        </a>
+      <span class="navbar-burger burger has-text-white"
             data-target="navbarMenuHeroA"
             [ngClass]="{'is-active': isNavbar}"
             (click)="isNavbar = !isNavbar">
@@ -35,10 +34,10 @@
     </div>
     <div id="navbarMenuHeroA"
          class="navbar-menu"
-         [ngClass]="{ 'is-active': isNavbar, 'transparent-navbar': !isBurgerMenu}">
+         [ngClass]="{ 'is-active': isNavbar, 'transparent-navbar': !isTouch}">
       <div class="navbar-end">
         <a class="navbar-item is-unselectable"
-           [ngClass]="!isBurgerMenu ? 'font-white' : ''"
+           [ngClass]="{'font-white': !isTouch}"
            [routerLink]="'simulation/' + settingsService.getAlgorithmMode()"
            (click)="simulationService.setSimulationStatus(false)">
                 <span class="icon">
@@ -47,7 +46,7 @@
           <span routerLinkActive="simple-border-bottom"><b>SIMULATION</b></span>
         </a>
         <a class="navbar-item is-unselectable"
-           [ngClass]="!isBurgerMenu ? 'font-white' : ''"
+           [ngClass]="{'font-white': !isTouch}"
            routerLink="learn"
            (click)="simulationService.setSimulationStatus(false)">
                 <span class="icon">
@@ -59,7 +58,7 @@
              [ngClass]="{'is-active': isSettingsDropdown}"
              (click)="isSettingsDropdown = !isSettingsDropdown; $event.stopPropagation()">
           <div class="navbar-link"
-             [ngClass]="{'font-white is-arrowless': !isBurgerMenu}">
+             [ngClass]="{'font-white is-arrowless': !isTouch}">
             <span class="icon">
                   <fa-icon [icon]="['fas', 'cog']"></fa-icon>
             </span>
@@ -128,7 +127,7 @@
             </div>
           </div>
         </div>
-        <span *ngIf="!isBurgerMenu" class="navbar-item">
+        <span *ngIf="!isTouch" class="navbar-item">
           <a class="button is-info"
              href="https://github.com/Ijee/Amazeing"
              target="_blank"

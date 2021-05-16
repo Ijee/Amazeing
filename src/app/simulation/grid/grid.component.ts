@@ -41,11 +41,6 @@ export class GridComponent implements OnInit, OnDestroy {
       }
     }
 
-    this.observer.observe('(max-width: 768px)').subscribe(result => {
-      this.isMobile = result.matches;
-      console.log('isMobile?', this.isMobile);
-    });
-
 
     this.destroyed$ = new Subject<void>();
   }
@@ -78,6 +73,11 @@ export class GridComponent implements OnInit, OnDestroy {
     this.simulationService.getRandomSeed().pipe(takeUntil(this.destroyed$)).subscribe(() => {
       this.randomSeed();
     });
+
+    this.observer.observe('(max-width: 768px)').pipe(takeUntil(this.destroyed$)).subscribe(result => {
+      this.isMobile = result.matches;
+    });
+
     this.isInitialized = true;
   }
 

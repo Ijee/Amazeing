@@ -9,6 +9,8 @@ import {fadeAnimation} from './@shared/animations/fadeAnimation';
 import {Subject} from 'rxjs';
 import {SettingsService} from './@core/services/settings.service';
 import {RouterOutlet} from '@angular/router';
+import {BreakpointObserver} from '@angular/cdk/layout';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +20,7 @@ import {RouterOutlet} from '@angular/router';
 })
 export class AppComponent implements OnInit, OnDestroy {
   public version: string;
-  public isBurgerMenu: boolean;
+  public isTouch: boolean;
   public isNavbar: boolean;
   public isSettingsDropdown: boolean;
 
@@ -26,16 +28,20 @@ export class AppComponent implements OnInit, OnDestroy {
   private readonly destroyed$: Subject<void>;
 
   constructor(library: FaIconLibrary,
+              private observer: BreakpointObserver,
               public simulationService: SimulationService,
               public settingsService: SettingsService) {
     this.version = version;
     library.addIconPacks(fas, fab, far);
-    this.isBurgerMenu = window.innerWidth <= 1023;
 
     this.destroyed$ = new Subject<void>();
   }
 
   ngOnInit(): void {
+    this.observer.observe('(max-width: 1023px)').pipe(takeUntil(this.destroyed$)).subscribe(result => {
+      this.isTouch = result.matches;
+      console.log('isTouch', this.isTouch);
+    });
   }
 
   ngOnDestroy(): void {
@@ -72,19 +78,6 @@ export class AppComponent implements OnInit, OnDestroy {
   //   const vh = window.innerHeight * 0.01;
   //   document.documentElement.style.setProperty('--vh', `${vh}px`);
   // }
-
-
-  /**
-   * Determines if the tablet version of the site is being displayed.
-   */
-  @HostListener('window:resize', ['$event'])
-  handleResizeEvent(): void {
-    if (window.innerWidth <= 1023) {
-      this.isBurgerMenu = true;
-    } else {
-      this.isBurgerMenu = false;
-    }
-  }
 
   /**
    * Is responsible for triggering the animation for the main routing
