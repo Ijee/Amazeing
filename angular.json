@@ -61,19 +61,24 @@
                   "maximumError": "500kb"
                 }
               ]
-            }
-          }
+            },
+            "development": {}
+          },
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "amazeing:build"
           },
           "configurations": {
             "production": {
               "browserTarget": "amazeing:build:production"
+            },
+            "development": {
+              "browserTarget": "amazeing:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -114,14 +119,17 @@
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "amazeing:serve"
+            "protractorConfig": "e2e/protractor.conf.js"
           },
           "configurations": {
             "production": {
               "devServerTarget": "amazeing:serve:production"
+            },
+            "development": {
+              "devServerTarget": "amazeing:serve:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         }
       }
     }
