@@ -11,7 +11,7 @@ export class HashSet<T extends EqualsHashCode> {
   private members: T[][];
   private currentSize;
 
-  private expanding: Subject<boolean>;
+  private expanding: Subject<void>;
 
   constructor(initial?: ArrayLike<T> | HashSet<T>) {
     if (initial) {

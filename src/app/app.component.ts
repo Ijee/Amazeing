@@ -1,5 +1,5 @@
 import {Component, HostListener, OnDestroy, OnInit, Renderer2} from '@angular/core';
-import {version} from '../../package.json';
+import packageInfo from '../../package.json';
 import {FaIconLibrary} from '@fortawesome/angular-fontawesome';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import {fab} from '@fortawesome/free-brands-svg-icons';
@@ -32,7 +32,7 @@ export class AppComponent implements OnInit, OnDestroy {
               private observer: BreakpointObserver,
               public simulationService: SimulationService,
               public settingsService: SettingsService) {
-    this.version = version;
+    this.version = packageInfo.version;
     library.addIconPacks(fas, fab, far);
 
     this.destroyed$ = new Subject<void>();
