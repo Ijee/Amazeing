@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Renderer2} from '@angular/core';
 import {AlgorithmMode} from '../../../types';
 
 @Injectable({

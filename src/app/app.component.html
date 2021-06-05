@@ -1,4 +1,4 @@
-<nav class="navbar is-transparent p-3">
+<nav class="navbar is-transparent dark-theme p-3">
   <div class="container is-fullhd">
     <div class="navbar-brand">
       <a class="navbar-item font-white is-unselectable"
@@ -10,7 +10,7 @@
           <b>A<i>maze</i>ing</b>
         </span>
       </a>
-      <a class="navbar-item is-align-content-end is-hidden-desktop">
+      <div class="navbar-item navbar-end is-hidden-desktop">
           <a class="button is-info is-pulled-right"
              href="https://github.com/Ijee/Amazeing"
              target="_blank"
@@ -22,8 +22,8 @@
               <b>Ijee</b>
             </span>
           </a>
-        </a>
-      <span class="navbar-burger burger has-text-white"
+        </div>
+      <span class="navbar-burger burger "
             data-target="navbarMenuHeroA"
             [ngClass]="{'is-active': isNavbar}"
             (click)="isNavbar = !isNavbar">
@@ -72,7 +72,6 @@
             </span>
               <span><b>Dark mode</b></span>
               <button class="button dropdown-button is-pulled-right"
-                      disabled
                       [class]="settingsService.isDarkModeSetting() ? 'is-primary' : 'is-danger'"
                       (click)="settingsService.setDarkModeSetting()">
                 <b>{{ settingsService.isDarkModeSetting() ? 'ON' : 'OFF' }}</b>

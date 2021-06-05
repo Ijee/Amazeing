@@ -1,9 +1,11 @@
+@charset "utf-8";
 /* You can add global styles to this file, and also import other style files */
+
 @import url('https://fonts.googleapis.com/css?family=Open+Sans|Libre+Baskerville');
-@import "styles/components";
-
-
 @import "styles/bulma-variables";
+@import "styles/colors";
+@import "styles/components";
+@import "styles/dark-theme";
 
 html, body {
   background-image: linear-gradient(
@@ -31,5 +33,10 @@ html, body {
   border-left: 1px solid #DBDBDB;
 }
 
+.dark-theme {
+  @include dark-theme;
+}
+
+@import '~bulma';
 @import 'styles/darcula.css';
 

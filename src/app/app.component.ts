@@ -1,4 +1,4 @@
-import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
+import {Component, HostListener, OnDestroy, OnInit, Renderer2} from '@angular/core';
 import {version} from '../../package.json';
 import {FaIconLibrary} from '@fortawesome/angular-fontawesome';
 import {fas} from '@fortawesome/free-solid-svg-icons';
@@ -28,6 +28,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private readonly destroyed$: Subject<void>;
 
   constructor(library: FaIconLibrary,
+              private renderer: Renderer2,
               private observer: BreakpointObserver,
               public simulationService: SimulationService,
               public settingsService: SettingsService) {
@@ -42,6 +43,8 @@ export class AppComponent implements OnInit, OnDestroy {
       this.isTouch = result.matches;
       console.log('isTouch', this.isTouch);
     });
+
+    this.renderer.addClass(document.body, 'dark-theme');
   }
 
   ngOnDestroy(): void {
