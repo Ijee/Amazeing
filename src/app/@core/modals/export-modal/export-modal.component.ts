@@ -5,14 +5,12 @@ import {FaIconLibrary} from '@fortawesome/angular-fontawesome';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import {fab} from '@fortawesome/free-brands-svg-icons';
 import {far} from '@fortawesome/free-regular-svg-icons';
-import {modalAnimation} from '../../../@shared/animations/modalAnimation';
 import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-export-modal',
   templateUrl: './export-modal.component.html',
   styleUrls: ['./export-modal.component.scss'],
-  animations: [modalAnimation]
 })
 export class ExportModalComponent implements OnDestroy {
 

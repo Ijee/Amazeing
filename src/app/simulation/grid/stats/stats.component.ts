@@ -3,11 +3,15 @@ import {SimulationService} from '../../../@core/services/simulation.service';
 import {SettingsService} from '../../../@core/services/settings.service';
 import {RecordService} from '../../../@core/services/record.service';
 import {StatRecord} from '../../../../types';
+import {fadeInOutList} from '../../../@shared/animations/fadeInOutList';
 
 @Component({
   selector: 'app-stats',
   templateUrl: './stats.component.html',
-  styleUrls: ['./stats.component.scss']
+  styleUrls: ['./stats.component.scss'],
+  animations: [
+    fadeInOutList
+  ]
 })
 export class StatsComponent {
   @Input('cell-count') cellCount: number;

@@ -6,8 +6,8 @@
       >{{ recordService.getIteration() }}</p>
     </strong>
   </div>
-  <ng-container *ngFor="let stat of simulationService.getCurrentStatRecords(); trackBy: trackByName">
-    <div *ngIf="stat.currentValue !== undefined"
+  <ng-container *ngFor="let stat of simulationService.getCurrentStatRecords(); trackBy: trackByName" @firstLoad>
+    <div *ngIf="stat.currentValue !== undefined" @fadeInOutList
          class="column is-half-mobile">
       <strong class="has-text-centered">
         <p class="heading is-size-6-mobile">{{ stat.name }}</p>

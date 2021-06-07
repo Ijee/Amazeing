@@ -10,13 +10,13 @@ import {
 /**
  * The animation for the route main route changes. Yes it is more complicated than it should be but that's cool
  */
-export const fadeAnimation = trigger('fadeAnimation', [
+export const fadeInOutList = trigger('fadeInOutList', [
   transition(':enter', [
-    style({ opacity: 0 }),
-    animate('150ms ease-in', style({ opacity: 1 })),
+    style({opacity: 0}),
+    animate('500ms', style({opacity: 1})),
   ]),
   transition(':leave', [
-    animate('150ms ease-out', style({ opacity: 0 })),
+    animate('0ms', style({opacity: 0})),
   ]),
 ]);
 
@@ -35,7 +35,7 @@ export const fadeAnimationSafe = trigger('fadeAnimationSafe', [
   transition('* => *', [
     sequence([
       query(':enter', [style({display: 'none'})], {optional: true}),
-      query(':leave', [animate('0s')], {optional: true})
+      query(':leave', [animate('0.15s')], {optional: true})
     ])
   ])
 ]);

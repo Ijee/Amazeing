@@ -6,15 +6,12 @@ import {FaIconLibrary} from '@fortawesome/angular-fontawesome';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import {fab} from '@fortawesome/free-brands-svg-icons';
 import {far} from '@fortawesome/free-regular-svg-icons';
-import {modalAnimation} from '../../../@shared/animations/modalAnimation';
 import {Session} from '../../../../types';
-import {fadeAnimation} from '../../../@shared/animations/fadeAnimation';
 
 @Component({
   selector: 'app-import-modal',
   templateUrl: './import-modal.component.html',
   styleUrls: ['./import-modal.component.scss'],
-  animations: [fadeAnimation]
 })
 export class ImportModalComponent implements OnInit, OnDestroy {
   public usedFileUpload: boolean;

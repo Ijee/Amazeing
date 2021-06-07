@@ -22,6 +22,16 @@ export class Prims implements MazeAlgorithmInterface {
         currentValue: 0,
       },
       {
+        name: 'Testie Test',
+        type: 'status-6',
+        currentValue: 0,
+      },
+      {
+        name: 'Testie Test',
+        type: 'status-6',
+        currentValue: 0,
+      },
+      {
         name: 'In',
         type: 'status-4'
       }
