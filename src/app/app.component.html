@@ -147,7 +147,8 @@
   <router-outlet #o="outlet"></router-outlet>
 </main>
 <app-warning-modal></app-warning-modal>
-<app-legend-modal *ngIf="simulationService.getShowLegendModal()"></app-legend-modal>
-<app-import-modal *ngIf="simulationService.getShowImportModal()"></app-import-modal>
-<app-export-modal *ngIf="simulationService.getShowExportModal()"></app-export-modal>
+<app-legend-modal *ngIf="simulationService.getShowLegendModal()" @fadeAnimation>
+</app-legend-modal>
+<app-import-modal *ngIf="simulationService.getShowImportModal()" @fadeAnimation></app-import-modal>
+<app-export-modal *ngIf="simulationService.getShowExportModal()" @fadeAnimation></app-export-modal>
 
