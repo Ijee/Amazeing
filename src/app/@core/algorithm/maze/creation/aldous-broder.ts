@@ -23,6 +23,21 @@ export class AldousBroder implements MazeAlgorithmInterface {
         currentValue: 0,
       },
       {
+        name: 'cursor-steps',
+        type: 'status-5',
+        currentValue: 0,
+      },
+      {
+        name: 'cursor-steps',
+        type: 'status-5',
+        currentValue: 0,
+      },
+      {
+        name: 'cursor-steps',
+        type: 'status-5',
+        currentValue: 0,
+      },
+      {
         name: 'travelled to',
         type: 'status-4',
       }
