@@ -72,9 +72,9 @@
             </span>
               <span><b>Dark mode</b></span>
               <button class="button dropdown-button is-pulled-right"
-                      [class]="settingsService.isDarkModeSetting() ? 'is-primary' : 'is-danger'"
+                      [class]="settingsService.getDarkModeSetting() ? 'is-primary' : 'is-danger'"
                       (click)="settingsService.setDarkModeSetting()">
-                <b>{{ settingsService.isDarkModeSetting() ? 'ON' : 'OFF' }}</b>
+                <b>{{ settingsService.getDarkModeSetting() ? 'ON' : 'OFF' }}</b>
               </button>
             </div>
             <div class="navbar-item">
@@ -83,9 +83,9 @@
               </span>
               <span><b>Animations</b></span>
               <button class="button dropdown-button is-pulled-right"
-                      [class]="settingsService.isAnimationsSetting() ? 'is-primary' : 'is-danger'"
+                      [class]="settingsService.getAnimationsSetting() ? 'is-primary' : 'is-danger'"
                       (click)="settingsService.setAnimationSetting()">
-                <b>{{ settingsService.isAnimationsSetting() ? 'ON' : 'OFF' }}</b>
+                <b>{{ settingsService.getAnimationsSetting() ? 'ON' : 'OFF' }}</b>
               </button>
             </div>
             <div class="navbar-item">
@@ -94,9 +94,9 @@
             </span>
               <span><b>Warnings</b></span>
               <button class="button dropdown-button is-pulled-right"
-                      [class]="settingsService.isWarningsSetting() ? 'is-primary' : 'is-danger'"
+                      [class]="settingsService.getWarningsSetting() ? 'is-primary' : 'is-danger'"
                       (click)="settingsService.setWarningsSetting()">
-                <b>{{ settingsService.isWarningsSetting() ? 'ON' : 'OFF' }}</b>
+                <b>{{ settingsService.getWarningsSetting() ? 'ON' : 'OFF' }}</b>
               </button>
             </div>
             <hr class="navbar-divider">
@@ -143,12 +143,23 @@
     </div>
   </div>
 </nav>
-<main class="container is-fullhd p-2" [@fadeRouteAnimation]="prepareRoute(outlet)">
+<main class="container is-fullhd p-2"
+      [@.disabled]="!settingsService.getAnimationsSetting()"
+      [@fadeRouteAnimation]="prepareRoute(outlet)">
   <router-outlet #outlet="outlet"></router-outlet>
 </main>
-<app-warning-modal></app-warning-modal>
-<app-legend-modal *ngIf="simulationService.getShowLegendModal()" @fadeAnimation>
+<app-warning-modal *ngIf="warnDialogService.getDialogStatus()"
+  [@.disabled]="!settingsService.getAnimationsSetting()"
+                   @fadeInOut
+></app-warning-modal>
+<app-legend-modal *ngIf="simulationService.getShowLegendModal()"
+                  [@.disabled]="!settingsService.getAnimationsSetting()"
+                  @fadeInOut>
 </app-legend-modal>
-<app-import-modal *ngIf="simulationService.getShowImportModal()" @fadeAnimation></app-import-modal>
-<app-export-modal *ngIf="simulationService.getShowExportModal()" @fadeAnimation></app-export-modal>
+<app-import-modal *ngIf="simulationService.getShowImportModal()"
+                  [@.disabled]="!settingsService.getAnimationsSetting()"
+                  @fadeInOut></app-import-modal>
+<app-export-modal *ngIf="simulationService.getShowExportModal()"
+                  [@.disabled]="!settingsService.getAnimationsSetting()"
+                  @fadeInOut></app-export-modal>
 

@@ -51,7 +51,7 @@ export class PathfindingSettingsComponent implements OnInit, OnDestroy {
    * @param newAlgorithm - the new algorithm to be set
    */
   public handleWarning(newAlgorithm: PathFindingAlgorithm): void {
-    if (this.settingsService.isWarningsSetting()) {
+    if (this.settingsService.getWarningsSetting()) {
       this.warningDialog.openDialog();
       this.warningDialog.afterClosed().pipe(takeUntil(this.destroyed$)).subscribe(result => {
         if (result === 'continue') {

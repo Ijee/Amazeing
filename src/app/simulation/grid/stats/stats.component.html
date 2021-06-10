@@ -8,7 +8,9 @@
   </div>
   <ng-container *ngFor="let stat of simulationService.getCurrentStatRecords(); trackBy: trackByName"
                 @blockInitialRenderAnimation>
-    <div *ngIf="stat.currentValue !== undefined" @fadeInOutList
+    <div *ngIf="stat.currentValue !== undefined"
+         [@.disabled]="!this.settingsService.getAnimationsSetting()"
+         @fadeInOutList
          class="column is-half-mobile">
       <strong class="has-text-centered">
         <p class="heading is-size-6-mobile">{{ stat.name }}</p>
@@ -16,7 +18,7 @@
            [class]="settingsService.getAlgorithmMode() === 'maze' ? 'has-text-primary' : 'has-text-danger'"
            appCountAnimation
            [newValue]="stat.currentValue"
-           [disableAnimation]="isMouseDown || !settingsService.isAnimationsSetting()">
+           [disableAnimation]="isMouseDown || !settingsService.getAnimationsSetting()">
         </p>
       </strong>
     </div>

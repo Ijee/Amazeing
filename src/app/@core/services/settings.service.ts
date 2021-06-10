@@ -12,14 +12,30 @@ export class SettingsService {
 
 
   constructor() {
-    this.darkModeSetting = false;
-    this.animationsSetting = false;
-    this.warningsSetting = false;
-
-    // Get the old settings. Also converts it back.
-    this.darkModeSetting = localStorage.getItem('darkModeSetting') === 'true';
-    this.animationsSetting = localStorage.getItem('animationsSetting') === 'true';
-    this.warningsSetting = localStorage.getItem('warningsSetting') === 'true';
+    // See if prefers color scheme motion is set. If yes, set the appropriate setting.
+    const prefersDarkColor = window.matchMedia('(prefers-color-scheme: dark)');
+    if ((!prefersDarkColor || prefersDarkColor.matches)
+      && localStorage.getItem('prefersDarkColor') === null) {
+      this.setDarkModeSetting(true);
+      console.log('what');
+    } else {
+      this.setDarkModeSetting(false);
+      console.log('why');
+    }
+    // See if prefers reduced motion is set. If yes, set the appropriate setting.
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if ((!prefersReducedMotion || prefersReducedMotion.matches)
+      && localStorage.getItem('animationsSetting') === null) {
+      this.setAnimationSetting(false);
+    } else {
+      this.setAnimationSetting(true);
+    }
+    // See if warnings setting is already set if yes set it for the app.
+    if (localStorage.getItem('warningsSetting') === null) {
+      this.setWarningsSetting(true);
+    } else {
+      this.setWarningsSetting(localStorage.getItem('warningsSetting') === 'true');
+    }
   }
 
   /**
@@ -46,7 +62,7 @@ export class SettingsService {
     } else {
       this.darkModeSetting = !this.darkModeSetting;
     }
-    localStorage.setItem('darkModeSetting', String(this.darkModeSetting));
+    localStorage.setItem('prefersDarkColor', String(this.darkModeSetting));
   }
 
   /**
@@ -56,7 +72,7 @@ export class SettingsService {
    */
   public setAnimationSetting(newOption?: boolean): void {
     if (newOption !== undefined) {
-      this.darkModeSetting = newOption;
+      this.animationsSetting = newOption;
     } else {
       this.animationsSetting = !this.animationsSetting;
     }
@@ -87,21 +103,21 @@ export class SettingsService {
   /**
    * Returns the current dark mode setting.
    */
-  public isDarkModeSetting(): boolean {
+  public getDarkModeSetting(): boolean {
     return this.darkModeSetting;
   }
 
   /**
    * Returns the current animations setting.
    */
-  public isAnimationsSetting(): boolean {
+  public getAnimationsSetting(): boolean {
     return this.animationsSetting;
   }
 
   /**
    * Returns the current warnings setting.
    */
-  public isWarningsSetting(): boolean {
+  public getWarningsSetting(): boolean {
     return this.warningsSetting;
   }
 }

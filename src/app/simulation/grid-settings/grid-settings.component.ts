@@ -56,7 +56,7 @@ export class GridSettingsComponent implements OnDestroy{
    */
   public handleWarning(algoMode: AlgorithmMode, skipWarning: boolean): void {
     if (this.settingsService.getAlgorithmMode() !== algoMode){
-      if (this.settingsService.isWarningsSetting() && !skipWarning) {
+      if (this.settingsService.getWarningsSetting() && !skipWarning) {
         this.showWarning = true;
       } else {
         this.simulationService.prepareGrid();
@@ -77,7 +77,7 @@ export class GridSettingsComponent implements OnDestroy{
   /**
    * Returns the other algoMode based on the one it is currently set to.
    */
-  public switchToOtherMode(): string {
+  public switchToOtherMode(): AlgorithmMode {
     return this.settingsService.getAlgorithmMode() === 'maze' ? 'path-finding' : 'maze';
   }
 

@@ -318,16 +318,26 @@ export class SimulationService {
   public prepareGrid(): void {
     // deletes all the algorithm specific nodes from the grid
     const grid = _.cloneDeep(this.gridList$.value);
+    let useWeights: boolean;
+    if (this.settingsService.getAlgorithmMode() === 'maze') {
+      useWeights = this.mazeService.usesNodeWeights();
+    } else {
+      // TODO implement PathFindingService interface / service like the one in MazeService / Maze-Algorithm
+    }
     grid.forEach(column => {
       column.forEach(node => {
         const status = node.status;
+        // Remove algorithm specific node statuses.
         if (status > 2) {
           node.status = -1;
+        }
+        // Reset node weights when the current algorithm won't use them.
+        if (!useWeights) {
           node.weight = 1;
         }
       });
     });
-    this.gridList$.next(grid);
+    this.setGridList(grid);
     this.setDisablePlay(false);
     this.recordService.setIteration(0);
     this.recordService.resetStatRecordHistory();

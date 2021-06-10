@@ -10,14 +10,15 @@ import {SettingsService} from './@core/services/settings.service';
 import {RouterOutlet} from '@angular/router';
 import {BreakpointObserver} from '@angular/cdk/layout';
 import {takeUntil} from 'rxjs/operators';
-import {fadeInOutRoute} from './@shared/animations/fadeInOutRoute';
+import {fadeInOut} from './@shared/animations/fadeInOut';
 import {fadeRouteAnimation} from './@shared/animations/fadeRouteAnimation';
+import {WarningDialogService} from './@shared/components/warning-modal/warning-dialog.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  animations: [fadeInOutRoute, fadeRouteAnimation]
+  animations: [fadeInOut, fadeRouteAnimation]
 })
 export class AppComponent implements OnInit, OnDestroy {
   public version: string;
@@ -32,7 +33,8 @@ export class AppComponent implements OnInit, OnDestroy {
               private renderer: Renderer2,
               private observer: BreakpointObserver,
               public simulationService: SimulationService,
-              public settingsService: SettingsService) {
+              public settingsService: SettingsService,
+              public warnDialogService: WarningDialogService) {
     this.version = packageInfo.version;
     library.addIconPacks(fas, fab, far);
 

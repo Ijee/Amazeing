@@ -46,7 +46,7 @@ export class MazeSettingsComponent implements OnInit, OnDestroy {
   }
 
   public handleWarning(newAlgorithm: MazeAlgorithm): void {
-    if (this.settingsService.isWarningsSetting()) {
+    if (this.settingsService.getWarningsSetting()) {
       this.warningDialog.openDialog();
       this.warningDialog.afterClosed().pipe(takeUntil(this.destroyed$)).subscribe(result => {
         if (result === 'continue') {
