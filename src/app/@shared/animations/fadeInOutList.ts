@@ -12,10 +12,10 @@ import {
  */
 export const fadeInOutList = trigger('fadeInOutList', [
   transition(':enter', [
-    style({opacity: 0, visibility: 'hidden', position: 'fixed'}),
+    style({opacity: 0, position: 'fixed'}),
     animate('250ms 200ms ease-in-out', keyframes([
         style({opacity: 0.01, position: 'relative', offset: 0.01}),
-        style({opacity: 1, visibility: 'visible', offset: 1}),
+        style({opacity: 1, offset: 1}),
       ])
     )]),
   transition(':leave', [
