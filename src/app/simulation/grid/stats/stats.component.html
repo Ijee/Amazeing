@@ -1,31 +1,33 @@
-<div class="columns is-fullwidth is-gapless">
-  <div class="column is-half-mobile">
-    <strong class="has-text-centered">
-      <p class="heading is-size-6-mobile">Iteration</p>
-      <p class="title is-size-6-mobile"
-      >{{ recordService.getIteration() }}</p>
-    </strong>
-  </div>
-  <ng-container *ngFor="let stat of simulationService.getCurrentStatRecords(); trackBy: trackByName" @firstLoad>
-    <div *ngIf="stat.currentValue !== undefined" @fadeInOutList
-         class="column is-half-mobile">
+<div>
+  <div class="columns is-fullwidth is-gapless" >
+    <div class="column is-half-mobile">
       <strong class="has-text-centered">
-        <p class="heading is-size-6-mobile">{{ stat.name }}</p>
+        <p class="heading is-size-6-mobile">Iteration</p>
         <p class="title is-size-6-mobile"
-           [class]="settingsService.getAlgorithmMode() === 'maze' ? 'has-text-primary' : 'has-text-danger'"
-           appCountAnimation
-           [newValue]="stat.currentValue"
-           [disableAnimation]="isMouseDown || !settingsService.isAnimationsSetting()">
-        </p>
+        >{{ recordService.getIteration() }}</p>
       </strong>
     </div>
-  </ng-container>
-  <div class="column is-size-7-mobile">
-    <strong class="has-text-centered">
-      <p class="heading is-size-6-mobile">Speed</p>
-      <p class="title is-size-6-mobile"
-         [class]="settingsService.getAlgorithmMode() === 'maze' ? 'has-text-primary' : 'has-text-danger'"
-      >{{ simulationService.getSimulationSpeed() }}%</p>
-    </strong>
+    <ng-container *ngFor="let stat of simulationService.getCurrentStatRecords(); trackBy: trackByName" @blockInitialRenderAnimation>
+      <div *ngIf="stat.currentValue !== undefined" @fadeInOutList
+           class="column is-half-mobile">
+        <strong class="has-text-centered">
+          <p class="heading is-size-6-mobile">{{ stat.name }}</p>
+          <p class="title is-size-6-mobile"
+             [class]="settingsService.getAlgorithmMode() === 'maze' ? 'has-text-primary' : 'has-text-danger'"
+             appCountAnimation
+             [newValue]="stat.currentValue"
+             [disableAnimation]="isMouseDown || !settingsService.isAnimationsSetting()">
+          </p>
+        </strong>
+      </div>
+    </ng-container>
+    <div class="column is-size-7-mobile">
+      <strong class="has-text-centered">
+        <p class="heading is-size-6-mobile">Speed</p>
+        <p class="title is-size-6-mobile"
+           [class]="settingsService.getAlgorithmMode() === 'maze' ? 'has-text-primary' : 'has-text-danger'"
+        >{{ simulationService.getSimulationSpeed() }}%</p>
+      </strong>
+    </div>
   </div>
 </div>

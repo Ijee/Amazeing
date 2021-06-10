@@ -143,8 +143,8 @@
     </div>
   </div>
 </nav>
-<main class="container is-fullhd p-2" [@fadeAnimation]="getRouterOutletState(o)">
-  <router-outlet #o="outlet"></router-outlet>
+<main class="container is-fullhd p-2" [@fadeRouteAnimation]="prepareRoute(outlet)">
+  <router-outlet #outlet="outlet"></router-outlet>
 </main>
 <app-warning-modal></app-warning-modal>
 <app-legend-modal *ngIf="simulationService.getShowLegendModal()" @fadeAnimation>

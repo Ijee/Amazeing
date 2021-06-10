@@ -4,13 +4,20 @@ import {SettingsService} from '../../../@core/services/settings.service';
 import {RecordService} from '../../../@core/services/record.service';
 import {StatRecord} from '../../../../types';
 import {fadeInOutList} from '../../../@shared/animations/fadeInOutList';
+import {transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-stats',
   templateUrl: './stats.component.html',
   styleUrls: ['./stats.component.scss'],
   animations: [
-    fadeInOutList
+    fadeInOutList,
+    trigger(
+      'blockInitialRenderAnimation',
+      [
+        transition( ':enter', [] )
+      ]
+    )
   ]
 })
 export class StatsComponent {

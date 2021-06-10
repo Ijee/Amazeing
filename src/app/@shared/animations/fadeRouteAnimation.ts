@@ -10,14 +10,21 @@ import {
 /**
  * The animation for the route main route changes. Yes it is more complicated than it should be but that's cool
  */
-export const fadeAnimation = trigger('fadeAnimation', [
-  transition(':enter', [
-    style({ opacity: 0 }),
-    animate('150ms ease-in', style({ opacity: 1 })),
-  ]),
-  transition(':leave', [
-    animate('150ms ease-out', style({ opacity: 0 })),
-  ]),
+export const fadeRouteAnimation = trigger('fadeRouteAnimation', [
+  transition('* <=> *', [
+    query(':enter, :leave', [
+      style({
+        position: 'absolute',
+        left: 0,
+        width: '100%',
+        opacity: 0,
+      }),
+    ], {optional: true}),
+    query('enter', [
+      animate('600ms ease',
+        style({opacity: 1}))
+    ], {optional: true})
+  ])
 ]);
 
 // export const fadeAnimation = trigger('fadeAnimation', [

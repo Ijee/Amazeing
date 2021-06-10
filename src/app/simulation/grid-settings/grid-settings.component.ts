@@ -9,7 +9,7 @@ import {ActivatedRoute, Router, RouterOutlet} from '@angular/router';
 import {MazeService} from '../../@core/services/maze.service';
 import {PathFindingService} from '../../@core/services/path-finding.service';
 import {Subject} from 'rxjs';
-import {fadeAnimationSafe} from '../../@shared/animations/fadeAnimation';
+import {fadeAnimationSafe} from '../../@shared/animations/fadeRouteAnimation';
 import {AlgorithmMode} from '../../../types';
 
 @Component({

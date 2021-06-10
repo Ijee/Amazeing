@@ -5,18 +5,19 @@ import {fas} from '@fortawesome/free-solid-svg-icons';
 import {fab} from '@fortawesome/free-brands-svg-icons';
 import {far} from '@fortawesome/free-regular-svg-icons';
 import {SimulationService} from './@core/services/simulation.service';
-import {fadeAnimation} from './@shared/animations/fadeAnimation';
 import {Subject} from 'rxjs';
 import {SettingsService} from './@core/services/settings.service';
 import {RouterOutlet} from '@angular/router';
 import {BreakpointObserver} from '@angular/cdk/layout';
 import {takeUntil} from 'rxjs/operators';
+import {fadeInOutRoute} from './@shared/animations/fadeInOutRoute';
+import {fadeRouteAnimation} from './@shared/animations/fadeRouteAnimation';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  animations: [fadeAnimation]
+  animations: [fadeInOutRoute, fadeRouteAnimation]
 })
 export class AppComponent implements OnInit, OnDestroy {
   public version: string;
@@ -89,7 +90,7 @@ export class AppComponent implements OnInit, OnDestroy {
    *
    * @return a boolean or an empty string that triggers the animation
    */
-  public getRouterOutletState(outlet: RouterOutlet): string {
-    return outlet.isActivated ? 'active' : 'inactive';
+  public prepareRoute(outlet: RouterOutlet): any {
+    return outlet && outlet.activatedRouteData && outlet.activatedRouteData.animation;
   }
 }

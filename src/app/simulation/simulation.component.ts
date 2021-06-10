@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {fadeAnimationSafe} from '../@shared/animations/fadeAnimation';
+import {fadeAnimationSafe} from '../@shared/animations/fadeRouteAnimation';
 
 @Component({
   selector: 'app-simulation',

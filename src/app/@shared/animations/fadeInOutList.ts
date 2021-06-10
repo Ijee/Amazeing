@@ -4,38 +4,26 @@ import {
   transition,
   style,
   query,
-  sequence, state
+  sequence, state, keyframes
 } from '@angular/animations';
 
 /**
- * The animation for the route main route changes. Yes it is more complicated than it should be but that's cool
+ * The animation that is being used for the ngfor in the stats component
  */
 export const fadeInOutList = trigger('fadeInOutList', [
   transition(':enter', [
-    style({opacity: 0}),
-    animate('500ms', style({opacity: 1})),
-  ]),
+    style({opacity: 0, visibility: 'hidden', position: 'fixed'}),
+    animate('250ms 200ms ease-in-out', keyframes([
+        style({opacity: 0.01, position: 'relative', offset: 0.01}),
+        style({opacity: 1, visibility: 'visible', offset: 1}),
+      ])
+    )]),
   transition(':leave', [
-    animate('0ms', style({opacity: 0})),
+    style({opacity: 1, offset: 0}),
+    animate('250ms ease-in-out', keyframes([
+      style({opacity: 0.01, offset: 0.99}),
+      style({opacity: 0, offset: 1}),
+    ])),
   ]),
 ]);
 
-// export const fadeAnimation = trigger('fadeAnimation', [
-//   transition('* => *', [
-//     query(':enter', [style({opacity: 0, height: 0})], {optional: true}),
-//     query(':leave', [style({height: '*'})], {optional: true}),
-//     query(':leave', [animate('0.15s ease-out', style({opacity: 0, height: '*'}))], {optional: true}),
-//     query(':leave', [style({height: 0})], {optional: true}),
-//     query(':enter', [style({height: '*'})], {optional: true}),
-//     query(':enter', [animate('0.15s 0.15s ease-in'), style({opacity: 1})], {optional: true}),
-//   ])
-// ]);
-
-export const fadeAnimationSafe = trigger('fadeAnimationSafe', [
-  transition('* => *', [
-    sequence([
-      query(':enter', [style({display: 'none'})], {optional: true}),
-      query(':leave', [animate('0.15s')], {optional: true})
-    ])
-  ])
-]);
