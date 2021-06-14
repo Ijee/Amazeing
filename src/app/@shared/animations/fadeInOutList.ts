@@ -22,7 +22,7 @@ export const fadeInOutList = trigger('fadeInOutList', [
     style({opacity: 1, offset: 0}),
     animate('225ms ease-out', keyframes([
       style({opacity: 0.01, offset: 0.99}),
-      style({opacity: 0, transform: 'translateY(-5px)', offset: 1}),
+      style({opacity: 0, transform: 'translateY(5px)', offset: 1}),
     ])),
   ]),
 ]);
