@@ -37,10 +37,9 @@ export class GridComponent implements OnInit, OnDestroy {
     for (let i = 0; i < this.width; i++) {
       this.gridList[i] = [];
       for (let j = 0; j < this.height; j++) {
-        this.gridList[i][j] = {status: -1, weight: 1};
+        this.gridList[i][j] = {status: 0, weight: 1};
       }
     }
-
 
     this.destroyed$ = new Subject<void>();
   }
@@ -51,11 +50,11 @@ export class GridComponent implements OnInit, OnDestroy {
     const initialGoalX = Math.round((66 * this.width) / 100);
     const initialNodeHeightY = Math.round((50 * this.height) / 100);
     const startNode = this.gridList[initialStartX][initialNodeHeightY];
-    startNode.status = 1;
+    startNode.status = 2;
     this.recordService.setGridStartLocation(
       new GridLocation(initialStartX, initialNodeHeightY, startNode.weight));
     const goalNode = this.gridList[initialGoalX][initialNodeHeightY];
-    goalNode.status = 2;
+    goalNode.status = 3;
     this.recordService.setGridGoalLocation(new GridLocation(initialGoalX, initialNodeHeightY, goalNode.weight));
     this.simulationService.setGridList(this.gridList);
     // this.recordService.setAlgoStat1(this.width * this.height);
@@ -94,45 +93,45 @@ export class GridComponent implements OnInit, OnDestroy {
     if (this.isMouseDown) {
       this.isMouseDown = false;
       switch (this.simulationService.getDrawingMode()) {
-        case -1:
         case 0:
+        case 1:
           this.simulationService.save(_.cloneDeep(this.gridList));
           break;
-        case 1:
         case 2:
+        case 3:
           this.simulationService.setGridList(_.cloneDeep(this.gridList));
           break;
       }
-      this.simulationService.setDrawingMode(-2);
+      this.simulationService.setDrawingMode(-1);
     }
   }
 
   drawModeLogic(col: number, row: number): void {
     const oldStatus = this.gridList[col][row].status;
     let drawMode = this.simulationService.getDrawingMode();
-    if (drawMode < -1) {
-      if (oldStatus === 0) {
-        drawMode = -1;
-      } else {
+    if (drawMode < 0) {
+      if (oldStatus === 1) {
         drawMode = 0;
+      } else {
+        drawMode = 1;
       }
       this.simulationService.setDrawingMode(drawMode);
     }
-    if (oldStatus === 1 || oldStatus === 2 || oldStatus === drawMode) {
+    if (oldStatus === 2 || oldStatus === 3 || oldStatus === drawMode) {
       return;
     }
     switch (drawMode) {
-      case 1:
+      case 2:
         const startLocation = this.recordService.getGridStartLocation();
         const startNode = this.gridList[startLocation.x][startLocation.y];
-        startNode.status = -1;
+        startNode.status = 0;
         this.recordService.setGridStartLocation(new GridLocation(col, row, startNode.weight));
         this.onMouseUp();
         break;
-      case 2:
+      case 3:
         const goalLocation = this.recordService.getGridGoalLocation();
         const goalNode = this.gridList[goalLocation.x][goalLocation.y];
-        goalNode.status = -1;
+        goalNode.status = 0;
         this.recordService.setGridGoalLocation(new GridLocation(col, row, goalNode.weight));
         this.onMouseUp();
         break;
@@ -181,14 +180,14 @@ export class GridComponent implements OnInit, OnDestroy {
   private reset(): void {
     this.gridList.forEach(column => {
       column.forEach(node => {
-        node.status = -1;
+        node.status = 0;
         node.weight = 1;
       });
     });
     const startLocation = this.recordService.getGridStartLocation();
-    this.gridList[startLocation.x][startLocation.y].status = 1;
+    this.gridList[startLocation.x][startLocation.y].status = 2;
     const goalLocation = this.recordService.getGridGoalLocation();
-    this.gridList[goalLocation.x][goalLocation.y].status = 2;
+    this.gridList[goalLocation.x][goalLocation.y].status = 3;
     this.simulationService.setGridList(_.cloneDeep(this.gridList));
   }
 

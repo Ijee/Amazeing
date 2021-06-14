@@ -1,4 +1,4 @@
-import {Injectable, Renderer2} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {AlgorithmMode} from '../../../types';
 
 @Injectable({
@@ -12,29 +12,36 @@ export class SettingsService {
 
 
   constructor() {
-    // See if prefers color scheme motion is set. If yes, set the appropriate setting.
-    const prefersDarkColor = window.matchMedia('(prefers-color-scheme: dark)');
-    if ((!prefersDarkColor || prefersDarkColor.matches)
-      && localStorage.getItem('prefersDarkColor') === null) {
-      this.setDarkModeSetting(true);
-      console.log('what');
+    // See if prefers color scheme is set. If yes, set the appropriate setting.
+    const storagePrefersDarkColor = localStorage.getItem('prefersDarkColor');
+    if (storagePrefersDarkColor === null) {
+      const prefersDarkColor = window.matchMedia('(prefers-color-scheme: dark)');
+      if (!prefersDarkColor || prefersDarkColor.matches) {
+        this.setDarkModeSetting(true);
+      } else {
+        this.setDarkModeSetting(false);
+      }
     } else {
-      this.setDarkModeSetting(false);
-      console.log('why');
+      this.setDarkModeSetting(storagePrefersDarkColor === 'true');
     }
     // See if prefers reduced motion is set. If yes, set the appropriate setting.
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if ((!prefersReducedMotion || prefersReducedMotion.matches)
-      && localStorage.getItem('animationsSetting') === null) {
-      this.setAnimationSetting(false);
+    const storagePrefersReducedMotion = localStorage.getItem('animationsSetting');
+    if (storagePrefersReducedMotion === null) {
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      if (!prefersReducedMotion || prefersReducedMotion.matches) {
+        this.setAnimationSetting(false);
+      } else {
+        this.setAnimationSetting(true);
+      }
     } else {
-      this.setAnimationSetting(true);
+      this.setDarkModeSetting(storagePrefersReducedMotion === 'true');
     }
     // See if warnings setting is already set if yes set it for the app.
-    if (localStorage.getItem('warningsSetting') === null) {
+    const storageWarningSetting = localStorage.getItem('warningsSetting');
+    if (storageWarningSetting === null) {
       this.setWarningsSetting(true);
     } else {
-      this.setWarningsSetting(localStorage.getItem('warningsSetting') === 'true');
+      this.setWarningsSetting(storageWarningSetting === 'true');
     }
   }
 

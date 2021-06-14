@@ -328,8 +328,8 @@ export class SimulationService {
       column.forEach(node => {
         const status = node.status;
         // Remove algorithm specific node statuses.
-        if (status > 2) {
-          node.status = -1;
+        if (status > 3) {
+          node.status = 0;
         }
         // Reset node weights when the current algorithm won't use them.
         if (!useWeights) {
