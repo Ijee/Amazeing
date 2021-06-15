@@ -34,7 +34,8 @@ export class SettingsService {
         this.setAnimationSetting(true);
       }
     } else {
-      this.setDarkModeSetting(storagePrefersReducedMotion === 'true');
+      console.log('in else', storagePrefersReducedMotion === 'true');
+      this.setAnimationSetting(storagePrefersReducedMotion === 'true');
     }
     // See if warnings setting is already set if yes set it for the app.
     const storageWarningSetting = localStorage.getItem('warningsSetting');
@@ -78,6 +79,7 @@ export class SettingsService {
    * @param newOption - whether or not the option is set
    */
   public setAnimationSetting(newOption?: boolean): void {
+    console.log('what??');
     if (newOption !== undefined) {
       this.animationsSetting = newOption;
     } else {

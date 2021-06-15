@@ -21,7 +21,7 @@ export const fadeRouteAnimation = trigger('fadeRouteAnimation', [
       }),
     ], {optional: true}),
     query('enter', [
-      animate('600ms ease',
+      animate('6000ms ease',
         style({opacity: 1}))
     ], {optional: true})
   ])

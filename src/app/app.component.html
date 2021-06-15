@@ -144,7 +144,6 @@
   </div>
 </nav>
 <main class="container is-fullhd p-2"
-      [@.disabled]="!settingsService.getAnimationsSetting()"
       [@fadeRouteAnimation]="prepareRoute(outlet)">
   <router-outlet #outlet="outlet"></router-outlet>
 </main>

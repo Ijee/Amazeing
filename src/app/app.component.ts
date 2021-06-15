@@ -93,6 +93,8 @@ export class AppComponent implements OnInit, OnDestroy {
    * @return a boolean or an empty string that triggers the animation
    */
   public prepareRoute(outlet: RouterOutlet): any {
+    // for when an animation should be used. not sure why that isn't working though
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData.animation;
+    //return outlet.isActivated ? outlet.activatedRoute : '';
   }
 }
