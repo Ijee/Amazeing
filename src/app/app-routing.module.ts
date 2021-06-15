@@ -9,7 +9,7 @@ const routes: Routes = [
     data: {
       reuse: true,
       key: 'simulation',
-      animation: 'fadeRouteAnimation'
+      animationState: 'simulation'
     }
   },
   {
@@ -18,7 +18,7 @@ const routes: Routes = [
     data: {
       reuse: false,
       key: 'learn',
-      animation: 'fadeRouteAnimation'
+      animationState: 'learn'
     }
   },
   {

@@ -31,5 +31,9 @@ html, body {
 }
 
 @import '~bulma';
+
+::selection {
+  background: $primary;
+}
 @import 'styles/darcula.css';
 

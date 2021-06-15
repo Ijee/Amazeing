@@ -6,8 +6,7 @@
       >{{ recordService.getIteration() }}</p>
     </strong>
   </div>
-  <ng-container *ngFor="let stat of simulationService.getCurrentStatRecords(); trackBy: trackByName"
-                @blockInitialRenderAnimation>
+  <ng-container *ngFor="let stat of simulationService.getCurrentStatRecords(); trackBy: trackByName">
     <div *ngIf="stat.currentValue !== undefined"
          [@.disabled]="!this.settingsService.getAnimationsSetting()"
          @fadeInOutList

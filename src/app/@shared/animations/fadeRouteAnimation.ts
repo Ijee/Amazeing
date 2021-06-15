@@ -4,7 +4,7 @@ import {
   transition,
   style,
   query,
-  sequence, state
+  sequence
 } from '@angular/animations';
 
 /**
@@ -12,31 +12,19 @@ import {
  */
 export const fadeRouteAnimation = trigger('fadeRouteAnimation', [
   transition('* <=> *', [
+    style({position: 'relative'}),
     query(':enter, :leave', [
       style({
         position: 'absolute',
-        left: 0,
-        width: '100%',
-        opacity: 0,
-      }),
+        width: 'calc(100% - 1rem)'
+      })
     ], {optional: true}),
-    query('enter', [
-      animate('6000ms ease',
-        style({opacity: 1}))
-    ], {optional: true})
+    query(':enter', [style({opacity: 0})], {optional: true}),
+    query(':leave', [style({opacity: 1})], {optional: true}),
+    query(':leave', [animate('225ms ease-out', style({opacity: 0}))], {optional: true}),
+    query(':enter', [animate('225ms 225ms ease-out', style({opacity: 1}))], {optional: true}),
   ])
 ]);
-
-// export const fadeAnimation = trigger('fadeAnimation', [
-//   transition('* => *', [
-//     query(':enter', [style({opacity: 0, height: 0})], {optional: true}),
-//     query(':leave', [style({height: '*'})], {optional: true}),
-//     query(':leave', [animate('0.15s ease-out', style({opacity: 0, height: '*'}))], {optional: true}),
-//     query(':leave', [style({height: 0})], {optional: true}),
-//     query(':enter', [style({height: '*'})], {optional: true}),
-//     query(':enter', [animate('0.15s 0.15s ease-in'), style({opacity: 1})], {optional: true}),
-//   ])
-// ]);
 
 export const fadeAnimationSafe = trigger('fadeAnimationSafe', [
   transition('* => *', [

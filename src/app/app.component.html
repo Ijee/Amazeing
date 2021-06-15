@@ -144,11 +144,12 @@
   </div>
 </nav>
 <main class="container is-fullhd p-2"
-      [@fadeRouteAnimation]="prepareRoute(outlet)">
-  <router-outlet #outlet="outlet"></router-outlet>
+      [@.disabled]="!settingsService.getAnimationsSetting()"
+      [@fadeRouteAnimation]="prepareRoute(o)">
+  <router-outlet #o="outlet"></router-outlet>
 </main>
 <app-warning-modal *ngIf="warnDialogService.getDialogStatus()"
-  [@.disabled]="!settingsService.getAnimationsSetting()"
+                   [@.disabled]="!settingsService.getAnimationsSetting()"
                    @fadeInOut
 ></app-warning-modal>
 <app-legend-modal *ngIf="simulationService.getShowLegendModal()"
