@@ -93,9 +93,6 @@ export class AppComponent implements OnInit, OnDestroy {
    * @return a boolean or an empty string that triggers the animation
    */
   public prepareRoute(outlet: RouterOutlet): any {
-    // return outlet && outlet.activatedRouteData && outlet.activatedRouteData.animation;
-    const res = outlet.isActivated ? outlet.activatedRouteData.animationState : '';
-    console.log(res);
-    return res;
+    return outlet.isActivated ? outlet.activatedRouteData.animationState : '';
   }
 }

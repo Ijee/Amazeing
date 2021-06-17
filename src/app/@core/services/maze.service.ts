@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {MazeAlgorithm, Node, StatRecord} from '../../../types';
-import {MazeAlgorithmInterface} from '../algorithm/maze/maze-algorithm.interface';
+import {MazeAlgorithmAbstract} from '../algorithm/maze/maze-algorithm.abstract';
 import {Prims} from '../algorithm/maze/creation/prims';
 import {GridLocation} from '../../@shared/classes/GridLocation';
 import * as _ from 'lodash';
@@ -10,7 +10,7 @@ import {AldousBroder} from '../algorithm/maze/creation/aldous-broder';
   providedIn: 'root'
 })
 export class MazeService {
-  private currentAlgorithm: MazeAlgorithmInterface;
+  private currentAlgorithm: MazeAlgorithmAbstract;
   constructor() {
     this.switchAlgorithm('Prims');
   }

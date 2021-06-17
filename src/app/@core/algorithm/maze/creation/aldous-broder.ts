@@ -1,4 +1,4 @@
-import {MazeAlgorithmInterface} from '../maze-algorithm.interface';
+import {MazeAlgorithmAbstract} from '../maze-algorithm.abstract';
 import {MazeAlgorithm, Node, StatRecord} from '../../../../../types';
 import {GridLocation} from '../../../../@shared/classes/GridLocation';
 
@@ -7,41 +7,20 @@ import {GridLocation} from '../../../../@shared/classes/GridLocation';
  * This is the implementation of the Aldous-Broder algorithm tailored for creating
  * a maze.
  */
-export class AldousBroder implements MazeAlgorithmInterface {
-  currentGrid: Node[][];
-  statRecords: StatRecord[];
+export class AldousBroder extends MazeAlgorithmAbstract {
   private gridWith: number;
   private gridHeight: number;
   private remainingNodes: number;
   private cursor: GridLocation;
 
   constructor() {
-    this.statRecords = [
+    super([], [
       {
-        name: 'cursor-steps',
-        type: 'status-5',
-        currentValue: 0,
-      },
-      {
-        name: 'cursor-steps',
-        type: 'status-5',
-        currentValue: 0,
-      },
-      {
-        name: 'cursor-steps',
-        type: 'status-5',
-        currentValue: 0,
-      },
-      {
-        name: 'cursor-steps',
-        type: 'status-5',
-        currentValue: 0,
-      },
-      {
-        name: 'travelled to',
+        name: 'Discovered Nodes',
         type: 'status-4',
+        currentValue: 0
       }
-    ];
+    ]);
   }
 
 
@@ -69,41 +48,6 @@ export class AldousBroder implements MazeAlgorithmInterface {
     if (node.status === 0) {
       node.status = 4;
     }
-  }
-
-  private neighbours(loc: GridLocation): GridLocation[] {
-    console.log('loc', loc);
-    const res: GridLocation[] = [];
-    if (loc.y < this.currentGrid[0].length - 2) {
-      const node = this.currentGrid[loc.x][loc.y + 2];
-      const status = node.status;
-      if (status === 1 || status === 2 || status === 4) {
-        res.push(new GridLocation(loc.x, loc.y + 2, node.weight));
-      }
-    }
-    if (loc.x < this.currentGrid.length - 2) {
-      const node = this.currentGrid[loc.x + 2][loc.y];
-      const status = node.status;
-      if (status === 1 || status === 2 || status === 4) {
-        res.push(new GridLocation(loc.x + 2, loc.y, node.weight));
-      }
-    }
-    if (loc.y >= 2) {
-      const node = this.currentGrid[loc.x][loc.y - 2];
-      const status = node.status;
-      if (status === 1 || status === 2 || status === 4) {
-        res.push(new GridLocation(loc.x, loc.y - 2, node.weight));
-      }
-    }
-    if (loc.x >= 2) {
-      const node = this.currentGrid[loc.x - 2][loc.y];
-      const status = node.status;
-      if (status === 1 || status === 2 || status === 4) {
-        res.push(new GridLocation(loc.x - 2, loc.y, node.weight));
-      }
-    }
-    console.log('res', res);
-    return res;
   }
 
   nextStep(): Node[][] | null {

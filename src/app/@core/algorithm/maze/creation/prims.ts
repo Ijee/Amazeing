@@ -1,4 +1,4 @@
-import {MazeAlgorithmInterface} from '../maze-algorithm.interface';
+import {MazeAlgorithmAbstract} from '../maze-algorithm.abstract';
 import {MazeAlgorithm, Node, StatRecord} from '../../../../../types';
 import {HashSet} from '../../../../@shared/classes/HashSet';
 import {GridLocation} from '../../../../@shared/classes/GridLocation';
@@ -8,14 +8,13 @@ import {GridLocation} from '../../../../@shared/classes/GridLocation';
  * This is the implementation of the Prims algorithm tailored for creating
  * a maze.
  */
-export class Prims implements MazeAlgorithmInterface {
-  currentGrid: Node[][];
-  statRecords: StatRecord[];
+export class Prims extends MazeAlgorithmAbstract {
+
   private frontierNodes: HashSet<GridLocation>;
 
 
   constructor() {
-    this.statRecords = [
+    super([], [
       {
         name: 'Frontier Nodes',
         type: 'status-4',
@@ -35,7 +34,8 @@ export class Prims implements MazeAlgorithmInterface {
         name: 'In',
         type: 'status-5'
       }
-    ];
+    ]);
+
     this.frontierNodes = new HashSet<GridLocation>();
   }
 
@@ -67,38 +67,7 @@ export class Prims implements MazeAlgorithmInterface {
     this.addFrontier(xAxis, yAxis + 2);
   }
 
-  private neighbours(loc: GridLocation): GridLocation[] {
-    const res: GridLocation[] = [];
-    if (loc.y < this.currentGrid[0].length - 2) {
-      const node = this.currentGrid[loc.x][loc.y + 2];
-      const status = node.status;
-      if (status === 2 || status === 3 || status === 5) {
-        res.push(new GridLocation(loc.x, loc.y + 2, node.weight));
-      }
-    }
-    if (loc.x < this.currentGrid.length - 2) {
-      const node = this.currentGrid[loc.x + 2][loc.y];
-      const status = node.status;
-      if (status === 2 || status === 3 || status === 5) {
-        res.push(new GridLocation(loc.x + 2, loc.y, node.weight));
-      }
-    }
-    if (loc.y >= 2) {
-      const node = this.currentGrid[loc.x][loc.y - 2];
-      const status = node.status;
-      if (status === 2 || status === 3 || status === 5) {
-        res.push(new GridLocation(loc.x, loc.y - 2, node.weight));
-      }
-    }
-    if (loc.x >= 2) {
-      const node = this.currentGrid[loc.x - 2][loc.y];
-      const status = node.status;
-      if (status === 2 || status === 3 || status === 5) {
-        res.push(new GridLocation(loc.x - 2, loc.y, node.weight));
-      }
-    }
-    return res;
-  }
+
 
   private buildWalls(loc: GridLocation): void {
     for (let i = -1; i <= 1; i++) {
