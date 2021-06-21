@@ -44,7 +44,6 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.observer.observe('(max-width: 1023px)').pipe(takeUntil(this.destroyed$)).subscribe(result => {
       this.isTouch = result.matches;
-      console.log('isTouch', this.isTouch);
     });
 
     this.renderer.addClass(document.body, 'dark-theme');

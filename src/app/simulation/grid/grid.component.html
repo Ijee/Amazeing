@@ -22,9 +22,9 @@
       <p class="control">
         <button class="button is-outlined mr-3 is-size-7-mobile is-size-7-touch is-size-6-desktop"
                 title="Set start"
-                [ngClass]="simulationService.getDrawingMode() === 1 ? 'is-active' : ''"
+                [ngClass]="simulationService.getDrawingMode() === 2 ? 'is-active' : ''"
                 [disabled]="recordService.getIteration() > 0"
-                (click)="simulationService.setDrawingMode(1)">
+                (click)="simulationService.setDrawingMode(2)">
                 <span class="icon start-icon">
                   <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
                 </span>
@@ -60,9 +60,9 @@
       <p class="control">
         <button class="button border-radius-right is-outlined ml-3 mr-3 is-size-7-mobile is-size-7-touch is-size-6-desktop"
                 title="Set goal"
-                [ngClass]="simulationService.getDrawingMode() === 2 ? 'is-active' : ''"
+                [ngClass]="simulationService.getDrawingMode() === 3 ? 'is-active' : ''"
                 [disabled]="recordService.getIteration() > 0"
-                (click)="simulationService.setDrawingMode(2)">
+                (click)="simulationService.setDrawingMode(3)">
                 <span class="icon goal-icon">
                   <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
                 </span>

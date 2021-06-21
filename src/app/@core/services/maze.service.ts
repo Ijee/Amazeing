@@ -103,7 +103,7 @@ export class MazeService {
    * @param deserialize - whether or not to deserialize the state object before updating the algorithm state
    */
   public updateAlgorithmState(
-    newGrid: Node[][], state: any, statRecord: StatRecord[], deserialize: boolean): void {
+    newGrid: Node[][], state: any, statRecord: StatRecord[], deserialize?: boolean): void {
     if (_.isEmpty(state)) {
       this.switchAlgorithm(this.getAlgorithmName());
     } else {

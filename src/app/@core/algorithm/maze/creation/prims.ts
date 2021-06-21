@@ -67,32 +67,6 @@ export class Prims extends MazeAlgorithmAbstract {
     this.addFrontier(xAxis, yAxis + 2);
   }
 
-
-
-  private buildWalls(loc: GridLocation): void {
-    for (let i = -1; i <= 1; i++) {
-      for (let j = -1; j <= 1; j++) {
-        const xAxis = loc.x + i;
-        const yAxis = loc.y + j;
-        if (xAxis >= 0 && yAxis >= 0 && xAxis < this.currentGrid.length && yAxis < this.currentGrid[0].length) {
-          const status = this.currentGrid[xAxis][yAxis].status;
-          if (status === 0) {
-            this.currentGrid[xAxis][yAxis].status = 1;
-          }
-        }
-      }
-    }
-  }
-
-  private buildWayBetween(loc1: GridLocation, loc2: GridLocation): void {
-    const x = (loc1.x + loc2.x) / 2;
-    const y = (loc1.y + loc2.y) / 2;
-    const node = this.currentGrid[x][y];
-    if (node.status === 1) {
-      node.status = 5;
-    }
-  }
-
   private getRandomLowestWeightFrontier(): GridLocation {
     let lowestWeightFrontiers: GridLocation[] = [];
     this.frontierNodes.forEach(item => {
@@ -114,10 +88,17 @@ export class Prims extends MazeAlgorithmAbstract {
       // const randomFrontierItem = this.frontierNodes.getRandomItem();
       const selectedFrontierItem = this.getRandomLowestWeightFrontier();
       this.frontierNodes.remove(selectedFrontierItem);
-      this.buildWalls(selectedFrontierItem);
-      const neighbours = this.neighbours(selectedFrontierItem);
+      this.buildWalls(selectedFrontierItem, 0);
+      const neighbours = this.getNeighbours(selectedFrontierItem, 2).filter(neighbour => {
+        const status = this.currentGrid[neighbour.x][neighbour.y].status;
+        // So that we can build a path between the randomLowestWeightFrontier and the randomNeighbour
+        if (status === 2 || status === 3 || status === 5) {
+          return neighbour;
+        }
+      });
+
       const randomNeighbour = neighbours[Math.floor(Math.random() * neighbours.length)];
-      this.buildWayBetween(selectedFrontierItem, randomNeighbour);
+      this.buildPath(selectedFrontierItem, randomNeighbour, 5);
       this.mark(selectedFrontierItem.x, selectedFrontierItem.y);
       return this.currentGrid;
     }
@@ -127,7 +108,7 @@ export class Prims extends MazeAlgorithmAbstract {
   public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
     this.frontierNodes.clear();
     this.currentGrid = currentGrid;
-    this.buildWalls(currentStartPoint);
+    this.buildWalls(currentStartPoint, 0);
     this.mark(currentStartPoint.x, currentStartPoint.y);
   }
 

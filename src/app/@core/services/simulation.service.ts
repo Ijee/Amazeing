@@ -166,9 +166,7 @@ export class SimulationService {
   }
 
   /**
-   * Responsible for the backwardStep although it does not include
-   * the manipulateHistory() call as it needs to happen at another
-   * point for it to work. see grid component
+   * Responsible for the backwardStep
    */
   public setBackwardStep(): void {
     // disables auto-play of the simulation
@@ -180,11 +178,11 @@ export class SimulationService {
       this.changeBackwardStepsAmount(-1);
       this.setDisablePlay(false);
       this.recordService.manipulateHistory();
+      const grid = _.cloneDeep(this.recordService.getCurrentGrid());
+      const state = _.cloneDeep(this.recordService.getCurrentAlgorithmState());
+      const stats = _.cloneDeep(this.recordService.getCurrentStatRecords());
       if (this.settingsService.getAlgorithmMode() === 'maze') {
-        this.mazeService.updateAlgorithmState(this.gridList$.getValue(),
-          this.recordService.getCurrentAlgorithmState(),
-          this.recordService.getCurrentStatRecords(),
-          false);
+        this.mazeService.updateAlgorithmState(grid, state, stats);
       } else {
         // TODO update path-finding service to the new definitions on mazeService / the interface
       }

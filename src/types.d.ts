@@ -9,6 +9,19 @@ export type StatRecord = {
   currentValue?: number,
 };
 
+export type StatusChange = {
+  status0?: number,
+  status1?: number,
+  status2?: number,
+  status3?: number,
+  status4?: number,
+  status5?: number,
+  status6?: number,
+  status7?: number,
+  status8?: number,
+  status9?: number,
+};
+
 
 export type AlgorithmMode = 'maze' | 'path-finding';
 

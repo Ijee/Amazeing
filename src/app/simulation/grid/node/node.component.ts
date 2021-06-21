@@ -29,9 +29,9 @@ export class NodeComponent {
 
   determineDrawMode(): string {
     switch (this.simulationService.getDrawingMode()) {
-      case 1:
-        return 'start';
       case 2:
+        return 'start';
+      case 3:
         return 'goal';
     }
   }
