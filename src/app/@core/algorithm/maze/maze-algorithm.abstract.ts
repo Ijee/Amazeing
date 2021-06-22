@@ -64,12 +64,14 @@ export abstract class MazeAlgorithmAbstract {
               statusChange.status9++;
               break;
           }
+          // Only overwrite the nodes that should disappear.
           if (overwritable.includes(status)) {
             this.currentGrid[xAxis][yAxis].status = 1;
           }
         }
       }
     }
+    console.log('status 0 changes', statusChange.status0);
     return statusChange;
   }
 
