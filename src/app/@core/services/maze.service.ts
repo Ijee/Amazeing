@@ -80,18 +80,20 @@ export class MazeService {
    *
    * @param currentGrid - the currentGrid
    */
-  public completeAlgorithm(currentGrid: Node[][]): Node[][] {
+  public completeAlgorithm(currentGrid: Node[][]): [number, Node[][]] {
     let algorithmEnded = false;
     let lastGrid: Node[][];
+    let iterationCount = 0;
     while (!algorithmEnded) {
       const tempGrid = this.getNextStep();
       if (tempGrid === null) {
         algorithmEnded = true;
       } else {
         lastGrid = tempGrid;
+        iterationCount++;
       }
     }
-    return lastGrid;
+    return [iterationCount, lastGrid];
   }
 
   /**

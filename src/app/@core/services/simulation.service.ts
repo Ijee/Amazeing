@@ -72,7 +72,9 @@ export class SimulationService {
       if (this.recordService.getIteration() === 0) {
         this.mazeService.setInitialData(this.gridList$.getValue(), this.recordService.getGridStartLocation());
       }
-      this.setGridList(this.mazeService.completeAlgorithm(this.gridList$.getValue()));
+      const [iterationCount, newGrid] = this.mazeService.completeAlgorithm(this.gridList$.getValue());
+      this.recordService.setIteration(this.recordService.getIteration() + iterationCount);
+      this.setGridList(newGrid);
     } else {
       // TODO for path-finding service
       // this.setGridList(this.pathFindingService.completeAlgorithm(this.gridList$.getValue()));
@@ -294,6 +296,7 @@ export class SimulationService {
     if (this.recordService.getIteration() > 0) {
       // Resets to save point
       this.recordService.setIteration(0);
+      console.log(this.recordService.getGridSavePointRecords());
       this.recordService.addStatRecord(this.recordService.getGridSavePointRecords());
       this.setGridList(this.recordService.getGridSavePoint());
       // this.gridList$.next(this.recordService.getGridSavePoint());
