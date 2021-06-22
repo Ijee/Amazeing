@@ -21,16 +21,6 @@ export class Prims extends MazeAlgorithmAbstract {
         currentValue: 0,
       },
       {
-        name: 'Testie Test',
-        type: 'status-6',
-        currentValue: 0,
-      },
-      {
-        name: 'Testie Test',
-        type: 'status-6',
-        currentValue: 0,
-      },
-      {
         name: 'In',
         type: 'status-5'
       }
@@ -47,7 +37,6 @@ export class Prims extends MazeAlgorithmAbstract {
       if (status === 0) {
         this.frontierNodes.add(new GridLocation(xAxis, yAxis, node.weight));
         this.currentGrid[xAxis][yAxis].status = 4;
-        this.statRecords[0].currentValue += 1;
       } else if (status === 3) {
         this.frontierNodes.add(new GridLocation(xAxis, yAxis, node.weight));
       }
@@ -100,6 +89,9 @@ export class Prims extends MazeAlgorithmAbstract {
       const randomNeighbour = neighbours[Math.floor(Math.random() * neighbours.length)];
       this.buildPath(selectedFrontierItem, randomNeighbour, 5);
       this.mark(selectedFrontierItem.x, selectedFrontierItem.y);
+
+      // For the stats to show correctly.
+      this.statRecords[0].currentValue = this.frontierNodes.size();
       return this.currentGrid;
     }
     return null;
