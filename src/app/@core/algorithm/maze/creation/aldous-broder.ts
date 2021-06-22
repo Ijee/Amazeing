@@ -23,6 +23,11 @@ export class AldousBroder extends MazeAlgorithmAbstract {
         name: 'Remaining Nodes',
         type: 'status-5',
         currentValue: 0
+      },
+      {
+        name: 'Building Streak',
+        type: 'status-0',
+        currentValue: 0
       }
     ]);
   }
@@ -48,9 +53,11 @@ export class AldousBroder extends MazeAlgorithmAbstract {
       if (newCursorNodeStatus === 0) {
         this.remainingNodes--;
         this.statRecords[1].currentValue--;
+        this.statRecords[2].currentValue++;
         newCursorNode.status = 4;
       } else if (newCursorNodeStatus === 5) {
         newCursorNode.status = 4;
+        this.statRecords[2].currentValue = 0;
       }
 
       if (newCursorNodeStatus === 0) {
