@@ -1,0 +1,24 @@
+
+{
+  "trailingComma": "none",
+  "tabWidth": 4,
+  "semi": true,
+  "singleQuote": true,
+  "bracketSameLine": true,
+  "overrides": [
+    {
+      "files": "*.html",
+      "options": {
+        "parser":"html"
+      }
+    },
+    {
+      "files": "*.component.html",
+      "options": {
+        "parser":"angular",
+        "printWidth": 140
+      }
+    }
+  ]
+}
+

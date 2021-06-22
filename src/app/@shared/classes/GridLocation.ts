@@ -1,24 +1,24 @@
-import {EqualsHashCode} from './EqualsHashCode';
+import { EqualsHashCode } from './EqualsHashCode';
 
-export class GridLocation implements EqualsHashCode  {
-  constructor(public x: number, public y: number, public weight: number) {}
+export class GridLocation implements EqualsHashCode {
+    constructor(public x: number, public y: number, public weight: number) {}
 
-  equals(obj: any): boolean {
-    if (obj instanceof GridLocation) {
-      return obj.x === this.x && obj.y === this.y;
+    equals(obj: any): boolean {
+        if (obj instanceof GridLocation) {
+            return obj.x === this.x && obj.y === this.y;
+        }
+        return false;
     }
-    return false;
-  }
 
-  hashCode(): number {
-    return this.weight;
-  }
+    hashCode(): number {
+        return this.weight;
+    }
 
-  toObject(): object {
-    return {
-      x: this.x,
-      y: this.y,
-      weight: this.weight,
-    };
-  }
+    toObject(): object {
+        return {
+            x: this.x,
+            y: this.y,
+            weight: this.weight
+        };
+    }
 }

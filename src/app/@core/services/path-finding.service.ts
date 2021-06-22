@@ -1,89 +1,100 @@
-import {Injectable} from '@angular/core';
-import {SimulationService} from './simulation.service';
-import {Node, PathFindingAlgorithm, PathFindingHeuristic, StatRecord} from '../../../types';
-import {AStar} from '../algorithm/path-finding/a-star';
-import {PathFindingAlgorithmInterface} from '../algorithm/path-finding/path-finding-algorithm.interface';
-import {Dijkstra} from '../algorithm/path-finding/dijkstra';
-import {GridLocation} from '../../@shared/classes/GridLocation';
-
+import { Injectable } from '@angular/core';
+import { SimulationService } from './simulation.service';
+import {
+    Node,
+    PathFindingAlgorithm,
+    PathFindingHeuristic,
+    StatRecord
+} from '../../../types';
+import { AStar } from '../algorithm/path-finding/a-star';
+import { PathFindingAlgorithmInterface } from '../algorithm/path-finding/path-finding-algorithm.interface';
+import { Dijkstra } from '../algorithm/path-finding/dijkstra';
+import { GridLocation } from '../../@shared/classes/GridLocation';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class PathFindingService {
-  private currentAlgorithm: PathFindingAlgorithmInterface;
-  private currentHeuristic: PathFindingHeuristic;
+    private currentAlgorithm: PathFindingAlgorithmInterface;
+    private currentHeuristic: PathFindingHeuristic;
 
-  constructor() {
-    this.switchAlgorithm('Dijkstra');
-    this.switchCurrentHeuristic('Manhattan');
-  }
-
-  /**
-   * Switches the current path finding algorithm
-   *
-   * @param newAlgo - the new algorithm to be used
-   */
-  public switchAlgorithm(newAlgo: PathFindingAlgorithm): void {
-    switch (newAlgo) {
-      case 'A-Star':
-        this.currentAlgorithm = new AStar();
-        break;
-      case 'IDA-Star':
-        break;
-      case 'Dijkstra':
-        this.currentAlgorithm = new Dijkstra();
-        break;
-      case 'Breadth-FS':
-        break;
-      case 'Depth-FS':
-        break;
-      case 'Best-FS':
-        break;
-      case 'Trace':
-        break;
-      case 'Jump-PS':
-        break;
-      case 'Orthogonal-Jump-PS':
-        break;
-      default:
-        throw new Error('Unknown path-finding algorithm selected!');
+    constructor() {
+        this.switchAlgorithm('Dijkstra');
+        this.switchCurrentHeuristic('Manhattan');
     }
-  }
 
-  public switchCurrentHeuristic(newHeuristic: PathFindingHeuristic): void {
-    this.currentHeuristic = newHeuristic;
-  }
+    /**
+     * Switches the current path finding algorithm
+     *
+     * @param newAlgo - the new algorithm to be used
+     */
+    public switchAlgorithm(newAlgo: PathFindingAlgorithm): void {
+        switch (newAlgo) {
+            case 'A-Star':
+                this.currentAlgorithm = new AStar();
+                break;
+            case 'IDA-Star':
+                break;
+            case 'Dijkstra':
+                this.currentAlgorithm = new Dijkstra();
+                break;
+            case 'Breadth-FS':
+                break;
+            case 'Depth-FS':
+                break;
+            case 'Best-FS':
+                break;
+            case 'Trace':
+                break;
+            case 'Jump-PS':
+                break;
+            case 'Orthogonal-Jump-PS':
+                break;
+            default:
+                throw new Error('Unknown path-finding algorithm selected!');
+        }
+    }
 
-  public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
-    this.currentAlgorithm.setInitialData(currentGrid, currentStartPoint, this.currentHeuristic);
-  }
+    public switchCurrentHeuristic(newHeuristic: PathFindingHeuristic): void {
+        this.currentHeuristic = newHeuristic;
+    }
 
-  /**
-   * Sets the next step for the grid based on the current algorithm
-   */
-  public getNextStep(): Node[][] {
-    return this.currentAlgorithm.nextStep();
-  }
+    public setInitialData(
+        currentGrid: Node[][],
+        currentStartPoint: GridLocation
+    ): void {
+        this.currentAlgorithm.setInitialData(
+            currentGrid,
+            currentStartPoint,
+            this.currentHeuristic
+        );
+    }
 
-  /**
-   * Returns the name of the current algorithm
-   */
-  public getAlgorithmName(): PathFindingAlgorithm {
-    return this.currentAlgorithm.getAlgorithmName();
-  }
+    /**
+     * Sets the next step for the grid based on the current algorithm
+     */
+    public getNextStep(): Node[][] {
+        return this.currentAlgorithm.nextStep();
+    }
 
-  /**
-   * Returns the currently selected heuristic
-   */
-  public getCurrentHeuristic(): PathFindingHeuristic {
-    return this.currentHeuristic;
-  }
+    /**
+     * Returns the name of the current algorithm
+     */
+    public getAlgorithmName(): PathFindingAlgorithm {
+        return this.currentAlgorithm.getAlgorithmName();
+    }
 
-  /**
-   * Returns the pseudocode for the currently selected algorithm
-   */
-  public getPseudoCode(): string {
-    return this.currentAlgorithm.getPseudoCode();
-  }
+    /**
+     * Returns the currently selected heuristic
+     */
+    public getCurrentHeuristic(): PathFindingHeuristic {
+        return this.currentHeuristic;
+    }
+
+    /**
+     * Returns the pseudocode for the currently selected algorithm
+     */
+    public getPseudoCode(): string {
+        return this.currentAlgorithm.getPseudoCode();
+    }
 }

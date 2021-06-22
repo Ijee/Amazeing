@@ -1,57 +1,61 @@
 <div class="columns is-multiline is-gapless is-centered">
-  <div class="column is-full p-1">
-    <app-hr text="ALGORITHM MODE"></app-hr>
-  </div>
-  <div class="column is-half">
-    <button class="button maze-button is-medium is-fullwidth"
-            [ngClass]="this.settingsService.getAlgorithmMode() === 'maze' ? 'is-primary' : 'has-background-primary-light'"
-            (click)="handleWarning('maze', false)">
-      <b>MAZE</b>
-    </button>
-  </div>
-  <div class="column is-half">
-    <button class="button path-button is-medium is-fullwidth"
-            [ngClass]="this.settingsService.getAlgorithmMode() === 'path-finding' ? 'is-danger' : 'has-background-danger-light'"
-            (click)="handleWarning('path-finding', false)">
-      <b>PATHFINDING</b>
-    </button>
-  </div>
-  <div *ngIf="showWarning" class="column is-full">
-    <div class="is-warning-box has-background-warning p-2">
-      <div class="columns is-multiline is-gapless">
-        <div class="column is-full has-text-centered m-1">
-          <b>
-            {{ "Doing this will reset the grid" | uppercase }}
-          </b>
-        </div>
-        <div class="column is-full">
-          <div class="buttons is-centered">
-            <button class="button danger-button is-small is-warning has-text-white"
-                    (click)="handleWarning(switchToOtherMode(), true)">
-              <span class="icon">
-                <fa-icon [icon]="['fas', 'check']"></fa-icon>
-              </span>
-              <span><b>Continue</b></span>
-            </button>
-            <button class="button danger-button is-small is-warning has-text-white"
-                    (click)="showWarning = false">
-              <span class="icon">
-                <fa-icon [icon]="['fas', 'times']"></fa-icon>
-              </span>
-              <span><b>Cancel</b></span>
-            </button>
-          </div>
-        </div>
-      </div>
+    <div class="column is-full p-1">
+        <app-hr text="ALGORITHM MODE"></app-hr>
     </div>
-  </div>
-  <div class="column is-full m-2" [@fadeAnimationSafe]="o.isActivated && o.activatedRoute">
-    <router-outlet #o="outlet"></router-outlet>
-  </div>
-  <div class="column is-full">
-    <a class="button is-info is-fullwidth"
-    (click)="navigateToLearn()">
-      <b>LEARN MORE</b>
-    </a>
-  </div>
+    <div class="column is-half">
+        <button
+            class="button maze-button is-medium is-fullwidth"
+            [ngClass]="this.settingsService.getAlgorithmMode() === 'maze' ? 'is-primary' : 'has-background-primary-light'"
+            (click)="handleWarning('maze', false)"
+        >
+            <b>MAZE</b>
+        </button>
+    </div>
+    <div class="column is-half">
+        <button
+            class="button path-button is-medium is-fullwidth"
+            [ngClass]="this.settingsService.getAlgorithmMode() === 'path-finding' ? 'is-danger' : 'has-background-danger-light'"
+            (click)="handleWarning('path-finding', false)"
+        >
+            <b>PATHFINDING</b>
+        </button>
+    </div>
+    <div *ngIf="showWarning" class="column is-full">
+        <div class="is-warning-box has-background-warning p-2">
+            <div class="columns is-multiline is-gapless">
+                <div class="column is-full has-text-centered m-1">
+                    <b>
+                        {{ 'Doing this will reset the grid' | uppercase }}
+                    </b>
+                </div>
+                <div class="column is-full">
+                    <div class="buttons is-centered">
+                        <button
+                            class="button danger-button is-small is-warning has-text-white"
+                            (click)="handleWarning(switchToOtherMode(), true)"
+                        >
+                            <span class="icon">
+                                <fa-icon [icon]="['fas', 'check']"></fa-icon>
+                            </span>
+                            <span><b>Continue</b></span>
+                        </button>
+                        <button class="button danger-button is-small is-warning has-text-white" (click)="showWarning = false">
+                            <span class="icon">
+                                <fa-icon [icon]="['fas', 'times']"></fa-icon>
+                            </span>
+                            <span><b>Cancel</b></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="column is-full m-2" [@fadeAnimationSafe]="o.isActivated && o.activatedRoute">
+        <router-outlet #o="outlet"></router-outlet>
+    </div>
+    <div class="column is-full">
+        <a class="button is-info is-fullwidth" (click)="navigateToLearn()">
+            <b>LEARN MORE</b>
+        </a>
+    </div>
 </div>

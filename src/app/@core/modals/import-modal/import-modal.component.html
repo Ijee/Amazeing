@@ -1,65 +1,71 @@
 <div class="modal is-active">
-  <div class="modal-background" (click)="simulationService.toggleShowImportModal()"></div>
-  <div class="modal-card">
-    <header class="modal-card-head">
-      <p class="modal-card-title">
-        <span class="icon">
-          <fa-icon [icon]="['far', 'edit']"></fa-icon>
-        </span>
-        <label for="importArea">
-          <b> Import</b>
-        </label>
-      </p>
-      <button class="delete" aria-label="close" (click)="simulationService.toggleShowImportModal()"></button>
-    </header>
-    <section class="modal-card-body">
-       <textarea id="importArea"
-                 class="textarea"
-                 type="text"
-                 placeholder="Paste here..."
-                 [disabled]="usedFileUpload"
-                 [ngClass]="importError ? 'is-danger' : 'is-primary'"
-                 [(ngModel)]="importToken"
-                 (ngModelChange)="importError = false">
-       </textarea>
-      <app-hr></app-hr>
-      <div appDropZone (fileDropped)="droppedInFile($event)" class="file has-name is-fullwidth has-text-centered is-boxed"
-           [ngClass]="{'is-danger': importError}"
-           (change)="uploadFile($event)">
-        <label class="file-label">
-          <input class="file-input" type="file" name="resume" accept=".txt">
-          <span class="file-cta">
-            <span class="file-icon">
-              <fa-icon [icon]="['fas', 'upload']"></fa-icon>
-            </span>
-            <span class="file-label">
-              <b>DRAG AND DROP</b>
-              OR
-             <b>CLICK TO SELECT A FILE</b>
-            </span>
-          </span>
-          <span class="file-name has-text-info">
-            {{ fileName }}
-          </span>
-        </label>
-      </div>
-      <p *ngIf="importError" class="help is-danger has-text-weight-semibold">
-        <span>The given input is not valid. Please check again.</span>
-      </p>
-    </section>
-    <footer class="modal-card-foot">
-      <button class="button is-success" [disabled]="importError" (click)="importSession()">
-        <span class="icon is-small">
-            <fa-icon [icon]="['fas', 'file-import']"></fa-icon>
-        </span>
-        <span>Import</span>
-      </button>
-      <button class="button" (click)="simulationService.toggleShowImportModal()">
-        <span class="icon is-small">
-            <fa-icon [icon]="['fas', 'times-circle']"></fa-icon>
-        </span>
-        <span>Cancel</span>
-      </button>
-    </footer>
-  </div>
+    <div class="modal-background" (click)="simulationService.toggleShowImportModal()"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">
+                <span class="icon">
+                    <fa-icon [icon]="['far', 'edit']"></fa-icon>
+                </span>
+                <label for="importArea">
+                    <b> Import</b>
+                </label>
+            </p>
+            <button class="delete" aria-label="close" (click)="simulationService.toggleShowImportModal()"></button>
+        </header>
+        <section class="modal-card-body">
+            <textarea
+                id="importArea"
+                class="textarea"
+                type="text"
+                placeholder="Paste here..."
+                [disabled]="usedFileUpload"
+                [ngClass]="importError ? 'is-danger' : 'is-primary'"
+                [(ngModel)]="importToken"
+                (ngModelChange)="importError = false"
+            >
+            </textarea>
+            <app-hr></app-hr>
+            <div
+                appDropZone
+                (fileDropped)="droppedInFile($event)"
+                class="file has-name is-fullwidth has-text-centered is-boxed"
+                [ngClass]="{ 'is-danger': importError }"
+                (change)="uploadFile($event)"
+            >
+                <label class="file-label">
+                    <input class="file-input" type="file" name="resume" accept=".txt" />
+                    <span class="file-cta">
+                        <span class="file-icon">
+                            <fa-icon [icon]="['fas', 'upload']"></fa-icon>
+                        </span>
+                        <span class="file-label">
+                            <b>DRAG AND DROP</b>
+                            OR
+                            <b>CLICK TO SELECT A FILE</b>
+                        </span>
+                    </span>
+                    <span class="file-name has-text-info">
+                        {{ fileName }}
+                    </span>
+                </label>
+            </div>
+            <p *ngIf="importError" class="help is-danger has-text-weight-semibold">
+                <span>The given input is not valid. Please check again.</span>
+            </p>
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-success" [disabled]="importError" (click)="importSession()">
+                <span class="icon is-small">
+                    <fa-icon [icon]="['fas', 'file-import']"></fa-icon>
+                </span>
+                <span>Import</span>
+            </button>
+            <button class="button" (click)="simulationService.toggleShowImportModal()">
+                <span class="icon is-small">
+                    <fa-icon [icon]="['fas', 'times-circle']"></fa-icon>
+                </span>
+                <span>Cancel</span>
+            </button>
+        </footer>
+    </div>
 </div>

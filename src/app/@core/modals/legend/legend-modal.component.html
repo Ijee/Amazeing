@@ -1,85 +1,90 @@
 <div class="modal is-active">
-  <div class="modal-background" (click)="simulationService.toggleShowLegendModal()"></div>
-  <div class="modal-card">
-    <header class="modal-card-head">
-      <p class="modal-card-title">
-        <span class="icon">
-          <fa-icon [icon]="['fas', 'info']"></fa-icon>
-        </span>
-        <label class="p-1">
-          <b>Legend</b>
-        </label>
-      </p>
-      <button class="delete" aria-label="close" (click)="simulationService.toggleShowLegendModal()"></button>
-    </header>
-    <section class="modal-card-body">
-      <div class="content">
-        <div class="columns is-multiline is-gapless">
-          <div class="column is-half">
-            <app-hr text="General Nodes"></app-hr>
-          </div>
-          <div class="column is-half">
-            <app-hr [text]="simulationService.getAlgorithmName() + ' algorithm'"></app-hr>
-          </div>
-          <div class="column is-half">
-            <table class="table has-text-centered">
-              <thead>
-              <tr>
-                <th>Icon</th>
-                <th>Meaning</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr>
-                <td>
-              <span class="icon start-icon">
-                <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
-              </span>
-                <td>Start</td>
-              </tr>
-              <tr>
-                <td>
-              <span class="icon goal-icon">
-                <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
-              </span>
-                <td>Goal</td>
-              </tr>
-              <tr>
-                <td>
-              <span class="icon status-1">
-                <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
-              </span>
-                <td>Wall</td>
-              </tr>
-              <tr>
-                <td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="column is-half">
-            <table class="table has-text-centered">
-              <thead>
-              <tr>
-                <th>Icon</th>
-                <th>Meaning</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr *ngFor="let stat of simulationService.getCurrentStatRecords()">
-                <td>
-                <span class="icon"
-                      [ngClass]="stat.type">
-                  <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
+    <div class="modal-background" (click)="simulationService.toggleShowLegendModal()"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">
+                <span class="icon">
+                    <fa-icon [icon]="['fas', 'info']"></fa-icon>
                 </span>
-                </td>
-                <td>{{ stat.name }}</td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </section>
-  </div>
+                <label class="p-1">
+                    <b>Legend</b>
+                </label>
+            </p>
+            <button class="delete" aria-label="close" (click)="simulationService.toggleShowLegendModal()"></button>
+        </header>
+        <section class="modal-card-body">
+            <div class="content">
+                <div class="columns is-multiline is-gapless">
+                    <div class="column is-half">
+                        <app-hr text="General Nodes"></app-hr>
+                    </div>
+                    <div class="column is-half">
+                        <app-hr [text]="simulationService.getAlgorithmName() + ' algorithm'"></app-hr>
+                    </div>
+                    <div class="column is-half">
+                        <table class="table has-text-centered">
+                            <thead>
+                                <tr>
+                                    <th>Icon</th>
+                                    <th>Meaning</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <span class="icon start-icon">
+                                            <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
+                                        </span>
+                                    </td>
+
+                                    <td>Start</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="icon goal-icon">
+                                            <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
+                                        </span>
+                                    </td>
+
+                                    <td>Goal</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="icon status-1">
+                                            <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
+                                        </span>
+                                    </td>
+
+                                    <td>Wall</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="column is-half">
+                        <table class="table has-text-centered">
+                            <thead>
+                                <tr>
+                                    <th>Icon</th>
+                                    <th>Meaning</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let stat of simulationService.getCurrentStatRecords()">
+                                    <td>
+                                        <span class="icon" [ngClass]="stat.type">
+                                            <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
+                                        </span>
+                                    </td>
+                                    <td>{{ stat.name }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 </div>

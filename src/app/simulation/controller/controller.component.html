@@ -1,85 +1,94 @@
 <app-hr text="SIMULATION CONTROL"></app-hr>
 <div class="field has-addons has-addons-centered is-marginless">
-  <p class="control">
-    <button class="button is-outlined is-size-7-touch is-size-6-desktop"
-            title="slow down"
-            (click)="simulationService.setSpeedDown()">
-      <fa-icon [icon]="['fas', 'backward']"></fa-icon>
-    </button>
-  </p>
-  <p class="control">
-    <button
-      [disabled]="simulationService.getBackwardStepsAmount() < 1"
-      class="button is-outlined is-size-7-touch is-size-6-desktop"
-      title="last step"
-      [ngClass]="{'buttonBackwards' : simulationService.getBackwardStepsAmount() < 1}"
-      (click)="simulationService.setBackwardStep()">
-      <fa-icon [icon]="['fas', 'step-backward']"></fa-icon>
-      <b> {{ simulationService.getBackwardStepsAmount() | maxNumber:9 }} </b>
-    </button>
-  </p>
-  <p class="control">
-    <button class="button is-outlined is-size-7-touch is-size-6-desktop"
+    <p class="control">
+        <button class="button is-outlined is-size-7-touch is-size-6-desktop" title="slow down" (click)="simulationService.setSpeedDown()">
+            <fa-icon [icon]="['fas', 'backward']"></fa-icon>
+        </button>
+    </p>
+    <p class="control">
+        <button
+            [disabled]="simulationService.getBackwardStepsAmount() < 1"
+            class="button is-outlined is-size-7-touch is-size-6-desktop"
+            title="last step"
+            [ngClass]="{
+                buttonBackwards: simulationService.getBackwardStepsAmount() < 1
+            }"
+            (click)="simulationService.setBackwardStep()"
+        >
+            <fa-icon [icon]="['fas', 'step-backward']"></fa-icon>
+            <b>
+                {{ simulationService.getBackwardStepsAmount() | maxNumber: 9 }}
+            </b>
+        </button>
+    </p>
+    <p class="control">
+        <button
+            class="button is-outlined is-size-7-touch is-size-6-desktop"
             title="clear grid"
             [disabled]="simulationService.getSimulationStatus()"
-            (click)="simulationService.reset()">
-      <fa-icon *ngIf="recordService.getIteration() > 0" class="fa-flip-horizontal"
-               [icon]="['fas', 'redo']"></fa-icon>
-      <fa-icon *ngIf="recordService.getIteration() === 0" [icon]="['fas', 'trash']"></fa-icon>
-    </button>
-  </p>
-  <p class="control">
-    <button [disabled]="simulationService.getIsPlayDisabled()"
+            (click)="simulationService.reset()"
+        >
+            <fa-icon *ngIf="recordService.getIteration() > 0" class="fa-flip-horizontal" [icon]="['fas', 'redo']"></fa-icon>
+            <fa-icon *ngIf="recordService.getIteration() === 0" [icon]="['fas', 'trash']"></fa-icon>
+        </button>
+    </p>
+    <p class="control">
+        <button
+            [disabled]="simulationService.getIsPlayDisabled()"
             [ngClass]="simulationService.getSimulationStatus() ? 'is-primary is-light' : 'is-danger is-light'"
             class="button is-size-7-mobile is-size-7-touch is-size-6-desktop"
-            title="play" (click)="simulationService.setSimulationStatus()">
-      <fa-icon *ngIf="simulationService.getSimulationStatus()" [icon]="['fas', 'stop']"></fa-icon>
-      <fa-icon *ngIf="!simulationService.getSimulationStatus()" [icon]="['fas', 'play']"></fa-icon>
-    </button>
-  </p>
-  <p class="control">
-    <button [disabled]="simulationService.getIsPlayDisabled()"
+            title="play"
+            (click)="simulationService.setSimulationStatus()"
+        >
+            <fa-icon *ngIf="simulationService.getSimulationStatus()" [icon]="['fas', 'stop']"></fa-icon>
+            <fa-icon *ngIf="!simulationService.getSimulationStatus()" [icon]="['fas', 'play']"></fa-icon>
+        </button>
+    </p>
+    <p class="control">
+        <button
+            [disabled]="simulationService.getIsPlayDisabled()"
             class="button is-outlined is-size-7-touch is-size-6-desktop"
             title="next step"
-            (click)="simulationService.addIteration()">
-      <fa-icon [icon]="['fas', 'step-forward']"></fa-icon>
-    </button>
-  </p>
-  <p class="control">
-    <button [disabled]="simulationService.getIsPlayDisabled()"
+            (click)="simulationService.addIteration()"
+        >
+            <fa-icon [icon]="['fas', 'step-forward']"></fa-icon>
+        </button>
+    </p>
+    <p class="control">
+        <button
+            [disabled]="simulationService.getIsPlayDisabled()"
             class="button is-outlined is-size-7-touch is-size-6-desktop"
             title="complete algorithm"
-            (click)="simulationService.completeAlgorithm()">
-      <fa-icon [icon]="['fas', 'fast-forward']"></fa-icon>
-    </button>
-  </p>
-  <p class="control">
-    <button class="button is-outlined is-size-7-touch is-size-6-desktop"
-            title="speed up"
-            (click)="simulationService.setSpeedUp()">
-      <fa-icon [icon]="['fas', 'forward']"></fa-icon>
-    </button>
-  </p>
+            (click)="simulationService.completeAlgorithm()"
+        >
+            <fa-icon [icon]="['fas', 'fast-forward']"></fa-icon>
+        </button>
+    </p>
+    <p class="control">
+        <button class="button is-outlined is-size-7-touch is-size-6-desktop" title="speed up" (click)="simulationService.setSpeedUp()">
+            <fa-icon [icon]="['fas', 'forward']"></fa-icon>
+        </button>
+    </p>
 </div>
 <div class="field has-addons has-addons-centered is-marginless">
-  <p class="control">
-    <button class="button is-size-7-touch is-size-6-desktop"
+    <p class="control">
+        <button
+            class="button is-size-7-touch is-size-6-desktop"
             title="import"
-            (click)="simulationService.toggleShowImportModal(); simulationService.setSimulationStatus(false)">
-        <span class="icon">
-          <fa-icon [icon]="['far', 'edit']"></fa-icon>
-        </span>
-      <b>Import</b>
-    </button>
-  </p>
-  <p class="control">
-    <button class="button is-size-7-touch is-size-6-desktop"
-            title="export"
-            (click)="handleExportLogic()">
-        <span class="icon">
-          <fa-icon [icon]="['far', 'save']"></fa-icon>
-        </span>
-      <b>Export</b>
-    </button>
-  </p>
+            (click)="simulationService.toggleShowImportModal(); simulationService.setSimulationStatus(false)"
+        >
+            <span class="icon">
+                <fa-icon [icon]="['far', 'edit']"></fa-icon>
+            </span>
+            <b>Import</b>
+        </button>
+    </p>
+    <p class="control">
+        <button class="button is-size-7-touch is-size-6-desktop" title="export" (click)="handleExportLogic()">
+            <span class="icon">
+                <fa-icon [icon]="['far', 'save']"></fa-icon>
+            </span>
+            <b>Export</b>
+        </button>
+    </p>
 </div>

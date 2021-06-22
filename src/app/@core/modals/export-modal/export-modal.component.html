@@ -1,45 +1,48 @@
 <div class="modal is-active">
-  <div class="modal-background" (click)="simulationService.toggleShowExportModal()"></div>
-  <div class="modal-card">
-    <header class="modal-card-head">
-      <p class="modal-card-title">
-        <span class="icon">
-          <fa-icon [icon]="['far', 'save']"></fa-icon>
-        </span>
-        <span>
-          <label for="exportArea">
-              <b> Export</b>
-          </label>
-        </span>
-      </p>
-      <button class="delete" aria-label="close" (click)="simulationService.toggleShowExportModal()"></button>
-    </header>
-    <section class="modal-card-body">
-              <textarea id="exportArea"
-                        class="textarea is-primary"
-                        type="text"
-                        (focus)="$event.target.select()"
-                        [ngModel]="simulationService.getExportToken()">
-              </textarea>
-    </section>
-    <footer class="modal-card-foot">
-      <button class="button is-success" (click)="exportSession()">
-         <span class="icon is-small">
-            <fa-icon [icon]="['fas', 'paste']"></fa-icon>
-        </span>
-        <span>Copy to clipboard</span>
-      </button>
-      <button class="button is-warning" (click)="exportAsFile()">
-         <span class="icon is-small">
-            <fa-icon [icon]="['fas', 'download']"></fa-icon>
-        </span>
-        <span>Export as File</span>
-      </button>
-      <button class="button" (click)="simulationService.toggleShowExportModal()">
-        <span class="icon is-small">
-            <fa-icon [icon]="['fas', 'times-circle']"></fa-icon>
-        </span>
-        <span>Cancel</span></button>
-    </footer>
-  </div>
+    <div class="modal-background" (click)="simulationService.toggleShowExportModal()"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">
+                <span class="icon">
+                    <fa-icon [icon]="['far', 'save']"></fa-icon>
+                </span>
+                <span>
+                    <label for="exportArea">
+                        <b> Export</b>
+                    </label>
+                </span>
+            </p>
+            <button class="delete" aria-label="close" (click)="simulationService.toggleShowExportModal()"></button>
+        </header>
+        <section class="modal-card-body">
+            <textarea
+                id="exportArea"
+                class="textarea is-primary"
+                type="text"
+                (focus)="$event.target.select()"
+                [ngModel]="simulationService.getExportToken()"
+            >
+            </textarea>
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-success" (click)="exportSession()">
+                <span class="icon is-small">
+                    <fa-icon [icon]="['fas', 'paste']"></fa-icon>
+                </span>
+                <span>Copy to clipboard</span>
+            </button>
+            <button class="button is-warning" (click)="exportAsFile()">
+                <span class="icon is-small">
+                    <fa-icon [icon]="['fas', 'download']"></fa-icon>
+                </span>
+                <span>Export as File</span>
+            </button>
+            <button class="button" (click)="simulationService.toggleShowExportModal()">
+                <span class="icon is-small">
+                    <fa-icon [icon]="['fas', 'times-circle']"></fa-icon>
+                </span>
+                <span>Cancel</span>
+            </button>
+        </footer>
+    </div>
 </div>

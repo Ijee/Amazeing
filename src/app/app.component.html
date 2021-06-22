@@ -1,165 +1,174 @@
 <nav class="navbar is-transparent dark-theme p-3">
-  <div class="container is-fullhd">
-    <div class="navbar-brand">
-      <a class="navbar-item font-white is-unselectable"
-         [routerLink]="'simulation/' + settingsService.getAlgorithmMode()">
-              <span class="icon">
-                <fa-icon [icon]="['fas', 'code']"></fa-icon>
-              </span>
-        <span>
-          <b>A<i>maze</i>ing</b>
-        </span>
-      </a>
-      <div class="navbar-item navbar-end is-hidden-desktop">
-          <a class="button is-info is-pulled-right"
-             href="https://github.com/Ijee/Amazeing"
-             target="_blank"
-             rel="noopener">
-            <span class="icon">
-              <fa-icon [icon]="['fab', 'github']"></fa-icon>
-            </span>
-            <span>
-              <b>Ijee</b>
-            </span>
-          </a>
-        </div>
-      <span class="navbar-burger burger "
-            data-target="navbarMenuHeroA"
-            [ngClass]="{'is-active': isNavbar}"
-            (click)="isNavbar = !isNavbar">
-             <span aria-hidden="true"></span>
-             <span aria-hidden="true"></span>
-             <span aria-hidden="true"></span>
-      </span>
-    </div>
-    <div id="navbarMenuHeroA"
-         class="navbar-menu"
-         [ngClass]="{ 'is-active': isNavbar, 'transparent-navbar': !isTouch}">
-      <div class="navbar-end">
-        <a class="navbar-item is-unselectable"
-           [ngClass]="{'font-white': !isTouch}"
-           [routerLink]="'simulation/' + settingsService.getAlgorithmMode()"
-           (click)="simulationService.setSimulationStatus(false)">
+    <div class="container is-fullhd">
+        <div class="navbar-brand">
+            <a class="navbar-item font-white is-unselectable" [routerLink]="'simulation/' + settingsService.getAlgorithmMode()">
                 <span class="icon">
-                  <fa-icon [icon]="['fas', 'microchip']"></fa-icon>
+                    <fa-icon [icon]="['fas', 'code']"></fa-icon>
                 </span>
-          <span routerLinkActive="simple-border-bottom"><b>SIMULATION</b></span>
-        </a>
-        <a class="navbar-item is-unselectable"
-           [ngClass]="{'font-white': !isTouch}"
-           routerLink="learn"
-           (click)="simulationService.setSimulationStatus(false)">
-                <span class="icon">
-                  <fa-icon [icon]="['fas', 'chalkboard-teacher']"></fa-icon>
+                <span>
+                    <b>A<i>maze</i>ing</b>
                 </span>
-          <span routerLinkActive="simple-border-bottom"><b>LEARN</b></span>
-        </a>
-        <div class="navbar-item has-dropdown is-unselectable "
-             [ngClass]="{'is-active': isSettingsDropdown}"
-             (click)="isSettingsDropdown = !isSettingsDropdown; $event.stopPropagation()">
-          <div class="navbar-link"
-             [ngClass]="{'font-white is-arrowless': !isTouch}">
-            <span class="icon">
-                  <fa-icon [icon]="['fas', 'cog']"></fa-icon>
-            </span>
-            <span><b>SETTINGS</b></span>
-          </div>
-          <div class="navbar-dropdown is-boxed"
-               [ngClass]="{'is-active': isSettingsDropdown}">
-            <div class="navbar-item">
-              <span class="icon">
-                  <fa-icon [icon]="['fas', 'adjust']"></fa-icon>
-            </span>
-              <span><b>Dark mode</b></span>
-              <button class="button dropdown-button is-pulled-right"
-                      [class]="settingsService.getDarkModeSetting() ? 'is-primary' : 'is-danger'"
-                      (click)="settingsService.setDarkModeSetting()">
-                <b>{{ settingsService.getDarkModeSetting() ? 'ON' : 'OFF' }}</b>
-              </button>
-            </div>
-            <div class="navbar-item">
-              <span class="icon">
-                  <fa-icon [icon]="['fas', 'wind']"></fa-icon>
-              </span>
-              <span><b>Animations</b></span>
-              <button class="button dropdown-button is-pulled-right"
-                      [class]="settingsService.getAnimationsSetting() ? 'is-primary' : 'is-danger'"
-                      (click)="settingsService.setAnimationSetting()">
-                <b>{{ settingsService.getAnimationsSetting() ? 'ON' : 'OFF' }}</b>
-              </button>
-            </div>
-            <div class="navbar-item">
-              <span class="icon">
-                  <fa-icon [icon]="['fas', 'ban']"></fa-icon>
-            </span>
-              <span><b>Warnings</b></span>
-              <button class="button dropdown-button is-pulled-right"
-                      [class]="settingsService.getWarningsSetting() ? 'is-primary' : 'is-danger'"
-                      (click)="settingsService.setWarningsSetting()">
-                <b>{{ settingsService.getWarningsSetting() ? 'ON' : 'OFF' }}</b>
-              </button>
-            </div>
-            <hr class="navbar-divider">
-            <div class="navbar-item has-text-danger">
-               <span class="icon">
-                  <fa-icon [icon]="['fas', 'info-circle']"></fa-icon>
-              </span>
-              <b>Version: {{ version }}</b>
-              <span class="subtitle"></span>
-            </div>
-            <a class="navbar-item has-text-info"
-               href="https://github.com/Ijee/Amazeing/issues"
-               target="_blank"
-               rel="noopener">
-                <span class="icon">
-                  <fa-icon [icon]="['fas', 'info-circle']"></fa-icon>
-              </span>
-              <b>Changelog</b>
             </a>
-            <div class="navbar-item">
-              <a class="button dropdown-button is-info is-fullwidth"
-                 href="https://github.com/Ijee/Amazeing/issues"
-                 target="_blank"
-                 rel="noopener">
-                <b>REPORT A PROBLEM</b>
-              </a>
+            <div class="navbar-item navbar-end is-hidden-desktop">
+                <a class="button is-info is-pulled-right" href="https://github.com/Ijee/Amazeing" target="_blank" rel="noopener">
+                    <span class="icon">
+                        <fa-icon [icon]="['fab', 'github']"></fa-icon>
+                    </span>
+                    <span>
+                        <b>Ijee</b>
+                    </span>
+                </a>
             </div>
-          </div>
+            <span
+                class="navbar-burger burger"
+                data-target="navbarMenuHeroA"
+                [ngClass]="{ 'is-active': isNavbar }"
+                (click)="isNavbar = !isNavbar"
+            >
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </span>
         </div>
-        <span *ngIf="!isTouch" class="navbar-item">
-          <a class="button is-info"
-             href="https://github.com/Ijee/Amazeing"
-             target="_blank"
-             rel="noopener">
-            <span class="icon">
-              <fa-icon [icon]="['fab', 'github']"></fa-icon>
-            </span>
-            <span>
-              <b>Ijee</b>
-            </span>
-          </a>
-        </span>
-      </div>
+        <div
+            id="navbarMenuHeroA"
+            class="navbar-menu"
+            [ngClass]="{
+                'is-active': isNavbar,
+                'transparent-navbar': !isTouch
+            }"
+        >
+            <div class="navbar-end">
+                <a
+                    class="navbar-item is-unselectable"
+                    [ngClass]="{ 'font-white': !isTouch }"
+                    [routerLink]="'simulation/' + settingsService.getAlgorithmMode()"
+                    (click)="simulationService.setSimulationStatus(false)"
+                >
+                    <span class="icon">
+                        <fa-icon [icon]="['fas', 'microchip']"></fa-icon>
+                    </span>
+                    <span routerLinkActive="simple-border-bottom"><b>SIMULATION</b></span>
+                </a>
+                <a
+                    class="navbar-item is-unselectable"
+                    [ngClass]="{ 'font-white': !isTouch }"
+                    routerLink="learn"
+                    (click)="simulationService.setSimulationStatus(false)"
+                >
+                    <span class="icon">
+                        <fa-icon [icon]="['fas', 'chalkboard-teacher']"></fa-icon>
+                    </span>
+                    <span routerLinkActive="simple-border-bottom"><b>LEARN</b></span>
+                </a>
+                <div
+                    class="navbar-item has-dropdown is-unselectable"
+                    [ngClass]="{ 'is-active': isSettingsDropdown }"
+                    (click)="isSettingsDropdown = !isSettingsDropdown; $event.stopPropagation()"
+                >
+                    <div class="navbar-link" [ngClass]="{ 'font-white is-arrowless': !isTouch }">
+                        <span class="icon">
+                            <fa-icon [icon]="['fas', 'cog']"></fa-icon>
+                        </span>
+                        <span><b>SETTINGS</b></span>
+                    </div>
+                    <div class="navbar-dropdown is-boxed" [ngClass]="{ 'is-active': isSettingsDropdown }">
+                        <div class="navbar-item">
+                            <span class="icon">
+                                <fa-icon [icon]="['fas', 'adjust']"></fa-icon>
+                            </span>
+                            <span><b>Dark mode</b></span>
+                            <button
+                                class="button dropdown-button is-pulled-right"
+                                [class]="settingsService.getDarkModeSetting() ? 'is-primary' : 'is-danger'"
+                                (click)="settingsService.setDarkModeSetting()"
+                            >
+                                <b>{{ settingsService.getDarkModeSetting() ? 'ON' : 'OFF' }}</b>
+                            </button>
+                        </div>
+                        <div class="navbar-item">
+                            <span class="icon">
+                                <fa-icon [icon]="['fas', 'wind']"></fa-icon>
+                            </span>
+                            <span><b>Animations</b></span>
+                            <button
+                                class="button dropdown-button is-pulled-right"
+                                [class]="settingsService.getAnimationsSetting() ? 'is-primary' : 'is-danger'"
+                                (click)="settingsService.setAnimationSetting()"
+                            >
+                                <b>{{ settingsService.getAnimationsSetting() ? 'ON' : 'OFF' }}</b>
+                            </button>
+                        </div>
+                        <div class="navbar-item">
+                            <span class="icon">
+                                <fa-icon [icon]="['fas', 'ban']"></fa-icon>
+                            </span>
+                            <span><b>Warnings</b></span>
+                            <button
+                                class="button dropdown-button is-pulled-right"
+                                [class]="settingsService.getWarningsSetting() ? 'is-primary' : 'is-danger'"
+                                (click)="settingsService.setWarningsSetting()"
+                            >
+                                <b>{{ settingsService.getWarningsSetting() ? 'ON' : 'OFF' }}</b>
+                            </button>
+                        </div>
+                        <hr class="navbar-divider" />
+                        <div class="navbar-item has-text-danger">
+                            <span class="icon">
+                                <fa-icon [icon]="['fas', 'info-circle']"></fa-icon>
+                            </span>
+                            <b>Version: {{ version }}</b>
+                            <span class="subtitle"></span>
+                        </div>
+                        <a class="navbar-item has-text-info" href="https://github.com/Ijee/Amazeing/issues" target="_blank" rel="noopener">
+                            <span class="icon">
+                                <fa-icon [icon]="['fas', 'info-circle']"></fa-icon>
+                            </span>
+                            <b>Changelog</b>
+                        </a>
+                        <div class="navbar-item">
+                            <a
+                                class="button dropdown-button is-info is-fullwidth"
+                                href="https://github.com/Ijee/Amazeing/issues"
+                                target="_blank"
+                                rel="noopener"
+                            >
+                                <b>REPORT A PROBLEM</b>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <span *ngIf="!isTouch" class="navbar-item">
+                    <a class="button is-info" href="https://github.com/Ijee/Amazeing" target="_blank" rel="noopener">
+                        <span class="icon">
+                            <fa-icon [icon]="['fab', 'github']"></fa-icon>
+                        </span>
+                        <span>
+                            <b>Ijee</b>
+                        </span>
+                    </a>
+                </span>
+            </div>
+        </div>
     </div>
-  </div>
 </nav>
-<main class="container is-fullhd p-2"
-      [@.disabled]="!settingsService.getAnimationsSetting()"
-      [@fadeRouteAnimation]="prepareRoute(o)">
-  <router-outlet #o="outlet"></router-outlet>
+<main class="container is-fullhd p-2" [@.disabled]="!settingsService.getAnimationsSetting()" [@fadeRouteAnimation]="prepareRoute(o)">
+    <router-outlet #o="outlet"></router-outlet>
 </main>
-<app-warning-modal *ngIf="warnDialogService.getDialogStatus()"
-                   [@.disabled]="!settingsService.getAnimationsSetting()"
-                   @fadeInOut
+<app-warning-modal
+    *ngIf="warnDialogService.getDialogStatus()"
+    [@.disabled]="!settingsService.getAnimationsSetting()"
+    @fadeInOut
 ></app-warning-modal>
-<app-legend-modal *ngIf="simulationService.getShowLegendModal()"
-                  [@.disabled]="!settingsService.getAnimationsSetting()"
-                  @fadeInOut>
+<app-legend-modal *ngIf="simulationService.getShowLegendModal()" [@.disabled]="!settingsService.getAnimationsSetting()" @fadeInOut>
 </app-legend-modal>
-<app-import-modal *ngIf="simulationService.getShowImportModal()"
-                  [@.disabled]="!settingsService.getAnimationsSetting()"
-                  @fadeInOut></app-import-modal>
-<app-export-modal *ngIf="simulationService.getShowExportModal()"
-                  [@.disabled]="!settingsService.getAnimationsSetting()"
-                  @fadeInOut></app-export-modal>
-
+<app-import-modal
+    *ngIf="simulationService.getShowImportModal()"
+    [@.disabled]="!settingsService.getAnimationsSetting()"
+    @fadeInOut
+></app-import-modal>
+<app-export-modal
+    *ngIf="simulationService.getShowExportModal()"
+    [@.disabled]="!settingsService.getAnimationsSetting()"
+    @fadeInOut
+></app-export-modal>
