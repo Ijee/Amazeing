@@ -71,7 +71,6 @@ export abstract class MazeAlgorithmAbstract {
         }
       }
     }
-    console.log('status 0 changes', statusChange.status0);
     return statusChange;
   }
 

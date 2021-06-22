@@ -17,7 +17,7 @@
            [class]="settingsService.getAlgorithmMode() === 'maze' ? 'has-text-primary' : 'has-text-danger'"
            appCountAnimation
            [newValue]="stat.currentValue"
-           [disableAnimation]="isMouseDown || !settingsService.getAnimationsSetting()">
+           [disableAnimation]="isMouseDown || this.simulationService.getSimulationSpeed() >= 300 || !settingsService.getAnimationsSetting()">
         </p>
       </strong>
     </div>
