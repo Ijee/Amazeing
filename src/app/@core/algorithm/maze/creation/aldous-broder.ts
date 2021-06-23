@@ -21,8 +21,12 @@ export class AldousBroder extends MazeAlgorithmAbstract {
                     type: 'status-4'
                 },
                 {
+                    name: 'Found Nodes',
+                    type: 'status-5'
+                },
+                {
                     name: 'Remaining Nodes',
-                    type: 'status-5',
+                    type: 'status-none',
                     currentValue: 0
                 },
                 {
@@ -56,18 +60,18 @@ export class AldousBroder extends MazeAlgorithmAbstract {
             // Potential TODO but would require more changes especially for the buildWalls function.
             if (newCursorNodeStatus === 0) {
                 this.remainingNodes--;
-                this.statRecords[1].currentValue--;
-                this.statRecords[2].currentValue++;
+                this.statRecords[2].currentValue--;
+                this.statRecords[3].currentValue++;
                 newCursorNode.status = 4;
             } else if (newCursorNodeStatus === 5) {
                 newCursorNode.status = 4;
-                this.statRecords[2].currentValue = 0;
+                this.statRecords[3].currentValue = 0;
             }
 
             if (newCursorNodeStatus === 0) {
                 const statusChange = this.buildWalls(randomNeighbour, 0);
                 this.buildPath(oldCursor, randomNeighbour, 5);
-                this.statRecords[1].currentValue -= statusChange.status0;
+                this.statRecords[2].currentValue -= statusChange.status0;
                 this.remainingNodes -= statusChange.status0;
             }
             return this.currentGrid;
@@ -86,11 +90,11 @@ export class AldousBroder extends MazeAlgorithmAbstract {
         // Note: the start and goal do not get counted so - 2 is necessary
         // for the break condition to work
         this.remainingNodes = this.gridWith * this.gridHeight - 2;
-        this.statRecords[1].currentValue = this.remainingNodes;
+        this.statRecords[2].currentValue = this.remainingNodes;
 
         this.cursor = currentStartPoint;
         const statusChange = this.buildWalls(currentStartPoint, 0);
-        this.statRecords[1].currentValue -= statusChange.status0;
+        this.statRecords[2].currentValue -= statusChange.status0;
         this.remainingNodes -= statusChange.status0;
     }
 
