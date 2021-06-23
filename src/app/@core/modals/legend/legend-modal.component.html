@@ -36,7 +36,6 @@
                                             <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
                                         </span>
                                     </td>
-
                                     <td>Start</td>
                                 </tr>
                                 <tr>
@@ -45,7 +44,6 @@
                                             <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
                                         </span>
                                     </td>
-
                                     <td>Goal</td>
                                 </tr>
                                 <tr>
@@ -56,9 +54,6 @@
                                     </td>
 
                                     <td>Wall</td>
-                                </tr>
-                                <tr>
-                                    <td></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -74,7 +69,7 @@
                             <tbody>
                                 <tr *ngFor="let stat of simulationService.getCurrentStatRecords()">
                                     <td>
-                                        <span class="icon" [ngClass]="stat.type">
+                                        <span class="icon" [ngClass]="stat.type" *ngIf="stat.type !== 'status-none'">
                                             <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
                                         </span>
                                     </td>

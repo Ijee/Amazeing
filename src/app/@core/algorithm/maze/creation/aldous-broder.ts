@@ -27,7 +27,7 @@ export class AldousBroder extends MazeAlgorithmAbstract {
                 },
                 {
                     name: 'Building Streak',
-                    type: 'status-0',
+                    type: 'status-none',
                     currentValue: 0
                 }
             ]
