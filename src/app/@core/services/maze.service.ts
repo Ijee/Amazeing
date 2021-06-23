@@ -87,7 +87,9 @@ export class MazeService {
         let algorithmEnded = false;
         let lastGrid: Node[][];
         let iterationCount = 0;
-        while (!algorithmEnded) {
+        // this stops the algorithm at a maximum of 10k iterations.
+        // TODO use toaster service once available to say that some nodes may be unreachable
+        while (!algorithmEnded && iterationCount < 10000) {
             const tempGrid = this.getNextStep();
             if (tempGrid === null) {
                 algorithmEnded = true;
