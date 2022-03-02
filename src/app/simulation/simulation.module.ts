@@ -12,6 +12,7 @@ import { MazeSettingsComponent } from './grid-settings/maze-settings/maze-settin
 import { PathfindingSettingsComponent } from './grid-settings/pathfinding-settings/pathfinding-settings.component';
 import { SharedModule } from '../@shared/shared.module';
 import { ControllerComponent } from './controller/controller.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -29,7 +30,8 @@ import { ControllerComponent } from './controller/controller.component';
         SimulationRoutingModule,
         CoreModule,
         FontAwesomeModule,
-        SharedModule
+        SharedModule,
+        ReactiveFormsModule
     ],
     providers: []
 })

@@ -1,8 +1,6 @@
 <div class="columns is-multiline p-1">
-    <div class="column is-12">
-        <p class="menu-label has-text-centered">
-            <b>Algorithms</b>
-        </p>
+    <div class="column is-12 pb-0">
+        <app-hr text="Algorithms" isUppercase="true"></app-hr>
         <aside class="columns is-multiline is-gapless">
             <div class="column is-one-third">
                 <button
@@ -36,7 +34,6 @@
                 <button
                     class="button algo-button is-fullwidth"
                     [ngClass]="mazeService.getAlgorithmName() === 'Wilsons' ? 'is-primary' : ''"
-                    disabled
                     (click)="handleWarning('Wilsons')"
                 >
                     <b>Wilson's</b>
@@ -124,10 +121,8 @@
             </div>
         </aside>
     </div>
-    <div class="column is-full">
-        <p class="menu-label has-text-centered">
-            <b>Maze solving algorithms</b>
-        </p>
+    <div class="column is-full pb-0">
+        <app-hr text="Maze solving algorithms" isUppercase="true"></app-hr>
         <aside class="columns is-multiline is-gapless">
             <div class="column is-one-third">
                 <button
@@ -190,5 +185,30 @@
                 </button>
             </div>
         </aside>
+    </div>
+    <div class="column is-full" *ngIf="handleJsonFormData().controls.length > 0">
+        <app-hr class="mt-0" text="Options" isUppercase="false"></app-hr>
+        <form [formGroup]="optionsForm">
+            <fieldset
+                *ngFor="let control of handleJsonFormData()?.controls"
+                class="columns is-multiline is-gapless mb-0"
+                [disabled]="recordService.getIteration() > 0"
+            >
+                <div *ngIf="control?.type === 'checkbox'" class="column is-12 control">
+                    <label class="checkbox">
+                        <input type="checkbox" [formControlName]="control.name" [value]="control.value" />
+                        {{ control.name }}
+                    </label>
+                </div>
+                <ng-container *ngIf="control?.type === 'radio'">
+                    <div *ngFor="let value of control?.values" class="column is-12 control">
+                        <label class="radio">
+                            <input type="radio" [formControlName]="control.name" [value]="value" [checked]="value" />
+                            {{ value }}
+                        </label>
+                    </div>
+                </ng-container>
+            </fieldset>
+        </form>
     </div>
 </div>

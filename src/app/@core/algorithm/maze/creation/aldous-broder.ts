@@ -1,5 +1,5 @@
 import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
-import { MazeAlgorithm, Node, StatRecord } from '../../../../../types';
+import {JsonFormData, MazeAlgorithm, Node, StatRecord} from '../../../../../types';
 import { GridLocation } from '../../../../@shared/classes/GridLocation';
 
 /**
@@ -9,8 +9,8 @@ import { GridLocation } from '../../../../@shared/classes/GridLocation';
 export class AldousBroder extends MazeAlgorithmAbstract {
     private gridWith: number;
     private gridHeight: number;
-    private remainingNodes: number;
     private cursor: GridLocation;
+    private remainingNodes: number;
 
     constructor() {
         super(
@@ -34,7 +34,11 @@ export class AldousBroder extends MazeAlgorithmAbstract {
                     type: 'status-none',
                     currentValue: 0
                 }
-            ]
+            ],
+          {
+            'controls': []
+          },
+          {},
         );
     }
 
@@ -100,13 +104,13 @@ export class AldousBroder extends MazeAlgorithmAbstract {
 
     updateAlgorithmState(
         newGrid: Node[][],
-        algorithmState: any,
+        deserializedState: any,
         statRecords: StatRecord[]
     ): void {
         this.currentGrid = newGrid;
         this.statRecords = statRecords;
-        this.cursor = algorithmState.cursor;
-        this.remainingNodes = algorithmState.remainingNodes;
+        this.cursor = deserializedState.cursor;
+        this.remainingNodes = deserializedState.remainingNodes;
     }
 
     deserialize(
@@ -129,18 +133,15 @@ export class AldousBroder extends MazeAlgorithmAbstract {
         };
     }
 
+  getCurrentAlgorithmState(): any {
+    return {
+      cursor: this.cursor,
+      remainingNodes: this.remainingNodes
+    };
+  }
+
     getAlgorithmName(): MazeAlgorithm {
         return 'Aldous-Broder';
-    }
-
-    getStatRecords(): StatRecord[] {
-        return this.statRecords;
-    }
-
-    getCurrentAlgorithmState(): any {
-        return {
-            cursor: this.cursor
-        };
     }
 
     usesNodeWeights(): boolean {

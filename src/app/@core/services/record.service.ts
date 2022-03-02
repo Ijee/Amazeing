@@ -168,7 +168,6 @@ export class RecordService {
      * Returns the current statRecordHistory.
      */
     public getCurrentStatRecords(): StatRecord[] {
-        console.log('statrecords', this.statRecordHistory);
         return this.statRecordHistory[this.statRecordHistory.length - 1];
     }
 

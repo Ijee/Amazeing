@@ -8,7 +8,11 @@
 @import "styles/dark-theme";
 
 html, body {
-  background-image: linear-gradient(97deg, rgba(12, 223, 92, 0.2),rgba(91, 32, 246, 0.2)),linear-gradient(45deg, rgb(129, 201, 171),rgb(174, 228, 191),rgb(151, 214, 181),rgb(196, 241, 201),rgb(106, 188, 161),rgb(84, 175, 151),rgb(61, 161, 141),rgb(39, 148, 131));
+  // background-image: linear-gradient(97deg, rgba(12, 223, 92, 0.2),rgba(91, 32, 246, 0.2)),linear-gradient(45deg, rgb(129, 201, 171),rgb(174, 228, 191),rgb(151, 214, 181),rgb(196, 241, 201),rgb(106, 188, 161),rgb(84, 175, 151),rgb(61, 161, 141),rgb(39, 148, 131));
+  //background-image: linear-gradient(
+  //    135deg,#99b6c6 14%,#407d99 78%);
+  background-image: linear-gradient(
+      135deg,#99b6c6 14%, #2b596c 78%);
   background-repeat: no-repeat;
   background-attachment: fixed;
   color: #000;

@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class HrComponent {
     @Input() text: string;
-
+    @Input() textSize: string;
+    @Input() isUppercase: string;
     constructor() {}
 }
