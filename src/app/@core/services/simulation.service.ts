@@ -147,12 +147,11 @@ export class SimulationService {
      * @private
      */
     private setSimulationSpeed(speed: number): void {
+        this.simulationSpeed = this.simulationSpeed + speed;
         if (this.simulationSpeed < 20) {
             this.simulationSpeed = 20;
-        } else if (this.simulationSpeed >= 500) {
+        } else if (this.simulationSpeed > 500) {
             this.simulationSpeed = 500;
-        } else {
-            this.simulationSpeed = this.simulationSpeed + speed;
         }
     }
 
