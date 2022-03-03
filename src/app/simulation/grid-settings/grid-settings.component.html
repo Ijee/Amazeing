@@ -6,8 +6,7 @@
         <button
             class="button maze-button is-medium is-fullwidth"
             [ngClass]="this.settingsService.getAlgorithmMode() === 'maze' ? 'is-primary' : 'has-background-primary-light'"
-            (click)="handleWarning('maze', false)"
-        >
+            (click)="handleWarning('maze', false)">
             <b>MAZE</b>
         </button>
     </div>
@@ -15,8 +14,7 @@
         <button
             class="button path-button is-medium is-fullwidth"
             [ngClass]="this.settingsService.getAlgorithmMode() === 'path-finding' ? 'is-danger' : 'has-background-danger-light'"
-            (click)="handleWarning('path-finding', false)"
-        >
+            (click)="handleWarning('path-finding', false)">
             <b>PATHFINDING</b>
         </button>
     </div>
@@ -32,8 +30,7 @@
                     <div class="buttons is-centered">
                         <button
                             class="button danger-button is-small is-warning has-text-white"
-                            (click)="handleWarning(switchToOtherMode(), true)"
-                        >
+                            (click)="handleWarning(switchToOtherMode(), true)">
                             <span class="icon">
                                 <fa-icon [icon]="['fas', 'check']"></fa-icon>
                             </span>
@@ -53,7 +50,7 @@
     <div class="column is-full m-2" [@fadeAnimationSafe]="o.isActivated && o.activatedRoute">
         <router-outlet #o="outlet"></router-outlet>
     </div>
-    <div class="column is-full">
+    <div class="column is-full mt-2">
         <a class="button is-info is-fullwidth" (click)="navigateToLearn()">
             <b>LEARN MORE</b>
         </a>
