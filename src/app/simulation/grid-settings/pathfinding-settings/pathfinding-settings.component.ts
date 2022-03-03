@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import hljs from 'highlight.js/lib/core';
 import { SettingsService } from '../../../@core/services/settings.service';
-import { PathFindingService } from '../../../@core/services/path-finding.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { PathFindingAlgorithm } from '../../../../types';
 import { WarningDialogService } from '../../../@shared/components/warning-modal/warning-dialog.service';
 import { SimulationService } from '../../../@core/services/simulation.service';
+import { AlgorithmService } from '../../../@core/services/algorithm.service';
 
 @Component({
     selector: 'app-pathfinding-settings',
@@ -22,8 +22,8 @@ export class PathfindingSettingsComponent implements OnInit, OnDestroy {
         private router: Router,
         private warningDialog: WarningDialogService,
         public simulationService: SimulationService,
-        public settingsService: SettingsService,
-        public pathFindingService: PathFindingService
+        public algorithmService: AlgorithmService,
+        public settingsService: SettingsService
     ) {
         this.destroyed$ = new Subject<void>();
     }
@@ -44,13 +44,12 @@ export class PathfindingSettingsComponent implements OnInit, OnDestroy {
                     'Orthogonal-Jump-PS'
                 ]);
                 if (pathFindingAlgorithms.has(params.algorithm)) {
-                    this.pathFindingService.switchAlgorithm(params.algorithm);
+                    this.algorithmService.setPathAlgorithm(params.algorithm);
                 } else {
                     this.router.navigate(['.'], {
                         relativeTo: this.route,
                         queryParams: {
-                            algorithm:
-                                this.pathFindingService.getAlgorithmName()
+                            algorithm: this.algorithmService.getAlgorithmName()
                         }
                     });
                 }
@@ -91,7 +90,7 @@ export class PathfindingSettingsComponent implements OnInit, OnDestroy {
      * @param newAlgorithm - the new algorithm to be set
      */
     private handleAlgorithmSwitch(newAlgorithm: PathFindingAlgorithm): void {
-        this.pathFindingService.switchAlgorithm(newAlgorithm);
+        this.algorithmService.setPathAlgorithm(newAlgorithm);
         // TODO soft reset or hard reset / grid savepoint?
         this.simulationService.prepareGrid();
         this.router.navigate([], {

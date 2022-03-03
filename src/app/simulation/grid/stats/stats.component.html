@@ -12,19 +12,17 @@
             *ngIf="stat.currentValue !== undefined"
             [@.disabled]="!this.settingsService.getAnimationsSetting()"
             @fadeInOutList
-            class="column is-half-mobile"
-        >
+            class="column is-half-mobile">
             <strong class="has-text-centered">
                 <p class="heading is-size-6-mobile">{{ stat.name }}</p>
                 <p
                     class="title is-size-6-mobile"
-                    [class]="settingsService.getAlgorithmMode() === 'maze' ? 'has-text-primary' : 'has-text-danger'"
+                    [class]="algorithmService.getAlgorithmMode() === 'maze' ? 'has-text-primary' : 'has-text-danger'"
                     appCountAnimation
                     [newValue]="stat.currentValue"
                     [disableAnimation]="
                         isMouseDown || this.simulationService.getSimulationSpeed() >= 300 || !settingsService.getAnimationsSetting()
-                    "
-                ></p>
+                    "></p>
             </strong>
         </div>
     </ng-container>
@@ -33,8 +31,7 @@
             <p class="heading is-size-6-mobile">Speed</p>
             <p
                 class="title is-size-6-mobile"
-                [class]="settingsService.getAlgorithmMode() === 'maze' ? 'has-text-primary' : 'has-text-danger'"
-            >
+                [class]="algorithmService.getAlgorithmMode() === 'maze' ? 'has-text-primary' : 'has-text-danger'">
                 {{ simulationService.getSimulationSpeed() }}%
             </p>
         </strong>

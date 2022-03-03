@@ -1,40 +1,77 @@
-import { PathFindingAlgorithmInterface } from './path-finding-algorithm.interface';
+import { PathFindingAlgorithmAbstract } from './path-finding-algorithm.abstract';
 import {
     PathFindingAlgorithm,
     Node,
-    PathFindingHeuristic
+    PathFindingHeuristic,
+    JsonFormData,
+    StatRecord
 } from '../../../../types';
 import { GridLocation } from '../../../@shared/classes/GridLocation';
 
-export class AStar implements PathFindingAlgorithmInterface {
-    currentGrid: Node[][];
-
-    constructor() {}
+export class AStar extends PathFindingAlgorithmAbstract {
+    constructor() {
+        super(
+            [],
+            [],
+            {
+                controls: []
+            },
+            {}
+        );
+    }
 
     public nextStep(): Node[][] {
-        return this.currentGrid;
+        throw new Error('Method not implemented.');
     }
 
     public setInitialData(
         currentGrid: Node[][],
-        currentStartPoint: GridLocation,
-        currentHeuristic: PathFindingHeuristic
+        currentStartPoint: GridLocation
     ): void {
-        return null;
+        throw new Error('Method not implemented.');
+    }
+
+    public setOptions(options: Object): void {
+        throw new Error('Method not implemented.');
+    }
+
+    public updateAlgorithmState(
+        newGrid: Node[][],
+        deserializedState: any,
+        statRecords: StatRecord[]
+    ): void {
+        throw new Error('Method not implemented.');
+    }
+
+    public deserialize(
+        newGrid: Node[][],
+        serializedState: any,
+        statRecords: StatRecord[]
+    ): void {
+        throw new Error('Method not implemented.');
+    }
+
+    public getSerializedState() {
+        throw new Error('Method not implemented.');
+    }
+
+    public getCurrentAlgorithmState() {
+        throw new Error('Method not implemented.');
     }
 
     public getAlgorithmName(): PathFindingAlgorithm {
         return 'A-Star';
     }
 
-    getUpdatedStats(): string {
-        return 'drölf';
+    public getStatRecords(): StatRecord[] {
+        throw new Error('Method not implemented.');
     }
 
-    /**
-     * Returns the current algorithm pseudo code
-     */
-    getPseudoCode(): string {
-        return 'a-star';
+    public getJsonFormData(): JsonFormData {
+        throw new Error('Method not implemented.');
+    }
+
+    public usesNodeWeights(): boolean {
+        throw new Error('Method not implemented.');
     }
 }

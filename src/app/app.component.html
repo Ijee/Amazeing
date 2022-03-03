@@ -1,7 +1,7 @@
 <nav class="navbar is-transparent dark-theme p-3">
     <div class="container is-fullhd">
         <div class="navbar-brand">
-            <a class="navbar-item font-white is-unselectable" [routerLink]="'simulation/' + settingsService.getAlgorithmMode()">
+            <a class="navbar-item font-white is-unselectable" [routerLink]="'simulation/' + algorithmService.getAlgorithmMode()">
                 <span class="icon">
                     <fa-icon [icon]="['fas', 'code']"></fa-icon>
                 </span>
@@ -23,8 +23,7 @@
                 class="navbar-burger burger"
                 data-target="navbarMenuHeroA"
                 [ngClass]="{ 'is-active': isNavbar }"
-                (click)="isNavbar = !isNavbar"
-            >
+                (click)="isNavbar = !isNavbar">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
@@ -36,15 +35,13 @@
             [ngClass]="{
                 'is-active': isNavbar,
                 'transparent-navbar': !isTouch
-            }"
-        >
+            }">
             <div class="navbar-end">
                 <a
                     class="navbar-item is-unselectable"
                     [ngClass]="{ 'font-white': !isTouch }"
-                    [routerLink]="'simulation/' + settingsService.getAlgorithmMode()"
-                    (click)="simulationService.setSimulationStatus(false)"
-                >
+                    [routerLink]="'simulation/' + algorithmService.getAlgorithmMode()"
+                    (click)="simulationService.setSimulationStatus(false)">
                     <span class="icon">
                         <fa-icon [icon]="['fas', 'microchip']"></fa-icon>
                     </span>
@@ -54,8 +51,7 @@
                     class="navbar-item is-unselectable"
                     [ngClass]="{ 'font-white': !isTouch }"
                     routerLink="learn"
-                    (click)="simulationService.setSimulationStatus(false)"
-                >
+                    (click)="simulationService.setSimulationStatus(false)">
                     <span class="icon">
                         <fa-icon [icon]="['fas', 'chalkboard-teacher']"></fa-icon>
                     </span>
@@ -64,8 +60,7 @@
                 <div
                     class="navbar-item has-dropdown is-unselectable"
                     [ngClass]="{ 'is-active': isSettingsDropdown }"
-                    (click)="isSettingsDropdown = !isSettingsDropdown; $event.stopPropagation()"
-                >
+                    (click)="isSettingsDropdown = !isSettingsDropdown; $event.stopPropagation()">
                     <div class="navbar-link" [ngClass]="{ 'font-white is-arrowless': !isTouch }">
                         <span class="icon">
                             <fa-icon [icon]="['fas', 'cog']"></fa-icon>
@@ -81,8 +76,7 @@
                             <button
                                 class="button dropdown-button is-pulled-right"
                                 [class]="settingsService.getDarkModeSetting() ? 'is-primary' : 'is-danger'"
-                                (click)="settingsService.setDarkModeSetting()"
-                            >
+                                (click)="settingsService.setDarkModeSetting()">
                                 <b>{{ settingsService.getDarkModeSetting() ? 'ON' : 'OFF' }}</b>
                             </button>
                         </div>
@@ -94,8 +88,7 @@
                             <button
                                 class="button dropdown-button is-pulled-right"
                                 [class]="settingsService.getAnimationsSetting() ? 'is-primary' : 'is-danger'"
-                                (click)="settingsService.setAnimationSetting()"
-                            >
+                                (click)="settingsService.setAnimationSetting()">
                                 <b>{{ settingsService.getAnimationsSetting() ? 'ON' : 'OFF' }}</b>
                             </button>
                         </div>
@@ -107,8 +100,7 @@
                             <button
                                 class="button dropdown-button is-pulled-right"
                                 [class]="settingsService.getWarningsSetting() ? 'is-primary' : 'is-danger'"
-                                (click)="settingsService.setWarningsSetting()"
-                            >
+                                (click)="settingsService.setWarningsSetting()">
                                 <b>{{ settingsService.getWarningsSetting() ? 'ON' : 'OFF' }}</b>
                             </button>
                         </div>
@@ -131,8 +123,7 @@
                                 class="button dropdown-button is-info is-fullwidth"
                                 href="https://github.com/Ijee/Amazeing/issues"
                                 target="_blank"
-                                rel="noopener"
-                            >
+                                rel="noopener">
                                 <b>REPORT A PROBLEM</b>
                             </a>
                         </div>
@@ -158,17 +149,14 @@
 <app-warning-modal
     *ngIf="warnDialogService.getDialogStatus()"
     [@.disabled]="!settingsService.getAnimationsSetting()"
-    @fadeInOut
-></app-warning-modal>
+    @fadeInOut></app-warning-modal>
 <app-legend-modal *ngIf="simulationService.getShowLegendModal()" [@.disabled]="!settingsService.getAnimationsSetting()" @fadeInOut>
 </app-legend-modal>
 <app-import-modal
     *ngIf="simulationService.getShowImportModal()"
     [@.disabled]="!settingsService.getAnimationsSetting()"
-    @fadeInOut
-></app-import-modal>
+    @fadeInOut></app-import-modal>
 <app-export-modal
     *ngIf="simulationService.getShowExportModal()"
     [@.disabled]="!settingsService.getAnimationsSetting()"
-    @fadeInOut
-></app-export-modal>
+    @fadeInOut></app-export-modal>

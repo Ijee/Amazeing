@@ -5,16 +5,14 @@
         [ngClass]="{ 'game-grid-lock': recordService.getIteration() > 0 }"
         (mousedown)="isMouseDown = true"
         (mouseup)="onMouseUp()"
-        (mouseleave)="onMouseUp()"
-    >
+        (mouseleave)="onMouseUp()">
         <div *ngFor="let col of gridList; let i = index" class="game-column">
             <app-node
                 *ngFor="let node of col; let j = index"
                 [status]="node.status"
                 [weight]="node.weight"
                 [isMouseDown]="isMouseDown"
-                (wasUpdated)="drawModeLogic(i, j)"
-            >
+                (wasUpdated)="drawModeLogic(i, j)">
             </app-node>
         </div>
     </div>
@@ -29,8 +27,7 @@
                     title="Set start"
                     [ngClass]="simulationService.getDrawingMode() === 2 ? 'is-active' : ''"
                     [disabled]="recordService.getIteration() > 0"
-                    (click)="simulationService.setDrawingMode(2)"
-                >
+                    (click)="simulationService.setDrawingMode(2)">
                     <span class="icon start-icon">
                         <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
                     </span>
@@ -41,9 +38,8 @@
                 <button
                     class="button is-outlined is-size-7-mobile is-size-7-touch is-size-6-desktop"
                     title="Random weights"
-                    [disabled]="!this.simulationService.usesNodeWeights() || this.recordService.getIteration() > 0"
-                    (click)="addNodeWeights()"
-                >
+                    [disabled]="!algorithmService.usesNodeWeights() || this.recordService.getIteration() > 0"
+                    (click)="addNodeWeights()">
                     <span class="icon">
                         <fa-icon [icon]="['fas', 'balance-scale-right']"></fa-icon>
                     </span>
@@ -55,8 +51,7 @@
                     class="button is-pulled-right is-outlined is-size-7-mobile is-size-7-touch is-size-6-desktop"
                     [ngClass]="simulationService.getShowWeightStatus() ? 'is-primary is-light' : 'is-danger is-light'"
                     title="Toggle weights"
-                    (click)="simulationService.toggleWeightStatus()"
-                >
+                    (click)="simulationService.toggleWeightStatus()">
                     <span class="icon">
                         <fa-icon *ngIf="simulationService.getShowWeightStatus()" [icon]="['fas', 'eye']"></fa-icon>
                         <fa-icon *ngIf="!simulationService.getShowWeightStatus()" [icon]="['fas', 'eye-slash']"></fa-icon>
@@ -69,8 +64,7 @@
                     title="Set goal"
                     [ngClass]="simulationService.getDrawingMode() === 3 ? 'is-active' : ''"
                     [disabled]="recordService.getIteration() > 0"
-                    (click)="simulationService.setDrawingMode(3)"
-                >
+                    (click)="simulationService.setDrawingMode(3)">
                     <span class="icon goal-icon">
                         <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
                     </span>
@@ -81,8 +75,7 @@
                 <button
                     class="button is-outlined is-expanded is-size-7-touch is-size-6-desktop"
                     title="Legend"
-                    (click)="simulationService.toggleShowLegendModal()"
-                >
+                    (click)="simulationService.toggleShowLegendModal()">
                     <span class="icon has-text-info">
                         <fa-icon [icon]="['fas', 'info-circle']"></fa-icon>
                     </span>

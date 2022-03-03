@@ -5,7 +5,7 @@
     <div class="column is-half">
         <button
             class="button maze-button is-medium is-fullwidth"
-            [ngClass]="this.settingsService.getAlgorithmMode() === 'maze' ? 'is-primary' : 'has-background-primary-light'"
+            [ngClass]="this.algorithmService.getAlgorithmMode() === 'maze' ? 'is-primary' : 'has-background-primary-light'"
             (click)="handleWarning('maze', false)">
             <b>MAZE</b>
         </button>
@@ -13,7 +13,7 @@
     <div class="column is-half">
         <button
             class="button path-button is-medium is-fullwidth"
-            [ngClass]="this.settingsService.getAlgorithmMode() === 'path-finding' ? 'is-danger' : 'has-background-danger-light'"
+            [ngClass]="algorithmService.getAlgorithmMode() === 'path-finding' ? 'is-danger' : 'has-background-danger-light'"
             (click)="handleWarning('path-finding', false)">
             <b>PATHFINDING</b>
         </button>

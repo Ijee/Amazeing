@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import * as _ from 'lodash';
 import { SettingsService } from '../../@core/services/settings.service';
-import { MazeService } from '../../@core/services/maze.service';
+import { AlgorithmService } from '../../@core/services/algorithm.service';
 import { RecordService } from '../../@core/services/record.service';
 import { GridLocation } from '../../@shared/classes/GridLocation';
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -29,7 +29,7 @@ export class GridComponent implements OnInit, OnDestroy {
         public simulationService: SimulationService,
         public recordService: RecordService,
         public settingsService: SettingsService,
-        public mazeService: MazeService,
+        public algorithmService: AlgorithmService,
         public observer: BreakpointObserver
     ) {
         this.width = 47;

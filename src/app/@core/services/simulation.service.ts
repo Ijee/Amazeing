@@ -11,8 +11,7 @@ import {
     StatRecord
 } from '../../../types';
 import { SettingsService } from './settings.service';
-import { MazeService } from './maze.service';
-import { PathFindingService } from './path-finding.service';
+import { AlgorithmService } from './algorithm.service';
 import { RecordService } from './record.service';
 
 @Injectable({
@@ -37,8 +36,7 @@ export class SimulationService {
     constructor(
         private settingsService: SettingsService,
         private recordService: RecordService,
-        private mazeService: MazeService,
-        private pathFindingService: PathFindingService
+        private algorithmService: AlgorithmService
     ) {
         this.gridList$ = new BehaviorSubject<Node[][]>([]);
         this.drawingMode = 0;
@@ -72,15 +70,17 @@ export class SimulationService {
     public completeAlgorithm(): void {
         this.setSimulationStatus(false);
         this.setDisablePlay(true);
-        if (this.settingsService.getAlgorithmMode() === 'maze') {
+        if (this.algorithmService.getAlgorithmMode() === 'maze') {
             if (this.recordService.getIteration() === 0) {
-                this.mazeService.setInitialData(
+                this.algorithmService.setInitialData(
                     this.gridList$.getValue(),
                     this.recordService.getGridStartLocation()
                 );
             }
             const [iterationCount, newGrid] =
-                this.mazeService.completeAlgorithm(this.gridList$.getValue());
+                this.algorithmService.completeAlgorithm(
+                    this.gridList$.getValue()
+                );
             this.recordService.setIteration(
                 this.recordService.getIteration() + iterationCount
             );
@@ -95,11 +95,7 @@ export class SimulationService {
      * Returns the current algorithm name.
      */
     public getAlgorithmName(): MazeAlgorithm | PathFindingAlgorithm {
-        if (this.settingsService.getAlgorithmMode() === 'maze') {
-            return this.mazeService.getAlgorithmName();
-        } else {
-            return this.pathFindingService.getAlgorithmName();
-        }
+        return this.algorithmService.getAlgorithmName();
     }
 
     // TODO does this make sense here?
@@ -107,8 +103,8 @@ export class SimulationService {
      * Returns the current algorithm stat names.
      */
     public getCurrentStatRecords(): StatRecord[] {
-        if (this.settingsService.getAlgorithmMode() === 'maze') {
-            return this.mazeService.getStatRecords();
+        if (this.algorithmService.getAlgorithmMode() === 'maze') {
+            return this.algorithmService.getStatRecords();
         } else {
             // TODO
         }
@@ -118,12 +114,7 @@ export class SimulationService {
      * Returns whether or not the current algorithm uses node weights.
      */
     public usesNodeWeights(): boolean {
-        if (this.settingsService.getAlgorithmMode() === 'maze') {
-            return this.mazeService.usesNodeWeights();
-        } else {
-            return false;
-            // TODO update path-finding service based on maze interface.
-        }
+        return this.algorithmService.usesNodeWeights();
     }
 
     /**
@@ -195,8 +186,8 @@ export class SimulationService {
             const stats = _.cloneDeep(
                 this.recordService.getCurrentStatRecords()
             );
-            if (this.settingsService.getAlgorithmMode() === 'maze') {
-                this.mazeService.updateAlgorithmState(grid, state, stats);
+            if (this.algorithmService.getAlgorithmMode() === 'maze') {
+                this.algorithmService.updateAlgorithmState(grid, state, stats);
             } else {
                 // TODO update path-finding service to the new definitions on mazeService / the interface
             }
@@ -233,24 +224,25 @@ export class SimulationService {
         let newGrid: Node[][];
         let statRecord: StatRecord[];
         let newAlgorithmState: any;
-        if (this.settingsService.getAlgorithmMode() === 'maze') {
+        if (this.algorithmService.getAlgorithmMode() === 'maze') {
             if (this.recordService.getIteration() === 0) {
-                this.mazeService.setInitialData(
+                this.algorithmService.setInitialData(
                     _.cloneDeep(this.gridList$.getValue()),
                     this.recordService.getGridStartLocation()
                 );
             }
-            newGrid = this.mazeService.getNextStep();
-            statRecord = this.mazeService.getStatRecords();
-            newAlgorithmState = this.mazeService.getCurrentAlgorithmState();
+            newGrid = this.algorithmService.getNextStep();
+            statRecord = this.algorithmService.getStatRecords();
+            newAlgorithmState =
+                this.algorithmService.getCurrentAlgorithmState();
         } else {
             if (this.recordService.getIteration() === 0) {
-                this.pathFindingService.setInitialData(
+                this.algorithmService.setInitialData(
                     _.cloneDeep(this.gridList$.getValue()),
                     this.recordService.getGridStartLocation()
                 );
             }
-            newGrid = this.pathFindingService.getNextStep();
+            newGrid = this.algorithmService.getNextStep();
             // TODO update path-finding interface + implementation like mazeService
         }
         if (newGrid) {
@@ -344,10 +336,10 @@ export class SimulationService {
         // deletes all the algorithm specific nodes from the grid
         const grid = _.cloneDeep(this.gridList$.value);
         let useWeights: boolean;
-        if (this.settingsService.getAlgorithmMode() === 'maze') {
-            useWeights = this.mazeService.usesNodeWeights();
+        if (this.algorithmService.getAlgorithmMode() === 'maze') {
+            useWeights = this.algorithmService.usesNodeWeights();
         } else {
-            // TODO implement PathFindingService interface / service like the one in MazeService / Maze-Algorithm
+            // TODO implement PathFindingService interface / service like the one in AlgorithmService / Maze-Algorithm
         }
         grid.forEach((column) => {
             column.forEach((node) => {
@@ -418,24 +410,23 @@ export class SimulationService {
                 importText.split(',').map((str) => parseInt(str, 10))
             );
             session = JSON.parse(pako.inflate(uint8arr, { to: 'string' }));
-            this.settingsService.setAlgorithmMode(session.algorithmMode);
-            if (this.settingsService.getAlgorithmMode() === 'maze') {
-                this.mazeService.switchAlgorithm(
+            this.algorithmService.setAlgorithmMode(session.algorithmMode);
+            if (this.algorithmService.getAlgorithmMode() === 'maze') {
+                this.algorithmService.setMazeAlgorithm(
                     session.algorithm as MazeAlgorithm
                 );
-                this.mazeService.updateAlgorithmState(
-                    session.grid,
-                    session.state,
-                    session.stats,
-                    true
-                );
             } else {
-                this.pathFindingService.switchAlgorithm(
+                this.algorithmService.setPathAlgorithm(
                     session.algorithm as PathFindingAlgorithm
                 );
-                // TODO set path-finding updateAlgorithmState
                 // TODO set heuristic for path-finding service
             }
+            this.algorithmService.updateAlgorithmState(
+                session.grid,
+                session.state,
+                session.stats,
+                true
+            );
             this.recordService.setIteration(session.iteration);
             this.recordService.addStatRecord(session.stats);
             this.setGridList(session.grid);
@@ -451,13 +442,14 @@ export class SimulationService {
      * as possible.
      */
     public exportSession(): void {
-        if (this.settingsService.getAlgorithmMode() === 'maze') {
+        if (this.algorithmService.getAlgorithmMode() === 'maze') {
             const session: Session = {
-                algorithm: this.mazeService.getAlgorithmName() as MazeAlgorithm,
-                algorithmMode: this.settingsService.getAlgorithmMode(),
-                state: this.mazeService.getSerializedState(),
+                algorithm:
+                    this.algorithmService.getAlgorithmName() as MazeAlgorithm,
+                algorithmMode: this.algorithmService.getAlgorithmMode(),
+                state: this.algorithmService.getSerializedState(),
                 iteration: this.recordService.getIteration(),
-                stats: this.mazeService.getStatRecords(),
+                stats: this.algorithmService.getStatRecords(),
                 grid: this.gridList$.getValue()
             };
 

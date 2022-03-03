@@ -6,8 +6,7 @@ import { far } from '@fortawesome/free-regular-svg-icons';
 import { SettingsService } from '../../@core/services/settings.service';
 import { SimulationService } from '../../@core/services/simulation.service';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
-import { MazeService } from '../../@core/services/maze.service';
-import { PathFindingService } from '../../@core/services/path-finding.service';
+import { AlgorithmService } from '../../@core/services/algorithm.service';
 import { Subject } from 'rxjs';
 import { fadeAnimationSafe } from '../../@shared/animations/fadeRouteAnimation';
 import { AlgorithmMode } from '../../../types';
@@ -27,8 +26,7 @@ export class GridSettingsComponent implements OnDestroy {
         private route: ActivatedRoute,
         private router: Router,
         private library: FaIconLibrary,
-        private mazeService: MazeService,
-        private pathFindingService: PathFindingService,
+        public algorithmService: AlgorithmService,
         public simulationService: SimulationService,
         public settingsService: SettingsService
     ) {
@@ -37,9 +35,9 @@ export class GridSettingsComponent implements OnDestroy {
         this.showWarning = false;
         // activates the right algorithm mode button based on the matched url
         if (this.router.url.includes('maze')) {
-            this.settingsService.setAlgorithmMode('maze');
+            this.algorithmService.setAlgorithmMode('maze');
         } else {
-            this.settingsService.setAlgorithmMode('path-finding');
+            this.algorithmService.setAlgorithmMode('path-finding');
         }
 
         this.destroyed$ = new Subject<void>();
@@ -57,23 +55,20 @@ export class GridSettingsComponent implements OnDestroy {
      * @param skipWarning - whether or not to skip the warning or not
      */
     public handleWarning(algoMode: AlgorithmMode, skipWarning: boolean): void {
-        if (this.settingsService.getAlgorithmMode() !== algoMode) {
+        if (this.algorithmService.getAlgorithmMode() !== algoMode) {
             if (this.settingsService.getWarningsSetting() && !skipWarning) {
                 this.showWarning = true;
             } else {
                 this.simulationService.prepareGrid();
-                this.settingsService.setAlgorithmMode(algoMode);
+                this.algorithmService.setAlgorithmMode(algoMode);
                 this.showWarning = false;
-                let currentAlgorithm: string;
-                if (this.settingsService.getAlgorithmMode() === 'maze') {
-                    currentAlgorithm = this.mazeService.getAlgorithmName();
-                } else {
-                    currentAlgorithm =
-                        this.pathFindingService.getAlgorithmName();
-                }
+                // TODO does this work after algorithm service changes???
+
                 this.router.navigate([algoMode], {
                     relativeTo: this.route,
-                    queryParams: { algorithm: currentAlgorithm }
+                    queryParams: {
+                        algorithm: this.algorithmService.getAlgorithmName()
+                    }
                 });
                 // console.log('algoMode in service', this.settingsService.getAlgorithmMode());
             }
@@ -84,7 +79,7 @@ export class GridSettingsComponent implements OnDestroy {
      * Returns the other algoMode based on the one it is currently set to.
      */
     public switchToOtherMode(): AlgorithmMode {
-        return this.settingsService.getAlgorithmMode() === 'maze'
+        return this.algorithmService.getAlgorithmMode() === 'maze'
             ? 'path-finding'
             : 'maze';
     }
@@ -93,14 +88,8 @@ export class GridSettingsComponent implements OnDestroy {
      * Navigates to the /learn route with the current selected algorithm as a query param.
      */
     public navigateToLearn(): void {
-        let algoName: string;
-        if (this.settingsService.getAlgorithmMode() === 'maze') {
-            algoName = this.mazeService.getAlgorithmName();
-        } else {
-            algoName = this.pathFindingService.getAlgorithmName();
-        }
         this.router.navigate(['/learn'], {
-            queryParams: { algorithm: algoName }
+            queryParams: { algorithm: this.algorithmService.getAlgorithmName() }
         });
     }
 }

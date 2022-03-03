@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SettingsService } from '../../../@core/services/settings.service';
-import { MazeService } from '../../../@core/services/maze.service';
+import { AlgorithmService } from '../../../@core/services/algorithm.service';
 import {
     JsonFormControls,
     JsonFormData,
@@ -12,10 +12,6 @@ import { Subject } from 'rxjs';
 import { WarningDialogService } from '../../../@shared/components/warning-modal/warning-dialog.service';
 import { SimulationService } from '../../../@core/services/simulation.service';
 import { FormBuilder, Validators } from '@angular/forms';
-import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { fas } from '@fortawesome/free-solid-svg-icons';
-import { fab } from '@fortawesome/free-brands-svg-icons';
-import { far } from '@fortawesome/free-regular-svg-icons';
 import { RecordService } from '../../../@core/services/record.service';
 
 @Component({
@@ -35,7 +31,7 @@ export class MazeSettingsComponent implements OnInit, OnDestroy {
         public simulationService: SimulationService,
         public recordService: RecordService,
         public settingsService: SettingsService,
-        public mazeService: MazeService,
+        public mazeService: AlgorithmService,
         public formBuilder: FormBuilder
     ) {
         this.destroyed$ = new Subject<void>();
@@ -66,7 +62,7 @@ export class MazeSettingsComponent implements OnInit, OnDestroy {
                     'Maze-Routing'
                 ]);
                 if (pathFindingAlgorithms.has(params.algorithm)) {
-                    this.mazeService.switchAlgorithm(params.algorithm);
+                    this.mazeService.setMazeAlgorithm(params.algorithm);
                 } else {
                     this.router.navigate(['.'], {
                         relativeTo: this.route,
@@ -136,7 +132,7 @@ export class MazeSettingsComponent implements OnInit, OnDestroy {
      * @param newAlgorithm - the new algorithm to be set
      */
     private handleAlgorithmSwitch(newAlgorithm: MazeAlgorithm): void {
-        this.mazeService.switchAlgorithm(newAlgorithm);
+        this.mazeService.setMazeAlgorithm(newAlgorithm);
         // TODO soft reset or hard reset / grid savepoint?
         this.simulationService.prepareGrid();
         this.router.navigate([], {

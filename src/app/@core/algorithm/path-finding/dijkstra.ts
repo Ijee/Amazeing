@@ -1,15 +1,23 @@
-import { PathFindingAlgorithmInterface } from './path-finding-algorithm.interface';
+import { PathFindingAlgorithmAbstract } from './path-finding-algorithm.abstract';
 import {
     PathFindingAlgorithm,
     Node,
-    PathFindingHeuristic
+    PathFindingHeuristic,
+    StatRecord
 } from '../../../../types';
 import { GridLocation } from '../../../@shared/classes/GridLocation';
 
-export class Dijkstra implements PathFindingAlgorithmInterface {
-    currentGrid: Node[][];
-
-    constructor() {}
+export class Dijkstra extends PathFindingAlgorithmAbstract {
+    constructor() {
+        super(
+            [],
+            [],
+            {
+                controls: []
+            },
+            {}
+        );
+    }
 
     public nextStep(): Node[][] {
         return this.currentGrid;
@@ -17,24 +25,40 @@ export class Dijkstra implements PathFindingAlgorithmInterface {
 
     public setInitialData(
         currentGrid: Node[][],
-        currentStartPoint: GridLocation,
-        currentHeuristic: PathFindingHeuristic
+        currentStartPoint: GridLocation
     ): void {
-        return null;
+        this.currentGrid = currentGrid;
+    }
+
+    public updateAlgorithmState(
+        newGrid: Node[][],
+        deserializedState: any,
+        statRecords: StatRecord[]
+    ): void {
+        throw new Error('Method not implemented.');
+    }
+
+    public deserialize(
+        newGrid: Node[][],
+        serializedState: any,
+        statRecords: StatRecord[]
+    ): void {
+        throw new Error('Method not implemented.');
+    }
+
+    public getSerializedState() {
+        throw new Error('Method not implemented.');
+    }
+
+    public getCurrentAlgorithmState() {
+        throw new Error('Method not implemented.');
     }
 
     public getAlgorithmName(): PathFindingAlgorithm {
         return 'Dijkstra';
     }
 
-    getUpdatedStats(): string {
-        return 'drölf';
-    }
-
-    /**
-     * Returns the current algorithm pseudo code
-     */
-    getPseudoCode(): string {
-        return 'dijkstra';
+    public usesNodeWeights(): boolean {
+        return true;
     }
 }

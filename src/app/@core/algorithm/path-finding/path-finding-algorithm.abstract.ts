@@ -1,0 +1,120 @@
+import {
+    JsonFormData,
+    Node,
+    PathFindingAlgorithm,
+    PathFindingHeuristic,
+    StatRecord
+} from '../../../../types';
+import { GridLocation } from '../../../@shared/classes/GridLocation';
+
+export abstract class PathFindingAlgorithmAbstract {
+    protected constructor(
+        protected currentGrid: Node[][],
+        protected statRecords: StatRecord[],
+        protected jsonFormData: JsonFormData,
+        protected options: Object
+    ) {}
+
+    /**
+     * Returns the new step / iteration based on the currentGrid.
+     * Returns null when no further iteration can be done.
+     */
+    public abstract nextStep(): Node[][] | null;
+
+    /**
+     * Sets the starting point for the algorithm to the one
+     * the user set on the grid
+     *
+     * @param currentGrid - the current grid from the simulation service
+     * @param currentStartPoint - the starting point for the algorithm
+     */
+    public abstract setInitialData(
+        currentGrid: Node[][],
+        currentStartPoint: GridLocation
+    ): void;
+
+    /**
+     * Sets the options for the algorithm.
+     * The available values are based on what has been declared in jsonFormData.
+     *
+     * @param options
+     */
+    public setOptions(options: Object) {
+        this.options = options;
+    }
+
+    /**
+     * Updates the algorithm state that needs to be done when
+     * either a backwards step has been set or the client
+     * tried to import from a string through the ui.
+     *
+     * Refer to how to load the state back in on what is being returned
+     * in getCurrentAlgorithmState
+     *
+     * @param deserializedState - the new algorithm state
+     * @param statRecords - the new algorithm statRecords
+     * @param newGrid - the current Grid
+     */
+
+    public abstract updateAlgorithmState(
+        newGrid: Node[][],
+        deserializedState: any,
+        statRecords: StatRecord[]
+    ): void;
+
+    /**
+     * This function is responsible for deserializing the internal state of the algorithm and
+     * then updating it by calling updateAlgorithmState with it.
+     *
+     * It is being called when the user tries to import a custom session into the app.
+     *
+     * @param newGrid - the current Grid
+     * @param serializedState - the serialized data
+     * @param statRecords - the new algorithm stats
+     */
+    public abstract deserialize(
+        newGrid: Node[][],
+        serializedState: any,
+        statRecords: StatRecord[]
+    ): void;
+
+    /**
+     * This function serializes the internal state of the algorithm and then returns it as an object.
+     * This has to be done in order to make the state exportable as a JSON string.
+     *
+     * Remember that classes can not be serialized with JSON.stringify as they most often include functions.
+     */
+    public abstract getSerializedState(): any;
+
+    /**
+     * Returns the current algorithm state that should at least
+     * be an object.
+     */
+    public abstract getCurrentAlgorithmState(): any;
+
+    /**
+     * Returns the name of the algorithm.
+     */
+    public abstract getAlgorithmName(): PathFindingAlgorithm;
+
+    /**
+     * Returns the stat records for the algorithm,.
+     */
+    public getStatRecords(): StatRecord[] {
+        return this.statRecords;
+    }
+
+    /**
+     * Returns the algorithm options in a json format.
+     * This is being used to create a form for the current algorithm so the user
+     * can choose alternative algorithm implementations.
+     */
+    public getJsonFormData(): JsonFormData {
+        return this.jsonFormData;
+    }
+
+    /**
+     * Returns whether or not the current algorithm uses node weights.
+     */
+    public abstract usesNodeWeights(): boolean;
+}

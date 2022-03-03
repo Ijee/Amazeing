@@ -5,6 +5,7 @@ import { RecordService } from '../../../@core/services/record.service';
 import { StatRecord } from '../../../../types';
 import { fadeInOutList } from '../../../@shared/animations/fadeInOutList';
 import { transition, trigger } from '@angular/animations';
+import { AlgorithmService } from '../../../@core/services/algorithm.service';
 
 @Component({
     selector: 'app-stats',
@@ -20,6 +21,7 @@ export class StatsComponent {
 
     constructor(
         public simulationService: SimulationService,
+        public algorithmService: AlgorithmService,
         public recordService: RecordService,
         public settingsService: SettingsService
     ) {}

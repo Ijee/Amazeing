@@ -5,7 +5,6 @@ import { AlgorithmMode } from '../../../types';
     providedIn: 'root'
 })
 export class SettingsService {
-    private algorithmMode: AlgorithmMode;
     private darkModeSetting: boolean;
     private animationsSetting: boolean;
     private warningsSetting: boolean;
@@ -47,19 +46,6 @@ export class SettingsService {
             this.setWarningsSetting(true);
         } else {
             this.setWarningsSetting(storageWarningSetting === 'true');
-        }
-    }
-
-    /**
-     * Sets the new algorithm mode.
-     *
-     * @param newMode - the new algorithm mode ('maze' | 'path-finding')
-     */
-    public setAlgorithmMode(newMode: AlgorithmMode): void {
-        try {
-            this.algorithmMode = newMode;
-        } catch {
-            throw new Error('Could not set the algorithm mode!');
         }
     }
 
@@ -106,13 +92,6 @@ export class SettingsService {
             this.warningsSetting = !this.warningsSetting;
         }
         localStorage.setItem('warningsSetting', String(this.warningsSetting));
-    }
-
-    /**
-     * Returns the current algorithm mode.
-     */
-    public getAlgorithmMode(): AlgorithmMode {
-        return this.algorithmMode;
     }
 
     /**

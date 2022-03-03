@@ -19,6 +19,7 @@ import { takeUntil } from 'rxjs/operators';
 import { fadeInOut } from './@shared/animations/fadeInOut';
 import { fadeRouteAnimation } from './@shared/animations/fadeRouteAnimation';
 import { WarningDialogService } from './@shared/components/warning-modal/warning-dialog.service';
+import { AlgorithmService } from './@core/services/algorithm.service';
 
 @Component({
     selector: 'app-root',
@@ -40,6 +41,7 @@ export class AppComponent implements OnInit, OnDestroy {
         private observer: BreakpointObserver,
         public simulationService: SimulationService,
         public settingsService: SettingsService,
+        public algorithmService: AlgorithmService,
         public warnDialogService: WarningDialogService
     ) {
         this.version = packageInfo.version;

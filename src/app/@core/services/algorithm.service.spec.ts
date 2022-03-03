@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { MazeService } from './maze.service';
+import { AlgorithmService } from './algorithm.service';
 
-describe('MazeService', () => {
-    let service: MazeService;
+describe('AlgorithmService', () => {
+    let service: AlgorithmService;
 
     beforeEach(() => {
         TestBed.configureTestingModule({});
-        service = TestBed.inject(MazeService);
+        service = TestBed.inject(AlgorithmService);
     });
 
     it('should be created', () => {
