@@ -51,11 +51,11 @@ export class AStar extends PathFindingAlgorithmAbstract {
         throw new Error('Method not implemented.');
     }
 
-    public getSerializedState() {
+    public getSerializedState(): Object {
         throw new Error('Method not implemented.');
     }
 
-    public getCurrentAlgorithmState() {
+    public getCurrentAlgorithmState(): Object {
         throw new Error('Method not implemented.');
     }
 

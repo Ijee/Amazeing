@@ -6,7 +6,7 @@ import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
  * This is the implementation of Wilsons algorithm tailored for creating a maze.
  */
 
-export type visit = {
+type visit = {
     gridLocation: GridLocation;
     direction: string;
 };
@@ -52,13 +52,6 @@ export class Wilsons extends MazeAlgorithmAbstract {
                         validators: {
                             required: true
                         }
-                    },
-                    {
-                        name: 'Test',
-                        label: 'Test',
-                        value: 'true',
-                        type: 'checkbox',
-                        validators: {}
                     }
                 ]
             },
@@ -112,7 +105,7 @@ export class Wilsons extends MazeAlgorithmAbstract {
         this.updateAlgorithmState(newGrid, deserializedState, statRecords);
     }
 
-    public getSerializedState() {
+    public getSerializedState(): Object {
         return {
             cursor: this.cursor.toObject(),
             remainingNodes: this.remainingNodes,
@@ -121,7 +114,7 @@ export class Wilsons extends MazeAlgorithmAbstract {
         };
     }
 
-    public getCurrentAlgorithmState() {
+    public getCurrentAlgorithmState(): Object {
         return {
             cursor: this.cursor,
             remainingNodes: this.remainingNodes,

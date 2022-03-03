@@ -10,6 +10,7 @@ import { AlgorithmService } from '../../@core/services/algorithm.service';
 import { Subject } from 'rxjs';
 import { fadeAnimationSafe } from '../../@shared/animations/fadeRouteAnimation';
 import { AlgorithmMode } from '../../../types';
+import { RecordService } from '../../@core/services/record.service';
 
 @Component({
     selector: 'app-grid-settings',
@@ -26,6 +27,7 @@ export class GridSettingsComponent implements OnDestroy {
         private route: ActivatedRoute,
         private router: Router,
         private library: FaIconLibrary,
+        private recordService: RecordService,
         public algorithmService: AlgorithmService,
         public simulationService: SimulationService,
         public settingsService: SettingsService
@@ -62,7 +64,6 @@ export class GridSettingsComponent implements OnDestroy {
                 this.simulationService.prepareGrid();
                 this.algorithmService.setAlgorithmMode(algoMode);
                 this.showWarning = false;
-                // TODO does this work after algorithm service changes???
 
                 this.router.navigate([algoMode], {
                     relativeTo: this.route,

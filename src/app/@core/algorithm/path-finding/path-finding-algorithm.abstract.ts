@@ -84,13 +84,13 @@ export abstract class PathFindingAlgorithmAbstract {
      *
      * Remember that classes can not be serialized with JSON.stringify as they most often include functions.
      */
-    public abstract getSerializedState(): any;
+    public abstract getSerializedState(): Object;
 
     /**
      * Returns the current algorithm state that should at least
      * be an object.
      */
-    public abstract getCurrentAlgorithmState(): any;
+    public abstract getCurrentAlgorithmState(): Object;
 
     /**
      * Returns the name of the algorithm.

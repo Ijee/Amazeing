@@ -1,5 +1,5 @@
 import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
-import {JsonFormData, MazeAlgorithm, Node, StatRecord} from '../../../../../types';
+import { MazeAlgorithm, Node, StatRecord } from '../../../../../types';
 import { GridLocation } from '../../../../@shared/classes/GridLocation';
 
 /**
@@ -35,10 +35,10 @@ export class AldousBroder extends MazeAlgorithmAbstract {
                     currentValue: 0
                 }
             ],
-          {
-            'controls': []
-          },
-          {},
+            {
+                controls: []
+            },
+            {}
         );
     }
 
@@ -126,19 +126,19 @@ export class AldousBroder extends MazeAlgorithmAbstract {
         this.updateAlgorithmState(newGrid, deserializedState, statRecords);
     }
 
-    getSerializedState(): any {
+    getSerializedState(): Object {
         return {
             cursor: this.cursor.toObject(),
             remainingNodes: this.remainingNodes
         };
     }
 
-  getCurrentAlgorithmState(): any {
-    return {
-      cursor: this.cursor,
-      remainingNodes: this.remainingNodes
-    };
-  }
+    getCurrentAlgorithmState(): Object {
+        return {
+            cursor: this.cursor,
+            remainingNodes: this.remainingNodes
+        };
+    }
 
     getAlgorithmName(): MazeAlgorithm {
         return 'Aldous-Broder';
