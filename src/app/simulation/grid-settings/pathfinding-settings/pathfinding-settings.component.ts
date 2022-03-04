@@ -8,6 +8,7 @@ import { PathFindingAlgorithm } from '../../../../types';
 import { WarningDialogService } from '../../../@shared/components/warning-modal/warning-dialog.service';
 import { SimulationService } from '../../../@core/services/simulation.service';
 import { AlgorithmService } from '../../../@core/services/algorithm.service';
+import { RecordService } from '../../../@core/services/record.service';
 
 @Component({
     selector: 'app-pathfinding-settings',
@@ -21,6 +22,7 @@ export class PathfindingSettingsComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         private router: Router,
         private warningDialog: WarningDialogService,
+        public recordService: RecordService,
         public simulationService: SimulationService,
         public algorithmService: AlgorithmService,
         public settingsService: SettingsService
@@ -67,7 +69,10 @@ export class PathfindingSettingsComponent implements OnInit, OnDestroy {
      * @param newAlgorithm - the new algorithm to be set
      */
     public handleWarning(newAlgorithm: PathFindingAlgorithm): void {
-        if (this.settingsService.getWarningsSetting()) {
+        if (
+            this.recordService.getIteration() !== 0 &&
+            this.settingsService.getWarningsSetting()
+        ) {
             this.warningDialog.openDialog();
             this.warningDialog
                 .afterClosed()

@@ -28,10 +28,10 @@ export class MazeSettingsComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         private router: Router,
         private warningDialog: WarningDialogService,
-        public simulationService: SimulationService,
         public recordService: RecordService,
+        public simulationService: SimulationService,
         public settingsService: SettingsService,
-        public mazeService: AlgorithmService,
+        public algorithmService: AlgorithmService,
         public formBuilder: FormBuilder
     ) {
         this.destroyed$ = new Subject<void>();
@@ -62,12 +62,12 @@ export class MazeSettingsComponent implements OnInit, OnDestroy {
                     'Maze-Routing'
                 ]);
                 if (pathFindingAlgorithms.has(params.algorithm)) {
-                    this.mazeService.setMazeAlgorithm(params.algorithm);
+                    this.algorithmService.setMazeAlgorithm(params.algorithm);
                 } else {
                     this.router.navigate(['.'], {
                         relativeTo: this.route,
                         queryParams: {
-                            algorithm: this.mazeService.getAlgorithmName()
+                            algorithm: this.algorithmService.getAlgorithmName()
                         }
                     });
                 }
@@ -83,7 +83,10 @@ export class MazeSettingsComponent implements OnInit, OnDestroy {
     }
 
     public handleWarning(newAlgorithm: MazeAlgorithm): void {
-        if (this.settingsService.getWarningsSetting()) {
+        if (
+            this.recordService.getIteration() !== 0 &&
+            this.settingsService.getWarningsSetting()
+        ) {
             this.warningDialog.openDialog();
             this.warningDialog
                 .afterClosed()
@@ -104,7 +107,7 @@ export class MazeSettingsComponent implements OnInit, OnDestroy {
      * Gets and handles the creation of the form based on JsonFormData.
      */
     public handleJsonFormData(): JsonFormData {
-        const jsonFormData = this.mazeService.getJsonFormData();
+        const jsonFormData = this.algorithmService.getJsonFormData();
         // TODO maybe this gets called too often.
         this.createForm(jsonFormData.controls);
         return jsonFormData;
@@ -123,7 +126,7 @@ export class MazeSettingsComponent implements OnInit, OnDestroy {
                   ))
                 : (options[field] = this.optionsForm.controls[field].value);
         }
-        this.mazeService.setOptions(options);
+        this.algorithmService.setOptions(options);
     }
 
     /**
@@ -132,7 +135,7 @@ export class MazeSettingsComponent implements OnInit, OnDestroy {
      * @param newAlgorithm - the new algorithm to be set
      */
     private handleAlgorithmSwitch(newAlgorithm: MazeAlgorithm): void {
-        this.mazeService.setMazeAlgorithm(newAlgorithm);
+        this.algorithmService.setMazeAlgorithm(newAlgorithm);
         // TODO soft reset or hard reset / grid savepoint?
         this.simulationService.prepareGrid();
         this.router.navigate([], {

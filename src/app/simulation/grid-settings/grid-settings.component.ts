@@ -58,9 +58,7 @@ export class GridSettingsComponent implements OnDestroy {
      */
     public handleWarning(algoMode: AlgorithmMode, skipWarning: boolean): void {
         if (this.algorithmService.getAlgorithmMode() !== algoMode) {
-            if (this.settingsService.getWarningsSetting() && !skipWarning) {
-                this.showWarning = true;
-            } else {
+            if (this.recordService.getIteration() === 0 || skipWarning) {
                 this.simulationService.prepareGrid();
                 this.algorithmService.setAlgorithmMode(algoMode);
                 this.showWarning = false;
@@ -72,6 +70,11 @@ export class GridSettingsComponent implements OnDestroy {
                     }
                 });
                 // console.log('algoMode in service', this.settingsService.getAlgorithmMode());
+            } else if (
+                this.settingsService.getWarningsSetting() &&
+                !skipWarning
+            ) {
+                this.showWarning = true;
             }
         }
     }
