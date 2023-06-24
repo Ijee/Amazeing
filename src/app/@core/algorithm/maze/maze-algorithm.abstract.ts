@@ -106,7 +106,10 @@ export abstract class MazeAlgorithmAbstract {
         const x = (loc1.x + loc2.x) / 2;
         const y = (loc1.y + loc2.y) / 2;
         const node = this.currentGrid[x][y];
-        if (node.status === 1) {
+        // if (node.status === 1) {
+        //   node.status = nodeStatus;
+        // }
+        if (node.status !== 2 && node.status !== 3) {
             node.status = nodeStatus;
         }
     }
@@ -225,7 +228,7 @@ export abstract class MazeAlgorithmAbstract {
     public abstract getAlgorithmName(): MazeAlgorithm;
 
     /**
-     * Returns the stat records for the algorithm,.
+     * Returns the stat records for the algorithm.
      */
     public getStatRecords(): StatRecord[] {
         return this.statRecords;

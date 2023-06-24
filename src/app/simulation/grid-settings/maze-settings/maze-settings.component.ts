@@ -13,6 +13,7 @@ import { WarningDialogService } from '../../../@shared/components/warning-modal/
 import { SimulationService } from '../../../@core/services/simulation.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { RecordService } from '../../../@core/services/record.service';
+import { forEach } from 'lodash';
 
 @Component({
     selector: 'app-maze-settings',
@@ -72,9 +73,15 @@ export class MazeSettingsComponent implements OnInit, OnDestroy {
                     });
                 }
             });
-        this.optionsForm.valueChanges.subscribe(() => {
-            this.setAlgorithmOptions();
-        });
+        // this.optionsForm.valueChanges.subscribe(() => {
+        //   if (this.recordService.getIteration() > 0) {
+        //     for (let field in this.optionsForm.controls) {
+        //       const control = this.optionsForm.get(field);
+        //       control.disable();
+        //     }
+        //   }
+        //   this.setAlgorithmOptions();
+        // });
     }
 
     ngOnDestroy(): void {
@@ -108,7 +115,6 @@ export class MazeSettingsComponent implements OnInit, OnDestroy {
      */
     public handleJsonFormData(): JsonFormData {
         const jsonFormData = this.algorithmService.getJsonFormData();
-        // TODO maybe this gets called too often.
         this.createForm(jsonFormData.controls);
         return jsonFormData;
     }
@@ -148,7 +154,6 @@ export class MazeSettingsComponent implements OnInit, OnDestroy {
     private createForm(controls: JsonFormControls[]) {
         for (const control of controls) {
             const validatorsToAdd = [];
-
             for (const [key, value] of Object.entries(control.validators)) {
                 switch (key) {
                     case 'min':
@@ -197,4 +202,6 @@ export class MazeSettingsComponent implements OnInit, OnDestroy {
             );
         }
     }
+
+    protected readonly SimulationService = SimulationService;
 }

@@ -36,7 +36,7 @@ export class RecordService {
      * Is responsible to save the current state of the stats and
      * grids on a iteration by iteration basis so that it can be retrieved
      *
-     * Also the maximum steps to be set are 9. The simulation needs n + 1 to work though
+     * The simulation needs n + 1 to work.
      *
      * @param gridList - the gridList used in the grid component
      */
