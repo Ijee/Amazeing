@@ -24,14 +24,15 @@ const routes: Routes = [
             animationState: 'learn'
         }
     },
-    {
-        path: '',
-        redirectTo: 'simulation',
-        pathMatch: 'full'
-    },
+    // {
+    //     path: '',
+    //     redirectTo: 'simulation',
+    //     pathMatch: 'full'
+    // },
     {
         path: '**',
-        redirectTo: 'simulation'
+        redirectTo: 'simulation',
+        pathMatch: 'full'
     }
 ];
 

@@ -2,17 +2,16 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import * as _ from 'lodash';
 import * as pako from 'pako';
-import {
-    MazeAlgorithm,
-    Node,
-    PathFindingAlgorithm,
-    PathFindingHeuristic,
-    Session,
-    StatRecord
-} from '../../../types';
 import { SettingsService } from './settings.service';
 import { AlgorithmService } from './algorithm.service';
 import { RecordService } from './record.service';
+import {
+    MazeAlgorithm,
+    PathFindingAlgorithm,
+    StatRecord,
+    Node,
+    Session
+} from '../../../types';
 
 @Injectable({
     providedIn: 'root'

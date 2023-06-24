@@ -12,11 +12,12 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2015",
-    "module": "es2020",
+    "target": "ES2022",
+    "module": "ES2020",
     "lib": [
-      "es2018",
+      "ES2022",
       "dom"
-    ]
+    ],
+    "useDefineForClassFields": false
   }
 }

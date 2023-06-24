@@ -13,7 +13,7 @@ import { far } from '@fortawesome/free-regular-svg-icons';
 import { SimulationService } from './@core/services/simulation.service';
 import { Subject } from 'rxjs';
 import { SettingsService } from './@core/services/settings.service';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { takeUntil } from 'rxjs/operators';
 import { fadeInOut } from './@shared/animations/fadeInOut';
@@ -39,6 +39,7 @@ export class AppComponent implements OnInit, OnDestroy {
         library: FaIconLibrary,
         private renderer: Renderer2,
         private observer: BreakpointObserver,
+        private router: Router,
         public simulationService: SimulationService,
         public settingsService: SettingsService,
         public algorithmService: AlgorithmService,
@@ -107,5 +108,12 @@ export class AppComponent implements OnInit, OnDestroy {
         return outlet.isActivated
             ? outlet.activatedRouteData.animationState
             : '';
+    }
+
+    public navigateToSimulation(): void {
+        this.simulationService.setSimulationStatus(false);
+        this.router.navigate([
+            'simulation/' + this.algorithmService.getAlgorithmMode()
+        ]);
     }
 }

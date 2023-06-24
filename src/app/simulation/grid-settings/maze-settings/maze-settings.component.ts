@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { SettingsService } from '../../../@core/services/settings.service';
 import { AlgorithmService } from '../../../@core/services/algorithm.service';
 import {
@@ -11,7 +11,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { WarningDialogService } from '../../../@shared/components/warning-modal/warning-dialog.service';
 import { SimulationService } from '../../../@core/services/simulation.service';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { RecordService } from '../../../@core/services/record.service';
 import { forEach } from 'lodash';
 
@@ -28,12 +28,13 @@ export class MazeSettingsComponent implements OnInit, OnDestroy {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
+        private changeDetector: ChangeDetectorRef,
         private warningDialog: WarningDialogService,
         public recordService: RecordService,
         public simulationService: SimulationService,
         public settingsService: SettingsService,
         public algorithmService: AlgorithmService,
-        public formBuilder: FormBuilder
+        public formBuilder: UntypedFormBuilder
     ) {
         this.destroyed$ = new Subject<void>();
     }
@@ -65,12 +66,17 @@ export class MazeSettingsComponent implements OnInit, OnDestroy {
                 if (pathFindingAlgorithms.has(params.algorithm)) {
                     this.algorithmService.setMazeAlgorithm(params.algorithm);
                 } else {
-                    this.router.navigate(['.'], {
-                        relativeTo: this.route,
-                        queryParams: {
-                            algorithm: this.algorithmService.getAlgorithmName()
-                        }
-                    });
+                    this.router
+                        .navigate(['.'], {
+                            relativeTo: this.route,
+                            queryParams: {
+                                algorithm:
+                                    this.algorithmService.getAlgorithmName()
+                            }
+                        })
+                        .then(() => {
+                            this.changeDetector.detectChanges();
+                        });
                 }
             });
         // this.optionsForm.valueChanges.subscribe(() => {

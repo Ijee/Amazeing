@@ -8,25 +8,21 @@ import { GridSettingsComponent } from './grid-settings/grid-settings.component';
 const routes: Routes = [
     {
         path: '',
+        pathMatch: 'prefix',
         component: SimulationComponent,
         children: [
             {
+                path: 'maze',
+                component: MazeSettingsComponent
+            },
+            {
+                path: 'path-finding',
+                component: PathfindingSettingsComponent
+            },
+            {
                 path: '',
-                component: GridSettingsComponent,
-                children: [
-                    {
-                        path: 'maze',
-                        component: MazeSettingsComponent
-                    },
-                    {
-                        path: 'path-finding',
-                        component: PathfindingSettingsComponent
-                    },
-                    {
-                        path: '',
-                        redirectTo: 'maze'
-                    }
-                ]
+                redirectTo: 'maze',
+                pathMatch: 'full'
             }
         ]
     }

@@ -34,7 +34,7 @@ html, body {
   @include dark-theme;
 }
 
-@import '~bulma';
+@import 'bulma';
 
 ::selection {
   background: $primary;

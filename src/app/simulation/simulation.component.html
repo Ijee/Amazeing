@@ -3,8 +3,8 @@
         <app-grid class="p-5 box"></app-grid>
     </div>
     <div class="column is-4 is-12-touch fl-1">
-        <div class="box" [@fadeAnimationSafe]="o.isActivated && o.activatedRoute">
-            <router-outlet #o="outlet"></router-outlet>
+        <div class="box">
+            <app-grid-settings></app-grid-settings>
         </div>
     </div>
     <div class="column is-12 fl-3">

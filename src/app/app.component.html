@@ -1,7 +1,7 @@
 <nav class="navbar is-transparent dark-theme p-3">
     <div class="container is-fullhd">
         <div class="navbar-brand">
-            <a class="navbar-item font-white is-unselectable" [routerLink]="'simulation/' + algorithmService.getAlgorithmMode()">
+            <a class="navbar-item font-white is-unselectable" (click)="navigateToSimulation()">
                 <span class="icon">
                     <fa-icon [icon]="['fas', 'code']"></fa-icon>
                 </span>
@@ -37,11 +37,7 @@
                 'transparent-navbar': !isTouch
             }">
             <div class="navbar-end">
-                <a
-                    class="navbar-item is-unselectable"
-                    [ngClass]="{ 'font-white': !isTouch }"
-                    [routerLink]="'simulation/' + algorithmService.getAlgorithmMode()"
-                    (click)="simulationService.setSimulationStatus(false)">
+                <a class="navbar-item is-unselectable" [ngClass]="{ 'font-white': !isTouch }" (click)="navigateToSimulation()">
                     <span class="icon">
                         <fa-icon [icon]="['fas', 'microchip']"></fa-icon>
                     </span>

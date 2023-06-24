@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import hljs from 'highlight.js/lib/core';
 import { SettingsService } from '../../../@core/services/settings.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -21,6 +21,7 @@ export class PathfindingSettingsComponent implements OnInit, OnDestroy {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
+        private changeDetector: ChangeDetectorRef,
         private warningDialog: WarningDialogService,
         public recordService: RecordService,
         public simulationService: SimulationService,
@@ -48,12 +49,17 @@ export class PathfindingSettingsComponent implements OnInit, OnDestroy {
                 if (pathFindingAlgorithms.has(params.algorithm)) {
                     this.algorithmService.setPathAlgorithm(params.algorithm);
                 } else {
-                    this.router.navigate(['.'], {
-                        relativeTo: this.route,
-                        queryParams: {
-                            algorithm: this.algorithmService.getAlgorithmName()
-                        }
-                    });
+                    this.router
+                        .navigate(['.'], {
+                            relativeTo: this.route,
+                            queryParams: {
+                                algorithm:
+                                    this.algorithmService.getAlgorithmName()
+                            }
+                        })
+                        .then(() => {
+                            this.changeDetector.detectChanges();
+                        });
                 }
             });
     }
