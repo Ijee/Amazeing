@@ -3,6 +3,7 @@ import { Node, StatRecord, MazeAlgorithm } from 'src/types';
 import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
 import { HashSet } from '../../../../@shared/classes/HashSet';
 import { EqualsHashCode } from '../../../../@shared/classes/EqualsHashCode';
+import { shuffleFisherYates } from '../../../../@shared/functions/fisher-yates';
 
 /**
  * This is the implementation of Wilsons algorithm tailored for creating a maze
@@ -92,21 +93,10 @@ export class Wilsons extends MazeAlgorithmAbstract {
         this.isWalking = false;
     }
 
-    // Fisher-Yates random sort algorithm
-    private shuffleFisherYates(array: GridLocation[]): GridLocation[] {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            const temp = array[i];
-            array[i] = array[j];
-            array[j] = temp;
-        }
-        return array;
-    }
-
     private randomWalk(): void {
         let neighbours: GridLocation[] = this.getNeighbours(this.cursor, 2);
         // shuffling because otherwise the random walk would just be a straight line.
-        neighbours = this.shuffleFisherYates(neighbours);
+        neighbours = shuffleFisherYates(neighbours);
         neighbours.every((neighbour) => {
             // so we don't paint over walls, start and goal.
             // this.currentGrid[neighbour.x][neighbour.y].status !== 2 &&
