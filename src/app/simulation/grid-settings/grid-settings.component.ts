@@ -56,24 +56,14 @@ export class GridSettingsComponent implements OnDestroy {
      * @param algoMode - the new algorithm mode to be set
      * @param skipWarning - whether or not to skip the warning or not
      */
-    public handleWarning(algoMode: AlgorithmMode, skipWarning: boolean): void {
+    public handleWarning(algoMode: AlgorithmMode): void {
         if (this.algorithmService.getAlgorithmMode() !== algoMode) {
-            if (this.recordService.getIteration() === 0 || skipWarning) {
-                this.simulationService.prepareGrid();
-                this.algorithmService.setAlgorithmMode(algoMode);
-                this.showWarning = false;
-
-                this.router.navigate([algoMode], {
-                    relativeTo: this.route,
-                    queryParams: {
-                        algorithm: this.algorithmService.getAlgorithmName()
-                    }
-                });
-                // console.log('algoMode in service', this.settingsService.getAlgorithmMode());
-            } else if (
-                this.settingsService.getWarningsSetting() &&
-                !skipWarning
+            if (
+                this.recordService.getIteration() === 0 ||
+                !this.settingsService.getWarningsSetting()
             ) {
+                this.switchToOtherMode(algoMode);
+            } else {
                 this.showWarning = true;
             }
         }
@@ -82,10 +72,22 @@ export class GridSettingsComponent implements OnDestroy {
     /**
      * Returns the other algoMode based on the one it is currently set to.
      */
-    public switchToOtherMode(): AlgorithmMode {
-        return this.algorithmService.getAlgorithmMode() === 'maze'
-            ? 'path-finding'
-            : 'maze';
+    public switchToOtherMode(algoMode: AlgorithmMode): void {
+        this.showWarning = false;
+        this.simulationService.prepareGrid();
+
+        if (this.algorithmService.getAlgorithmMode() === 'maze') {
+            this.algorithmService.setAlgorithmMode('path-finding');
+        } else {
+            this.algorithmService.setAlgorithmMode('maze');
+        }
+
+        this.router.navigate([this.algorithmService.getAlgorithmMode()], {
+            relativeTo: this.route.parent,
+            queryParams: {
+                algorithm: this.algorithmService.getAlgorithmName()
+            }
+        });
     }
 
     /**
