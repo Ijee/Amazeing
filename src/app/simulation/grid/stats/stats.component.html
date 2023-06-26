@@ -7,7 +7,7 @@
             </p>
         </strong>
     </div>
-    <ng-container *ngFor="let stat of simulationService.getCurrentStatRecords(); trackBy: trackByName">
+    <ng-container *ngFor="let stat of simulationService.getCurrentStatRecords()">
         <div
             *ngIf="stat.currentValue !== undefined"
             [@.disabled]="!this.settingsService.getAnimationsSetting()"
