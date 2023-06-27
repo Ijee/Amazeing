@@ -93,6 +93,8 @@ html, body {
   // overflow: auto;
 }
 
+
+
 .vr {
   display: inline-block;
   border-left: 1px solid #DBDBDB;
@@ -107,5 +109,5 @@ html, body {
 ::selection {
   background: $primary;
 }
-@import 'styles/darcula.css';
 
+@import 'styles/darcula.css';
