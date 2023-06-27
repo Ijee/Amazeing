@@ -16,7 +16,7 @@
       "files": "*.component.html",
       "options": {
         "parser":"angular",
-        "printWidth": 140
+        "printWidth": 150
       }
     }
   ]

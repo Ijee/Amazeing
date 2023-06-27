@@ -17,6 +17,7 @@ import { Wilsons } from '../algorithm/maze/creation/wilsons';
 import { PathFindingAlgorithmAbstract } from '../algorithm/path-finding/path-finding-algorithm.abstract';
 import { AStar } from '../algorithm/path-finding/a-star';
 import { Dijkstra } from '../algorithm/path-finding/dijkstra';
+import { RecursiveBacktracking } from '../algorithm/maze/creation/recursive-backtracking';
 
 @Injectable({
     providedIn: 'root'
@@ -61,7 +62,8 @@ export class AlgorithmService {
                 break;
             case 'Binary-Tree':
                 break;
-            case 'Recursive-Backtracker':
+            case 'Recursive-Backtracking':
+                this.currentMazeAlgorithm = new RecursiveBacktracking();
                 break;
             case 'Recursive-Division':
                 break;

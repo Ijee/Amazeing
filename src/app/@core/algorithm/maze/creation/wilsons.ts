@@ -265,6 +265,7 @@ export class Wilsons extends MazeAlgorithmAbstract {
         this.gridWith = deserializedState.gridWidth;
         this.gridHeight = deserializedState.gridHeight;
         this.remainingNodes = deserializedState.remainingNodes;
+        this.cursor = deserializedState.cursor;
         this.unusedNodes = deserializedState.unusedNodes;
         this.walkingPath = deserializedState.walkingPath;
         this.isWalking = deserializedState.isWalking;

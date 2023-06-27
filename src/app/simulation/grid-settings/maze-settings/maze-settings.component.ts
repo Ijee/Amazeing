@@ -53,7 +53,7 @@ export class MazeSettingsComponent implements OnInit, OnDestroy {
                     'Hunt-and-Kill',
                     'Growing-Tree',
                     'Binary-Tree',
-                    'Recursive-Backtracker',
+                    'Recursive-Backtracking',
                     'Recursive-Division',
                     'Cellular-Automation',
                     'Wall-Follower',

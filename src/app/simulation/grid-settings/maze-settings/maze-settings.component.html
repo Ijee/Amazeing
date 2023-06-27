@@ -85,10 +85,9 @@
             <div class="column is-half">
                 <button
                     class="button algo-button is-fullwidth"
-                    [ngClass]="algorithmService.getAlgorithmName() === 'Recursive-Backtracker' ? 'is-primary' : ''"
-                    disabled
-                    (click)="handleWarning('Recursive-Backtracker')">
-                    <b>Recursive-Backtracker</b>
+                    [ngClass]="algorithmService.getAlgorithmName() === 'Recursive-Backtracking' ? 'is-primary' : ''"
+                    (click)="handleWarning('Recursive-Backtracking')">
+                    <b>Recursive-Backtracking</b>
                 </button>
             </div>
             <div class="column is-half">
