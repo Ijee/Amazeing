@@ -18,6 +18,7 @@ import { PathFindingAlgorithmAbstract } from '../algorithm/path-finding/path-fin
 import { AStar } from '../algorithm/path-finding/a-star';
 import { Dijkstra } from '../algorithm/path-finding/dijkstra';
 import { RecursiveBacktracking } from '../algorithm/maze/creation/recursive-backtracking';
+import { HuntAndKill } from '../algorithm/maze/creation/hunt-and-kill';
 
 @Injectable({
     providedIn: 'root'
@@ -57,7 +58,7 @@ export class AlgorithmService {
             case 'Sidewinder':
                 break;
             case 'Hunt-and-Kill':
-                break;
+                this.currentMazeAlgorithm = new HuntAndKill();
             case 'Growing-Tree':
                 break;
             case 'Binary-Tree':

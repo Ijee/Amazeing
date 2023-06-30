@@ -1,7 +1,12 @@
 import { EqualsHashCode } from './EqualsHashCode';
 
 export class GridLocation implements EqualsHashCode {
-    constructor(public x: number, public y: number, public weight: number) {}
+    constructor(
+        public x: number,
+        public y: number,
+        public weight?: number,
+        public status?: number
+    ) {}
 
     equals(obj: any): boolean {
         if (obj instanceof GridLocation) {

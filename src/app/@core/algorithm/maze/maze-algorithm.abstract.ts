@@ -103,8 +103,8 @@ export abstract class MazeAlgorithmAbstract {
         loc2: GridLocation,
         nodeStatus: number
     ): void {
-        const x = (loc1.x + loc2.x) / 2;
-        const y = (loc1.y + loc2.y) / 2;
+        const x = Math.floor((loc1.x + loc2.x) / 2);
+        const y = Math.floor((loc1.y + loc2.y) / 2);
         const node = this.currentGrid[x][y];
         // if (node.status === 1) {
         //   node.status = nodeStatus;
@@ -128,19 +128,47 @@ export abstract class MazeAlgorithmAbstract {
         const res: GridLocation[] = [];
         if (loc.y < this.currentGrid[0].length - distance) {
             const node = this.currentGrid[loc.x][loc.y + distance];
-            res.push(new GridLocation(loc.x, loc.y + distance, node.weight));
+            res.push(
+                new GridLocation(
+                    loc.x,
+                    loc.y + distance,
+                    node.weight,
+                    node.status
+                )
+            );
         }
         if (loc.x < this.currentGrid.length - distance) {
             const node = this.currentGrid[loc.x + distance][loc.y];
-            res.push(new GridLocation(loc.x + distance, loc.y, node.weight));
+            res.push(
+                new GridLocation(
+                    loc.x + distance,
+                    loc.y,
+                    node.weight,
+                    node.status
+                )
+            );
         }
         if (loc.y >= distance) {
             const node = this.currentGrid[loc.x][loc.y - distance];
-            res.push(new GridLocation(loc.x, loc.y - distance, node.weight));
+            res.push(
+                new GridLocation(
+                    loc.x,
+                    loc.y - distance,
+                    node.weight,
+                    node.status
+                )
+            );
         }
         if (loc.x >= distance) {
             const node = this.currentGrid[loc.x - distance][loc.y];
-            res.push(new GridLocation(loc.x - distance, loc.y, node.weight));
+            res.push(
+                new GridLocation(
+                    loc.x - distance,
+                    loc.y,
+                    node.weight,
+                    node.status
+                )
+            );
         }
         return res;
     }
