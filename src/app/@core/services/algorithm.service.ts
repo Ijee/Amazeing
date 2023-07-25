@@ -140,19 +140,10 @@ export class AlgorithmService {
      * @param currentGrid - the currentGrid
      * @param currentStartPoint - the current start point
      */
-    public setInitialData(
-        currentGrid: Node[][],
-        currentStartPoint: GridLocation
-    ): void {
+    public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
         this.algorithmMode === 'maze'
-            ? this.currentMazeAlgorithm.setInitialData(
-                  currentGrid,
-                  currentStartPoint
-              )
-            : this.currentPathAlgorithm.setInitialData(
-                  currentGrid,
-                  currentStartPoint
-              );
+            ? this.currentMazeAlgorithm.setInitialData(currentGrid, currentStartPoint)
+            : this.currentPathAlgorithm.setInitialData(currentGrid, currentStartPoint);
     }
 
     /**
@@ -213,41 +204,21 @@ export class AlgorithmService {
     ): void {
         if (_.isEmpty(state)) {
             this.algorithmMode === 'maze'
-                ? this.setMazeAlgorithm(
-                      this.currentMazeAlgorithm.getAlgorithmName()
-                  )
-                : this.setPathAlgorithm(
-                      this.currentPathAlgorithm.getAlgorithmName()
-                  );
+                ? this.setMazeAlgorithm(this.currentMazeAlgorithm.getAlgorithmName())
+                : this.setPathAlgorithm(this.currentPathAlgorithm.getAlgorithmName());
         } else {
             if (deserialize) {
                 try {
                     this.algorithmMode === 'maze'
-                        ? this.currentMazeAlgorithm.deserialize(
-                              newGrid,
-                              state,
-                              statRecord
-                          )
-                        : this.currentPathAlgorithm.deserialize(
-                              newGrid,
-                              state,
-                              statRecord
-                          );
+                        ? this.currentMazeAlgorithm.deserialize(newGrid, state, statRecord)
+                        : this.currentPathAlgorithm.deserialize(newGrid, state, statRecord);
                 } catch (error) {
                     throw new Error('Can not set algorithm State');
                 }
             } else {
                 this.algorithmMode === 'maze'
-                    ? this.currentMazeAlgorithm.updateAlgorithmState(
-                          newGrid,
-                          state,
-                          statRecord
-                      )
-                    : this.currentPathAlgorithm.updateAlgorithmState(
-                          newGrid,
-                          state,
-                          statRecord
-                      );
+                    ? this.currentMazeAlgorithm.updateAlgorithmState(newGrid, state, statRecord)
+                    : this.currentPathAlgorithm.updateAlgorithmState(newGrid, state, statRecord);
             }
         }
     }

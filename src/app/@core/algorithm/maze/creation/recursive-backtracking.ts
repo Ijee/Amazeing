@@ -42,11 +42,7 @@ export class RecursiveBacktracking extends MazeAlgorithmAbstract {
                 if (this.walkingPath.length !== 0) {
                     // paint the grid back
                     this.currentGrid[this.cursor.x][this.cursor.y].status = 0;
-                    this.buildPath(
-                        this.cursor,
-                        this.walkingPath[this.walkingPath.length - 2],
-                        0
-                    );
+                    this.buildPath(this.cursor, this.walkingPath[this.walkingPath.length - 2], 0);
                     this.walkingPath.pop();
                 }
                 let backtrackNeighbours = this.getNeighbours(
@@ -54,8 +50,7 @@ export class RecursiveBacktracking extends MazeAlgorithmAbstract {
                     2
                 );
                 backtrackNeighbours = shuffleFisherYates(backtrackNeighbours);
-                let previousLocation =
-                    this.walkingPath[this.walkingPath.length - 1];
+                let previousLocation = this.walkingPath[this.walkingPath.length - 1];
                 // see if there are valid neighbours so we can build again
                 for (let i = 0; i < backtrackNeighbours.length - 1; i++) {
                     let node = backtrackNeighbours[i];
@@ -94,15 +89,11 @@ export class RecursiveBacktracking extends MazeAlgorithmAbstract {
                         this.backtrack = false;
 
                         if (
-                            this.currentGrid[this.cursor.x][this.cursor.y]
-                                .status !== 2 &&
-                            this.currentGrid[this.cursor.x][this.cursor.y]
-                                .status !== 3
+                            this.currentGrid[this.cursor.x][this.cursor.y].status !== 2 &&
+                            this.currentGrid[this.cursor.x][this.cursor.y].status !== 3
                         ) {
                             this.currentGrid[node.x][node.y].status = 5;
-                            this.currentGrid[this.cursor.x][
-                                this.cursor.y
-                            ].status = 5;
+                            this.currentGrid[this.cursor.x][this.cursor.y].status = 5;
                         }
                         break;
                     }
@@ -114,16 +105,10 @@ export class RecursiveBacktracking extends MazeAlgorithmAbstract {
         }
     }
 
-    public setInitialData(
-        currentGrid: Node[][],
-        currentStartPoint: GridLocation
-    ): void {
+    public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
         this.currentGrid = currentGrid;
 
-        let neighbours: GridLocation[] = this.getNeighbours(
-            currentStartPoint,
-            2
-        );
+        let neighbours: GridLocation[] = this.getNeighbours(currentStartPoint, 2);
         this.walkingPath.push(currentStartPoint);
         this.cursor = this.walkingPath[this.walkingPath.length - 1];
         this.buildWalls(this.cursor, 0);
@@ -141,28 +126,16 @@ export class RecursiveBacktracking extends MazeAlgorithmAbstract {
         this.backtrack = deserializedState.backtrack;
     }
 
-    public deserialize(
-        newGrid: Node[][],
-        serializedState: any,
-        statRecords: StatRecord[]
-    ): void {
+    public deserialize(newGrid: Node[][], serializedState: any, statRecords: StatRecord[]): void {
         const cursor = serializedState.cursor;
         const walkingPath: GridLocation[] = [];
         serializedState.unusedNodes.forEach((item) => {
-            const tempWalkingPath = new GridLocation(
-                item.x,
-                item.y,
-                item.weight
-            );
+            const tempWalkingPath = new GridLocation(item.x, item.y, item.weight);
             walkingPath.push(item);
         });
         const visitedNodes = new HashSet<GridLocation>();
         serializedState.visitedNodes.forEach((item) => {
-            const tempGridLocation = new GridLocation(
-                item.x,
-                item.y,
-                item.weight
-            );
+            const tempGridLocation = new GridLocation(item.x, item.y, item.weight);
             visitedNodes.add(tempGridLocation);
         });
         const deserializedState = {

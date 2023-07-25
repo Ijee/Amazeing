@@ -1,11 +1,4 @@
-import {
-    Directive,
-    Output,
-    Input,
-    EventEmitter,
-    HostBinding,
-    HostListener
-} from '@angular/core';
+import { Directive, Output, Input, EventEmitter, HostBinding, HostListener } from '@angular/core';
 
 /**
  * Drag and drop functionality as a directive for a DOM element.

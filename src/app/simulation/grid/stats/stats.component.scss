@@ -1,15 +1,13 @@
 .columns {
-  display: flex;
-  flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .column {
-  margin: 0;
+    margin: 0;
 }
 
 ::selection {
-  background: #282525;
-  color: #fff;
+    background: #282525;
+    color: #fff;
 }
-
-

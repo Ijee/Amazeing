@@ -15,10 +15,7 @@ import { saveAs } from 'file-saver';
 export class ExportModalComponent implements OnDestroy {
     private readonly destroyed$: Subject<void>;
 
-    constructor(
-        public simulationService: SimulationService,
-        library: FaIconLibrary
-    ) {
+    constructor(public simulationService: SimulationService, library: FaIconLibrary) {
         library.addIconPacks(fas, fab, far);
 
         this.destroyed$ = new Subject<void>();
@@ -44,12 +41,8 @@ export class ExportModalComponent implements OnDestroy {
      */
     exportAsFile(): void {
         try {
-            const exportToken = this.simulationService
-                .getExportToken()
-                .toString();
-            const algorithmName = this.simulationService
-                .getAlgorithmName()
-                .toLowerCase();
+            const exportToken = this.simulationService.getExportToken().toString();
+            const algorithmName = this.simulationService.getAlgorithmName().toLowerCase();
             const currentTime = new Date().toISOString().split('T')[0];
             const fileName = `amazeing_${algorithmName}_${currentTime}.txt`;
             const exportBlob = new Blob([exportToken], {
@@ -70,9 +63,7 @@ export class ExportModalComponent implements OnDestroy {
      * some clients.
      */
     toClipboard(): void {
-        const copyString = document.querySelector(
-            '#exportArea'
-        ) as HTMLTextAreaElement;
+        const copyString = document.querySelector('#exportArea') as HTMLTextAreaElement;
         copyString.select();
         document.execCommand('copy');
     }

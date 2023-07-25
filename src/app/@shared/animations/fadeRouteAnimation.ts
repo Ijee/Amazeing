@@ -1,11 +1,4 @@
-import {
-    trigger,
-    animate,
-    transition,
-    style,
-    query,
-    sequence
-} from '@angular/animations';
+import { trigger, animate, transition, style, query, sequence } from '@angular/animations';
 
 /**
  * The animation for the route main route changes. Yes it is more complicated than it should be but that's cool
@@ -28,13 +21,9 @@ export const fadeRouteAnimation = trigger('fadeRouteAnimation', [
         query(':leave', [animate('225ms ease-out', style({ opacity: 0 }))], {
             optional: true
         }),
-        query(
-            ':enter',
-            [animate('225ms 225ms ease-out', style({ opacity: 1 }))],
-            {
-                optional: true
-            }
-        )
+        query(':enter', [animate('225ms 225ms ease-out', style({ opacity: 1 }))], {
+            optional: true
+        })
     ])
 ]);
 

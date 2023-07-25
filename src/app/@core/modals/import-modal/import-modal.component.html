@@ -21,8 +21,7 @@
                 [disabled]="usedFileUpload"
                 [ngClass]="importError ? 'is-danger' : 'is-primary'"
                 [(ngModel)]="importToken"
-                (ngModelChange)="importError = false"
-            >
+                (ngModelChange)="importError = false">
             </textarea>
             <app-hr></app-hr>
             <div
@@ -30,8 +29,7 @@
                 (fileDropped)="droppedInFile($event)"
                 class="file has-name is-fullwidth has-text-centered is-boxed"
                 [ngClass]="{ 'is-danger': importError }"
-                (change)="uploadFile($event)"
-            >
+                (change)="uploadFile($event)">
                 <label class="file-label">
                     <input class="file-input" type="file" name="resume" accept=".txt" />
                     <span class="file-cta">

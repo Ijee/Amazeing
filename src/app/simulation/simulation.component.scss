@@ -1,19 +1,18 @@
 @media screen and (max-width: 1024px) {
-  .ordered-touch {
-    display: flex;
-    flex-flow: column;
-  }
-  .ordered-touch .fl-1 {
-    order: 1;
-  }
-  .ordered-touch .fl-2 {
-    order: 2;
-  }
-  .ordered-touch .fl-3 {
-    order: 3;
-  }
-  .ordered-touch .fl-4 {
-    order: 4;
-  }
+    .ordered-touch {
+        display: flex;
+        flex-flow: column;
+    }
+    .ordered-touch .fl-1 {
+        order: 1;
+    }
+    .ordered-touch .fl-2 {
+        order: 2;
+    }
+    .ordered-touch .fl-3 {
+        order: 3;
+    }
+    .ordered-touch .fl-4 {
+        order: 4;
+    }
 }
-

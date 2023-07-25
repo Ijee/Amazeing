@@ -1,10 +1,5 @@
 import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
-import {
-    JsonFormData,
-    MazeAlgorithm,
-    Node,
-    StatRecord
-} from '../../../../../types';
+import { JsonFormData, MazeAlgorithm, Node, StatRecord } from '../../../../../types';
 import { HashSet } from '../../../../@shared/classes/HashSet';
 import { GridLocation } from '../../../../@shared/classes/GridLocation';
 import { FormGroup } from '@angular/forms';
@@ -49,14 +44,10 @@ export class Prims extends MazeAlgorithmAbstract {
             const node = this.currentGrid[xAxis][yAxis];
             const status = node.status;
             if (status === 0) {
-                this.frontierNodes.add(
-                    new GridLocation(xAxis, yAxis, node.weight)
-                );
+                this.frontierNodes.add(new GridLocation(xAxis, yAxis, node.weight));
                 this.currentGrid[xAxis][yAxis].status = 4;
             } else if (status === 3) {
-                this.frontierNodes.add(
-                    new GridLocation(xAxis, yAxis, node.weight)
-                );
+                this.frontierNodes.add(new GridLocation(xAxis, yAxis, node.weight));
             }
         }
     }
@@ -80,22 +71,18 @@ export class Prims extends MazeAlgorithmAbstract {
             if (lowestWeightFrontiers.length === 0) {
                 lowestWeightFrontiers.push(item);
             } else if (
-                item.weight <
-                lowestWeightFrontiers[lowestWeightFrontiers.length - 1].weight
+                item.weight < lowestWeightFrontiers[lowestWeightFrontiers.length - 1].weight
             ) {
                 lowestWeightFrontiers = [];
                 lowestWeightFrontiers.push(item);
             } else if (
-                item.weight ===
-                lowestWeightFrontiers[lowestWeightFrontiers.length - 1].weight
+                item.weight === lowestWeightFrontiers[lowestWeightFrontiers.length - 1].weight
             ) {
                 lowestWeightFrontiers.push(item);
             }
         });
         // select one item from the lowest weighted items randomly
-        return lowestWeightFrontiers[
-            Math.floor(Math.random() * lowestWeightFrontiers.length)
-        ];
+        return lowestWeightFrontiers[Math.floor(Math.random() * lowestWeightFrontiers.length)];
     }
 
     public nextStep(): Node[][] | null {
@@ -104,20 +91,15 @@ export class Prims extends MazeAlgorithmAbstract {
             const selectedFrontierItem = this.getRandomLowestWeightFrontier();
             this.frontierNodes.remove(selectedFrontierItem);
             this.buildWalls(selectedFrontierItem, 0);
-            const neighbours = this.getNeighbours(
-                selectedFrontierItem,
-                2
-            ).filter((neighbour) => {
-                const status =
-                    this.currentGrid[neighbour.x][neighbour.y].status;
+            const neighbours = this.getNeighbours(selectedFrontierItem, 2).filter((neighbour) => {
+                const status = this.currentGrid[neighbour.x][neighbour.y].status;
                 // So that we can build a path between the randomLowestWeightFrontier and the randomNeighbour
                 if (status === 2 || status === 3 || status === 5) {
                     return neighbour;
                 }
             });
 
-            const randomNeighbour =
-                neighbours[Math.floor(Math.random() * neighbours.length)];
+            const randomNeighbour = neighbours[Math.floor(Math.random() * neighbours.length)];
             this.buildPath(selectedFrontierItem, randomNeighbour, 5);
             this.mark(selectedFrontierItem.x, selectedFrontierItem.y);
 
@@ -128,10 +110,7 @@ export class Prims extends MazeAlgorithmAbstract {
         return null;
     }
 
-    public setInitialData(
-        currentGrid: Node[][],
-        currentStartPoint: GridLocation
-    ): void {
+    public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
         this.frontierNodes.clear();
         this.currentGrid = currentGrid;
         this.buildWalls(currentStartPoint, 0);
@@ -148,18 +127,10 @@ export class Prims extends MazeAlgorithmAbstract {
         this.frontierNodes = deserializedState.frontierNodes;
     }
 
-    public deserialize(
-        newGrid: Node[][],
-        serializedState: any,
-        statRecords: StatRecord[]
-    ): void {
+    public deserialize(newGrid: Node[][], serializedState: any, statRecords: StatRecord[]): void {
         const tempFrontierNodes = new HashSet<GridLocation>();
         serializedState.gridLocations.forEach((item) => {
-            const tempGridLocation = new GridLocation(
-                item.x,
-                item.y,
-                item.weight
-            );
+            const tempGridLocation = new GridLocation(item.x, item.y, item.weight);
             tempFrontierNodes.add(tempGridLocation);
         });
         const deserializedState = {

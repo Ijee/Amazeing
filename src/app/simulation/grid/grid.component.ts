@@ -54,11 +54,7 @@ export class GridComponent implements OnInit, OnDestroy {
         const startNode = this.gridList[initialStartX][initialNodeHeightY];
         startNode.status = 2;
         this.recordService.setGridStartLocation(
-            new GridLocation(
-                initialStartX,
-                initialNodeHeightY,
-                startNode.weight
-            )
+            new GridLocation(initialStartX, initialNodeHeightY, startNode.weight)
         );
         const goalNode = this.gridList[initialGoalX][initialNodeHeightY];
         goalNode.status = 3;
@@ -117,9 +113,7 @@ export class GridComponent implements OnInit, OnDestroy {
                     break;
                 case 2:
                 case 3:
-                    this.simulationService.setGridList(
-                        _.cloneDeep(this.gridList)
-                    );
+                    this.simulationService.setGridList(_.cloneDeep(this.gridList));
                     break;
             }
             this.simulationService.setDrawingMode(-1);
@@ -143,8 +137,7 @@ export class GridComponent implements OnInit, OnDestroy {
         switch (drawMode) {
             case 2:
                 const startLocation = this.recordService.getGridStartLocation();
-                const startNode =
-                    this.gridList[startLocation.x][startLocation.y];
+                const startNode = this.gridList[startLocation.x][startLocation.y];
                 startNode.status = 0;
                 this.recordService.setGridStartLocation(
                     new GridLocation(col, row, startNode.weight)
@@ -155,9 +148,7 @@ export class GridComponent implements OnInit, OnDestroy {
                 const goalLocation = this.recordService.getGridGoalLocation();
                 const goalNode = this.gridList[goalLocation.x][goalLocation.y];
                 goalNode.status = 0;
-                this.recordService.setGridGoalLocation(
-                    new GridLocation(col, row, goalNode.weight)
-                );
+                this.recordService.setGridGoalLocation(new GridLocation(col, row, goalNode.weight));
                 this.onMouseUp();
                 break;
             default:

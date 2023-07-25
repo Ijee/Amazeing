@@ -1,10 +1,4 @@
-import {
-    Component,
-    HostListener,
-    OnDestroy,
-    OnInit,
-    Renderer2
-} from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import packageInfo from '../../package.json';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
@@ -105,15 +99,11 @@ export class AppComponent implements OnInit, OnDestroy {
      * @return a boolean or an empty string that triggers the animation
      */
     public prepareRoute(outlet: RouterOutlet): any {
-        return outlet.isActivated
-            ? outlet.activatedRouteData.animationState
-            : '';
+        return outlet.isActivated ? outlet.activatedRouteData.animationState : '';
     }
 
     public navigateToSimulation(): void {
         this.simulationService.setSimulationStatus(false);
-        this.router.navigate([
-            'simulation/' + this.algorithmService.getAlgorithmMode()
-        ]);
+        this.router.navigate(['simulation/' + this.algorithmService.getAlgorithmMode()]);
     }
 }

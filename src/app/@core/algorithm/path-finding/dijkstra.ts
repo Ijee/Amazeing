@@ -1,10 +1,5 @@
 import { PathFindingAlgorithmAbstract } from './path-finding-algorithm.abstract';
-import {
-    PathFindingAlgorithm,
-    Node,
-    PathFindingHeuristic,
-    StatRecord
-} from '../../../../types';
+import { PathFindingAlgorithm, Node, PathFindingHeuristic, StatRecord } from '../../../../types';
 import { GridLocation } from '../../../@shared/classes/GridLocation';
 
 export class Dijkstra extends PathFindingAlgorithmAbstract {
@@ -23,10 +18,7 @@ export class Dijkstra extends PathFindingAlgorithmAbstract {
         return this.currentGrid;
     }
 
-    public setInitialData(
-        currentGrid: Node[][],
-        currentStartPoint: GridLocation
-    ): void {
+    public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
         this.currentGrid = currentGrid;
     }
 
@@ -38,11 +30,7 @@ export class Dijkstra extends PathFindingAlgorithmAbstract {
         throw new Error('Method not implemented.');
     }
 
-    public deserialize(
-        newGrid: Node[][],
-        serializedState: any,
-        statRecords: StatRecord[]
-    ): void {
+    public deserialize(newGrid: Node[][], serializedState: any, statRecords: StatRecord[]): void {
         throw new Error('Method not implemented.');
     }
 

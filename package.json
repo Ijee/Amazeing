@@ -1,87 +1,88 @@
 {
-  "name": "amazeing",
-  "version": "0.8.0",
-  "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "build:prod": "ng build --prod",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e",
-    "postinstall": "husky install"
-  },
-  "private": true,
-  "dependencies": {
-    "@angular/animations": "^16.1.2",
-    "@angular/cdk": "^16.1.2",
-    "@angular/common": "^16.1.2",
-    "@angular/compiler": "^16.1.2",
-    "@angular/core": "^16.1.2",
-    "@angular/forms": "^16.1.2",
-    "@angular/platform-browser": "^16.1.2",
-    "@angular/platform-browser-dynamic": "^16.1.2",
-    "@angular/router": "^16.1.2",
-    "@fortawesome/angular-fontawesome": "^0.13.0",
-    "@fortawesome/fontawesome-svg-core": "^6.4.0",
-    "@fortawesome/free-brands-svg-icons": "^6.4.0",
-    "@fortawesome/free-regular-svg-icons": "^6.4.0",
-    "@fortawesome/free-solid-svg-icons": "^6.4.0",
-    "bulma": "^0.9.4",
-    "file-saver": "^2.0.5",
-    "highlight.js": "^11.8.0",
-    "lodash": "^4.17.21",
-    "pako": "^2.1.0",
-    "rxjs": "^7.1.0",
-    "tslib": "^2.2.0",
-    "zone.js": "~0.13.1"
-  },
-  "devDependencies": {
-    "@angular-devkit/build-angular": "^16.1.1",
-    "@angular-eslint/builder": "16.0.3",
-    "@angular-eslint/eslint-plugin": "16.0.3",
-    "@angular-eslint/eslint-plugin-template": "16.0.3",
-    "@angular-eslint/schematics": "16.0.3",
-    "@angular-eslint/template-parser": "16.0.3",
-    "@angular/cli": "^16.1.1",
-    "@angular/compiler-cli": "^16.1.2",
-    "@commitlint/cli": "^17.6.6",
-    "@commitlint/config-conventional": "^17.6.6",
-    "@types/jasmine": "^4.3.4",
-    "@types/lodash": "^4.14.170",
-    "@types/node": "^18.16.18",
-    "@typescript-eslint/eslint-plugin": "^5.59.2",
-    "@typescript-eslint/parser": "^5.59.2",
-    "eslint": "^8.39.0",
-    "eslint-config-prettier": "^8.8.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "husky": "^8.0.3",
-    "jasmine-core": "~5.0.1",
-    "jasmine-spec-reporter": "~7.0.0",
-    "karma": "~6.4.2",
-    "karma-chrome-launcher": "~3.2.0",
-    "karma-coverage": "~2.2.1",
-    "karma-jasmine": "~5.1.0",
-    "karma-jasmine-html-reporter": "^2.1.0",
-    "lint-staged": "^13.2.2",
-    "prettier": "^2.8.8",
-    "protractor": "~7.0.0",
-    "ts-node": "^10.9.1",
-    "typescript": "^4.9.5"
-  },
-  "engines": {
-    "node": ">18 <=^18.10"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged --relative",
-      "commit-msg": ""
+    "name": "amazeing",
+    "version": "0.8.0",
+    "scripts": {
+        "ng": "ng",
+        "start": "ng serve",
+        "build": "ng build",
+        "build:prod": "ng build --prod",
+        "test": "ng test",
+        "lint": "ng lint",
+        "prettier": "prettier --write .",
+        "e2e": "ng e2e",
+        "postinstall": "husky install"
+    },
+    "private": true,
+    "dependencies": {
+        "@angular/animations": "^16.1.2",
+        "@angular/cdk": "^16.1.2",
+        "@angular/common": "^16.1.2",
+        "@angular/compiler": "^16.1.2",
+        "@angular/core": "^16.1.2",
+        "@angular/forms": "^16.1.2",
+        "@angular/platform-browser": "^16.1.2",
+        "@angular/platform-browser-dynamic": "^16.1.2",
+        "@angular/router": "^16.1.2",
+        "@fortawesome/angular-fontawesome": "^0.13.0",
+        "@fortawesome/fontawesome-svg-core": "^6.4.0",
+        "@fortawesome/free-brands-svg-icons": "^6.4.0",
+        "@fortawesome/free-regular-svg-icons": "^6.4.0",
+        "@fortawesome/free-solid-svg-icons": "^6.4.0",
+        "bulma": "^0.9.4",
+        "file-saver": "^2.0.5",
+        "highlight.js": "^11.8.0",
+        "lodash": "^4.17.21",
+        "pako": "^2.1.0",
+        "rxjs": "^7.1.0",
+        "tslib": "^2.2.0",
+        "zone.js": "~0.13.1"
+    },
+    "devDependencies": {
+        "@angular-devkit/build-angular": "^16.1.1",
+        "@angular-eslint/builder": "16.0.3",
+        "@angular-eslint/eslint-plugin": "16.0.3",
+        "@angular-eslint/eslint-plugin-template": "16.0.3",
+        "@angular-eslint/schematics": "16.0.3",
+        "@angular-eslint/template-parser": "16.0.3",
+        "@angular/cli": "^16.1.1",
+        "@angular/compiler-cli": "^16.1.2",
+        "@commitlint/cli": "^17.6.6",
+        "@commitlint/config-conventional": "^17.6.6",
+        "@types/jasmine": "^4.3.4",
+        "@types/lodash": "^4.14.170",
+        "@types/node": "^18.16.18",
+        "@typescript-eslint/eslint-plugin": "^5.59.2",
+        "@typescript-eslint/parser": "^5.59.2",
+        "eslint": "^8.39.0",
+        "eslint-config-prettier": "^8.8.0",
+        "eslint-plugin-prettier": "^4.2.1",
+        "husky": "^8.0.3",
+        "jasmine-core": "~5.0.1",
+        "jasmine-spec-reporter": "~7.0.0",
+        "karma": "~6.4.2",
+        "karma-chrome-launcher": "~3.2.0",
+        "karma-coverage": "~2.2.1",
+        "karma-jasmine": "~5.1.0",
+        "karma-jasmine-html-reporter": "^2.1.0",
+        "lint-staged": "^13.2.2",
+        "prettier": "^2.8.8",
+        "protractor": "~7.0.0",
+        "ts-node": "^10.9.1",
+        "typescript": "^4.9.5"
+    },
+    "engines": {
+        "node": ">18 <=^18.10"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged --relative",
+            "commit-msg": ""
+        }
+    },
+    "lint-staged": {
+        "*.{js,ts,html}": [
+            "prettier --write",
+            "eslint --fix"
+        ]
     }
-  },
-  "lint-staged": {
-    "*.{js,ts,html}": [
-      "prettier --write",
-      "eslint --fix"
-    ]
-  }
 }

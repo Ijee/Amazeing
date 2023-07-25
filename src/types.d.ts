@@ -55,11 +55,7 @@ export type PathFindingAlgorithm =
     | 'Jump-PS'
     | 'Orthogonal-Jump-PS';
 
-export type PathFindingHeuristic =
-    | 'Manhattan'
-    | 'Euclidean'
-    | 'Octile'
-    | 'Chebyshev';
+export type PathFindingHeuristic = 'Manhattan' | 'Euclidean' | 'Octile' | 'Chebyshev';
 
 export type Session = {
     algorithm: MazeAlgorithm | PathFindingAlgorithm;

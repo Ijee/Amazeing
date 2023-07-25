@@ -175,8 +175,6 @@ export class RecordService {
      * Returns the current algorithmState.
      */
     public getCurrentAlgorithmState(): any {
-        return this.algorithmStateHistory[
-            this.algorithmStateHistory.length - 1
-        ];
+        return this.algorithmStateHistory[this.algorithmStateHistory.length - 1];
     }
 }

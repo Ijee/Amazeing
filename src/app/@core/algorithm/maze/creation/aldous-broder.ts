@@ -45,8 +45,7 @@ export class AldousBroder extends MazeAlgorithmAbstract {
     nextStep(): Node[][] | null {
         if (this.remainingNodes > 0) {
             const neighbours = this.getNeighbours(this.cursor, 2);
-            const randomNeighbour =
-                neighbours[Math.floor(Math.random() * neighbours.length)];
+            const randomNeighbour = neighbours[Math.floor(Math.random() * neighbours.length)];
             // Move the cursor position and visual representation to the next node.
             const oldCursor = this.cursor;
             const cursorNode = this.currentGrid[this.cursor.x][this.cursor.y];
@@ -55,8 +54,7 @@ export class AldousBroder extends MazeAlgorithmAbstract {
                 cursorNode.status = 5;
             }
             this.cursor = randomNeighbour;
-            const newCursorNode =
-                this.currentGrid[this.cursor.x][this.cursor.y];
+            const newCursorNode = this.currentGrid[this.cursor.x][this.cursor.y];
             const newCursorNodeStatus = newCursorNode.status;
             // Could be with an logical OR but the stats showing for
             // this algorithm is making it kind of meh because it sets the cursor
@@ -84,10 +82,7 @@ export class AldousBroder extends MazeAlgorithmAbstract {
         }
     }
 
-    setInitialData(
-        currentGrid: Node[][],
-        currentStartPoint: GridLocation
-    ): void {
+    setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
         this.currentGrid = currentGrid;
         this.gridWith = this.currentGrid.length;
         this.gridHeight = this.currentGrid[0].length;
@@ -113,11 +108,7 @@ export class AldousBroder extends MazeAlgorithmAbstract {
         this.remainingNodes = deserializedState.remainingNodes;
     }
 
-    deserialize(
-        newGrid: Node[][],
-        serializedState: any,
-        statRecords: StatRecord[]
-    ): void {
+    deserialize(newGrid: Node[][], serializedState: any, statRecords: StatRecord[]): void {
         const cursor = serializedState.cursor;
         const deserializedState = {
             cursor: new GridLocation(cursor.x, cursor.y, cursor.weight),

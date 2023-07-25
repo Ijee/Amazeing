@@ -11,10 +11,7 @@ import { AlgorithmService } from '../../../@core/services/algorithm.service';
     selector: 'app-stats',
     templateUrl: './stats.component.html',
     styleUrls: ['./stats.component.scss'],
-    animations: [
-        fadeInOutList,
-        trigger('blockInitialRenderAnimation', [transition(':enter', [])])
-    ]
+    animations: [fadeInOutList, trigger('blockInitialRenderAnimation', [transition(':enter', [])])]
 })
 export class StatsComponent {
     @Input() isMouseDown: boolean;

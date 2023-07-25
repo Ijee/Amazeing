@@ -21,10 +21,7 @@ export class ImportModalComponent implements OnDestroy {
 
     private readonly destroyed$: Subject<void>;
 
-    constructor(
-        public simulationService: SimulationService,
-        library: FaIconLibrary
-    ) {
+    constructor(public simulationService: SimulationService, library: FaIconLibrary) {
         library.addIconPacks(fas, fab, far);
         this.fileName = 'No file selected...';
         this.importError = false;

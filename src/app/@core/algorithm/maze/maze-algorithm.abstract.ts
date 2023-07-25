@@ -1,10 +1,4 @@
-import {
-    JsonFormData,
-    MazeAlgorithm,
-    Node,
-    StatRecord,
-    StatusChange
-} from '../../../../types';
+import { JsonFormData, MazeAlgorithm, Node, StatRecord, StatusChange } from '../../../../types';
 import { GridLocation } from '../../../@shared/classes/GridLocation';
 import { FormGroup } from '@angular/forms';
 
@@ -24,10 +18,7 @@ export abstract class MazeAlgorithmAbstract {
      * @param overwritable - list of node statuses that may be overwritten by a wall
      * @protected
      */
-    protected buildWalls(
-        loc: GridLocation,
-        ...overwritable: number[]
-    ): StatusChange {
+    protected buildWalls(loc: GridLocation, ...overwritable: number[]): StatusChange {
         const statusChange: StatusChange = {
             status0: 0,
             status1: 0,
@@ -98,11 +89,7 @@ export abstract class MazeAlgorithmAbstract {
      * @param nodeStatus - the node status for the node in between
      * @protected
      */
-    protected buildPath(
-        loc1: GridLocation,
-        loc2: GridLocation,
-        nodeStatus: number
-    ): void {
+    protected buildPath(loc1: GridLocation, loc2: GridLocation, nodeStatus: number): void {
         const x = Math.floor((loc1.x + loc2.x) / 2);
         const y = Math.floor((loc1.y + loc2.y) / 2);
         const node = this.currentGrid[x][y];
@@ -121,54 +108,23 @@ export abstract class MazeAlgorithmAbstract {
      * @param distance - the distance from the location where the neighbours should be located
      * @protected
      */
-    protected getNeighbours(
-        loc: GridLocation,
-        distance: number
-    ): GridLocation[] {
+    protected getNeighbours(loc: GridLocation, distance: number): GridLocation[] {
         const res: GridLocation[] = [];
         if (loc.y < this.currentGrid[0].length - distance) {
             const node = this.currentGrid[loc.x][loc.y + distance];
-            res.push(
-                new GridLocation(
-                    loc.x,
-                    loc.y + distance,
-                    node.weight,
-                    node.status
-                )
-            );
+            res.push(new GridLocation(loc.x, loc.y + distance, node.weight, node.status));
         }
         if (loc.x < this.currentGrid.length - distance) {
             const node = this.currentGrid[loc.x + distance][loc.y];
-            res.push(
-                new GridLocation(
-                    loc.x + distance,
-                    loc.y,
-                    node.weight,
-                    node.status
-                )
-            );
+            res.push(new GridLocation(loc.x + distance, loc.y, node.weight, node.status));
         }
         if (loc.y >= distance) {
             const node = this.currentGrid[loc.x][loc.y - distance];
-            res.push(
-                new GridLocation(
-                    loc.x,
-                    loc.y - distance,
-                    node.weight,
-                    node.status
-                )
-            );
+            res.push(new GridLocation(loc.x, loc.y - distance, node.weight, node.status));
         }
         if (loc.x >= distance) {
             const node = this.currentGrid[loc.x - distance][loc.y];
-            res.push(
-                new GridLocation(
-                    loc.x - distance,
-                    loc.y,
-                    node.weight,
-                    node.status
-                )
-            );
+            res.push(new GridLocation(loc.x - distance, loc.y, node.weight, node.status));
         }
         return res;
     }
@@ -186,10 +142,7 @@ export abstract class MazeAlgorithmAbstract {
      * @param currentGrid - the current grid from the simulation service
      * @param currentStartPoint - the starting point for the algorithm
      */
-    public abstract setInitialData(
-        currentGrid: Node[][],
-        currentStartPoint: GridLocation
-    ): void;
+    public abstract setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void;
 
     /**
      * Sets the options for the algorithm.

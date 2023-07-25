@@ -5,13 +5,7 @@ import * as pako from 'pako';
 import { SettingsService } from './settings.service';
 import { AlgorithmService } from './algorithm.service';
 import { RecordService } from './record.service';
-import {
-    MazeAlgorithm,
-    PathFindingAlgorithm,
-    StatRecord,
-    Node,
-    Session
-} from '../../../types';
+import { MazeAlgorithm, PathFindingAlgorithm, StatRecord, Node, Session } from '../../../types';
 
 @Injectable({
     providedIn: 'root'
@@ -56,10 +50,7 @@ export class SimulationService {
     private restartInterval(): void {
         clearInterval(this.intervalID);
         if (this.isSimulationActive) {
-            this.intervalID = setInterval(
-                () => this.addIteration(),
-                10000 / this.simulationSpeed
-            );
+            this.intervalID = setInterval(() => this.addIteration(), 10000 / this.simulationSpeed);
         }
     }
 
@@ -76,13 +67,10 @@ export class SimulationService {
                     this.recordService.getGridStartLocation()
                 );
             }
-            const [iterationCount, newGrid] =
-                this.algorithmService.completeAlgorithm(
-                    this.gridList$.getValue()
-                );
-            this.recordService.setIteration(
-                this.recordService.getIteration() + iterationCount
+            const [iterationCount, newGrid] = this.algorithmService.completeAlgorithm(
+                this.gridList$.getValue()
             );
+            this.recordService.setIteration(this.recordService.getIteration() + iterationCount);
             this.setGridList(newGrid);
         } else {
             // TODO for path-finding service!
@@ -179,12 +167,8 @@ export class SimulationService {
             this.setDisablePlay(false);
             this.recordService.manipulateHistory();
             const grid = _.cloneDeep(this.recordService.getCurrentGrid());
-            const state = _.cloneDeep(
-                this.recordService.getCurrentAlgorithmState()
-            );
-            const stats = _.cloneDeep(
-                this.recordService.getCurrentStatRecords()
-            );
+            const state = _.cloneDeep(this.recordService.getCurrentAlgorithmState());
+            const stats = _.cloneDeep(this.recordService.getCurrentStatRecords());
             if (this.algorithmService.getAlgorithmMode() === 'maze') {
                 this.algorithmService.updateAlgorithmState(grid, state, stats);
             } else {
@@ -232,8 +216,7 @@ export class SimulationService {
             }
             newGrid = this.algorithmService.getNextStep();
             statRecord = this.algorithmService.getStatRecords();
-            newAlgorithmState =
-                this.algorithmService.getCurrentAlgorithmState();
+            newAlgorithmState = this.algorithmService.getCurrentAlgorithmState();
         } else {
             if (this.recordService.getIteration() === 0) {
                 this.algorithmService.setInitialData(
@@ -246,9 +229,7 @@ export class SimulationService {
         }
         if (newGrid) {
             this.setGridList(newGrid);
-            this.recordService.setIteration(
-                this.recordService.getIteration() + 1
-            );
+            this.recordService.setIteration(this.recordService.getIteration() + 1);
             this.recordService.addStatRecord(statRecord);
             this.recordService.addAlgorithmState(newAlgorithmState);
         } else {
@@ -264,9 +245,7 @@ export class SimulationService {
      * Sets the new speed down between boundaries
      */
     public setSpeedDown(): void {
-        this.simulationSpeed > 100
-            ? this.setSimulationSpeed(-100)
-            : this.setSimulationSpeed(-20);
+        this.simulationSpeed > 100 ? this.setSimulationSpeed(-100) : this.setSimulationSpeed(-20);
         this.restartInterval();
     }
 
@@ -274,9 +253,7 @@ export class SimulationService {
      * Sets the new speed up between boundaries
      */
     public setSpeedUp(): void {
-        this.simulationSpeed < 100
-            ? this.setSimulationSpeed(20)
-            : this.setSimulationSpeed(100);
+        this.simulationSpeed < 100 ? this.setSimulationSpeed(20) : this.setSimulationSpeed(100);
         this.restartInterval();
     }
 
@@ -310,9 +287,7 @@ export class SimulationService {
             // Resets to save point
             this.recordService.setIteration(0);
             console.log(this.recordService.getGridSavePointRecords());
-            this.recordService.addStatRecord(
-                this.recordService.getGridSavePointRecords()
-            );
+            this.recordService.addStatRecord(this.recordService.getGridSavePointRecords());
             this.setGridList(this.recordService.getGridSavePoint());
             // this.gridList$.next(this.recordService.getGridSavePoint());
         } else {
@@ -405,19 +380,13 @@ export class SimulationService {
     public importSession(importText: string): void {
         let session: Session;
         try {
-            const uint8arr = Uint8Array.from(
-                importText.split(',').map((str) => parseInt(str, 10))
-            );
+            const uint8arr = Uint8Array.from(importText.split(',').map((str) => parseInt(str, 10)));
             session = JSON.parse(pako.inflate(uint8arr, { to: 'string' }));
             this.algorithmService.setAlgorithmMode(session.algorithmMode);
             if (this.algorithmService.getAlgorithmMode() === 'maze') {
-                this.algorithmService.setMazeAlgorithm(
-                    session.algorithm as MazeAlgorithm
-                );
+                this.algorithmService.setMazeAlgorithm(session.algorithm as MazeAlgorithm);
             } else {
-                this.algorithmService.setPathAlgorithm(
-                    session.algorithm as PathFindingAlgorithm
-                );
+                this.algorithmService.setPathAlgorithm(session.algorithm as PathFindingAlgorithm);
                 // TODO set heuristic for path-finding service
             }
             this.algorithmService.updateAlgorithmState(
@@ -443,8 +412,7 @@ export class SimulationService {
     public exportSession(): void {
         if (this.algorithmService.getAlgorithmMode() === 'maze') {
             const session: Session = {
-                algorithm:
-                    this.algorithmService.getAlgorithmName() as MazeAlgorithm,
+                algorithm: this.algorithmService.getAlgorithmName() as MazeAlgorithm,
                 algorithmMode: this.algorithmService.getAlgorithmMode(),
                 state: this.algorithmService.getSerializedState(),
                 iteration: this.recordService.getIteration(),

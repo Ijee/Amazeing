@@ -8,11 +8,7 @@ import { LegendModalComponent } from './modals/legend/legend-modal.component';
 import { SharedModule } from '../@shared/shared.module';
 
 @NgModule({
-    declarations: [
-        ImportModalComponent,
-        ExportModalComponent,
-        LegendModalComponent
-    ],
+    declarations: [ImportModalComponent, ExportModalComponent, LegendModalComponent],
     exports: [ImportModalComponent, ExportModalComponent, LegendModalComponent],
     imports: [CommonModule, FormsModule, FontAwesomeModule, SharedModule]
 })

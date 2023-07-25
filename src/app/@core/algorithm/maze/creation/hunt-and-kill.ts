@@ -112,9 +112,7 @@ export class HuntAndKill extends MazeAlgorithmAbstract {
 
                             this.buildWalls(neighbour, 0);
                             this.buildPath(this.cursor, neighbour, 5);
-                            this.currentGrid[this.cursor.x][
-                                this.cursor.y
-                            ].status = 5;
+                            this.currentGrid[this.cursor.x][this.cursor.y].status = 5;
                             this.randomWalk = true;
                             this.nodeFound = false;
                             this.scanAtY = 0;
@@ -140,17 +138,10 @@ export class HuntAndKill extends MazeAlgorithmAbstract {
         }
     }
 
-    public setInitialData(
-        currentGrid: Node[][],
-        currentStartPoint: GridLocation
-    ): void {
+    public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
         this.currentGrid = currentGrid;
-        const randomXPosition = Math.floor(
-            Math.random() * this.currentGrid.length
-        );
-        const randomYPosition = Math.floor(
-            Math.random() * this.currentGrid[0].length
-        );
+        const randomXPosition = Math.floor(Math.random() * this.currentGrid.length);
+        const randomYPosition = Math.floor(Math.random() * this.currentGrid[0].length);
 
         this.cursor = new GridLocation(randomXPosition, randomYPosition, 0);
         this.currentGrid[randomXPosition][randomYPosition].status = 5;
@@ -167,11 +158,7 @@ export class HuntAndKill extends MazeAlgorithmAbstract {
         this.randomWalk = deserializedState.randomWalk;
     }
 
-    public deserialize(
-        newGrid: Node[][],
-        serializedState: any,
-        statRecords: StatRecord[]
-    ): void {
+    public deserialize(newGrid: Node[][], serializedState: any, statRecords: StatRecord[]): void {
         throw new Error('Method not implemented.');
     }
 

@@ -17,10 +17,7 @@ export const fadeInOut = trigger('fadeInOut', [
         style({ opacity: 0, offset: 0 }),
         animate(
             '150ms ease-in-out',
-            keyframes([
-                style({ opacity: 0.01, offset: 0.01 }),
-                style({ opacity: 1, offset: 1 })
-            ])
+            keyframes([style({ opacity: 0.01, offset: 0.01 }), style({ opacity: 1, offset: 1 })])
         )
     ]),
     transition(':leave', [

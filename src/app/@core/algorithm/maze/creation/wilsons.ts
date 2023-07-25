@@ -13,10 +13,7 @@ import { shuffleFisherYates } from '../../../../@shared/functions/fisher-yates';
 type Direction = 'up' | 'right' | 'down' | 'left';
 
 class WalkingPath implements EqualsHashCode {
-    constructor(
-        public gridLocation: GridLocation,
-        public direction: Direction
-    ) {}
+    constructor(public gridLocation: GridLocation, public direction: Direction) {}
 
     equals(obj: any): boolean {
         if (obj instanceof WalkingPath) {
@@ -74,10 +71,7 @@ export class Wilsons extends MazeAlgorithmAbstract {
                         name: 'Node Choice',
                         label: 'Node Choice',
                         value: 'choose random node',
-                        values: [
-                            'choose random node',
-                            'sequential node selection'
-                        ],
+                        values: ['choose random node', 'sequential node selection'],
                         type: 'radio',
                         validators: {
                             required: true
@@ -138,11 +132,7 @@ export class Wilsons extends MazeAlgorithmAbstract {
             if (this.cursor.equals(node)) {
                 eraseLoop = true;
                 // removes the last node that would not be colored back to being empty when a loop has been found.
-                this.buildPath(
-                    this.cursor,
-                    this.walkingPath[this.walkingPath.length - 1],
-                    0
-                );
+                this.buildPath(this.cursor, this.walkingPath[this.walkingPath.length - 1], 0);
             }
         }
         if (eraseLoop) {
@@ -192,13 +182,9 @@ export class Wilsons extends MazeAlgorithmAbstract {
                 // this.buildWalls(node, 0);
 
                 this.statRecords[1].currentValue =
-                    this.statRecords[1].currentValue -
-                    statusChange.status0 -
-                    statusChange.status8;
+                    this.statRecords[1].currentValue - statusChange.status0 - statusChange.status8;
                 this.remainingNodes =
-                    this.remainingNodes -
-                    statusChange.status0 -
-                    statusChange.status8;
+                    this.remainingNodes - statusChange.status0 - statusChange.status8;
                 console.log('status 8 change', statusChange.status8);
                 console.log('this.remaining', this.remainingNodes);
                 // paint walkingPaths first node as an 'in node' + the node inbetween.
@@ -223,23 +209,12 @@ export class Wilsons extends MazeAlgorithmAbstract {
         }
     }
 
-    public setInitialData(
-        currentGrid: Node[][],
-        currentStartPoint: GridLocation
-    ): void {
+    public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
         this.currentGrid = currentGrid;
         this.gridWith = this.currentGrid.length;
         this.gridHeight = this.currentGrid[0].length;
-        for (
-            let i = currentStartPoint.x % 2 === 0 ? 0 : 1;
-            i < this.gridWith;
-            i += 2
-        ) {
-            for (
-                let j = currentStartPoint.y % 2 === 0 ? 0 : 1;
-                j < this.gridHeight;
-                j += 2
-            ) {
+        for (let i = currentStartPoint.x % 2 === 0 ? 0 : 1; i < this.gridWith; i += 2) {
+            for (let j = currentStartPoint.y % 2 === 0 ? 0 : 1; j < this.gridHeight; j += 2) {
                 if (
                     this.currentGrid[i][j].status !== 1 &&
                     this.currentGrid[i][j].status !== 2 &&
@@ -271,28 +246,16 @@ export class Wilsons extends MazeAlgorithmAbstract {
         this.isWalking = deserializedState.isWalking;
     }
 
-    public deserialize(
-        newGrid: Node[][],
-        serializedState: any,
-        statRecords: StatRecord[]
-    ): void {
+    public deserialize(newGrid: Node[][], serializedState: any, statRecords: StatRecord[]): void {
         const cursor = serializedState.cursor;
         const unusedNodes: GridLocation[] = [];
         serializedState.unusedNodes.forEach((item) => {
-            const tempUnusedNodes = new GridLocation(
-                item.x,
-                item.y,
-                item.weight
-            );
+            const tempUnusedNodes = new GridLocation(item.x, item.y, item.weight);
             unusedNodes.push(item);
         });
         const walkingPath: GridLocation[] = [];
         serializedState.unusedNodes.forEach((item) => {
-            const tempWalkingPath = new GridLocation(
-                item.x,
-                item.y,
-                item.weight
-            );
+            const tempWalkingPath = new GridLocation(item.x, item.y, item.weight);
             walkingPath.push(item);
         });
         const deserializedState = {

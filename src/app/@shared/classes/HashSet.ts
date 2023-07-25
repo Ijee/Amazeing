@@ -28,9 +28,7 @@ export class HashSet<T extends EqualsHashCode> {
             this.init(10);
         }
         this.expanding = new Subject();
-        this.expanding
-            .pipe(debounceTime(200))
-            .subscribe(() => this.expandSize());
+        this.expanding.pipe(debounceTime(200)).subscribe(() => this.expandSize());
     }
 
     /**

@@ -1,11 +1,7 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { SettingsService } from '../../../@core/services/settings.service';
 import { AlgorithmService } from '../../../@core/services/algorithm.service';
-import {
-    JsonFormControls,
-    JsonFormData,
-    MazeAlgorithm
-} from '../../../../types';
+import { JsonFormControls, JsonFormData, MazeAlgorithm } from '../../../../types';
 import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
@@ -40,45 +36,42 @@ export class MazeSettingsComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.route.queryParams
-            .pipe(takeUntil(this.destroyed$))
-            .subscribe((params) => {
-                const pathFindingAlgorithms = new Set<MazeAlgorithm>([
-                    'Prims',
-                    'Kruskals',
-                    'Aldous-Broder',
-                    'Wilsons',
-                    'Ellers',
-                    'Sidewinder',
-                    'Hunt-and-Kill',
-                    'Growing-Tree',
-                    'Binary-Tree',
-                    'Recursive-Backtracking',
-                    'Recursive-Division',
-                    'Cellular-Automation',
-                    'Wall-Follower',
-                    'Pledge',
-                    'Trémaux',
-                    'Recursive',
-                    'Dead-End-Filling',
-                    'Maze-Routing'
-                ]);
-                if (pathFindingAlgorithms.has(params.algorithm)) {
-                    this.algorithmService.setMazeAlgorithm(params.algorithm);
-                } else {
-                    this.router
-                        .navigate(['.'], {
-                            relativeTo: this.route,
-                            queryParams: {
-                                algorithm:
-                                    this.algorithmService.getAlgorithmName()
-                            }
-                        })
-                        .then(() => {
-                            this.changeDetector.detectChanges();
-                        });
-                }
-            });
+        this.route.queryParams.pipe(takeUntil(this.destroyed$)).subscribe((params) => {
+            const pathFindingAlgorithms = new Set<MazeAlgorithm>([
+                'Prims',
+                'Kruskals',
+                'Aldous-Broder',
+                'Wilsons',
+                'Ellers',
+                'Sidewinder',
+                'Hunt-and-Kill',
+                'Growing-Tree',
+                'Binary-Tree',
+                'Recursive-Backtracking',
+                'Recursive-Division',
+                'Cellular-Automation',
+                'Wall-Follower',
+                'Pledge',
+                'Trémaux',
+                'Recursive',
+                'Dead-End-Filling',
+                'Maze-Routing'
+            ]);
+            if (pathFindingAlgorithms.has(params.algorithm)) {
+                this.algorithmService.setMazeAlgorithm(params.algorithm);
+            } else {
+                this.router
+                    .navigate(['.'], {
+                        relativeTo: this.route,
+                        queryParams: {
+                            algorithm: this.algorithmService.getAlgorithmName()
+                        }
+                    })
+                    .then(() => {
+                        this.changeDetector.detectChanges();
+                    });
+            }
+        });
         // this.optionsForm.valueChanges.subscribe(() => {
         //   if (this.recordService.getIteration() > 0) {
         //     for (let field in this.optionsForm.controls) {
@@ -96,10 +89,7 @@ export class MazeSettingsComponent implements OnInit, OnDestroy {
     }
 
     public handleWarning(newAlgorithm: MazeAlgorithm): void {
-        if (
-            this.recordService.getIteration() !== 0 &&
-            this.settingsService.getWarningsSetting()
-        ) {
+        if (this.recordService.getIteration() !== 0 && this.settingsService.getWarningsSetting()) {
             this.warningDialog.openDialog();
             this.warningDialog
                 .afterClosed()

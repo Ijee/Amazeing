@@ -28,10 +28,7 @@ export abstract class PathFindingAlgorithmAbstract {
      * @param currentGrid - the current grid from the simulation service
      * @param currentStartPoint - the starting point for the algorithm
      */
-    public abstract setInitialData(
-        currentGrid: Node[][],
-        currentStartPoint: GridLocation
-    ): void;
+    public abstract setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void;
 
     /**
      * Sets the options for the algorithm.

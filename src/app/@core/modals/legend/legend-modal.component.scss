@@ -1,40 +1,39 @@
 @use 'colors';
-@import "bulma/bulma";
+@import 'bulma/bulma';
 
 .start-icon {
-  color: $primary;
+    color: $primary;
 }
 
 .goal-icon {
-  color: $danger;
+    color: $danger;
 }
 
 .status-1 {
-  color: $grey-dark;
+    color: $grey-dark;
 }
 
 .status-4 {
-  color: colors.$node-4;
-  // background-color: #f99a6d;
+    color: colors.$node-4;
+    // background-color: #f99a6d;
 }
 
 .status-5 {
-  color: colors.$node-5;
+    color: colors.$node-5;
 }
 
 .status-6 {
-  color: colors.$node-6;
+    color: colors.$node-6;
 }
 
 .status-7 {
-  color: colors.$node-7;
+    color: colors.$node-7;
 }
 
 .status-8 {
-  color: colors.$node-8;
+    color: colors.$node-8;
 }
 
 .status-9 {
-  color: colors.$node-9;
+    color: colors.$node-9;
 }
-

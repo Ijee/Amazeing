@@ -24,10 +24,7 @@ export class AStar extends PathFindingAlgorithmAbstract {
         throw new Error('Method not implemented.');
     }
 
-    public setInitialData(
-        currentGrid: Node[][],
-        currentStartPoint: GridLocation
-    ): void {
+    public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
         throw new Error('Method not implemented.');
     }
 
@@ -43,11 +40,7 @@ export class AStar extends PathFindingAlgorithmAbstract {
         throw new Error('Method not implemented.');
     }
 
-    public deserialize(
-        newGrid: Node[][],
-        serializedState: any,
-        statRecords: StatRecord[]
-    ): void {
+    public deserialize(newGrid: Node[][], serializedState: any, statRecords: StatRecord[]): void {
         throw new Error('Method not implemented.');
     }
 

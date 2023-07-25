@@ -32,36 +32,33 @@ export class PathfindingSettingsComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.route.queryParams
-            .pipe(takeUntil(this.destroyed$))
-            .subscribe((params) => {
-                const pathFindingAlgorithms = new Set<PathFindingAlgorithm>([
-                    'A-Star',
-                    'IDA-Star',
-                    'Dijkstra',
-                    'Breadth-FS',
-                    'Depth-FS',
-                    'Best-FS',
-                    'Trace',
-                    'Jump-PS',
-                    'Orthogonal-Jump-PS'
-                ]);
-                if (pathFindingAlgorithms.has(params.algorithm)) {
-                    this.algorithmService.setPathAlgorithm(params.algorithm);
-                } else {
-                    this.router
-                        .navigate(['.'], {
-                            relativeTo: this.route,
-                            queryParams: {
-                                algorithm:
-                                    this.algorithmService.getAlgorithmName()
-                            }
-                        })
-                        .then(() => {
-                            this.changeDetector.detectChanges();
-                        });
-                }
-            });
+        this.route.queryParams.pipe(takeUntil(this.destroyed$)).subscribe((params) => {
+            const pathFindingAlgorithms = new Set<PathFindingAlgorithm>([
+                'A-Star',
+                'IDA-Star',
+                'Dijkstra',
+                'Breadth-FS',
+                'Depth-FS',
+                'Best-FS',
+                'Trace',
+                'Jump-PS',
+                'Orthogonal-Jump-PS'
+            ]);
+            if (pathFindingAlgorithms.has(params.algorithm)) {
+                this.algorithmService.setPathAlgorithm(params.algorithm);
+            } else {
+                this.router
+                    .navigate(['.'], {
+                        relativeTo: this.route,
+                        queryParams: {
+                            algorithm: this.algorithmService.getAlgorithmName()
+                        }
+                    })
+                    .then(() => {
+                        this.changeDetector.detectChanges();
+                    });
+            }
+        });
     }
 
     ngOnDestroy(): void {
@@ -75,10 +72,7 @@ export class PathfindingSettingsComponent implements OnInit, OnDestroy {
      * @param newAlgorithm - the new algorithm to be set
      */
     public handleWarning(newAlgorithm: PathFindingAlgorithm): void {
-        if (
-            this.recordService.getIteration() !== 0 &&
-            this.settingsService.getWarningsSetting()
-        ) {
+        if (this.recordService.getIteration() !== 0 && this.settingsService.getWarningsSetting()) {
             this.warningDialog.openDialog();
             this.warningDialog
                 .afterClosed()

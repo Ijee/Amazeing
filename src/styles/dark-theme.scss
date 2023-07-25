@@ -1,7 +1,6 @@
 @use 'bulma/sass/utilities/all';
 
-
 @mixin dark-theme {
-  $scheme-main: hsl(162, 100%, 50%);
-  $scheme-main-bis: all.$black-bis;
+    $scheme-main: hsl(162, 100%, 50%);
+    $scheme-main-bis: all.$black-bis;
 }

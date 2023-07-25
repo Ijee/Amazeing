@@ -11,12 +11,9 @@ export class SettingsService {
 
     constructor() {
         // See if prefers color scheme is set. If yes, set the appropriate setting.
-        const storagePrefersDarkColor =
-            localStorage.getItem('prefersDarkColor');
+        const storagePrefersDarkColor = localStorage.getItem('prefersDarkColor');
         if (storagePrefersDarkColor === null) {
-            const prefersDarkColor = window.matchMedia(
-                '(prefers-color-scheme: dark)'
-            );
+            const prefersDarkColor = window.matchMedia('(prefers-color-scheme: dark)');
             if (!prefersDarkColor || prefersDarkColor.matches) {
                 this.setDarkModeSetting(true);
             } else {
@@ -26,12 +23,9 @@ export class SettingsService {
             this.setDarkModeSetting(storagePrefersDarkColor === 'true');
         }
         // See if prefers reduced motion is set. If yes, set the appropriate setting.
-        const storagePrefersReducedMotion =
-            localStorage.getItem('animationsSetting');
+        const storagePrefersReducedMotion = localStorage.getItem('animationsSetting');
         if (storagePrefersReducedMotion === null) {
-            const prefersReducedMotion = window.matchMedia(
-                '(prefers-reduced-motion: reduce)'
-            );
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
             if (!prefersReducedMotion || prefersReducedMotion.matches) {
                 this.setAnimationSetting(false);
             } else {
@@ -74,10 +68,7 @@ export class SettingsService {
         } else {
             this.animationsSetting = !this.animationsSetting;
         }
-        localStorage.setItem(
-            'animationsSetting',
-            String(this.animationsSetting)
-        );
+        localStorage.setItem('animationsSetting', String(this.animationsSetting));
     }
 
     /**

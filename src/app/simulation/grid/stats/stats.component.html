@@ -29,9 +29,7 @@
     <div class="column is-2 is-half-mobile is-size-7-mobile">
         <strong class="has-text-centered">
             <p class="heading is-size-6-mobile">Speed</p>
-            <p
-                class="title is-size-6-mobile"
-                [class]="algorithmService.getAlgorithmMode() === 'maze' ? 'has-text-primary' : 'has-text-danger'">
+            <p class="title is-size-6-mobile" [class]="algorithmService.getAlgorithmMode() === 'maze' ? 'has-text-primary' : 'has-text-danger'">
                 {{ simulationService.getSimulationSpeed() }}%
             </p>
         </strong>
