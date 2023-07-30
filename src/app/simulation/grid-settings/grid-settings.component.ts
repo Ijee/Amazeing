@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
@@ -18,7 +18,7 @@ import { RecordService } from '../../@core/services/record.service';
     styleUrls: ['./grid-settings.component.scss'],
     animations: [fadeAnimationSafe]
 })
-export class GridSettingsComponent implements OnDestroy {
+export class GridSettingsComponent implements AfterViewInit, OnDestroy {
     public showWarning: boolean;
 
     private readonly destroyed$: Subject<void>;
@@ -26,6 +26,7 @@ export class GridSettingsComponent implements OnDestroy {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
+        private ref: ChangeDetectorRef,
         private library: FaIconLibrary,
         private recordService: RecordService,
         public algorithmService: AlgorithmService,
@@ -43,6 +44,13 @@ export class GridSettingsComponent implements OnDestroy {
         }
 
         this.destroyed$ = new Subject<void>();
+    }
+
+    ngAfterViewInit() {
+        // TODO Maybe fix following problem since Angular 16
+        // Fixes ExpressionChangedAfterItHasBeenCheckedError for the loading animation.
+        // Don't ask me why though.
+        this.ref.detectChanges();
     }
 
     ngOnDestroy(): void {
