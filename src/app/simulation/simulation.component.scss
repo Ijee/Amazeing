@@ -1,3 +1,5 @@
+@use 'bulma/bulma' as bulma;
+
 @media screen and (max-width: 1024px) {
     .ordered-touch {
         display: flex;
@@ -16,3 +18,11 @@
         order: 4;
     }
 }
+
+body.dark .box {
+  background-color: bulma.$primary;
+}
+
+//body.dark .column {
+//  background-color: bulma.$dark;
+//}

@@ -14,7 +14,7 @@
                 buttonBackwards: simulationService.getBackwardStepsAmount() < 1
             }"
             (click)="simulationService.setBackwardStep()">
-            <fa-icon [icon]="['fas', 'step-backward']"></fa-icon>
+            <fa-icon class="pr-1" [icon]="['fas', 'step-backward']"></fa-icon>
             <b>
                 {{ simulationService.getBackwardStepsAmount() | maxNumber : 9 }}
             </b>

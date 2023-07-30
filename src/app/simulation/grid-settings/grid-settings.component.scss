@@ -1,4 +1,6 @@
-.algo-button {
+@use 'bulma/bulma' as bulma;
+
+.algo-mode-button {
     border-style: solid;
     border-width: 2px;
     letter-spacing: 0.1rem;
@@ -9,7 +11,7 @@
 }
 
 .danger-button {
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.7) !important;
 }
 
 .danger-button:hover {
@@ -17,4 +19,23 @@
 }
 .button {
     border-radius: 0;
+}
+
+.border-radius-top-left {
+  border-radius: 4px 0 0 0 !important;
+}
+
+.border-radius-top-right {
+  border-radius: 0 4px 0 0 !important;
+}
+
+
+.border-radius-bottom {
+  border-radius: 0 0 4px 4px !important;
+}
+
+
+
+body.dark .container {
+  background-color: bulma.$dark;
 }

@@ -1,3 +1,5 @@
+@use 'bulma/bulma' as bulma;
+
 @media screen and (max-width: 1023px) {
     .navbar-dropdown .is-active {
         display: block;
@@ -8,6 +10,14 @@
 }
 main {
     position: relative;
+}
+
+body.dark .is-primary {
+  background-color: bulma.$primary !important;
+}
+
+.body.dark .is-danger {
+  background-color: bulma.$danger !important;
 }
 
 .dropdown-button {
@@ -27,6 +37,11 @@ main {
 
 .simple-border-bottom {
     border-bottom: 2px solid #dbdbdb;
+}
+
+.button-user-tour {
+  background-color: transparent !important;
+  border: 0;
 }
 
 .hr {

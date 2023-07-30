@@ -1,3 +1,5 @@
+@use 'bulma/bulma' as bulma;
+
 hr {
     border-bottom: 1px solid #fff;
     background-color: transparent;
@@ -29,7 +31,14 @@ hr {
         padding: 0 0.5em;
         line-height: 1.5em;
         // this is really the only tricky part, you need to specify the background color of the container element...
-        background-color: #fff;
+        background-color: bulma.$white;
         margin: 0;
     }
+}
+
+body.dark :host .hr-text {
+  color: bulma.$white;
+  &:after {
+    background-color: bulma.$dark;
+  }
 }

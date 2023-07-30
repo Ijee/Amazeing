@@ -1,5 +1,4 @@
 @charset "utf-8";
-/* You can add global styles to this file, and also import other style files */
 
 @import url('https://fonts.googleapis.com/css?family=Open+Sans|Libre+Baskerville');
 @import "node_modules/driver.js/dist/driver.css";
@@ -9,7 +8,8 @@
 @import 'styles/dark-theme';
 @import "driverjs";
 
-
+// The CSS in this project here is quite messy
+// but at least it looks kind of good - so there's that.
 
 /* poppins-200 - latin */
 @font-face {
@@ -78,13 +78,18 @@
 
 $family-primary: 'Poppins';
 $family-serif: 'Poppins';
+$white-dark-87: hsl(0, 0%, 87%);
+$white-dark-60: hsl(0, 0%, 60%);
+$white-dark-38: hsl(0, 0%, 38%);
 
+$button-active-color: hsl(0, 72%, 45%);
+$button-focus-box-shadow-color: hsla(0, 0%, 100%, 0);
+$button-focus-box-shadow-color: hsla(0, 0%, 100%, 0);
 html,
 body {
     // background-image: linear-gradient(97deg, rgba(12, 223, 92, 0.2),rgba(91, 32, 246, 0.2)),linear-gradient(45deg, rgb(129, 201, 171),rgb(174, 228, 191),rgb(151, 214, 181),rgb(196, 241, 201),rgb(106, 188, 161),rgb(84, 175, 151),rgb(61, 161, 141),rgb(39, 148, 131));
     //background-image: linear-gradient(
     //    135deg,#99b6c6 14%,#407d99 78%);
-    background-image: linear-gradient(135deg, #99b6c6 14%, #2b596c 78%);
     background-repeat: no-repeat;
     font-family: 'Poppins', serif;
     background-attachment: fixed;
@@ -102,11 +107,78 @@ body {
     border-left: 1px solid #dbdbdb;
 }
 
-.dark-theme {
-    @include dark-theme;
+// dark mode
+
+// @import 'bulma';
+@import 'bulma/bulma';
+
+//body.dark * {
+//  transition: all 1s ease;
+//}
+
+body.light {
+  background-image: linear-gradient(135deg, #99b6c6 14%, #2b596c 78%);
 }
 
-@import 'bulma';
+ body.dark {
+  background-image: linear-gradient(135deg, #1f2627 14%, #2b596c 78%);
+  color: $light;
+}
+
+body .subtitle,
+body .title {
+  color: $dark;
+}
+
+body.dark .subtitle,
+body.dark .title,
+body.dark .heading,
+body.dark .content {
+  color: $light;
+}
+
+
+body.dark .button {
+  background-color: $grey-darker;
+  color: $white-dark-87;
+}
+
+body.dark .button:hover {
+  color: $white-dark-60;
+}
+
+body.dark .button:disabled,
+body.dark button[disabled] {
+  color: $white;
+  background-color: $white-dark-38;
+}
+
+body.dark .force-blue-bg {
+  background-color: $info !important;
+}
+
+button:focus:hover {
+  outline: none;
+  box-shadow: none;
+}
+
+.field-has-addons:active {
+  outline: none;
+}
+
+.section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // height: 100vh;
+  text-align: center;
+}
+
+body.dark .box {
+  background-color: $dark;
+}
+
+
 
 ::selection {
     background: $primary;

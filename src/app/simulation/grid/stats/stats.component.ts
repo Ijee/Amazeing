@@ -23,7 +23,7 @@ export class StatsComponent {
         public settingsService: SettingsService
     ) {}
 
-    // trackByName(index: number, item: StatRecord): string {
-    //     return item.name;
-    // }
+    public trackByName(index: number, item: StatRecord): string {
+        return item.name;
+    }
 }

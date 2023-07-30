@@ -58,7 +58,15 @@ export class AppComponent implements OnInit, OnDestroy {
                 this.isTouch = result.matches;
             });
 
-        this.renderer.addClass(document.body, 'dark-theme');
+        this.settingsService.getDarkModeSetting().subscribe((val) => {
+            if (val) {
+                this.renderer.removeClass(document.body, 'light');
+                this.renderer.addClass(document.body, 'dark');
+            } else {
+                this.renderer.removeClass(document.body, 'dark');
+                this.renderer.addClass(document.body, 'light');
+            }
+        });
 
         setTimeout(() => (this.isBouncing = false), 5000);
     }

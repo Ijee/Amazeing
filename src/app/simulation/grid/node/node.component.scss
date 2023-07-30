@@ -1,16 +1,19 @@
 @use 'colors';
-@import 'bulma/bulma';
+@use 'bulma/bulma' as bulma;
+
+// TODO somehow remove the important tags due to specificity stuff
 
 .node {
     display: flex;
     position: relative;
+    font-family: Arial, sans-serif;
     flex: 1;
     user-select: none;
     border-right: 1px solid #1a0707;
     border-bottom: 1px solid #1a0707;
     padding-bottom: 100%;
     text-align: justify;
-    background-color: $white;
+    background-color: bulma.$white;
 }
 
 .node:before {
@@ -25,40 +28,44 @@
     justify-content: center;
 }
 
+body.dark :host .node {
+  background-color: hsla(hue(bulma.$white), saturation(bulma.$white), lightness(bulma.$white), .3);
+}
+
 .node:hover {
     background-color: rgba(129, 128, 120, 0.6);
 }
 
 .status-1 {
-    background-color: $grey-dark;
+    background-color: bulma.$grey-dark !important;
     // background-color: #3c4353;
 }
 
 .start:hover {
-    background-color: fade-out($primary, 0.4);
+    background-color: fade-out(bulma.$primary, 0.4) !important;
 }
 
 .goal:hover {
-    background-color: fade-out($danger, 0.4);
+    background-color: fade-out(bulma.$danger, 0.4) !important;
 }
 
 .status-4 {
-    background-color: colors.$node-4;
+    background-color: colors.$node-4 !important;
     // background-color: #f99a6d;
 }
 
-.status-5 {
-    background-color: colors.$node-5;
+div.status-5 {
+    background-color: colors.$node-5 !important;
 }
 
 .status-6 {
-    background-color: colors.$node-6;
+    background-color: colors.$node-6 !important;
 }
 
 .status-7 {
-    background-color: colors.$node-7;
+    background-color: colors.$node-7 !important;
 }
 
 .status-8 {
-    background-color: colors.$node-8;
+    background-color: colors.$node-8 !important;
 }

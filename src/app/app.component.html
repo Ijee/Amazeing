@@ -1,7 +1,7 @@
-<nav class="navbar is-transparent dark-theme p-3">
+<nav class="navbar is-transparent dark-theme pl-3 pr-3">
     <div class="container is-fullhd">
         <div class="navbar-brand">
-            <a class="navbar-item font-white is-unselectable" (click)="navigateToSimulation()">
+            <a role="button" class="navbar-item font-white is-unselectable" (click)="navigateToSimulation()">
                 <span class="icon">
                     <fa-icon [icon]="['fas', 'code']"></fa-icon>
                 </span>
@@ -9,7 +9,7 @@
                     <b>A<i>maze</i>ing</b>
                 </span>
             </a>
-            <div class="navbar-item navbar-end is-hidden-desktop">
+            <div role="button" class="navbar-item navbar-end is-hidden-desktop">
                 <a class="button is-info is-pulled-right" href="https://github.com/Ijee/Amazeing" target="_blank" rel="noopener">
                     <span class="icon">
                         <fa-icon [icon]="['fab', 'github']"></fa-icon>
@@ -33,13 +33,14 @@
                 'transparent-navbar': !isTouch
             }">
             <div class="navbar-end">
-                <a class="navbar-item is-unselectable" [ngClass]="{ 'font-white': !isTouch }" (click)="navigateToSimulation()">
+                <a role="button" class="navbar-item is-unselectable" [ngClass]="{ 'font-white': !isTouch }" (click)="navigateToSimulation()">
                     <span class="icon">
                         <fa-icon [icon]="['fas', 'microchip']"></fa-icon>
                     </span>
                     <span routerLinkActive="simple-border-bottom"><b>SIMULATION</b></span>
                 </a>
                 <a
+                    role="button"
                     class="navbar-item is-unselectable"
                     [ngClass]="{ 'font-white': !isTouch }"
                     routerLink="learn"
@@ -50,6 +51,7 @@
                     <span routerLinkActive="simple-border-bottom"><b>LEARN</b></span>
                 </a>
                 <div
+                    role="button"
                     class="navbar-item has-dropdown is-unselectable"
                     [ngClass]="{ 'is-active': isSettingsDropdown }"
                     (click)="isSettingsDropdown = !isSettingsDropdown; $event.stopPropagation()">
@@ -61,42 +63,42 @@
                     </div>
                     <div class="navbar-dropdown is-boxed" [ngClass]="{ 'is-active': isSettingsDropdown }">
                         <div class="columns m-1 pb-0 navbar-item">
-                            <div class="is-9">
+                            <div class="column is-9 pl-0">
                                 <span class="icon">
                                     <fa-icon [icon]="['fas', 'adjust']"></fa-icon>
                                 </span>
                                 <span><b>Dark mode</b></span>
                             </div>
                             <button
-                                class="column is-3 button is-fullwidth dropdown-button is-pulled-right"
-                                [class]="settingsService.getDarkModeSetting() ? 'is-primary' : 'is-danger'"
+                                class="column is-3 button settings-button is-fullwidth dropdown-button is-pulled-right"
+                                [class]="(settingsService.getDarkModeSetting() | async) ? 'is-primary' : 'is-danger'"
                                 (click)="settingsService.setDarkModeSetting()">
-                                <b>{{ settingsService.getDarkModeSetting() ? 'ON' : 'OFF' }}</b>
+                                <b>{{ (settingsService.getDarkModeSetting() | async) ? 'ON' : 'OFF' }}</b>
                             </button>
                         </div>
                         <div class="columns m-1 pb-0 navbar-item">
-                            <div class="is-9">
+                            <div class="column is-9 pl-0">
                                 <span class="icon">
                                     <fa-icon [icon]="['fas', 'wind']"></fa-icon>
                                 </span>
                                 <span><b>Animations</b></span>
                             </div>
                             <button
-                                class="column is-3 button is-fullwidth dropdown-button is-pulled-right"
+                                class="column is-3 button settings-button is-fullwidth dropdown-button is-pulled-right"
                                 [class]="settingsService.getAnimationsSetting() ? 'is-primary' : 'is-danger'"
                                 (click)="settingsService.setAnimationSetting()">
                                 <b>{{ settingsService.getAnimationsSetting() ? 'ON' : 'OFF' }}</b>
                             </button>
                         </div>
                         <div class="columns m-1 navbar-item">
-                            <div class="colum is-9">
+                            <div class="column is-9 pl-0">
                                 <span class="icon">
                                     <fa-icon [icon]="['fas', 'triangle-exclamation']"></fa-icon>
                                 </span>
                                 <span><b>Warnings</b></span>
                             </div>
                             <button
-                                class="column is-3 button is-fullwidth dropdown-button is-pulled-right"
+                                class="column is-3 button settings-button is-fullwidth dropdown-button is-pulled-right"
                                 [class]="settingsService.getWarningsSetting() ? 'is-primary' : 'is-danger'"
                                 (click)="settingsService.setWarningsSetting()">
                                 <b>{{ settingsService.getWarningsSetting() ? 'ON' : 'OFF' }}</b>
@@ -125,7 +127,8 @@
                         </a>
                         <div class="navbar-item">
                             <a
-                                class="button dropdown-button is-info is-fullwidth"
+                                role="button"
+                                class="button dropdown-button is-info force-blue-bg is-fullwidth"
                                 href="https://github.com/Ijee/Amazeing/issues"
                                 target="_blank"
                                 rel="noopener">
@@ -135,14 +138,14 @@
                     </div>
                 </div>
                 <span *ngIf="!settingsService.getUserTourTaken()" class="navbar-item p-0">
-                    <a role="button" [class.fa-bounce]="isBouncing" class="button is-rounded is-ghost" (click)="prepareUserTour()">
+                    <a role="button" [class.fa-bounce]="isBouncing" class="button is-rounded button-user-tour" (click)="prepareUserTour()">
                         <span class="icon has-text-white">
                             <fa-icon class="fa-xl" [icon]="['fas', 'circle-question']"></fa-icon>
                         </span>
                     </a>
                 </span>
                 <span *ngIf="!isTouch" class="navbar-item pl-0">
-                    <a class="button is-info" href="https://github.com/Ijee/Amazeing" target="_blank" rel="noopener">
+                    <a class="button is-info force-blue-bg" href="https://github.com/Ijee/Amazeing" target="_blank" rel="noopener">
                         <span class="icon">
                             <fa-icon [icon]="['fab', 'github']"></fa-icon>
                         </span>
