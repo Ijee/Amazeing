@@ -1,5 +1,5 @@
-<app-stats class="box" [isMouseDown]="isMouseDown"></app-stats>
-<div class="block outer-wall m-1" [ngClass]="{ 'wrapper-forbidden': recordService.getIteration() > 0 }">
+<app-stats class="box tourStats" [isMouseDown]="isMouseDown"></app-stats>
+<section class="block outer-wall m-1" [ngClass]="{ 'wrapper-forbidden': recordService.getIteration() > 0 }">
     <div
         class="game-grid"
         [ngClass]="{ 'game-grid-lock': recordService.getIteration() > 0 }"
@@ -16,72 +16,74 @@
             </app-node>
         </div>
     </div>
-</div>
-<app-hr text="GRID CONTROL"></app-hr>
-<div class="columns is-multiline is-gapless">
-    <div class="column is-full">
-        <div class="field has-addons has-addons-centered is-marginless control-button-wrapper">
-            <p class="control">
-                <button
-                    class="button is-outlined mr-3 is-size-7-mobile is-size-7-touch is-size-6-desktop"
-                    title="Set start"
-                    [ngClass]="simulationService.getDrawingMode() === 2 ? 'is-active' : ''"
-                    [disabled]="recordService.getIteration() > 0"
-                    (click)="simulationService.setDrawingMode(2)">
-                    <span class="icon start-icon">
-                        <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
-                    </span>
-                    <b *ngIf="!isMobile">Set Start</b>
-                </button>
-            </p>
-            <p class="control">
-                <button
-                    class="button is-outlined is-size-7-mobile is-size-7-touch is-size-6-desktop"
-                    title="Random weights"
-                    [disabled]="!algorithmService.usesNodeWeights() || this.recordService.getIteration() > 0"
-                    (click)="addNodeWeights()">
-                    <span class="icon">
-                        <fa-icon [icon]="['fas', 'balance-scale-right']"></fa-icon>
-                    </span>
-                    <b *ngIf="!isMobile">Add Weights</b>
-                </button>
-            </p>
-            <p class="control">
-                <button
-                    class="button is-pulled-right is-outlined is-size-7-mobile is-size-7-touch is-size-6-desktop"
-                    [ngClass]="simulationService.getShowWeightStatus() ? 'is-primary is-light' : 'is-danger is-light'"
-                    title="Toggle weights"
-                    (click)="simulationService.toggleWeightStatus()">
-                    <span class="icon">
-                        <fa-icon *ngIf="simulationService.getShowWeightStatus()" [icon]="['fas', 'eye']"></fa-icon>
-                        <fa-icon *ngIf="!simulationService.getShowWeightStatus()" [icon]="['fas', 'eye-slash']"></fa-icon>
-                    </span>
-                </button>
-            </p>
-            <p class="control">
-                <button
-                    class="button border-radius-right is-outlined ml-3 mr-3 is-size-7-mobile is-size-7-touch is-size-6-desktop"
-                    title="Set goal"
-                    [ngClass]="simulationService.getDrawingMode() === 3 ? 'is-active' : ''"
-                    [disabled]="recordService.getIteration() > 0"
-                    (click)="simulationService.setDrawingMode(3)">
-                    <span class="icon goal-icon">
-                        <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
-                    </span>
-                    <b *ngIf="!isMobile">Set Goal</b>
-                </button>
-            </p>
-            <p class="control control-pulled-right">
-                <button
-                    class="button is-outlined is-expanded is-size-7-touch is-size-6-desktop"
-                    title="Legend"
-                    (click)="simulationService.toggleShowLegendModal()">
-                    <span class="icon has-text-info">
-                        <fa-icon [icon]="['fas', 'info-circle']"></fa-icon>
-                    </span>
-                    <b *ngIf="!isMobile">Legend</b>
-                </button>
-            </p>
+</section>
+<section class="tourGridControl">
+    <app-hr text="GRID CONTROL"></app-hr>
+    <div class="columns is-multiline is-gapless">
+        <div class="column is-full">
+            <div class="field has-addons has-addons-centered is-marginless control-button-wrapper">
+                <p class="control">
+                    <button
+                        class="button is-outlined mr-3 is-size-7-mobile is-size-7-touch is-size-6-desktop"
+                        title="Set start"
+                        [ngClass]="simulationService.getDrawingMode() === 2 ? 'is-active' : ''"
+                        [disabled]="recordService.getIteration() > 0"
+                        (click)="simulationService.setDrawingMode(2)">
+                        <span class="icon start-icon">
+                            <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
+                        </span>
+                        <b *ngIf="!isMobile">Set Start</b>
+                    </button>
+                </p>
+                <p class="control">
+                    <button
+                        class="button is-outlined is-size-7-mobile is-size-7-touch is-size-6-desktop"
+                        title="Random weights"
+                        [disabled]="!algorithmService.usesNodeWeights() || this.recordService.getIteration() > 0"
+                        (click)="addNodeWeights()">
+                        <span class="icon">
+                            <fa-icon [icon]="['fas', 'balance-scale-right']"></fa-icon>
+                        </span>
+                        <b *ngIf="!isMobile">Add Weights</b>
+                    </button>
+                </p>
+                <p class="control">
+                    <button
+                        class="button is-pulled-right is-outlined is-size-7-mobile is-size-7-touch is-size-6-desktop"
+                        [ngClass]="simulationService.getShowWeightStatus() ? 'is-primary is-light' : 'is-danger is-light'"
+                        title="Toggle weights"
+                        (click)="simulationService.toggleWeightStatus()">
+                        <span class="icon">
+                            <fa-icon *ngIf="simulationService.getShowWeightStatus()" [icon]="['fas', 'eye']"></fa-icon>
+                            <fa-icon *ngIf="!simulationService.getShowWeightStatus()" [icon]="['fas', 'eye-slash']"></fa-icon>
+                        </span>
+                    </button>
+                </p>
+                <p class="control">
+                    <button
+                        class="button border-radius-right is-outlined ml-3 mr-3 is-size-7-mobile is-size-7-touch is-size-6-desktop"
+                        title="Set goal"
+                        [ngClass]="simulationService.getDrawingMode() === 3 ? 'is-active' : ''"
+                        [disabled]="recordService.getIteration() > 0"
+                        (click)="simulationService.setDrawingMode(3)">
+                        <span class="icon goal-icon">
+                            <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
+                        </span>
+                        <b *ngIf="!isMobile">Set Goal</b>
+                    </button>
+                </p>
+                <p class="control control-pulled-right">
+                    <button
+                        class="button is-outlined is-expanded is-size-7-touch is-size-6-desktop"
+                        title="Legend"
+                        (click)="simulationService.toggleShowLegendModal()">
+                        <span class="icon has-text-info">
+                            <fa-icon [icon]="['fas', 'info-circle']"></fa-icon>
+                        </span>
+                        <b *ngIf="!isMobile">Legend</b>
+                    </button>
+                </p>
+            </div>
         </div>
     </div>
-</div>
+</section>

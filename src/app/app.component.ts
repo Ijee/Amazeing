@@ -7,13 +7,14 @@ import { far } from '@fortawesome/free-regular-svg-icons';
 import { SimulationService } from './@core/services/simulation.service';
 import { Subject } from 'rxjs';
 import { SettingsService } from './@core/services/settings.service';
-import { Router, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { takeUntil } from 'rxjs/operators';
 import { fadeInOut } from './@shared/animations/fadeInOut';
 import { fadeRouteAnimation } from './@shared/animations/fadeRouteAnimation';
 import { WarningDialogService } from './@shared/components/warning-modal/warning-dialog.service';
 import { AlgorithmService } from './@core/services/algorithm.service';
+import { UserTourService } from './@core/services/user-tour.service';
 
 @Component({
     selector: 'app-root',
@@ -26,6 +27,7 @@ export class AppComponent implements OnInit, OnDestroy {
     public isTouch: boolean;
     public isNavbar: boolean;
     public isSettingsDropdown: boolean;
+    public isBouncing: boolean;
 
     private readonly destroyed$: Subject<void>;
 
@@ -34,12 +36,15 @@ export class AppComponent implements OnInit, OnDestroy {
         private renderer: Renderer2,
         private observer: BreakpointObserver,
         private router: Router,
+        private route: ActivatedRoute,
         public simulationService: SimulationService,
         public settingsService: SettingsService,
+        private userTourService: UserTourService,
         public algorithmService: AlgorithmService,
         public warnDialogService: WarningDialogService
     ) {
         this.version = packageInfo.version;
+        this.isBouncing = true;
         library.addIconPacks(fas, fab, far);
 
         this.destroyed$ = new Subject<void>();
@@ -54,6 +59,8 @@ export class AppComponent implements OnInit, OnDestroy {
             });
 
         this.renderer.addClass(document.body, 'dark-theme');
+
+        setTimeout(() => (this.isBouncing = false), 5000);
     }
 
     ngOnDestroy(): void {
@@ -66,18 +73,20 @@ export class AppComponent implements OnInit, OnDestroy {
      */
     @HostListener('document:keydown', ['$event'])
     handleKeyboardEvent(event: KeyboardEvent): void {
-        if (event.code === 'ArrowRight') {
-            this.simulationService.addIteration();
-        } else if (event.code === 'ArrowLeft') {
-            this.simulationService.setBackwardStep();
-        } else if (event.code === 'Space') {
-            this.simulationService.setSimulationStatus();
-        } else if (event.code === 'NumpadAdd') {
-            this.simulationService.setSpeedUp();
-        } else if (event.code === 'NumpadSubtract') {
-            this.simulationService.setSpeedDown();
-        } else if (event.code === 'KeyR') {
-            this.simulationService.reset();
+        if (!this.settingsService.getUserTourActive()) {
+            if (event.code === 'ArrowRight') {
+                this.simulationService.addIteration();
+            } else if (event.code === 'ArrowLeft') {
+                this.simulationService.setBackwardStep();
+            } else if (event.code === 'Space') {
+                this.simulationService.setSimulationStatus();
+            } else if (event.code === 'NumpadAdd') {
+                this.simulationService.setSpeedUp();
+            } else if (event.code === 'NumpadSubtract') {
+                this.simulationService.setSpeedDown();
+            } else if (event.code === 'KeyR') {
+                this.simulationService.reset();
+            }
         }
     }
 
@@ -90,6 +99,14 @@ export class AppComponent implements OnInit, OnDestroy {
     //   const vh = window.innerHeight * 0.01;
     //   document.documentElement.style.setProperty('--vh', `${vh}px`);
     // }
+
+    public prepareUserTour(): void {
+        this.router.navigate(['/simulation']).then((value) => {
+            this.settingsService.setUserTourTaken(true);
+            this.settingsService.setUserTourActive(true);
+            this.userTourService.startTour();
+        });
+    }
 
     /**
      * Is responsible for triggering the animation for the main routing

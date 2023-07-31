@@ -8,6 +8,8 @@ export class SettingsService {
     private darkModeSetting: boolean;
     private animationsSetting: boolean;
     private warningsSetting: boolean;
+    private userTourTaken: boolean;
+    private userTourActive: boolean;
 
     constructor() {
         // See if prefers color scheme is set. If yes, set the appropriate setting.
@@ -41,12 +43,20 @@ export class SettingsService {
         } else {
             this.setWarningsSetting(storageWarningSetting === 'true');
         }
+
+        const userTour = localStorage.getItem('userTourTaken');
+        if (userTour === null) {
+            this.setUserTourTaken(false);
+        } else {
+            this.setUserTourTaken(userTour === 'true');
+        }
+        this.userTourActive = false;
     }
 
     /**
      * Sets the current dark mode setting and saves it to the localStorage.
      *
-     * @param newOption - whether or not the option is set
+     * @param newOption - whether the option is set
      */
     public setDarkModeSetting(newOption?: boolean): void {
         if (newOption !== undefined) {
@@ -60,7 +70,7 @@ export class SettingsService {
     /**
      * Sets the current animations setting and saves it to the localStorage.
      *
-     * @param newOption - whether or not the option is set
+     * @param newOption the new option
      */
     public setAnimationSetting(newOption?: boolean): void {
         if (newOption !== undefined) {
@@ -74,7 +84,7 @@ export class SettingsService {
     /**
      * Sets the current warnings setting and saves it to the localStorage.
      *
-     * @param newOption - whether or not the option is set
+     * @param newOption the new option
      */
     public setWarningsSetting(newOption?: boolean): void {
         if (newOption !== undefined) {
@@ -83,6 +93,25 @@ export class SettingsService {
             this.warningsSetting = !this.warningsSetting;
         }
         localStorage.setItem('warningsSetting', String(this.warningsSetting));
+    }
+
+    /**
+     * Sets the userTourTaken and saves it to the localStorage.
+     *
+     * @param newOption the new option
+     */
+    public setUserTourTaken(newOption: boolean): void {
+        this.userTourTaken = newOption;
+        localStorage.setItem('userTourTaken', String(this.userTourTaken));
+    }
+
+    /**
+     * Sets whether the  user tour is currently active.
+     *
+     * @param newOption the new option
+     */
+    public setUserTourActive(newOption: boolean): void {
+        this.userTourActive = newOption;
     }
 
     /**
@@ -104,5 +133,19 @@ export class SettingsService {
      */
     public getWarningsSetting(): boolean {
         return this.warningsSetting;
+    }
+
+    /**
+     * Returns whether the user already did the user tour.
+     */
+    public getUserTourTaken(): boolean {
+        return this.userTourTaken;
+    }
+
+    /**
+     * Returns whether the user tour is currently active.
+     */
+    public getUserTourActive(): boolean {
+        return this.userTourActive;
     }
 }

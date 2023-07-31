@@ -29,6 +29,7 @@
         "@fortawesome/free-regular-svg-icons": "^6.4.0",
         "@fortawesome/free-solid-svg-icons": "^6.4.0",
         "bulma": "^0.9.4",
+        "driver.js": "^1.1.0",
         "file-saver": "^2.0.5",
         "highlight.js": "^11.8.0",
         "lodash": "^4.17.21",

@@ -60,46 +60,59 @@
                         <span><b>SETTINGS</b></span>
                     </div>
                     <div class="navbar-dropdown is-boxed" [ngClass]="{ 'is-active': isSettingsDropdown }">
-                        <div class="navbar-item">
-                            <span class="icon">
-                                <fa-icon [icon]="['fas', 'adjust']"></fa-icon>
-                            </span>
-                            <span><b>Dark mode</b></span>
+                        <div class="columns m-1 pb-0 navbar-item">
+                            <div class="is-9">
+                                <span class="icon">
+                                    <fa-icon [icon]="['fas', 'adjust']"></fa-icon>
+                                </span>
+                                <span><b>Dark mode</b></span>
+                            </div>
                             <button
-                                class="button dropdown-button is-pulled-right"
+                                class="column is-3 button is-fullwidth dropdown-button is-pulled-right"
                                 [class]="settingsService.getDarkModeSetting() ? 'is-primary' : 'is-danger'"
                                 (click)="settingsService.setDarkModeSetting()">
                                 <b>{{ settingsService.getDarkModeSetting() ? 'ON' : 'OFF' }}</b>
                             </button>
                         </div>
-                        <div class="navbar-item">
-                            <span class="icon">
-                                <fa-icon [icon]="['fas', 'wind']"></fa-icon>
-                            </span>
-                            <span><b>Animations</b></span>
+                        <div class="columns m-1 pb-0 navbar-item">
+                            <div class="is-9">
+                                <span class="icon">
+                                    <fa-icon [icon]="['fas', 'wind']"></fa-icon>
+                                </span>
+                                <span><b>Animations</b></span>
+                            </div>
                             <button
-                                class="button dropdown-button is-pulled-right"
+                                class="column is-3 button is-fullwidth dropdown-button is-pulled-right"
                                 [class]="settingsService.getAnimationsSetting() ? 'is-primary' : 'is-danger'"
                                 (click)="settingsService.setAnimationSetting()">
                                 <b>{{ settingsService.getAnimationsSetting() ? 'ON' : 'OFF' }}</b>
                             </button>
                         </div>
-                        <div class="navbar-item">
-                            <span class="icon">
-                                <fa-icon [icon]="['fas', 'ban']"></fa-icon>
-                            </span>
-                            <span><b>Warnings</b></span>
+                        <div class="columns m-1 navbar-item">
+                            <div class="colum is-9">
+                                <span class="icon">
+                                    <fa-icon [icon]="['fas', 'triangle-exclamation']"></fa-icon>
+                                </span>
+                                <span><b>Warnings</b></span>
+                            </div>
                             <button
-                                class="button dropdown-button is-pulled-right"
+                                class="column is-3 button is-fullwidth dropdown-button is-pulled-right"
                                 [class]="settingsService.getWarningsSetting() ? 'is-primary' : 'is-danger'"
                                 (click)="settingsService.setWarningsSetting()">
                                 <b>{{ settingsService.getWarningsSetting() ? 'ON' : 'OFF' }}</b>
                             </button>
                         </div>
                         <hr class="navbar-divider" />
+                        <a role="button" class="navbar-item" (click)="prepareUserTour()">
+                            <span class="icon">
+                                <fa-icon [icon]="['fas', 'circle-question']"></fa-icon>
+                            </span>
+                            <b>Retake Tour</b>
+                            <span class="subtitle"></span>
+                        </a>
                         <div class="navbar-item has-text-danger">
                             <span class="icon">
-                                <fa-icon [icon]="['fas', 'info-circle']"></fa-icon>
+                                <fa-icon [icon]="['fas', 'tag']"></fa-icon>
                             </span>
                             <b>Version: {{ version }}</b>
                             <span class="subtitle"></span>
@@ -121,7 +134,14 @@
                         </div>
                     </div>
                 </div>
-                <span *ngIf="!isTouch" class="navbar-item">
+                <span *ngIf="!settingsService.getUserTourTaken()" class="navbar-item p-0">
+                    <a role="button" [class.fa-bounce]="isBouncing" class="button is-rounded is-ghost" (click)="prepareUserTour()">
+                        <span class="icon has-text-white">
+                            <fa-icon class="fa-xl" [icon]="['fas', 'circle-question']"></fa-icon>
+                        </span>
+                    </a>
+                </span>
+                <span *ngIf="!isTouch" class="navbar-item pl-0">
                     <a class="button is-info" href="https://github.com/Ijee/Amazeing" target="_blank" rel="noopener">
                         <span class="icon">
                             <fa-icon [icon]="['fab', 'github']"></fa-icon>

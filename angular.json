@@ -72,7 +72,6 @@
                 },
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
-                    "options": {},
                     "configurations": {
                         "production": {
                             "browserTarget": "amazeing:build:production"

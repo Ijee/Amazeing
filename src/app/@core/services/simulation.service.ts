@@ -60,6 +60,7 @@ export class SimulationService {
     public completeAlgorithm(): void {
         this.setSimulationStatus(false);
         this.setDisablePlay(true);
+        this.settingsService.setUserTourTaken(true);
         if (this.algorithmService.getAlgorithmMode() === 'maze') {
             if (this.recordService.getIteration() === 0) {
                 this.algorithmService.setInitialData(
@@ -235,6 +236,7 @@ export class SimulationService {
         } else {
             this.setDisablePlay(true);
             this.setSimulationStatus();
+            this.settingsService.setUserTourTaken(true);
         }
         if (this.backwardStepsAmount < RecordService.MAX_SAVE_STEPS - 1) {
             this.changeBackwardStepsAmount(1);

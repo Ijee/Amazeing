@@ -1,0 +1,51 @@
+
+@use 'bulma/bulma' as bulma;
+/* Class assigned to popover wrapper */
+
+
+body.dark .driver-popover {
+  color: bulma.$white-ter;
+  background-color: bulma.$dark;
+}
+
+.driver-popover {
+
+}
+
+/* Arrow pointing towards the highlighted element */
+.tour .driver-popover-arrow {}
+
+/* Title and description */
+.tour .driver-popover-title {
+  font-family: inherit;
+}
+.tour .driver-popover-description {
+  font-family: inherit;
+  @extend .is-size-6;
+}
+
+/* Close button displayed on the top right corner */
+.tour .driver-popover-close-btn {
+  @extend .delete;
+  @extend .is-pulled-right;
+}
+
+/* Footer of the popover displaying progress and navigation buttons */
+.tour .driver-popover-footer {
+  font-family: inherit;
+}
+.tour .driver-popover-progress-text {
+  font-weight: 900;
+}
+.tour .driver-popover-prev-btn {
+
+  @extend .button;
+  @extend .is-normal;
+
+}
+.tour .driver-popover-next-btn {
+  @extend .button;
+  @extend .is-success;
+  @extend .is-normal;
+  color: red;
+}
