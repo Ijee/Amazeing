@@ -1,7 +1,10 @@
 <app-hr text="SIMULATION CONTROL"></app-hr>
 <div class="field has-addons has-addons-centered is-marginless">
     <p class="control">
-        <button class="button is-outlined is-size-7-touch is-size-6-desktop" title="slow down" (click)="simulationService.setSpeedDown()">
+        <button
+            class="button is-outlined is-size-7-touch is-size-6-desktop"
+            title="slow down"
+            (click)="simulationService.setSpeedDown()">
             <fa-icon [icon]="['fas', 'backward']"></fa-icon>
         </button>
     </p>
@@ -15,9 +18,7 @@
             }"
             (click)="simulationService.setBackwardStep()">
             <fa-icon class="pr-1" [icon]="['fas', 'step-backward']"></fa-icon>
-            <b>
-                {{ simulationService.getBackwardStepsAmount() | maxNumber : 9 }}
-            </b>
+            <b> {{ simulationService.getBackwardStepsAmount() | maxNumber : 9 }} </b>
         </button>
     </p>
     <p class="control">
@@ -26,7 +27,10 @@
             title="clear grid"
             [disabled]="simulationService.getSimulationStatus()"
             (click)="simulationService.reset()">
-            <fa-icon *ngIf="recordService.getIteration() > 0" class="fa-flip-horizontal" [icon]="['fas', 'redo']"></fa-icon>
+            <fa-icon
+                *ngIf="recordService.getIteration() > 0"
+                class="fa-flip-horizontal"
+                [icon]="['fas', 'redo']"></fa-icon>
             <fa-icon *ngIf="recordService.getIteration() === 0" [icon]="['fas', 'trash']"></fa-icon>
         </button>
     </p>
@@ -60,7 +64,10 @@
         </button>
     </p>
     <p class="control">
-        <button class="button is-outlined is-size-7-touch is-size-6-desktop" title="speed up" (click)="simulationService.setSpeedUp()">
+        <button
+            class="button is-outlined is-size-7-touch is-size-6-desktop"
+            title="speed up"
+            (click)="simulationService.setSpeedUp()">
             <fa-icon [icon]="['fas', 'forward']"></fa-icon>
         </button>
     </p>

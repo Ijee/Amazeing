@@ -176,7 +176,9 @@
             <b>Algorithm Options</b>
         </p>
         <form [formGroup]="optionsForm">
-            <fieldset *ngFor="let control of handleJsonFormData()?.controls" class="columns is-multiline is-gapless mb-0">
+            <fieldset
+                *ngFor="let control of handleJsonFormData()?.controls"
+                class="columns is-multiline is-gapless mb-0">
                 <div *ngIf="control?.type === 'checkbox'" class="column is-12 control">
                     <label class="checkbox">
                         <input type="checkbox" [formControlName]="control.name" [value]="control.value" />

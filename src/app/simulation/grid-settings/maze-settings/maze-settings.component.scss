@@ -9,18 +9,17 @@
 }
 
 body.dark :host .is-primary {
-  color: bulma.$dark !important;
-  background-color: bulma.$primary !important;
+    color: bulma.$dark !important;
+    background-color: bulma.$primary !important;
 }
 
 .outline {
-  border: 2px bulma.$light solid;
+    border: 2px bulma.$light solid;
 }
 
 body.dark :host .outline {
-  border: 2px hsl(0, 1%, 34%) solid;
+    border: 2px hsl(0, 1%, 34%) solid;
 }
-
 
 pre > code {
     white-space: pre;

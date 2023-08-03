@@ -58,7 +58,9 @@
                         (click)="simulationService.toggleWeightStatus()">
                         <span class="icon">
                             <fa-icon *ngIf="simulationService.getShowWeightStatus()" [icon]="['fas', 'eye']"></fa-icon>
-                            <fa-icon *ngIf="!simulationService.getShowWeightStatus()" [icon]="['fas', 'eye-slash']"></fa-icon>
+                            <fa-icon
+                                *ngIf="!simulationService.getShowWeightStatus()"
+                                [icon]="['fas', 'eye-slash']"></fa-icon>
                         </span>
                     </button>
                 </p>

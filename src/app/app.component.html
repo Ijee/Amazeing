@@ -10,7 +10,11 @@
                 </span>
             </a>
             <div role="button" class="navbar-item navbar-end is-hidden-desktop">
-                <a class="button is-info is-pulled-right" href="https://github.com/Ijee/Amazeing" target="_blank" rel="noopener">
+                <a
+                    class="button is-info is-pulled-right"
+                    href="https://github.com/Ijee/Amazeing"
+                    target="_blank"
+                    rel="noopener">
                     <span class="icon">
                         <fa-icon [icon]="['fab', 'github']"></fa-icon>
                     </span>
@@ -19,7 +23,11 @@
                     </span>
                 </a>
             </div>
-            <span class="navbar-burger burger" data-target="navbarMenuHeroA" [ngClass]="{ 'is-active': isNavbar }" (click)="isNavbar = !isNavbar">
+            <span
+                class="navbar-burger burger"
+                data-target="navbarMenuHeroA"
+                [ngClass]="{ 'is-active': isNavbar }"
+                (click)="isNavbar = !isNavbar">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
@@ -33,7 +41,11 @@
                 'transparent-navbar': !isTouch
             }">
             <div class="navbar-end">
-                <a role="button" class="navbar-item is-unselectable" [ngClass]="{ 'font-white': !isTouch }" (click)="navigateToSimulation()">
+                <a
+                    role="button"
+                    class="navbar-item is-unselectable"
+                    [ngClass]="{ 'font-white': !isTouch }"
+                    (click)="navigateToSimulation()">
                     <span class="icon">
                         <fa-icon [icon]="['fas', 'microchip']"></fa-icon>
                     </span>
@@ -119,7 +131,11 @@
                             <b>Version: {{ version }}</b>
                             <span class="subtitle"></span>
                         </div>
-                        <a class="navbar-item has-text-info" href="https://github.com/Ijee/Amazeing/issues" target="_blank" rel="noopener">
+                        <a
+                            class="navbar-item has-text-info"
+                            href="https://github.com/Ijee/Amazeing/issues"
+                            target="_blank"
+                            rel="noopener">
                             <span class="icon">
                                 <fa-icon [icon]="['fas', 'info-circle']"></fa-icon>
                             </span>
@@ -138,14 +154,22 @@
                     </div>
                 </div>
                 <span *ngIf="!settingsService.getUserTourTaken()" class="navbar-item p-0">
-                    <a role="button" [class.fa-bounce]="isBouncing" class="button is-rounded button-user-tour" (click)="prepareUserTour()">
+                    <a
+                        role="button"
+                        [class.fa-bounce]="isBouncing"
+                        class="button is-rounded button-user-tour"
+                        (click)="prepareUserTour()">
                         <span class="icon has-text-white">
                             <fa-icon class="fa-xl" [icon]="['fas', 'circle-question']"></fa-icon>
                         </span>
                     </a>
                 </span>
                 <span *ngIf="!isTouch" class="navbar-item pl-0">
-                    <a class="button is-info force-blue-bg" href="https://github.com/Ijee/Amazeing" target="_blank" rel="noopener">
+                    <a
+                        class="button is-info force-blue-bg"
+                        href="https://github.com/Ijee/Amazeing"
+                        target="_blank"
+                        rel="noopener">
                         <span class="icon">
                             <fa-icon [icon]="['fab', 'github']"></fa-icon>
                         </span>
@@ -158,11 +182,26 @@
         </div>
     </div>
 </nav>
-<main class="container is-fullhd p-2" [@.disabled]="!settingsService.getAnimationsSetting()" [@fadeRouteAnimation]="prepareRoute(o)">
+<main
+    class="container is-fullhd p-2"
+    [@.disabled]="!settingsService.getAnimationsSetting()"
+    [@fadeRouteAnimation]="prepareRoute(o)">
     <router-outlet #o="outlet"></router-outlet>
 </main>
-<app-warning-modal *ngIf="warnDialogService.getDialogStatus()" [@.disabled]="!settingsService.getAnimationsSetting()" @fadeInOut></app-warning-modal>
-<app-legend-modal *ngIf="simulationService.getShowLegendModal()" [@.disabled]="!settingsService.getAnimationsSetting()" @fadeInOut>
+<app-warning-modal
+    *ngIf="warnDialogService.getDialogStatus()"
+    [@.disabled]="!settingsService.getAnimationsSetting()"
+    @fadeInOut></app-warning-modal>
+<app-legend-modal
+    *ngIf="simulationService.getShowLegendModal()"
+    [@.disabled]="!settingsService.getAnimationsSetting()"
+    @fadeInOut>
 </app-legend-modal>
-<app-import-modal *ngIf="simulationService.getShowImportModal()" [@.disabled]="!settingsService.getAnimationsSetting()" @fadeInOut></app-import-modal>
-<app-export-modal *ngIf="simulationService.getShowExportModal()" [@.disabled]="!settingsService.getAnimationsSetting()" @fadeInOut></app-export-modal>
+<app-import-modal
+    *ngIf="simulationService.getShowImportModal()"
+    [@.disabled]="!settingsService.getAnimationsSetting()"
+    @fadeInOut></app-import-modal>
+<app-export-modal
+    *ngIf="simulationService.getShowExportModal()"
+    [@.disabled]="!settingsService.getAnimationsSetting()"
+    @fadeInOut></app-export-modal>

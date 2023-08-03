@@ -37,8 +37,8 @@ hr {
 }
 
 body.dark :host .hr-text {
-  color: bulma.$white;
-  &:after {
-    background-color: bulma.$dark;
-  }
+    color: bulma.$white;
+    &:after {
+        background-color: bulma.$dark;
+    }
 }

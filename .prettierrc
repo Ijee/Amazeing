@@ -15,10 +15,10 @@
         {
             "files": "*.component.html",
             "options": {
-                "parser": "angular",
-                "printWidth": 150
+                "parser": "html",
+                "printWidth": 120,
+                "bracketSameLine": true
             }
         }
     ]
 }
-

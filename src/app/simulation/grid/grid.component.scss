@@ -7,32 +7,31 @@
     //--primary-color-a20: hsla(hue(#{meta.inspect(bulma.$primary)}),
     //    saturation(#{meta.inspect(bulma.$primary)}),
     //    lightness(#{meta.inspect(bulma.$primary)}, .2));
-    --primary-color-a20: hsl(171, 100%, 41%, .2);
-    --danger-color-a20: hsla(348, 100%, 61%, .2);
+    --primary-color-a20: hsl(171, 100%, 41%, 0.2);
+    --danger-color-a20: hsla(348, 100%, 61%, 0.2);
     --box-shadow-maze: 0 0.2em 1.2em 0 var(--primary-color-a20), 0 0px 0 1px rgba(10, 10, 10, 0.02);
-    --box-shadow-path: 0 0.2em 1.2em -0.125em var(--danger-color-a20), 0 0px 0 1px rgba(10, 10, 10, 0.02);
+    --box-shadow-path: 0 0.2em 1.2em -0.125em var(--danger-color-a20),
+        0 0px 0 1px rgba(10, 10, 10, 0.02);
 }
 
 .box {
-  transition: box-shadow 500ms ease-in-out;
+    transition: box-shadow 500ms ease-in-out;
 }
 
 .box-shadow-maze {
-  box-shadow: var(--box-shadow-maze);
-
+    box-shadow: var(--box-shadow-maze);
 }
 
 .box-shadow-path {
-  box-shadow: var(--box-shadow-path);
+    box-shadow: var(--box-shadow-path);
 }
 
 body.dark :host .box-shadow-maze {
-  background-color: hsl(0deg 0% 21.85%)
-
+    background-color: hsl(0deg 0% 21.85%);
 }
 
 body.dark :host .box-shadow-path {
-  background-color: hsl(0deg 0% 21.85%)
+    background-color: hsl(0deg 0% 21.85%);
 }
 
 .outer-wall {

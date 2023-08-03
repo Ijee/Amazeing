@@ -13,11 +13,11 @@ main {
 }
 
 body.dark .is-primary {
-  background-color: bulma.$primary !important;
+    background-color: bulma.$primary !important;
 }
 
 .body.dark .is-danger {
-  background-color: bulma.$danger !important;
+    background-color: bulma.$danger !important;
 }
 
 .dropdown-button {
@@ -40,8 +40,8 @@ body.dark .is-primary {
 }
 
 .button-user-tour {
-  background-color: transparent !important;
-  border: 0;
+    background-color: transparent !important;
+    border: 0;
 }
 
 .hr {

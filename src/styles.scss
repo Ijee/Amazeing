@@ -1,12 +1,12 @@
 @charset "utf-8";
 
 @import url('https://fonts.googleapis.com/css?family=Open+Sans|Libre+Baskerville');
-@import "node_modules/driver.js/dist/driver.css";
+@import 'node_modules/driver.js/dist/driver.css';
 @import 'styles/bulma-variables';
 @import 'styles/colors';
 @import 'styles/components';
 @import 'styles/dark-theme';
-@import "driverjs";
+@import 'driverjs';
 
 // The CSS in this project here is quite messy
 // but at least it looks kind of good - so there's that.
@@ -117,68 +117,65 @@ body {
 //}
 
 body.light {
-  background-image: linear-gradient(135deg, #99b6c6 14%, #2b596c 78%);
+    background-image: linear-gradient(135deg, #99b6c6 14%, #2b596c 78%);
 }
 
- body.dark {
-  background-image: linear-gradient(135deg, #1f2627 14%, #2b596c 78%);
-  color: $light;
+body.dark {
+    background-image: linear-gradient(135deg, #1f2627 14%, #2b596c 78%);
+    color: $light;
 }
 
 body .subtitle,
 body .title {
-  color: $dark;
+    color: $dark;
 }
 
 body.dark .subtitle,
 body.dark .title,
 body.dark .heading,
 body.dark .content {
-  color: $light;
+    color: $light;
 }
 
-
 body.dark .button {
-  background-color: $grey-darker;
-  color: $white-dark-87;
+    background-color: $grey-darker;
+    color: $white-dark-87;
 }
 
 body.dark .button:hover {
-  color: $white-dark-60;
+    color: $white-dark-60;
 }
 
 body.dark .button:disabled,
 body.dark button[disabled] {
-  color: $white;
-  background-color: $white-dark-38;
+    color: $white;
+    background-color: $white-dark-38;
 }
 
 body.dark .force-blue-bg {
-  background-color: $info !important;
+    background-color: $info !important;
 }
 
 button:focus:hover {
-  outline: none;
-  box-shadow: none;
+    outline: none;
+    box-shadow: none;
 }
 
 .field-has-addons:active {
-  outline: none;
+    outline: none;
 }
 
 .section {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  // height: 100vh;
-  text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // height: 100vh;
+    text-align: center;
 }
 
 body.dark .box {
-  background-color: $dark;
+    background-color: $dark;
 }
-
-
 
 ::selection {
     background: $primary;

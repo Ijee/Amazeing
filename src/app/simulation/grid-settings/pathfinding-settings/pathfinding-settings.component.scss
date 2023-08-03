@@ -9,10 +9,9 @@
 }
 
 body.dark :host .is-primary {
-  color: bulma.$dark !important;
-  background-color: bulma.$primary !important;
+    color: bulma.$dark !important;
+    background-color: bulma.$primary !important;
 }
-
 
 pre > code {
     white-space: pre;

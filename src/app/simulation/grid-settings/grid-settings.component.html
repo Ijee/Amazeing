@@ -22,19 +22,21 @@
         <div class="is-warning-box has-background-warning p-2">
             <div class="columns is-multiline is-gapless">
                 <div class="column is-full has-text-centered m-1">
-                    <b>
-                        {{ 'Doing this will partially reset the grid' | uppercase }}
-                    </b>
+                    <b> {{ 'Doing this will partially reset the grid' | uppercase }} </b>
                 </div>
                 <div class="column is-full">
                     <div class="buttons is-centered">
-                        <button class="button danger-button is-small is-warning has-text-white" (click)="switchToOtherMode()">
+                        <button
+                            class="button danger-button is-small is-warning has-text-white"
+                            (click)="switchToOtherMode()">
                             <span class="icon">
                                 <fa-icon [icon]="['fas', 'check']"></fa-icon>
                             </span>
                             <span><b>Continue</b></span>
                         </button>
-                        <button class="button danger-button is-small is-warning has-text-white" (click)="showWarning = false">
+                        <button
+                            class="button danger-button is-small is-warning has-text-white"
+                            (click)="showWarning = false">
                             <span class="icon">
                                 <fa-icon [icon]="['fas', 'times']"></fa-icon>
                             </span>

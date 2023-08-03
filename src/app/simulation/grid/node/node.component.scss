@@ -29,7 +29,12 @@
 }
 
 body.dark :host .node {
-  background-color: hsla(hue(bulma.$white), saturation(bulma.$white), lightness(bulma.$white), .3);
+    background-color: hsla(
+        hue(bulma.$white),
+        saturation(bulma.$white),
+        lightness(bulma.$white),
+        0.3
+    );
 }
 
 .node:hover {
