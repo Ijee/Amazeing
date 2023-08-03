@@ -1,13 +1,4 @@
 import { Injectable } from '@angular/core';
-import {
-    AlgorithmMode,
-    JsonFormData,
-    MazeAlgorithm,
-    Node,
-    PathFindingAlgorithm,
-    PathFindingHeuristic,
-    StatRecord
-} from '../../../types';
 import { MazeAlgorithmAbstract } from '../algorithm/maze/maze-algorithm.abstract';
 import { Prims } from '../algorithm/maze/creation/prims';
 import { GridLocation } from '../../@shared/classes/GridLocation';
@@ -19,6 +10,15 @@ import { AStar } from '../algorithm/path-finding/a-star';
 import { Dijkstra } from '../algorithm/path-finding/dijkstra';
 import { RecursiveBacktracking } from '../algorithm/maze/creation/recursive-backtracking';
 import { HuntAndKill } from '../algorithm/maze/creation/hunt-and-kill';
+import {
+    AlgorithmMode,
+    MazeAlgorithm,
+    Node,
+    PathFindingAlgorithm,
+    PathFindingHeuristic,
+    StatRecord
+} from '../types/algorithm.types';
+import { JsonFormData } from '../types/jsonform.types';
 
 @Injectable({
     providedIn: 'root'

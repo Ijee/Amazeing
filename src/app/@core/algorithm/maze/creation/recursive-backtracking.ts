@@ -1,8 +1,8 @@
 import { GridLocation } from 'src/app/@shared/classes/GridLocation';
-import { Node, StatRecord, MazeAlgorithm } from 'src/types';
 import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
 import { shuffleFisherYates } from '../../../../@shared/utils/fisher-yates';
 import { HashSet } from '../../../../@shared/classes/HashSet';
+import { MazeAlgorithm, Node, StatRecord } from '../../../types/algorithm.types';
 
 export class RecursiveBacktracking extends MazeAlgorithmAbstract {
     private cursor: GridLocation;

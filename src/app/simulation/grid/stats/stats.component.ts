@@ -2,10 +2,10 @@ import { Component, Input } from '@angular/core';
 import { SimulationService } from '../../../@core/services/simulation.service';
 import { SettingsService } from '../../../@core/services/settings.service';
 import { RecordService } from '../../../@core/services/record.service';
-import { StatRecord } from '../../../../types';
 import { fadeInOutList } from '../../../@shared/animations/fadeInOutList';
 import { transition, trigger } from '@angular/animations';
 import { AlgorithmService } from '../../../@core/services/algorithm.service';
+import { StatRecord } from '../../../@core/types/algorithm.types';
 
 @Component({
     selector: 'app-stats',

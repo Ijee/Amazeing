@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Node, StatRecord } from '../../../types';
 import { GridLocation } from '../../@shared/classes/GridLocation';
 import * as _ from 'lodash';
+import { Node, StatRecord } from '../types/algorithm.types';
 
 @Injectable({
     providedIn: 'root'

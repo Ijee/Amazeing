@@ -1,7 +1,7 @@
 import { GridLocation } from 'src/app/@shared/classes/GridLocation';
-import { Node, StatRecord, MazeAlgorithm } from 'src/types';
 import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
 import { shuffleFisherYates } from '../../../../@shared/utils/fisher-yates';
+import { MazeAlgorithm, Node, StatRecord } from '../../../types/algorithm.types';
 
 export class HuntAndKill extends MazeAlgorithmAbstract {
     private cursor: GridLocation;

@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Node } from '../../../types';
 import { SimulationService } from '../../@core/services/simulation.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -9,6 +8,7 @@ import { AlgorithmService } from '../../@core/services/algorithm.service';
 import { RecordService } from '../../@core/services/record.service';
 import { GridLocation } from '../../@shared/classes/GridLocation';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { Node } from '../../@core/types/algorithm.types';
 
 @Component({
     selector: 'app-grid',

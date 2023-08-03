@@ -1,6 +1,11 @@
 import { PathFindingAlgorithmAbstract } from './path-finding-algorithm.abstract';
-import { PathFindingAlgorithm, Node, PathFindingHeuristic, StatRecord } from '../../../../types';
 import { GridLocation } from '../../../@shared/classes/GridLocation';
+import {
+    Node,
+    PathFindingAlgorithm,
+    PathFindingHeuristic,
+    StatRecord
+} from '../../types/algorithm.types';
 
 export class Dijkstra extends PathFindingAlgorithmAbstract {
     constructor() {

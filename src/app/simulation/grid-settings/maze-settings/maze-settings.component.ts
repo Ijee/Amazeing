@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { SettingsService } from '../../../@core/services/settings.service';
 import { AlgorithmService } from '../../../@core/services/algorithm.service';
-import { JsonFormControls, JsonFormData, MazeAlgorithm } from '../../../../types';
 import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
@@ -10,6 +9,8 @@ import { SimulationService } from '../../../@core/services/simulation.service';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { RecordService } from '../../../@core/services/record.service';
 import { forEach } from 'lodash';
+import { MazeAlgorithm } from '../../../@core/types/algorithm.types';
+import { JsonFormControls, JsonFormData } from '../../../@core/types/jsonform.types';
 
 @Component({
     selector: 'app-maze-settings',

@@ -1,6 +1,6 @@
 import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
-import { MazeAlgorithm, Node, StatRecord } from '../../../../../types';
 import { GridLocation } from '../../../../@shared/classes/GridLocation';
+import { MazeAlgorithm, Node, StatRecord } from '../../../types/algorithm.types';
 
 /**
  * This is the implementation of the Aldous-Broder algorithm tailored for creating

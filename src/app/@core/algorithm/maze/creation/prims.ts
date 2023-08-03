@@ -1,8 +1,9 @@
 import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
-import { JsonFormData, MazeAlgorithm, Node, StatRecord } from '../../../../../types';
 import { HashSet } from '../../../../@shared/classes/HashSet';
 import { GridLocation } from '../../../../@shared/classes/GridLocation';
 import { FormGroup } from '@angular/forms';
+import { MazeAlgorithm, Node, StatRecord } from '../../../types/algorithm.types';
+import { JsonFormData } from '../../../types/jsonform.types';
 
 /**
  * This is the implementation of the Prims algorithm tailored for creating

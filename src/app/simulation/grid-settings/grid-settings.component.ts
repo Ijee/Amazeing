@@ -9,8 +9,8 @@ import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { AlgorithmService } from '../../@core/services/algorithm.service';
 import { Subject } from 'rxjs';
 import { fadeAnimationSafe } from '../../@shared/animations/fadeRouteAnimation';
-import { AlgorithmMode } from '../../../types';
 import { RecordService } from '../../@core/services/record.service';
+import { AlgorithmMode } from '../../@core/types/algorithm.types';
 
 @Component({
     selector: 'app-grid-settings',

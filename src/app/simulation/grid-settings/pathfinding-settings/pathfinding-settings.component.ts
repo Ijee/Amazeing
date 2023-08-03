@@ -4,11 +4,11 @@ import { SettingsService } from '../../../@core/services/settings.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { PathFindingAlgorithm } from '../../../../types';
 import { WarningDialogService } from '../../../@shared/components/warning-modal/warning-dialog.service';
 import { SimulationService } from '../../../@core/services/simulation.service';
 import { AlgorithmService } from '../../../@core/services/algorithm.service';
 import { RecordService } from '../../../@core/services/record.service';
+import { PathFindingAlgorithm } from '../../../@core/types/algorithm.types';
 
 @Component({
     selector: 'app-pathfinding-settings',

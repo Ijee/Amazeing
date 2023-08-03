@@ -1,6 +1,7 @@
-import { JsonFormData, MazeAlgorithm, Node, StatRecord, StatusChange } from '../../../../types';
 import { GridLocation } from '../../../@shared/classes/GridLocation';
 import { FormGroup } from '@angular/forms';
+import { MazeAlgorithm, Node, StatRecord, StatusChange } from '../../types/algorithm.types';
+import { JsonFormData } from '../../types/jsonform.types';
 
 export abstract class MazeAlgorithmAbstract {
     protected constructor(

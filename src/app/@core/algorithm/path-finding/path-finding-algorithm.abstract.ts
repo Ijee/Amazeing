@@ -1,11 +1,11 @@
+import { GridLocation } from '../../../@shared/classes/GridLocation';
 import {
-    JsonFormData,
     Node,
     PathFindingAlgorithm,
     PathFindingHeuristic,
     StatRecord
-} from '../../../../types';
-import { GridLocation } from '../../../@shared/classes/GridLocation';
+} from '../../types/algorithm.types';
+import { JsonFormData } from '../../types/jsonform.types';
 
 export abstract class PathFindingAlgorithmAbstract {
     protected constructor(

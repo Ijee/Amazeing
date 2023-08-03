@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AlgorithmMode } from '../../../types';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { AlgorithmMode } from '../types/algorithm.types';
 
 @Injectable({
     providedIn: 'root'
