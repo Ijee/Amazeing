@@ -3,7 +3,7 @@ import { Node, StatRecord, MazeAlgorithm } from 'src/types';
 import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
 import { HashSet } from '../../../../@shared/classes/HashSet';
 import { EqualsHashCode } from '../../../../@shared/classes/EqualsHashCode';
-import { shuffleFisherYates } from '../../../../@shared/functions/fisher-yates';
+import { shuffleFisherYates } from '../../../../@shared/utils/fisher-yates';
 
 /**
  * This is the implementation of Wilsons algorithm tailored for creating a maze
