@@ -71,7 +71,7 @@
                         [ngClass]="simulationService.getDrawingMode() === 3 ? 'is-warning is-light' : ''"
                         [disabled]="recordService.getIteration() > 0"
                         (click)="simulationService.setDrawingMode(3)">
-                        <span class="icon goal-icon">
+                        <span class="icon fa-sm goal-icon">
                             <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
                         </span>
                         <b *ngIf="!isMobile">Set Goal</b>

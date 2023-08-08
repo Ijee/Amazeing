@@ -6,7 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { WarningDialogService } from '../../../@shared/components/warning-modal/warning-dialog.service';
 import { SimulationService } from '../../../@core/services/simulation.service';
-import { UntypedFormBuilder, Validators } from '@angular/forms';
+import { FormControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { RecordService } from '../../../@core/services/record.service';
 import { forEach } from 'lodash';
 import { MazeAlgorithm } from '../../../@core/types/algorithm.types';
@@ -19,6 +19,7 @@ import { JsonFormControls, JsonFormData } from '../../../@core/types/jsonform.ty
 })
 export class MazeSettingsComponent implements OnInit, OnDestroy {
     public readonly optionsForm = this.formBuilder.group({});
+    // protected readonly SimulationService = SimulationService;
 
     private readonly destroyed$: Subject<void>;
 
@@ -73,14 +74,15 @@ export class MazeSettingsComponent implements OnInit, OnDestroy {
                     });
             }
         });
+        // Send changes to the current algorithm.
         // this.optionsForm.valueChanges.subscribe(() => {
-        //   if (this.recordService.getIteration() > 0) {
-        //     for (let field in this.optionsForm.controls) {
-        //       const control = this.optionsForm.get(field);
-        //       control.disable();
-        //     }
-        //   }
-        //   this.setAlgorithmOptions();
+        //     // if (this.recordService.getIteration() > 0) {
+        //     //     for (let field in this.optionsForm.controls) {
+        //     //         const control = this.optionsForm.get(field);
+        //     //         control.disable();
+        //     //     }
+        //     // }
+        //     this.setAlgorithmOptions();
         // });
     }
 
@@ -127,8 +129,9 @@ export class MazeSettingsComponent implements OnInit, OnDestroy {
                 ? (options[field] = JSON.parse(
                       this.optionsForm.controls[field].value.toLowerCase()
                   ))
-                : (options[field] = this.optionsForm.controls[field].value);
+                : (options[field] = this.optionsForm.controls[field].getRawValue());
         }
+        console.log('options', options);
         this.algorithmService.setOptions(options);
     }
 
@@ -192,13 +195,17 @@ export class MazeSettingsComponent implements OnInit, OnDestroy {
                         break;
                 }
             }
-
             this.optionsForm.addControl(
                 control.name,
                 this.formBuilder.control(control.value, validatorsToAdd)
             );
+            // this.optionsForm.addControl(
+            //     control.name,
+            //     new FormControl(
+            //         { value: [], disabled: this.recordService.getIteration() > 0 },
+            //         (control1) => validatorsToAdd
+            //     )
+            // );
         }
     }
-
-    protected readonly SimulationService = SimulationService;
 }

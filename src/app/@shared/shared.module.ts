@@ -6,6 +6,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DropZoneDirective } from './directives/drop-zone.directive';
 import { CountAnimationDirective } from './directives/count-animation.directive';
 import { MaxNumberPipe } from './pipes/max-number.pipe';
+import { DisableControlDirective } from './directives/disable-control.directive';
 
 @NgModule({
     declarations: [
@@ -13,14 +14,16 @@ import { MaxNumberPipe } from './pipes/max-number.pipe';
         CountAnimationDirective,
         MaxNumberPipe,
         HrComponent,
-        WarningModalComponent
+        WarningModalComponent,
+        DisableControlDirective
     ],
     exports: [
         DropZoneDirective,
         CountAnimationDirective,
         MaxNumberPipe,
         HrComponent,
-        WarningModalComponent
+        WarningModalComponent,
+        DisableControlDirective
     ],
     imports: [CommonModule, FontAwesomeModule]
 })
