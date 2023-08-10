@@ -170,7 +170,7 @@
             </div>
         </aside>
     </div>
-    <app-hr class="column is-full py-0"></app-hr>
+    <app-hr class="column is-full py-0" *ngIf="handleJsonFormData().controls.length > 0"></app-hr>
     <div class="column pt-1 is-full" *ngIf="handleJsonFormData().controls.length > 0">
         <p class="menu-label has-text-centered">
             <b>Algorithm Options</b>
@@ -191,6 +191,7 @@
                         <label class="radio">
                             <input
                                 type="radio"
+                                appDisableControl
                                 [disableControl]="recordService.getIteration() > 0"
                                 [formControlName]="control.name"
                                 [value]="value"

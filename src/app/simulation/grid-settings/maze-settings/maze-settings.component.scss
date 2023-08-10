@@ -1,4 +1,5 @@
 @use 'bulma/bulma' as bulma;
+@use 'colors';
 
 .button {
     border-radius: 0;
@@ -27,9 +28,30 @@ pre > code {
     display: block;
 }
 
+.radio {
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+input[type="radio"]:disabled {
+  filter: grayscale(100%);
+  opacity: .4;
+  pointer-events: none;
+}
+
+body.dark :host label {
+  color: colors.$white-dark-87;
+}
+
+body.dark :host input[type="radio"] {
+  border: 0.15em solid colors.$white-dark-87;
+}
+
+
 input[type="radio"] {
   appearance: none;
-  margin: 0;
+  margin: 0 0.5rem 0 0;
   font: inherit;
   color: #1a0707;
   width: 1.15em;
