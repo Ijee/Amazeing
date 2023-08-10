@@ -46,6 +46,7 @@ export class ImportModalComponent implements OnDestroy {
         } catch (error) {
             this.importError = true;
             this.simulationService.reset();
+            console.error('Could not import.', error);
         }
     }
 

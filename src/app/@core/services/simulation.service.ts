@@ -408,7 +408,8 @@ export class SimulationService {
             this.setGridList(session.grid);
             this.toggleShowImportModal();
         } catch (error) {
-            throw new Error('Input String is invalid. ' + error);
+            console.error('Input String is invalid');
+            throw error;
         }
     }
 

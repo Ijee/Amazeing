@@ -213,7 +213,8 @@ export class AlgorithmService {
                         ? this.currentMazeAlgorithm.deserialize(newGrid, state, statRecord)
                         : this.currentPathAlgorithm.deserialize(newGrid, state, statRecord);
                 } catch (error) {
-                    throw new Error('Can not set algorithm State');
+                    console.error('Can not set algorithm State');
+                    throw error;
                 }
             } else {
                 this.algorithmMode === 'maze'
