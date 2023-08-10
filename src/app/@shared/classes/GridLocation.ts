@@ -23,7 +23,8 @@ export class GridLocation implements EqualsHashCode {
         return {
             x: this.x,
             y: this.y,
-            weight: this.weight
+            weight: this.weight,
+            status: this.status
         };
     }
 }

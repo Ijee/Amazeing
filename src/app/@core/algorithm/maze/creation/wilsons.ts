@@ -39,7 +39,6 @@ class WalkingPath implements EqualsHashCode {
 export class Wilsons extends MazeAlgorithmAbstract {
     private gridWith: number;
     private gridHeight: number;
-    private remainingNodes: number;
     private cursor: GridLocation;
     private unusedNodes: HashSet<GridLocation>;
     private walkingPath: GridLocation[];
@@ -153,7 +152,7 @@ export class Wilsons extends MazeAlgorithmAbstract {
     }
 
     public nextStep(): Node[][] | null {
-        if (this.remainingNodes > 0) {
+        if (this.unusedNodes.size() > 0) {
             // starting node
             if (this.cursor === null) {
                 this.cursor = this.unusedNodes.getRandomItem();
@@ -178,15 +177,8 @@ export class Wilsons extends MazeAlgorithmAbstract {
                         }
                     }
                 }
-                const statusChange = this.buildWalls(node, 0, 8);
-                // this.buildWalls(node, 0);
-
-                this.statRecords[1].currentValue =
-                    this.statRecords[1].currentValue - statusChange.status0 - statusChange.status8;
-                this.remainingNodes =
-                    this.remainingNodes - statusChange.status0 - statusChange.status8;
-                console.log('status 8 change', statusChange.status8);
-                console.log('this.remaining', this.remainingNodes);
+                this.buildWalls(node, 0, 8);
+                this.statRecords[1].currentValue = this.unusedNodes.size();
                 // paint walkingPaths first node as an 'in node' + the node inbetween.
                 if (
                     this.currentGrid[node.x][node.y].status !== 2 &&
@@ -213,8 +205,8 @@ export class Wilsons extends MazeAlgorithmAbstract {
         this.currentGrid = currentGrid;
         this.gridWith = this.currentGrid.length;
         this.gridHeight = this.currentGrid[0].length;
-        for (let i = currentStartPoint.x % 2 === 0 ? 0 : 1; i < this.gridWith; i += 2) {
-            for (let j = currentStartPoint.y % 2 === 0 ? 0 : 1; j < this.gridHeight; j += 2) {
+        for (let i = currentStartPoint.x % 2; i < this.gridWith; i += 2) {
+            for (let j = currentStartPoint.y % 2; j < this.gridHeight; j += 2) {
                 if (
                     this.currentGrid[i][j].status !== 1 &&
                     this.currentGrid[i][j].status !== 2 &&
@@ -225,9 +217,7 @@ export class Wilsons extends MazeAlgorithmAbstract {
                 }
             }
         }
-        console.log('size:', this.unusedNodes.size());
-        this.remainingNodes = this.gridWith * this.gridHeight - 2;
-        this.statRecords[1].currentValue = this.remainingNodes;
+        this.statRecords[1].currentValue = this.unusedNodes.size();
     }
 
     public updateAlgorithmState(
@@ -239,7 +229,6 @@ export class Wilsons extends MazeAlgorithmAbstract {
         this.statRecords = statRecords;
         this.gridWith = deserializedState.gridWidth;
         this.gridHeight = deserializedState.gridHeight;
-        this.remainingNodes = deserializedState.remainingNodes;
         this.cursor = deserializedState.cursor;
         this.unusedNodes = deserializedState.unusedNodes;
         this.walkingPath = deserializedState.walkingPath;
@@ -248,20 +237,19 @@ export class Wilsons extends MazeAlgorithmAbstract {
 
     public deserialize(newGrid: Node[][], serializedState: any, statRecords: StatRecord[]): void {
         const cursor = serializedState.cursor;
-        const unusedNodes: GridLocation[] = [];
+        const unusedNodes: HashSet<GridLocation> = new HashSet<GridLocation>();
         serializedState.unusedNodes.forEach((item) => {
-            const tempUnusedNodes = new GridLocation(item.x, item.y, item.weight);
-            unusedNodes.push(item);
+            const tempUnusedNodes = new GridLocation(item.x, item.y, item.weight, item.status);
+            unusedNodes.add(tempUnusedNodes);
         });
         const walkingPath: GridLocation[] = [];
-        serializedState.unusedNodes.forEach((item) => {
-            const tempWalkingPath = new GridLocation(item.x, item.y, item.weight);
-            walkingPath.push(item);
+        serializedState.walkingPath.forEach((item) => {
+            const tempWalkingPath = new GridLocation(item.x, item.y, item.weight, item.status);
+            walkingPath.push(tempWalkingPath);
         });
         const deserializedState = {
             gridWidth: serializedState.gridWith,
             gridHeight: serializedState.gridHeight,
-            remainingNodes: serializedState.remainingNodes,
             cursor: new GridLocation(cursor.x, cursor.y, cursor.weight),
             unusedNodes: unusedNodes,
             walkingPath: walkingPath,
@@ -274,7 +262,6 @@ export class Wilsons extends MazeAlgorithmAbstract {
         const serializedState = {
             gridWidth: this.gridWith,
             gridHeight: this.gridHeight,
-            remainingNodes: this.remainingNodes,
             cursor: this.cursor.toObject(),
             unusedNodes: [],
             walkingPath: [],
@@ -293,7 +280,6 @@ export class Wilsons extends MazeAlgorithmAbstract {
         return {
             gridWidth: this.gridWith,
             gridHeight: this.gridHeight,
-            remainingNodes: this.remainingNodes,
             cursor: this.cursor,
             unusedNodes: this.unusedNodes,
             walkingPath: this.walkingPath,
