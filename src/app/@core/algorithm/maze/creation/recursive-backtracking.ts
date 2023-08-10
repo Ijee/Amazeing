@@ -35,83 +35,78 @@ export class RecursiveBacktracking extends MazeAlgorithmAbstract {
     }
 
     public nextStep(): Node[][] {
-        console.log('walkingPath length', this.walkingPath.length);
-        console.log(this.walkingPath);
-        if (this.walkingPath.length !== 0) {
-            if (this.backtrack) {
-                if (this.walkingPath.length !== 0) {
-                    // paint the grid back
-                    this.currentGrid[this.cursor.x][this.cursor.y].status = 0;
-                    this.buildPath(this.cursor, this.walkingPath[this.walkingPath.length - 2], 0);
-                    this.walkingPath.pop();
-                }
-                let backtrackNeighbours = this.getNeighbours(
-                    this.walkingPath[this.walkingPath.length - 1],
-                    2
-                );
-                backtrackNeighbours = shuffleFisherYates(backtrackNeighbours);
-                let previousLocation = this.walkingPath[this.walkingPath.length - 1];
-                // see if there are valid neighbours so we can build again
-                for (let i = 0; i < backtrackNeighbours.length - 1; i++) {
-                    let node = backtrackNeighbours[i];
-                    if (
-                        !this.visitedNodes.contains(node) &&
-                        this.currentGrid[node.x][node.y].status === 0
-                    ) {
-                        this.visitedNodes.add(this.cursor);
-                        this.backtrack = false;
-                        this.cursor = previousLocation;
-                        break;
-                    }
-                    // so we can go further back
-                    this.visitedNodes.add(this.cursor);
-                    this.cursor = previousLocation;
-                    this.statRecords[1].currentValue += 1;
-                }
+        if (this.backtrack) {
+            if (this.walkingPath.length >= 2) {
+                // paint the grid back
+                this.currentGrid[this.cursor.x][this.cursor.y].status = 0;
+                this.buildPath(this.cursor, this.walkingPath[this.walkingPath.length - 2], 0);
+                this.walkingPath.pop();
             } else {
-                // building
-                console.log('building');
-                this.statRecords[1].currentValue = 0;
-                let neighbours = this.getNeighbours(this.cursor, 2);
-                neighbours = shuffleFisherYates(neighbours);
-                this.backtrack = true;
-                for (let i = 0; i < neighbours.length; i++) {
-                    let node = neighbours[i];
-                    if (
-                        !this.visitedNodes.contains(node) &&
-                        this.currentGrid[node.x][node.y].status === 0
-                    ) {
-                        // this.buildWalls(this.cursor, 0);
-                        this.buildWalls(node, 0);
-                        this.buildPath(this.cursor, node, 5);
-                        this.cursor = node;
-                        this.walkingPath.push(node);
-                        this.backtrack = false;
+                return null;
+            }
+            let backtrackNeighbours = this.getNeighbours(
+                this.walkingPath[this.walkingPath.length - 1],
+                2
+            );
+            backtrackNeighbours = shuffleFisherYates(backtrackNeighbours);
+            let previousLocation = this.walkingPath[this.walkingPath.length - 1];
+            // see if there are valid neighbours so we can build again
+            for (let i = 0; i < backtrackNeighbours.length - 1; i++) {
+                let node = backtrackNeighbours[i];
+                if (
+                    !this.visitedNodes.contains(node) &&
+                    this.currentGrid[node.x][node.y].status === 0
+                ) {
+                    this.visitedNodes.add(this.cursor);
+                    this.backtrack = false;
+                    this.cursor = previousLocation;
+                    break;
+                }
+                // so we can go further back
+                this.visitedNodes.add(this.cursor);
+                this.cursor = previousLocation;
+                this.statRecords[1].currentValue += 1;
+            }
+        } else {
+            // building
+            console.log('building');
+            this.statRecords[1].currentValue = 0;
+            let neighbours = this.getNeighbours(this.cursor, 2);
+            neighbours = shuffleFisherYates(neighbours);
+            this.backtrack = true;
+            for (let i = 0; i < neighbours.length; i++) {
+                let node = neighbours[i];
+                if (
+                    !this.visitedNodes.contains(node) &&
+                    this.currentGrid[node.x][node.y].status === 0
+                ) {
+                    // this.buildWalls(this.cursor, 0);
+                    this.buildWalls(node, 0);
+                    this.buildPath(this.cursor, node, 5);
+                    this.cursor = node;
+                    this.walkingPath.push(node);
+                    this.backtrack = false;
 
-                        if (
-                            this.currentGrid[this.cursor.x][this.cursor.y].status !== 2 &&
-                            this.currentGrid[this.cursor.x][this.cursor.y].status !== 3
-                        ) {
-                            this.currentGrid[node.x][node.y].status = 5;
-                            this.currentGrid[this.cursor.x][this.cursor.y].status = 5;
-                        }
-                        break;
+                    if (
+                        this.currentGrid[this.cursor.x][this.cursor.y].status !== 2 &&
+                        this.currentGrid[this.cursor.x][this.cursor.y].status !== 3
+                    ) {
+                        this.currentGrid[node.x][node.y].status = 5;
+                        this.currentGrid[this.cursor.x][this.cursor.y].status = 5;
                     }
+                    break;
                 }
             }
-            return this.currentGrid;
-        } else {
-            return null;
         }
+        return this.currentGrid;
     }
 
     public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
         this.currentGrid = currentGrid;
 
-        let neighbours: GridLocation[] = this.getNeighbours(currentStartPoint, 2);
         this.walkingPath.push(currentStartPoint);
-        this.cursor = this.walkingPath[this.walkingPath.length - 1];
-        this.buildWalls(this.cursor, 0);
+        this.cursor = currentStartPoint;
+        this.buildWalls(currentStartPoint, 0);
     }
 
     public updateAlgorithmState(
