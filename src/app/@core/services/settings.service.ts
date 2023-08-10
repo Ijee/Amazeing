@@ -17,10 +17,8 @@ export class SettingsService {
 
         // See if prefers color scheme is set. If yes, set the appropriate setting.
         const storagePrefersDarkColor = localStorage.getItem('prefersDarkColor');
-        console.log(JSON.stringify(storagePrefersDarkColor));
         if (storagePrefersDarkColor === null) {
             const prefersDarkColor = window.matchMedia('(prefers-color-scheme: dark)');
-            console.log('matchMedia', prefersDarkColor);
             if (!prefersDarkColor || prefersDarkColor.matches) {
                 this.setDarkModeSetting(true);
             } else {
