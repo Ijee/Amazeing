@@ -124,9 +124,9 @@ export class RecursiveBacktracking extends MazeAlgorithmAbstract {
     public deserialize(newGrid: Node[][], serializedState: any, statRecords: StatRecord[]): void {
         const cursor = serializedState.cursor;
         const walkingPath: GridLocation[] = [];
-        serializedState.unusedNodes.forEach((item) => {
+        serializedState.walkingPath.forEach((item) => {
             const tempWalkingPath = new GridLocation(item.x, item.y, item.weight);
-            walkingPath.push(item);
+            walkingPath.push(tempWalkingPath);
         });
         const visitedNodes = new HashSet<GridLocation>();
         serializedState.visitedNodes.forEach((item) => {

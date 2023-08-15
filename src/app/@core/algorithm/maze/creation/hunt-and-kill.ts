@@ -5,10 +5,11 @@ import { MazeAlgorithm, Node, StatRecord } from '../../../types/algorithm.types'
 
 export class HuntAndKill extends MazeAlgorithmAbstract {
     private cursor: GridLocation;
+    private gridSnapshot: GridLocation[];
     private scanAtY: number;
+    private evenOrOddX: number;
     private randomWalk: boolean;
     private nodeFound: boolean;
-    private gridSnapshot: GridLocation[];
 
     constructor() {
         super(
@@ -37,10 +38,10 @@ export class HuntAndKill extends MazeAlgorithmAbstract {
             },
             {}
         );
+        this.gridSnapshot = [];
         this.scanAtY = 0;
         this.randomWalk = false;
         this.nodeFound = false;
-        this.gridSnapshot = [];
     }
 
     /**
@@ -85,9 +86,6 @@ export class HuntAndKill extends MazeAlgorithmAbstract {
             }
         } else {
             // hunt mode  / search unused node
-            console.log('y länge', this.currentGrid[0].length);
-            console.log('scanAt', this.scanAtY);
-
             if (this.scanAtY >= 1) {
                 this.restoreRow(this.scanAtY - 1);
             }
@@ -100,17 +98,22 @@ export class HuntAndKill extends MazeAlgorithmAbstract {
                     this.currentGrid[i][this.scanAtY].status
                 );
                 this.gridSnapshot.push(loc);
-                if (this.currentGrid[i][this.scanAtY].status === 0) {
+                if (this.currentGrid[i][this.scanAtY].status === 0 && i % 2 === this.evenOrOddX) {
                     let neighbours = this.getNeighbours(loc, 2);
                     for (let j = 0; j < neighbours.length; j++) {
                         let neighbour = neighbours[j];
                         if (this.nodeFound && neighbour.status === 5) {
                             // when a node has been found we connect it to the existing grid
                             // after hunt and kill.
+
+                            // man würde denken, dass ich nur beim cursor bauen
+                            // und einen Weg zwischen neighbour und cursor machen müsste.
+                            // bzw eigentlich loc und neighbour, aber ka
+                            this.buildWalls(this.cursor, 0, 8);
+                            this.buildWalls(loc, 5);
+                            console.log('loc', loc);
                             console.log('neighbour', neighbour);
                             console.log('cursor', this.cursor);
-
-                            this.buildWalls(neighbour, 0);
                             this.buildPath(this.cursor, neighbour, 5);
                             this.currentGrid[this.cursor.x][this.cursor.y].status = 5;
                             this.randomWalk = true;
@@ -119,8 +122,6 @@ export class HuntAndKill extends MazeAlgorithmAbstract {
                             this.gridSnapshot = [];
                             return this.currentGrid;
                         } else if (neighbour.status === 5) {
-                            // this.restoreRow(this.scanAtY);
-                            this.currentGrid[loc.x][loc.y].status = 8;
                             this.cursor = loc;
                             this.nodeFound = true;
                             break;
@@ -132,6 +133,9 @@ export class HuntAndKill extends MazeAlgorithmAbstract {
             // during the following iteration
             if (!this.randomWalk) {
                 this.markRow();
+                if (this.nodeFound) {
+                    this.currentGrid[this.cursor.x][this.cursor.y].status = 8;
+                }
                 this.scanAtY += 1;
             }
             return this.currentGrid;
@@ -143,6 +147,8 @@ export class HuntAndKill extends MazeAlgorithmAbstract {
         const randomXPosition = Math.floor(Math.random() * this.currentGrid.length);
         const randomYPosition = Math.floor(Math.random() * this.currentGrid[0].length);
 
+        this.evenOrOddX = randomXPosition % 2;
+        console.log(this.evenOrOddX);
         this.cursor = new GridLocation(randomXPosition, randomYPosition, 0);
         this.currentGrid[randomXPosition][randomYPosition].status = 5;
         this.buildWalls(this.cursor, 0);
@@ -154,25 +160,68 @@ export class HuntAndKill extends MazeAlgorithmAbstract {
         deserializedState: any,
         statRecords: StatRecord[]
     ): void {
+        this.currentGrid = newGrid;
+        this.statRecords = statRecords;
         this.cursor = deserializedState.cursor;
+        this.gridSnapshot = deserializedState.gridSnapshot;
+        this.scanAtY = deserializedState.scanAtY;
+        this.evenOrOddX = deserializedState.evenOrOddX;
         this.randomWalk = deserializedState.randomWalk;
+        this.nodeFound = deserializedState.nodeFound;
     }
 
     public deserialize(newGrid: Node[][], serializedState: any, statRecords: StatRecord[]): void {
-        throw new Error('Method not implemented.');
+        const cursor = serializedState.cursor;
+        const gridSnapShot: GridLocation[] = [];
+        serializedState.walkingPath.forEach((item) => {
+            const tempGridSnapShot = new GridLocation(item.x, item.y, item.weight);
+            gridSnapShot.push(tempGridSnapShot);
+        });
+
+        const deserializedState = {
+            cursor: new GridLocation(cursor.x, cursor.y, cursor.weight),
+            gridSnapshot: gridSnapShot,
+            scanAtY: serializedState.scanAtY,
+            evenOrOddX: serializedState.evenOrOddX,
+            randomWalk: serializedState.randomWalk,
+            nodeFound: serializedState.nodeFound
+        };
+        this.updateAlgorithmState(newGrid, deserializedState, statRecords);
     }
 
     public getSerializedState(): Object {
-        throw new Error('Method not implemented.');
+        const serializedState = {
+            cursor: this.cursor.toObject(),
+            gridSnapshot: [],
+            scanAtY: this.scanAtY,
+            evenOrOddX: this.evenOrOddX,
+            randomWalk: this.randomWalk,
+            nodeFound: this.nodeFound
+        };
+        this.gridSnapshot.forEach((gridLocation) => {
+            serializedState.gridSnapshot.push(gridLocation.toObject());
+        });
+
+        return serializedState;
     }
 
     public getCurrentAlgorithmState(): Object {
         return {
             cursor: this.cursor,
+            gridSnapshot: this.gridSnapshot,
             scanAtY: this.scanAtY,
+            evenOrOddX: this.evenOrOddX,
             randomWalk: this.randomWalk,
-            gridSnapShot: this.gridSnapshot
+            nodeFound: this.nodeFound
         };
+
+        //
+        //     private cursor: GridLocation;
+        //     private scanAtY: number;
+        // private evenOrOddX: number;
+        //     private randomWalk: boolean;
+        //     private nodeFound: boolean;
+        //     private gridSnapshot: GridLocation[];
     }
 
     public getAlgorithmName(): MazeAlgorithm {
