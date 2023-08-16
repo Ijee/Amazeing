@@ -19,6 +19,7 @@ import {
     StatRecord
 } from '../types/algorithm.types';
 import { JsonFormData } from '../types/jsonform.types';
+import { Sidewinder } from '../algorithm/maze/creation/sidewinder';
 
 @Injectable({
     providedIn: 'root'
@@ -56,6 +57,7 @@ export class AlgorithmService {
             case 'Ellers':
                 break;
             case 'Sidewinder':
+                this.currentMazeAlgorithm = new Sidewinder();
                 break;
             case 'Hunt-and-Kill':
                 this.currentMazeAlgorithm = new HuntAndKill();
