@@ -75,7 +75,6 @@
                 <button
                     class="button algo-button is-fullwidth"
                     [ngClass]="algorithmService.getAlgorithmName() === 'Binary-Tree' ? 'is-primary' : ''"
-                    disabled
                     (click)="handleWarning('Binary-Tree')">
                     <b>Binary Tree</b>
                 </button>
@@ -177,7 +176,6 @@
         <form [formGroup]="optionsForm">
             <fieldset
                 *ngFor="let control of handleJsonFormData()?.controls"
-                (click)="setAlgorithmOptions()"
                 class="columns is-multiline is-gapless mb-0">
                 <div *ngIf="control?.type === 'checkbox'" class="column is-12 control">
                     <label class="checkbox">
@@ -197,6 +195,34 @@
                                 [checked]="value" />
                             {{ value }}
                         </label>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="control?.type === 'select'">
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="label">{{ control.name }}</label>
+                        </div>
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <div class="field-body">
+                                    <div class="field">
+                                        <div class="control">
+                                            <div class="select is-primary">
+                                                <select
+                                                    class="has-text-weight-medium"
+                                                    appDisableControl
+                                                    [disableControl]="recordService.getIteration() > 0"
+                                                    [formControlName]="control.name">
+                                                    <option *ngFor="let value of control?.values" [value]="value">
+                                                        {{value}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </ng-container>
             </fieldset>

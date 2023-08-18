@@ -1,14 +1,14 @@
 import { GridLocation } from '../../../@shared/classes/GridLocation';
 import { FormGroup } from '@angular/forms';
 import { MazeAlgorithm, Node, StatRecord, StatusChange } from '../../types/algorithm.types';
-import { JsonFormData } from '../../types/jsonform.types';
+import { AlgorithmOptions, JsonFormData } from '../../types/jsonform.types';
 
 export abstract class MazeAlgorithmAbstract {
     protected constructor(
         protected currentGrid: Node[][],
         protected statRecords: StatRecord[],
         protected jsonFormData: JsonFormData,
-        protected options: Object
+        protected options: AlgorithmOptions
     ) {}
 
     /**
@@ -151,7 +151,7 @@ export abstract class MazeAlgorithmAbstract {
      *
      * @param options
      */
-    public setOptions(options: Object) {
+    public setOptions(options: AlgorithmOptions) {
         this.options = options;
     }
 

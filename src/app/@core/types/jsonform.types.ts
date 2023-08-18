@@ -30,3 +30,5 @@ export interface JsonFormControls {
 export interface JsonFormData {
     controls: JsonFormControls[];
 }
+
+export type AlgorithmOptions = Record<string, string>;

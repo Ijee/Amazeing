@@ -74,16 +74,11 @@ export class MazeSettingsComponent implements OnInit, OnDestroy {
                     });
             }
         });
+
         // Send changes to the current algorithm.
-        // this.optionsForm.valueChanges.subscribe(() => {
-        //     // if (this.recordService.getIteration() > 0) {
-        //     //     for (let field in this.optionsForm.controls) {
-        //     //         const control = this.optionsForm.get(field);
-        //     //         control.disable();
-        //     //     }
-        //     // }
-        //     this.setAlgorithmOptions();
-        // });
+        this.optionsForm.valueChanges.subscribe(() => {
+            this.setAlgorithmOptions();
+        });
     }
 
     ngOnDestroy(): void {
@@ -131,6 +126,7 @@ export class MazeSettingsComponent implements OnInit, OnDestroy {
                   ))
                 : (options[field] = this.optionsForm.controls[field].getRawValue());
         }
+        console.log(options);
         this.algorithmService.setOptions(options);
     }
 

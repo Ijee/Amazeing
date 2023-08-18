@@ -18,8 +18,9 @@ import {
     PathFindingHeuristic,
     StatRecord
 } from '../types/algorithm.types';
-import { JsonFormData } from '../types/jsonform.types';
+import { AlgorithmOptions, JsonFormData } from '../types/jsonform.types';
 import { Sidewinder } from '../algorithm/maze/creation/sidewinder';
+import { BinaryTree } from '../algorithm/maze/creation/binary-tree';
 
 @Injectable({
     providedIn: 'root'
@@ -64,6 +65,7 @@ export class AlgorithmService {
             case 'Growing-Tree':
                 break;
             case 'Binary-Tree':
+                this.currentMazeAlgorithm = new BinaryTree();
                 break;
             case 'Recursive-Backtracking':
                 this.currentMazeAlgorithm = new RecursiveBacktracking();
@@ -153,7 +155,7 @@ export class AlgorithmService {
      *
      * @param options - the new options to be set
      */
-    public setOptions(options: Object) {
+    public setOptions(options: AlgorithmOptions) {
         this.algorithmMode === 'maze'
             ? this.currentMazeAlgorithm.setOptions(options)
             : this.currentPathAlgorithm.setOptions(options);
