@@ -126,7 +126,7 @@ export class MazeSettingsComponent implements OnInit, OnDestroy {
                   ))
                 : (options[field] = this.optionsForm.controls[field].getRawValue());
         }
-        console.log(options);
+        // console.log(options);
         this.algorithmService.setOptions(options);
     }
 
