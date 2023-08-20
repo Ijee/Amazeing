@@ -21,6 +21,7 @@ import {
 import { AlgorithmOptions, JsonFormData } from '../types/jsonform.types';
 import { Sidewinder } from '../algorithm/maze/creation/sidewinder';
 import { BinaryTree } from '../algorithm/maze/creation/binary-tree';
+import { GrowingTree } from '../algorithm/maze/creation/growing-tree';
 
 @Injectable({
     providedIn: 'root'
@@ -63,6 +64,7 @@ export class AlgorithmService {
             case 'Hunt-and-Kill':
                 this.currentMazeAlgorithm = new HuntAndKill();
             case 'Growing-Tree':
+                this.currentMazeAlgorithm = new GrowingTree();
                 break;
             case 'Binary-Tree':
                 this.currentMazeAlgorithm = new BinaryTree();
