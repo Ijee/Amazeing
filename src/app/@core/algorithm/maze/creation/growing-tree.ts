@@ -1,11 +1,15 @@
-import { Node, StatRecord, MazeAlgorithm } from 'src/app/@core/types/algorithm.types';
+import {
+    Node,
+    StatRecord,
+    MazeAlgorithm,
+    NodeCollection,
+    Direction
+} from 'src/app/@core/types/algorithm.types';
 import { GridLocation } from 'src/app/@shared/classes/GridLocation';
 import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
 import { getRandomNumber } from '../../../../@shared/utils/general-utils';
 import { shuffleFisherYates } from '../../../../@shared/utils/fisher-yates';
 
-type Direction = 'unknown' | 'up' | 'right' | 'down' | 'left';
-type NodeCollection = [{ gridLocation: GridLocation; direction: Direction }];
 /**
  * My Growing Tree implementation which got 70% more complicated because
  * I wanted to highlight the added nodes and because it is a funny grid.

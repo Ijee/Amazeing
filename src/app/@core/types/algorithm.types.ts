@@ -1,4 +1,5 @@
 import { AlgorithmOptions } from './jsonform.types';
+import { GridLocation } from '../../@shared/classes/GridLocation';
 
 export type Node = {
     status: number;
@@ -21,6 +22,10 @@ export type StatusChange = {
     status8?: number;
     status9?: number;
 };
+
+export type Direction = 'unknown' | 'up' | 'right' | 'down' | 'left';
+export type NodeCollection = [{ gridLocation: GridLocation; direction: Direction }];
+
 export type AlgorithmMode = 'maze' | 'path-finding';
 export type MazeAlgorithm =
     | 'Prims'
