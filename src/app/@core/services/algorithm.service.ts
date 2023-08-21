@@ -167,7 +167,13 @@ export class AlgorithmService {
      * Sets the next step for the grid based on the current algorithm.
      */
     public getNextStep(): Node[][] {
-        return this.currentMazeAlgorithm.nextStep();
+        if (this.algorithmMode === 'maze') {
+            return this.currentMazeAlgorithm.nextStep();
+        } else {
+            // TODO yknow
+            console.error('gotta fix those');
+            return;
+        }
     }
 
     /**
