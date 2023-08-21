@@ -64,11 +64,12 @@ export class GrowingTree extends MazeAlgorithmAbstract {
                 selectedNodeIndex = this.nodeCollection.length - 1;
                 break;
             case "Random (Prim's)":
-                selectedNodeIndex = Math.floor(Math.random() * this.nodeCollection.length);
+                selectedNodeIndex = Math.floor(Math.random() * this.nodeCollection.length - 1);
                 loc = this.nodeCollection[selectedNodeIndex].gridLocation;
                 break;
             case 'Oldest':
                 loc = this.nodeCollection[0].gridLocation;
+                selectedNodeIndex = 0;
                 break;
             default:
                 throw new Error('Unknown algorithm option.');
@@ -173,7 +174,7 @@ export class GrowingTree extends MazeAlgorithmAbstract {
         this.nodeCollection.push({ gridLocation: startNode, direction: 'unknown' });
 
         this.buildWalls(startNode, 0);
-        this.currentGrid[randomXPosition][randomYPosition].status = 5;
+        this.currentGrid[startNode.x][startNode.y].status = 5;
     }
 
     public updateAlgorithmState(
@@ -190,13 +191,15 @@ export class GrowingTree extends MazeAlgorithmAbstract {
         const deserializedState = {
             nodeCollection: []
         };
-        serializedState.nodeCollection.forEach((arr: NodeCollection, index: number) => {
-            const loc = new GridLocation(arr[index].gridLocation.x, arr[index].gridLocation.y);
-            deserializedState.nodeCollection.push({
-                gridLocation: loc,
-                direction: arr[index].direction
-            });
-        });
+        serializedState.nodeCollection.forEach(
+            (arr: { gridLocation: GridLocation; direction: Direction }, index: number) => {
+                const loc = new GridLocation(arr.gridLocation.x, arr.gridLocation.y);
+                deserializedState.nodeCollection.push({
+                    gridLocation: loc,
+                    direction: arr.direction
+                });
+            }
+        );
         this.updateAlgorithmState(newGrid, deserializedState, statRecords);
     }
 
@@ -205,7 +208,10 @@ export class GrowingTree extends MazeAlgorithmAbstract {
             nodeCollection: []
         };
         this.nodeCollection.forEach((arr) => {
-            serializedState.nodeCollection.push([[arr[0].toObject()], arr[1]]);
+            serializedState.nodeCollection.push({
+                gridLocation: arr.gridLocation.toObject(),
+                direction: arr.direction
+            });
         });
         return serializedState;
     }
