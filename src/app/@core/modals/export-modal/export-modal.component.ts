@@ -65,6 +65,19 @@ export class ExportModalComponent implements OnDestroy {
     toClipboard(): void {
         const copyString = document.querySelector('#exportArea') as HTMLTextAreaElement;
         copyString.select();
+        const type = 'text/plain';
+        const exportToken = this.simulationService.getExportToken().toString();
+        const blob = new Blob([exportToken], { type });
+        const data = [new ClipboardItem({ [type]: blob })];
         document.execCommand('copy');
+        navigator.permissions
+            .query({ name: 'clipboard-write' as PermissionName })
+            .then((result) => {
+                if (result.state === 'granted' || result.state === 'prompt') {
+                    navigator.clipboard.write(data).then((val) => {
+                        console.info('Yee-ha copying worked...');
+                    });
+                }
+            });
     }
 }
