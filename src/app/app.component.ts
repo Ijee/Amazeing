@@ -83,11 +83,15 @@ export class AppComponent implements OnInit, OnDestroy {
     handleKeyboardEvent(event: KeyboardEvent): void {
         if (!this.settingsService.getUserTourActive()) {
             if (event.code === 'ArrowRight') {
-                this.simulationService.addIteration();
+                if (!this.simulationService.getIsPlayDisabled()) {
+                    this.simulationService.addIteration();
+                }
             } else if (event.code === 'ArrowLeft') {
                 this.simulationService.setBackwardStep();
             } else if (event.code === 'Space') {
-                this.simulationService.setSimulationStatus();
+                if (!this.simulationService.getIsPlayDisabled()) {
+                    this.simulationService.setSimulationStatus();
+                }
             } else if (event.code === 'NumpadAdd') {
                 this.simulationService.setSpeedUp();
             } else if (event.code === 'NumpadSubtract') {
