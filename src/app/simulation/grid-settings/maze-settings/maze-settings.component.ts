@@ -147,6 +147,7 @@ export class MazeSettingsComponent implements OnInit, OnDestroy {
      */
     private handleAlgorithmSwitch(newAlgorithm: MazeAlgorithm): void {
         this.algorithmService.setMazeAlgorithm(newAlgorithm);
+        this.simulationService.setSimulationStatus(false);
         // TODO soft reset or hard reset / grid savepoint?
         this.simulationService.prepareGrid();
         this.router.navigate([], {
