@@ -5,13 +5,13 @@ import { getRandomNumber } from '../../../../@shared/utils/general-utils';
 import { shuffleFisherYates } from '../../../../@shared/utils/fisher-yates';
 
 type Direction = 'unknown' | 'up' | 'right' | 'down' | 'left';
-
+type NodeCollection = [{ gridLocation: GridLocation; direction: Direction }];
 /**
  * My Growing Tree implementation which got 70% more complicated because
  * I wanted to highlight the added nodes and because it is a funny grid.
  */
 export class GrowingTree extends MazeAlgorithmAbstract {
-    private nodeCollection: [[gridLocation: GridLocation, direction: Direction]];
+    private nodeCollection: NodeCollection;
 
     constructor() {
         super(
@@ -56,15 +56,15 @@ export class GrowingTree extends MazeAlgorithmAbstract {
         let selectedNodeIndex: number;
         switch (this.options['Node Selection']) {
             case 'Newest First (Recursive Backtracker)':
-                loc = this.nodeCollection[this.nodeCollection.length - 1][0];
+                loc = this.nodeCollection[this.nodeCollection.length - 1].gridLocation;
                 selectedNodeIndex = this.nodeCollection.length - 1;
                 break;
             case "Random (Prim's)":
                 selectedNodeIndex = Math.floor(Math.random() * this.nodeCollection.length);
-                loc = this.nodeCollection[selectedNodeIndex][0];
+                loc = this.nodeCollection[selectedNodeIndex].gridLocation;
                 break;
             case 'Oldest':
-                loc = this.nodeCollection[0][0];
+                loc = this.nodeCollection[0].gridLocation;
                 break;
             default:
                 throw new Error('Unknown algorithm option.');
@@ -108,7 +108,10 @@ export class GrowingTree extends MazeAlgorithmAbstract {
                     if (this.currentGrid[neighbour.x][neighbour.y].status === 0) {
                         this.buildWalls(neighbour, 0);
                         this.buildPath(selectedNode, neighbour, 5);
-                        this.nodeCollection.push([neighbour, this.determineDirection(neighbour)]);
+                        this.nodeCollection.push({
+                            gridLocation: neighbour,
+                            direction: this.determineDirection(neighbour)
+                        });
                         viableNeighbourFound = true;
                         // So we avoid repainting start and goal
                         if (
@@ -124,7 +127,7 @@ export class GrowingTree extends MazeAlgorithmAbstract {
             if (!viableNeighbourFound) {
                 // Repaint the other node that would stay behind otherwise.
                 // (The buildPath(...) node)
-                switch (this.nodeCollection[selectedNodeIndex][1]) {
+                switch (this.nodeCollection[selectedNodeIndex].direction) {
                     case 'up':
                         this.currentGrid[selectedNode.x][selectedNode.y - 1].status = 9;
                         break;
@@ -163,7 +166,7 @@ export class GrowingTree extends MazeAlgorithmAbstract {
                 ? getRandomNumber(0, currentGrid[0].length, 2)
                 : getRandomNumber(1, currentGrid[0].length, 2);
         let startNode = new GridLocation(randomXPosition, randomYPosition);
-        this.nodeCollection.push([startNode, 'unknown']);
+        this.nodeCollection.push({ gridLocation: startNode, direction: 'unknown' });
 
         this.buildWalls(startNode, 0);
         this.currentGrid[randomXPosition][randomYPosition].status = 5;
@@ -183,9 +186,12 @@ export class GrowingTree extends MazeAlgorithmAbstract {
         const deserializedState = {
             nodeCollection: []
         };
-        serializedState.nodeCollection.forEach((arr: [GridLocation, Direction]) => {
-            const loc = new GridLocation(arr[0][0].x, arr[0][0].y);
-            deserializedState.nodeCollection.push([loc, arr[1]]);
+        serializedState.nodeCollection.forEach((arr: NodeCollection, index: number) => {
+            const loc = new GridLocation(arr[index].gridLocation.x, arr[index].gridLocation.y);
+            deserializedState.nodeCollection.push({
+                gridLocation: loc,
+                direction: arr[index].direction
+            });
         });
         this.updateAlgorithmState(newGrid, deserializedState, statRecords);
     }
