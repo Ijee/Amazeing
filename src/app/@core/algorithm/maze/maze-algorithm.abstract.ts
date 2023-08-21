@@ -226,6 +226,13 @@ export abstract class MazeAlgorithmAbstract {
     }
 
     /**
+     * Returns the selected algorithm options.
+     */
+    public getOptions(): AlgorithmOptions {
+        return this.options;
+    }
+
+    /**
      * Returns whether or not the current algorithm uses node weights.
      */
     public abstract usesNodeWeights(): boolean;

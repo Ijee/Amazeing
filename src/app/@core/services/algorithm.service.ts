@@ -280,6 +280,12 @@ export class AlgorithmService {
             : this.currentPathAlgorithm.getJsonFormData();
     }
 
+    public getOptions(): AlgorithmOptions {
+        return this.algorithmMode === 'maze'
+            ? this.currentMazeAlgorithm.getOptions()
+            : this.currentPathAlgorithm.getOptions();
+    }
+
     /**
      * Returns the serialized internal state of the current algorithm
      */

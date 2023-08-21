@@ -12,6 +12,7 @@ import {
     Session,
     StatRecord
 } from '../types/algorithm.types';
+import { AlgorithmOptions } from '../types/jsonform.types';
 
 @Injectable({
     providedIn: 'root'
@@ -26,6 +27,7 @@ export class SimulationService {
     private backwardStepsAmount: number;
     private showWeightStatus: boolean;
     private readonly randomSeed$: Subject<void>;
+    private readonly patchFormValues$: Subject<AlgorithmOptions>;
     private showLegendModal: boolean;
     private showImportModal: boolean;
     private showExportModal: boolean;
@@ -44,6 +46,7 @@ export class SimulationService {
         this.isSimulationActive = false;
         this.backwardStepsAmount = 0;
         this.randomSeed$ = new Subject<void>();
+        this.patchFormValues$ = new Subject<AlgorithmOptions>();
         this.showLegendModal = false;
         this.showImportModal = false;
         this.showExportModal = false;
@@ -397,6 +400,7 @@ export class SimulationService {
                 this.algorithmService.setPathAlgorithm(session.algorithm as PathFindingAlgorithm);
                 // TODO set heuristic for path-finding service
             }
+            console.log('session import', session);
             this.algorithmService.updateAlgorithmState(
                 session.grid,
                 session.state,
@@ -405,6 +409,10 @@ export class SimulationService {
             );
             this.recordService.setIteration(session.iteration);
             this.recordService.addStatRecord(session.stats);
+            // TODO setOptions doesn't really do anything here and I am not sure
+            // if this is the best way to patch the values.
+            this.algorithmService.setOptions(session.options);
+            this.patchFormValues$.next(session.options);
             this.setGridList(session.grid);
             this.toggleShowImportModal();
         } catch (error) {
@@ -426,6 +434,7 @@ export class SimulationService {
                 state: this.algorithmService.getSerializedState(),
                 iteration: this.recordService.getIteration(),
                 stats: this.algorithmService.getStatRecords(),
+                options: this.algorithmService.getOptions(),
                 grid: this.gridList$.getValue()
             };
 
@@ -491,6 +500,13 @@ export class SimulationService {
      */
     public getRandomSeed(): Observable<void> {
         return this.randomSeed$;
+    }
+
+    /**
+     * Returns when a new session has been imported.
+     */
+    public getPatchFormValues(): Observable<AlgorithmOptions> {
+        return this.patchFormValues$;
     }
 
     /**

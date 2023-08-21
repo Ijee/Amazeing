@@ -79,6 +79,16 @@ export class MazeSettingsComponent implements OnInit, OnDestroy {
         this.optionsForm.valueChanges.subscribe(() => {
             this.setAlgorithmOptions();
         });
+
+        this.simulationService.getPatchFormValues().subscribe((newValue) => {
+            if (newValue) {
+                for (const [key, value] of Object.entries(newValue)) {
+                    this.optionsForm.controls[key].setValue(value, {
+                        onlySelf: true
+                    });
+                }
+            }
+        });
     }
 
     ngOnDestroy(): void {

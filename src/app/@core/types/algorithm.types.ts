@@ -1,3 +1,5 @@
+import { AlgorithmOptions } from './jsonform.types';
+
 export type Node = {
     status: number;
     weight: number;
@@ -58,5 +60,6 @@ export type Session = {
     state: any;
     iteration: number;
     stats: StatRecord[];
+    options: AlgorithmOptions;
     grid: Node[][];
 };

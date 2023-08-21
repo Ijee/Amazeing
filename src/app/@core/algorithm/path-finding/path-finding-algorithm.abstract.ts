@@ -5,14 +5,14 @@ import {
     PathFindingHeuristic,
     StatRecord
 } from '../../types/algorithm.types';
-import { JsonFormData } from '../../types/jsonform.types';
+import { AlgorithmOptions, JsonFormData } from '../../types/jsonform.types';
 
 export abstract class PathFindingAlgorithmAbstract {
     protected constructor(
         protected currentGrid: Node[][],
         protected statRecords: StatRecord[],
         protected jsonFormData: JsonFormData,
-        protected options: Object
+        protected options: AlgorithmOptions
     ) {}
 
     /**
@@ -36,7 +36,7 @@ export abstract class PathFindingAlgorithmAbstract {
      *
      * @param options
      */
-    public setOptions(options: Object) {
+    public setOptions(options: AlgorithmOptions) {
         this.options = options;
     }
 
@@ -108,6 +108,13 @@ export abstract class PathFindingAlgorithmAbstract {
      */
     public getJsonFormData(): JsonFormData {
         return this.jsonFormData;
+    }
+
+    /**
+     * Returns the selected algorithm options.
+     */
+    public getOptions(): AlgorithmOptions {
+        return this.options;
     }
 
     /**
