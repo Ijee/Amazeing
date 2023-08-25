@@ -92,8 +92,6 @@ export class BinaryTree extends MazeAlgorithmAbstract {
     public nextStep(): Node[][] {
         for (let i = this.yStart; i !== this.yEnd; i += this.yDirection) {
             for (let j = this.xStart; j !== this.xEnd; j += this.xDirection) {
-                // console.log('i:', i, 'j:', j);
-                // console.log(this.currentGrid[j][i].status);
                 if (this.currentGrid[j][i].status === 0) {
                     let coinFlip = Math.floor(Math.random() * 2) + 1;
                     if (coinFlip === 1) {
@@ -111,9 +109,6 @@ export class BinaryTree extends MazeAlgorithmAbstract {
 
     public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
         this.currentGrid = currentGrid;
-
-        console.log(this.currentGrid[21][0]);
-        console.log(this.currentGrid[0].length);
         // Settings the options once.
         switch (this.options.Bias) {
             case 'Northwest':

@@ -50,7 +50,6 @@ export class HuntAndKill extends MazeAlgorithmAbstract {
      * @private
      */
     private restoreRow(row: number): void {
-        console.log('snapshot', this.gridSnapshot);
         for (let i = 0; i < this.gridSnapshot.length; i++) {
             this.currentGrid[i][row].status = this.gridSnapshot[i].status;
         }

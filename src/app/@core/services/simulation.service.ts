@@ -243,6 +243,7 @@ export class SimulationService {
             this.recordService.addStatRecord(statRecord);
             this.recordService.addAlgorithmState(newAlgorithmState);
         } else {
+            console.log('why am I here');
             this.setDisablePlay(true);
             this.setSimulationStatus();
             this.settingsService.setUserTourTaken(true);

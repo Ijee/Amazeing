@@ -92,8 +92,6 @@ export class UserTourService {
      * Starts the user tour.
      */
     public startTour(): void {
-        setTimeout(() => {
-            this.driver.drive();
-        }, 0);
+        this.driver.drive();
     }
 }

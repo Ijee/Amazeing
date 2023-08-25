@@ -48,7 +48,6 @@ export class Sidewinder extends MazeAlgorithmAbstract {
         } else if (oldX >= this.currentGrid.length - 2) {
             newCursor = new GridLocation(oldX + 1, oldY);
         } else {
-            // console.log('skipping?');
             newCursor = new GridLocation(oldX + 2, oldY);
         }
         return newCursor;

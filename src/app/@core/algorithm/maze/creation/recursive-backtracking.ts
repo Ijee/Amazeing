@@ -69,7 +69,6 @@ export class RecursiveBacktracking extends MazeAlgorithmAbstract {
             }
         } else {
             // building
-            console.log('building');
             this.statRecords[1].currentValue = 0;
             let neighbours = this.getNeighbours(this.cursor, 2);
             neighbours = shuffleFisherYates(neighbours);
