@@ -64,7 +64,7 @@ export class GrowingTree extends MazeAlgorithmAbstract {
                 selectedNodeIndex = this.nodeCollection.length - 1;
                 break;
             case "Random (Prim's)":
-                selectedNodeIndex = Math.floor(Math.random() * this.nodeCollection.length - 1);
+                selectedNodeIndex = Math.floor(Math.random() * this.nodeCollection.length);
                 loc = this.nodeCollection[selectedNodeIndex].gridLocation;
                 break;
             case 'Oldest':

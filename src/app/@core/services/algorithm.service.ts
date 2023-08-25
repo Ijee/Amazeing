@@ -22,6 +22,7 @@ import { AlgorithmOptions, JsonFormData } from '../types/jsonform.types';
 import { Sidewinder } from '../algorithm/maze/creation/sidewinder';
 import { BinaryTree } from '../algorithm/maze/creation/binary-tree';
 import { GrowingTree } from '../algorithm/maze/creation/growing-tree';
+import { RecursiveDivision } from '../algorithm/maze/creation/recursive-division';
 
 @Injectable({
     providedIn: 'root'
@@ -63,6 +64,7 @@ export class AlgorithmService {
                 break;
             case 'Hunt-and-Kill':
                 this.currentMazeAlgorithm = new HuntAndKill();
+                break;
             case 'Growing-Tree':
                 this.currentMazeAlgorithm = new GrowingTree();
                 break;
@@ -73,6 +75,7 @@ export class AlgorithmService {
                 this.currentMazeAlgorithm = new RecursiveBacktracking();
                 break;
             case 'Recursive-Division':
+                this.currentMazeAlgorithm = new RecursiveDivision();
                 break;
             case 'Cellular-Automation':
                 break;
