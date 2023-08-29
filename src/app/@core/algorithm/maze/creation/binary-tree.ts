@@ -145,27 +145,35 @@ export class BinaryTree extends MazeAlgorithmAbstract {
         this.statRecords = statRecords;
         this.direction1 = deserializedState.direction1;
         this.direction2 = deserializedState.direction2;
+        this.yStart = deserializedState.yStart;
+        this.yEnd = deserializedState.yEnd;
     }
 
     public deserialize(newGrid: Node[][], serializedState: any, statRecords: StatRecord[]): void {
         const deserializedState = {
-            buildDirection1: serializedState.direction1,
-            buildDirection2: serializedState.direction2
+            direction1: serializedState.direction1,
+            direction2: serializedState.direction2,
+            yStart: serializedState.yStart,
+            yEnd: serializedState.yEnd
         };
         this.updateAlgorithmState(newGrid, deserializedState, statRecords);
     }
 
     public getSerializedState(): Object {
         return {
-            buildDirection1: this.direction1,
-            buildDirection2: this.direction2
+            direction1: this.direction1,
+            direction2: this.direction2,
+            yStart: this.yStart,
+            yEnd: this.yEnd
         };
     }
 
     public getCurrentAlgorithmState(): Object {
         return {
-            buildDirection1: this.direction1,
-            buildDirection2: this.direction2
+            direction1: this.direction1,
+            direction2: this.direction2,
+            yStart: this.yStart,
+            yEnd: this.yEnd
         };
     }
 
