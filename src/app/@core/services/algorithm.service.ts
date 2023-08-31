@@ -23,6 +23,7 @@ import { Sidewinder } from '../algorithm/maze/creation/sidewinder';
 import { BinaryTree } from '../algorithm/maze/creation/binary-tree';
 import { GrowingTree } from '../algorithm/maze/creation/growing-tree';
 import { RecursiveDivision } from '../algorithm/maze/creation/recursive-division';
+import { Kruskals } from '../algorithm/maze/creation/kruskals';
 
 @Injectable({
     providedIn: 'root'
@@ -50,6 +51,7 @@ export class AlgorithmService {
                 this.currentMazeAlgorithm = new Prims();
                 break;
             case 'Kruskals':
+                this.currentMazeAlgorithm = new Kruskals();
                 break;
             case 'Aldous-Broder':
                 this.currentMazeAlgorithm = new AldousBroder();

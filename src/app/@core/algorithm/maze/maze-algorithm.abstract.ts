@@ -103,6 +103,23 @@ export abstract class MazeAlgorithmAbstract {
     }
 
     /**
+     * Paints a node on the grid.
+     *
+     * This is purely to avoid exactly this kind of code, and it is
+     * a lot of noise just not to remove the start and goal node.
+     *
+     * @param x the x coordinate
+     * @param y the y coordinate
+     * @param status the status to paint it to
+     * @protected
+     */
+    protected paintNode(x: number, y: number, status: number): void {
+        if (this.currentGrid[x][y].status !== 2 && this.currentGrid[x][y].status !== 3) {
+            this.currentGrid[x][y].status = status;
+        }
+    }
+
+    /**
      * Returns the neighbours for a given GridLocation.
      *
      * @param loc - the GridLocation to get the neighbours from
