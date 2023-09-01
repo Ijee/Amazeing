@@ -24,6 +24,7 @@ import { BinaryTree } from '../algorithm/maze/creation/binary-tree';
 import { GrowingTree } from '../algorithm/maze/creation/growing-tree';
 import { RecursiveDivision } from '../algorithm/maze/creation/recursive-division';
 import { Kruskals } from '../algorithm/maze/creation/kruskals';
+import { Ellers } from '../algorithm/maze/creation/ellers';
 
 @Injectable({
     providedIn: 'root'
@@ -60,6 +61,7 @@ export class AlgorithmService {
                 this.currentMazeAlgorithm = new Wilsons();
                 break;
             case 'Ellers':
+                this.currentMazeAlgorithm = new Ellers();
                 break;
             case 'Sidewinder':
                 this.currentMazeAlgorithm = new Sidewinder();
