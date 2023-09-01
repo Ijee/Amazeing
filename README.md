@@ -11,52 +11,51 @@
         <img src="https://img.shields.io/website?down_message=offline&style=for-the-badge&up_message=online&url=https%3A%2F%2Famazething.netlify.app%2F" /></a>
 </p>
 
-> This app tries to show how maze and path finding algorithms work on a grid.
+> This app tries to show how maze and path finding algorithms work with various features for convenience.
 >
-> You can see it live in action [here](https://amazething.netlify.app).
+> ## The live version can be found here [here](https://amazething.netlify.app).
 
 ## Features
 
--   Implements 27 maze and path finding algorithms
--   Go back and forth between iterations to see how the algorithm work in detail
--   Statistics that get tracked based on the currently selected algorithm
--   Easy to use import / export feature to show other people what's up
--   Learn more page with general info and additional resources for further reading
+-   Implements 27 algorithms used for mazes and how to traverse them.
+-   Go back and forth between iterations to see how the algorithm works in detail.
+-   Statistics that get tracked based on the currently selected algorithm.
+-   Easy to use import / export feature to show other people what's up.
+-   Learn more page with general info and additional resources for further reading.
+-   PWA available.
 
 ---
 
 ## Screenshot
 
-![Angular - Game of Life Promot](https://i.imgur.com/KkQx8Bt.png 'Promo')
+![Amazeing Promo](amazeing_promo.png 'Promo')
 
 ---
 
-## Contributions
+## Contributions / Support
 
 Contributions are welcome! :heart:
 
-This is a fairly big project and there are always things to improve. If you feel like the project is missing a feature or want to
-improve existing functionality feel free to create a pull request and I will take a look.
+**If you like what you see and just want to show some appreciation you can buy me a coffee [at ko-fi](https://ko-fi.com/ijeee).**
 
-Please respect the [Angular style guide](https://angular.io/guide/styleguide) for contributions.
+Code comments only when necessary but always for functions. There are quite a 
+few TODOs in this project and I haven't come around to creating issues instead. Some of
+them might be a good start for a first pull request. Please shoot me a message first
+to avoid unnecessary work.
 
-**Note:** The project is based on my other project found [here](https://github.com/Ijee/Game-of-Life-Angular).
+- This project also adheres to the [conventional commits](https://www.conventionalcommits.org/) standard.
+- Please respect the [Angular style guide](https://angular.io/guide/styleguide) for contributions.
+
+
+**Note:** The project is based on my other project which is quite boring
+in comparison to be honest. Have a look [here](https://github.com/Ijee/Game-of-Life-Angular).
 
 ---
-
-## Usage
-
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.5.
 
 ### Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change
 any of the source files.
-
-### Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also
-use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
 ### Build
 
