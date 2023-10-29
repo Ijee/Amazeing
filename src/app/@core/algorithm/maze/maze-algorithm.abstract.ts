@@ -113,9 +113,18 @@ export abstract class MazeAlgorithmAbstract {
      * @param status the status to paint it to
      * @protected
      */
-    protected paintNode(x: number, y: number, status: number): void {
-        if (this.currentGrid[x][y].status !== 2 && this.currentGrid[x][y].status !== 3) {
-            this.currentGrid[x][y].status = status;
+    protected paintNode(x: number, y: number, status: number);
+    protected paintNode(loc: GridLocation, status: number);
+    protected paintNode(xOrLoc: number | GridLocation, yOrStatus: number, status?: number): void {
+        if (typeof xOrLoc === 'number') {
+            if (
+                this.currentGrid[xOrLoc][yOrStatus].status !== 2 &&
+                this.currentGrid[xOrLoc][yOrStatus].status !== 3
+            ) {
+                this.currentGrid[xOrLoc][yOrStatus].status = status;
+            }
+        } else {
+            this.paintNode(xOrLoc.x, xOrLoc.y, yOrStatus);
         }
     }
 
