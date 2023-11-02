@@ -14,8 +14,18 @@ export class Ellers extends MazeAlgorithmAbstract {
     private passagesCreated: HashSet<GridLocation>[]; // Only checks for indizes
     constructor() {
         super([], [], { controls: [] }, {});
+
+        this.lastColouredSet = undefined;
+        this.setsCreated = false;
+        this.setsMerged = false;
+        this.passagesCreated = [];
     }
 
+    /**
+     * Merges sets randomly with a pseudo coin flip.
+     * @param skipCoinFlip whether it should skip the coin flip
+     * @private
+     */
     private mergeSets(skipCoinFlip: boolean): void {
         const cursor = this.cursor;
         const next = new GridLocation(cursor.x + 2, cursor.y);
@@ -49,6 +59,10 @@ export class Ellers extends MazeAlgorithmAbstract {
         }
     }
 
+    /**
+     * Builds a vertical passage randomly with a coin flip.
+     * @private
+     */
     private buildPassage(): void {
         console.log('vertical passages');
         const cursor = this.cursor;
@@ -146,13 +160,6 @@ export class Ellers extends MazeAlgorithmAbstract {
         this.sets = new HashMap<GridLocation, HashSet<GridLocation>>();
         this.setSize = 0;
         this.cursor = new GridLocation(currentStartPoint.x % 2, 0);
-
-        // for (let i = 0; i < currentGrid.length; i += 2) {
-        //     const newSet = new HashSet<GridLocation>();
-        //     newSet.add(new GridLocation(i, this.yPos));
-        //     this.sets.push(newSet);
-        //     this.currentGrid[i][0].status = 7;
-        // }
     }
 
     public updateAlgorithmState(
@@ -162,21 +169,92 @@ export class Ellers extends MazeAlgorithmAbstract {
     ): void {
         this.currentGrid = newGrid;
         this.statRecords = statRecords;
-        this.sets = deserializedState.sets;
+
         this.cursor = deserializedState.cursor;
+        this.setSize = deserializedState.setSize;
+        this.sets = deserializedState.sets;
+        this.lastColouredSet = deserializedState.lastColouredSet;
+        this.setsCreated = deserializedState.setsCreated;
+        this.setsMerged = deserializedState.setsMerged;
+        this.passagesCreated = deserializedState.passagesCreated;
     }
 
     public deserialize(newGrid: Node[][], serializedState: any, statRecords: StatRecord[]): void {
-        throw new Error('Method not implemented.');
+        const cursor = serializedState.cursor;
+
+        const tempPassagesCreated: HashSet<GridLocation>[] = [];
+        serializedState.passagesCreated.forEach((set) => {
+            const tempSet = new HashSet<GridLocation>();
+            set.forEach((item) => {
+                const tempGridLocation = new GridLocation(item.x, item.y);
+                tempSet.add(tempGridLocation);
+            });
+            tempPassagesCreated.push(tempSet);
+        });
+        const tempSets = new HashMap<GridLocation, HashSet<GridLocation>>();
+
+        const deserializedState = {
+            cursor: new GridLocation(cursor.x, cursor.y),
+            setSize: serializedState.setSize,
+            sets: tempSets,
+            lastColouredSet: serializedState.lastColouredSet,
+            setsCreated: serializedState.setsCreated,
+            setsMerged: serializedState.setsMerged,
+            passagesCreated: tempPassagesCreated
+        };
+
+        this.updateAlgorithmState(newGrid, deserializedState, statRecords);
     }
 
     public getSerializedState(): Object {
-        throw new Error('Method not implemented.');
+        const serializedState = {
+            cursor: this.cursor,
+            setSize: this.setSize,
+            sets: [],
+            lastColouredSet: [],
+            setsCreated: this.setsCreated,
+            setsMerged: this.setsMerged,
+            passagesCreated: []
+        };
+        const setsObj = [];
+        this.sets.forEach((key, value) => {
+            let locList = [];
+            value.forEach((loc) => {
+                locList.push(loc.toObject());
+            });
+            setsObj.push({ key: key.toObject(), locList: locList });
+        });
+        serializedState.sets = setsObj;
+
+        for (let i = 0; i < this.lastColouredSet.size(); i++) {
+            let serialSet = [];
+            this.lastColouredSet[i].forEach((val) => {
+                serialSet.push(val.toObject());
+            });
+            serializedState.lastColouredSet.push(serialSet);
+        }
+
+        for (let i = 0; i < this.passagesCreated.length; i++) {
+            let serialSet = [];
+            this.passagesCreated[i].forEach((val) => {
+                serialSet.push(val.toObject());
+            });
+            serializedState.passagesCreated.push(serialSet);
+        }
+        console.log(serializedState, 'serialized State');
+
+        return serializedState;
     }
 
     public getCurrentAlgorithmState(): Object {
         return {
-            sets: this.sets
+            cursor: this.cursor,
+            setSize: this.setSize,
+            sets: this.sets,
+            lastColouredSet: this.lastColouredSet,
+            setsCreated: this.setsCreated,
+            setsMerged: this.setsMerged,
+            passagesCreated: this.passagesCreated
         };
     }
 
