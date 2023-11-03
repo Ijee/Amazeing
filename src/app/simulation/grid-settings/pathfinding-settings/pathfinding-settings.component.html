@@ -85,7 +85,7 @@
                 </button>
             </div>
         </div>
-        <div class="column is-12 pb-0">
+        <div class="column is-12 p-0">
             <p class="menu-label has-text-centered">
                 <b>Maze solving algorithms</b>
             </p>
@@ -118,7 +118,7 @@
                 </div>
                 <div class="column is-one-third">
                     <button
-                        class="button algo-button is-fullwidth"
+                        class="button algo-button is-fullwidth is-flex-grow-1"
                         [ngClass]="algorithmService.getAlgorithmName() === 'Recursive' ? 'is-danger' : ''"
                         disabled
                         (click)="handleWarning('Recursive')">
@@ -127,7 +127,7 @@
                 </div>
                 <div class="column is-one-third">
                     <button
-                        class="button algo-button is-fullwidth"
+                        class="button algo-button is-fullwidth is-flex-grow-1"
                         [ngClass]="algorithmService.getAlgorithmName() === 'Maze-Routing' ? 'is-danger' : ''"
                         disabled
                         (click)="handleWarning('Maze-Routing')">
