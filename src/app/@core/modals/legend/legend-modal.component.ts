@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AlgorithmService } from '../../services/algorithm.service';
 import { SimulationService } from '../../services/simulation.service';
 
 @Component({
@@ -7,5 +8,8 @@ import { SimulationService } from '../../services/simulation.service';
     styleUrls: ['./legend-modal.component.scss']
 })
 export class LegendModalComponent {
-    constructor(public simulationService: SimulationService) {}
+    constructor(
+        public readonly simulationService: SimulationService,
+        public readonly algorithmService: AlgorithmService
+    ) {}
 }
