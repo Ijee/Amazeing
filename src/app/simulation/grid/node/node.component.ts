@@ -20,7 +20,8 @@ export class NodeComponent {
         return this.simulationService.getShowWeightStatus() &&
             this.status !== 1 &&
             this.status !== 2 &&
-            this.status !== 3
+            this.status !== 3 &&
+            this.weight !== null
             ? this.weight
             : undefined;
     }
