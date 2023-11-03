@@ -42,7 +42,13 @@ export class PathfindingSettingsComponent implements OnInit, OnDestroy {
                 'Best-FS',
                 'Trace',
                 'Jump-PS',
-                'Orthogonal-Jump-PS'
+                'Orthogonal-Jump-PS',
+                'Wall-Follower',
+                'Pledge',
+                'Trémaux',
+                'Recursive',
+                'Dead-End-Filling',
+                'Maze-Routing'
             ]);
             if (pathFindingAlgorithms.has(params.algorithm)) {
                 this.algorithmService.setPathAlgorithm(params.algorithm);

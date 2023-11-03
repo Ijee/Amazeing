@@ -25,6 +25,7 @@ import { GrowingTree } from '../algorithm/maze/creation/growing-tree';
 import { RecursiveDivision } from '../algorithm/maze/creation/recursive-division';
 import { Kruskals } from '../algorithm/maze/creation/kruskals';
 import { Ellers } from '../algorithm/maze/creation/ellers';
+import { WallFollower } from '../algorithm/path-finding/maze-specific/wall-follower';
 
 @Injectable({
     providedIn: 'root'
@@ -83,16 +84,6 @@ export class AlgorithmService {
                 break;
             case 'Cellular-Automation':
                 break;
-            case 'Pledge':
-                break;
-            case 'Trémaux':
-                break;
-            case 'Recursive':
-                break;
-            case 'Dead-End-Filling':
-                break;
-            case 'Maze-Routing':
-                break;
             default:
                 throw new Error('Unknown maze algorithm selected!');
         }
@@ -124,6 +115,19 @@ export class AlgorithmService {
             case 'Jump-PS':
                 break;
             case 'Orthogonal-Jump-PS':
+                break;
+            case 'Wall-Follower':
+                this.currentPathAlgorithm = new WallFollower();
+                break;
+            case 'Pledge':
+                break;
+            case 'Trémaux':
+                break;
+            case 'Recursive':
+                break;
+            case 'Dead-End-Filling':
+                break;
+            case 'Maze-Routing':
                 break;
             default:
                 throw new Error('Unknown path-finding algorithm selected!');
@@ -174,13 +178,9 @@ export class AlgorithmService {
      * Sets the next step for the grid based on the current algorithm.
      */
     public getNextStep(): Node[][] {
-        if (this.algorithmMode === 'maze') {
-            return this.currentMazeAlgorithm.nextStep();
-        } else {
-            // TODO yknow
-            console.error('gotta fix those');
-            return;
-        }
+        return this.algorithmMode === 'maze'
+            ? this.currentMazeAlgorithm.nextStep()
+            : this.currentPathAlgorithm.nextStep();
     }
 
     /**
@@ -309,7 +309,7 @@ export class AlgorithmService {
     }
 
     /**
-     * Returns whether or not the current algorithm uses node weights.
+     * Returns whether the current algorithm uses node weights.
      */
     public usesNodeWeights(): boolean {
         return this.algorithmMode === 'maze'

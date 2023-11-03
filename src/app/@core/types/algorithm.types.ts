@@ -40,13 +40,7 @@ export type MazeAlgorithm =
     | 'Binary-Tree'
     | 'Recursive-Backtracking'
     | 'Recursive-Division'
-    | 'Cellular-Automation'
-    | 'Wall-Follower'
-    | 'Pledge'
-    | 'Trémaux'
-    | 'Recursive'
-    | 'Dead-End-Filling'
-    | 'Maze-Routing';
+    | 'Cellular-Automation';
 export type PathFindingAlgorithm =
     | 'A-Star'
     | 'IDA-Star'
@@ -56,7 +50,13 @@ export type PathFindingAlgorithm =
     | 'Best-FS'
     | 'Trace'
     | 'Jump-PS'
-    | 'Orthogonal-Jump-PS';
+    | 'Orthogonal-Jump-PS'
+    | 'Wall-Follower'
+    | 'Pledge'
+    | 'Trémaux'
+    | 'Recursive'
+    | 'Dead-End-Filling'
+    | 'Maze-Routing';
 
 export type PathFindingHeuristic = 'Manhattan' | 'Euclidean' | 'Octile' | 'Chebyshev';
 export type Session = {

@@ -95,18 +95,6 @@ export class SimulationService {
         return this.algorithmService.getAlgorithmName();
     }
 
-    // TODO does this make sense here?
-    /**
-     * Returns the current algorithm stat names.
-     */
-    public getCurrentStatRecords(): StatRecord[] {
-        if (this.algorithmService.getAlgorithmMode() === 'maze') {
-            return this.algorithmService.getStatRecords();
-        } else {
-            // TODO
-        }
-    }
-
     /**
      * Returns whether or not the current algorithm uses node weights.
      */

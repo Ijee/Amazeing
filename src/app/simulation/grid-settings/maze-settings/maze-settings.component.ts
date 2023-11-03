@@ -18,7 +18,6 @@ import { JsonFormControls, JsonFormData } from '../../../@core/types/jsonform.ty
     styleUrls: ['./maze-settings.component.scss']
 })
 export class MazeSettingsComponent implements OnInit, OnDestroy {
-    public readonly optionsForm = this.formBuilder.group({});
     // protected readonly SimulationService = SimulationService;
 
     private readonly destroyed$: Subject<void>;
@@ -31,8 +30,7 @@ export class MazeSettingsComponent implements OnInit, OnDestroy {
         public recordService: RecordService,
         public simulationService: SimulationService,
         public settingsService: SettingsService,
-        public algorithmService: AlgorithmService,
-        public formBuilder: UntypedFormBuilder
+        public algorithmService: AlgorithmService
     ) {
         this.destroyed$ = new Subject<void>();
     }
@@ -51,13 +49,7 @@ export class MazeSettingsComponent implements OnInit, OnDestroy {
                 'Binary-Tree',
                 'Recursive-Backtracking',
                 'Recursive-Division',
-                'Cellular-Automation',
-                'Wall-Follower',
-                'Pledge',
-                'Trémaux',
-                'Recursive',
-                'Dead-End-Filling',
-                'Maze-Routing'
+                'Cellular-Automation'
             ]);
             if (pathFindingAlgorithms.has(params.algorithm)) {
                 this.algorithmService.setMazeAlgorithm(params.algorithm);
@@ -72,21 +64,6 @@ export class MazeSettingsComponent implements OnInit, OnDestroy {
                     .then(() => {
                         this.changeDetector.detectChanges();
                     });
-            }
-        });
-
-        // Send changes to the current algorithm.
-        this.optionsForm.valueChanges.subscribe(() => {
-            this.setAlgorithmOptions();
-        });
-
-        this.simulationService.getPatchFormValues().subscribe((newValue) => {
-            if (newValue) {
-                for (const [key, value] of Object.entries(newValue)) {
-                    this.optionsForm.controls[key].setValue(value, {
-                        onlySelf: true
-                    });
-                }
             }
         });
     }
@@ -115,32 +92,6 @@ export class MazeSettingsComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * Gets and handles the creation of the form based on JsonFormData.
-     */
-    public handleJsonFormData(): JsonFormData {
-        const jsonFormData = this.algorithmService.getJsonFormData();
-        this.createForm(jsonFormData.controls);
-        return jsonFormData;
-    }
-
-    /**
-     * Creates and sets the algorithm options for the current algorithm.
-     */
-    public setAlgorithmOptions(): void {
-        const options = {};
-        for (const field in this.optionsForm.controls) {
-            // sets the value on the options obj also casts string boolean back to boolean
-            this.optionsForm.controls[field].value === ('true' || 'false')
-                ? (options[field] = JSON.parse(
-                      this.optionsForm.controls[field].value.toLowerCase()
-                  ))
-                : (options[field] = this.optionsForm.controls[field].getRawValue());
-        }
-        // console.log(options);
-        this.algorithmService.setOptions(options);
-    }
-
-    /**
      * Switches the algorithm and appends the query param to the url.
      *
      * @param newAlgorithm - the new algorithm to be set
@@ -155,63 +106,5 @@ export class MazeSettingsComponent implements OnInit, OnDestroy {
             queryParams: { algorithm: newAlgorithm },
             queryParamsHandling: 'merge' // remove to replace all query params by provided
         });
-    }
-
-    private createForm(controls: JsonFormControls[]) {
-        for (const control of controls) {
-            const validatorsToAdd = [];
-            for (const [key, value] of Object.entries(control.validators)) {
-                switch (key) {
-                    case 'min':
-                        validatorsToAdd.push(Validators.min(value));
-                        break;
-                    case 'max':
-                        validatorsToAdd.push(Validators.max(value));
-                        break;
-                    case 'required':
-                        if (value) {
-                            validatorsToAdd.push(Validators.required);
-                        }
-                        break;
-                    case 'requiredTrue':
-                        if (value) {
-                            validatorsToAdd.push(Validators.requiredTrue);
-                        }
-                        break;
-                    case 'email':
-                        if (value) {
-                            validatorsToAdd.push(Validators.email);
-                        }
-                        break;
-                    case 'minLength':
-                        validatorsToAdd.push(Validators.minLength(value));
-                        break;
-                    case 'maxLength':
-                        validatorsToAdd.push(Validators.maxLength(value));
-                        break;
-                    case 'pattern':
-                        validatorsToAdd.push(Validators.pattern(value));
-                        break;
-                    case 'nullValidator':
-                        if (value) {
-                            validatorsToAdd.push(Validators.nullValidator);
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            }
-            this.optionsForm.addControl(
-                control.name,
-                this.formBuilder.control(control.value, validatorsToAdd)
-            );
-            // this.optionsForm.addControl(
-            //     control.name,
-            //     new FormControl(
-            //         { value: [], disabled: this.recordService.getIteration() > 0 },
-            //         (control1) => validatorsToAdd
-            //     )
-            // );
-        }
     }
 }
