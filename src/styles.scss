@@ -99,7 +99,7 @@ body {
     -moz-osx-font-smoothing: grayscale;
     margin: 0;
     padding: 0;
-    height: 100%;
+    height: 100% 100dvh;
     // overflow: auto;
 }
 
@@ -118,11 +118,13 @@ body {
 //}
 
 body.light {
-    background-image: linear-gradient(135deg, #99b6c6 14%, #2b596c 78%);
+    background: linear-gradient(135deg, #99b6c6 14%, #2b596c 78%) no-repeat;
+    background-size: cover;
 }
 
 body.dark {
-    background-image: linear-gradient(135deg, #1f2627 14%, #2b596c 78%);
+    background: linear-gradient(135deg, #1f2627 14%, #2b596c 78%) no-repeat;
+    background-size: cover;
     color: $light;
 }
 
