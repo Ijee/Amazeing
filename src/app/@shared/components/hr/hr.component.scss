@@ -1,4 +1,5 @@
 @use 'bulma/bulma' as bulma;
+@use 'colors';
 
 hr {
     border-bottom: 1px solid #fff;
@@ -37,7 +38,8 @@ hr {
 }
 
 body.dark :host .hr-text {
-    color: bulma.$white;
+    color: colors.$white-dark-87;
+    opacity: 1;
     &:after {
         background-color: bulma.$dark;
     }

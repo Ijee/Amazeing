@@ -1,5 +1,5 @@
 @use 'bulma/bulma' as bulma;
-@use 'colors';
+
 
 .button {
     border-radius: 0;
@@ -30,11 +30,5 @@ pre > code {
 
 
 
-body.dark :host label {
-  color: colors.$white-dark-87;
-}
 
-body.dark :host input[type="radio"] {
-  border: 0.15em solid colors.$white-dark-87;
-}
 

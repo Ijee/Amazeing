@@ -99,7 +99,8 @@ body {
     -moz-osx-font-smoothing: grayscale;
     margin: 0;
     padding: 0;
-    height: 100% 100dvh;
+    min-height: 100dvh;
+
     // overflow: auto;
 }
 
@@ -118,31 +119,33 @@ body {
 //}
 
 body.light {
-    background: linear-gradient(135deg, #99b6c6 14%, #2b596c 78%) no-repeat;
     background-size: cover;
+    background: linear-gradient(135deg, #99b6c6 14%, #2b596c 78%) no-repeat fixed;
 }
 
 body.dark {
-    background: linear-gradient(135deg, #1f2627 14%, #2b596c 78%) no-repeat;
+    background: linear-gradient(135deg, #1f2627 14%, #2b596c 78%) no-repeat fixed;
     background-size: cover;
-    color: $light;
+    color: $white-dark-87;
 }
 
 body .subtitle,
 body .title {
-    color: $dark;
+    color: $white-dark-87;
 }
 
 body.dark .subtitle,
 body.dark .title,
 body.dark .heading,
-body.dark .content {
-    color: $light;
+body.dark .content,
+body.dark .menu-label,
+body.dark .navbar-burger {
+    color: $white-dark-87;
 }
 
 body.dark .button {
     background-color: $grey-darker;
-    color: $white-dark-87;
+    color: $white-dark-78;
 }
 
 body.dark .button:hover {
@@ -178,10 +181,15 @@ button:focus:hover {
 
 body.dark .box {
     background-color: $dark;
+    color: $white-dark-87
 }
 
 ::selection {
     background: $primary;
+}
+
+body.dark ::selection {
+    background: $white-dark-38;
 }
 
 @import 'styles/darcula.css';

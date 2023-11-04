@@ -1,4 +1,5 @@
 @use 'bulma/bulma' as bulma;
+@use 'colors';
 
 .algo-mode-button {
     border-style: solid;
@@ -42,6 +43,14 @@ body.dark .container {
     align-items: center;
     margin-top: 0.5rem;
     font-size: 0.85rem;
+}
+
+body.dark :host label {
+    color: colors.$white-dark-87;
+}
+
+body.dark :host input[type="radio"] {
+    border: 0.15em solid colors.$white-dark-87;
 }
 
 input[type="radio"]:disabled {
