@@ -1,27 +1,32 @@
-<div class="columns is-flex is-multiline is-gapless is-centered">
-    <div class="column is-full p-1">
+<div
+    class="columns is-flex is-multiline is-gapless is-centered is-flex-direction-column is-align-items-center is-justify-content-flex-start"
+    style="height: 100%">
+    <div class="column is-full">
         <app-hr text="ALGORITHM MODE"></app-hr>
     </div>
-    <div class="column is-half">
-        <button
-            class="button algo-mode-button border-radius-top-left is-medium is-fullwidth"
-            [ngClass]="this.algorithmService.getAlgorithmMode() === 'maze' ? 'is-primary' : 'has-background-primary-light has-text-black'"
-            (click)="handleWarning('maze')">
-            <b>MAZE</b>
-        </button>
+    <div class="columns column is-multiline is-gapless is-full">
+        <div class="column is-6">
+            <button
+                class="button algo-mode-button border-radius-top-left is-medium is-fullwidth"
+                [ngClass]="this.algorithmService.getAlgorithmMode() === 'maze' ? 'is-primary' : 'has-background-primary-light has-text-black'"
+                (click)="handleWarning('maze')">
+                <b>MAZE</b>
+            </button>
+        </div>
+        <div class="column is-6">
+            <button
+                class="button algo-mode-button border-radius-top-right is-medium is-fullwidth"
+                [ngClass]="algorithmService.getAlgorithmMode() === 'path-finding' ? 'is-danger' : 'has-background-danger-light has-text-black'"
+                (click)="handleWarning('path-finding')">
+                <b>PATHFINDING</b>
+            </button>
+        </div>
     </div>
-    <div class="column is-half">
-        <button
-            class="button algo-mode-button border-radius-top-right is-medium is-fullwidth"
-            [ngClass]="algorithmService.getAlgorithmMode() === 'path-finding' ? 'is-danger' : 'has-background-danger-light has-text-black'"
-            (click)="handleWarning('path-finding')">
-            <b>PATHFINDING</b>
-        </button>
-    </div>
+
     <div *ngIf="showWarning" class="column is-full">
         <div class="is-warning-box has-background-warning p-2">
             <div class="columns is-multiline is-gapless">
-                <div class="column is-full has-text-centered m-1">
+                <div class="column is-full has-text-centered">
                     <b> {{ 'Doing this will partially reset the grid' | uppercase }} </b>
                 </div>
                 <div class="column is-full">
@@ -47,16 +52,15 @@
             </div>
         </div>
     </div>
-    <div class="column is-full m-2 mb-3" [@fadeAnimationSafe]="o.isActivated && o.activatedRoute">
+    <div class="column is-full mt-1" [@fadeAnimationSafe]="o.isActivated && o.activatedRoute">
         <router-outlet #o="outlet"></router-outlet>
     </div>
 
-    <app-hr class="column is-full py-0"></app-hr>
-    <div class="column pt-1 is-full">
-        <p class="menu-label has-text-centered">
+    <div class="column is-full mt-4">
+        <p class="menu-label has-text-centered pb-0">
             <b>Algorithm Options</b>
         </p>
-        <div class="column is-full" *ngIf="handleJsonFormData().controls.length > 0">
+        <div class="column is-full mt-0 pt-0" style="min-height: 0" *ngIf="handleJsonFormData().controls.length > 0">
             <form [formGroup]="optionsForm">
                 <fieldset
                     *ngFor="let control of handleJsonFormData()?.controls"
@@ -72,6 +76,7 @@
                             <label class="radio">
                                 <input
                                     type="radio"
+                                    [class]="algorithmService.getAlgorithmMode() === 'maze' ? 'active-color-primary' : 'active-color-danger'"
                                     appDisableControl
                                     [disableControl]="recordService.getIteration() > 0"
                                     [formControlName]="control.name"
@@ -82,29 +87,21 @@
                         </div>
                     </ng-container>
                     <ng-container *ngIf="control?.type === 'select'">
-                        <div class="field is-horizontal">
-                            <div class="field-label is-normal">
+                        <div class="columns column is-full is-multiline field is-horizontal is-flex-direction-column">
+                            <div class="select-size column is-full field-label has-text-centered is-normal p-0">
                                 <label class="label">{{ control.name }}</label>
                             </div>
-                            <div class="field is-horizontal">
-                                <div class="field-label is-normal">
-                                    <div class="field-body">
-                                        <div class="field">
-                                            <div class="control">
-                                                <div class="select is-primary">
-                                                    <select
-                                                        class="has-text-weight-medium"
-                                                        appDisableControl
-                                                        [disableControl]="recordService.getIteration() > 0"
-                                                        [formControlName]="control.name">
-                                                        <option *ngFor="let value of control?.values" [value]="value">
-                                                            {{value}}
-                                                        </option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <div class="select-size column is-full is-justify-content-center field is-horizontal p-0">
+                                <div
+                                    class="select"
+                                    [class]="algorithmService.getAlgorithmMode() === 'maze' ? 'is-primary' : 'is-danger'">
+                                    <select
+                                        class="has-text-weight-medium"
+                                        appDisableControl
+                                        [disableControl]="recordService.getIteration() > 0"
+                                        [formControlName]="control.name">
+                                        <option *ngFor="let value of control?.values" [value]="value">{{value}}</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -118,7 +115,7 @@
         *ngIf="handleJsonFormData().controls.length === 0">
         No Options Available
     </div>
-    <div class="column is-full mt-2">
+    <div class="column is-flex is-full mt-2 is-flex-grow-1 is-justify-content-end is-flex-direction-column">
         <a class="button is-info border-radius-bottom is-fullwidth" (click)="navigateToLearn()">
             <b>LEARN MORE</b>
         </a>

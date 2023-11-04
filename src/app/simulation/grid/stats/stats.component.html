@@ -15,7 +15,7 @@
                 <p class="heading is-size-6-mobile">{{ stat.name }}</p>
                 <p
                     class="title is-size-6-mobile"
-                    [class]="algorithmService.getAlgorithmMode() === 'maze' ? 'has-text-primary' : 'has-text-danger'"
+                    [class]="algorithmService.getAlgorithmMode() === 'maze' ? 'active-color-primary' : 'active-color-danger'"
                     appCountAnimation
                     [newValue]="stat.currentValue"
                     [disableAnimation]="
