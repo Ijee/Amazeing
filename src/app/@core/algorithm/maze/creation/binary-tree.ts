@@ -19,8 +19,8 @@ export class BinaryTree extends MazeAlgorithmAbstract {
                     {
                         name: 'Bias',
                         label: 'Bias',
-                        value: 'Northwest',
-                        values: ['Northwest', 'Northeast', 'Southwest', 'Southeast'],
+                        value: 'North-West',
+                        values: ['North-West', 'North-East', 'South-West', 'South-East'],
                         type: 'select',
                         validators: {
                             required: true
