@@ -1,9 +1,5 @@
 @use 'bulma/bulma' as bulma;
 
-.select-size {
-    font-size: 0.85rem;
-}
-
 .algo-mode-button {
     border-style: solid;
     border-width: 2px;
@@ -46,7 +42,6 @@ body.dark .container {
     align-items: center;
     margin-top: 0.5rem;
     font-size: 0.85rem;
-    font-weight: bold;
 }
 
 input[type="radio"]:disabled {
@@ -97,6 +92,10 @@ input[type="radio"]:checked::before {
 select {
     font-size: 0.85rem;
     font-weight: bold;
+}
+
+.options-size {
+    font-size: 0.85rem;
 }
 
 
