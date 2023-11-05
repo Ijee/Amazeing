@@ -1,4 +1,5 @@
 @use 'bulma/bulma' as bulma;
+@use 'colors';
 
 @media screen and (max-width: 1023px) {
     .navbar-dropdown .is-active {
@@ -13,11 +14,11 @@ main {
 }
 
 body.dark .is-primary {
-    background-color: bulma.$primary !important;
+    background-color: colors.$primary-green !important;
 }
 
 .body.dark .is-danger {
-    background-color: bulma.$danger !important;
+    background-color: colors.$secondary-red !important;
 }
 
 .dropdown-button {

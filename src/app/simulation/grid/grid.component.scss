@@ -1,5 +1,6 @@
 @use 'bulma/bulma' as bulma;
 //@use "sass:meta";
+@use "colors";
 
 :host {
     display: block;
@@ -65,11 +66,11 @@ body.dark :host .box-shadow-path {
 }
 
 .start-icon {
-    color: bulma.$primary;
+    color: colors.$primary-green;
 }
 
 .goal-icon {
-    color: bulma.$danger;
+    color: colors.$secondary-red;
 }
 
 .control-button-wrapper:before {

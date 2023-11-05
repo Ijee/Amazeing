@@ -2,6 +2,7 @@
 
 @import url('https://fonts.googleapis.com/css?family=Open+Sans|Libre+Baskerville');
 @import 'node_modules/driver.js/dist/driver.css';
+@import "bulma/sass/utilities/initial-variables";
 @import 'styles/bulma-variables';
 @import 'styles/colors';
 @import 'styles/components';
@@ -81,10 +82,20 @@ $family-serif: 'Poppins';
 
 
 :root {
-  $button-active-color: hsl(0, 72%, 45%);
-  $button-focus-box-shadow-color: hsla(0, 0%, 100%, 0);
-  $button-focus-box-shadow-color: hsla(0, 0%, 100%, 0);
+
+
+
+
+
+
+
 }
+$button-active-color: hsl(0, 72%, 45%);
+$button-focus-box-shadow-color: hsla(0, 0%, 100%, 0);
+$button-focus-box-shadow-color: hsla(0, 0%, 100%, 0);
+$primary: $primary-green;
+$danger: $secondary-red;
+$background: $blue;
 
 html,
 body {
@@ -111,8 +122,8 @@ body {
 
 // dark mode
 
-// @import 'bulma';
 @import 'bulma/bulma';
+
 
 //body.dark * {
 //  transition: all 1s ease;
@@ -131,7 +142,24 @@ body.dark {
 
 body .subtitle,
 body .title {
+    color: $dark;
+}
+
+is-primary {
+    background: $primary-green;
+}
+
+is-danger {
+    background: $secondary-red;
+}
+
+.button.is-primary {
+    background-color: $primary-green;
+}
+
+.button.is-danger {
     color: $white-dark-87;
+    background-color: $secondary-red;
 }
 
 body.dark .subtitle,
@@ -179,13 +207,21 @@ button:focus:hover {
     text-align: center;
 }
 
+//.box {
+//    background-color: #eff0f3 !important;
+//}
+
+.box {
+    background-color: $new-bg;
+}
+
 body.dark .box {
     background-color: $dark;
     color: $white-dark-87
 }
 
 ::selection {
-    background: $primary;
+    background: $primary-green;
 }
 
 body.dark ::selection {

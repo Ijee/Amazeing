@@ -75,11 +75,11 @@ input[type="radio"] {
 }
 
 .active-color-primary {
-    --input-color: #{bulma.$primary};
+    --input-color: #{colors.$primary-green};
 }
 
 .active-color-danger {
-    --input-color: #{bulma.$danger};
+    --input-color: #{colors.$secondary-red};
 }
 
 

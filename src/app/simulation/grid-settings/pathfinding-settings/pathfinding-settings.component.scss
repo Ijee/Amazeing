@@ -11,7 +11,7 @@
 
 body.dark :host .is-primary {
     color: bulma.$dark !important;
-    background-color: bulma.$primary !important;
+    background-color: colors.$primary-green !important;
 }
 
 pre > code {
@@ -57,7 +57,7 @@ input[type="radio"]::before {
   border-radius: 50%;
   transform: scale(0);
   transition: 120ms transform ease-in-out;
-  box-shadow: inset 1em 1em bulma.$danger;
+  box-shadow: inset 1em 1em colors.$secondary-red;
 }
 
 input[type="radio"]:checked::before {

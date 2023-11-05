@@ -4,13 +4,32 @@ $white-dark-78: hsl(0, 0%, 78%);
 $white-dark-60: hsl(0, 0%, 60%);
 $white-dark-38: hsl(0, 0%, 38%);
 
+$primary-green: hsl(170, 79%, 33%);
+$secondary-red: hsl(0, 51%, 49%);
+//$light-blue: #048BF6;
+$orange: #FCA63B;
+$grey: #3e3f53;
+$dark-red: #831d24;
+$OtherRed: #f03304;
+$OtherGreen: #129681;
+$light-orange: #ed8600;
+//$blue: #29445A;
 
+// $primary-red: #f03304;
+
+
+// Other Colours
+
+
+// BG
+$new-bg: #eff0f3;
+$new-bg2: #D0D3DB;
 
 // Node colours
-$node-4: #6089ec; // node tracking
-$node-5: #eb9486; // node in
+$node-4: red; // node tracking
+$node-5: $light-orange; // node in
 $node-6: #56b35f; // tbd
-$node-7: #724cf9; // node tracking
-$node-8: #f4dd52; // fastest path
+$node-7: #163065; // node tracking
+$node-8: #FFD700; // fastest path
 $node-9: #a3a3a3; // to track something without it needing to be visible / already touched node
 

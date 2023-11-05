@@ -47,11 +47,11 @@ body.dark :host .node {
 }
 
 .start:hover {
-    background-color: fade-out(bulma.$primary, 0.4) !important;
+    background-color: fade-out(colors.$primary-green, 0.4) !important;
 }
 
 .goal:hover {
-    background-color: fade-out(bulma.$danger, 0.4) !important;
+    background-color: fade-out(colors.$secondary-red, 0.4) !important;
 }
 
 .status-4 {
