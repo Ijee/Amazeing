@@ -16,6 +16,34 @@ export abstract class PathFindingAlgorithmAbstract {
     ) {}
 
     /**
+     * Returns the neighbours for a given GridLocation.
+     *
+     * @param loc - the GridLocation to get the neighbours from
+     * @param distance - the distance from the location where the neighbours should be located
+     * @protected
+     */
+    protected getNeighbours(loc: GridLocation, distance: number): GridLocation[] {
+        const res: GridLocation[] = [];
+        if (loc.y < this.currentGrid[0].length - distance) {
+            const node = this.currentGrid[loc.x][loc.y + distance];
+            res.push(new GridLocation(loc.x, loc.y + distance, node.weight, node.status));
+        }
+        if (loc.x < this.currentGrid.length - distance) {
+            const node = this.currentGrid[loc.x + distance][loc.y];
+            res.push(new GridLocation(loc.x + distance, loc.y, node.weight, node.status));
+        }
+        if (loc.y >= distance) {
+            const node = this.currentGrid[loc.x][loc.y - distance];
+            res.push(new GridLocation(loc.x, loc.y - distance, node.weight, node.status));
+        }
+        if (loc.x >= distance) {
+            const node = this.currentGrid[loc.x - distance][loc.y];
+            res.push(new GridLocation(loc.x - distance, loc.y, node.weight, node.status));
+        }
+        return res;
+    }
+
+    /**
      * Returns the new step / iteration based on the currentGrid.
      * Returns null when no further iteration can be done.
      */

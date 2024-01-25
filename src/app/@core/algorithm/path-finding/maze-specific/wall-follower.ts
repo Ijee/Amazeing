@@ -1,8 +1,16 @@
-import { Node, StatRecord, PathFindingAlgorithm } from 'src/app/@core/types/algorithm.types';
+import {
+    Node,
+    StatRecord,
+    PathFindingAlgorithm,
+    Direction
+} from 'src/app/@core/types/algorithm.types';
 import { GridLocation } from 'src/app/@shared/classes/GridLocation';
 import { PathFindingAlgorithmAbstract } from '../path-finding-algorithm.abstract';
+import { shuffleFisherYates } from '../../../../@shared/utils/fisher-yates';
 
 export class WallFollower extends PathFindingAlgorithmAbstract {
+    private cursor: GridLocation;
+    private direction: Direction;
     constructor() {
         super(
             [],
@@ -28,10 +36,10 @@ export class WallFollower extends PathFindingAlgorithmAbstract {
             {
                 controls: [
                     {
-                        name: 'Choose Side',
-                        label: 'Choose Side',
-                        value: 'Follow Left Side',
-                        values: ['Follow Left Side', 'Follow Right Side'],
+                        name: 'Rule',
+                        label: 'Rule',
+                        value: 'Right-Hand-Rule',
+                        values: ['Right-Hand-Rule', 'Left-Hand-Rule'],
                         type: 'radio',
                         validators: {
                             required: true
@@ -43,17 +51,21 @@ export class WallFollower extends PathFindingAlgorithmAbstract {
         );
     }
     public nextStep(): Node[][] {
+        // check if the goal is in reach
+        let neighbours = this.getNeighbours(this.cursor, 2);
+        for (let i = 0; i < neighbours.length; i++) {
+            let node = neighbours[i];
+            if (node.status === 3) {
+                return null;
+            }
+        }
+
         return this.currentGrid;
     }
     public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
         this.currentGrid = currentGrid;
-        const gridWith = this.currentGrid.length;
-        const gridHeight = this.currentGrid[0].length;
-        for (let i = 0; i < gridWith; i++) {
-            for (let j = 0; j < gridHeight; j++) {
-                this.currentGrid[i][j].weight = 7;
-            }
-        }
+        this.cursor = currentStartPoint;
+        this.direction = 'right';
     }
     public updateAlgorithmState(
         newGrid: Node[][],
@@ -75,6 +87,6 @@ export class WallFollower extends PathFindingAlgorithmAbstract {
         return 'Wall-Follower';
     }
     public usesNodeWeights(): boolean {
-        return true;
+        return false;
     }
 }
