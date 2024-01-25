@@ -90,7 +90,7 @@ export class GridSettingsComponent implements AfterViewInit, OnDestroy {
                 this.recordService.getIteration() === 0 ||
                 !this.settingsService.getWarningsSetting()
             ) {
-                this.switchToOtherMode(algoMode);
+                this.switchAlgoMode();
             } else {
                 this.showWarning = true;
             }
@@ -100,7 +100,7 @@ export class GridSettingsComponent implements AfterViewInit, OnDestroy {
     /**
      * Returns the other algoMode based on the one it is currently set to.
      */
-    public switchToOtherMode(algoMode: AlgorithmMode): void {
+    public switchAlgoMode(): void {
         this.showWarning = false;
         this.simulationService.setSimulationStatus(false);
         this.simulationService.prepareGrid();
