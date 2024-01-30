@@ -45,9 +45,11 @@
                     <span class="file-name has-text-info"> {{ fileName }} </span>
                 </label>
             </div>
-            <p *ngIf="importError" class="help is-danger has-text-weight-semibold">
+            @if (importError) {
+            <p class="help is-danger has-text-weight-semibold">
                 <span>The given input is not valid. Please check again.</span>
             </p>
+            }
         </section>
         <footer class="modal-card-foot">
             <button class="button is-success" [disabled]="importError" (click)="importSession()">

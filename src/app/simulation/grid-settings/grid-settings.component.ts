@@ -31,7 +31,7 @@ export class GridSettingsComponent implements AfterViewInit, OnDestroy {
         private router: Router,
         private ref: ChangeDetectorRef,
         private library: FaIconLibrary,
-        private recordService: RecordService,
+        public recordService: RecordService,
         public algorithmService: AlgorithmService,
         public simulationService: SimulationService,
         public settingsService: SettingsService,

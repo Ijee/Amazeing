@@ -66,16 +66,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <ng-container *ngFor="let stat of algorithmService.getStatRecords()">
-                                    <tr *ngIf="stat.type !== 'status-none'">
-                                        <td>
-                                            <span class="icon" [ngClass]="stat.type">
-                                                <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
-                                            </span>
-                                        </td>
-                                        <td>{{ stat.name }}</td>
-                                    </tr>
-                                </ng-container>
+                                @for (stat of algorithmService.getStatRecords(); track stat) { @if (stat.type !==
+                                'status-none') {
+                                <tr>
+                                    <td>
+                                        <span class="icon" [ngClass]="stat.type">
+                                            <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
+                                        </span>
+                                    </td>
+                                    <td>{{ stat.name }}</td>
+                                </tr>
+                                } }
                             </tbody>
                         </table>
                     </div>

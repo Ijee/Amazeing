@@ -23,7 +23,8 @@
         </div>
     </div>
 
-    <div *ngIf="showWarning" class="column is-full">
+    @if (showWarning) {
+    <div class="column is-full">
         <div class="is-warning-box has-background-warning p-2">
             <div class="columns is-multiline is-gapless">
                 <div class="column is-full has-text-centered">
@@ -52,6 +53,7 @@
             </div>
         </div>
     </div>
+    }
     <div class="column is-full mt-1" [@fadeAnimationSafe]="o.isActivated && o.activatedRoute">
         <router-outlet #o="outlet"></router-outlet>
     </div>
@@ -60,59 +62,61 @@
         <p class="menu-label has-text-centered pb-0">
             <b>Algorithm Options</b>
         </p>
-        <div class="column is-full mt-0 pt-0" style="min-height: 0" *ngIf="handleJsonFormData().controls.length > 0">
+        @if (handleJsonFormData().controls.length > 0) {
+        <div class="column is-full mt-0 pt-0" style="min-height: 0">
             <form [formGroup]="optionsForm">
-                <fieldset
-                    *ngFor="let control of handleJsonFormData()?.controls"
-                    class="columns is-multiline is-gapless mb-0">
-                    <div *ngIf="control?.type === 'checkbox'" class="column is-12 control">
+                @for (control of handleJsonFormData()?.controls; track control) {
+                <fieldset class="columns is-multiline is-gapless mb-0">
+                    @if (control?.type === 'checkbox') {
+                    <div class="column is-12 control">
                         <label class="checkbox">
                             <input type="checkbox" [formControlName]="control.name" [value]="control.value" />
                             {{ control.name }}
                         </label>
                     </div>
-                    <ng-container *ngIf="control?.type === 'radio'">
-                        <div *ngFor="let value of control?.values" class="column is-12 control is-size-8">
-                            <label class="radio">
-                                <input
-                                    type="radio"
-                                    [class]="algorithmService.getAlgorithmMode() === 'maze' ? 'active-color-primary' : 'active-color-danger'"
+                    } @if (control?.type === 'radio') { @for (value of control?.values; track value) {
+                    <div class="column is-12 control is-size-8">
+                        <label class="radio">
+                            <input
+                                type="radio"
+                                [class]="algorithmService.getAlgorithmMode() === 'maze' ? 'active-color-primary' : 'active-color-danger'"
+                                appDisableControl
+                                [disableControl]="recordService.getIteration() > 0"
+                                [formControlName]="control.name"
+                                [value]="value"
+                                [checked]="value" />
+                            {{ value }}
+                        </label>
+                    </div>
+                    } } @if (control?.type === 'select') {
+                    <div class="columns column is-full is-multiline field is-horizontal is-flex-direction-column">
+                        <div class="options-size column is-full field-label has-text-centered is-normal p-0">
+                            <label class="label">{{ control.name }}</label>
+                        </div>
+                        <div class="options-size column is-full is-justify-content-center field is-horizontal p-0">
+                            <div class="select is-black">
+                                <select
+                                    class="has-text-weight-medium"
                                     appDisableControl
                                     [disableControl]="recordService.getIteration() > 0"
-                                    [formControlName]="control.name"
-                                    [value]="value"
-                                    [checked]="value" />
-                                {{ value }}
-                            </label>
-                        </div>
-                    </ng-container>
-                    <ng-container *ngIf="control?.type === 'select'">
-                        <div class="columns column is-full is-multiline field is-horizontal is-flex-direction-column">
-                            <div class="options-size column is-full field-label has-text-centered is-normal p-0">
-                                <label class="label">{{ control.name }}</label>
-                            </div>
-                            <div class="options-size column is-full is-justify-content-center field is-horizontal p-0">
-                                <div class="select is-black">
-                                    <select
-                                        class="has-text-weight-medium"
-                                        appDisableControl
-                                        [disableControl]="recordService.getIteration() > 0"
-                                        [formControlName]="control.name">
-                                        <option *ngFor="let value of control?.values" [value]="value">{{value}}</option>
-                                    </select>
-                                </div>
+                                    [formControlName]="control.name">
+                                    @for (value of control?.values; track value) {
+                                    <option [value]="value">{{value}}</option>
+                                    }
+                                </select>
                             </div>
                         </div>
-                    </ng-container>
+                    </div>
+                    }
                 </fieldset>
+                }
             </form>
         </div>
+        }
     </div>
-    <div
-        class="column is-full mt-0 has-text-centered is-italic is-size-7"
-        *ngIf="handleJsonFormData().controls.length === 0">
-        No Options Available
-    </div>
+    @if (handleJsonFormData().controls.length === 0) {
+    <div class="column is-full mt-0 has-text-centered is-italic is-size-7">No Options Available</div>
+    }
     <div class="column is-flex is-full mt-2 is-flex-grow-1 is-justify-content-end is-flex-direction-column">
         <a class="button is-info border-radius-bottom is-fullwidth" (click)="navigateToLearn()">
             <b>LEARN MORE</b>

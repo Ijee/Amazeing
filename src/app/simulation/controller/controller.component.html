@@ -27,11 +27,11 @@
             title="clear grid"
             [disabled]="simulationService.getSimulationStatus()"
             (click)="simulationService.reset()">
-            <fa-icon
-                *ngIf="recordService.getIteration() > 0"
-                class="fa-flip-horizontal"
-                [icon]="['fas', 'redo']"></fa-icon>
-            <fa-icon *ngIf="recordService.getIteration() === 0" [icon]="['fas', 'trash']"></fa-icon>
+            @if (recordService.getIteration() > 0) {
+            <fa-icon class="fa-flip-horizontal" [icon]="['fas', 'redo']"></fa-icon>
+            } @if (recordService.getIteration() === 0) {
+            <fa-icon [icon]="['fas', 'trash']"></fa-icon>
+            }
         </button>
     </p>
     <p class="control">
@@ -41,8 +41,11 @@
             class="button is-size-7-mobile is-size-7-touch is-size-6-desktop"
             title="play"
             (click)="simulationService.setSimulationStatus()">
-            <fa-icon *ngIf="simulationService.getSimulationStatus()" [icon]="['fas', 'stop']"></fa-icon>
-            <fa-icon *ngIf="!simulationService.getSimulationStatus()" [icon]="['fas', 'play']"></fa-icon>
+            @if (simulationService.getSimulationStatus()) {
+            <fa-icon [icon]="['fas', 'stop']"></fa-icon>
+            } @if (!simulationService.getSimulationStatus()) {
+            <fa-icon [icon]="['fas', 'play']"></fa-icon>
+            }
         </button>
     </p>
     <p class="control">

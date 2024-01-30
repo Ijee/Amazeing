@@ -9,15 +9,18 @@
         (mousedown)="isMouseDown = true"
         (mouseup)="onMouseUp()"
         (mouseleave)="onMouseUp()">
-        <div *ngFor="let col of gridList; let i = index" class="game-column">
+        @for (col of gridList; track col; let i = $index) {
+        <div class="game-column">
+            @for (node of col; track node; let j = $index) {
             <app-node
-                *ngFor="let node of col; let j = index"
                 [status]="node.status"
                 [weight]="node.weight"
                 [isMouseDown]="isMouseDown"
                 (wasUpdated)="drawModeLogic(i, j)">
             </app-node>
+            }
         </div>
+        }
     </div>
 </section>
 <section class="tourGridControl">
@@ -35,7 +38,9 @@
                         <span class="icon start-icon">
                             <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
                         </span>
-                        <b *ngIf="!isMobile">Set Start</b>
+                        @if (!isMobile) {
+                        <b>Set Start</b>
+                        }
                     </button>
                 </p>
                 <p class="control">
@@ -47,7 +52,9 @@
                         <span class="icon">
                             <fa-icon [icon]="['fas', 'balance-scale-right']"></fa-icon>
                         </span>
-                        <b *ngIf="!isMobile">Add Weights</b>
+                        @if (!isMobile) {
+                        <b>Add Weights</b>
+                        }
                     </button>
                 </p>
                 <p class="control">
@@ -57,10 +64,11 @@
                         title="Toggle weights"
                         (click)="simulationService.toggleWeightStatus()">
                         <span class="icon">
-                            <fa-icon *ngIf="simulationService.getShowWeightStatus()" [icon]="['fas', 'eye']"></fa-icon>
-                            <fa-icon
-                                *ngIf="!simulationService.getShowWeightStatus()"
-                                [icon]="['fas', 'eye-slash']"></fa-icon>
+                            @if (simulationService.getShowWeightStatus()) {
+                            <fa-icon [icon]="['fas', 'eye']"></fa-icon>
+                            } @if (!simulationService.getShowWeightStatus()) {
+                            <fa-icon [icon]="['fas', 'eye-slash']"></fa-icon>
+                            }
                         </span>
                     </button>
                 </p>
@@ -74,7 +82,9 @@
                         <span class="icon fa-sm goal-icon">
                             <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
                         </span>
-                        <b *ngIf="!isMobile">Set Goal</b>
+                        @if (!isMobile) {
+                        <b>Set Goal</b>
+                        }
                     </button>
                 </p>
                 <p class="control control-pulled-right">
@@ -85,7 +95,9 @@
                         <span class="icon has-text-info">
                             <fa-icon [icon]="['fas', 'info-circle']"></fa-icon>
                         </span>
-                        <b *ngIf="!isMobile">Legend</b>
+                        @if (!isMobile) {
+                        <b>Legend</b>
+                        }
                     </button>
                 </p>
             </div>

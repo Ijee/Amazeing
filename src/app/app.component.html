@@ -154,7 +154,8 @@
                         </div>
                     </div>
                 </div>
-                <span *ngIf="!settingsService.getUserTourTaken()" class="navbar-item p-0">
+                @if (!settingsService.getUserTourTaken()) {
+                <span class="navbar-item p-0">
                     <a
                         role="button"
                         [class.fa-bounce]="isBouncing"
@@ -165,7 +166,8 @@
                         </span>
                     </a>
                 </span>
-                <span *ngIf="!isTouch" class="navbar-item pl-0">
+                } @if (!isTouch) {
+                <span class="navbar-item pl-0">
                     <a
                         class="button is-info force-blue-bg"
                         href="https://github.com/Ijee/Amazeing"
@@ -179,6 +181,7 @@
                         </span>
                     </a>
                 </span>
+                }
             </div>
         </div>
     </div>
@@ -189,20 +192,12 @@
     [@fadeRouteAnimation]="prepareRoute(o)">
     <router-outlet #o="outlet"></router-outlet>
 </main>
-<app-warning-modal
-    *ngIf="warnDialogService.getDialogStatus()"
-    [@.disabled]="!settingsService.getAnimationsSetting()"
-    @fadeInOut></app-warning-modal>
-<app-legend-modal
-    *ngIf="simulationService.getShowLegendModal()"
-    [@.disabled]="!settingsService.getAnimationsSetting()"
-    @fadeInOut>
-</app-legend-modal>
-<app-import-modal
-    *ngIf="simulationService.getShowImportModal()"
-    [@.disabled]="!settingsService.getAnimationsSetting()"
-    @fadeInOut></app-import-modal>
-<app-export-modal
-    *ngIf="simulationService.getShowExportModal()"
-    [@.disabled]="!settingsService.getAnimationsSetting()"
-    @fadeInOut></app-export-modal>
+@if (warnDialogService.getDialogStatus()) {
+<app-warning-modal [@.disabled]="!settingsService.getAnimationsSetting()" @fadeInOut></app-warning-modal>
+} @if (simulationService.getShowLegendModal()) {
+<app-legend-modal [@.disabled]="!settingsService.getAnimationsSetting()" @fadeInOut> </app-legend-modal>
+} @if (simulationService.getShowImportModal()) {
+<app-import-modal [@.disabled]="!settingsService.getAnimationsSetting()" @fadeInOut></app-import-modal>
+} @if (simulationService.getShowExportModal()) {
+<app-export-modal [@.disabled]="!settingsService.getAnimationsSetting()" @fadeInOut></app-export-modal>
+}
