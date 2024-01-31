@@ -8,7 +8,7 @@ describe('LearnPrimsComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [LearnPrimsComponent]
+            imports: [LearnPrimsComponent]
         }).compileComponents();
     });
 

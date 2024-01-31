@@ -8,7 +8,7 @@ describe('LegendComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [LegendModalComponent]
+            imports: [LegendModalComponent]
         }).compileComponents();
     });
 

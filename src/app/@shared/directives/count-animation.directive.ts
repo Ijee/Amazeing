@@ -1,7 +1,8 @@
 import { Directive, ElementRef, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Directive({
-    selector: '[appCountAnimation]'
+    selector: '[appCountAnimation]',
+    standalone: true
 })
 export class CountAnimationDirective implements OnChanges {
     @Input() newValue: number;

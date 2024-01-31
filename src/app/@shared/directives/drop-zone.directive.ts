@@ -8,7 +8,8 @@ import { Directive, Output, Input, EventEmitter, HostBinding, HostListener } fro
  */
 
 @Directive({
-    selector: '[appDropZone]'
+    selector: '[appDropZone]',
+    standalone: true
 })
 export class DropZoneDirective {
     @Output() fileDropped = new EventEmitter<any>();

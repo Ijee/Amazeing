@@ -9,11 +9,14 @@ import { SimulationService } from '../../../@core/services/simulation.service';
 import { AlgorithmService } from '../../../@core/services/algorithm.service';
 import { RecordService } from '../../../@core/services/record.service';
 import { PathFindingAlgorithm } from '../../../@core/types/algorithm.types';
+import { NgClass } from '@angular/common';
 
 @Component({
     selector: 'app-pathfinding-settings',
     templateUrl: './pathfinding-settings.component.html',
-    styleUrls: ['./pathfinding-settings.component.scss']
+    styleUrls: ['./pathfinding-settings.component.scss'],
+    standalone: true,
+    imports: [NgClass]
 })
 export class PathfindingSettingsComponent implements OnInit, OnDestroy {
     private readonly destroyed$: Subject<void>;

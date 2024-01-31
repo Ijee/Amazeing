@@ -2,17 +2,23 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SimulationService } from '../../services/simulation.service';
 import { take, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { FaIconLibrary, FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 
 import { Session } from '../../types/algorithm.types';
+import { DropZoneDirective } from '../../../@shared/directives/drop-zone.directive';
+import { HrComponent } from '../../../@shared/components/hr/hr.component';
+import { NgClass } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-import-modal',
     templateUrl: './import-modal.component.html',
-    styleUrls: ['./import-modal.component.scss']
+    styleUrls: ['./import-modal.component.scss'],
+    standalone: true,
+    imports: [FaIconComponent, FormsModule, NgClass, HrComponent, DropZoneDirective]
 })
 export class ImportModalComponent implements OnDestroy {
     public usedFileUpload: boolean;
@@ -22,7 +28,10 @@ export class ImportModalComponent implements OnDestroy {
 
     private readonly destroyed$: Subject<void>;
 
-    constructor(public simulationService: SimulationService, library: FaIconLibrary) {
+    constructor(
+        public simulationService: SimulationService,
+        library: FaIconLibrary
+    ) {
         library.addIconPacks(fas, fab, far);
         this.fileName = 'No file selected...';
         this.importError = false;

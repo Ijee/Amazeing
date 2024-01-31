@@ -11,11 +11,14 @@ import { RecordService } from '../../../@core/services/record.service';
 import { forEach } from 'lodash';
 import { MazeAlgorithm } from '../../../@core/types/algorithm.types';
 import { JsonFormControls, JsonFormData } from '../../../@core/types/jsonform.types';
+import { NgClass } from '@angular/common';
 
 @Component({
     selector: 'app-maze-settings',
     templateUrl: './maze-settings.component.html',
-    styleUrls: ['./maze-settings.component.scss']
+    styleUrls: ['./maze-settings.component.scss'],
+    standalone: true,
+    imports: [NgClass]
 })
 export class MazeSettingsComponent implements OnInit, OnDestroy {
     // protected readonly SimulationService = SimulationService;

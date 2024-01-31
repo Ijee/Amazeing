@@ -1,21 +1,27 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { SimulationService } from '../../services/simulation.service';
-import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { FaIconLibrary, FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import { saveAs } from 'file-saver';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-export-modal',
     templateUrl: './export-modal.component.html',
-    styleUrls: ['./export-modal.component.scss']
+    styleUrls: ['./export-modal.component.scss'],
+    standalone: true,
+    imports: [FaIconComponent, FormsModule]
 })
 export class ExportModalComponent implements OnDestroy {
     private readonly destroyed$: Subject<void>;
 
-    constructor(public simulationService: SimulationService, library: FaIconLibrary) {
+    constructor(
+        public simulationService: SimulationService,
+        library: FaIconLibrary
+    ) {
         library.addIconPacks(fas, fab, far);
 
         this.destroyed$ = new Subject<void>();

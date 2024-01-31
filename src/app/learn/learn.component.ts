@@ -1,13 +1,17 @@
 import { Component } from '@angular/core';
-import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { FaIconLibrary, FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
+import { LearnPrimsComponent } from './learn-prims/learn-prims.component';
+import { HrComponent } from '../@shared/components/hr/hr.component';
 
 @Component({
     selector: 'app-learn',
     templateUrl: './learn.component.html',
-    styleUrls: ['./learn.component.scss']
+    styleUrls: ['./learn.component.scss'],
+    standalone: true,
+    imports: [FaIconComponent, HrComponent, LearnPrimsComponent]
 })
 export class LearnComponent {
     constructor(private library: FaIconLibrary) {

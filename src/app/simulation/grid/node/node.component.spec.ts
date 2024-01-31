@@ -8,7 +8,7 @@ describe('CellComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [NodeComponent]
+            imports: [NodeComponent]
         }).compileComponents();
     });
 

@@ -1,10 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SimulationService } from '../../../@core/services/simulation.service';
+import { NgClass } from '@angular/common';
 
 @Component({
     selector: 'app-node',
     templateUrl: './node.component.html',
-    styleUrls: ['./node.component.scss']
+    styleUrls: ['./node.component.scss'],
+    standalone: true,
+    imports: [NgClass]
 })
 export class NodeComponent {
     @Input() status: number;

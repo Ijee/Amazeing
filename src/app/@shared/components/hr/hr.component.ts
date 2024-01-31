@@ -3,7 +3,8 @@ import { Component, OnInit, Input } from '@angular/core';
 @Component({
     selector: 'app-hr',
     templateUrl: './hr.component.html',
-    styleUrls: ['./hr.component.scss']
+    styleUrls: ['./hr.component.scss'],
+    standalone: true
 })
 export class HrComponent {
     @Input() text: string;

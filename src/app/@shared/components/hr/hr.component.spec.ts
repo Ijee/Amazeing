@@ -8,7 +8,7 @@ describe('HrComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [HrComponent]
+            imports: [HrComponent]
         }).compileComponents();
     });
 

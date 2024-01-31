@@ -8,7 +8,7 @@ describe('MazeSettingsComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [MazeSettingsComponent]
+            imports: [MazeSettingsComponent]
         }).compileComponents();
     });
 

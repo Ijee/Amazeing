@@ -1,13 +1,19 @@
 import { Component, HostListener, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import packageInfo from '../../package.json';
-import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import { SimulationService } from './@core/services/simulation.service';
 import { Subject } from 'rxjs';
 import { SettingsService } from './@core/services/settings.service';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import {
+    ActivatedRoute,
+    Router,
+    RouterLink,
+    RouterLinkActive,
+    RouterOutlet
+} from '@angular/router';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { takeUntil } from 'rxjs/operators';
 import { fadeInOut } from './@shared/animations/fadeInOut';
@@ -15,11 +21,28 @@ import { fadeRouteAnimation } from './@shared/animations/fadeRouteAnimation';
 import { WarningDialogService } from './@shared/components/warning-modal/warning-dialog.service';
 import { AlgorithmService } from './@core/services/algorithm.service';
 import { UserTourService } from './@core/services/user-tour.service';
+import { WarningModalComponent } from './@shared/components/warning-modal/warning-modal.component';
+import { LegendModalComponent } from './@core/modals/legend/legend-modal.component';
+import { ImportModalComponent } from './@core/modals/import-modal/import-modal.component';
+import { ExportModalComponent } from './@core/modals/export-modal/export-modal.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
+    standalone: true,
+    imports: [
+        CommonModule,
+        RouterOutlet,
+        RouterLink,
+        RouterLinkActive,
+        FontAwesomeModule,
+        WarningModalComponent,
+        LegendModalComponent,
+        ImportModalComponent,
+        ExportModalComponent
+    ],
     animations: [fadeInOut, fadeRouteAnimation]
 })
 export class AppComponent implements OnInit, OnDestroy {

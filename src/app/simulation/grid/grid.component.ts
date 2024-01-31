@@ -9,11 +9,18 @@ import { RecordService } from '../../@core/services/record.service';
 import { GridLocation } from '../../@shared/classes/GridLocation';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Node } from '../../@core/types/algorithm.types';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { HrComponent } from '../../@shared/components/hr/hr.component';
+import { NodeComponent } from './node/node.component';
+import { NgClass } from '@angular/common';
+import { StatsComponent } from './stats/stats.component';
 
 @Component({
     selector: 'app-grid',
     templateUrl: './grid.component.html',
-    styleUrls: ['./grid.component.scss']
+    styleUrls: ['./grid.component.scss'],
+    standalone: true,
+    imports: [StatsComponent, NgClass, NodeComponent, HrComponent, FaIconComponent]
 })
 export class GridComponent implements OnInit, OnDestroy {
     private readonly width: number;

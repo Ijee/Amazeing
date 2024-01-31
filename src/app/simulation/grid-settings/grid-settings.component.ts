@@ -1,5 +1,5 @@
 import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
-import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { FaIconLibrary, FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
@@ -11,14 +11,28 @@ import { Subject } from 'rxjs';
 import { fadeAnimationSafe } from '../../@shared/animations/fadeRouteAnimation';
 import { RecordService } from '../../@core/services/record.service';
 import { AlgorithmMode } from '../../@core/types/algorithm.types';
-import { UntypedFormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JsonFormControls, JsonFormData } from '../../@core/types/jsonform.types';
+import { DisableControlDirective } from '../../@shared/directives/disable-control.directive';
+import { NgClass, UpperCasePipe } from '@angular/common';
+import { HrComponent } from '../../@shared/components/hr/hr.component';
 
 @Component({
     selector: 'app-grid-settings',
     templateUrl: './grid-settings.component.html',
     styleUrls: ['./grid-settings.component.scss'],
-    animations: [fadeAnimationSafe]
+    animations: [fadeAnimationSafe],
+    standalone: true,
+    imports: [
+        HrComponent,
+        NgClass,
+        FaIconComponent,
+        RouterOutlet,
+        FormsModule,
+        ReactiveFormsModule,
+        DisableControlDirective,
+        UpperCasePipe
+    ]
 })
 export class GridSettingsComponent implements AfterViewInit, OnDestroy {
     public showWarning: boolean;

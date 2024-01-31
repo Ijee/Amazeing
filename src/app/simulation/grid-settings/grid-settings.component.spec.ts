@@ -8,7 +8,7 @@ describe('Placeholder1Component', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [GridSettingsComponent]
+            imports: [GridSettingsComponent]
         }).compileComponents();
     });
 

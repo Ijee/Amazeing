@@ -8,7 +8,7 @@ describe('WarningModalComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [WarningModalComponent]
+            imports: [WarningModalComponent]
         }).compileComponents();
     });
 

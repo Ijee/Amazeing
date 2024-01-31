@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-    name: 'maxNumber'
+    name: 'maxNumber',
+    standalone: true
 })
 export class MaxNumberPipe implements PipeTransform {
     transform(value: number, max = 9): string | number {
