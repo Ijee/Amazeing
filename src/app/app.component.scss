@@ -8,6 +8,37 @@
         display: none;
     }
 }
+
+.logo {
+    display: grid;
+    align-items: center;
+    max-width: 100%;
+    width: 65%;
+    height: auto;
+}
+
+.logo #front {
+    fill: white;
+}
+
+.logo #shade {
+    transition: fill 500ms ease-in-out;
+}
+
+.maze-mode #shade {
+    fill: bulma.$primary;
+}
+
+.path-mode #shade {
+    fill: bulma.$danger;
+}
+
+.logo svg {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+}
+
 main {
     position: relative;
 }
@@ -18,6 +49,11 @@ body.dark .is-primary {
 
 .body.dark .is-danger {
     background-color: bulma.$danger !important;
+}
+
+
+.burger {
+    color: bulma.$white-ter;
 }
 
 .dropdown-button {

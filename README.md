@@ -1,34 +1,40 @@
-# A*maze*ing
+<p align="center">
+<img src="assets/amazeing_thick_logo_web_optimised.svg" alt="stack stats" style="max-width: 100%;">
+</p>
 
 <p align="center">
     <a href="https://github.com/Ijee/Amazeing/blob/main/LICENSE" alt="License">
-        <img src="https://img.shields.io/github/license/Ijee/amazeing?style=for-the-badge" /></a>
+        <img alt="MIT license" src="https://img.shields.io/github/license/Ijee/amazeing?style=for-the-badge" /></a>
     <a href="https://github.com/Ijee/Amazeing/blob/main/package.json" alt="Version">
-        <img src="https://img.shields.io/github/package-json/v/ijee/amazeing?style=for-the-badge" /></a>
-    <a href="https://github.com/Ijee/Amazeing/blob/main/package.json" alt="Dependencies">
-        <img src="https://img.shields.io/david/ijee/amazeing?style=for-the-badge" /></a>
+        <img alt="Project version" src="https://img.shields.io/github/package-json/v/ijee/amazeing?style=for-the-badge" /></a>
+    <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/ijee/amazeing?style=for-the-badge"/>
     <a href="https://amazething.netlify.app/" alt="Website Status">
         <img src="https://img.shields.io/website?down_message=offline&style=for-the-badge&up_message=online&url=https%3A%2F%2Famazething.netlify.app%2F" /></a>
 </p>
 
-> This app tries to show how maze and path finding algorithms work with various features for convenience.
->
-> ## The live version can be found here [here](https://amazething.netlify.app).
+<p align="center">
+Amazeing visualizes different algorithms adapted for creating mazes<br>
+and solving them with various path finding algorithms.
+</p>
+
+
+> [!TIP]
+> ### Check out the app at [amazething.netlify.app](https://amazething.netlify.app).
 
 ## Features
 
--   Implements 27 algorithms used for mazes and how to traverse them.
--   Go back and forth between iterations to see how the algorithm works in detail.
--   Statistics that get tracked based on the currently selected algorithm.
--   Easy to use import / export feature to show other people what's up.
--   Learn more page with general info and additional resources for further reading.
--   PWA available.
+- Implements 27 algorithms used for mazes and how to traverse them.
+- Extensive control over the algorithm execution (iteration history, etc.).
+- Easy to use import / export feature.
+- Statistics that get tracked based on the currently selected algorithm.
+- Learn more page with general info and additional resources for further reading.
+- PWA available
 
 ---
 
 ## Screenshot
 
-![Amazeing Promo](amazeing_promo.png 'Promo')
+![Amazeing Promo](assets/amazeing_promo.png 'Promo')
 
 ---
 
@@ -36,16 +42,23 @@
 
 Contributions are welcome! :heart:
 
-**If you like what you see and just want to show some appreciation you can buy me a coffee [at ko-fi](https://ko-fi.com/ijeee).**
+**If you like what you see and just want to show some appreciation you can do so at [ko-fi](https://ko-fi.com/ijeee).**
 
-Code comments only when necessary but always for functions. There are quite a 
-few TODOs in this project and I haven't come around to creating issues instead. Some of
-them might be a good start for a first pull request. Please shoot me a message first
-to avoid unnecessary work.
+In general there are quite a few TODOs in this project and I haven't come around to creating issues instead.
+Some of them might be a good start for a first pull request and some may just sound really confusing
+because it is either based on old information or just poorly written.
 
-- This project also adheres to the [conventional commits](https://www.conventionalcommits.org/) standard.
+Either way please create an issue first to avoid unnecessary work and to check if the feature/bug in question is
+something that you can work on. While I appreciate any help I can get this project is stil something I created for me
+to keep on learning from. PRs without any kind of discussion beforehand will almost certainly not be accepted. 
+
+There certainly are bugs present in the algorithms itself and fixing those kind 
+of issues will always take priority over new features in general.
+
+
 - Please respect the [Angular style guide](https://angular.io/guide/styleguide) for contributions.
-
+- This project also adheres to [conventional commits](https://www.conventionalcommits.org/).
+- Code comments only when necessary but always for functions.
 
 **Note:** The project is based on my other project which is quite boring
 in comparison to be honest. Have a look [here](https://github.com/Ijee/Game-of-Life-Angular).
@@ -66,6 +79,8 @@ for a production build.
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
+Note: Tests are nonexistent at the moment. Sorry. 
+
 > There are currently no tests. Please don't hurt me.
 
 ### Running end-to-end tests
@@ -78,6 +93,4 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 ## License:
 
-This project is licensed under the MIT License.
-
----
+This project is licensed under the [MIT License](https://github.com/Ijee/Amazeing/blob/logo/LICENSE).
