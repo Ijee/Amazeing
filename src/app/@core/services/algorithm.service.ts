@@ -37,6 +37,7 @@ export class AlgorithmService {
     private currentHeuristic: PathFindingHeuristic;
 
     constructor() {
+        this.setAlgorithmMode('maze');
         this.setMazeAlgorithm('Prims');
         this.setPathAlgorithm('Dijkstra');
         this.setCurrentHeuristic('Manhattan');
