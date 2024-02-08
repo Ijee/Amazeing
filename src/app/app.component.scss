@@ -9,6 +9,10 @@
     }
 }
 
+svg:not(:root) {
+    overflow: visible;
+}
+
 .logo {
     display: grid;
     align-items: center;
