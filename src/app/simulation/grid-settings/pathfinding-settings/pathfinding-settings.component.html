@@ -7,24 +7,27 @@
             <div class="column is-one-third">
                 <button
                     class="button algo-button is-fullwidth"
+                    data-testid="a-star"
                     disabled
                     [ngClass]="algorithmService.getAlgorithmName() === 'A-Star' ? 'is-danger' : ''"
                     (click)="handleWarning('A-Star')">
-                    <b>A*</b>
+                    <b>A-Star</b>
                 </button>
             </div>
             <div class="column is-one-third">
                 <button
                     class="button algo-button is-fullwidth"
+                    data-testid="ida-star"
                     disabled
                     [ngClass]="algorithmService.getAlgorithmName() === 'IDA-Star' ? 'is-danger' : ''"
                     (click)="handleWarning('IDA-Star')">
-                    <b>IDA*</b>
+                    <b>IDA-Star</b>
                 </button>
             </div>
             <div class="column is-one-third">
                 <button
                     class="button algo-button is-fullwidth"
+                    data-testid="dijkstra"
                     [ngClass]="algorithmService.getAlgorithmName() === 'Dijkstra' ? 'is-danger' : ''"
                     (click)="handleWarning('Dijkstra')">
                     <b>Dijkstra</b>
@@ -33,6 +36,7 @@
             <div class="column is-one-third">
                 <button
                     class="button algo-button is-fullwidth"
+                    data-testid="breadth-first-search"
                     [ngClass]="algorithmService.getAlgorithmName() === 'Breadth-FS' ? 'is-danger' : ''"
                     disabled
                     (click)="handleWarning('Breadth-FS')">
@@ -42,6 +46,7 @@
             <div class="column is-one-third">
                 <button
                     class="button algo-button is-fullwidth"
+                    data-testid="depth-first-search"
                     [ngClass]="algorithmService.getAlgorithmName() === 'Depth-FS' ? 'is-danger' : ''"
                     disabled
                     (click)="handleWarning('Depth-FS')">
@@ -51,6 +56,7 @@
             <div class="column is-one-third">
                 <button
                     class="button algo-button is-fullwidth"
+                    data-testid="best-first-search"
                     [ngClass]="algorithmService.getAlgorithmName() === 'Best-FS' ? 'is-danger' : ''"
                     disabled
                     (click)="handleWarning('Best-FS')">
@@ -60,6 +66,7 @@
             <div class="column is-half">
                 <button
                     class="button algo-button is-fullwidth"
+                    data-testid="trace"
                     [ngClass]="algorithmService.getAlgorithmName() === 'Trace' ? 'is-danger' : ''"
                     disabled
                     (click)="handleWarning('Trace')">
@@ -69,6 +76,7 @@
             <div class="column is-half">
                 <button
                     class="button algo-button is-fullwidth"
+                    data-testid="jump-point-search"
                     [ngClass]="algorithmService.getAlgorithmName() === 'Jump-PS' ? 'is-danger' : ''"
                     disabled
                     (click)="handleWarning('Jump-PS')">
@@ -78,6 +86,7 @@
             <div class="column is-full">
                 <button
                     class="button algo-button is-fullwidth"
+                    data-testid="orthogonal-jump-point-search"
                     [ngClass]="algorithmService.getAlgorithmName() === 'Orthogonal-Jump-PS' ? 'is-danger' : ''"
                     disabled
                     (click)="handleWarning('Orthogonal-Jump-PS')">
@@ -93,6 +102,7 @@
                 <div class="column is-one-third">
                     <button
                         class="button algo-button is-fullwidth"
+                        data-testid="wall-follower"
                         [ngClass]="algorithmService.getAlgorithmName() === 'Wall-Follower' ? 'is-danger' : ''"
                         (click)="handleWarning('Wall-Follower')">
                         <b>Wall-Follower</b>
@@ -101,6 +111,7 @@
                 <div class="column is-one-third">
                     <button
                         class="button algo-button is-fullwidth"
+                        data-testid="pledge"
                         [ngClass]="algorithmService.getAlgorithmName() === 'Pledge' ? 'is-danger' : ''"
                         disabled
                         (click)="handleWarning('Pledge')">
@@ -110,6 +121,7 @@
                 <div class="column is-one-third">
                     <button
                         class="button algo-button is-fullwidth"
+                        data-testid="tremauxs"
                         [ngClass]="algorithmService.getAlgorithmName() === 'Trémaux' ? 'is-danger' : ''"
                         disabled
                         (click)="handleWarning('Trémaux')">
@@ -119,6 +131,7 @@
                 <div class="column is-one-third">
                     <button
                         class="button algo-button is-fullwidth is-flex-grow-1"
+                        data-testid="recursive"
                         [ngClass]="algorithmService.getAlgorithmName() === 'Recursive' ? 'is-danger' : ''"
                         disabled
                         (click)="handleWarning('Recursive')">
@@ -128,6 +141,7 @@
                 <div class="column is-one-third">
                     <button
                         class="button algo-button is-fullwidth is-flex-grow-1"
+                        data-testid="maze-routing"
                         [ngClass]="algorithmService.getAlgorithmName() === 'Maze-Routing' ? 'is-danger' : ''"
                         disabled
                         (click)="handleWarning('Maze-Routing')">
@@ -137,6 +151,7 @@
                 <div class="column is-one-third">
                     <button
                         class="button algo-button is-fullwidth"
+                        data-testid="dead-end-filling"
                         [ngClass]="algorithmService.getAlgorithmName() === 'Dead-End-Filling' ? 'is-danger' : ''"
                         disabled
                         (click)="handleWarning('Dead-End-Filling')">
@@ -155,24 +170,28 @@
                 <div class="buttons has-addons is-centered">
                     <button
                         class="button is-small"
+                        data-testid="manhattan"
                         [ngClass]="algorithmService.getCurrentHeuristic() === 'Manhattan' ? 'is-danger' : ''"
                         (click)="algorithmService.setCurrentHeuristic('Manhattan')">
                         <b>Manhattan</b>
                     </button>
                     <button
                         class="button is-small"
+                        data-testid="euclidean"
                         [ngClass]="algorithmService.getCurrentHeuristic() === 'Euclidean' ? 'is-danger' : ''"
                         (click)="algorithmService.setCurrentHeuristic('Euclidean')">
                         <b>Euclidean</b>
                     </button>
                     <button
                         class="button is-small"
+                        data-testid="octile"
                         [ngClass]="algorithmService.getCurrentHeuristic() === 'Octile' ? 'is-danger' : ''"
                         (click)="algorithmService.setCurrentHeuristic('Octile')">
                         <b>Octile</b>
                     </button>
                     <button
                         class="button is-small"
+                        data-testid="chebhyshev"
                         [ngClass]="algorithmService.getCurrentHeuristic() === 'Chebyshev' ? 'is-danger' : 't'"
                         (click)="algorithmService.setCurrentHeuristic('Chebyshev')">
                         <b>Chebyshev</b>

@@ -8,6 +8,7 @@
         <div class="column is-6">
             <button
                 class="button algo-mode-button border-radius-top-left is-medium is-fullwidth"
+                data-testid="maze-mode"
                 [ngClass]="this.algorithmService.getAlgorithmMode() === 'maze' ? 'is-primary' : 'has-background-primary-light has-text-black'"
                 (click)="handleWarning('maze')">
                 <b>MAZE</b>
@@ -16,6 +17,7 @@
         <div class="column is-6">
             <button
                 class="button algo-mode-button border-radius-top-right is-medium is-fullwidth"
+                data-testid="pathfinding-mode"
                 [ngClass]="algorithmService.getAlgorithmMode() === 'path-finding' ? 'is-danger' : 'has-background-danger-light has-text-black'"
                 (click)="handleWarning('path-finding')">
                 <b>PATHFINDING</b>
@@ -34,6 +36,8 @@
                     <div class="buttons is-centered">
                         <button
                             class="button danger-button is-small is-warning has-text-white"
+                            data-testid="mode-continue"
+                            title="continue"
                             (click)="switchAlgoMode()">
                             <span class="icon">
                                 <fa-icon [icon]="['fas', 'check']"></fa-icon>
@@ -42,6 +46,7 @@
                         </button>
                         <button
                             class="button danger-button is-small is-warning has-text-white"
+                            data-testid="mode-cancel"
                             (click)="showWarning = false">
                             <span class="icon">
                                 <fa-icon [icon]="['fas', 'times']"></fa-icon>
@@ -118,7 +123,10 @@
     <div class="column is-full mt-0 has-text-centered is-italic is-size-7">No Options Available</div>
     }
     <div class="column is-flex is-full mt-2 is-flex-grow-1 is-justify-content-end is-flex-direction-column">
-        <a class="button is-info border-radius-bottom is-fullwidth" (click)="navigateToLearn()">
+        <a
+            class="button is-info border-radius-bottom is-fullwidth"
+            data-testid="learn-more"
+            (click)="navigateToLearn()">
             <b>LEARN MORE</b>
         </a>
     </div>

@@ -31,6 +31,7 @@
                 <p class="control">
                     <button
                         class="button is-outlined mr-3 is-size-7-mobile is-size-7-touch is-size-6-desktop"
+                        data-testid="set-start"
                         title="Set start"
                         [ngClass]="simulationService.getDrawingMode() === 2 ? 'is-warning is-light' : ''"
                         [disabled]="recordService.getIteration() > 0"
@@ -46,7 +47,8 @@
                 <p class="control">
                     <button
                         class="button is-outlined is-size-7-mobile is-size-7-touch is-size-6-desktop"
-                        title="Random weights"
+                        data-testid="add-weights"
+                        title="add weights"
                         [disabled]="!algorithmService.usesNodeWeights() || this.recordService.getIteration() > 0"
                         (click)="addNodeWeights()">
                         <span class="icon">
@@ -60,6 +62,7 @@
                 <p class="control">
                     <button
                         class="button is-pulled-right is-outlined is-size-7-mobile is-size-7-touch is-size-6-desktop"
+                        data-testid="toggle-weights"
                         [ngClass]="simulationService.getShowWeightStatus() ? 'is-primary is-light' : 'is-danger is-light'"
                         title="Toggle weights"
                         (click)="simulationService.toggleWeightStatus()">
@@ -75,6 +78,7 @@
                 <p class="control">
                     <button
                         class="button border-radius-right is-outlined ml-3 mr-3 is-size-7-mobile is-size-7-touch is-size-6-desktop"
+                        data-testid="set-goal"
                         title="Set goal"
                         [ngClass]="simulationService.getDrawingMode() === 3 ? 'is-warning is-light' : ''"
                         [disabled]="recordService.getIteration() > 0"
@@ -90,6 +94,7 @@
                 <p class="control control-pulled-right">
                     <button
                         class="button is-outlined is-expanded is-size-7-touch is-size-6-desktop"
+                        data-testid="legend"
                         title="Legend"
                         (click)="simulationService.toggleShowLegendModal()">
                         <span class="icon has-text-info">

@@ -5,6 +5,8 @@
 /tmp
 /out-tsc
 /build
+/playwright-report
+
 # Only exists if Bazel was run
 /bazel-out
 
@@ -48,3 +50,7 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

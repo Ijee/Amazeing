@@ -3,6 +3,7 @@
     <p class="control">
         <button
             class="button is-outlined is-size-7-touch is-size-6-desktop"
+            data-testid="slowdown"
             title="slow down"
             (click)="simulationService.setSpeedDown()">
             <fa-icon [icon]="['fas', 'backward']"></fa-icon>
@@ -12,7 +13,8 @@
         <button
             [disabled]="simulationService.getBackwardStepsAmount() < 1"
             class="button is-outlined is-size-7-touch is-size-6-desktop"
-            title="last step"
+            data-testid="step-backward"
+            title="step backward"
             [ngClass]="{
                 buttonBackwards: simulationService.getBackwardStepsAmount() < 1
             }"
@@ -24,6 +26,7 @@
     <p class="control">
         <button
             class="button is-outlined is-size-7-touch is-size-6-desktop"
+            data-testid="clear-grid"
             title="clear grid"
             [disabled]="simulationService.getSimulationStatus()"
             (click)="simulationService.reset()">
@@ -39,6 +42,7 @@
             [disabled]="simulationService.getIsPlayDisabled()"
             [ngClass]="simulationService.getSimulationStatus() ? 'is-primary is-light' : 'is-danger is-light'"
             class="button is-size-7-mobile is-size-7-touch is-size-6-desktop"
+            data-testid="stop-play"
             title="play"
             (click)="simulationService.setSimulationStatus()">
             @if (simulationService.getSimulationStatus()) {
@@ -52,6 +56,7 @@
         <button
             [disabled]="simulationService.getIsPlayDisabled()"
             class="button is-outlined is-size-7-touch is-size-6-desktop"
+            data-testid="next-step"
             title="next step"
             (click)="simulationService.addIteration()">
             <fa-icon [icon]="['fas', 'step-forward']"></fa-icon>
@@ -61,6 +66,7 @@
         <button
             [disabled]="simulationService.getIsPlayDisabled()"
             class="button is-outlined is-size-7-touch is-size-6-desktop"
+            data-testid="complete-algorithm"
             title="complete algorithm"
             (click)="simulationService.completeAlgorithm()">
             <fa-icon [icon]="['fas', 'fast-forward']"></fa-icon>
@@ -69,6 +75,7 @@
     <p class="control">
         <button
             class="button is-outlined is-size-7-touch is-size-6-desktop"
+            data-testid="speed-up"
             title="speed up"
             (click)="simulationService.setSpeedUp()">
             <fa-icon [icon]="['fas', 'forward']"></fa-icon>
@@ -79,6 +86,7 @@
     <p class="control">
         <button
             class="button is-size-7-touch is-size-6-desktop"
+            data-testid="import"
             title="import"
             (click)="simulationService.toggleShowImportModal(); simulationService.setSimulationStatus(false)">
             <span class="icon">
@@ -88,7 +96,11 @@
         </button>
     </p>
     <p class="control">
-        <button class="button is-size-7-touch is-size-6-desktop" title="export" (click)="handleExportLogic()">
+        <button
+            class="button is-size-7-touch is-size-6-desktop"
+            data-testid="export"
+            title="export"
+            (click)="handleExportLogic()">
             <span class="icon">
                 <fa-icon [icon]="['far', 'save']"></fa-icon>
             </span>

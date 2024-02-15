@@ -1,7 +1,11 @@
 <nav class="navbar is-transparent dark-theme pl-3 pr-3">
     <div class="container is-fullhd pl-2 pr-2">
         <div class="navbar-brand">
-            <a role="button" class="navbar-item pb-1 font-white is-unselectable" (click)="navigateToSimulation()">
+            <a
+                role="button"
+                class="navbar-item pb-1 font-white is-unselectable"
+                data-testid="amazeing-logo"
+                (click)="navigateToSimulation()">
                 <span
                     class="logo"
                     [ngClass]="algorithmService.getAlgorithmMode() === 'maze' ? 'maze-mode' : 'path-mode'">
@@ -151,6 +155,7 @@
                 <a
                     role="button"
                     class="navbar-item is-unselectable"
+                    data-testid="simulation"
                     [ngClass]="{ 'font-white': !isTouch }"
                     routerLink="simulation"
                     (click)="navigateToSimulation()">
@@ -162,6 +167,7 @@
                 <a
                     role="button"
                     class="navbar-item is-unselectable"
+                    data-testid="learn"
                     [ngClass]="{ 'font-white': !isTouch }"
                     routerLink="learn"
                     (click)="simulationService.setSimulationStatus(false)">

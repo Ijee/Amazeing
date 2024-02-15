@@ -7,6 +7,7 @@
             <div class="column is-one-third">
                 <button
                     class="button algo-button is-fullwidth"
+                    data-testid="prims"
                     [ngClass]="algorithmService.getAlgorithmName() === 'Prims' ? 'is-primary' : ''"
                     (click)="handleWarning('Prims')">
                     <b>Prim's</b>
@@ -15,6 +16,7 @@
             <div class="column is-one-third">
                 <button
                     class="button algo-button is-fullwidth"
+                    data-testid="kruskals"
                     [ngClass]="algorithmService.getAlgorithmName() === 'Kruskals' ? 'is-primary' : ''"
                     (click)="handleWarning('Kruskals')">
                     <b>Kruskal's</b>
@@ -23,6 +25,7 @@
             <div class="column is-one-third">
                 <button
                     class="button algo-button is-fullwidth"
+                    data-testid="aldous-broder"
                     [ngClass]="algorithmService.getAlgorithmName() === 'Aldous-Broder' ? 'is-primary' : ''"
                     (click)="handleWarning('Aldous-Broder')">
                     <b>Aldous-Broder</b>
@@ -31,6 +34,7 @@
             <div class="column is-one-third">
                 <button
                     class="button algo-button is-fullwidth"
+                    data-testid="wilsons"
                     [ngClass]="algorithmService.getAlgorithmName() === 'Wilsons' ? 'is-primary' : ''"
                     (click)="handleWarning('Wilsons')">
                     <b>Wilson's</b>
@@ -39,6 +43,7 @@
             <div class="column is-one-third">
                 <button
                     class="button algo-button is-fullwidth"
+                    data-testid="ellers"
                     [ngClass]="algorithmService.getAlgorithmName() === 'Ellers' ? 'is-primary' : ''"
                     (click)="handleWarning('Ellers')">
                     <b>Eller's</b>
@@ -47,6 +52,7 @@
             <div class="column is-one-third">
                 <button
                     class="button algo-button is-fullwidth"
+                    data-testid="sidewinder"
                     [ngClass]="algorithmService.getAlgorithmName() === 'Sidewinder' ? 'is-primary' : ''"
                     (click)="handleWarning('Sidewinder')">
                     <b>Sidewinder</b>
@@ -55,6 +61,7 @@
             <div class="column is-one-third">
                 <button
                     class="button algo-button is-fullwidth"
+                    data-testid="huntandkill"
                     [ngClass]="algorithmService.getAlgorithmName() === 'Hunt-and-Kill' ? 'is-primary' : ''"
                     (click)="handleWarning('Hunt-and-Kill')">
                     <b>Hunt and Kill</b>
@@ -63,6 +70,7 @@
             <div class="column is-one-third">
                 <button
                     class="button algo-button is-fullwidth"
+                    data-testid="growing-tree"
                     [ngClass]="algorithmService.getAlgorithmName() === 'Growing-Tree' ? 'is-primary' : ''"
                     (click)="handleWarning('Growing-Tree')">
                     <b>Growing Tree</b>
@@ -71,6 +79,7 @@
             <div class="column is-one-third">
                 <button
                     class="button algo-button is-fullwidth"
+                    data-testid="binary-tree"
                     [ngClass]="algorithmService.getAlgorithmName() === 'Binary-Tree' ? 'is-primary' : ''"
                     (click)="handleWarning('Binary-Tree')">
                     <b>Binary Tree</b>
@@ -79,6 +88,7 @@
             <div class="column is-half">
                 <button
                     class="button algo-button is-fullwidth"
+                    data-testid="recursive-backtracking"
                     [ngClass]="algorithmService.getAlgorithmName() === 'Recursive-Backtracking' ? 'is-primary' : ''"
                     (click)="handleWarning('Recursive-Backtracking')">
                     <b>Recursive-Backtracking</b>
@@ -87,6 +97,7 @@
             <div class="column is-half">
                 <button
                     class="button algo-button is-fullwidth"
+                    data-testid="recursive-division"
                     [ngClass]="algorithmService.getAlgorithmName() === 'Recursive-Division' ? 'is-primary' : ''"
                     (click)="handleWarning('Recursive-Division')">
                     <b>Recursive Division</b>
@@ -95,6 +106,7 @@
             <div class="column is-full">
                 <button
                     class="button algo-button is-fullwidth"
+                    data-testid="cellular-automation"
                     [ngClass]="algorithmService.getAlgorithmName() === 'Cellular-Automation' ? 'is-primary' : ''"
                     disabled
                     (click)="handleWarning('Cellular-Automation')">
