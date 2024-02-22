@@ -14,6 +14,8 @@ test.describe('Prims @algorithm @maze', () => {
         });
 
         await page.getByTestId('complete-algorithm').click();
+        const iteration = parseInt(await page.getByTestId('iteration').textContent());
+        expect(iteration).toBeGreaterThan(1);
         expect(errors.length).toBe(0);
     });
 
