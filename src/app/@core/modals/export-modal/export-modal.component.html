@@ -18,25 +18,39 @@
             <textarea
                 id="exportArea"
                 class="textarea is-primary"
+                data-testid="export-area"
+                title="Export area"
                 type="text"
                 (focus)="$event.target.select()"
                 [ngModel]="simulationService.getExportToken()">
             </textarea>
         </section>
         <footer class="modal-card-foot">
-            <button class="button is-success" (click)="exportSession()">
+            <button
+                class="button is-success"
+                data-testid="copy-to-clipboard"
+                title="Copy to clipboard"
+                (click)="exportSession()">
                 <span class="icon is-small">
                     <fa-icon [icon]="['fas', 'paste']"></fa-icon>
                 </span>
                 <span>Copy to clipboard</span>
             </button>
-            <button class="button is-warning" (click)="exportAsFile()">
+            <button
+                class="button is-warning"
+                data-testid="export-as-file"
+                title="export as file"
+                (click)="exportAsFile()">
                 <span class="icon is-small">
                     <fa-icon [icon]="['fas', 'download']"></fa-icon>
                 </span>
                 <span>Export as File</span>
             </button>
-            <button class="button" (click)="simulationService.toggleShowExportModal()">
+            <button
+                class="button"
+                data-testid="export-cancel"
+                title="cancel export"
+                (click)="simulationService.toggleShowExportModal()">
                 <span class="icon is-small">
                     <fa-icon [icon]="['fas', 'times-circle']"></fa-icon>
                 </span>

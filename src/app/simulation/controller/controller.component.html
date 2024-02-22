@@ -13,8 +13,8 @@
         <button
             [disabled]="simulationService.getBackwardStepsAmount() < 1"
             class="button is-outlined is-size-7-touch is-size-6-desktop"
-            data-testid="step-backward"
-            title="step backward"
+            data-testid="iteration-backward"
+            title="iteration backward"
             [ngClass]="{
                 buttonBackwards: simulationService.getBackwardStepsAmount() < 1
             }"
@@ -56,8 +56,8 @@
         <button
             [disabled]="simulationService.getIsPlayDisabled()"
             class="button is-outlined is-size-7-touch is-size-6-desktop"
-            data-testid="next-step"
-            title="next step"
+            data-testid="next-iteration"
+            title="next iteration"
             (click)="simulationService.addIteration()">
             <fa-icon [icon]="['fas', 'step-forward']"></fa-icon>
         </button>

@@ -15,6 +15,7 @@
         <section class="modal-card-body">
             <textarea
                 id="importArea"
+                data-testid="import-area"
                 class="textarea"
                 type="text"
                 placeholder="Paste here..."
@@ -52,13 +53,22 @@
             }
         </section>
         <footer class="modal-card-foot">
-            <button class="button is-success" [disabled]="importError" (click)="importSession()">
+            <button
+                class="button is-success"
+                data-testid="import-algorithm"
+                title="Import algorithm"
+                [disabled]="importError"
+                (click)="importSession()">
                 <span class="icon is-small">
                     <fa-icon [icon]="['fas', 'file-import']"></fa-icon>
                 </span>
                 <span>Import</span>
             </button>
-            <button class="button" (click)="simulationService.toggleShowImportModal()">
+            <button
+                class="button"
+                data-testid="import-cancel"
+                title="Import cancel"
+                (click)="simulationService.toggleShowImportModal()">
                 <span class="icon is-small">
                     <fa-icon [icon]="['fas', 'times-circle']"></fa-icon>
                 </span>

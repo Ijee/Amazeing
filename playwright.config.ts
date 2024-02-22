@@ -28,25 +28,40 @@ export default defineConfig({
 
         /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
         trace: 'on-first-retry',
-        screenshot: 'only-on-failure'
+        screenshot: 'on'
     },
 
     /* Configure projects for major browsers */
     projects: [
         {
             name: 'chromium',
-            use: { ...devices['Desktop Chrome'], viewport: { width: 1920, height: 1080 } }
-        },
-
-        {
-            name: 'firefox',
-            use: { ...devices['Desktop Firefox'], viewport: { width: 1920, height: 1080 } }
-        },
-
-        {
-            name: 'webkit',
-            use: { ...devices['Desktop Safari'], viewport: { width: 1920, height: 1080 } }
+            use: {
+                ...devices['Desktop Chrome'],
+                contextOptions: {
+                    permissions: ['clipboard-read', 'clipboard-write']
+                },
+                viewport: { width: 1920, height: 1080 }
+            }
         }
+        // TODO: fix clipboard permissions for algorithm tests to re-enable this
+        // {
+        //     name: 'firefox',
+        //     use: {
+        //         ...devices['Desktop Firefox'],
+        //         launchOptions: {
+        //             firefoxUserPrefs: {
+        //                 'dom.events.asyncClipboard.readText': true,
+        //                 'dom.events.testing.asyncClipboard': true
+        //             }
+        //         },
+        //         viewport: { width: 1920, height: 1080 }
+        //     }
+        // },
+        //
+        // {
+        //     name: 'webkit',
+        //     use: { ...devices['Desktop Safari'], viewport: { width: 1920, height: 1080 } }
+        // }
     ],
 
     webServer: {
