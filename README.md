@@ -23,7 +23,7 @@ and solving them with various path finding algorithms.
 
 ## Features
 
-- Implements 27 algorithms used for mazes and how to traverse them.
+- Implements 27 algorithms tailored to create mazes and how to traverse them.
 - Extensive control over the algorithm execution (iteration history, etc.).
 - Easy to use import / export feature.
 - Statistics that get tracked based on the currently selected algorithm.
@@ -75,19 +75,13 @@ any of the source files.
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag
 for a production build.
 
-### Running unit tests
+### Running tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+This project uses [Playwright](https://playwright.dev/) for e2e tests and ensures that 
+the most common use-cases are covered. More tests could be introduced but there is no way
+to automatically test for the `correctness` of the algorithms themselves automatically.
 
-Note: Tests are nonexistent at the moment. Sorry. 
-
-> There are currently no tests. Please don't hurt me.
-
-### Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-> There are currently no tests. Please don't hurt me.
+Run locally: `npm run test:pw`
 
 ---
 
