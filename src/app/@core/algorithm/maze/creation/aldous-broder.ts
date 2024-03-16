@@ -1,6 +1,6 @@
 import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
 import { GridLocation } from '../../../../@shared/classes/GridLocation';
-import { MazeAlgorithm, Node, StatRecord } from '../../../types/algorithm.types';
+import { MazeAlgorithm, Node, Statistic } from '../../../types/algorithm.types';
 
 /**
  * This is the implementation of the Aldous-Broder algorithm tailored for creating
@@ -100,7 +100,7 @@ export class AldousBroder extends MazeAlgorithmAbstract {
     updateAlgorithmState(
         newGrid: Node[][],
         deserializedState: any,
-        statRecords: StatRecord[]
+        statRecords: Statistic[]
     ): void {
         this.currentGrid = newGrid;
         this.statRecords = statRecords;
@@ -108,7 +108,7 @@ export class AldousBroder extends MazeAlgorithmAbstract {
         this.remainingNodes = deserializedState.remainingNodes;
     }
 
-    deserialize(newGrid: Node[][], serializedState: any, statRecords: StatRecord[]): void {
+    deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
         const cursor = serializedState.cursor;
         const deserializedState = {
             cursor: new GridLocation(cursor.x, cursor.y, cursor.weight),

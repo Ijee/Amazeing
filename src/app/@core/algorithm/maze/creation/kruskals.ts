@@ -1,4 +1,4 @@
-import { Node, StatRecord, MazeAlgorithm } from 'src/app/@core/types/algorithm.types';
+import { Node, Statistic, MazeAlgorithm } from 'src/app/@core/types/algorithm.types';
 import { GridLocation } from 'src/app/@shared/classes/GridLocation';
 import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
 import { retry } from 'rxjs';
@@ -168,7 +168,7 @@ export class Kruskals extends MazeAlgorithmAbstract {
     public updateAlgorithmState(
         newGrid: Node[][],
         deserializedState: any,
-        statRecords: StatRecord[]
+        statRecords: Statistic[]
     ): void {
         this.currentGrid = newGrid;
         this.statRecords = statRecords;
@@ -177,7 +177,7 @@ export class Kruskals extends MazeAlgorithmAbstract {
         this.shouldMerge = deserializedState.shouldMerge;
         this.cleanup = deserializedState.cleanup;
     }
-    public deserialize(newGrid: Node[][], serializedState: any, statRecords: StatRecord[]): void {
+    public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
         const tempEdges = new HashSet<GridLocation>();
         serializedState.edges.forEach((item) => {
             const edge = new GridLocation(item.x, item.y);

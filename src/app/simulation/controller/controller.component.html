@@ -18,7 +18,7 @@
             [ngClass]="{
                 buttonBackwards: simulationService.getBackwardStepsAmount() < 1
             }"
-            (click)="simulationService.setBackwardStep()">
+            (click)="simulationService.stepBackwards()">
             <fa-icon class="pr-1" [icon]="['fas', 'step-backward']"></fa-icon>
             <b> {{ simulationService.getBackwardStepsAmount() | maxNumber : 9 }} </b>
         </button>
@@ -58,7 +58,7 @@
             class="button is-outlined is-size-7-touch is-size-6-desktop"
             data-testid="next-iteration"
             title="next iteration"
-            (click)="simulationService.addIteration()">
+            (click)="simulationService.stepForward()">
             <fa-icon [icon]="['fas', 'step-forward']"></fa-icon>
         </button>
     </p>

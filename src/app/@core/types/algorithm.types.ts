@@ -5,10 +5,15 @@ export type Node = {
     status: number;
     weight: number;
 };
-export type StatRecord = {
+export type Statistic = {
     name: string;
     type: string;
     currentValue?: number;
+};
+export type AlgorithmRecord = {
+    grid: Node[][];
+    state: any;
+    statRecord: Statistic[];
 };
 export type StatusChange = {
     status0?: number;
@@ -65,7 +70,7 @@ export type Session = {
     heuristic?: PathFindingHeuristic;
     state: any;
     iteration: number;
-    stats: StatRecord[];
+    stats: Statistic[];
     options: AlgorithmOptions;
     grid: Node[][];
 };

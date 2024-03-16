@@ -1,4 +1,4 @@
-import { Direction, MazeAlgorithm, Node, StatRecord } from 'src/app/@core/types/algorithm.types';
+import { Direction, MazeAlgorithm, Node, Statistic } from 'src/app/@core/types/algorithm.types';
 import { GridLocation } from 'src/app/@shared/classes/GridLocation';
 import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
 
@@ -139,7 +139,7 @@ export class BinaryTree extends MazeAlgorithmAbstract {
     public updateAlgorithmState(
         newGrid: Node[][],
         deserializedState: any,
-        statRecords: StatRecord[]
+        statRecords: Statistic[]
     ): void {
         this.currentGrid = newGrid;
         this.statRecords = statRecords;
@@ -149,7 +149,7 @@ export class BinaryTree extends MazeAlgorithmAbstract {
         this.yEnd = deserializedState.yEnd;
     }
 
-    public deserialize(newGrid: Node[][], serializedState: any, statRecords: StatRecord[]): void {
+    public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
         const deserializedState = {
             direction1: serializedState.direction1,
             direction2: serializedState.direction2,

@@ -10,7 +10,7 @@ import {
     Node,
     PathFindingAlgorithm,
     Session,
-    StatRecord
+    Statistic
 } from '../types/algorithm.types';
 import { AlgorithmOptions } from '../types/jsonform.types';
 
@@ -26,7 +26,6 @@ export class SimulationService {
     private disablePlay: boolean;
     private backwardStepsAmount: number;
     private showWeightStatus: boolean;
-    private readonly randomSeed$: Subject<void>;
     private readonly patchFormValues$: Subject<AlgorithmOptions>;
     private showLegendModal: boolean;
     private showImportModal: boolean;
@@ -45,11 +44,38 @@ export class SimulationService {
         this.disablePlay = false;
         this.isSimulationActive = false;
         this.backwardStepsAmount = 0;
-        this.randomSeed$ = new Subject<void>();
         this.patchFormValues$ = new Subject<AlgorithmOptions>();
         this.showLegendModal = false;
         this.showImportModal = false;
         this.showExportModal = false;
+    }
+
+    /**
+     * Adds a new history step to create a new algorithm record.
+     * @param gridList the gridList to be saved
+     * @private
+     */
+    private updateRecords(gridList: Node[][]) {
+        const state = _.cloneDeep(this.algorithmService.getCurrentAlgorithmState());
+        const statRecord = _.cloneDeep(this.algorithmService.getStatRecords());
+        const grid = _.cloneDeep(gridList);
+        this.recordService.addHistoryStep(grid, state, statRecord);
+        this.gridList$.next(grid);
+    }
+
+    /**
+     * Determines the new speed to be set based on upper and lower bounds
+     *
+     * @param speed - the new speed to be set
+     * @private
+     */
+    private setSimulationSpeed(speed: number): void {
+        this.simulationSpeed = this.simulationSpeed + speed;
+        if (this.simulationSpeed < 20) {
+            this.simulationSpeed = 20;
+        } else if (this.simulationSpeed > 500) {
+            this.simulationSpeed = 500;
+        }
     }
 
     /**
@@ -59,7 +85,86 @@ export class SimulationService {
     private restartInterval(): void {
         clearInterval(this.intervalID);
         if (this.isSimulationActive) {
-            this.intervalID = setInterval(() => this.addIteration(), 10000 / this.simulationSpeed);
+            this.intervalID = setInterval(() => this.stepForward(), 10000 / this.simulationSpeed);
+        }
+    }
+
+    /**
+     * Changes the backwardsStepAmount.
+     * @param value - the new value to be added
+     * @private
+     */
+    private changeBackwardStepsAmount(value: number): void {
+        this.backwardStepsAmount = this.backwardStepsAmount + value;
+    }
+
+    /**
+     * creates a new iteration and everything that is needed
+     * for the iteration to continue.
+     */
+    public stepForward(): void {
+        let newGrid: Node[][];
+        if (this.algorithmService.getAlgorithmMode() === 'maze') {
+            if (this.recordService.getIteration() === 0) {
+                this.algorithmService.setInitialData(
+                    _.cloneDeep(this.gridList$.getValue()),
+                    this.recordService.getGridStartLocation()
+                );
+            }
+            newGrid = this.algorithmService.getNextStep();
+        } else {
+            if (this.recordService.getIteration() === 0) {
+                this.algorithmService.setInitialData(
+                    _.cloneDeep(this.gridList$.getValue()),
+                    this.recordService.getGridStartLocation()
+                );
+            }
+            newGrid = this.algorithmService.getNextStep();
+        }
+        if (newGrid) {
+            this.recordService.setIteration(this.recordService.getIteration() + 1);
+            if (this.recordService.tryHistoryStepForward()) {
+                console.log('step from existing history');
+                const { grid, state, statRecord } = _.cloneDeep(
+                    this.recordService.getCurrentHistoryStep()
+                );
+                this.algorithmService.updateAlgorithmState(grid, state, statRecord);
+                this.gridList$.next(grid);
+            } else {
+                console.log('in new step');
+                this.updateRecords(newGrid);
+            }
+        } else {
+            console.log('why am I here');
+            this.setDisablePlay(true);
+            this.setSimulationStatus();
+            this.settingsService.setUserTourTaken(true);
+        }
+        if (this.backwardStepsAmount < RecordService.MAX_SAVE_STEPS - 1) {
+            this.changeBackwardStepsAmount(1);
+        }
+    }
+
+    /**
+     * Responsible for the backwardStep.
+     */
+    public stepBackwards(): void {
+        console.log('this.isSimulationActive', this.isSimulationActive);
+        if (this.isSimulationActive) {
+            this.isSimulationActive = false;
+            this.restartInterval();
+        }
+        if (this.backwardStepsAmount > 0) {
+            this.changeBackwardStepsAmount(-1);
+            this.setDisablePlay(false);
+            // this.recordService.manipulateHistory();
+            this.recordService.setIteration(this.recordService.getIteration() - 1);
+            this.recordService.historyStepBackwards();
+            const { grid, state, statRecord } = _.cloneDeep(
+                this.recordService.getCurrentHistoryStep()
+            );
+            this.algorithmService.updateAlgorithmState(grid, state, statRecord);
+            this.gridList$.next(grid);
         }
     }
 
@@ -81,7 +186,7 @@ export class SimulationService {
                 this.gridList$.getValue()
             );
             this.recordService.setIteration(this.recordService.getIteration() + iterationCount);
-            this.setGridList(newGrid);
+            this.updateRecords(newGrid);
         } else {
             // TODO for path-finding service!
             // this.setGridList(this.pathFindingService.completeAlgorithm(this.gridList$.getValue()));
@@ -89,194 +194,7 @@ export class SimulationService {
     }
 
     /**
-     * Returns the current algorithm name.
-     */
-    public getAlgorithmName(): MazeAlgorithm | PathFindingAlgorithm {
-        return this.algorithmService.getAlgorithmName();
-    }
-
-    /**
-     * Returns whether or not the current algorithm uses node weights.
-     */
-    public usesNodeWeights(): boolean {
-        return this.algorithmService.usesNodeWeights();
-    }
-
-    /**
-     * Determines the new simulation status to be either active or inactive
-     *
-     * @param status - the new status to be set and if not given will negate the current status
-     */
-    public setSimulationStatus(status?: boolean): void {
-        if (status !== undefined) {
-            this.isSimulationActive = status;
-        } else {
-            this.isSimulationActive = !this.isSimulationActive;
-        }
-        this.restartInterval();
-    }
-
-    /**
-     * Determines the new speed to be set based on upper and lower bounds
-     *
-     * @param speed - the new speed to be set
-     * @private
-     */
-    private setSimulationSpeed(speed: number): void {
-        this.simulationSpeed = this.simulationSpeed + speed;
-        if (this.simulationSpeed < 20) {
-            this.simulationSpeed = 20;
-        } else if (this.simulationSpeed > 500) {
-            this.simulationSpeed = 500;
-        }
-    }
-
-    /**
-     * Toggles whether or not it should be possible to press play / next step / complete.
-     *
-     * @param isDisabled - the new value
-     */
-    public setDisablePlay(isDisabled: boolean): void {
-        this.disablePlay = isDisabled;
-    }
-
-    /**
-     * Sets a new gridList as the current gridList
-     *
-     * @param newGrid - the new gridList
-     */
-    public setGridList(newGrid: Node[][]): void {
-        const grid = _.cloneDeep(newGrid);
-        this.gridList$.next(grid);
-        this.recordService.manageGridHistory(grid);
-    }
-
-    /**
-     * Responsible for the backwardStep
-     */
-    public setBackwardStep(): void {
-        // disables auto-play of the simulation
-        if (this.isSimulationActive) {
-            this.isSimulationActive = false;
-            this.restartInterval();
-        }
-        if (this.backwardStepsAmount > 0) {
-            this.changeBackwardStepsAmount(-1);
-            this.setDisablePlay(false);
-            this.recordService.manipulateHistory();
-            const grid = _.cloneDeep(this.recordService.getCurrentGrid());
-            const state = _.cloneDeep(this.recordService.getCurrentAlgorithmState());
-            const stats = _.cloneDeep(this.recordService.getCurrentStatRecords());
-            if (this.algorithmService.getAlgorithmMode() === 'maze') {
-                this.algorithmService.updateAlgorithmState(grid, state, stats);
-            } else {
-                // TODO update path-finding service to the new definitions on mazeService / the interface
-            }
-            this.gridList$.next(this.recordService.getCurrentGrid());
-        }
-    }
-
-    /**
-     * Changes the backwardsStepAmount.
-     * @param value - the new value to be added
-     * @private
-     */
-    private changeBackwardStepsAmount(value: number): void {
-        this.backwardStepsAmount = this.backwardStepsAmount + value;
-    }
-
-    /**
-     * Actually sets a step as a new iteration
-     *
-     * @param newGrid - the current grid
-     */
-    public save(newGrid: Node[][]): void {
-        this.setGridList(newGrid);
-        const currentStats = this.recordService.getCurrentStatRecords();
-        this.recordService.setGridSavePointRecords(currentStats);
-        this.recordService.setGridSavePoint(newGrid);
-    }
-
-    /**
-     * creates a new iteration and everything that is needed
-     * for the iteration to continue.
-     */
-    public addIteration(): void {
-        let newGrid: Node[][];
-        let statRecord: StatRecord[];
-        let newAlgorithmState: any;
-        if (this.algorithmService.getAlgorithmMode() === 'maze') {
-            if (this.recordService.getIteration() === 0) {
-                this.algorithmService.setInitialData(
-                    _.cloneDeep(this.gridList$.getValue()),
-                    this.recordService.getGridStartLocation()
-                );
-            }
-            newGrid = this.algorithmService.getNextStep();
-            statRecord = this.algorithmService.getStatRecords();
-            newAlgorithmState = this.algorithmService.getCurrentAlgorithmState();
-        } else {
-            if (this.recordService.getIteration() === 0) {
-                this.algorithmService.setInitialData(
-                    _.cloneDeep(this.gridList$.getValue()),
-                    this.recordService.getGridStartLocation()
-                );
-            }
-            newGrid = this.algorithmService.getNextStep();
-            // TODO update path-finding interface + implementation like mazeService
-        }
-        if (newGrid) {
-            this.setGridList(newGrid);
-            this.recordService.setIteration(this.recordService.getIteration() + 1);
-            this.recordService.addStatRecord(statRecord);
-            this.recordService.addAlgorithmState(newAlgorithmState);
-        } else {
-            console.log('why am I here');
-            this.setDisablePlay(true);
-            this.setSimulationStatus();
-            this.settingsService.setUserTourTaken(true);
-        }
-        if (this.backwardStepsAmount < RecordService.MAX_SAVE_STEPS - 1) {
-            this.changeBackwardStepsAmount(1);
-        }
-    }
-
-    /**
-     * Sets the new speed down between boundaries
-     */
-    public setSpeedDown(): void {
-        this.simulationSpeed > 100 ? this.setSimulationSpeed(-100) : this.setSimulationSpeed(-20);
-        this.restartInterval();
-    }
-
-    /**
-     * Sets the new speed up between boundaries
-     */
-    public setSpeedUp(): void {
-        this.simulationSpeed < 100 ? this.setSimulationSpeed(20) : this.setSimulationSpeed(100);
-        this.restartInterval();
-    }
-
-    /**
-     * This sets the mode for drawing on the grid.
-     * You are only able to draw and clear walls nothing else.
-     * newMode = -1: only clear nodes of their walls
-     * newMode = 0: only draw new nodes on the grid
-     * newMode = 1: draw a new start
-     * newMode = 2: draw a new goal
-     *
-     * @param newMode - the new mode to be set for drawing
-     */
-    public setDrawingMode(newMode: number): void {
-        if (this.getDrawingMode() === newMode) {
-            this.drawingMode = 0;
-        } else {
-            this.drawingMode = newMode;
-        }
-    }
-
-    /**
-     * This resets the grid and everythign associated with it.
+     * This resets the grid and everything associated with it.
      * First resets does a reset to the grid save point.
      * Second one does a hard reset
      */
@@ -286,20 +204,17 @@ export class SimulationService {
         if (this.recordService.getIteration() > 0) {
             // Resets to save point
             this.recordService.setIteration(0);
-            this.recordService.addStatRecord(this.recordService.getGridSavePointRecords());
-            this.setGridList(this.recordService.getGridSavePoint());
+            this.recordService.resetHistory();
+            this.gridList$.next(this.recordService.getGridSavePoint());
             // this.gridList$.next(this.recordService.getGridSavePoint());
         } else {
             // Hard reset
             this.recordService.setIteration(0);
-            this.recordService.resetStatRecordHistory();
             this.gridList$.next([]);
             this.recordService.setGridSavePoint([]);
-            this.recordService.setGridSavePointRecords(null);
         }
         this.exportToken = '';
         this.backwardStepsAmount = 0;
-        this.recordService.resetAlgorithmStateHistory();
     }
 
     /**
@@ -327,48 +242,36 @@ export class SimulationService {
                 }
             });
         });
-        this.setGridList(grid);
+        this.gridList$.next(grid);
         this.setDisablePlay(false);
         this.recordService.setIteration(0);
-        this.recordService.resetStatRecordHistory();
         this.backwardStepsAmount = 0;
         this.recordService.setGridSavePoint([]);
-        this.recordService.setGridSavePointRecords(null);
     }
 
     /**
-     * This toggles whether or not to show weight status
+     * Sets a new gridList as the current gridList
+     *
+     * @param newGrid - the new gridList
      */
-    public toggleWeightStatus(): void {
-        this.showWeightStatus = !this.showWeightStatus;
+    public setGridList(newGrid: Node[][]): void {
+        const grid = _.cloneDeep(newGrid);
+        this.recordService.addEmptyHistoryStep(grid);
+        this.gridList$.next(grid);
     }
 
     /**
-     * Notifies all listener that a new randomSeed is called.
+     * Determines the new simulation status to be either active or inactive
+     *
+     * @param status - the new status to be set and if not given will negate the current status
      */
-    public setRandomSeed(): void {
-        this.randomSeed$.next();
-    }
-
-    /**
-     * Toggles whether or not the import modal should be shown
-     */
-    public toggleShowImportModal(): void {
-        this.showImportModal = !this.showImportModal;
-    }
-
-    /**
-     * Toggles whether or not the export modal should be shown
-     */
-    public toggleShowExportModal(): void {
-        this.showExportModal = !this.showExportModal;
-    }
-
-    /**
-     * Toggles whether or not the legend modal should be shown
-     */
-    public toggleShowLegendModal(): void {
-        this.showLegendModal = !this.showLegendModal;
+    public setSimulationStatus(status?: boolean): void {
+        if (status !== undefined) {
+            this.isSimulationActive = status;
+        } else {
+            this.isSimulationActive = !this.isSimulationActive;
+        }
+        this.restartInterval();
     }
 
     /**
@@ -396,12 +299,12 @@ export class SimulationService {
                 true
             );
             this.recordService.setIteration(session.iteration);
-            this.recordService.addStatRecord(session.stats);
+            this.recordService.resetHistory();
             // TODO setOptions doesn't really do anything here and I am not sure
             // if this is the best way to patch the values.
             this.algorithmService.setOptions(session.options);
             this.patchFormValues$.next(session.options);
-            this.setGridList(session.grid);
+            this.gridList$.next(session.grid);
             this.toggleShowImportModal();
         } catch (error) {
             console.error('Input String is invalid');
@@ -433,10 +336,98 @@ export class SimulationService {
     }
 
     /**
+     * Toggles whether it should be possible to press play / next step / complete.
+     *
+     * @param isDisabled - the new value
+     */
+    public setDisablePlay(isDisabled: boolean): void {
+        this.disablePlay = isDisabled;
+    }
+
+    /**
+     * Actually sets a step as a new iteration
+     *
+     * @param newGrid - the current grid
+     */
+    public setSavePoint(newGrid: Node[][]): void {
+        this.gridList$.next(newGrid);
+        this.recordService.setGridSavePoint(newGrid);
+    }
+
+    /**
+     * Sets the new speed up between boundaries
+     */
+    public setSpeedUp(): void {
+        this.simulationSpeed < 100 ? this.setSimulationSpeed(20) : this.setSimulationSpeed(100);
+        this.restartInterval();
+    }
+
+    /**
+     * Sets the new speed down between boundaries
+     */
+    public setSpeedDown(): void {
+        this.simulationSpeed > 100 ? this.setSimulationSpeed(-100) : this.setSimulationSpeed(-20);
+        this.restartInterval();
+    }
+
+    /**
+     * This sets the mode for drawing on the grid.
+     * You are only able to draw and clear walls nothing else.
+     * newMode = -1: only clear nodes of their walls
+     * newMode = 0: only draw new nodes on the grid
+     * newMode = 1: draw a new start
+     * newMode = 2: draw a new goal
+     *
+     * @param newMode - the new mode to be set for drawing
+     */
+    public setDrawingMode(newMode: number): void {
+        if (this.getDrawingMode() === newMode) {
+            this.drawingMode = 0;
+        } else {
+            this.drawingMode = newMode;
+        }
+    }
+
+    /**
+     * This toggles whether or not to show weight status
+     */
+    public toggleWeightStatus(): void {
+        this.showWeightStatus = !this.showWeightStatus;
+    }
+
+    /**
+     * Toggles whether or not the import modal should be shown
+     */
+    public toggleShowImportModal(): void {
+        this.showImportModal = !this.showImportModal;
+    }
+
+    /**
+     * Toggles whether or not the export modal should be shown
+     */
+    public toggleShowExportModal(): void {
+        this.showExportModal = !this.showExportModal;
+    }
+
+    /**
+     * Toggles whether or not the legend modal should be shown
+     */
+    public toggleShowLegendModal(): void {
+        this.showLegendModal = !this.showLegendModal;
+    }
+
+    /**
      * Returns the current gridList to any subscriber.
      */
     public getGridList(): Observable<Node[][]> {
         return this.gridList$;
+    }
+
+    /**
+     * Returns the current algorithm name.
+     */
+    public getAlgorithmName(): MazeAlgorithm | PathFindingAlgorithm {
+        return this.algorithmService.getAlgorithmName();
     }
 
     /**
@@ -481,13 +472,6 @@ export class SimulationService {
      */
     public getShowWeightStatus(): boolean {
         return this.showWeightStatus;
-    }
-
-    /**
-     * Returns when a new RandomSeed was set.
-     */
-    public getRandomSeed(): Observable<void> {
-        return this.randomSeed$;
     }
 
     /**

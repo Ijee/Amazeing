@@ -2,7 +2,7 @@ import { GridLocation } from 'src/app/@shared/classes/GridLocation';
 import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
 import { shuffleFisherYates } from '../../../../@shared/utils/fisher-yates';
 import { HashSet } from '../../../../@shared/classes/HashSet';
-import { MazeAlgorithm, Node, StatRecord } from '../../../types/algorithm.types';
+import { MazeAlgorithm, Node, Statistic } from '../../../types/algorithm.types';
 
 export class RecursiveBacktracking extends MazeAlgorithmAbstract {
     private cursor: GridLocation;
@@ -111,7 +111,7 @@ export class RecursiveBacktracking extends MazeAlgorithmAbstract {
     public updateAlgorithmState(
         newGrid: Node[][],
         deserializedState: any,
-        statRecords: StatRecord[]
+        statRecords: Statistic[]
     ): void {
         this.currentGrid = newGrid;
         this.cursor = deserializedState.cursor;
@@ -120,7 +120,7 @@ export class RecursiveBacktracking extends MazeAlgorithmAbstract {
         this.backtrack = deserializedState.backtrack;
     }
 
-    public deserialize(newGrid: Node[][], serializedState: any, statRecords: StatRecord[]): void {
+    public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
         const cursor = serializedState.cursor;
         const walkingPath: GridLocation[] = [];
         serializedState.walkingPath.forEach((item) => {

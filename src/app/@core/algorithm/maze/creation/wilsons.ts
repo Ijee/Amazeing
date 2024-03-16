@@ -3,7 +3,7 @@ import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
 import { HashSet } from '../../../../@shared/classes/HashSet';
 import { EqualsHashCode } from '../../../../@shared/classes/EqualsHashCode';
 import { shuffleFisherYates } from '../../../../@shared/utils/fisher-yates';
-import { MazeAlgorithm, Node, StatRecord } from '../../../types/algorithm.types';
+import { MazeAlgorithm, Node, Statistic } from '../../../types/algorithm.types';
 
 /**
  * This is the implementation of Wilsons algorithm tailored for creating a maze
@@ -13,7 +13,10 @@ import { MazeAlgorithm, Node, StatRecord } from '../../../types/algorithm.types'
 type Direction = 'up' | 'right' | 'down' | 'left';
 
 class WalkingPath implements EqualsHashCode {
-    constructor(public gridLocation: GridLocation, public direction: Direction) {}
+    constructor(
+        public gridLocation: GridLocation,
+        public direction: Direction
+    ) {}
 
     equals(obj: any): boolean {
         if (obj instanceof WalkingPath) {
@@ -223,7 +226,7 @@ export class Wilsons extends MazeAlgorithmAbstract {
     public updateAlgorithmState(
         newGrid: Node[][],
         deserializedState: any,
-        statRecords: StatRecord[]
+        statRecords: Statistic[]
     ): void {
         this.currentGrid = newGrid;
         this.statRecords = statRecords;
@@ -235,7 +238,7 @@ export class Wilsons extends MazeAlgorithmAbstract {
         this.isWalking = deserializedState.isWalking;
     }
 
-    public deserialize(newGrid: Node[][], serializedState: any, statRecords: StatRecord[]): void {
+    public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
         const cursor = serializedState.cursor;
         const unusedNodes: HashSet<GridLocation> = new HashSet<GridLocation>();
         serializedState.unusedNodes.forEach((item) => {

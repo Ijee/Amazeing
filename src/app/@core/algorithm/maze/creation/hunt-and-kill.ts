@@ -1,7 +1,7 @@
 import { GridLocation } from 'src/app/@shared/classes/GridLocation';
 import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
 import { shuffleFisherYates } from '../../../../@shared/utils/fisher-yates';
-import { MazeAlgorithm, Node, StatRecord } from '../../../types/algorithm.types';
+import { MazeAlgorithm, Node, Statistic } from '../../../types/algorithm.types';
 
 export class HuntAndKill extends MazeAlgorithmAbstract {
     private cursor: GridLocation;
@@ -157,7 +157,7 @@ export class HuntAndKill extends MazeAlgorithmAbstract {
     public updateAlgorithmState(
         newGrid: Node[][],
         deserializedState: any,
-        statRecords: StatRecord[]
+        statRecords: Statistic[]
     ): void {
         this.currentGrid = newGrid;
         this.statRecords = statRecords;
@@ -169,7 +169,7 @@ export class HuntAndKill extends MazeAlgorithmAbstract {
         this.nodeFound = deserializedState.nodeFound;
     }
 
-    public deserialize(newGrid: Node[][], serializedState: any, statRecords: StatRecord[]): void {
+    public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
         const cursor = serializedState.cursor;
         const gridSnapShot: GridLocation[] = [];
         serializedState.walkingPath.forEach((item) => {

@@ -84,12 +84,6 @@ export class GridComponent implements OnInit, OnDestroy {
                     this.reset();
                 }
             });
-        this.simulationService
-            .getRandomSeed()
-            .pipe(takeUntil(this.destroyed$))
-            .subscribe(() => {
-                this.randomSeed();
-            });
 
         this.observer
             .observe('(max-width: 768px)')
@@ -116,7 +110,7 @@ export class GridComponent implements OnInit, OnDestroy {
             switch (this.simulationService.getDrawingMode()) {
                 case 0:
                 case 1:
-                    this.simulationService.save(_.cloneDeep(this.gridList));
+                    this.simulationService.setSavePoint(_.cloneDeep(this.gridList));
                     break;
                 case 2:
                 case 3:
@@ -127,6 +121,13 @@ export class GridComponent implements OnInit, OnDestroy {
         }
     }
 
+    /**
+     * Determines the new node status and drawing logic when clicking or
+     * holding on the grid.
+     *
+     * @param col the selected column
+     * @param row the selected row
+     */
     drawModeLogic(col: number, row: number): void {
         const oldStatus = this.gridList[col][row].status;
         let drawMode = this.simulationService.getDrawingMode();
@@ -213,66 +214,4 @@ export class GridComponent implements OnInit, OnDestroy {
         this.gridList[goalLocation.x][goalLocation.y].status = 3;
         this.simulationService.setGridList(_.cloneDeep(this.gridList));
     }
-
-    /**
-     * Populates and overwrites gridList with cells.
-     */
-    private randomSeed(): void {
-        // this.simulationService.reset();
-        // for (let i = 0; i < this.width; i++) {
-        //   for (let j = 0; j < this.height; j++) {
-        //     const rand = Math.random();
-        //     if (rand < 0.2) {
-        //       this.setCell(i, j, 0);
-        //     } else {
-        //       this.setCell(i, j, -1);
-        //     }
-        //   }
-        // }
-        // const startLocation = this.recordService.getGridStartLocation();
-        // this.gridList[startLocation.x][startLocation.y].status = 1;
-        // const goalLocation = this.recordService.getGridGoalLocation();
-        // this.gridList[goalLocation.x][goalLocation.y].status = 2;
-        // this.simulationService.save(_.cloneDeep(this.gridList));
-    }
-
-    /**
-     * Resets and then imports new cells into the gridList
-     * based on the importToken prop that gets passed down
-     * App.vue.
-     * The importToken is a string and its syntax looks
-     * like this:
-     * '[xPos,yPos],[xPos,yPos]...'.
-     */
-    // private importToken(token: string): void {
-    //   this.reset();
-    //   const regex = /\[\d+,\d+,\d+\]/gm;
-    //   const tempArr = token.match(regex);
-    //   if (tempArr) {
-    //     tempArr.forEach((element) => {
-    //       element = element.substring(1, element.length - 1);
-    //       const xyz = element.split(',');
-    //       this.setCell(+xyz[0], +xyz[1], +xyz[2]);
-    //     });
-    //     this.simulationService.setGridList(_.cloneDeep(this.gridList));
-    //   }
-    // }
-
-    /**
-     * Uses gridList to create an exportToken and
-     * emits it up to to the export modal through the gameService.
-     * Same format as in importToken().
-     */
-    // private exportSession(): void {
-    //   let exportToken = '';
-    //   for (let i = 0; i < this.width; i++) {
-    //     for (let j = 0; j < this.height; j++) {
-    //       const status = this.gridList[i][j].status;
-    //       if (status >= 0) {
-    //         exportToken += '[' + i + ',' + j + ',' + status + ']';
-    //       }
-    //     }
-    //   }
-    //   // this.simulationService.setExportToken(exportToken);
-    // }
 }

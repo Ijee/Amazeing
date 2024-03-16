@@ -2,7 +2,7 @@ import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
 import { HashSet } from '../../../../@shared/classes/HashSet';
 import { GridLocation } from '../../../../@shared/classes/GridLocation';
 import { FormGroup } from '@angular/forms';
-import { MazeAlgorithm, Node, StatRecord } from '../../../types/algorithm.types';
+import { MazeAlgorithm, Node, Statistic } from '../../../types/algorithm.types';
 import { JsonFormData } from '../../../types/jsonform.types';
 
 /**
@@ -121,14 +121,14 @@ export class Prims extends MazeAlgorithmAbstract {
     public updateAlgorithmState(
         newGrid: Node[][],
         deserializedState: any,
-        statRecords: StatRecord[]
+        statRecords: Statistic[]
     ): void {
         this.currentGrid = newGrid;
         this.statRecords = statRecords;
         this.frontierNodes = deserializedState.frontierNodes;
     }
 
-    public deserialize(newGrid: Node[][], serializedState: any, statRecords: StatRecord[]): void {
+    public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
         const tempFrontierNodes = new HashSet<GridLocation>();
         serializedState.gridLocations.forEach((item) => {
             const tempGridLocation = new GridLocation(item.x, item.y, item.weight);

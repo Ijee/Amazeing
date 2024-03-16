@@ -107,10 +107,10 @@ export class AppComponent implements OnInit, OnDestroy {
         if (!this.settingsService.getUserTourActive()) {
             if (event.code === 'ArrowRight') {
                 if (!this.simulationService.getIsPlayDisabled()) {
-                    this.simulationService.addIteration();
+                    this.simulationService.stepForward();
                 }
             } else if (event.code === 'ArrowLeft') {
-                this.simulationService.setBackwardStep();
+                this.simulationService.stepBackwards();
             } else if (event.code === 'Space') {
                 if (!this.simulationService.getIsPlayDisabled()) {
                     this.simulationService.setSimulationStatus();

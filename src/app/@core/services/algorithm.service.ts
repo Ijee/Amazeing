@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MazeAlgorithmAbstract } from '../algorithm/maze/maze-algorithm.abstract';
 import { Prims } from '../algorithm/maze/creation/prims';
 import { GridLocation } from '../../@shared/classes/GridLocation';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { AldousBroder } from '../algorithm/maze/creation/aldous-broder';
 import { Wilsons } from '../algorithm/maze/creation/wilsons';
 import { PathFindingAlgorithmAbstract } from '../algorithm/path-finding/path-finding-algorithm.abstract';
@@ -16,7 +16,7 @@ import {
     Node,
     PathFindingAlgorithm,
     PathFindingHeuristic,
-    StatRecord
+    Statistic
 } from '../types/algorithm.types';
 import { AlgorithmOptions, JsonFormData } from '../types/jsonform.types';
 import { Sidewinder } from '../algorithm/maze/creation/sidewinder';
@@ -219,7 +219,7 @@ export class AlgorithmService {
     public updateAlgorithmState(
         newGrid: Node[][],
         state: any,
-        statRecord: StatRecord[],
+        statRecord: Statistic[],
         deserialize?: boolean
     ): void {
         if (_.isEmpty(state)) {
@@ -279,7 +279,7 @@ export class AlgorithmService {
     /**
      * Returns the stats for the current iteration.
      */
-    public getStatRecords(): StatRecord[] {
+    public getStatRecords(): Statistic[] {
         return this.algorithmMode === 'maze'
             ? this.currentMazeAlgorithm.getStatRecords()
             : this.currentPathAlgorithm.getStatRecords();

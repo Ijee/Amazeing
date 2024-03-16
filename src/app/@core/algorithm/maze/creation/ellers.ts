@@ -1,4 +1,4 @@
-import { Node, StatRecord, MazeAlgorithm } from 'src/app/@core/types/algorithm.types';
+import { Node, Statistic, MazeAlgorithm } from 'src/app/@core/types/algorithm.types';
 import { GridLocation } from 'src/app/@shared/classes/GridLocation';
 import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
 import { HashSet } from '../../../../@shared/classes/HashSet';
@@ -165,7 +165,7 @@ export class Ellers extends MazeAlgorithmAbstract {
     public updateAlgorithmState(
         newGrid: Node[][],
         deserializedState: any,
-        statRecords: StatRecord[]
+        statRecords: Statistic[]
     ): void {
         this.currentGrid = newGrid;
         this.statRecords = statRecords;
@@ -179,7 +179,7 @@ export class Ellers extends MazeAlgorithmAbstract {
         this.passagesCreated = deserializedState.passagesCreated;
     }
 
-    public deserialize(newGrid: Node[][], serializedState: any, statRecords: StatRecord[]): void {
+    public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
         const cursor = serializedState.cursor;
 
         const tempPassagesCreated: HashSet<GridLocation>[] = [];

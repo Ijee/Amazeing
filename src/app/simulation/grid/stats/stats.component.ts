@@ -5,7 +5,7 @@ import { RecordService } from '../../../@core/services/record.service';
 import { fadeInOutList } from '../../../@shared/animations/fadeInOutList';
 import { transition, trigger } from '@angular/animations';
 import { AlgorithmService } from '../../../@core/services/algorithm.service';
-import { StatRecord } from '../../../@core/types/algorithm.types';
+import { Statistic } from '../../../@core/types/algorithm.types';
 import { CountAnimationDirective } from '../../../@shared/directives/count-animation.directive';
 
 @Component({
@@ -26,7 +26,7 @@ export class StatsComponent {
         public settingsService: SettingsService
     ) {}
 
-    public trackByName(index: number, item: StatRecord): string {
+    public trackByName(index: number, item: Statistic): string {
         return item.name;
     }
 }

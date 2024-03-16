@@ -1,4 +1,4 @@
-import { Node, StatRecord, MazeAlgorithm, Parity } from 'src/app/@core/types/algorithm.types';
+import { Node, Statistic, MazeAlgorithm, Parity } from 'src/app/@core/types/algorithm.types';
 import { GridLocation } from 'src/app/@shared/classes/GridLocation';
 import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
 import { getRandomIntInclusive } from '../../../../@shared/utils/general-utils';
@@ -175,7 +175,7 @@ export class RecursiveDivision extends MazeAlgorithmAbstract {
     public updateAlgorithmState(
         newGrid: Node[][],
         deserializedState: any,
-        statRecords: StatRecord[]
+        statRecords: Statistic[]
     ): void {
         this.currentGrid = newGrid;
         deserializedState.divisions = this.divisions;
@@ -184,7 +184,7 @@ export class RecursiveDivision extends MazeAlgorithmAbstract {
         statRecords = this.statRecords;
     }
 
-    public deserialize(newGrid: Node[][], serializedState: any, statRecords: StatRecord[]): void {
+    public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
         this.updateAlgorithmState(newGrid, serializedState, statRecords);
     }
 

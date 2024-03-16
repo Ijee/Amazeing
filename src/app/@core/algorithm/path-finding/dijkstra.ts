@@ -4,7 +4,7 @@ import {
     Node,
     PathFindingAlgorithm,
     PathFindingHeuristic,
-    StatRecord
+    Statistic
 } from '../../types/algorithm.types';
 
 export class Dijkstra extends PathFindingAlgorithmAbstract {
@@ -30,12 +30,12 @@ export class Dijkstra extends PathFindingAlgorithmAbstract {
     public updateAlgorithmState(
         newGrid: Node[][],
         deserializedState: any,
-        statRecords: StatRecord[]
+        statRecords: Statistic[]
     ): void {
         throw new Error('Method not implemented.');
     }
 
-    public deserialize(newGrid: Node[][], serializedState: any, statRecords: StatRecord[]): void {
+    public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
         throw new Error('Method not implemented.');
     }
 

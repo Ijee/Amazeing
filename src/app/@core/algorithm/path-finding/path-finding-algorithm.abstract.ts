@@ -3,14 +3,14 @@ import {
     Node,
     PathFindingAlgorithm,
     PathFindingHeuristic,
-    StatRecord
+    Statistic
 } from '../../types/algorithm.types';
 import { AlgorithmOptions, JsonFormData } from '../../types/jsonform.types';
 
 export abstract class PathFindingAlgorithmAbstract {
     protected constructor(
         protected currentGrid: Node[][],
-        protected statRecords: StatRecord[],
+        protected statRecords: Statistic[],
         protected jsonFormData: JsonFormData,
         protected options: AlgorithmOptions
     ) {}
@@ -84,7 +84,7 @@ export abstract class PathFindingAlgorithmAbstract {
     public abstract updateAlgorithmState(
         newGrid: Node[][],
         deserializedState: any,
-        statRecords: StatRecord[]
+        statRecords: Statistic[]
     ): void;
 
     /**
@@ -100,7 +100,7 @@ export abstract class PathFindingAlgorithmAbstract {
     public abstract deserialize(
         newGrid: Node[][],
         serializedState: any,
-        statRecords: StatRecord[]
+        statRecords: Statistic[]
     ): void;
 
     /**
@@ -125,7 +125,7 @@ export abstract class PathFindingAlgorithmAbstract {
     /**
      * Returns the stat records for the algorithm,.
      */
-    public getStatRecords(): StatRecord[] {
+    public getStatRecords(): Statistic[] {
         return this.statRecords;
     }
 

@@ -1,6 +1,6 @@
 import {
     Node,
-    StatRecord,
+    Statistic,
     MazeAlgorithm,
     NodeCollection,
     Direction
@@ -180,14 +180,14 @@ export class GrowingTree extends MazeAlgorithmAbstract {
     public updateAlgorithmState(
         newGrid: Node[][],
         deserializedState: any,
-        statRecords: StatRecord[]
+        statRecords: Statistic[]
     ): void {
         this.currentGrid = newGrid;
         this.statRecords = statRecords;
         this.nodeCollection = deserializedState.nodeCollection;
     }
 
-    public deserialize(newGrid: Node[][], serializedState: any, statRecords: StatRecord[]): void {
+    public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
         const deserializedState = {
             nodeCollection: []
         };

@@ -4,7 +4,7 @@ import {
     Node,
     PathFindingAlgorithm,
     PathFindingHeuristic,
-    StatRecord
+    Statistic
 } from '../../types/algorithm.types';
 import { JsonFormData } from '../../types/jsonform.types';
 
@@ -35,12 +35,12 @@ export class AStar extends PathFindingAlgorithmAbstract {
     public updateAlgorithmState(
         newGrid: Node[][],
         deserializedState: any,
-        statRecords: StatRecord[]
+        statRecords: Statistic[]
     ): void {
         throw new Error('Method not implemented.');
     }
 
-    public deserialize(newGrid: Node[][], serializedState: any, statRecords: StatRecord[]): void {
+    public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
         throw new Error('Method not implemented.');
     }
 
@@ -56,7 +56,7 @@ export class AStar extends PathFindingAlgorithmAbstract {
         return 'A-Star';
     }
 
-    public getStatRecords(): StatRecord[] {
+    public getStatRecords(): Statistic[] {
         throw new Error('Method not implemented.');
     }
 

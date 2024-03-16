@@ -1,6 +1,6 @@
 import {
     Node,
-    StatRecord,
+    Statistic,
     PathFindingAlgorithm,
     Direction
 } from 'src/app/@core/types/algorithm.types';
@@ -70,11 +70,11 @@ export class WallFollower extends PathFindingAlgorithmAbstract {
     public updateAlgorithmState(
         newGrid: Node[][],
         deserializedState: any,
-        statRecords: StatRecord[]
+        statRecords: Statistic[]
     ): void {
         throw new Error('Method not implemented.');
     }
-    public deserialize(newGrid: Node[][], serializedState: any, statRecords: StatRecord[]): void {
+    public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
         throw new Error('Method not implemented.');
     }
     public getSerializedState(): Object {
