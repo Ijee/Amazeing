@@ -1,15 +1,13 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { SimulationComponent } from './simulation.component';
 import { MazeSettingsComponent } from './grid-settings/maze-settings/maze-settings.component';
 import { PathfindingSettingsComponent } from './grid-settings/pathfinding-settings/pathfinding-settings.component';
-import { GridSettingsComponent } from './grid-settings/grid-settings.component';
 
-const routes: Routes = [
+export const SimulationRoutes: Routes = [
     {
         path: '',
         pathMatch: 'prefix',
-        component: SimulationComponent,
+        loadComponent: () => import('./simulation.component').then((c) => c.SimulationComponent),
         children: [
             {
                 path: 'maze',
@@ -27,10 +25,3 @@ const routes: Routes = [
         ]
     }
 ];
-
-@NgModule({
-    declarations: [],
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
-})
-export class SimulationRoutingModule {}

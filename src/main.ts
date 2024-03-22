@@ -7,7 +7,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
-import { AppRoutingModule } from './app/app-routing.module';
+import { AppRoutes } from './app/app.routes';
 import { withRouterConfig, provideRouter } from '@angular/router';
 import { SettingsService } from './app/@core/services/settings.service';
 
@@ -17,15 +17,9 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent, {
     providers: [
-        importProvidersFrom(
-            AppRoutingModule,
-            BrowserModule,
-            FormsModule,
-            ReactiveFormsModule,
-            FontAwesomeModule
-        ),
+        importProvidersFrom(BrowserModule, FormsModule, ReactiveFormsModule, FontAwesomeModule),
         SettingsService,
-        provideRouter([], withRouterConfig({ onSameUrlNavigation: 'reload' })),
+        provideRouter(AppRoutes, withRouterConfig({ onSameUrlNavigation: 'reload' })),
         provideAnimations()
     ]
 }).catch((err) => console.error(err));
