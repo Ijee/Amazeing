@@ -90,7 +90,7 @@ export class AppComponent implements OnInit, OnDestroy {
             }
         });
 
-        setTimeout(() => (this.isBouncing = false), 5000);
+        setTimeout(() => (this.isBouncing = false), 10000);
     }
 
     ngOnDestroy(): void {
