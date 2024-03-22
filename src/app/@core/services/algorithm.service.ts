@@ -214,7 +214,7 @@ export class AlgorithmService {
      * @param newGrid - the current Grid
      * @param state - the new algorithm state
      * @param statRecord - the new statRecord
-     * @param deserialize - whether or not to deserialize the state object before updating the algorithm state
+     * @param deserialize - whether to deserialize the state object before updating the algorithm state
      */
     public updateAlgorithmState(
         newGrid: Node[][],

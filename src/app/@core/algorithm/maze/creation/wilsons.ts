@@ -5,40 +5,6 @@ import { EqualsHashCode } from '../../../../@shared/classes/EqualsHashCode';
 import { shuffleFisherYates } from '../../../../@shared/utils/fisher-yates';
 import { MazeAlgorithm, Node, Statistic } from '../../../types/algorithm.types';
 
-/**
- * This is the implementation of Wilsons algorithm tailored for creating a maze
- * for this site specifically.
- */
-
-type Direction = 'up' | 'right' | 'down' | 'left';
-
-class WalkingPath implements EqualsHashCode {
-    constructor(
-        public gridLocation: GridLocation,
-        public direction: Direction
-    ) {}
-
-    equals(obj: any): boolean {
-        if (obj instanceof WalkingPath) {
-            // && obj.direction === this.direction
-            return this.gridLocation.equals(obj.gridLocation);
-        }
-        return false;
-    }
-
-    hashCode(): number {
-        // + ['up', 'right', 'down', 'left'].indexOf(this.direction)
-        return this.gridLocation.hashCode();
-    }
-
-    toObject(): object {
-        return {
-            gridLocation: this.gridLocation.toObject(),
-            weight: this.direction
-        };
-    }
-}
-
 export class Wilsons extends MazeAlgorithmAbstract {
     private gridWith: number;
     private gridHeight: number;

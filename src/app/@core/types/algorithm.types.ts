@@ -29,6 +29,7 @@ export type StatusChange = {
 };
 
 export type Direction = 'unknown' | 'up' | 'right' | 'down' | 'left';
+export type Orientation = 'horizontal' | 'vertical';
 export type Parity = 'odd' | 'even';
 export type NodeCollection = [{ gridLocation: GridLocation; direction: Direction }];
 

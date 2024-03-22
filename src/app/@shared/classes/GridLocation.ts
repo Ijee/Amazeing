@@ -1,5 +1,9 @@
 import { EqualsHashCode } from './EqualsHashCode';
 
+/**
+ * Represents a node with all available information about it as well as a way
+ * to serialize it for the importing/exporting functionality.
+ */
 export class GridLocation implements EqualsHashCode {
     constructor(
         public readonly x: number,

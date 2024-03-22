@@ -259,7 +259,7 @@ export abstract class MazeAlgorithmAbstract {
     }
 
     /**
-     * Returns whether or not the current algorithm uses node weights.
+     * Returns whether the current algorithm uses node weights.
      */
     public abstract usesNodeWeights(): boolean;
 }

@@ -14,7 +14,7 @@ import { HrComponent } from '../@shared/components/hr/hr.component';
     imports: [FaIconComponent, HrComponent, LearnPrimsComponent]
 })
 export class LearnComponent {
-    constructor(public library: FaIconLibrary) {
+    constructor(public readonly library: FaIconLibrary) {
         library.addIconPacks(fas, fab, far);
     }
 }

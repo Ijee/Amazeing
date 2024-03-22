@@ -2,10 +2,6 @@ import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
 import { GridLocation } from '../../../../@shared/classes/GridLocation';
 import { MazeAlgorithm, Node, Statistic } from '../../../types/algorithm.types';
 
-/**
- * This is the implementation of the Aldous-Broder algorithm tailored for creating
- * a maze.
- */
 export class AldousBroder extends MazeAlgorithmAbstract {
     private gridWith: number;
     private gridHeight: number;

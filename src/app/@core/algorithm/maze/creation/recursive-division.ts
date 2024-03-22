@@ -1,10 +1,15 @@
-import { Node, Statistic, MazeAlgorithm, Parity } from 'src/app/@core/types/algorithm.types';
+import {
+    Node,
+    Statistic,
+    MazeAlgorithm,
+    Parity,
+    Orientation
+} from 'src/app/@core/types/algorithm.types';
 import { GridLocation } from 'src/app/@shared/classes/GridLocation';
 import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
 import { getRandomIntInclusive } from '../../../../@shared/utils/general-utils';
 
 type Division = { xStart: number; xEnd: number; yStart: number; yEnd: number };
-type Orientation = 'horizontal' | 'vertical';
 
 export class RecursiveDivision extends MazeAlgorithmAbstract {
     private divisions: [Division];

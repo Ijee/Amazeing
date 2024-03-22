@@ -10,10 +10,6 @@ import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
 import { getRandomNumber } from '../../../../@shared/utils/general-utils';
 import { shuffleFisherYates } from '../../../../@shared/utils/fisher-yates';
 
-/**
- * My Growing Tree implementation which got 70% more complicated because
- * I wanted to highlight the added nodes and because it is a funny grid.
- */
 export class GrowingTree extends MazeAlgorithmAbstract {
     private nodeCollection: NodeCollection;
 

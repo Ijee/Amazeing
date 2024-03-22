@@ -5,10 +5,6 @@ import { FormGroup } from '@angular/forms';
 import { MazeAlgorithm, Node, Statistic } from '../../../types/algorithm.types';
 import { JsonFormData } from '../../../types/jsonform.types';
 
-/**
- * This is the implementation of the Prims algorithm tailored for creating
- * a maze.
- */
 export class Prims extends MazeAlgorithmAbstract {
     private frontierNodes: HashSet<GridLocation>;
 

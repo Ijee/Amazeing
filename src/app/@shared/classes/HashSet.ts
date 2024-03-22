@@ -4,6 +4,7 @@ import { EqualsHashCode } from './EqualsHashCode';
 
 /**
  * Eine Implementation eines Sets, das auf EqualsHashCode basiert.
+ * @credit @alexroeber
  */
 export class HashSet<T extends EqualsHashCode> {
     private length: number;

@@ -25,6 +25,9 @@ export class ControllerComponent {
         library.addIconPacks(fas, fab, far);
     }
 
+    /**
+     * Delegates the logic when trying to open the export modal.
+     */
     public handleExportLogic(): void {
         this.simulationService.exportSession();
         this.simulationService.toggleShowExportModal();

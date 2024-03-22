@@ -96,7 +96,6 @@ export class GridSettingsComponent implements AfterViewInit, OnDestroy {
      * This switches to the other algorithm mode and handles the warning shown to the client
      *
      * @param algoMode - the new algorithm mode to be set
-     * @param skipWarning - whether or not to skip the warning or not
      */
     public handleWarning(algoMode: AlgorithmMode): void {
         if (this.algorithmService.getAlgorithmMode() !== algoMode) {

@@ -59,9 +59,9 @@ export class AppComponent implements OnInit, OnDestroy {
         private readonly renderer: Renderer2,
         private readonly observer: BreakpointObserver,
         private readonly router: Router,
+        private readonly userTourService: UserTourService,
         public readonly simulationService: SimulationService,
         public readonly settingsService: SettingsService,
-        private readonly userTourService: UserTourService,
         public readonly algorithmService: AlgorithmService,
         public readonly warnDialogService: WarningDialogService
     ) {

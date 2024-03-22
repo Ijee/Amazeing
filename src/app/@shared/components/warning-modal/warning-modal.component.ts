@@ -10,5 +10,5 @@ import { FaIconComponent } from '@fortawesome/angular-fontawesome';
     imports: [FaIconComponent]
 })
 export class WarningModalComponent {
-    constructor(public warningDialog: WarningDialogService) {}
+    constructor(public readonly warningDialog: WarningDialogService) {}
 }

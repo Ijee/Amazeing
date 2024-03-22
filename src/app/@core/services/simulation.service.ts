@@ -389,28 +389,28 @@ export class SimulationService {
     }
 
     /**
-     * This toggles whether or not to show weight status
+     * This toggles whether to show weight status
      */
     public toggleWeightStatus(): void {
         this.showWeightStatus = !this.showWeightStatus;
     }
 
     /**
-     * Toggles whether or not the import modal should be shown
+     * Toggles whether the import modal should be shown
      */
     public toggleShowImportModal(): void {
         this.showImportModal = !this.showImportModal;
     }
 
     /**
-     * Toggles whether or not the export modal should be shown
+     * Toggles whether the export modal should be shown
      */
     public toggleShowExportModal(): void {
         this.showExportModal = !this.showExportModal;
     }
 
     /**
-     * Toggles whether or not the legend modal should be shown
+     * Toggles whether the legend modal should be shown
      */
     public toggleShowLegendModal(): void {
         this.showLegendModal = !this.showLegendModal;
@@ -431,16 +431,15 @@ export class SimulationService {
     }
 
     /**
-     * Returns the status whether or not to disable the controller buttons.
+     * Returns the status whether to disable the controller buttons.
      *
-     * THIS IS CURRENTLY NOT BEING USED BUT MAY END UP BEING USEFUL AGAIN
      */
     public getIsPlayDisabled(): boolean {
         return this.disablePlay;
     }
 
     /**
-     * Returns whether or not the simulation is currently active.
+     * Returns whether  the simulation is currently active.
      */
     public getSimulationStatus(): boolean {
         return this.isSimulationActive;
@@ -482,21 +481,21 @@ export class SimulationService {
     }
 
     /**
-     * Returns whether or not the legend modal should be shown.
+     * Returns whether the legend modal should be shown.
      */
     public getShowLegendModal(): boolean {
         return this.showLegendModal;
     }
 
     /**
-     * Returns whether or not the import modal should be shown.
+     * Returns whether the import modal should be shown.
      */
     public getShowImportModal(): boolean {
         return this.showImportModal;
     }
 
     /**
-     * Returns whether or not the export modal should be shown.
+     * Returns whether the export modal should be shown.
      */
     public getShowExportModal(): boolean {
         return this.showExportModal;

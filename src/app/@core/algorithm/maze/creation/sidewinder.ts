@@ -2,10 +2,6 @@ import { Node, Statistic, MazeAlgorithm } from 'src/app/@core/types/algorithm.ty
 import { GridLocation } from 'src/app/@shared/classes/GridLocation';
 import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
 
-/**
- * The Sidewinder implementation to create mazes.
- * TODO this surely needs a refactoring but keep in mind the grids length can be even or odd.
- */
 export class Sidewinder extends MazeAlgorithmAbstract {
     private cursor: GridLocation;
     private runSet: GridLocation[];

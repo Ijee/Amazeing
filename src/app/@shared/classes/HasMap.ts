@@ -4,6 +4,7 @@ import { debounceTime } from 'rxjs/operators';
 
 /**
  * Eine Implementation einer Map, die auf EqualsHashCode basiert.
+ * @credit @alexroeber
  */
 export class HashMap<K extends EqualsHashCode, V> {
     private length: number;
@@ -161,7 +162,10 @@ export class HashMap<K extends EqualsHashCode, V> {
  * Funktionalität für die Map.
  */
 class Entry<K extends EqualsHashCode, V> implements EqualsHashCode {
-    constructor(public key: K, public value: V) {}
+    constructor(
+        public key: K,
+        public value: V
+    ) {}
 
     equals(obj: any): boolean {
         return obj instanceof Entry && this.key.equals(obj.key);
