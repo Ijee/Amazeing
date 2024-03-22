@@ -18,9 +18,9 @@ import { HrComponent } from '../../@shared/components/hr/hr.component';
 })
 export class ControllerComponent {
     constructor(
-        public simulationService: SimulationService,
-        public recordService: RecordService,
-        private library: FaIconLibrary
+        public readonly simulationService: SimulationService,
+        public readonly recordService: RecordService,
+        public readonly library: FaIconLibrary
     ) {
         library.addIconPacks(fas, fab, far);
     }

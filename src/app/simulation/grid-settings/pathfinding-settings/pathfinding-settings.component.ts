@@ -22,14 +22,14 @@ export class PathfindingSettingsComponent implements OnInit, OnDestroy {
     private readonly destroyed$: Subject<void>;
 
     constructor(
-        private route: ActivatedRoute,
-        private router: Router,
-        private changeDetector: ChangeDetectorRef,
-        private warningDialog: WarningDialogService,
-        public recordService: RecordService,
-        public simulationService: SimulationService,
-        public algorithmService: AlgorithmService,
-        public settingsService: SettingsService
+        private readonly route: ActivatedRoute,
+        private readonly router: Router,
+        private readonly changeDetector: ChangeDetectorRef,
+        private readonly warningDialog: WarningDialogService,
+        public readonly recordService: RecordService,
+        public readonly simulationService: SimulationService,
+        public readonly algorithmService: AlgorithmService,
+        public readonly settingsService: SettingsService
     ) {
         this.destroyed$ = new Subject<void>();
     }

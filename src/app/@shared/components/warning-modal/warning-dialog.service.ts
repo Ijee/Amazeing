@@ -39,7 +39,7 @@ export class WarningDialogService {
     }
 
     /**
-     * Returns whether or not the dialog should be shown.
+     * Returns whether  the dialog should be shown.
      */
     public getDialogStatus(): boolean {
         return this.showDialog;

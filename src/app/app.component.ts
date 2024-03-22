@@ -56,15 +56,14 @@ export class AppComponent implements OnInit, OnDestroy {
 
     constructor(
         library: FaIconLibrary,
-        private renderer: Renderer2,
-        private observer: BreakpointObserver,
-        private router: Router,
-        private route: ActivatedRoute,
-        public simulationService: SimulationService,
-        public settingsService: SettingsService,
-        private userTourService: UserTourService,
-        public algorithmService: AlgorithmService,
-        public warnDialogService: WarningDialogService
+        private readonly renderer: Renderer2,
+        private readonly observer: BreakpointObserver,
+        private readonly router: Router,
+        public readonly simulationService: SimulationService,
+        public readonly settingsService: SettingsService,
+        private readonly userTourService: UserTourService,
+        public readonly algorithmService: AlgorithmService,
+        public readonly warnDialogService: WarningDialogService
     ) {
         this.version = packageInfo.version;
         this.isBouncing = true;

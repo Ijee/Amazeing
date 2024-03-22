@@ -30,14 +30,12 @@ export class GridComponent implements OnInit, OnDestroy {
     public isMobile: boolean;
 
     private readonly destroyed$: Subject<void>;
-    private isInitialized: boolean;
 
     constructor(
-        public simulationService: SimulationService,
-        public recordService: RecordService,
-        public settingsService: SettingsService,
-        public algorithmService: AlgorithmService,
-        public observer: BreakpointObserver
+        public readonly simulationService: SimulationService,
+        public readonly recordService: RecordService,
+        public readonly algorithmService: AlgorithmService,
+        public readonly observer: BreakpointObserver
     ) {
         this.width = 47;
         this.height = 21;
@@ -91,8 +89,6 @@ export class GridComponent implements OnInit, OnDestroy {
             .subscribe((result) => {
                 this.isMobile = result.matches;
             });
-
-        this.isInitialized = true;
     }
 
     ngOnDestroy(): void {

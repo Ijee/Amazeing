@@ -41,16 +41,16 @@ export class GridSettingsComponent implements AfterViewInit, OnDestroy {
     private readonly destroyed$: Subject<void>;
 
     constructor(
-        private route: ActivatedRoute,
-        private router: Router,
-        private ref: ChangeDetectorRef,
-        private library: FaIconLibrary,
-        public recordService: RecordService,
-        public algorithmService: AlgorithmService,
-        public simulationService: SimulationService,
-        public settingsService: SettingsService,
+        private readonly route: ActivatedRoute,
+        private readonly router: Router,
+        private readonly ref: ChangeDetectorRef,
+        private readonly library: FaIconLibrary,
+        public readonly recordService: RecordService,
+        public readonly algorithmService: AlgorithmService,
+        public readonly simulationService: SimulationService,
+        public readonly settingsService: SettingsService,
 
-        public formBuilder: UntypedFormBuilder
+        public readonly formBuilder: UntypedFormBuilder
     ) {
         library.addIconPacks(fas, fab, far);
 

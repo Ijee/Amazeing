@@ -78,7 +78,7 @@ export class NodeComponent {
     }
 
     /**
-     * Checks whether or not the cell should be reborn
+     * Checks whether the cell should be reborn
      * as in negates the isAlive property
      *
      */

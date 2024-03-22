@@ -20,10 +20,10 @@ export class StatsComponent {
     @Input() isMouseDown: boolean;
 
     constructor(
-        public simulationService: SimulationService,
-        public algorithmService: AlgorithmService,
-        public recordService: RecordService,
-        public settingsService: SettingsService
+        public readonly simulationService: SimulationService,
+        public readonly algorithmService: AlgorithmService,
+        public readonly recordService: RecordService,
+        public readonly settingsService: SettingsService
     ) {}
 
     public trackByName(index: number, item: Statistic): string {
