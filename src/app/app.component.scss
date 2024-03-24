@@ -17,7 +17,7 @@ svg:not(:root) {
     display: grid;
     align-items: center;
     max-width: 100%;
-    width: 65%;
+    width: 95%;
     height: auto;
 }
 
@@ -30,11 +30,11 @@ svg:not(:root) {
 }
 
 .maze-mode #shade {
-    fill: bulma.$primary;
+    fill: var(--bulma-primary);
 }
 
 .path-mode #shade {
-    fill: bulma.$danger;
+    fill: var(--bulma-danger);
 }
 
 .logo svg {
@@ -43,22 +43,24 @@ svg:not(:root) {
     height: auto;
 }
 
+.github-brand-color {
+    color: var(--bulma-white);
+    background-color: var(--github-brand-color) !important;
+    border: none;
+}
+
 main {
     position: relative;
 }
 
 body.dark .is-primary {
-    background-color: bulma.$primary !important;
+    background-color: var(--bulma-primary) !important;
 }
 
 .body.dark .is-danger {
-    background-color: bulma.$danger !important;
+    background-color: var(--bulma-danger) !important;
 }
 
-
-.burger {
-    color: bulma.$white-ter;
-}
 
 .dropdown-button {
     margin-left: auto;
@@ -74,6 +76,22 @@ body.dark .is-primary {
         background-image: none;
     }
 }
+.navbar-item:hover {
+    color: var(--bulma-grey-dark);
+    background-color: transparent;
+}
+
+.navbar-link:hover {
+    color: var(--bulma-grey-dark);
+    background-color: transparent;
+    transition: unset;
+}
+
+.navbar-item:focus {
+        outline: none;
+        background-color: transparent;
+}
+
 
 .simple-border-bottom {
     border-bottom: 2px solid #dbdbdb;

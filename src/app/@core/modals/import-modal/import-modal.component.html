@@ -53,27 +53,29 @@
             }
         </section>
         <footer class="modal-card-foot">
-            <button
-                class="button is-success"
-                data-testid="import-algorithm"
-                title="Import algorithm"
-                [disabled]="importError"
-                (click)="importSession()">
-                <span class="icon is-small">
-                    <fa-icon [icon]="['fas', 'file-import']"></fa-icon>
-                </span>
-                <span>Import</span>
-            </button>
-            <button
-                class="button"
-                data-testid="import-cancel"
-                title="Import cancel"
-                (click)="simulationService.toggleShowImportModal()">
-                <span class="icon is-small">
-                    <fa-icon [icon]="['fas', 'times-circle']"></fa-icon>
-                </span>
-                <span>Cancel</span>
-            </button>
+            <div class="field is-grouped">
+                <button
+                    class="button is-success"
+                    data-testid="import-algorithm"
+                    title="Import algorithm"
+                    [disabled]="importError"
+                    (click)="importSession()">
+                    <span class="icon is-small">
+                        <fa-icon [icon]="['fas', 'file-import']"></fa-icon>
+                    </span>
+                    <span>Import</span>
+                </button>
+                <button
+                    class="button"
+                    data-testid="import-cancel"
+                    title="Import cancel"
+                    (click)="simulationService.toggleShowImportModal()">
+                    <span class="icon is-small">
+                        <fa-icon [icon]="['fas', 'times-circle']"></fa-icon>
+                    </span>
+                    <span>Cancel</span>
+                </button>
+            </div>
         </footer>
     </div>
 </div>

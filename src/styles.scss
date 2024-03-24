@@ -1,12 +1,14 @@
 @charset "utf-8";
 
-@import url('https://fonts.googleapis.com/css?family=Open+Sans|Libre+Baskerville');
-@import 'node_modules/driver.js/dist/driver.css';
-@import 'styles/bulma-variables';
-@import 'styles/colors';
-@import 'styles/components';
-@import 'styles/dark-theme';
-@import 'driverjs';
+
+//@import ;url('https://fonts.googleapis.com/css?family=Open+Sans|Libre+Baskerville');
+
+@use 'bulma/versions/bulma-no-dark-mode';
+@use 'node_modules/driver.js/dist/driver.css';
+@use 'styles/bulma-variables';
+@use 'styles/colors';
+@use 'styles/dark-theme';
+@use 'driverjs';
 
 // The CSS in this project here is quite messy
 // but at least it looks kind of good - so there's that.
@@ -76,14 +78,18 @@
     src: url('assets/fonts/poppins-v20-latin-900.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
-$family-primary: 'Poppins';
-$family-serif: 'Poppins';
+//$family-primary: 'Poppins';
+//$family-serif: 'Poppins';
 
 
 :root {
-  $button-active-color: hsl(0, 72%, 45%);
-  $button-focus-box-shadow-color: hsla(0, 0%, 100%, 0);
-  $button-focus-box-shadow-color: hsla(0, 0%, 100%, 0);
+    --bulma-family-primary: 'Poppins';
+    --bulma-family-secondary: 'Poppins';
+
+    --algorithm-mode-color: var(--bulma-primary);
+  //$button-active-color: hsl(0, 72%, 45%);
+  //$button-focus-box-shadow-color: hsla(0, 0%, 100%, 0);
+  //$button-focus-box-shadow-color: hsla(0, 0%, 100%, 0);
 }
 
 html,
@@ -112,7 +118,8 @@ body {
 // dark mode
 
 // @import 'bulma';
-@import 'bulma/bulma';
+//@import 'bulma/bulma';
+
 
 //body.dark * {
 //  transition: all 1s ease;
@@ -126,12 +133,12 @@ body.light {
 body.dark {
     background: linear-gradient(135deg, #1f2627 14%, #2b596c 78%) no-repeat fixed;
     background-size: cover;
-    color: $white-dark-87;
+    color: var(--white-dark-87);
 }
 
 body .subtitle,
 body .title {
-    color: $dark;
+    color: var(--bulma-dark);
 }
 
 body.dark .subtitle,
@@ -140,32 +147,28 @@ body.dark .heading,
 body.dark .content,
 body.dark .menu-label,
 body.dark .navbar-burger {
-    color: $white-dark-87;
+    color: var(--white-dark-87);
 }
 
 body.dark .button {
-    background-color: $grey-darker;
-    color: $white-dark-78;
+    background-color: var(--bulma-grey-darker);
+    color: var(--white-dark-78);
 }
 
 body.dark .button:hover {
-    color: $white-dark-60;
+    color: var(--white-dark-60);
 }
 
 body.dark .button:disabled,
 body.dark button[disabled] {
-    color: $white;
-    background-color: $white-dark-38;
+    color: var(--bulma-white);;
+    background-color: var(--white-dark-38);
 }
 
-body.dark .force-blue-bg {
-    background-color: $info !important;
-}
-
-button:focus:hover {
-    outline: none;
-    box-shadow: none;
-}
+//button:focus:hover {
+//    outline: none;
+//    box-shadow: none;
+//}
 
 .field-has-addons:active {
     outline: none;
@@ -180,16 +183,47 @@ button:focus:hover {
 }
 
 body.dark .box {
-    background-color: $dark;
-    color: $white-dark-87
+    background-color: var(--bulma-dark);
+    color: var(--white-dark-87)
 }
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+*:focus {
+    outline: none;
+
+}
+
+
+// TODO specificity???
+@media(prefers-reduced-motion: no-preference) {
+    button:focus-visible {
+        transition: outline-offset 75ms ease-out;
+        outline-offset: .5rem;
+    }
+
+    button:not(:active):focus-visible {
+        transition: outline-offset 25ms ease-in;
+    }
+}
+
+button:not(:active):focus-visible {
+    outline-offset: 1rem;
+}
+
+button:focus-visible {
+    outline: 1rem solid;
+}
+
 
 ::selection {
-    background: $primary;
+    background: var(--algorithm-mode-color);
 }
 
-body.dark ::selection {
-    background: $white-dark-38;
-}
+//body.dark ::selection {
+//    background: var(--white-dark-38);
+//}
 
 @import 'styles/darcula.css';

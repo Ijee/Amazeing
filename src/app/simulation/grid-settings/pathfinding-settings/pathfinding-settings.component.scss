@@ -1,5 +1,4 @@
 @use 'bulma/bulma' as bulma;
-@use 'colors';
 
 .button {
     border-radius: 0;
@@ -10,8 +9,8 @@
 }
 
 body.dark :host .is-primary {
-    color: bulma.$dark !important;
-    background-color: bulma.$primary !important;
+    color: var(--bulma-dark) !important;
+    background-color: var(--bulma-primary) !important;
 }
 
 pre > code {
@@ -28,11 +27,11 @@ pre > code {
 
 
 body.dark :host label {
-  color: colors.$white-dark-87;
+  color: var(--white-dark-87);
 }
 
 body.dark :host input[type="radio"] {
-  border: 0.15em solid colors.$white-dark-87;
+  border: 0.15em solid var(--white-dark-87);
 }
 
 input[type="radio"] {
@@ -42,7 +41,7 @@ input[type="radio"] {
   color: #1a0707;
   width: 1.15em;
   height: 1.15em;
-  border: 0.15em solid bulma.$dark;
+  border: 0.15em solid var(--bulma-dark);
   border-radius: 50%;
   transform: translateY(-0.075em);
 
@@ -57,7 +56,7 @@ input[type="radio"]::before {
   border-radius: 50%;
   transform: scale(0);
   transition: 120ms transform ease-in-out;
-  box-shadow: inset 1em 1em bulma.$danger;
+  box-shadow: inset 1em 1em var(--bulma-danger);
 }
 
 input[type="radio"]:checked::before {

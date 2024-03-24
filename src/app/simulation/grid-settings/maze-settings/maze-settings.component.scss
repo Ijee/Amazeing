@@ -1,6 +1,5 @@
 @use 'bulma/bulma' as bulma;
 
-
 .button {
     border-radius: 0;
 }
@@ -10,12 +9,12 @@
 }
 
 body.dark :host .is-primary {
-    color: bulma.$dark !important;
-    background-color: bulma.$primary !important;
+    color: var(--bulma-dark) !important;
+    background-color: var(--bulma-primary) !important;
 }
 
 .outline {
-    border: 2px bulma.$light solid;
+    border: 2px var(--bulma-light) solid;
 }
 
 body.dark :host .outline {

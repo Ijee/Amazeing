@@ -1,0 +1,6 @@
+@use 'bulma/bulma' as bulma;
+
+.modal-card-head {
+    border-bottom: 1px solid var(--bulma-grey-lighter);
+    box-shadow: none;
+}

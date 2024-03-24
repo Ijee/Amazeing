@@ -20,7 +20,7 @@
 }
 
 body.dark .box {
-    background-color: bulma.$primary;
+    background-color: var(--bulma-primary);
 }
 
 //body.dark .column {

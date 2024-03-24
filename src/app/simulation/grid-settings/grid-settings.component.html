@@ -7,18 +7,18 @@
     <div class="columns column is-multiline is-gapless is-full">
         <div class="column is-6">
             <button
-                class="button algo-mode-button border-radius-top-left is-medium is-fullwidth"
+                class="button algo-mode-button border-radius-top-left is-medium has-text-black is-fullwidth"
                 data-testid="maze-mode"
-                [ngClass]="this.algorithmService.getAlgorithmMode() === 'maze' ? 'is-primary' : 'has-background-primary-light has-text-black'"
+                [ngClass]="this.algorithmService.getAlgorithmMode() === 'maze' ? 'has-background-primary' : 'has-background-primary-light'"
                 (click)="handleWarning('maze')">
                 <b>MAZE</b>
             </button>
         </div>
         <div class="column is-6">
             <button
-                class="button algo-mode-button border-radius-top-right is-medium is-fullwidth"
+                class="button algo-mode-button border-radius-top-right is-medium has-text-black' is-fullwidth"
                 data-testid="pathfinding-mode"
-                [ngClass]="algorithmService.getAlgorithmMode() === 'path-finding' ? 'is-danger' : 'has-background-danger-light has-text-black'"
+                [ngClass]="algorithmService.getAlgorithmMode() === 'path-finding' ? 'has-background-danger' : 'has-background-danger-light'"
                 (click)="handleWarning('path-finding')">
                 <b>PATHFINDING</b>
             </button>
@@ -64,7 +64,7 @@
     </div>
 
     <div class="column is-full mt-4">
-        <p class="menu-label has-text-centered pb-0">
+        <p class="menu-label has-text-centered is-size-7 pb-0">
             <b>Algorithm Options</b>
         </p>
         @if (handleJsonFormData().controls.length > 0) {
@@ -124,7 +124,7 @@
     }
     <div class="column is-flex is-full mt-2 is-flex-grow-1 is-justify-content-end is-flex-direction-column">
         <a
-            class="button is-info border-radius-bottom is-fullwidth"
+            class="button is-link border-radius-bottom is-fullwidth"
             data-testid="learn-more"
             (click)="navigateToLearn()">
             <b>LEARN MORE</b>

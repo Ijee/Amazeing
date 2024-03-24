@@ -1,5 +1,5 @@
 @use 'bulma/bulma' as bulma;
-@use 'colors';
+//@use 'colors';
 
 hr {
     border-bottom: 1px solid #fff;
@@ -32,15 +32,15 @@ hr {
         padding: 0 0.5em;
         line-height: 1.5em;
         // this is really the only tricky part, you need to specify the background color of the container element...
-        background-color: bulma.$white;
+        background-color: var(--bulma-white);
         margin: 0;
     }
 }
 
 body.dark :host .hr-text {
-    color: colors.$white-dark-87;
+    color: var(--white-dark-87);
     opacity: 1;
     &:after {
-        background-color: bulma.$dark;
+        background-color: var(--bulma-dark);
     }
 }

@@ -1,8 +1,20 @@
-//:host {
-//  flex: 1 0;
-//  display: flex;
-//}
+@use 'bulma/bulma' as bulma;
 
 .subtitle {
     color: grey;
 }
+
+body.dark :host .maze-buttons .button {
+    background-color: var(--bulma-primary-light);
+    color: var(--white-dark-38);
+}
+
+body.dark :host .pathfinding-buttons .button{
+    background-color: var(--bulma-danger-light);
+    color: var(--white-dark-38);
+}
+
+//:host {
+//  flex: 1 0;
+//  display: flex;
+//}

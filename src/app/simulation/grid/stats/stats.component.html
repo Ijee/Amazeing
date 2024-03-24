@@ -1,7 +1,7 @@
 <div class="columns is-fullwidth is-gapless is-justify-content-space-between">
     <div class="column is-2 is-half-mobile">
         <strong class="has-text-centered">
-            <p class="heading is-size-6-mobile">Iteration</p>
+            <p class="heading has-text-weight-bold is-uppercase is-size-7 is-size-6-mobile">Iteration</p>
             <p class="title is-size-6-mobile" data-testid="iteration">{{ recordService.getIteration() }}</p>
         </strong>
     </div>
@@ -9,7 +9,7 @@
     undefined) {
     <div [@.disabled]="!this.settingsService.getAnimationsSetting()" @fadeInOutList class="column is-half-mobile">
         <strong class="has-text-centered">
-            <p class="heading is-size-6-mobile">{{ stat.name }}</p>
+            <p class="heading has-text-weight-bold is-uppercase is-size-7 is-size-6-mobile">{{ stat.name }}</p>
             <p
                 class="title is-size-6-mobile"
                 [class]="algorithmService.getAlgorithmMode() === 'maze' ? 'has-text-primary' : 'has-text-danger'"
@@ -21,11 +21,11 @@
         </strong>
     </div>
     } }
-    <div class="column is-2 is-half-mobile is-size-7-mobile">
+    <div class="column is-2 is-half-mobile is-size-7 is-size-7-mobile is-align-content-end">
         <strong class="has-text-centered">
-            <p class="heading is-size-6-mobile">Speed</p>
+            <p class="heading has-text-weight-bold is-uppercase is-size-6-mobile">Speed</p>
             <p
-                class="title is-size-6-mobile"
+                class="title is-uppercase is-size-6-mobile"
                 data-testid="speed"
                 [class]="algorithmService.getAlgorithmMode() === 'maze' ? 'has-text-primary' : 'has-text-danger'">
                 {{ simulationService.getSimulationSpeed() }}%

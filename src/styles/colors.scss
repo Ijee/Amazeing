@@ -1,16 +1,26 @@
-// Dark mode font colour
-$white-dark-87: hsl(0, 0%, 87%);
-$white-dark-78: hsl(0, 0%, 78%);
-$white-dark-60: hsl(0, 0%, 60%);
-$white-dark-38: hsl(0, 0%, 38%);
+// Custom Colours
+:root {
+    // Dark mode font colour
+    --white-dark-87: hsl(0, 0%, 87%);
+    --white-dark-78: hsl(0, 0%, 78%);
+    --white-dark-60: hsl(0, 0%, 60%);
+    --white-dark-38: hsl(0, 0%, 38%);
+
+    // Node colours
+    --node-4: #6089ec; // node tracking
+    --node-5: #eb9486; // node in
+    --node-6: #56b35f; // tbd
+    --node-7: #724cf9; // node tracking
+    --node-8: #f4dd52; // fastest path
+    --node-9: #a3a3a3; // to track something without it needing to be visible / already touched node
+
+
+    --github-brand-color: #4078c0;
+}
 
 
 
-// Node colours
-$node-4: #6089ec; // node tracking
-$node-5: #eb9486; // node in
-$node-6: #56b35f; // tbd
-$node-7: #724cf9; // node tracking
-$node-8: #f4dd52; // fastest path
-$node-9: #a3a3a3; // to track something without it needing to be visible / already touched node
+
+
+
 

@@ -1,8 +1,8 @@
 <app-hr text="SIMULATION CONTROL"></app-hr>
-<div class="field has-addons has-addons-centered is-marginless">
+<div class="field has-addons has-addons-centered m-0">
     <p class="control">
         <button
-            class="button is-outlined is-size-7-touch is-size-6-desktop"
+            class="button is-size-7-touch is-size-6-desktop"
             data-testid="slowdown"
             title="slow down"
             (click)="simulationService.setSpeedDown()">
@@ -12,7 +12,7 @@
     <p class="control">
         <button
             [disabled]="simulationService.getBackwardStepsAmount() < 1"
-            class="button is-outlined is-size-7-touch is-size-6-desktop"
+            class="button is-size-7-touch is-size-6-desktop"
             data-testid="iteration-backward"
             title="iteration backward"
             [ngClass]="{
@@ -25,7 +25,7 @@
     </p>
     <p class="control">
         <button
-            class="button is-outlined is-size-7-touch is-size-6-desktop"
+            class="button is-size-7-touch is-size-6-desktop"
             data-testid="clear-grid"
             title="clear grid"
             [disabled]="simulationService.getSimulationStatus()"
@@ -55,7 +55,7 @@
     <p class="control">
         <button
             [disabled]="simulationService.getIsPlayDisabled()"
-            class="button is-outlined is-size-7-touch is-size-6-desktop"
+            class="button is-size-7-touch is-size-6-desktop"
             data-testid="next-iteration"
             title="next iteration"
             (click)="simulationService.stepForward()">
@@ -65,7 +65,7 @@
     <p class="control">
         <button
             [disabled]="simulationService.getIsPlayDisabled()"
-            class="button is-outlined is-size-7-touch is-size-6-desktop"
+            class="button is-size-7-touch is-size-6-desktop"
             data-testid="complete-algorithm"
             title="complete algorithm"
             (click)="simulationService.completeAlgorithm()">
@@ -74,7 +74,7 @@
     </p>
     <p class="control">
         <button
-            class="button is-outlined is-size-7-touch is-size-6-desktop"
+            class="button is-size-7-touch is-size-6-desktop"
             data-testid="speed-up"
             title="speed up"
             (click)="simulationService.setSpeedUp()">
@@ -82,7 +82,7 @@
         </button>
     </p>
 </div>
-<div class="field has-addons has-addons-centered is-marginless">
+<div class="field has-addons has-addons-centered m-0">
     <p class="control">
         <button
             class="button is-size-7-touch is-size-6-desktop"

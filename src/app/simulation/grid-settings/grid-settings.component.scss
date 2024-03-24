@@ -1,5 +1,4 @@
 @use 'bulma/bulma' as bulma;
-@use 'colors';
 
 .algo-mode-button {
     border-style: solid;
@@ -35,7 +34,7 @@
 }
 
 body.dark .container {
-    background-color: bulma.$dark;
+    background-color: var(--bulma-dark);
 }
 
 .radio {
@@ -46,11 +45,11 @@ body.dark .container {
 }
 
 body.dark :host label {
-    color: colors.$white-dark-87;
+    color: var(--white-dark-87);
 }
 
 body.dark :host input[type="radio"] {
-    border: 0.15em solid colors.$white-dark-87;
+    border: 0.15em solid var(--white-dark-87);
 }
 
 input[type="radio"]:disabled {
@@ -66,7 +65,7 @@ input[type="radio"] {
     color: #1a0707;
     width: 1.15em;
     height: 1.15em;
-    border: 0.15em solid bulma.$dark;
+    border: 0.15em solid var(--bulma-dark);
     border-radius: 50%;
     transform: translateY(-0.075em);
 
@@ -75,11 +74,13 @@ input[type="radio"] {
 }
 
 .active-color-primary {
-    --input-color: #{bulma.$primary};
+    //--input-color: #{bulma.$primary};
+    --input-color: var(--bulma-primary);
 }
 
 .active-color-danger {
-    --input-color: #{bulma.$danger};
+    //--input-color: #{bulma.$danger};
+    --input-color: var(--bulma-danger);
 }
 
 

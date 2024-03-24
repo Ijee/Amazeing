@@ -1,12 +1,7 @@
 @use 'bulma/bulma' as bulma;
-//@use "sass:meta";
 
 :host {
     display: block;
-    // love how bulma still has no css variables
-    //--primary-color-a20: hsla(hue(#{meta.inspect(bulma.$primary)}),
-    //    saturation(#{meta.inspect(bulma.$primary)}),
-    //    lightness(#{meta.inspect(bulma.$primary)}, .2));
     --primary-color-a20: hsl(171, 100%, 41%, 0.2);
     --danger-color-a20: hsla(348, 100%, 61%, 0.2);
     --box-shadow-maze: 0 0.2em 1.2em 0 var(--primary-color-a20), 0 0px 0 1px rgba(10, 10, 10, 0.02);
@@ -40,8 +35,8 @@ body.dark :host .box-shadow-path {
 }
 
 .game-grid {
-    border-top: 1px solid bulma.$dark;
-    border-left: 1px solid bulma.$dark;
+    border-top: 1px solid var(--bulma-dark);
+    border-left: 1px solid var(--bulma-dark);
     display: flex;
     flex: 1;
     justify-content: center;
@@ -65,11 +60,11 @@ body.dark :host .box-shadow-path {
 }
 
 .start-icon {
-    color: bulma.$primary;
+    color: var(--bulma-primary);
 }
 
 .goal-icon {
-    color: bulma.$danger;
+    color: var(--bulma-danger);
 }
 
 .control-button-wrapper:before {

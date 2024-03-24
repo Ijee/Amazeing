@@ -1,4 +1,4 @@
-<nav class="navbar is-transparent dark-theme pl-3 pr-3">
+<nav class="navbar is-transparent pl-3 pr-3">
     <div class="container is-fullhd pl-2 pr-2">
         <div class="navbar-brand">
             <a
@@ -25,8 +25,7 @@
                             stroke-linecap="square"
                             stroke-linejoin="round"
                             stroke-miterlimit="0"
-                            transform="translate(-17.198412,-136.79365)"
-                            inkscape:label="shade">
+                            transform="translate(-17.198412,-136.79365)">
                             <path
                                 id="path21"
                                 d="m 189.46,160.06 3,-3 v -10 l -3,3 z m -5,-10 3,-3 h 5 l -3,3 z m -4,6 3,-3 h 3 v 3 z m 0,0 3,-3 v -9 l -3,-0.0854 z m -5,-14 2.3367,-2 -0.05,2 z m 14,2 3,-3 v -4 l -3,3 z m -11.663,-4 3.7133,-3 h 10.95 l -3,3 z"
@@ -122,7 +121,7 @@
             </a>
             <div role="button" class="navbar-item navbar-end is-hidden-desktop">
                 <a
-                    class="button is-info is-pulled-right"
+                    class="button github-brand-color is-pulled-right"
                     href="https://github.com/Ijee/Amazeing"
                     target="_blank"
                     rel="noopener">
@@ -135,10 +134,14 @@
                 </a>
             </div>
             <span
-                class="navbar-burger burger is-unselectable"
+                class="navbar-burger has-text-white-ter is-unselectable"
+                role="button"
+                aria-label="menu"
+                [attr.aria-expanded]="isNavbar ? 'true' : 'false'"
                 data-target="navbarMenuHeroA"
                 [ngClass]="{ 'is-active': isNavbar }"
                 (click)="isNavbar = !isNavbar">
+                <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
@@ -246,7 +249,7 @@
                             <span class="subtitle"></span>
                         </div>
                         <a
-                            class="navbar-item has-text-info"
+                            class="navbar-item has-text-link"
                             href="https://github.com/Ijee/Amazeing/issues"
                             target="_blank"
                             rel="noopener">
@@ -258,7 +261,7 @@
                         <div class="navbar-item">
                             <a
                                 role="button"
-                                class="button dropdown-button is-info force-blue-bg is-fullwidth"
+                                class="button dropdown-button is-link force-blue-bg is-fullwidth"
                                 href="https://github.com/Ijee/Amazeing/issues"
                                 target="_blank"
                                 rel="noopener">
@@ -282,7 +285,7 @@
                 } @if (!isTouch) {
                 <span class="navbar-item pl-0">
                     <a
-                        class="button is-info force-blue-bg"
+                        class="button github-brand-color force-blue-bg"
                         href="https://github.com/Ijee/Amazeing"
                         target="_blank"
                         rel="noopener">
