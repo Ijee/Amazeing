@@ -143,6 +143,11 @@ export class AlgorithmService {
     public setAlgorithmMode(newMode: AlgorithmMode): void {
         try {
             this.algorithmMode = newMode;
+            const newColor = newMode === 'maze' ? '--bulma-primary' : '--bulma-danger';
+            document.documentElement.style.setProperty(
+                '--algorithm-mode-color',
+                'var(' + newColor + ')'
+            );
         } catch {
             throw new Error('Could not set the algorithm mode!');
         }
