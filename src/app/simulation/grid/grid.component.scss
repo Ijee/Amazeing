@@ -22,11 +22,11 @@
 }
 
 body.dark :host .box-shadow-maze {
-    background-color: hsl(0deg 0% 21.85%);
+    background-color: var(--bulma-grey-darker);
 }
 
 body.dark :host .box-shadow-path {
-    background-color: hsl(0deg 0% 21.85%);
+    background-color: var(--bulma-grey-darker);
 }
 
 .outer-wall {

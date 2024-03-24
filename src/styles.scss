@@ -78,15 +78,19 @@
     src: url('assets/fonts/poppins-v20-latin-900.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
-//$family-primary: 'Poppins';
-//$family-serif: 'Poppins';
-
 
 :root {
     --bulma-family-primary: 'Poppins';
     --bulma-family-secondary: 'Poppins';
 
+    --bulma-duration: 150ms;
+    --bulma-button-static-background-color: #F5F5F5;
+
+    --background-color-light: #F5F5F5;
+
     --algorithm-mode-color: var(--bulma-primary);
+
+
   //$button-active-color: hsl(0, 72%, 45%);
   //$button-focus-box-shadow-color: hsla(0, 0%, 100%, 0);
   //$button-focus-box-shadow-color: hsla(0, 0%, 100%, 0);
@@ -110,6 +114,10 @@ body {
     // overflow: auto;
 }
 
+body, .box, .hr, .button  {
+    transition: background 150ms ease-in-out, color 250ms ease-in-out;
+}
+
 .vr {
     display: inline-block;
     border-left: 1px solid #dbdbdb;
@@ -121,9 +129,6 @@ body {
 //@import 'bulma/bulma';
 
 
-//body.dark * {
-//  transition: all 1s ease;
-//}
 
 body.light {
     background-size: cover;
@@ -134,6 +139,10 @@ body.dark {
     background: linear-gradient(135deg, #1f2627 14%, #2b596c 78%) no-repeat fixed;
     background-size: cover;
     color: var(--white-dark-87);
+}
+
+body.light .box, {
+    background-color: var(--background-color-light);
 }
 
 body .subtitle,
@@ -217,7 +226,7 @@ button:focus-visible {
     outline: 1rem solid;
 }
 
-
+// Gets adjusted in the algorithm service (setAlgorithmMode()) whenever the algorithm mode changes.
 ::selection {
     background: var(--algorithm-mode-color);
 }
