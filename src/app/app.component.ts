@@ -26,6 +26,7 @@ import { LegendModalComponent } from './@core/modals/legend/legend-modal.compone
 import { ImportModalComponent } from './@core/modals/import-modal/import-modal.component';
 import { ExportModalComponent } from './@core/modals/export-modal/export-modal.component';
 import { CommonModule } from '@angular/common';
+import { ClickOutsideDirective } from './@shared/directives/click-outside.directive';
 
 @Component({
     selector: 'app-root',
@@ -38,6 +39,7 @@ import { CommonModule } from '@angular/common';
         RouterLink,
         RouterLinkActive,
         FontAwesomeModule,
+        ClickOutsideDirective,
         WarningModalComponent,
         LegendModalComponent,
         ImportModalComponent,
@@ -48,8 +50,8 @@ import { CommonModule } from '@angular/common';
 export class AppComponent implements OnInit, OnDestroy {
     public version: string;
     public isTouch: boolean;
-    public isNavbar: boolean;
-    public isSettingsDropdown: boolean;
+    public showNavbar: boolean;
+    public showSettingsDropdown: boolean;
     public isBouncing: boolean;
 
     private readonly destroyed$: Subject<void>;

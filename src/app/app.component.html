@@ -137,10 +137,10 @@
                 class="navbar-burger has-text-white-ter is-unselectable"
                 role="button"
                 aria-label="menu"
-                [attr.aria-expanded]="isNavbar ? 'true' : 'false'"
+                [attr.aria-expanded]="showNavbar ? 'true' : 'false'"
                 data-target="navbarMenuHeroA"
-                [ngClass]="{ 'is-active': isNavbar }"
-                (click)="isNavbar = !isNavbar">
+                [ngClass]="{ 'is-active': showNavbar }"
+                (click)="showNavbar = !showNavbar">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
@@ -151,7 +151,7 @@
             id="navbarMenuHeroA"
             class="navbar-menu"
             [ngClass]="{
-                'is-active': isNavbar,
+                'is-active': showNavbar,
                 'transparent-navbar': !isTouch
             }">
             <div class="navbar-end">
@@ -182,15 +182,19 @@
                 <div
                     role="button"
                     class="navbar-item has-dropdown is-unselectable"
-                    [ngClass]="{ 'is-active': isSettingsDropdown }"
-                    (click)="isSettingsDropdown = !isSettingsDropdown; $event.stopPropagation()">
-                    <div class="navbar-link" [ngClass]="{ 'font-white is-arrowless': !isTouch }">
+                    [ngClass]="{ 'is-active': showSettingsDropdown }"
+                    appClickOutside
+                    (clickOutside)="showSettingsDropdown = false">
+                    <div
+                        class="navbar-link"
+                        [ngClass]="{ 'font-white is-arrowless': !isTouch }"
+                        (click)="showSettingsDropdown = !showSettingsDropdown; $event.stopPropagation()">
                         <span class="icon">
                             <fa-icon [icon]="['fas', 'cog']"></fa-icon>
                         </span>
                         <span><b>SETTINGS</b></span>
                     </div>
-                    <div class="navbar-dropdown is-boxed" [ngClass]="{ 'is-active': isSettingsDropdown }">
+                    <div class="navbar-dropdown is-boxed" [ngClass]="{ 'is-active': showSettingsDropdown }">
                         <div class="columns m-1 pb-0 navbar-item">
                             <div class="column is-9 pl-0">
                                 <span class="icon">
