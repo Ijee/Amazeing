@@ -181,7 +181,7 @@
                 </a>
                 <div
                     role="button"
-                    class="navbar-item has-dropdown is-unselectable"
+                    class="navbar-item has-dropdown"
                     [ngClass]="{ 'is-active': showSettingsDropdown }"
                     appClickOutside
                     (clickOutside)="showSettingsDropdown = false">
@@ -195,50 +195,50 @@
                         <span><b>SETTINGS</b></span>
                     </div>
                     <div class="navbar-dropdown is-boxed" [ngClass]="{ 'is-active': showSettingsDropdown }">
-                        <div class="columns m-1 pb-0 navbar-item">
-                            <div class="column is-9 pl-0">
+                        <div class="columns pl-3 m-1 pb-0 navbar-item">
+                            <div class="column is-8 pl-0">
                                 <span class="icon">
                                     <fa-icon [icon]="['fas', 'adjust']"></fa-icon>
                                 </span>
                                 <span><b>Dark mode</b></span>
                             </div>
                             <button
-                                class="column is-3 button settings-button is-fullwidth dropdown-button is-pulled-right"
+                                class="column is-4 button settings-button dropdown-button is-pulled-right"
                                 [class]="(settingsService.getDarkModeSetting() | async) ? 'is-primary' : 'is-danger'"
                                 (click)="settingsService.setDarkModeSetting()">
                                 <b>{{ (settingsService.getDarkModeSetting() | async) ? 'ON' : 'OFF' }}</b>
                             </button>
                         </div>
-                        <div class="columns m-1 pb-0 navbar-item">
-                            <div class="column is-9 pl-0">
+                        <div class="columns pl-3 m-1 pb-0 navbar-item">
+                            <div class="column is-8 pl-0">
                                 <span class="icon">
                                     <fa-icon [icon]="['fas', 'wind']"></fa-icon>
                                 </span>
                                 <span><b>Animations</b></span>
                             </div>
                             <button
-                                class="column is-3 button settings-button is-fullwidth dropdown-button is-pulled-right"
+                                class="column is-4 button settings-button dropdown-button is-pulled-right"
                                 [class]="settingsService.getAnimationsSetting() ? 'is-primary' : 'is-danger'"
                                 (click)="settingsService.setAnimationSetting()">
                                 <b>{{ settingsService.getAnimationsSetting() ? 'ON' : 'OFF' }}</b>
                             </button>
                         </div>
-                        <div class="columns m-1 navbar-item">
-                            <div class="column is-9 pl-0">
+                        <div class="columns pl-3 m-1 navbar-item">
+                            <div class="column is-8 pl-0">
                                 <span class="icon">
                                     <fa-icon [icon]="['fas', 'triangle-exclamation']"></fa-icon>
                                 </span>
                                 <span><b>Warnings</b></span>
                             </div>
                             <button
-                                class="column is-3 button settings-button is-fullwidth dropdown-button is-pulled-right"
+                                class="column is-4 button settings-button is-fullwidth dropdown-button is-pulled-right"
                                 [class]="settingsService.getWarningsSetting() ? 'is-primary' : 'is-danger'"
                                 (click)="settingsService.setWarningsSetting()">
                                 <b>{{ settingsService.getWarningsSetting() ? 'ON' : 'OFF' }}</b>
                             </button>
                         </div>
                         <hr class="navbar-divider" />
-                        <a role="button" class="navbar-item" (click)="prepareUserTour()">
+                        <a role="button" class="navbar-item is-unselectable" (click)="prepareUserTour()">
                             <span class="icon">
                                 <fa-icon [icon]="['fas', 'circle-question']"></fa-icon>
                             </span>
@@ -253,7 +253,7 @@
                             <span class="subtitle"></span>
                         </div>
                         <a
-                            class="navbar-item has-text-link"
+                            class="navbar-item has-text-link is-unselectable"
                             href="https://github.com/Ijee/Amazeing/issues"
                             target="_blank"
                             rel="noopener">
