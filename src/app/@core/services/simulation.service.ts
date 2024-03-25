@@ -33,7 +33,7 @@ export class SimulationService {
         private algorithmService: AlgorithmService
     ) {
         this.gridList$ = new BehaviorSubject<Node[][]>([]);
-        this.drawingMode = 0;
+        this.drawingMode = -1;
         this.simulationSpeed = 100;
         this.disablePlay = false;
         this.isSimulationActive = false;
