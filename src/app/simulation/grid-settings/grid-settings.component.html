@@ -124,7 +124,8 @@
     }
     <div class="column is-flex is-full mt-2 is-flex-grow-1 is-justify-content-end is-flex-direction-column">
         <a
-            class="button is-link border-radius-bottom is-fullwidth"
+            class="button learn-button border-radius-bottom is-fullwidth"
+            [ngClass]="algorithmService.getAlgorithmMode() === 'maze' ? 'is-primary' : 'is-danger'"
             data-testid="learn-more"
             (click)="navigateToLearn()">
             <b>LEARN MORE</b>
