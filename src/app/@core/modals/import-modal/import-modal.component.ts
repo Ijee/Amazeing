@@ -1,13 +1,10 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { SimulationService } from '../../services/simulation.service';
-import { take, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { FaIconLibrary, FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { FaIconComponent, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
-
-import { Session } from '../../types/algorithm.types';
 import { DropZoneDirective } from '../../../@shared/directives/drop-zone.directive';
 import { HrComponent } from '../../../@shared/components/hr/hr.component';
 import { NgClass } from '@angular/common';

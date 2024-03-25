@@ -1,4 +1,4 @@
-import { trigger, animate, transition, style, query, sequence } from '@angular/animations';
+import { animate, query, sequence, style, transition, trigger } from '@angular/animations';
 
 /**
  * The animation for the route main route changes. Yes it is more complicated than it should be but that's cool

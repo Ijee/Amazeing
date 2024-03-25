@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { WarningDialogService } from './warning-dialog.service';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 

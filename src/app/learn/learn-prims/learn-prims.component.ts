@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { HrComponent } from '../../@shared/components/hr/hr.component';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 

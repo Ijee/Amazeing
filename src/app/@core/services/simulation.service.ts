@@ -5,13 +5,7 @@ import * as pako from 'pako';
 import { SettingsService } from './settings.service';
 import { AlgorithmService } from './algorithm.service';
 import { RecordService } from './record.service';
-import {
-    MazeAlgorithm,
-    Node,
-    PathFindingAlgorithm,
-    Session,
-    Statistic
-} from '../types/algorithm.types';
+import { MazeAlgorithm, Node, PathFindingAlgorithm, Session } from '../types/algorithm.types';
 import { AlgorithmOptions } from '../types/jsonform.types';
 
 @Injectable({

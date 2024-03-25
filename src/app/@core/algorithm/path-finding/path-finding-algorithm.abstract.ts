@@ -1,10 +1,5 @@
 import { GridLocation } from '../../../@shared/classes/GridLocation';
-import {
-    Node,
-    PathFindingAlgorithm,
-    PathFindingHeuristic,
-    Statistic
-} from '../../types/algorithm.types';
+import { Node, PathFindingAlgorithm, Statistic } from '../../types/algorithm.types';
 import { AlgorithmOptions, JsonFormData } from '../../types/jsonform.types';
 
 export abstract class PathFindingAlgorithmAbstract {

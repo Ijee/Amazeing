@@ -3,7 +3,6 @@ import { SimulationService } from '../../@core/services/simulation.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import * as _ from 'lodash';
-import { SettingsService } from '../../@core/services/settings.service';
 import { AlgorithmService } from '../../@core/services/algorithm.service';
 import { RecordService } from '../../@core/services/record.service';
 import { GridLocation } from '../../@shared/classes/GridLocation';

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { fadeAnimationSafe } from '../@shared/animations/fadeRouteAnimation';
 import { ControllerComponent } from './controller/controller.component';
 import { GridSettingsComponent } from './grid-settings/grid-settings.component';

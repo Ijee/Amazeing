@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { SimulationComponent } from './simulation.component';
 import { MazeSettingsComponent } from './grid-settings/maze-settings/maze-settings.component';
 import { PathfindingSettingsComponent } from './grid-settings/pathfinding-settings/pathfinding-settings.component';
 

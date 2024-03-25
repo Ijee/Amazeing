@@ -6,11 +6,8 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { WarningDialogService } from '../../../@shared/components/warning-modal/warning-dialog.service';
 import { SimulationService } from '../../../@core/services/simulation.service';
-import { FormControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { RecordService } from '../../../@core/services/record.service';
-import { forEach } from 'lodash';
 import { MazeAlgorithm } from '../../../@core/types/algorithm.types';
-import { JsonFormControls, JsonFormData } from '../../../@core/types/jsonform.types';
 import { NgClass } from '@angular/common';
 
 @Component({

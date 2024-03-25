@@ -1,9 +1,7 @@
 import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
 import { HashSet } from '../../../../@shared/classes/HashSet';
 import { GridLocation } from '../../../../@shared/classes/GridLocation';
-import { FormGroup } from '@angular/forms';
 import { MazeAlgorithm, Node, Statistic } from '../../../types/algorithm.types';
-import { JsonFormData } from '../../../types/jsonform.types';
 
 export class Prims extends MazeAlgorithmAbstract {
     private frontierNodes: HashSet<GridLocation>;

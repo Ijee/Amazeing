@@ -1,13 +1,4 @@
-import {
-    trigger,
-    animate,
-    transition,
-    style,
-    query,
-    sequence,
-    state,
-    keyframes
-} from '@angular/animations';
+import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 
 /**
  * The animation that is being used for the ngfor in the stats component

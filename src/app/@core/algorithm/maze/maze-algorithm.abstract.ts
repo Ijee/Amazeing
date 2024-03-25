@@ -1,5 +1,4 @@
 import { GridLocation } from '../../../@shared/classes/GridLocation';
-import { FormGroup } from '@angular/forms';
 import { MazeAlgorithm, Node, Statistic, StatusChange } from '../../types/algorithm.types';
 import { AlgorithmOptions, JsonFormData } from '../../types/jsonform.types';
 

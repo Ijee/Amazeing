@@ -1,5 +1,4 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import hljs from 'highlight.js/lib/core';
 import { SettingsService } from '../../../@core/services/settings.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';

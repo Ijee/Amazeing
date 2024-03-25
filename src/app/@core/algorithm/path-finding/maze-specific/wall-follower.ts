@@ -1,12 +1,11 @@
 import {
+    Direction,
     Node,
-    Statistic,
     PathFindingAlgorithm,
-    Direction
+    Statistic
 } from 'src/app/@core/types/algorithm.types';
 import { GridLocation } from 'src/app/@shared/classes/GridLocation';
 import { PathFindingAlgorithmAbstract } from '../path-finding-algorithm.abstract';
-import { shuffleFisherYates } from '../../../../@shared/utils/fisher-yates';
 
 export class WallFollower extends PathFindingAlgorithmAbstract {
     private cursor: GridLocation;

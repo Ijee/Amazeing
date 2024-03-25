@@ -1,7 +1,6 @@
-import { Node, Statistic, MazeAlgorithm } from 'src/app/@core/types/algorithm.types';
+import { MazeAlgorithm, Node, Statistic } from 'src/app/@core/types/algorithm.types';
 import { GridLocation } from 'src/app/@shared/classes/GridLocation';
 import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
-import { retry } from 'rxjs';
 import { HashSet } from '../../../../@shared/classes/HashSet';
 import { shuffleFisherYates } from '../../../../@shared/utils/fisher-yates';
 

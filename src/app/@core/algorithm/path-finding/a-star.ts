@@ -1,11 +1,6 @@
 import { PathFindingAlgorithmAbstract } from './path-finding-algorithm.abstract';
 import { GridLocation } from '../../../@shared/classes/GridLocation';
-import {
-    Node,
-    PathFindingAlgorithm,
-    PathFindingHeuristic,
-    Statistic
-} from '../../types/algorithm.types';
+import { Node, PathFindingAlgorithm, Statistic } from '../../types/algorithm.types';
 import { JsonFormData } from '../../types/jsonform.types';
 
 export class AStar extends PathFindingAlgorithmAbstract {

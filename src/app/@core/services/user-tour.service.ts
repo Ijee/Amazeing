@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { driver, PopoverDOM } from 'driver.js';
+import { driver } from 'driver.js';
 import { SettingsService } from './settings.service';
 
 @Injectable({

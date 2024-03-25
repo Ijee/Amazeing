@@ -7,13 +7,7 @@ import { far } from '@fortawesome/free-regular-svg-icons';
 import { SimulationService } from './@core/services/simulation.service';
 import { Subject } from 'rxjs';
 import { SettingsService } from './@core/services/settings.service';
-import {
-    ActivatedRoute,
-    Router,
-    RouterLink,
-    RouterLinkActive,
-    RouterOutlet
-} from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { takeUntil } from 'rxjs/operators';
 import { modalFadeInOut } from './@shared/animations/modalFadeInOut';

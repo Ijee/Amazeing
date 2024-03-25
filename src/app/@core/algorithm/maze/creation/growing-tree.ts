@@ -1,9 +1,9 @@
 import {
-    Node,
-    Statistic,
+    Direction,
     MazeAlgorithm,
+    Node,
     NodeCollection,
-    Direction
+    Statistic
 } from 'src/app/@core/types/algorithm.types';
 import { GridLocation } from 'src/app/@shared/classes/GridLocation';
 import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
