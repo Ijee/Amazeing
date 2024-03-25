@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MazeAlgorithmAbstract } from '../algorithm/maze/maze-algorithm.abstract';
 import { Prims } from '../algorithm/maze/creation/prims';
 import { GridLocation } from '../../@shared/classes/GridLocation';
-import _ from 'lodash';
+import { isEmpty } from 'lodash-es';
 import { AldousBroder } from '../algorithm/maze/creation/aldous-broder';
 import { Wilsons } from '../algorithm/maze/creation/wilsons';
 import { PathFindingAlgorithmAbstract } from '../algorithm/path-finding/path-finding-algorithm.abstract';
@@ -227,7 +227,7 @@ export class AlgorithmService {
         statRecord: Statistic[],
         deserialize?: boolean
     ): void {
-        if (_.isEmpty(state)) {
+        if (isEmpty(state)) {
             this.algorithmMode === 'maze'
                 ? this.setMazeAlgorithm(this.currentMazeAlgorithm.getAlgorithmName())
                 : this.setPathAlgorithm(this.currentPathAlgorithm.getAlgorithmName());

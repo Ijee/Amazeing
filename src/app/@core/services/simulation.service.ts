@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import * as _ from 'lodash';
+import { cloneDeep } from 'lodash-es';
 import * as pako from 'pako';
 import { SettingsService } from './settings.service';
 import { AlgorithmService } from './algorithm.service';
@@ -50,9 +50,9 @@ export class SimulationService {
      * @private
      */
     private updateRecords(gridList: Node[][]) {
-        const state = _.cloneDeep(this.algorithmService.getCurrentAlgorithmState());
-        const statRecord = _.cloneDeep(this.algorithmService.getStatRecords());
-        const grid = _.cloneDeep(gridList);
+        const state = cloneDeep(this.algorithmService.getCurrentAlgorithmState());
+        const statRecord = cloneDeep(this.algorithmService.getStatRecords());
+        const grid = cloneDeep(gridList);
         this.recordService.addHistoryStep(grid, state, statRecord);
         this.gridList$.next(grid);
     }
@@ -101,7 +101,7 @@ export class SimulationService {
         if (this.algorithmService.getAlgorithmMode() === 'maze') {
             if (this.recordService.getIteration() === 0) {
                 this.algorithmService.setInitialData(
-                    _.cloneDeep(this.gridList$.getValue()),
+                    cloneDeep(this.gridList$.getValue()),
                     this.recordService.getGridStartLocation()
                 );
             }
@@ -109,7 +109,7 @@ export class SimulationService {
         } else {
             if (this.recordService.getIteration() === 0) {
                 this.algorithmService.setInitialData(
-                    _.cloneDeep(this.gridList$.getValue()),
+                    cloneDeep(this.gridList$.getValue()),
                     this.recordService.getGridStartLocation()
                 );
             }
@@ -119,7 +119,7 @@ export class SimulationService {
             this.recordService.setIteration(this.recordService.getIteration() + 1);
             if (this.recordService.tryHistoryStepForward()) {
                 console.log('step from existing history');
-                const { grid, state, statRecord } = _.cloneDeep(
+                const { grid, state, statRecord } = cloneDeep(
                     this.recordService.getCurrentHistoryStep()
                 );
                 this.algorithmService.updateAlgorithmState(grid, state, statRecord);
@@ -154,7 +154,7 @@ export class SimulationService {
             // this.recordService.manipulateHistory();
             this.recordService.setIteration(this.recordService.getIteration() - 1);
             this.recordService.historyStepBackwards();
-            const { grid, state, statRecord } = _.cloneDeep(
+            const { grid, state, statRecord } = cloneDeep(
                 this.recordService.getCurrentHistoryStep()
             );
             this.algorithmService.updateAlgorithmState(grid, state, statRecord);
@@ -216,7 +216,7 @@ export class SimulationService {
      */
     public prepareGrid(): void {
         // deletes all the algorithm specific nodes from the grid
-        const grid = _.cloneDeep(this.gridList$.value);
+        const grid = cloneDeep(this.gridList$.value);
         let useWeights: boolean;
         if (this.algorithmService.getAlgorithmMode() === 'maze') {
             useWeights = this.algorithmService.usesNodeWeights();
@@ -249,7 +249,7 @@ export class SimulationService {
      * @param newGrid - the new gridList
      */
     public setGridList(newGrid: Node[][]): void {
-        const grid = _.cloneDeep(newGrid);
+        const grid = cloneDeep(newGrid);
         this.recordService.addEmptyHistoryStep(grid);
         this.gridList$.next(grid);
     }

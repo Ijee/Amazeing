@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SimulationService } from '../../@core/services/simulation.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import * as _ from 'lodash';
+import { cloneDeep } from 'lodash-es';
 import { AlgorithmService } from '../../@core/services/algorithm.service';
 import { RecordService } from '../../@core/services/record.service';
 import { GridLocation } from '../../@shared/classes/GridLocation';
@@ -105,11 +105,11 @@ export class GridComponent implements OnInit, OnDestroy {
             switch (this.simulationService.getDrawingMode()) {
                 case 0:
                 case 1:
-                    this.simulationService.setSavePoint(_.cloneDeep(this.gridList));
+                    this.simulationService.setSavePoint(cloneDeep(this.gridList));
                     break;
                 case 2:
                 case 3:
-                    this.simulationService.setGridList(_.cloneDeep(this.gridList));
+                    this.simulationService.setGridList(cloneDeep(this.gridList));
                     break;
             }
             this.simulationService.setDrawingMode(-1);
@@ -186,7 +186,7 @@ export class GridComponent implements OnInit, OnDestroy {
                 node.weight = Math.floor(Math.random() * 10);
             });
         });
-        this.simulationService.setGridList(_.cloneDeep(this.gridList));
+        this.simulationService.setGridList(cloneDeep(this.gridList));
         if (!this.simulationService.getShowWeightStatus()) {
             this.simulationService.toggleWeightStatus();
         }
@@ -207,6 +207,6 @@ export class GridComponent implements OnInit, OnDestroy {
         this.gridList[startLocation.x][startLocation.y].status = 2;
         const goalLocation = this.recordService.getGridGoalLocation();
         this.gridList[goalLocation.x][goalLocation.y].status = 3;
-        this.simulationService.setGridList(_.cloneDeep(this.gridList));
+        this.simulationService.setGridList(cloneDeep(this.gridList));
     }
 }
