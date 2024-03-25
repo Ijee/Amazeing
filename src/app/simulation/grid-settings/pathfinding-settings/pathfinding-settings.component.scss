@@ -1,5 +1,3 @@
-@use 'bulma/bulma' as bulma;
-
 .button {
     border-radius: 0;
 }
@@ -8,7 +6,7 @@
     font-size: 0.8rem;
 }
 
-body.dark :host .is-primary {
+body.theme-dark :host .is-primary {
     color: var(--bulma-dark) !important;
     background-color: var(--bulma-primary) !important;
 }
@@ -26,11 +24,11 @@ pre > code {
 }
 
 
-body.dark :host label {
+body.theme-dark :host label {
   color: var(--white-dark-87);
 }
 
-body.dark :host input[type="radio"] {
+body.theme-dark :host input[type="radio"] {
   border: 0.15em solid var(--white-dark-87);
 }
 

@@ -78,11 +78,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
         this.settingsService.getDarkModeSetting().subscribe((val) => {
             if (val) {
-                this.renderer.removeClass(document.body, 'light');
-                this.renderer.addClass(document.body, 'dark');
+                this.renderer.removeClass(document.body, 'theme-light');
+                this.renderer.addClass(document.body, 'theme-dark');
             } else {
-                this.renderer.removeClass(document.body, 'dark');
-                this.renderer.addClass(document.body, 'light');
+                this.renderer.removeClass(document.body, 'theme-dark');
+                this.renderer.addClass(document.body, 'theme-light');
             }
         });
 

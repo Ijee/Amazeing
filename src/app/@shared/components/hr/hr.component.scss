@@ -1,6 +1,3 @@
-@use 'bulma/bulma' as bulma;
-//@use 'colors';
-
 hr {
     border-bottom: 1px solid #fff;
     background-color: transparent;
@@ -37,7 +34,7 @@ hr {
     }
 }
 
-body.dark :host .hr-text {
+body.theme-dark :host .hr-text {
     color: var(--white-dark-87);
     opacity: 1;
     &:after {

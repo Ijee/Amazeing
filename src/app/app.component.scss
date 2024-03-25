@@ -1,5 +1,3 @@
-@use 'bulma/bulma' as bulma;
-
 @media screen and (max-width: 1023px) {
     .navbar-dropdown .is-active {
         display: block;
@@ -17,12 +15,12 @@ svg:not(:root) {
     display: grid;
     align-items: center;
     max-width: 100%;
-    width: 95%;
+    width: 100%;
     height: auto;
 }
 
 .logo #front {
-    fill: white;
+    fill: var(--background-color-light)
 }
 
 .logo #shade {
@@ -53,11 +51,11 @@ main {
     position: relative;
 }
 
-body.dark .is-primary {
+body.theme-dark .is-primary {
     background-color: var(--bulma-primary) !important;
 }
 
-.body.dark .is-danger {
+.body.theme-dark .is-danger {
     background-color: var(--bulma-danger) !important;
 }
 

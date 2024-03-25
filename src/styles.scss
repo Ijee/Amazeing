@@ -3,12 +3,12 @@
 
 //@import ;url('https://fonts.googleapis.com/css?family=Open+Sans|Libre+Baskerville');
 
-@use 'bulma/versions/bulma-no-dark-mode';
+//@use 'bulma/versions/bulma-no-dark-mode';
 @use 'node_modules/driver.js/dist/driver.css';
 @use 'styles/bulma-variables';
 @use 'styles/colors';
 @use 'styles/dark-theme';
-@use 'driverjs';
+//@use 'driverjs';
 
 // The CSS in this project here is quite messy
 // but at least it looks kind of good - so there's that.
@@ -80,20 +80,21 @@
 
 
 :root {
+    // Bulma overwrites
     --bulma-family-primary: 'Poppins';
     --bulma-family-secondary: 'Poppins';
+    // TODO test this
+    --bulma-button-static-background-color: #F5F5F5;
 
     --bulma-duration: 150ms;
-    --bulma-button-static-background-color: #F5F5F5;
+    //--bulma-button-color
+
+
+    // Non-Bulma theming
 
     --background-color-light: #F5F5F5;
 
     --algorithm-mode-color: var(--bulma-primary);
-
-
-  //$button-active-color: hsl(0, 72%, 45%);
-  //$button-focus-box-shadow-color: hsla(0, 0%, 100%, 0);
-  //$button-focus-box-shadow-color: hsla(0, 0%, 100%, 0);
 }
 
 html,
@@ -125,23 +126,23 @@ body, .box, .hr, .button  {
 
 // dark mode
 
-// @import 'bulma';
-//@import 'bulma/bulma';
 
-
-
-body.light {
+body.theme-light {
     background-size: cover;
     background: linear-gradient(135deg, #99b6c6 14%, #2b596c 78%) no-repeat fixed;
 }
 
-body.dark {
+body.theme-dark {
     background: linear-gradient(135deg, #1f2627 14%, #2b596c 78%) no-repeat fixed;
     background-size: cover;
     color: var(--white-dark-87);
 }
 
-body.light .box, {
+body.theme-light strong {
+    color: var(--bulma-dark);
+}
+
+body.theme-light .box, {
     background-color: var(--background-color-light);
 }
 
@@ -150,26 +151,26 @@ body .title {
     color: var(--bulma-dark);
 }
 
-body.dark .subtitle,
-body.dark .title,
-body.dark .heading,
-body.dark .content,
-body.dark .menu-label,
-body.dark .navbar-burger {
+body.theme-dark .subtitle,
+body.theme-dark .title,
+body.theme-dark .heading,
+body.theme-dark .content,
+body.theme-dark .menu-label,
+body.theme-dark .navbar-burger {
     color: var(--white-dark-87);
 }
 
-body.dark .button {
+body.theme-dark .button {
     background-color: var(--bulma-grey-darker);
     color: var(--white-dark-78);
 }
 
-body.dark .button:hover {
+body.theme-dark .button:hover {
     color: var(--white-dark-60);
 }
 
-body.dark .button:disabled,
-body.dark button[disabled] {
+body.theme-dark .button:disabled,
+body.theme-dark button[disabled] {
     color: var(--bulma-white);;
     background-color: var(--white-dark-38);
 }
@@ -191,7 +192,7 @@ body.dark button[disabled] {
     text-align: center;
 }
 
-body.dark .box {
+body.theme-dark .box {
     background-color: var(--bulma-dark);
     color: var(--white-dark-87)
 }
@@ -231,7 +232,7 @@ button:focus-visible {
     background: var(--algorithm-mode-color);
 }
 
-//body.dark ::selection {
+//body.theme-dark ::selection {
 //    background: var(--white-dark-38);
 //}
 

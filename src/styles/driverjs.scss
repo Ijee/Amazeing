@@ -1,7 +1,7 @@
 @use "bulma/sass/utilities";
 /* Class assigned to popover wrapper */
 
-body.dark .driver-popover {
+body.theme-dark .driver-popover {
     color: var(--bulma-white-ter);
     background-color: var(--bulma-dark);
 }
