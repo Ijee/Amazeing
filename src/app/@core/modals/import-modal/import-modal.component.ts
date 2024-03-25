@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { SimulationService } from '../../services/simulation.service';
 import { take, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';

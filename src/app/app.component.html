@@ -313,11 +313,11 @@
     <router-outlet #o="outlet"></router-outlet>
 </main>
 @if (warnDialogService.getDialogStatus()) {
-<app-warning-modal [@.disabled]="!settingsService.getAnimationsSetting()" @fadeInOut></app-warning-modal>
+<app-warning-modal [@.disabled]="!settingsService.getAnimationsSetting()" @modalFadeInOut></app-warning-modal>
 } @if (simulationService.getShowLegendModal()) {
-<app-legend-modal [@.disabled]="!settingsService.getAnimationsSetting()" @fadeInOut> </app-legend-modal>
+<app-legend-modal [@.disabled]="!settingsService.getAnimationsSetting()" @modalFadeInOut> </app-legend-modal>
 } @if (simulationService.getShowImportModal()) {
-<app-import-modal [@.disabled]="!settingsService.getAnimationsSetting()" @fadeInOut></app-import-modal>
+<app-import-modal [@.disabled]="!settingsService.getAnimationsSetting()" @modalFadeInOut></app-import-modal>
 } @if (simulationService.getShowExportModal()) {
-<app-export-modal [@.disabled]="!settingsService.getAnimationsSetting()" @fadeInOut></app-export-modal>
+<app-export-modal [@.disabled]="!settingsService.getAnimationsSetting()" @modalFadeInOut></app-export-modal>
 }

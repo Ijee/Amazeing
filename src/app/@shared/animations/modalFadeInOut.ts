@@ -12,7 +12,7 @@ import {
 /**
  * The animation that is being used for the ngfor in the stats component
  */
-export const fadeInOut = trigger('fadeInOut', [
+export const modalFadeInOut = trigger('modalFadeInOut', [
     transition(':enter', [
         style({ opacity: 0, offset: 0 }),
         animate(

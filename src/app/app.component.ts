@@ -16,7 +16,7 @@ import {
 } from '@angular/router';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { takeUntil } from 'rxjs/operators';
-import { fadeInOut } from './@shared/animations/fadeInOut';
+import { modalFadeInOut } from './@shared/animations/modalFadeInOut';
 import { fadeRouteAnimation } from './@shared/animations/fadeRouteAnimation';
 import { WarningDialogService } from './@shared/components/warning-modal/warning-dialog.service';
 import { AlgorithmService } from './@core/services/algorithm.service';
@@ -45,7 +45,7 @@ import { ClickOutsideDirective } from './@shared/directives/click-outside.direct
         ImportModalComponent,
         ExportModalComponent
     ],
-    animations: [fadeInOut, fadeRouteAnimation]
+    animations: [modalFadeInOut, fadeRouteAnimation]
 })
 export class AppComponent implements OnInit, OnDestroy {
     public version: string;

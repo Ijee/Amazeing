@@ -23,7 +23,10 @@ export const fadeRouteAnimation = trigger('fadeRouteAnimation', [
         }),
         query(':enter', [animate('225ms 225ms ease-out', style({ opacity: 1 }))], {
             optional: true
-        })
+        }),
+        // fixes child-route collapse before :leave animation ends
+        // see: https://github.com/angular/angular/issues/15477#issuecomment-377619882
+        query(':leave *', [style({}), animate(1, style({}))])
     ])
 ]);
 
