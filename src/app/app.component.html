@@ -311,7 +311,7 @@
     [@fadeRouteAnimation]="prepareRoute(o)">
     <router-outlet #o="outlet"></router-outlet>
 </main>
-@if (warnDialogService.getDialogStatus()) {
+@defer (on immediate) { @if (warnDialogService.getDialogStatus()) {
 <app-warning-modal [@.disabled]="!settingsService.getAnimationsSetting()" @modalFadeInOut></app-warning-modal>
 } @if (simulationService.getShowLegendModal()) {
 <app-legend-modal [@.disabled]="!settingsService.getAnimationsSetting()" @modalFadeInOut> </app-legend-modal>
@@ -319,4 +319,4 @@
 <app-import-modal [@.disabled]="!settingsService.getAnimationsSetting()" @modalFadeInOut></app-import-modal>
 } @if (simulationService.getShowExportModal()) {
 <app-export-modal [@.disabled]="!settingsService.getAnimationsSetting()" @modalFadeInOut></app-export-modal>
-}
+} }
