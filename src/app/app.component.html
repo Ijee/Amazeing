@@ -244,7 +244,7 @@
                             <b>Retake Tour</b>
                             <span class="subtitle"></span>
                         </a>
-                        @if ((deferredInstallPrompt | async) !== null) {
+                        @if (deferredInstallPrompt !== undefined) {
                         <a role="button" class="navbar-item is-unselectable" (click)="showInstallPrompt()">
                             <span class="icon">
                                 <fa-icon [icon]="['fas', 'download']"></fa-icon>

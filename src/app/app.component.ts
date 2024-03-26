@@ -139,7 +139,6 @@ export class AppComponent implements OnInit, OnDestroy {
             faCircleQuestion,
             faTag
         );
-
         this.version = packageInfo.version;
         this.isBouncing = true;
 
