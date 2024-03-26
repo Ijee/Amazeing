@@ -6,6 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "build:prod": "ng build --prod",
+    "source-map": "source-map-explorer dist/amazeing/browser/**/*.js",
     "prettier": "prettier --write .",
     "test": "ng test",
     "test:pw": "playwright test",
@@ -70,6 +71,7 @@
     "lint-staged": "^15.2.0",
     "prettier": "^3.2.4",
     "protractor": "~7.0.0",
+    "source-map-explorer": "^2.5.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
