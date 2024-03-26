@@ -23,12 +23,13 @@ import {
     faStop,
     faTag,
     faTimes,
+    faTimesCircle,
     faTrash,
     faTriangleExclamation,
     faWind
 } from '@fortawesome/free-solid-svg-icons';
 import { fab, faGithub } from '@fortawesome/free-brands-svg-icons';
-import { faEdit, far, faSave, faTimesCircle } from '@fortawesome/free-regular-svg-icons';
+import { faEdit, far, faSave } from '@fortawesome/free-regular-svg-icons';
 import { SimulationService } from './@core/services/simulation.service';
 import { Subject } from 'rxjs';
 import { SettingsService } from './@core/services/settings.service';
