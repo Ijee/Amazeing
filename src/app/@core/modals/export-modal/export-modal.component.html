@@ -16,6 +16,7 @@
         </header>
         <section class="modal-card-body">
             <textarea
+                readonly
                 id="exportArea"
                 class="textarea is-primary"
                 data-testid="export-area"
@@ -31,7 +32,8 @@
                     class="button is-success"
                     data-testid="copy-to-clipboard"
                     title="Copy to clipboard"
-                    (click)="exportSession()">
+                    (click)="exportSession()"
+                    [disabled]="simulationService.getExportToken().length === 0">
                     <span class="icon is-small">
                         <fa-icon [icon]="['fas', 'paste']"></fa-icon>
                     </span>
@@ -41,7 +43,8 @@
                     class="button is-warning"
                     data-testid="export-as-file"
                     title="export as file"
-                    (click)="exportAsFile()">
+                    (click)="exportAsFile()"
+                    [disabled]="simulationService.getExportToken().length === 0">
                     <span class="icon is-small">
                         <fa-icon [icon]="['fas', 'download']"></fa-icon>
                     </span>
@@ -52,7 +55,8 @@
                     class="button is-link"
                     data-testid="export-as-file"
                     title="export as file"
-                    (click)="shareFile()">
+                    (click)="shareFile()"
+                    [disabled]="simulationService.getExportToken().length === 0">
                     <span class="icon is-small">
                         <fa-icon [icon]="['fas', 'share-nodes']"></fa-icon>
                     </span>
