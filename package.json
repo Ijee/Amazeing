@@ -1,6 +1,14 @@
 {
   "name": "amazeing",
   "version": "0.8.0",
+  "description": "Visualises different algorithms tailored to creating and traversing mazes.",
+  "homepage": "https://amazething.netlify.app/",
+  "repository": "https://github.com/Ijee/Amazeing",
+  "license": "MIT",
+  "funding": {
+      "type": "individual",
+      "url": "https://ko-fi.com/ijeee"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
