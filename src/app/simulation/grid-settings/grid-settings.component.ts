@@ -1,8 +1,5 @@
 import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
-import { FaIconComponent, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { fas } from '@fortawesome/free-solid-svg-icons';
-import { fab } from '@fortawesome/free-brands-svg-icons';
-import { far } from '@fortawesome/free-regular-svg-icons';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { SettingsService } from '../../@core/services/settings.service';
 import { SimulationService } from '../../@core/services/simulation.service';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
@@ -44,7 +41,6 @@ export class GridSettingsComponent implements AfterViewInit, OnDestroy {
         private readonly route: ActivatedRoute,
         private readonly router: Router,
         private readonly ref: ChangeDetectorRef,
-        private readonly library: FaIconLibrary,
         public readonly recordService: RecordService,
         public readonly algorithmService: AlgorithmService,
         public readonly simulationService: SimulationService,
@@ -52,8 +48,6 @@ export class GridSettingsComponent implements AfterViewInit, OnDestroy {
 
         public readonly formBuilder: UntypedFormBuilder
     ) {
-        library.addIconPacks(fas, fab, far);
-
         this.showWarning = false;
         // activates the right algorithm mode button based on the matched url
         if (this.router.url.includes('maze')) {

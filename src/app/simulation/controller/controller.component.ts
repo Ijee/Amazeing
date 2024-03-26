@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 import { SimulationService } from '../../@core/services/simulation.service';
-import { FaIconComponent, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { fas } from '@fortawesome/free-solid-svg-icons';
-import { fab } from '@fortawesome/free-brands-svg-icons';
-import { far } from '@fortawesome/free-regular-svg-icons';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { RecordService } from '../../@core/services/record.service';
 import { MaxNumberPipe } from '../../@shared/pipes/max-number.pipe';
 import { NgClass } from '@angular/common';
@@ -19,11 +16,8 @@ import { HrComponent } from '../../@shared/components/hr/hr.component';
 export class ControllerComponent {
     constructor(
         public readonly simulationService: SimulationService,
-        public readonly recordService: RecordService,
-        public readonly library: FaIconLibrary
-    ) {
-        library.addIconPacks(fas, fab, far);
-    }
+        public readonly recordService: RecordService
+    ) {}
 
     /**
      * Delegates the logic when trying to open the export modal.

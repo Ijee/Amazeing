@@ -1,9 +1,34 @@
 import { Component, HostListener, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import packageInfo from '../../package.json';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { fas } from '@fortawesome/free-solid-svg-icons';
-import { fab } from '@fortawesome/free-brands-svg-icons';
-import { far } from '@fortawesome/free-regular-svg-icons';
+import {
+    faAdjust,
+    faBackward,
+    faBalanceScaleRight,
+    faChalkboardTeacher,
+    faCheck,
+    faCog,
+    faDownload,
+    faExclamationTriangle,
+    faFastForward,
+    faFileImport,
+    faForward,
+    faInfo,
+    faInfoCircle,
+    faMicrochip,
+    faPlay,
+    faRedo,
+    faStepBackward,
+    faStepForward,
+    faStop,
+    faTag,
+    faTimes,
+    faTrash,
+    faTriangleExclamation,
+    faWind
+} from '@fortawesome/free-solid-svg-icons';
+import { fab, faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faEdit, far, faSave, faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 import { SimulationService } from './@core/services/simulation.service';
 import { Subject } from 'rxjs';
 import { SettingsService } from './@core/services/settings.service';
@@ -21,6 +46,14 @@ import { ImportModalComponent } from './@core/modals/import-modal/import-modal.c
 import { ExportModalComponent } from './@core/modals/export-modal/export-modal.component';
 import { CommonModule } from '@angular/common';
 import { ClickOutsideDirective } from './@shared/directives/click-outside.directive';
+import { faPaste } from '@fortawesome/free-solid-svg-icons/faPaste';
+import { faUpload } from '@fortawesome/free-solid-svg-icons/faUpload';
+import { faSquareFull } from '@fortawesome/free-solid-svg-icons/faSquareFull';
+import { faCheckSquare } from '@fortawesome/free-solid-svg-icons/faCheckSquare';
+import { faWindowClose } from '@fortawesome/free-solid-svg-icons/faWindowClose';
+import { faCircleQuestion } from '@fortawesome/free-solid-svg-icons/faCircleQuestion';
+import { faEye } from '@fortawesome/free-solid-svg-icons/faEye';
+import { faEyeSlash } from '@fortawesome/free-solid-svg-icons/faEyeSlash';
 
 @Component({
     selector: 'app-root',
@@ -61,9 +94,52 @@ export class AppComponent implements OnInit, OnDestroy {
         public readonly algorithmService: AlgorithmService,
         public readonly warnDialogService: WarningDialogService
     ) {
+        // Icon library which is globally available. Please check before removing icons.
+        library.addIcons(
+            // general
+            faChalkboardTeacher,
+            faCheck,
+            faTimes,
+            faInfoCircle,
+            faSquareFull,
+            // controller component
+            faBackward,
+            faStepBackward,
+            faTrash,
+            faRedo,
+            faStop,
+            faPlay,
+            faStepForward,
+            faFastForward,
+            faForward,
+            faEdit,
+            faSave,
+            // grid component
+            faBalanceScaleRight,
+            faEye,
+            faEyeSlash,
+            // modals
+            faPaste,
+            faDownload,
+            faTimesCircle,
+            faUpload,
+            faFileImport,
+            faInfo,
+            faExclamationTriangle,
+            faCheckSquare,
+            faWindowClose,
+            // app component
+            faMicrochip,
+            faCog,
+            faAdjust,
+            faWind,
+            faGithub,
+            faTriangleExclamation,
+            faCircleQuestion,
+            faTag
+        );
         this.version = packageInfo.version;
         this.isBouncing = true;
-        library.addIconPacks(fas, fab, far);
 
         this.destroyed$ = new Subject<void>();
     }

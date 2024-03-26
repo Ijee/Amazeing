@@ -1,10 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { SimulationService } from '../../services/simulation.service';
 import { Subject } from 'rxjs';
-import { FaIconComponent, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { fas } from '@fortawesome/free-solid-svg-icons';
-import { fab } from '@fortawesome/free-brands-svg-icons';
-import { far } from '@fortawesome/free-regular-svg-icons';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { DropZoneDirective } from '../../../@shared/directives/drop-zone.directive';
 import { HrComponent } from '../../../@shared/components/hr/hr.component';
 import { NgClass } from '@angular/common';
@@ -25,11 +22,7 @@ export class ImportModalComponent implements OnDestroy {
 
     private readonly destroyed$: Subject<void>;
 
-    constructor(
-        public simulationService: SimulationService,
-        library: FaIconLibrary
-    ) {
-        library.addIconPacks(fas, fab, far);
+    constructor(public simulationService: SimulationService) {
         this.fileName = 'No file selected...';
         this.importError = false;
         this.destroyed$ = new Subject<void>();

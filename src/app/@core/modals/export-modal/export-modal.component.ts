@@ -1,10 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { SimulationService } from '../../services/simulation.service';
-import { FaIconComponent, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { fas } from '@fortawesome/free-solid-svg-icons';
-import { fab } from '@fortawesome/free-brands-svg-icons';
-import { far } from '@fortawesome/free-regular-svg-icons';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { saveAs } from 'file-saver';
 import { FormsModule } from '@angular/forms';
 
@@ -18,12 +15,7 @@ import { FormsModule } from '@angular/forms';
 export class ExportModalComponent implements OnDestroy {
     private readonly destroyed$: Subject<void>;
 
-    constructor(
-        public simulationService: SimulationService,
-        library: FaIconLibrary
-    ) {
-        library.addIconPacks(fas, fab, far);
-
+    constructor(public simulationService: SimulationService) {
         this.destroyed$ = new Subject<void>();
     }
 
