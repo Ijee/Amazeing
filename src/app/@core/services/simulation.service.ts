@@ -79,7 +79,10 @@ export class SimulationService {
     private restartInterval(): void {
         clearInterval(this.intervalID);
         if (this.isSimulationActive) {
-            this.intervalID = setInterval(() => this.stepForward(), 10000 / this.simulationSpeed);
+            this.intervalID = window.setInterval(
+                () => this.stepForward(),
+                10000 / this.simulationSpeed
+            );
         }
     }
 

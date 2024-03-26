@@ -39,7 +39,7 @@ export class CountAnimationDirective implements OnChanges {
                 const increment = (this.newValue - this.currentValue) / steps;
                 let step = 0;
                 let internalValue = this.currentValue;
-                this.intervalID = setInterval(() => {
+                this.intervalID = window.setInterval(() => {
                     step++;
                     if (step === steps - 1) {
                         this.currentValue = this.newValue;
