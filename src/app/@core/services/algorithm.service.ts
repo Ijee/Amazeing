@@ -26,6 +26,7 @@ import { RecursiveDivision } from '../algorithm/maze/creation/recursive-division
 import { Kruskals } from '../algorithm/maze/creation/kruskals';
 import { Ellers } from '../algorithm/maze/creation/ellers';
 import { WallFollower } from '../algorithm/path-finding/maze-specific/wall-follower';
+import { Meta } from '@angular/platform-browser';
 
 @Injectable({
     providedIn: 'root'
@@ -36,11 +37,39 @@ export class AlgorithmService {
     private currentPathAlgorithm: PathFindingAlgorithmAbstract;
     private currentHeuristic: PathFindingHeuristic;
 
-    constructor() {
+    constructor(private meta: Meta) {
         this.setAlgorithmMode('maze');
         this.setMazeAlgorithm('Prims');
         this.setPathAlgorithm('Dijkstra');
         this.setCurrentHeuristic('Manhattan');
+    }
+
+    /**
+     * Sets the new algorithm mode.
+     *
+     * @param newMode - the new algorithm mode ('maze' | 'path-finding')
+     */
+    public setAlgorithmMode(newMode: AlgorithmMode): void {
+        console.log('yo');
+        try {
+            this.algorithmMode = newMode;
+            // Is used by some buttons to change the colour´.
+            const newColor = newMode === 'maze' ? '--bulma-primary' : '--bulma-danger';
+            document.documentElement.style.setProperty(
+                '--algorithm-mode-color',
+                'var(' + newColor + ')'
+            );
+
+            let colour = getComputedStyle(document.documentElement).getPropertyValue(
+                '--algorithm-mode-color'
+            );
+            // This changes the notch / title bar colour
+            // TODO Maybe animate it? (use 500ms ease-in-out / global animation css-var)
+            this.meta.updateTag({ name: 'theme-color', content: colour });
+        } catch {
+            /**/
+            throw new Error('Could not set the algorithm mode!');
+        }
     }
 
     /**
@@ -132,24 +161,6 @@ export class AlgorithmService {
                 break;
             default:
                 throw new Error('Unknown path-finding algorithm selected!');
-        }
-    }
-
-    /**
-     * Sets the new algorithm mode.
-     *
-     * @param newMode - the new algorithm mode ('maze' | 'path-finding')
-     */
-    public setAlgorithmMode(newMode: AlgorithmMode): void {
-        try {
-            this.algorithmMode = newMode;
-            const newColor = newMode === 'maze' ? '--bulma-primary' : '--bulma-danger';
-            document.documentElement.style.setProperty(
-                '--algorithm-mode-color',
-                'var(' + newColor + ')'
-            );
-        } catch {
-            throw new Error('Could not set the algorithm mode!');
         }
     }
 
