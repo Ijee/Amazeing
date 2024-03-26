@@ -4,6 +4,8 @@ import { SimulationService } from '../../services/simulation.service';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { saveAs } from 'file-saver';
 import { FormsModule } from '@angular/forms';
+import { takeUntil } from 'rxjs/operators';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
     selector: 'app-export-modal',
@@ -14,15 +16,26 @@ import { FormsModule } from '@angular/forms';
 })
 export class ExportModalComponent implements OnInit, OnDestroy {
     public canShare: boolean;
+    public isMobile: boolean;
+
     private readonly destroyed$: Subject<void>;
 
-    constructor(public simulationService: SimulationService) {
+    constructor(
+        private readonly observer: BreakpointObserver,
+        public simulationService: SimulationService
+    ) {
         this.destroyed$ = new Subject<void>();
     }
 
     ngOnInit() {
         this.canShare = !!navigator.share;
-        console.log('canShare', this.canShare);
+
+        this.observer
+            .observe('(max-width: 768px)')
+            .pipe(takeUntil(this.destroyed$))
+            .subscribe((result) => {
+                this.isMobile = result.matches;
+            });
     }
 
     ngOnDestroy(): void {

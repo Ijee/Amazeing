@@ -81,7 +81,7 @@ export class GridComponent implements OnInit, OnDestroy {
                     this.reset();
                 }
             });
-
+        // TOOD make this global
         this.observer
             .observe('(max-width: 768px)')
             .pipe(takeUntil(this.destroyed$))

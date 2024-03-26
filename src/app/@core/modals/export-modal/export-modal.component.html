@@ -35,7 +35,7 @@
                     <span class="icon is-small">
                         <fa-icon [icon]="['fas', 'paste']"></fa-icon>
                     </span>
-                    <span>Copy</span>
+                    @if (!isMobile) { <span>Copy</span> }
                 </button>
                 <button
                     class="button is-warning"
@@ -45,7 +45,7 @@
                     <span class="icon is-small">
                         <fa-icon [icon]="['fas', 'download']"></fa-icon>
                     </span>
-                    <span>Download</span>
+                    @if (!isMobile) { <span>Download</span> }
                 </button>
                 @if (canShare) {
                 <button
@@ -56,9 +56,9 @@
                     <span class="icon is-small">
                         <fa-icon [icon]="['fas', 'share-nodes']"></fa-icon>
                     </span>
-                    <span>Share</span>
+                    @if (!isMobile) { <span>Share</span> }
                 </button>
-                }
+                } @if (!isMobile) {
                 <button
                     class="button"
                     data-testid="export-cancel"
@@ -69,6 +69,7 @@
                     </span>
                     <span>Cancel</span>
                 </button>
+                }
             </div>
         </footer>
     </div>
