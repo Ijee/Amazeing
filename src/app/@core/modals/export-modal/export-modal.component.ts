@@ -21,7 +21,7 @@ export class ExportModalComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.canShare = !!navigator.canShare();
+        this.canShare = !!navigator.share;
         console.log('canShare', this.canShare);
     }
 
@@ -77,7 +77,7 @@ export class ExportModalComponent implements OnInit, OnDestroy {
     async shareFile(): Promise<void> {
         let [exportBlob, fileName] = this.prepareFile();
         let filesArray = [];
-        filesArray.push(new File([exportBlob], fileName));
+        filesArray.push(new File([exportBlob], fileName, { type: 'text/plain' }));
         if (navigator.canShare && navigator.canShare({ files: filesArray })) {
             await navigator
                 .share({
