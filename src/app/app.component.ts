@@ -75,6 +75,7 @@ import { faEyeSlash } from '@fortawesome/free-solid-svg-icons/faEyeSlash';
     animations: [modalFadeInOut, fadeRouteAnimation]
 })
 export class AppComponent implements OnInit, OnDestroy {
+    public deferredInstallPrompt: any;
     public version: string;
     public isTouch: boolean;
     public showNavbar: boolean;
@@ -138,6 +139,7 @@ export class AppComponent implements OnInit, OnDestroy {
             faCircleQuestion,
             faTag
         );
+
         this.version = packageInfo.version;
         this.isBouncing = true;
 
@@ -160,6 +162,15 @@ export class AppComponent implements OnInit, OnDestroy {
                 this.renderer.removeClass(document.body, 'theme-dark');
                 this.renderer.addClass(document.body, 'theme-light');
             }
+        });
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Prevent the mini-infobar from appearing on mobile
+            e.preventDefault();
+            // Stash the event so it can be triggered later.
+            this.deferredInstallPrompt = e;
+            // // Update UI notify the user they can install the PWA
+            // showInstallPromotion();
         });
 
         setTimeout(() => (this.isBouncing = false), 10000);
@@ -212,6 +223,20 @@ export class AppComponent implements OnInit, OnDestroy {
             this.settingsService.setUserTourActive(true);
             this.userTourService.startTour();
         });
+    }
+
+    /**
+     * Shows the native installation prompt to install the app as a PWA.
+     */
+    public async showInstallPrompt(): Promise<void> {
+        // Show the installation prompt
+        this.deferredInstallPrompt.prompt();
+        // Wait for the user to respond to the prompt
+        const { outcome } = await this.deferredInstallPrompt.userChoice;
+        // Optionally, send analytics event with outcome of user choice
+        console.log(`User response to the install prompt: ${outcome}`);
+        // We've used the prompt, and can't use it again, throw it away
+        this.deferredInstallPrompt = null;
     }
 
     /**

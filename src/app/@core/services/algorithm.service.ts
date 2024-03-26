@@ -50,7 +50,6 @@ export class AlgorithmService {
      * @param newMode - the new algorithm mode ('maze' | 'path-finding')
      */
     public setAlgorithmMode(newMode: AlgorithmMode): void {
-        console.log('yo');
         try {
             this.algorithmMode = newMode;
             // Is used by some buttons to change the colour´.
