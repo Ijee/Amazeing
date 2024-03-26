@@ -27,7 +27,13 @@
                         "polyfills": ["src/polyfills.ts"],
                         "tsConfig": "tsconfig.app.json",
                         "aot": true,
-                        "assets": ["src/favicon.png", "src/favicon.svg", "src/assets", "src/_redirects"],
+                        "assets": [
+                          "src/favicon.png",
+                          "src/favicon.svg",
+                          "src/assets",
+                          "src/_redirects",
+                          "src/manifest.webmanifest"
+                        ],
                         "styles": ["node_modules/bulma/css/bulma.css", "src/styles.scss"],
                         "scripts": [],
                         "baseHref": "/"
@@ -42,8 +48,8 @@
                             ],
                             "optimization": true,
                             "outputHashing": "all",
-                            "sourceMap": true,
-                            "namedChunks": true,
+                            "sourceMap": false,
+                            "namedChunks": false,
                             "extractLicenses": true,
                             "budgets": [
                                 {
@@ -56,7 +62,8 @@
                                     "maximumWarning": "200kb",
                                     "maximumError": "500kb"
                                 }
-                            ]
+                            ],
+                            "serviceWorker": "ngsw-config.json"
                         },
                         "development": {
                             "optimization": false,
@@ -91,7 +98,12 @@
                         "polyfills": "src/polyfills.ts",
                         "tsConfig": "tsconfig.spec.json",
                         "karmaConfig": "karma.conf.js",
-                        "assets": ["src/favicon.png", "src/favicon.svg", "src/assets"],
+                        "assets": [
+                          "src/favicon.png",
+                          "src/favicon.svg",
+                          "src/assets",
+                          "src/manifest.webmanifest"
+                        ],
                         "styles": ["src/styles.scss"],
                         "scripts": []
                     }

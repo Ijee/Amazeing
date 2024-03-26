@@ -1,0 +1,45 @@
+{
+    "name": "Amazeing",
+    "short_name": "Amazeing",
+    "categories": ["education"],
+    "description": "Visualises different algorithms tailored to creating and traversing mazes.",
+    "theme_color": "#00d1b2",
+    "background_color": "#4a4a4a",
+    "display": "standalone",
+    "scope": "./",
+    "start_url": "./",
+    "shortcuts": [
+        {
+            "name": "Learn",
+            "short_name": "Learn",
+            "description": "View the Learn page",
+            "url": "./learn"
+        }
+    ],
+    "icons": [
+        {
+            "src": "assets/icons/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "assets/icons/android-chrome-maskable.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "assets/icons/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "assets/icons/android-chrome-5512x512-maskable.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
+}

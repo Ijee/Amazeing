@@ -6,8 +6,8 @@
   "repository": "https://github.com/Ijee/Amazeing",
   "license": "MIT",
   "funding": {
-      "type": "individual",
-      "url": "https://ko-fi.com/ijeee"
+    "type": "individual",
+    "url": "https://ko-fi.com/ijeee"
   },
   "scripts": {
     "ng": "ng",
@@ -33,6 +33,7 @@
     "@angular/platform-browser": "^17.3.1",
     "@angular/platform-browser-dynamic": "^17.3.1",
     "@angular/router": "^17.3.1",
+    "@angular/service-worker": "^17.3.1",
     "@fortawesome/angular-fontawesome": "^0.14.1",
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-brands-svg-icons": "^6.5.1",
