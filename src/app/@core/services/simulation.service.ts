@@ -325,8 +325,11 @@ export class SimulationService {
                 options: this.algorithmService.getOptions(),
                 grid: this.gridList$.getValue()
             };
-
-            this.exportToken = pako.deflate(JSON.stringify(session));
+            if (this.recordService.getIteration() > 0) {
+                this.exportToken = pako.deflate(JSON.stringify(session));
+            } else {
+                this.exportToken = '';
+            }
         } else {
             // TODO sync mazeService with path-finding service to make this object assignable
         }
