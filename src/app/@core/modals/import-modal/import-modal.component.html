@@ -58,7 +58,7 @@
                     class="button is-success"
                     data-testid="import-algorithm"
                     title="Import algorithm"
-                    [disabled]="importError"
+                    [disabled]="importToken.length === 0 || importError"
                     (click)="importSession()">
                     <span class="icon is-small">
                         <fa-icon [icon]="['fas', 'file-import']"></fa-icon>
