@@ -76,7 +76,7 @@
     "typescript": "^5.3.3"
   },
   "engines": {
-    "node": ">18 <=^18.10"
+    "node": "^20.9.0"
   },
   "husky": {
     "hooks": {
