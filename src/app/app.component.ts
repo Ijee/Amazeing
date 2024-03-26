@@ -79,6 +79,7 @@ import { faEyeSlash } from '@fortawesome/free-solid-svg-icons/faEyeSlash';
 export class AppComponent implements OnInit, OnDestroy {
     public deferredInstallPrompt: any;
     public version: string;
+    public isMobile: boolean;
     public isTouch: boolean;
     public showNavbar: boolean;
     public showSettingsDropdown: boolean;
@@ -154,6 +155,12 @@ export class AppComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this.destroyed$))
             .subscribe((result) => {
                 this.isTouch = result.matches;
+            });
+        this.observer
+            .observe('(max-width: 768px)')
+            .pipe(takeUntil(this.destroyed$))
+            .subscribe((result) => {
+                this.isMobile = result.matches;
             });
 
         this.settingsService.getDarkModeSetting().subscribe((val) => {
