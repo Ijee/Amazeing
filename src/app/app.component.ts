@@ -18,6 +18,7 @@ import {
     faMicrochip,
     faPlay,
     faRedo,
+    faShareNodes,
     faStepBackward,
     faStepForward,
     faStop,
@@ -123,6 +124,7 @@ export class AppComponent implements OnInit, OnDestroy {
             // modals
             faPaste,
             faDownload,
+            faShareNodes,
             faTimesCircle,
             faUpload,
             faFileImport,

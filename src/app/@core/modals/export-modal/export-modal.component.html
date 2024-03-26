@@ -35,7 +35,7 @@
                     <span class="icon is-small">
                         <fa-icon [icon]="['fas', 'paste']"></fa-icon>
                     </span>
-                    <span>Copy to clipboard</span>
+                    <span>Copy</span>
                 </button>
                 <button
                     class="button is-warning"
@@ -45,8 +45,20 @@
                     <span class="icon is-small">
                         <fa-icon [icon]="['fas', 'download']"></fa-icon>
                     </span>
-                    <span>Export as File</span>
+                    <span>Download</span>
                 </button>
+                @if (canShare) {
+                <button
+                    class="button is-link"
+                    data-testid="export-as-file"
+                    title="export as file"
+                    (click)="shareFile()">
+                    <span class="icon is-small">
+                        <fa-icon [icon]="['fas', 'share-nodes']"></fa-icon>
+                    </span>
+                    <span>Share</span>
+                </button>
+                }
                 <button
                     class="button"
                     data-testid="export-cancel"
