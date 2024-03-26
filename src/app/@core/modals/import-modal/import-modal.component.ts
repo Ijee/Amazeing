@@ -25,6 +25,7 @@ export class ImportModalComponent implements OnDestroy {
     constructor(public simulationService: SimulationService) {
         this.fileName = 'No file selected...';
         this.importError = false;
+        this.importToken = '';
         this.destroyed$ = new Subject<void>();
     }
 
