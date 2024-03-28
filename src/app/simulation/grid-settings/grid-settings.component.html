@@ -122,7 +122,7 @@
     @if (handleJsonFormData().controls.length === 0) {
     <div class="column is-full mt-0 has-text-centered is-italic is-size-7">No Options Available</div>
     }
-    <div class="column is-flex is-full mt-2 is-flex-grow-1 is-justify-content-end is-flex-direction-column">
+    <div class="column is-flex is-full is-flex-grow-1 is-justify-content-end is-flex-direction-column">
         <a
             class="button learn-button border-radius-bottom is-fullwidth"
             [ngClass]="algorithmService.getAlgorithmMode() === 'maze' ? 'is-primary' : 'is-danger'"
