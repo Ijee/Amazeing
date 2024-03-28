@@ -95,8 +95,9 @@ export class ExportModalComponent implements OnInit, OnDestroy {
             await navigator
                 .share({
                     files: filesArray,
-                    title: 'Amazeing -' + this.simulationService.getAlgorithmName().toLowerCase(),
-                    text: 'Check out this algorithm on amazething.netlify.app!'
+                    title: 'Amazeing - ' + this.simulationService.getAlgorithmName(),
+                    text: 'Check out this algorithm on amazething.netlify.app!',
+                    url: 'https://amazething.netlify.app/'
                 })
                 .then(() => console.log('Share was successful.'))
                 .catch((error) => console.log('Sharing failed', error));
