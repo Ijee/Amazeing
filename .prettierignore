@@ -1,0 +1,23 @@
+# angular gitignore
+# see https://github.com/prettier/prettier/issues/2294
+
+## compiled output
+/dist
+/tmp
+/out-tsc
+
+## dependencies
+/node_modules
+
+## IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.vscode/*
+
+## exclude changelog file or build could fail
+changelog
