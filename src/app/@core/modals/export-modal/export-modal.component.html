@@ -22,7 +22,7 @@
                 data-testid="export-area"
                 title="Export area"
                 type="text"
-                (focus)="$event.target.select()"
+                (focus)="focusTextArea($event.target)"
                 [ngModel]="simulationService.getExportToken()">
             </textarea>
         </section>

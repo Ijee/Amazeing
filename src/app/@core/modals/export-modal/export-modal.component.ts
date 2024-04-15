@@ -44,6 +44,19 @@ export class ExportModalComponent implements OnInit, OnDestroy {
     }
 
     /**
+     * Selects the HTMLTextArea on click.
+     *
+     * Note: Has to be a function because the target has to be cast
+     * to the proper type and that can not be done in the template.
+     *
+     * @param target the target to focus
+     */
+    focusTextArea(target: EventTarget): void {
+        const input = target as HTMLTextAreaElement;
+        input.select();
+    }
+
+    /**
      * Hides the modal from the client
      * and tries to copy the export token with the function below
      */
