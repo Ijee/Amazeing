@@ -1,0 +1,64 @@
+name: 🐛 Bug Report
+description: File a bug report.
+title: '[Bug]: '
+labels: ['bug']
+body:
+    - type: markdown
+      attributes:
+          value: |
+              Thanks for taking the time to fill out this bug report!
+    - type: textarea
+      id: what-happened
+      attributes:
+          label: What happened?
+          description: 'Please give us a brief overview of the bug you encountered.'
+      validations:
+          required: true
+    - type: textarea
+      id: repro
+      attributes:
+          label: Reproduction steps
+          description: 'How do you trigger this bug? Please walk us through it step by step.'
+          value: |
+              1.
+              2.
+              3.
+              ...
+      validations:
+          required: true
+    - type: input
+      id: version
+      attributes:
+          label: Version
+          description: 'What version of the app are you running? (You can find the version in the settings dropdown)'
+          placeholder: 'X.X.X'
+      validations:
+          required: true
+    - type: dropdown
+      id: browsers
+      attributes:
+          label: What browser did you use?
+          multiple: true
+          options:
+              - Chrome
+              - Firefox
+              - Microsoft Edge
+              - Safari
+              - Other
+      validations:
+          required: true
+    - type: textarea
+      id: screenshot
+      attributes:
+          label: 'Screenshots (optional)'
+          description: Add screenshots to help explain your problem.
+      validations:
+          required: false
+    - type: textarea
+      id: logs
+      attributes:
+          label: 'Console Logs (optional)'
+          description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+          render: bash
+      validations:
+          required: false

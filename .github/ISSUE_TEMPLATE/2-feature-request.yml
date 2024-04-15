@@ -1,0 +1,25 @@
+name: 🚀 Feature Request
+description: Propose a feature to be added.
+labels: ['enhancement']
+body:
+    - type: textarea
+      id: description
+      attributes:
+          label: Feature description
+          description: 'Please explain the feature you have in mind in detail.'
+      validations:
+          required: true
+    - type: textarea
+      id: idea
+      attributes:
+          label: Reasons to add this feature
+          description: 'What part of the app would this feature improve upon and/or why do you think this important?'
+      validations:
+          required: true
+    - type: textarea
+      id: additional-info
+      attributes:
+          label: 'Additional information (optional)'
+          description: Add any additional information that you find helpful for this feature request (screenshots, etc).
+      validations:
+          required: false
