@@ -194,7 +194,7 @@
                         </span>
                         <span><b>SETTINGS</b></span>
                     </div>
-                    <div class="navbar-dropdown is-boxed" [ngClass]="{ 'is-active': showSettingsDropdown }">
+                    <div class="navbar-dropdown is-right is-boxed" [ngClass]="{ 'is-active': showSettingsDropdown }">
                         <div class="columns pl-3 m-1 pb-0 navbar-item">
                             <div class="column is-8 pl-0">
                                 <span class="icon">
@@ -254,13 +254,6 @@
                             <span class="subtitle"></span>
                         </a>
                         }
-                        <div class="navbar-item has-text-danger">
-                            <span class="icon">
-                                <fa-icon [icon]="['fas', 'tag']"></fa-icon>
-                            </span>
-                            <b>Version: {{ version }}</b>
-                            <span class="subtitle"></span>
-                        </div>
                         <a
                             class="navbar-item has-text-link is-unselectable"
                             href="https://github.com/Ijee/Amazeing/releases"
@@ -271,6 +264,13 @@
                             </span>
                             <b>Changelog</b>
                         </a>
+                        <div class="navbar-item has-text-danger">
+                            <span class="icon">
+                                <fa-icon [icon]="['fas', 'tag']"></fa-icon>
+                            </span>
+                            <b>Version: {{ version }}</b>
+                            <span class="subtitle"></span>
+                        </div>
                         <div class="navbar-item">
                             <a
                                 role="button"

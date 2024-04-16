@@ -5,10 +5,24 @@
     .navbar-dropdown:not(.is-active) {
         display: none;
     }
+    body.theme-dark :host .navbar-menu {
+        background-color: var(--bulma-dark);
+    }
 }
 
-svg:not(:root) {
-    overflow: visible;
+body.theme-dark :host .navbar-item {
+    color: var(--white-dark-87);
+}
+
+body.theme-dark :host .navbar-link {
+    color: var(--white-dark-87);
+}
+body.theme-dark :host .navbar-dropdown .navbar-item {
+    background-color: var(--bulma-dark);
+}
+
+body.theme-dark :host .navbar-dropdown {
+    background-color: var(--bulma-dark);
 }
 
 .logo {
@@ -20,7 +34,7 @@ svg:not(:root) {
 }
 
 .logo #front {
-    fill: var(--background-color-light)
+    fill: var(--background-color-light);
 }
 
 .logo #shade {
@@ -42,8 +56,9 @@ svg:not(:root) {
 }
 
 .github-brand-color {
-    color: var(--bulma-white);
+    color: var(--bulma-white) !important;
     background-color: var(--github-brand-color) !important;
+    outline: none !important;
     border: none;
 }
 
@@ -58,7 +73,6 @@ body.theme-dark .is-primary {
 .body.theme-dark .is-danger {
     background-color: var(--bulma-danger) !important;
 }
-
 
 .dropdown-button {
     margin-left: auto;
@@ -86,10 +100,9 @@ body.theme-dark .is-primary {
 }
 
 .navbar-item:focus {
-        outline: none;
-        background-color: transparent;
+    outline: none;
+    background-color: transparent;
 }
-
 
 .simple-border-bottom {
     border-bottom: 2px solid #dbdbdb;
