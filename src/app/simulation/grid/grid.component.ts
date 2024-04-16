@@ -6,27 +6,26 @@ import { cloneDeep } from 'lodash-es';
 import { AlgorithmService } from '../../@core/services/algorithm.service';
 import { RecordService } from '../../@core/services/record.service';
 import { GridLocation } from '../../@shared/classes/GridLocation';
-import { BreakpointObserver } from '@angular/cdk/layout';
 import { Node } from '../../@core/types/algorithm.types';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { HrComponent } from '../../@shared/components/hr/hr.component';
 import { NodeComponent } from './node/node.component';
-import { NgClass } from '@angular/common';
+import { CommonModule, NgClass } from '@angular/common';
 import { StatsComponent } from './stats/stats.component';
+import { BreakpointService } from 'src/app/@core/services/breakpoint.service';
 
 @Component({
     selector: 'app-grid',
     templateUrl: './grid.component.html',
     styleUrls: ['./grid.component.scss'],
     standalone: true,
-    imports: [StatsComponent, NgClass, NodeComponent, HrComponent, FaIconComponent]
+    imports: [CommonModule, StatsComponent, NgClass, NodeComponent, HrComponent, FaIconComponent]
 })
 export class GridComponent implements OnInit, OnDestroy {
     private readonly width: number;
     private readonly height: number;
     public gridList: Node[][];
     public isMouseDown: boolean;
-    public isMobile: boolean;
 
     private readonly destroyed$: Subject<void>;
 
@@ -34,7 +33,7 @@ export class GridComponent implements OnInit, OnDestroy {
         public readonly simulationService: SimulationService,
         public readonly recordService: RecordService,
         public readonly algorithmService: AlgorithmService,
-        public readonly observer: BreakpointObserver
+        public readonly breakpointService: BreakpointService
     ) {
         this.width = 47;
         this.height = 21;
@@ -80,13 +79,6 @@ export class GridComponent implements OnInit, OnDestroy {
                 } else {
                     this.reset();
                 }
-            });
-        // TOOD make this global
-        this.observer
-            .observe('(max-width: 768px)')
-            .pipe(takeUntil(this.destroyed$))
-            .subscribe((result) => {
-                this.isMobile = result.matches;
             });
     }
 

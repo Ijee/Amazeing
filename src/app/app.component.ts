@@ -35,7 +35,6 @@ import { SimulationService } from './@core/services/simulation.service';
 import { Subject } from 'rxjs';
 import { SettingsService } from './@core/services/settings.service';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { BreakpointObserver } from '@angular/cdk/layout';
 import { takeUntil } from 'rxjs/operators';
 import { modalFadeInOut } from './@shared/animations/modalFadeInOut';
 import { fadeRouteAnimation } from './@shared/animations/fadeRouteAnimation';
@@ -56,6 +55,8 @@ import { faWindowClose } from '@fortawesome/free-solid-svg-icons/faWindowClose';
 import { faCircleQuestion } from '@fortawesome/free-solid-svg-icons/faCircleQuestion';
 import { faEye } from '@fortawesome/free-solid-svg-icons/faEye';
 import { faEyeSlash } from '@fortawesome/free-solid-svg-icons/faEyeSlash';
+import { BreakpointService } from './@core/services/breakpoint.service';
+import { AmazeingBreakpoints } from './@core/services/breakpoint.service';
 
 @Component({
     selector: 'app-root',
@@ -79,8 +80,6 @@ import { faEyeSlash } from '@fortawesome/free-solid-svg-icons/faEyeSlash';
 export class AppComponent implements OnInit, OnDestroy {
     public deferredInstallPrompt: any;
     public version: string;
-    public isMobile: boolean;
-    public isTouch: boolean;
     public showNavbar: boolean;
     public showSettingsDropdown: boolean;
     public isBouncing: boolean;
@@ -90,12 +89,12 @@ export class AppComponent implements OnInit, OnDestroy {
     constructor(
         library: FaIconLibrary,
         private readonly renderer: Renderer2,
-        private readonly observer: BreakpointObserver,
         private readonly router: Router,
         private readonly userTourService: UserTourService,
         public readonly simulationService: SimulationService,
         public readonly settingsService: SettingsService,
         public readonly algorithmService: AlgorithmService,
+        public readonly breakpointService: BreakpointService,
         public readonly warnDialogService: WarningDialogService
     ) {
         // Icon library which is globally available. Please check before removing icons.
@@ -150,18 +149,12 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.observer
-            .observe('(max-width: 1023px)')
-            .pipe(takeUntil(this.destroyed$))
-            .subscribe((result) => {
-                this.isTouch = result.matches;
-            });
-        this.observer
-            .observe('(max-width: 768px)')
-            .pipe(takeUntil(this.destroyed$))
-            .subscribe((result) => {
-                this.isMobile = result.matches;
-            });
+        this.breakpointService.isTouch().subscribe((val) => {
+            console.log('isTouch Value', val);
+        });
+        this.breakpointService.isMobile().subscribe((val) => {
+            console.log('isMobile Value', val);
+        });
 
         this.settingsService.getDarkModeSetting().subscribe((val) => {
             if (val) {

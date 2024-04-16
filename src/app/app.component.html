@@ -121,7 +121,7 @@
             <div role="button" class="navbar-item navbar-end is-hidden-desktop">
                 <a
                     class="button github-brand-color is-pulled-right"
-                    [ngClass]="isMobile ? 'is-small' : 'is-normal'"
+                    [ngClass]="(breakpointService.isMobile()| async) ? 'is-small' : 'is-normal'"
                     href="https://github.com/Ijee/Amazeing"
                     target="_blank"
                     rel="noopener">
@@ -152,14 +152,14 @@
             class="navbar-menu"
             [ngClass]="{
                 'is-active': showNavbar,
-                'transparent-navbar': !isTouch
+                'transparent-navbar': ((breakpointService.isTouch() | async) === false)
             }">
             <div class="navbar-end">
                 <a
                     role="button"
                     class="navbar-item is-unselectable"
                     data-testid="simulation"
-                    [ngClass]="{ 'font-white': !isTouch }"
+                    [ngClass]="{ 'font-white': ((breakpointService.isTouch() | async) === false) }"
                     routerLink="simulation"
                     (click)="navigateToSimulation()">
                     <span class="icon">
@@ -171,7 +171,7 @@
                     role="button"
                     class="navbar-item is-unselectable"
                     data-testid="learn"
-                    [ngClass]="{ 'font-white': !isTouch }"
+                    [ngClass]="{ 'font-white': ((breakpointService.isTouch() | async) === false) }"
                     routerLink="learn"
                     (click)="simulationService.setSimulationStatus(false)">
                     <span class="icon">
@@ -187,7 +187,7 @@
                     (clickOutside)="showSettingsDropdown = false">
                     <div
                         class="navbar-link"
-                        [ngClass]="{ 'font-white is-arrowless': !isTouch }"
+                        [ngClass]="{ 'font-white is-arrowless': ((breakpointService.isTouch() | async) === false) }"
                         (click)="showSettingsDropdown = !showSettingsDropdown; $event.stopPropagation()">
                         <span class="icon">
                             <fa-icon [icon]="['fas', 'cog']"></fa-icon>
@@ -295,7 +295,7 @@
                         </span>
                     </a>
                 </span>
-                } @if (!isTouch) {
+                } @if ((breakpointService.isTouch() | async) === false) {
                 <span class="navbar-item pl-0">
                     <a
                         class="button github-brand-color force-blue-bg"

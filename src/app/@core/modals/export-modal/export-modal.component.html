@@ -37,7 +37,7 @@
                     <span class="icon is-small">
                         <fa-icon [icon]="['fas', 'paste']"></fa-icon>
                     </span>
-                    @if (!isMobile) { <span>Copy</span> }
+                    @if ((breakpointService.isTouch() | async) === false) { <span>Copy</span> }
                 </button>
                 <button
                     class="button is-warning"
@@ -48,7 +48,7 @@
                     <span class="icon is-small">
                         <fa-icon [icon]="['fas', 'download']"></fa-icon>
                     </span>
-                    @if (!isMobile) { <span>Download</span> }
+                    @if ((breakpointService.isTouch() | async) === false) { <span>Download</span> }
                 </button>
                 @if (canShare) {
                 <button
@@ -60,9 +60,9 @@
                     <span class="icon is-small">
                         <fa-icon [icon]="['fas', 'share-nodes']"></fa-icon>
                     </span>
-                    @if (!isMobile) { <span>Share</span> }
+                    @if ((breakpointService.isTouch() | async) === false) { <span>Share</span> }
                 </button>
-                } @if (!isMobile) {
+                } @if ((breakpointService.isTouch() | async) === false) {
                 <button
                     class="button"
                     data-testid="export-cancel"
