@@ -2,7 +2,6 @@
     border-style: solid;
     border-width: 2px;
     //letter-spacing: -0.02rem;
-
 }
 
 .is-warning-box {
@@ -47,17 +46,21 @@ body.theme-dark :host label {
     color: var(--white-dark-87);
 }
 
-body.theme-dark :host input[type="radio"] {
+body.theme-dark :host input[type='radio'] {
     border: 0.15em solid var(--white-dark-87);
 }
 
-input[type="radio"]:disabled {
+body.theme-dark :host .warning-message {
+    color: var(--bulma-dark);
+}
+
+input[type='radio']:disabled {
     filter: grayscale(100%);
-    opacity: .4;
+    opacity: 0.4;
     pointer-events: none;
 }
 
-input[type="radio"] {
+input[type='radio'] {
     appearance: none;
     margin: 0 0.5rem 0 0;
     font: inherit;
@@ -82,11 +85,10 @@ input[type="radio"] {
     --input-color: var(--bulma-danger);
 }
 
-
-input[type="radio"]::before {
+input[type='radio']::before {
     --_test: var(--input-color);
-    content: "";
-    width: 0.65EM;
+    content: '';
+    width: 0.65em;
     height: 0.65em;
     border-radius: 50%;
     transform: scale(0);
@@ -94,7 +96,7 @@ input[type="radio"]::before {
     box-shadow: inset 1em 1em var(--_test);
 }
 
-input[type="radio"]:checked::before {
+input[type='radio']:checked::before {
     transform: scale(1);
 }
 
@@ -108,8 +110,5 @@ select {
 }
 
 .learn-button {
-        transition: background-color 500ms ease-in-out;
+    transition: background-color 500ms ease-in-out;
 }
-
-
-

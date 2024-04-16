@@ -4,8 +4,8 @@
     <div class="column is-full">
         <app-hr text="ALGORITHM MODE"></app-hr>
     </div>
-    <div class="columns column mb-0 is-multiline is-gapless is-full">
-        <div class="column is-6 is-12-mobile">
+    <div class="grid column mb-0 is-multiline is-gapless is-full">
+        <div class="cell is-col-min-6 is">
             <button
                 class="button algo-mode-button border-radius-top-left is-medium has-text-black is-fullwidth"
                 data-testid="maze-mode"
@@ -14,7 +14,7 @@
                 <b>MAZE</b>
             </button>
         </div>
-        <div class="column is-6">
+        <div class="cell is-col-min-6">
             <button
                 class="button algo-mode-button border-radius-top-right is-medium has-text-black' is-fullwidth"
                 data-testid="pathfinding-mode"
@@ -28,7 +28,7 @@
     <div class="column is-full">
         <div class="is-warning-box has-background-warning p-2">
             <div class="columns is-multiline is-gapless">
-                <div class="column is-full has-text-centered">
+                <div class="column warning-message is-full has-text-centered">
                     <b> {{ 'Doing this will partially reset the grid' | uppercase }} </b>
                 </div>
                 <div class="column is-full">
