@@ -128,11 +128,10 @@ export class SimulationService {
                 this.algorithmService.updateAlgorithmState(grid, state, statRecord);
                 this.gridList$.next(grid);
             } else {
-                console.log('in new step');
                 this.updateRecords(newGrid);
             }
         } else {
-            console.log('why am I here');
+            console.log('Algorithm comopleted.');
             this.setDisablePlay(true);
             this.setSimulationStatus();
             this.settingsService.setUserTourTaken(true);

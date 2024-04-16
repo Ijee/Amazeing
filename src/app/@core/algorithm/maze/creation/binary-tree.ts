@@ -108,25 +108,25 @@ export class BinaryTree extends MazeAlgorithmAbstract {
         this.currentGrid = currentGrid;
         // Settings the options once.
         switch (this.options.Bias) {
-            case 'Northwest':
+            case 'North-West':
                 this.direction1 = 'up';
                 this.direction2 = 'left';
                 this.yStart = 2;
                 this.yEnd = this.currentGrid[0].length;
                 break;
-            case 'Northeast':
+            case 'North-East':
                 this.direction1 = 'up';
                 this.direction2 = 'right';
                 this.yStart = 2;
                 this.yEnd = this.currentGrid[0].length;
                 break;
-            case 'Southwest':
+            case 'South-West':
                 this.direction1 = 'down';
                 this.direction2 = 'left';
                 this.yStart = 0;
                 this.yEnd = this.currentGrid[0].length - 1;
                 break;
-            case 'Southeast':
+            case 'South-East':
                 this.direction1 = 'down';
                 this.direction2 = 'right';
                 this.yStart = 0;
