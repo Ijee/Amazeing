@@ -1,5 +1,11 @@
 // TODO somehow remove the important tags due to specificity stuff
 
+@media screen and (max-width: 768px) {
+    .node {
+        font-size: 0.4rem !important;
+    }
+}
+
 .node {
     display: flex;
     position: relative;
@@ -29,8 +35,9 @@ body.theme-dark :host .node {
     background-color: hsla(
         (var(--bulma-white-h)),
         (var(--bulma-white-s)),
-            (var(--bulma-white-l)),
-        0.3);
+        (var(--bulma-white-l)),
+        0.3
+    );
 }
 
 .node:hover {
@@ -44,11 +51,11 @@ body.theme-dark :host .node {
 
 .start:hover {
     //background-color: fade-out(var(--bulma-primary), 0.4) !important;
-    background-color: hsla(var(--bulma-primary-rgb), 0,4) !important;
+    background-color: hsla(var(--bulma-primary-rgb), 0, 4) !important;
 }
 
 .goal:hover {
-    background-color: hsla(var(--bulma-danger-rgb), 0,4) !important;
+    background-color: hsla(var(--bulma-danger-rgb), 0, 4) !important;
 }
 
 .status-4 {
