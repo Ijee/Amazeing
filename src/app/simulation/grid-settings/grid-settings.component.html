@@ -4,7 +4,7 @@
     <div class="column is-full">
         <app-hr text="ALGORITHM MODE"></app-hr>
     </div>
-    <div class="grid column mb-3 is-multiline is-gapless is-full">
+    <div class="grid column is-multiline is-gapless is-full">
         <div class="cell is-col-min-6 is">
             <button
                 class="button algo-mode-button border-radius-top-left is-medium has-text-black is-fullwidth"
@@ -58,7 +58,7 @@
         </div>
     </div>
     }
-    <div class="column is-full my-2" [@fadeAnimationSafe]="o.isActivated && o.activatedRoute">
+    <div class="column is-full mt-4 mb-2" [@fadeAnimationSafe]="o.isActivated && o.activatedRoute">
         <router-outlet #o="outlet"></router-outlet>
     </div>
 
