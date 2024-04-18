@@ -28,8 +28,8 @@ body.theme-dark :host .box-shadow-path {
 }
 
 .outer-wall {
-    background-color: #818078;
-    padding: 2px;
+    background-color: var(--bulma-dark);
+    padding: 1px;
 }
 
 .game-grid {
