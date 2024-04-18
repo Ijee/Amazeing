@@ -3,11 +3,8 @@
     <div class="modal-card">
         <header class="modal-card-head has-background-warning">
             <p class="modal-card-title">
-                <span class="icon">
-                    <fa-icon [icon]="['fas', 'exclamation-triangle']"></fa-icon>
-                </span>
                 <label class="p-1">
-                    <b>Doing this will partially reset the grid</b>
+                    <span class="title is-size-6-mobile">Doing this will partially reset the grid</span>
                 </label>
             </p>
             <button class="delete" (click)="warningDialog.closeDialog('cancel')" aria-label="close"></button>
@@ -21,7 +18,7 @@
                     </span>
                     <span>Confirm</span>
                 </button>
-                <button class="button is-danger" (click)="warningDialog.closeDialog('cancel')">
+                <button class="button" (click)="warningDialog.closeDialog('cancel')">
                     <span class="icon is-small">
                         <fa-icon [icon]="['fas', 'window-close']"></fa-icon>
                     </span>
