@@ -7,6 +7,8 @@ import { transition, trigger } from '@angular/animations';
 import { AlgorithmService } from '../../../@core/services/algorithm.service';
 import { Statistic } from '../../../@core/types/algorithm.types';
 import { CountAnimationDirective } from '../../../@shared/directives/count-animation.directive';
+import { CommonModule } from '@angular/common';
+import { BreakpointService } from 'src/app/@core/services/breakpoint.service';
 
 @Component({
     selector: 'app-stats',
@@ -14,7 +16,7 @@ import { CountAnimationDirective } from '../../../@shared/directives/count-anima
     styleUrls: ['./stats.component.scss'],
     animations: [fadeInOutList, trigger('blockInitialRenderAnimation', [transition(':enter', [])])],
     standalone: true,
-    imports: [CountAnimationDirective]
+    imports: [CommonModule, CountAnimationDirective]
 })
 export class StatsComponent {
     @Input() isMouseDown: boolean;
@@ -23,7 +25,8 @@ export class StatsComponent {
         public readonly simulationService: SimulationService,
         public readonly algorithmService: AlgorithmService,
         public readonly recordService: RecordService,
-        public readonly settingsService: SettingsService
+        public readonly settingsService: SettingsService,
+        public readonly breakpointService: BreakpointService
     ) {}
 
     public trackByName(index: number, item: Statistic): string {

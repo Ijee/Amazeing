@@ -42,9 +42,8 @@
             </strong>
         </div>
     </div>
-
     @for (stat of algorithmService.getStatRecords(); track trackByName($index, stat)) { @if (stat.currentValue !==
-    undefined) {
+    undefined && ((breakpointService.isMobile() | async) === false)) {
     <div
         class="level-item has-text-centered"
         [@.disabled]="!this.settingsService.getAnimationsSetting()"
