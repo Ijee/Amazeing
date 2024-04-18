@@ -7,10 +7,8 @@ body.theme-dark :host .is-danger {
     background-color: var(--bulma-danger) !important;
 }
 
-pre > code {
-    white-space: pre;
-    margin-top: -1em;
-    display: block;
+body.theme-dark :host .button {
+    outline: 1px solid var(--white-dark-87);
 }
 
 .radio {

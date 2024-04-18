@@ -2,12 +2,7 @@
     border-radius: 0;
 }
 
-.algo-button {
-    font-size: 0.8rem;
-}
-
-body.theme-dark :host .algo-button {
-    font-size: 0.8rem;
+body.theme-dark :host .button {
     outline: 1px solid var(--white-dark-87);
 }
 
@@ -22,10 +17,4 @@ body.theme-dark :host .is-primary {
 
 body.theme-dark :host .outline {
     border: 2px hsl(0, 1%, 34%) solid;
-}
-
-pre > code {
-    white-space: pre;
-    margin-top: -1em;
-    display: block;
 }
