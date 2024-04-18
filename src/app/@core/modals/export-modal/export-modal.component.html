@@ -22,6 +22,7 @@
                 data-testid="export-area"
                 title="Export area"
                 type="text"
+                placeholder="No algorithm export available at the moment."
                 (focus)="focusTextArea($event.target)"
                 [ngModel]="simulationService.getExportToken()">
             </textarea>

@@ -18,13 +18,13 @@
                 data-testid="import-area"
                 class="textarea"
                 type="text"
-                placeholder="Paste here..."
+                placeholder="Paste import text here."
                 [disabled]="usedFileUpload"
                 [ngClass]="importError ? 'is-danger' : 'is-primary'"
                 [(ngModel)]="importToken"
                 (ngModelChange)="importError = false">
             </textarea>
-            <app-hr></app-hr>
+            <app-hr text="OR"></app-hr>
             <div
                 appDropZone
                 (fileDropped)="droppedInFile($event)"
@@ -35,12 +35,10 @@
                     <input class="file-input" type="file" name="resume" accept=".txt" />
                     <span class="file-cta">
                         <span class="file-icon">
-                            <fa-icon [icon]="['fas', 'upload']"></fa-icon>
+                            <fa-icon [icon]="['fas', 'file']"></fa-icon>
                         </span>
                         <span class="file-label">
-                            <b>DRAG AND DROP</b>
-                            OR
-                            <b>CLICK TO SELECT A FILE</b>
+                            <b>DRAG & DROP</b>
                         </span>
                     </span>
                     <span class="file-name has-text-info"> {{ fileName }} </span>
@@ -65,6 +63,7 @@
                     </span>
                     <span>Import</span>
                 </button>
+                @if ((breakpointService.isTouch() | async) === false) {
                 <button
                     class="button"
                     data-testid="import-cancel"
@@ -75,6 +74,7 @@
                     </span>
                     <span>Cancel</span>
                 </button>
+                }
             </div>
         </footer>
     </div>

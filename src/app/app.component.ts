@@ -11,6 +11,7 @@ import {
     faDownload,
     faExclamationTriangle,
     faFastForward,
+    faFile,
     faFileImport,
     faForward,
     faInfo,
@@ -48,7 +49,6 @@ import { ExportModalComponent } from './@core/modals/export-modal/export-modal.c
 import { CommonModule } from '@angular/common';
 import { ClickOutsideDirective } from './@shared/directives/click-outside.directive';
 import { faPaste } from '@fortawesome/free-solid-svg-icons/faPaste';
-import { faUpload } from '@fortawesome/free-solid-svg-icons/faUpload';
 import { faSquareFull } from '@fortawesome/free-solid-svg-icons/faSquareFull';
 import { faCheckSquare } from '@fortawesome/free-solid-svg-icons/faCheckSquare';
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons/faWindowClose';
@@ -126,8 +126,8 @@ export class AppComponent implements OnInit, OnDestroy {
             faDownload,
             faShareNodes,
             faTimesCircle,
-            faUpload,
             faFileImport,
+            faFile,
             faInfo,
             faExclamationTriangle,
             faCheckSquare,

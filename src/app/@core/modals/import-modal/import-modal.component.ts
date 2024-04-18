@@ -4,15 +4,16 @@ import { Subject } from 'rxjs';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { DropZoneDirective } from '../../../@shared/directives/drop-zone.directive';
 import { HrComponent } from '../../../@shared/components/hr/hr.component';
-import { NgClass } from '@angular/common';
+import { CommonModule, NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { BreakpointService } from '../../services/breakpoint.service';
 
 @Component({
     selector: 'app-import-modal',
     templateUrl: './import-modal.component.html',
     styleUrls: ['./import-modal.component.scss'],
     standalone: true,
-    imports: [FaIconComponent, FormsModule, NgClass, HrComponent, DropZoneDirective]
+    imports: [CommonModule, FaIconComponent, FormsModule, NgClass, HrComponent, DropZoneDirective]
 })
 export class ImportModalComponent implements OnDestroy {
     public usedFileUpload: boolean;
@@ -22,7 +23,10 @@ export class ImportModalComponent implements OnDestroy {
 
     private readonly destroyed$: Subject<void>;
 
-    constructor(public simulationService: SimulationService) {
+    constructor(
+        public readonly simulationService: SimulationService,
+        public readonly breakpointService: BreakpointService
+    ) {
         this.fileName = 'No file selected...';
         this.importError = false;
         this.importToken = '';
