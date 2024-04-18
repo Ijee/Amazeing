@@ -11,8 +11,9 @@ import { AlgorithmMode } from '../../@core/types/algorithm.types';
 import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 import { JsonFormControls, JsonFormData } from '../../@core/types/jsonform.types';
 import { DisableControlDirective } from '../../@shared/directives/disable-control.directive';
-import { NgClass, UpperCasePipe } from '@angular/common';
+import { CommonModule, NgClass, UpperCasePipe } from '@angular/common';
 import { HrComponent } from '../../@shared/components/hr/hr.component';
+import { BreakpointService } from 'src/app/@core/services/breakpoint.service';
 
 @Component({
     selector: 'app-grid-settings',
@@ -21,6 +22,7 @@ import { HrComponent } from '../../@shared/components/hr/hr.component';
     animations: [fadeAnimationSafe],
     standalone: true,
     imports: [
+        CommonModule,
         HrComponent,
         NgClass,
         FaIconComponent,
@@ -45,7 +47,7 @@ export class GridSettingsComponent implements AfterViewInit, OnDestroy {
         public readonly algorithmService: AlgorithmService,
         public readonly simulationService: SimulationService,
         public readonly settingsService: SettingsService,
-
+        public readonly breakpointService: BreakpointService,
         public readonly formBuilder: UntypedFormBuilder
     ) {
         this.showWarning = false;
