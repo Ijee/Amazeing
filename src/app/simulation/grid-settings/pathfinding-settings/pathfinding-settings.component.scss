@@ -2,15 +2,6 @@
     border-radius: 0;
 }
 
-.algo-button {
-    font-size: 0.8rem;
-}
-
-body.theme-dark :host .algo-button {
-    font-size: 0.8rem;
-    outline: 1px solid var(--white-dark-87);
-}
-
 body.theme-dark :host .is-danger {
     color: var(--bulma-dark) !important;
     background-color: var(--bulma-danger) !important;

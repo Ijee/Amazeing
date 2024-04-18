@@ -30,7 +30,7 @@
             <div class="field has-addons has-addons-centered is-marginless control-button-wrapper">
                 <p class="control">
                     <button
-                        class="button mr-3 is-size-7-mobile is-size-7-touch is-size-6-desktop"
+                        class="button mr-3 is-responsive"
                         data-testid="set-start"
                         title="Set start"
                         [ngClass]="simulationService.getDrawingMode() === 2 ? 'is-warning is-light' : ''"
@@ -39,14 +39,14 @@
                         <span class="icon start-icon">
                             <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
                         </span>
-                        @if ((breakpointService.isTouch() | async) === false) {
+                        @if ((breakpointService.isMobile() | async) === false) {
                         <b>Set Start</b>
                         }
                     </button>
                 </p>
                 <p class="control">
                     <button
-                        class="button is-size-7-mobile is-size-7-touch is-size-6-desktop"
+                        class="button is-responsive"
                         data-testid="add-weights"
                         title="add weights"
                         [disabled]="!algorithmService.usesNodeWeights() || this.recordService.getIteration() > 0"
@@ -54,14 +54,14 @@
                         <span class="icon">
                             <fa-icon [icon]="['fas', 'balance-scale-right']"></fa-icon>
                         </span>
-                        @if ((breakpointService.isTouch() | async) === false) {
+                        @if ((breakpointService.isMobile() | async) === false) {
                         <b>Add Weights</b>
                         }
                     </button>
                 </p>
                 <p class="control">
                     <button
-                        class="button is-pulled-right is-size-7-mobile is-size-7-touch is-size-6-desktop"
+                        class="button is-pulled-right is-responsive"
                         data-testid="toggle-weights"
                         [ngClass]="simulationService.getShowWeightStatus() ? 'is-primary is-light' : 'is-danger is-light'"
                         title="Toggle weights"
@@ -77,30 +77,30 @@
                 </p>
                 <p class="control">
                     <button
-                        class="button border-radius-right ml-3 mr-3 is-size-7-mobile is-size-7-touch is-size-6-desktop"
+                        class="button border-radius-right ml-3 is-responsive"
                         data-testid="set-goal"
                         title="Set goal"
                         [ngClass]="simulationService.getDrawingMode() === 3 ? 'is-warning is-light' : ''"
                         [disabled]="recordService.getIteration() > 0"
                         (click)="simulationService.setDrawingMode(3)">
-                        <span class="icon fa-sm goal-icon">
+                        <span class="icon goal-icon">
                             <fa-icon [icon]="['fas', 'square-full']"></fa-icon>
                         </span>
-                        @if ((breakpointService.isTouch() | async) === false) {
+                        @if ((breakpointService.isMobile() | async) === false) {
                         <b>Set Goal</b>
                         }
                     </button>
                 </p>
                 <p class="control control-pulled-right">
                     <button
-                        class="button is-expanded is-size-7-touch is-size-6-desktop"
+                        class="button is-expanded is-responsive"
                         data-testid="legend"
                         title="Legend"
                         (click)="simulationService.toggleShowLegendModal()">
                         <span class="icon has-text-info">
                             <fa-icon [icon]="['fas', 'info-circle']"></fa-icon>
                         </span>
-                        @if ((breakpointService.isTouch() | async) === false) {
+                        @if ((breakpointService.isMobile() | async) === false) {
                         <b>Legend</b>
                         }
                     </button>

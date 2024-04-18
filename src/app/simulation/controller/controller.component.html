@@ -2,7 +2,7 @@
 <div class="field has-addons has-addons-centered m-0">
     <p class="control">
         <button
-            class="button is-size-7-touch is-size-6-desktop"
+            class="button is-responsive"
             data-testid="slowdown"
             title="slow down"
             (click)="simulationService.setSpeedDown()">
@@ -12,7 +12,7 @@
     <p class="control">
         <button
             [disabled]="simulationService.getBackwardStepsAmount() < 1"
-            class="button is-size-7-touch is-size-6-desktop"
+            class="button is-responsive"
             data-testid="iteration-backward"
             title="iteration backward"
             [ngClass]="{
@@ -25,7 +25,7 @@
     </p>
     <p class="control">
         <button
-            class="button is-size-7-touch is-size-6-desktop"
+            class="button is-responsive"
             data-testid="clear-grid"
             title="clear grid"
             [disabled]="simulationService.getSimulationStatus()"
@@ -41,7 +41,7 @@
         <button
             [disabled]="simulationService.getIsPlayDisabled()"
             [ngClass]="simulationService.getSimulationStatus() ? 'is-primary is-light' : 'is-danger is-light'"
-            class="button is-size-7-mobile is-size-7-touch is-size-6-desktop"
+            class="button is-responsive"
             data-testid="stop-play"
             title="play"
             (click)="simulationService.setSimulationStatus()">
@@ -55,7 +55,7 @@
     <p class="control">
         <button
             [disabled]="simulationService.getIsPlayDisabled()"
-            class="button is-size-7-touch is-size-6-desktop"
+            class="button is-responsive"
             data-testid="next-iteration"
             title="next iteration"
             (click)="simulationService.stepForward()">
@@ -65,7 +65,7 @@
     <p class="control">
         <button
             [disabled]="simulationService.getIsPlayDisabled()"
-            class="button is-size-7-touch is-size-6-desktop"
+            class="button is-responsive"
             data-testid="complete-algorithm"
             title="complete algorithm"
             (click)="simulationService.completeAlgorithm()">
@@ -74,7 +74,7 @@
     </p>
     <p class="control">
         <button
-            class="button is-size-7-touch is-size-6-desktop"
+            class="button is-responsive"
             data-testid="speed-up"
             title="speed up"
             (click)="simulationService.setSpeedUp()">
@@ -82,10 +82,10 @@
         </button>
     </p>
 </div>
-<div class="field has-addons has-addons-centered m-0">
+<div class="field has-addons has-addons-centered">
     <p class="control">
         <button
-            class="button is-size-7-touch is-size-6-desktop"
+            class="button is-responsive"
             data-testid="import"
             title="import"
             (click)="simulationService.toggleShowImportModal(); simulationService.setSimulationStatus(false)">
@@ -96,11 +96,7 @@
         </button>
     </p>
     <p class="control">
-        <button
-            class="button is-size-7-touch is-size-6-desktop"
-            data-testid="export"
-            title="export"
-            (click)="handleExportLogic()">
+        <button class="button is-responsive" data-testid="export" title="export" (click)="handleExportLogic()">
             <span class="icon">
                 <fa-icon [icon]="['far', 'save']"></fa-icon>
             </span>
