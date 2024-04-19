@@ -1,5 +1,10 @@
 import { GridLocation } from '../../../@shared/classes/GridLocation';
-import { Node, PathFindingAlgorithm, Statistic } from '../../types/algorithm.types';
+import {
+    Node,
+    PathFindingAlgorithm,
+    PathFindingHeuristic,
+    Statistic
+} from '../../types/algorithm.types';
 import { AlgorithmOptions, JsonFormData } from '../../types/jsonform.types';
 
 export abstract class PathFindingAlgorithmAbstract {
@@ -7,7 +12,8 @@ export abstract class PathFindingAlgorithmAbstract {
         protected currentGrid: Node[][],
         protected statRecords: Statistic[],
         protected jsonFormData: JsonFormData,
-        protected options: AlgorithmOptions
+        protected options: AlgorithmOptions,
+        protected heuristic: PathFindingHeuristic
     ) {}
 
     /**
@@ -50,8 +56,13 @@ export abstract class PathFindingAlgorithmAbstract {
      *
      * @param currentGrid - the current grid from the simulation service
      * @param currentStartPoint - the starting point for the algorithm
+     * @param pathfindingHeuristic the selected pathfinding heuristic
      */
-    public abstract setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void;
+    public abstract setInitialData(
+        currentGrid: Node[][],
+        currentStartPoint: GridLocation,
+        pathfindingHeuristic: PathFindingHeuristic
+    ): void;
 
     /**
      * Sets the options for the algorithm.
@@ -144,4 +155,9 @@ export abstract class PathFindingAlgorithmAbstract {
      * Returns whether the current algorithm uses node weights.
      */
     public abstract usesNodeWeights(): boolean;
+
+    /**
+     * Returns whether the current algorithm allowes the user to use the heuristics options.
+     */
+    public abstract usesHeuristics(): boolean;
 }

@@ -64,7 +64,7 @@ export type PathFindingAlgorithm =
     | 'Dead-End-Filling'
     | 'Maze-Routing';
 
-export type PathFindingHeuristic = 'Manhattan' | 'Euclidean' | 'Octile' | 'Chebyshev';
+export type PathFindingHeuristic = 'Manhattan' | 'Euclidean' | 'Octile' | 'Chebyshev' | 'None';
 export type Session = {
     algorithm: MazeAlgorithm | PathFindingAlgorithm;
     algorithmMode: AlgorithmMode;

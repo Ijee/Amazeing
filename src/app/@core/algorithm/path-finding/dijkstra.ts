@@ -10,7 +10,8 @@ export class Dijkstra extends PathFindingAlgorithmAbstract {
             {
                 controls: []
             },
-            {}
+            {},
+            'None'
         );
     }
 
@@ -47,6 +48,10 @@ export class Dijkstra extends PathFindingAlgorithmAbstract {
     }
 
     public usesNodeWeights(): boolean {
+        return true;
+    }
+
+    public usesHeuristics(): boolean {
         return true;
     }
 }

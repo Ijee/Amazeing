@@ -176,7 +176,11 @@ export class AlgorithmService {
     public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
         this.algorithmMode === 'maze'
             ? this.currentMazeAlgorithm.setInitialData(currentGrid, currentStartPoint)
-            : this.currentPathAlgorithm.setInitialData(currentGrid, currentStartPoint);
+            : this.currentPathAlgorithm.setInitialData(
+                  currentGrid,
+                  currentStartPoint,
+                  this.currentHeuristic
+              );
     }
 
     /**
@@ -276,10 +280,15 @@ export class AlgorithmService {
     }
 
     /**
-     * Returns the currently selected heuristic
+     * Returns the currently selected heuristic or 'None' when a
+     * Maze-Solving Algorithm has been selected.
      */
     public getCurrentHeuristic(): PathFindingHeuristic {
-        return this.currentHeuristic;
+        if (this.currentPathAlgorithm.usesHeuristics()) {
+            return this.currentHeuristic;
+        } else {
+            return 'None';
+        }
     }
 
     /**

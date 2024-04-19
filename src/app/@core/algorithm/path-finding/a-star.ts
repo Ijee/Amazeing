@@ -11,7 +11,8 @@ export class AStar extends PathFindingAlgorithmAbstract {
             {
                 controls: []
             },
-            {}
+            {},
+            'None'
         );
     }
 
@@ -61,5 +62,9 @@ export class AStar extends PathFindingAlgorithmAbstract {
 
     public usesNodeWeights(): boolean {
         throw new Error('Method not implemented.');
+    }
+
+    public usesHeuristics(): boolean {
+        return true;
     }
 }

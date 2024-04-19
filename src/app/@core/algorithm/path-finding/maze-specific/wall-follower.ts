@@ -6,6 +6,7 @@ import {
 } from 'src/app/@core/types/algorithm.types';
 import { GridLocation } from 'src/app/@shared/classes/GridLocation';
 import { PathFindingAlgorithmAbstract } from '../path-finding-algorithm.abstract';
+import { faL } from '@fortawesome/free-solid-svg-icons';
 
 export class WallFollower extends PathFindingAlgorithmAbstract {
     private cursor: GridLocation;
@@ -46,9 +47,11 @@ export class WallFollower extends PathFindingAlgorithmAbstract {
                     }
                 ]
             },
-            {}
+            {},
+            'None'
         );
     }
+
     public nextStep(): Node[][] {
         // check if the goal is in reach
         let neighbours = this.getNeighbours(this.cursor, 2);
@@ -61,11 +64,13 @@ export class WallFollower extends PathFindingAlgorithmAbstract {
 
         return this.currentGrid;
     }
+
     public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
         this.currentGrid = currentGrid;
         this.cursor = currentStartPoint;
         this.direction = 'right';
     }
+
     public updateAlgorithmState(
         newGrid: Node[][],
         deserializedState: any,
@@ -73,19 +78,28 @@ export class WallFollower extends PathFindingAlgorithmAbstract {
     ): void {
         throw new Error('Method not implemented.');
     }
+
     public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
         throw new Error('Method not implemented.');
     }
+
     public getSerializedState(): Object {
         throw new Error('Method not implemented.');
     }
+
     public getCurrentAlgorithmState(): Object {
         throw new Error('Method not implemented.');
     }
+
     public getAlgorithmName(): PathFindingAlgorithm {
         return 'Wall-Follower';
     }
+
     public usesNodeWeights(): boolean {
+        return false;
+    }
+
+    public usesHeuristics(): boolean {
         return false;
     }
 }
