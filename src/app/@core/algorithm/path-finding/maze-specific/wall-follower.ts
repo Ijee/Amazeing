@@ -6,7 +6,6 @@ import {
 } from 'src/app/@core/types/algorithm.types';
 import { GridLocation } from 'src/app/@shared/classes/GridLocation';
 import { PathFindingAlgorithmAbstract } from '../path-finding-algorithm.abstract';
-import { faL } from '@fortawesome/free-solid-svg-icons';
 
 export class WallFollower extends PathFindingAlgorithmAbstract {
     private cursor: GridLocation;
@@ -71,11 +70,7 @@ export class WallFollower extends PathFindingAlgorithmAbstract {
         this.direction = 'right';
     }
 
-    public updateAlgorithmState(
-        newGrid: Node[][],
-        deserializedState: any,
-        statRecords: Statistic[]
-    ): void {
+    public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
         throw new Error('Method not implemented.');
     }
 
@@ -83,11 +78,11 @@ export class WallFollower extends PathFindingAlgorithmAbstract {
         throw new Error('Method not implemented.');
     }
 
-    public getSerializedState(): Object {
+    public serialize(): Object {
         throw new Error('Method not implemented.');
     }
 
-    public getCurrentAlgorithmState(): Object {
+    public getState(): Object {
         throw new Error('Method not implemented.');
     }
 

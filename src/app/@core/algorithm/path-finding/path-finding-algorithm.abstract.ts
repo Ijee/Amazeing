@@ -19,8 +19,8 @@ export abstract class PathFindingAlgorithmAbstract {
     /**
      * Returns the neighbours for a given GridLocation.
      *
-     * @param loc - the GridLocation to get the neighbours from
-     * @param distance - the distance from the location where the neighbours should be located
+     * @param loc the GridLocation to get the neighbours from
+     * @param distance the distance from the location where the neighbours should be located
      * @protected
      */
     protected getNeighbours(loc: GridLocation, distance: number): GridLocation[] {
@@ -54,8 +54,8 @@ export abstract class PathFindingAlgorithmAbstract {
      * Sets the starting point for the algorithm to the one
      * the user set on the grid
      *
-     * @param currentGrid - the current grid from the simulation service
-     * @param currentStartPoint - the starting point for the algorithm
+     * @param currentGrid the current grid from the simulation service
+     * @param currentStartPoint the starting point for the algorithm
      * @param pathfindingHeuristic the selected pathfinding heuristic
      */
     public abstract setInitialData(
@@ -82,12 +82,12 @@ export abstract class PathFindingAlgorithmAbstract {
      * Refer to how to load the state back in on what is being returned
      * in getCurrentAlgorithmState
      *
-     * @param deserializedState - the new algorithm state
-     * @param statRecords - the new algorithm statRecords
-     * @param newGrid - the current Grid
+     * @param deserializedState the new algorithm state
+     * @param statRecords the new algorithm statRecords
+     * @param newGrid the current Grid
      */
 
-    public abstract updateAlgorithmState(
+    public abstract updateState(
         newGrid: Node[][],
         deserializedState: any,
         statRecords: Statistic[]
@@ -99,9 +99,9 @@ export abstract class PathFindingAlgorithmAbstract {
      *
      * It is being called when the user tries to import a custom session into the app.
      *
-     * @param newGrid - the current Grid
-     * @param serializedState - the serialized data
-     * @param statRecords - the new algorithm stats
+     * @param newGrid the current Grid
+     * @param serializedState the serialized data
+     * @param statRecords the new algorithm stats
      */
     public abstract deserialize(
         newGrid: Node[][],
@@ -115,13 +115,12 @@ export abstract class PathFindingAlgorithmAbstract {
      *
      * Remember that classes can not be serialized with JSON.stringify as they most often include functions.
      */
-    public abstract getSerializedState(): Object;
+    public abstract serialize(): Object;
 
     /**
-     * Returns the current algorithm state that should at least
-     * be an object.
+     * Returns the current algorithm state.
      */
-    public abstract getCurrentAlgorithmState(): Object;
+    public abstract getState(): Object;
 
     /**
      * Returns the name of the algorithm.
