@@ -1,5 +1,5 @@
-<nav class="navbar is-transparent pl-3 pr-3">
-    <div class="container is-fullhd pl-2 pr-2">
+<nav class="navbar is-transparent px-2">
+    <div class="container is-fullhd">
         <div class="navbar-brand">
             <a
                 role="button"
@@ -149,7 +149,7 @@
         </div>
         <div
             id="navbarMenuHeroA"
-            class="navbar-menu"
+            class="navbar-menu touch-menu"
             [ngClass]="{
                 'is-active': showNavbar,
                 'transparent-navbar': ((breakpointService.isTouch() | async) === false)
@@ -203,7 +203,8 @@
                                 <span><b>Dark mode</b></span>
                             </div>
                             <button
-                                class="column is-4 button settings-button dropdown-button is-pulled-right"
+                                class="column is-4 button is-responsive"
+                                style="margin-left: auto"
                                 [class]="(settingsService.getDarkModeSetting() | async) ? 'is-primary' : 'is-danger'"
                                 (click)="settingsService.setDarkModeSetting()">
                                 <b>{{ (settingsService.getDarkModeSetting() | async) ? 'ON' : 'OFF' }}</b>
@@ -217,7 +218,8 @@
                                 <span><b>Animations</b></span>
                             </div>
                             <button
-                                class="column is-4 button settings-button dropdown-button is-pulled-right"
+                                class="column is-4 button is-responsive"
+                                style="margin-left: auto"
                                 [class]="settingsService.getAnimationsSetting() ? 'is-primary' : 'is-danger'"
                                 (click)="settingsService.setAnimationSetting()">
                                 <b>{{ settingsService.getAnimationsSetting() ? 'ON' : 'OFF' }}</b>
@@ -231,7 +233,8 @@
                                 <span><b>Warnings</b></span>
                             </div>
                             <button
-                                class="column is-4 button settings-button is-fullwidth dropdown-button is-pulled-right"
+                                class="column is-4 button is-responsive"
+                                style="margin-left: auto"
                                 [class]="settingsService.getWarningsSetting() ? 'is-primary' : 'is-danger'"
                                 (click)="settingsService.setWarningsSetting()">
                                 <b>{{ settingsService.getWarningsSetting() ? 'ON' : 'OFF' }}</b>
