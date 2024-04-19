@@ -136,11 +136,7 @@ export class BinaryTree extends MazeAlgorithmAbstract {
         }
     }
 
-    public updateAlgorithmState(
-        newGrid: Node[][],
-        deserializedState: any,
-        statRecords: Statistic[]
-    ): void {
+    public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
         this.currentGrid = newGrid;
         this.statRecords = statRecords;
         this.direction1 = deserializedState.direction1;
@@ -156,10 +152,10 @@ export class BinaryTree extends MazeAlgorithmAbstract {
             yStart: serializedState.yStart,
             yEnd: serializedState.yEnd
         };
-        this.updateAlgorithmState(newGrid, deserializedState, statRecords);
+        this.updateState(newGrid, deserializedState, statRecords);
     }
 
-    public getSerializedState(): Object {
+    public serialize(): Object {
         return {
             direction1: this.direction1,
             direction2: this.direction2,
@@ -168,7 +164,7 @@ export class BinaryTree extends MazeAlgorithmAbstract {
         };
     }
 
-    public getCurrentAlgorithmState(): Object {
+    public getState(): Object {
         return {
             direction1: this.direction1,
             direction2: this.direction2,

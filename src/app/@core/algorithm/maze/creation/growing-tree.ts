@@ -173,11 +173,7 @@ export class GrowingTree extends MazeAlgorithmAbstract {
         this.currentGrid[startNode.x][startNode.y].status = 5;
     }
 
-    public updateAlgorithmState(
-        newGrid: Node[][],
-        deserializedState: any,
-        statRecords: Statistic[]
-    ): void {
+    public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
         this.currentGrid = newGrid;
         this.statRecords = statRecords;
         this.nodeCollection = deserializedState.nodeCollection;
@@ -196,10 +192,10 @@ export class GrowingTree extends MazeAlgorithmAbstract {
                 });
             }
         );
-        this.updateAlgorithmState(newGrid, deserializedState, statRecords);
+        this.updateState(newGrid, deserializedState, statRecords);
     }
 
-    public getSerializedState(): Object {
+    public serialize(): Object {
         const serializedState = {
             nodeCollection: []
         };
@@ -212,7 +208,7 @@ export class GrowingTree extends MazeAlgorithmAbstract {
         return serializedState;
     }
 
-    public getCurrentAlgorithmState(): Object {
+    public getState(): Object {
         return {
             nodeCollection: this.nodeCollection
         };

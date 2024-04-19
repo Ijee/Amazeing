@@ -112,11 +112,7 @@ export class Prims extends MazeAlgorithmAbstract {
         this.mark(currentStartPoint.x, currentStartPoint.y);
     }
 
-    public updateAlgorithmState(
-        newGrid: Node[][],
-        deserializedState: any,
-        statRecords: Statistic[]
-    ): void {
+    public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
         this.currentGrid = newGrid;
         this.statRecords = statRecords;
         this.frontierNodes = deserializedState.frontierNodes;
@@ -131,10 +127,10 @@ export class Prims extends MazeAlgorithmAbstract {
         const deserializedState = {
             frontierNodes: tempFrontierNodes
         };
-        this.updateAlgorithmState(newGrid, deserializedState, statRecords);
+        this.updateState(newGrid, deserializedState, statRecords);
     }
 
-    public getSerializedState(): Object {
+    public serialize(): Object {
         const serializedState = {
             gridLocations: []
         };
@@ -144,7 +140,7 @@ export class Prims extends MazeAlgorithmAbstract {
         return serializedState;
     }
 
-    public getCurrentAlgorithmState(): Object {
+    public getState(): Object {
         return {
             frontierNodes: this.frontierNodes
         };

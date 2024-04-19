@@ -164,11 +164,7 @@ export class Kruskals extends MazeAlgorithmAbstract {
             }
         }
     }
-    public updateAlgorithmState(
-        newGrid: Node[][],
-        deserializedState: any,
-        statRecords: Statistic[]
-    ): void {
+    public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
         this.currentGrid = newGrid;
         this.statRecords = statRecords;
         this.edges = deserializedState.edges;
@@ -199,9 +195,9 @@ export class Kruskals extends MazeAlgorithmAbstract {
             cleanup: serializedState.cleanup
         };
 
-        this.updateAlgorithmState(newGrid, deserializedState, statRecords);
+        this.updateState(newGrid, deserializedState, statRecords);
     }
-    public getSerializedState(): Object {
+    public serialize(): Object {
         const serializedState = {
             edges: [],
             sets: [],
@@ -220,7 +216,7 @@ export class Kruskals extends MazeAlgorithmAbstract {
         }
         return serializedState;
     }
-    public getCurrentAlgorithmState(): Object {
+    public getState(): Object {
         return {
             edges: this.edges,
             sets: this.sets,

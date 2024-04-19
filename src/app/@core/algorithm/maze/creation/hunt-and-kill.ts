@@ -154,11 +154,7 @@ export class HuntAndKill extends MazeAlgorithmAbstract {
         this.randomWalk = true;
     }
 
-    public updateAlgorithmState(
-        newGrid: Node[][],
-        deserializedState: any,
-        statRecords: Statistic[]
-    ): void {
+    public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
         this.currentGrid = newGrid;
         this.statRecords = statRecords;
         this.cursor = deserializedState.cursor;
@@ -185,10 +181,10 @@ export class HuntAndKill extends MazeAlgorithmAbstract {
             randomWalk: serializedState.randomWalk,
             nodeFound: serializedState.nodeFound
         };
-        this.updateAlgorithmState(newGrid, deserializedState, statRecords);
+        this.updateState(newGrid, deserializedState, statRecords);
     }
 
-    public getSerializedState(): Object {
+    public serialize(): Object {
         const serializedState = {
             cursor: this.cursor.toObject(),
             gridSnapshot: [],
@@ -204,7 +200,7 @@ export class HuntAndKill extends MazeAlgorithmAbstract {
         return serializedState;
     }
 
-    public getCurrentAlgorithmState(): Object {
+    public getState(): Object {
         return {
             cursor: this.cursor,
             gridSnapshot: this.gridSnapshot,

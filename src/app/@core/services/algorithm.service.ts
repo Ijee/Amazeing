@@ -257,7 +257,7 @@ export class AlgorithmService {
                 }
             } else {
                 this.algorithmMode === 'maze'
-                    ? this.currentMazeAlgorithm.updateAlgorithmState(newGrid, state, statRecord)
+                    ? this.currentMazeAlgorithm.updateState(newGrid, state, statRecord)
                     : this.currentPathAlgorithm.updateState(newGrid, state, statRecord);
             }
         }
@@ -275,7 +275,7 @@ export class AlgorithmService {
      */
     public getCurrentAlgorithmState(): any {
         return this.algorithmMode === 'maze'
-            ? this.currentMazeAlgorithm.getCurrentAlgorithmState()
+            ? this.currentMazeAlgorithm.getState()
             : this.currentPathAlgorithm.getState();
     }
 
@@ -329,7 +329,7 @@ export class AlgorithmService {
      */
     public getSerializedState(): any {
         return this.algorithmMode === 'maze'
-            ? this.currentMazeAlgorithm.getSerializedState()
+            ? this.currentMazeAlgorithm.serialize()
             : this.currentPathAlgorithm.serialize();
     }
 

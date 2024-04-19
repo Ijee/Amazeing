@@ -188,11 +188,7 @@ export class Wilsons extends MazeAlgorithmAbstract {
         this.statRecords[1].currentValue = this.unusedNodes.size();
     }
 
-    public updateAlgorithmState(
-        newGrid: Node[][],
-        deserializedState: any,
-        statRecords: Statistic[]
-    ): void {
+    public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
         this.currentGrid = newGrid;
         this.statRecords = statRecords;
         this.gridWith = deserializedState.gridWidth;
@@ -223,10 +219,10 @@ export class Wilsons extends MazeAlgorithmAbstract {
             walkingPath: walkingPath,
             isWalking: serializedState.isWalking
         };
-        this.updateAlgorithmState(newGrid, deserializedState, statRecords);
+        this.updateState(newGrid, deserializedState, statRecords);
     }
 
-    public getSerializedState(): Object {
+    public serialize(): Object {
         const serializedState = {
             gridWidth: this.gridWith,
             gridHeight: this.gridHeight,
@@ -244,7 +240,7 @@ export class Wilsons extends MazeAlgorithmAbstract {
         return serializedState;
     }
 
-    public getCurrentAlgorithmState(): Object {
+    public getState(): Object {
         return {
             gridWidth: this.gridWith,
             gridHeight: this.gridHeight,

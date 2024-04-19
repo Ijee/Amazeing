@@ -108,11 +108,7 @@ export class RecursiveBacktracking extends MazeAlgorithmAbstract {
         this.buildWalls(currentStartPoint, 0);
     }
 
-    public updateAlgorithmState(
-        newGrid: Node[][],
-        deserializedState: any,
-        statRecords: Statistic[]
-    ): void {
+    public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
         this.currentGrid = newGrid;
         this.cursor = deserializedState.cursor;
         this.walkingPath = deserializedState.walkingPath;
@@ -138,10 +134,10 @@ export class RecursiveBacktracking extends MazeAlgorithmAbstract {
             visitedNodes: visitedNodes,
             backtrack: serializedState.backtrack
         };
-        this.updateAlgorithmState(newGrid, deserializedState, statRecords);
+        this.updateState(newGrid, deserializedState, statRecords);
     }
 
-    public getSerializedState(): Object {
+    public serialize(): Object {
         const serializedState = {
             cursor: this.cursor.toObject(),
             walkingPath: [],
@@ -158,7 +154,7 @@ export class RecursiveBacktracking extends MazeAlgorithmAbstract {
         return serializedState;
     }
 
-    public getCurrentAlgorithmState(): Object {
+    public getState(): Object {
         return {
             walkingPath: this.walkingPath,
             cursor: this.cursor

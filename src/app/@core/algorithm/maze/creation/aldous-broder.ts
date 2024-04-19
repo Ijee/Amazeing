@@ -93,11 +93,7 @@ export class AldousBroder extends MazeAlgorithmAbstract {
         this.remainingNodes -= statusChange.status0;
     }
 
-    updateAlgorithmState(
-        newGrid: Node[][],
-        deserializedState: any,
-        statRecords: Statistic[]
-    ): void {
+    updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
         this.currentGrid = newGrid;
         this.statRecords = statRecords;
         this.cursor = deserializedState.cursor;
@@ -110,17 +106,17 @@ export class AldousBroder extends MazeAlgorithmAbstract {
             cursor: new GridLocation(cursor.x, cursor.y, cursor.weight),
             remainingNodes: serializedState.remainingNodes
         };
-        this.updateAlgorithmState(newGrid, deserializedState, statRecords);
+        this.updateState(newGrid, deserializedState, statRecords);
     }
 
-    getSerializedState(): Object {
+    serialize(): Object {
         return {
             cursor: this.cursor.toObject(),
             remainingNodes: this.remainingNodes
         };
     }
 
-    getCurrentAlgorithmState(): Object {
+    getState(): Object {
         return {
             cursor: this.cursor,
             remainingNodes: this.remainingNodes

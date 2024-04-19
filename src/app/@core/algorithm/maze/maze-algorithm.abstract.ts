@@ -14,8 +14,8 @@ export abstract class MazeAlgorithmAbstract {
      * Builds a wall around the given GridLocation. This is the main method being used to build
      * the maze for each algorithm but does not have to be used for every algorithm of course.
      *
-     * @param loc - the GridLocation to build the wall around with
-     * @param overwritable - list of node statuses that may be overwritten by a wall
+     * @param loc the GridLocation to build the wall around with
+     * @param overwritable list of node statuses that may be overwritten by a wall
      * @protected
      */
     protected buildWalls(loc: GridLocation, ...overwritable: number[]): StatusChange {
@@ -84,9 +84,9 @@ export abstract class MazeAlgorithmAbstract {
      *
      * Using two GridLocations that are not in a line will most likely look funny.
      *
-     * @param loc1 - the loc1 GridLocation
-     * @param loc2 - the loc2 GridLocation
-     * @param nodeStatus - the node status for the node in between
+     * @param loc1 the loc1 GridLocation
+     * @param loc2 the loc2 GridLocation
+     * @param nodeStatus the node status for the node in between
      * @protected
      */
     protected buildPath(loc1: GridLocation, loc2: GridLocation, nodeStatus: number): void {
@@ -130,8 +130,8 @@ export abstract class MazeAlgorithmAbstract {
     /**
      * Returns the neighbours for a given GridLocation.
      *
-     * @param loc - the GridLocation to get the neighbours from
-     * @param distance - the distance from the location where the neighbours should be located
+     * @param loc the GridLocation to get the neighbours from
+     * @param distance the distance from the location where the neighbours should be located
      * @protected
      */
     protected getNeighbours(loc: GridLocation, distance: number): GridLocation[] {
@@ -165,8 +165,8 @@ export abstract class MazeAlgorithmAbstract {
      * Sets the starting point for the algorithm to the one
      * the user set on the grid
      *
-     * @param currentGrid - the current grid from the simulation service
-     * @param currentStartPoint - the starting point for the algorithm
+     * @param currentGrid the current grid from the simulation service
+     * @param currentStartPoint the starting point for the algorithm
      */
     public abstract setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void;
 
@@ -193,7 +193,7 @@ export abstract class MazeAlgorithmAbstract {
      * @param newGrid - the current Grid
      */
 
-    public abstract updateAlgorithmState(
+    public abstract updateState(
         newGrid: Node[][],
         deserializedState: any,
         statRecords: Statistic[]
@@ -205,9 +205,9 @@ export abstract class MazeAlgorithmAbstract {
      *
      * It is being called when the user tries to import a custom session into the app.
      *
-     * @param newGrid - the current Grid
-     * @param serializedState - the serialized data
-     * @param statRecords - the new algorithm stats
+     * @param newGrid the current Grid
+     * @param serializedState the serialized data
+     * @param statRecords the new algorithm stats
      */
     public abstract deserialize(
         newGrid: Node[][],
@@ -221,13 +221,13 @@ export abstract class MazeAlgorithmAbstract {
      *
      * Remember that classes can not be serialized with JSON.stringify as they most often include functions.
      */
-    public abstract getSerializedState(): Object;
+    public abstract serialize(): Object;
 
     /**
      * Returns the current algorithm state that should at least
      * be an object.
      */
-    public abstract getCurrentAlgorithmState(): Object;
+    public abstract getState(): Object;
 
     /**
      * Returns the name of the algorithm.

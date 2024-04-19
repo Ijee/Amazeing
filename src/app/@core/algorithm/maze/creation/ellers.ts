@@ -162,11 +162,7 @@ export class Ellers extends MazeAlgorithmAbstract {
         this.cursor = new GridLocation(currentStartPoint.x % 2, 0);
     }
 
-    public updateAlgorithmState(
-        newGrid: Node[][],
-        deserializedState: any,
-        statRecords: Statistic[]
-    ): void {
+    public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
         this.currentGrid = newGrid;
         this.statRecords = statRecords;
 
@@ -203,10 +199,10 @@ export class Ellers extends MazeAlgorithmAbstract {
             passagesCreated: tempPassagesCreated
         };
 
-        this.updateAlgorithmState(newGrid, deserializedState, statRecords);
+        this.updateState(newGrid, deserializedState, statRecords);
     }
 
-    public getSerializedState(): Object {
+    public serialize(): Object {
         const serializedState = {
             cursor: this.cursor,
             setSize: this.setSize,
@@ -246,7 +242,7 @@ export class Ellers extends MazeAlgorithmAbstract {
         return serializedState;
     }
 
-    public getCurrentAlgorithmState(): Object {
+    public getState(): Object {
         return {
             cursor: this.cursor,
             setSize: this.setSize,

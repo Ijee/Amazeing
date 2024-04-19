@@ -177,11 +177,7 @@ export class RecursiveDivision extends MazeAlgorithmAbstract {
         this.yParity = this.currentGrid[0].length % 2 === 0 ? 'even' : 'odd';
     }
 
-    public updateAlgorithmState(
-        newGrid: Node[][],
-        deserializedState: any,
-        statRecords: Statistic[]
-    ): void {
+    public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
         this.currentGrid = newGrid;
         deserializedState.divisions = this.divisions;
         deserializedState.xParity = this.xParity;
@@ -190,10 +186,10 @@ export class RecursiveDivision extends MazeAlgorithmAbstract {
     }
 
     public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
-        this.updateAlgorithmState(newGrid, serializedState, statRecords);
+        this.updateState(newGrid, serializedState, statRecords);
     }
 
-    public getSerializedState(): Object {
+    public serialize(): Object {
         return {
             divisions: this.divisions,
             xParity: this.xParity,
@@ -201,7 +197,7 @@ export class RecursiveDivision extends MazeAlgorithmAbstract {
         };
     }
 
-    public getCurrentAlgorithmState(): Object {
+    public getState(): Object {
         return {
             divisions: this.divisions,
             xParity: this.xParity,

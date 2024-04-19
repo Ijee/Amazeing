@@ -137,11 +137,7 @@ export class Sidewinder extends MazeAlgorithmAbstract {
         this.buildWalls(currentStartPoint);
     }
 
-    public updateAlgorithmState(
-        newGrid: Node[][],
-        deserializedState: any,
-        statRecords: Statistic[]
-    ): void {
+    public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
         this.currentGrid = newGrid;
         this.statRecords = statRecords;
         this.cursor = deserializedState.cursor;
@@ -160,10 +156,10 @@ export class Sidewinder extends MazeAlgorithmAbstract {
             cursor: new GridLocation(cursor.x, cursor.y, cursor.weight),
             runSet: runSet
         };
-        this.updateAlgorithmState(newGrid, deserializedState, statRecords);
+        this.updateState(newGrid, deserializedState, statRecords);
     }
 
-    public getSerializedState(): Object {
+    public serialize(): Object {
         const serializedState = {
             cursor: this.cursor.toObject(),
             runSet: []
@@ -175,7 +171,7 @@ export class Sidewinder extends MazeAlgorithmAbstract {
         return serializedState;
     }
 
-    public getCurrentAlgorithmState(): Object {
+    public getState(): Object {
         return {
             cursor: this.cursor,
             runSet: this.runSet
