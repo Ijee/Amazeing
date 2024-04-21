@@ -17,6 +17,32 @@ export abstract class PathFindingAlgorithmAbstract {
     ) {}
 
     /**
+     * Paints a node on the grid.
+     *
+     * This is purely to avoid exactly this kind of code, and it is
+     * a lot of noise just not to remove the start and goal node.
+     *
+     * @param x the x coordinate
+     * @param y the y coordinate
+     * @param status the status to paint it to
+     * @protected
+     */
+    protected paintNode(x: number, y: number, status: number);
+    protected paintNode(loc: GridLocation, status: number);
+    protected paintNode(xOrLoc: number | GridLocation, yOrStatus: number, status?: number): void {
+        if (typeof xOrLoc === 'number') {
+            if (
+                this.currentGrid[xOrLoc][yOrStatus].status !== 2 &&
+                this.currentGrid[xOrLoc][yOrStatus].status !== 3
+            ) {
+                this.currentGrid[xOrLoc][yOrStatus].status = status;
+            }
+        } else {
+            this.paintNode(xOrLoc.x, xOrLoc.y, yOrStatus);
+        }
+    }
+
+    /**
      * Returns the neighbours for a given GridLocation.
      *
      * @param loc the GridLocation to get the neighbours from
