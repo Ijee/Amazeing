@@ -27,6 +27,7 @@ import { Kruskals } from '../algorithm/maze/creation/kruskals';
 import { Ellers } from '../algorithm/maze/creation/ellers';
 import { WallFollower } from '../algorithm/path-finding/maze-specific/wall-follower';
 import { Meta } from '@angular/platform-browser';
+import { Pledge } from '../algorithm/path-finding/maze-specific/pledge';
 
 @Injectable({
     providedIn: 'root'
@@ -149,6 +150,7 @@ export class AlgorithmService {
                 this.currentPathAlgorithm = new WallFollower();
                 break;
             case 'Pledge':
+                this.currentPathAlgorithm = new Pledge();
                 break;
             case 'Trémaux':
                 break;
