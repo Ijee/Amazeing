@@ -30,6 +30,7 @@ import { Meta } from '@angular/platform-browser';
 import { Pledge } from '../algorithm/path-finding/maze-specific/pledge';
 import { Tremaux } from '../algorithm/path-finding/maze-specific/tremaux';
 import { DeadEndFilling } from '../algorithm/path-finding/maze-specific/dead-end-filling';
+import { MazeRouting } from '../algorithm/path-finding/maze-specific/maze-routing';
 
 @Injectable({
     providedIn: 'root'
@@ -163,6 +164,7 @@ export class AlgorithmService {
                 this.currentPathAlgorithm = new DeadEndFilling();
                 break;
             case 'Maze-Routing':
+                this.currentPathAlgorithm = new MazeRouting();
                 break;
             default:
                 throw new Error('Unknown path-finding algorithm selected!');

@@ -57,12 +57,12 @@ export class GridComponent implements OnInit, OnDestroy {
         const startNode = this.gridList[initialStartX][initialNodeHeightY];
         startNode.status = 2;
         this.recordService.setGridStartLocation(
-            new GridLocation(initialStartX, initialNodeHeightY, startNode.weight)
+            new GridLocation(initialStartX, initialNodeHeightY, startNode.weight, startNode.status)
         );
         const goalNode = this.gridList[initialGoalX][initialNodeHeightY];
         goalNode.status = 3;
         this.recordService.setGridGoalLocation(
-            new GridLocation(initialGoalX, initialNodeHeightY, goalNode.weight)
+            new GridLocation(initialGoalX, initialNodeHeightY, goalNode.weight, goalNode.status)
         );
         this.simulationService.setGridList(this.gridList);
         // this.recordService.setAlgoStat1(this.width * this.height);
