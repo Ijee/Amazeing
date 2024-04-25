@@ -28,6 +28,7 @@ import { Ellers } from '../algorithm/maze/creation/ellers';
 import { WallFollower } from '../algorithm/path-finding/maze-specific/wall-follower';
 import { Meta } from '@angular/platform-browser';
 import { Pledge } from '../algorithm/path-finding/maze-specific/pledge';
+import { Tremaux } from '../algorithm/path-finding/maze-specific/tremaux';
 
 @Injectable({
     providedIn: 'root'
@@ -153,6 +154,7 @@ export class AlgorithmService {
                 this.currentPathAlgorithm = new Pledge();
                 break;
             case 'Trémaux':
+                this.currentPathAlgorithm = new Tremaux();
                 break;
             case 'Recursive':
                 break;
