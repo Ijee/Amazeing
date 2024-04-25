@@ -29,6 +29,7 @@ import { WallFollower } from '../algorithm/path-finding/maze-specific/wall-follo
 import { Meta } from '@angular/platform-browser';
 import { Pledge } from '../algorithm/path-finding/maze-specific/pledge';
 import { Tremaux } from '../algorithm/path-finding/maze-specific/tremaux';
+import { DeadEndFilling } from '../algorithm/path-finding/maze-specific/dead-end-filling';
 
 @Injectable({
     providedIn: 'root'
@@ -159,6 +160,7 @@ export class AlgorithmService {
             case 'Recursive':
                 break;
             case 'Dead-End-Filling':
+                this.currentPathAlgorithm = new DeadEndFilling();
                 break;
             case 'Maze-Routing':
                 break;
