@@ -6,6 +6,10 @@ import {
     Statistic
 } from '../../types/algorithm.types';
 import { AlgorithmOptions, JsonFormData } from '../../types/jsonform.types';
+import { chebyshevDistance } from './heuristic/chebyshev';
+import { euclideanDistance } from './heuristic/euclidean';
+import { manhattanDistance } from './heuristic/manhattan';
+import { octileDistance } from './heuristic/octile';
 
 export abstract class PathFindingAlgorithmAbstract {
     protected constructor(
@@ -15,6 +19,33 @@ export abstract class PathFindingAlgorithmAbstract {
         protected options: AlgorithmOptions,
         protected heuristic: PathFindingHeuristic
     ) {}
+
+    /**
+     * Calculates the heuristic distance of two given GridLocations
+     * based on which heuristic the user selected.
+     *
+     * @param loc1 the first location
+     * @param loc2 the second location
+     * @param heuristic the selected heuristic
+     * @returns the caluldated distance
+     */
+    protected calculateDistance(
+        loc1: GridLocation,
+        loc2: GridLocation,
+        heuristic: PathFindingHeuristic
+    ): number {
+        switch (heuristic) {
+            case 'Manhattan':
+                return manhattanDistance(loc1, loc2);
+            case 'Euclidean':
+                return euclideanDistance(loc1, loc2);
+            case 'Octile':
+                return octileDistance(loc1, loc2);
+            case 'Chebyshev':
+                return chebyshevDistance(loc1, loc2);
+            default:
+        }
+    }
 
     /**
      * Paints a node on the grid.
