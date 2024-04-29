@@ -31,8 +31,7 @@ export class Tremaux extends PathFindingAlgorithmAbstract {
             ],
             {
                 controls: []
-            },
-            {}
+            }
         );
         this.visitedNodes = [];
     }

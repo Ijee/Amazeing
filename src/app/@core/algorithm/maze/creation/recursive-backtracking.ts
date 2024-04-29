@@ -26,8 +26,7 @@ export class RecursiveBacktracking extends MazeAlgorithmAbstract {
             ],
             {
                 controls: []
-            },
-            {}
+            }
         );
         this.walkingPath = [];
         this.visitedNodes = new HashSet<GridLocation>();

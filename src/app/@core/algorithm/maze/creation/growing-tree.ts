@@ -40,8 +40,7 @@ export class GrowingTree extends MazeAlgorithmAbstract {
                         }
                     }
                 ]
-            },
-            {}
+            }
         );
         this.nodeCollection = [] as any;
     }

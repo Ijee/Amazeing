@@ -22,8 +22,7 @@ export class Prims extends MazeAlgorithmAbstract {
             ],
             {
                 controls: []
-            },
-            {}
+            }
         );
 
         this.frontierNodes = new HashSet<GridLocation>();

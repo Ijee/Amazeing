@@ -35,8 +35,7 @@ export class HuntAndKill extends MazeAlgorithmAbstract {
             ],
             {
                 controls: []
-            },
-            {}
+            }
         );
         this.gridSnapshot = [];
         this.scanAtY = 0;

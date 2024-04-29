@@ -34,8 +34,7 @@ export class Kruskals extends MazeAlgorithmAbstract {
             ],
             {
                 controls: []
-            },
-            {}
+            }
         );
         this.edges = new HashSet<GridLocation>();
         this.sets = [];

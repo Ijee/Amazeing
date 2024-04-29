@@ -5,14 +5,9 @@ import { JsonFormData } from '../../types/jsonform.types';
 
 export class AStar extends PathFindingAlgorithmAbstract {
     constructor() {
-        super(
-            [],
-            [],
-            {
-                controls: []
-            },
-            {}
-        );
+        super([], [], {
+            controls: []
+        });
     }
 
     public nextStep(): Node[][] {

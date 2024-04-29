@@ -3,11 +3,11 @@ import { MazeAlgorithm, Node, Statistic, StatusChange } from '../../types/algori
 import { AlgorithmOptions, JsonFormData } from '../../types/jsonform.types';
 
 export abstract class MazeAlgorithmAbstract {
+    protected options: AlgorithmOptions;
     protected constructor(
         protected currentGrid: Node[][],
         protected statRecords: Statistic[],
-        protected jsonFormData: JsonFormData,
-        protected options: AlgorithmOptions
+        protected jsonFormData: JsonFormData
     ) {}
 
     /**

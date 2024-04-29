@@ -21,8 +21,7 @@ export class MazeRouting extends PathFindingAlgorithmAbstract {
             ],
             {
                 controls: []
-            },
-            {}
+            }
         );
         this.queue = [];
         this.backtracking = undefined;

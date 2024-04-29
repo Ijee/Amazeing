@@ -13,11 +13,11 @@ import { octileDistance } from './heuristic/octile';
 
 export abstract class PathFindingAlgorithmAbstract {
     private heuristic: PathFindingHeuristic = 'None';
+    protected options: AlgorithmOptions;
     protected constructor(
         protected currentGrid: Node[][],
         protected statRecords: Statistic[],
-        protected jsonFormData: JsonFormData,
-        protected options: AlgorithmOptions
+        protected jsonFormData: JsonFormData
     ) {}
 
     /**

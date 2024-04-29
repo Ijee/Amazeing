@@ -4,14 +4,9 @@ import { Node, PathFindingAlgorithm, Statistic } from '../../types/algorithm.typ
 
 export class Dijkstra extends PathFindingAlgorithmAbstract {
     constructor() {
-        super(
-            [],
-            [],
-            {
-                controls: []
-            },
-            {}
-        );
+        super([], [], {
+            controls: []
+        });
     }
 
     public nextStep(): Node[][] {

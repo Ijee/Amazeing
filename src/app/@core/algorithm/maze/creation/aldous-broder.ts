@@ -33,8 +33,7 @@ export class AldousBroder extends MazeAlgorithmAbstract {
             ],
             {
                 controls: []
-            },
-            {}
+            }
         );
     }
 

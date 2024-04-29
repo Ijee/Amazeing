@@ -18,14 +18,9 @@ export class RecursiveDivision extends MazeAlgorithmAbstract {
     private yParity: Parity;
 
     constructor() {
-        super(
-            [],
-            [{ name: 'divisions', type: 'status-none', currentValue: 0 }],
-            {
-                controls: []
-            },
-            {}
-        );
+        super([], [{ name: 'divisions', type: 'status-none', currentValue: 0 }], {
+            controls: []
+        });
     }
 
     /**

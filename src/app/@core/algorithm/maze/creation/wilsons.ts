@@ -45,8 +45,7 @@ export class Wilsons extends MazeAlgorithmAbstract {
                         }
                     }
                 ]
-            },
-            {}
+            }
         );
         this.cursor = null;
         this.unusedNodes = new HashSet<GridLocation>();

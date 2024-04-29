@@ -11,25 +11,20 @@ export class BinaryTree extends MazeAlgorithmAbstract {
     private yEnd: number;
 
     constructor() {
-        super(
-            [],
-            [],
-            {
-                controls: [
-                    {
-                        name: 'Bias',
-                        label: 'Bias',
-                        value: 'North-West',
-                        values: ['North-West', 'North-East', 'South-West', 'South-East'],
-                        type: 'select',
-                        validators: {
-                            required: true
-                        }
+        super([], [], {
+            controls: [
+                {
+                    name: 'Bias',
+                    label: 'Bias',
+                    value: 'North-West',
+                    values: ['North-West', 'North-East', 'South-West', 'South-East'],
+                    type: 'select',
+                    validators: {
+                        required: true
                     }
-                ]
-            },
-            {}
-        );
+                }
+            ]
+        });
     }
 
     /**

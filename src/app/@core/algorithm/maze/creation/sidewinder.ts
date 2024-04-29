@@ -22,8 +22,7 @@ export class Sidewinder extends MazeAlgorithmAbstract {
             ],
             {
                 controls: []
-            },
-            {}
+            }
         );
         this.runSet = [];
     }

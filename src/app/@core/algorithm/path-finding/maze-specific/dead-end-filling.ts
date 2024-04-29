@@ -21,8 +21,7 @@ export class DeadEndFilling extends PathFindingAlgorithmAbstract {
             ],
             {
                 controls: []
-            },
-            {}
+            }
         );
         this.deadEnds = [];
     }

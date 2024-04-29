@@ -47,8 +47,7 @@ export class Pledge extends PathFindingAlgorithmAbstract {
                         }
                     }
                 ]
-            },
-            {}
+            }
         );
         this.direction = 'right';
         this.angle = 0;
