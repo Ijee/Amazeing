@@ -22,8 +22,7 @@ export class MazeRouting extends PathFindingAlgorithmAbstract {
             {
                 controls: []
             },
-            {},
-            'None'
+            {}
         );
         this.queue = [];
         this.backtracking = undefined;
@@ -71,11 +70,7 @@ export class MazeRouting extends PathFindingAlgorithmAbstract {
             return this.currentGrid;
         }
     }
-    public setInitialData(
-        currentGrid: Node[][],
-        currentStartPoint: GridLocation,
-        pathfindingHeuristic: PathFindingHeuristic
-    ): void {
+    public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
         this.currentGrid = currentGrid;
         // This forces the count to start from 0.
         const changedStartLoc = new GridLocation(

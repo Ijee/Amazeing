@@ -32,8 +32,7 @@ export class Tremaux extends PathFindingAlgorithmAbstract {
             {
                 controls: []
             },
-            {},
-            'None'
+            {}
         );
         this.visitedNodes = [];
     }
@@ -142,11 +141,7 @@ export class Tremaux extends PathFindingAlgorithmAbstract {
         return this.currentGrid;
     }
 
-    public setInitialData(
-        currentGrid: Node[][],
-        currentStartPoint: GridLocation,
-        pathfindingHeuristic: PathFindingHeuristic
-    ): void {
+    public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
         this.currentGrid = currentGrid;
         // TODO: Adding it twice is stupid but works. blame @Ijee
         this.visitedNodes.push(currentStartPoint, currentStartPoint);

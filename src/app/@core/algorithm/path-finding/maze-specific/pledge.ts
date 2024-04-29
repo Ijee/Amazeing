@@ -48,8 +48,7 @@ export class Pledge extends PathFindingAlgorithmAbstract {
                     }
                 ]
             },
-            {},
-            'None'
+            {}
         );
         this.direction = 'right';
         this.angle = 0;
@@ -217,11 +216,7 @@ export class Pledge extends PathFindingAlgorithmAbstract {
         }
     }
 
-    public setInitialData(
-        currentGrid: Node[][],
-        currentStartPoint: GridLocation,
-        pathfindingHeuristic: PathFindingHeuristic
-    ): void {
+    public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
         this.currentGrid = currentGrid;
         this.cursor = currentStartPoint;
     }

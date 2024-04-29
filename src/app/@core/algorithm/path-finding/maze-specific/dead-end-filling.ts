@@ -22,8 +22,7 @@ export class DeadEndFilling extends PathFindingAlgorithmAbstract {
             {
                 controls: []
             },
-            {},
-            'None'
+            {}
         );
         this.deadEnds = [];
     }
@@ -95,11 +94,7 @@ export class DeadEndFilling extends PathFindingAlgorithmAbstract {
 
         return this.currentGrid;
     }
-    public setInitialData(
-        currentGrid: Node[][],
-        currentStartPoint: GridLocation,
-        pathfindingHeuristic: PathFindingHeuristic
-    ): void {
+    public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
         this.currentGrid = currentGrid;
     }
     public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {

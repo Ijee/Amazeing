@@ -38,8 +38,7 @@ export class WallFollower extends PathFindingAlgorithmAbstract {
                     }
                 ]
             },
-            {},
-            'None'
+            {}
         );
         this.direction = 'right';
     }

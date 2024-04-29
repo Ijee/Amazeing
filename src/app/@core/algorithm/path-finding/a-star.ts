@@ -11,8 +11,7 @@ export class AStar extends PathFindingAlgorithmAbstract {
             {
                 controls: []
             },
-            {},
-            'None'
+            {}
         );
     }
 

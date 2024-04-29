@@ -12,12 +12,12 @@ import { manhattanDistance } from './heuristic/manhattan';
 import { octileDistance } from './heuristic/octile';
 
 export abstract class PathFindingAlgorithmAbstract {
+    private heuristic: PathFindingHeuristic = 'None';
     protected constructor(
         protected currentGrid: Node[][],
         protected statRecords: Statistic[],
         protected jsonFormData: JsonFormData,
-        protected options: AlgorithmOptions,
-        protected heuristic: PathFindingHeuristic
+        protected options: AlgorithmOptions
     ) {}
 
     /**
@@ -29,12 +29,8 @@ export abstract class PathFindingAlgorithmAbstract {
      * @param heuristic the selected heuristic
      * @returns the caluldated distance
      */
-    protected calculateDistance(
-        loc1: GridLocation,
-        loc2: GridLocation,
-        heuristic: PathFindingHeuristic
-    ): number {
-        switch (heuristic) {
+    protected calculateDistance(loc1: GridLocation, loc2: GridLocation): number {
+        switch (this.heuristic) {
             case 'Manhattan':
                 return manhattanDistance(loc1, loc2);
             case 'Euclidean':
@@ -113,13 +109,12 @@ export abstract class PathFindingAlgorithmAbstract {
      *
      * @param currentGrid the current grid from the simulation service
      * @param currentStartPoint the starting point for the algorithm
-     * @param pathfindingHeuristic the selected pathfinding heuristic
      */
-    public abstract setInitialData(
-        currentGrid: Node[][],
-        currentStartPoint: GridLocation,
-        pathfindingHeuristic: PathFindingHeuristic
-    ): void;
+    public abstract setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void;
+
+    public setHeuristic(heuristic: PathFindingHeuristic): void {
+        this.heuristic = heuristic;
+    }
 
     /**
      * Sets the options for the algorithm.

@@ -182,13 +182,11 @@ export class AlgorithmService {
      * @param currentStartPoint - the current start point
      */
     public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
-        this.algorithmMode === 'maze'
-            ? this.currentMazeAlgorithm.setInitialData(currentGrid, currentStartPoint)
-            : this.currentPathAlgorithm.setInitialData(
-                  currentGrid,
-                  currentStartPoint,
-                  this.currentHeuristic
-              );
+        if (this.algorithmMode === 'maze') {
+            this.currentMazeAlgorithm.setInitialData(currentGrid, currentStartPoint);
+        } else {
+            this.currentPathAlgorithm.setInitialData(currentGrid, currentStartPoint);
+        }
     }
 
     /**

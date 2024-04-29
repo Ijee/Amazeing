@@ -10,8 +10,7 @@ export class Dijkstra extends PathFindingAlgorithmAbstract {
             {
                 controls: []
             },
-            {},
-            'None'
+            {}
         );
     }
 
