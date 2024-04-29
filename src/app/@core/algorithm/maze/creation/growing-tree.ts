@@ -113,13 +113,8 @@ export class GrowingTree extends MazeAlgorithmAbstract {
                             direction: this.determineDirection(neighbour)
                         });
                         viableNeighbourFound = true;
-                        // So we avoid repainting start and goal
-                        if (
-                            this.grid[neighbour.x][neighbour.y].status !== 2 &&
-                            this.grid[neighbour.x][neighbour.y].status !== 3
-                        ) {
-                            this.grid[neighbour.x][neighbour.y].status = 5;
-                        }
+                        this.paintNode(neighbour.x, neighbour.y, 5);
+
                         break;
                     }
                 }
