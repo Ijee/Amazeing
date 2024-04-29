@@ -101,27 +101,17 @@ export class SimulationService {
      */
     public stepForward(): void {
         let newGrid: Node[][];
-        if (this.algorithmService.getAlgorithmMode() === 'maze') {
-            if (this.recordService.getIteration() === 0) {
-                this.algorithmService.setInitialData(
-                    cloneDeep(this.gridList$.getValue()),
-                    this.recordService.getGridStartLocation()
-                );
-            }
-            newGrid = this.algorithmService.getNextStep();
-        } else {
-            if (this.recordService.getIteration() === 0) {
-                this.algorithmService.setInitialData(
-                    cloneDeep(this.gridList$.getValue()),
-                    this.recordService.getGridStartLocation()
-                );
-            }
-            newGrid = this.algorithmService.getNextStep();
+
+        if (this.recordService.getIteration() === 0) {
+            this.algorithmService.setInitialData(
+                cloneDeep(this.gridList$.getValue()),
+                this.recordService.getGridStartLocation()
+            );
         }
+        newGrid = this.algorithmService.getNextStep();
         if (newGrid) {
             this.recordService.setIteration(this.recordService.getIteration() + 1);
             if (this.recordService.tryHistoryStepForward()) {
-                console.log('step from existing history');
                 const { grid, state, statRecord } = cloneDeep(
                     this.recordService.getCurrentHistoryStep()
                 );
@@ -131,7 +121,6 @@ export class SimulationService {
                 this.updateRecords(newGrid);
             }
         } else {
-            console.log('Algorithm comopleted.');
             this.setDisablePlay(true);
             this.setSimulationStatus();
             this.settingsService.setUserTourTaken(true);
@@ -145,7 +134,6 @@ export class SimulationService {
      * Responsible for the backwardStep.
      */
     public stepBackwards(): void {
-        console.log('this.isSimulationActive', this.isSimulationActive);
         if (this.isSimulationActive) {
             this.isSimulationActive = false;
             this.restartInterval();

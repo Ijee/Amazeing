@@ -186,6 +186,7 @@ export class AlgorithmService {
             this.currentMazeAlgorithm.setInitialData(currentGrid, currentStartPoint);
         } else {
             this.currentPathAlgorithm.setInitialData(currentGrid, currentStartPoint);
+            this.currentPathAlgorithm.setHeuristic(this.currentHeuristic);
         }
     }
 
