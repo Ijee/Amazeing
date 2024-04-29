@@ -58,23 +58,23 @@ export class RecursiveDivision extends MazeAlgorithmAbstract {
             let divideAtY = getRandomIntInclusive(division.yStart, division.yEnd - 1, this.yParity);
             console.log('divideAtY', divideAtY);
             for (let i = division.xStart; i < division.xEnd; i++) {
-                this.currentGrid[i][divideAtY].status = 1;
+                this.grid[i][divideAtY].status = 1;
             }
             // create passage
             let randomX =
                 Math.floor(Math.random() * (division.xEnd - division.xStart)) + division.xStart;
             let passageFound = false;
-            if (this.currentGrid?.[division.xStart - 1]?.[divideAtY]?.status === 9) {
-                this.currentGrid[division.xStart][divideAtY].status = 9;
+            if (this.grid?.[division.xStart - 1]?.[divideAtY]?.status === 9) {
+                this.grid[division.xStart][divideAtY].status = 9;
                 passageFound = true;
             }
-            if (this.currentGrid?.[division.xEnd]?.[divideAtY]?.status === 9) {
-                this.currentGrid[division.xEnd - 1][divideAtY].status = 9;
+            if (this.grid?.[division.xEnd]?.[divideAtY]?.status === 9) {
+                this.grid[division.xEnd - 1][divideAtY].status = 9;
 
                 passageFound = true;
             }
             if (!passageFound) {
-                this.currentGrid[randomX][divideAtY].status = 9;
+                this.grid[randomX][divideAtY].status = 9;
             }
             // calculate subdivisions
             let upperDivision: Division = {
@@ -98,26 +98,26 @@ export class RecursiveDivision extends MazeAlgorithmAbstract {
             console.log('divideAtX', divideAtX);
 
             for (let i = division.yStart; i < division.yEnd; i++) {
-                this.currentGrid[divideAtX][i].status = 1;
+                this.grid[divideAtX][i].status = 1;
             }
             // create passage
             let randomY =
                 Math.floor(Math.random() * (division.yEnd - division.yStart)) + division.yStart;
             let passageFound = false;
-            if (this.currentGrid?.[divideAtX]?.[division.yStart - 1]?.status === 9) {
-                this.currentGrid[divideAtX][division.yStart].status = 9;
+            if (this.grid?.[divideAtX]?.[division.yStart - 1]?.status === 9) {
+                this.grid[divideAtX][division.yStart].status = 9;
                 console.log('Vertical anfang yStart:', division.yStart, 'yEnd:', division.yEnd);
 
                 let passageFound = true;
             }
-            if (this.currentGrid?.[divideAtX]?.[division.yEnd]?.status === 9) {
-                this.currentGrid[divideAtX][division.yEnd - 1].status = 9;
+            if (this.grid?.[divideAtX]?.[division.yEnd]?.status === 9) {
+                this.grid[divideAtX][division.yEnd - 1].status = 9;
                 // TODO this and xEnd check above broken I guess
                 console.log('Vertical ende yStart:', division.yStart, 'yEnd:', division.yEnd);
                 let passageFound = true;
             }
             if (!passageFound) {
-                this.currentGrid[divideAtX][randomY].status = 9;
+                this.grid[divideAtX][randomY].status = 9;
             }
 
             // calculate subdivisions
@@ -155,25 +155,25 @@ export class RecursiveDivision extends MazeAlgorithmAbstract {
         } else {
             return null;
         }
-        return this.currentGrid;
+        return this.grid;
     }
 
-    public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
-        this.currentGrid = currentGrid;
+    public setInitialData(grid: Node[][], startLocation: GridLocation): void {
+        this.grid = grid;
         this.divisions = [
             {
                 xStart: 0,
-                xEnd: currentGrid.length,
+                xEnd: grid.length,
                 yStart: 0,
-                yEnd: this.currentGrid[0].length
+                yEnd: this.grid[0].length
             }
         ];
-        this.xParity = this.currentGrid.length % 2 === 0 ? 'even' : 'odd';
-        this.yParity = this.currentGrid[0].length % 2 === 0 ? 'even' : 'odd';
+        this.xParity = this.grid.length % 2 === 0 ? 'even' : 'odd';
+        this.yParity = this.grid[0].length % 2 === 0 ? 'even' : 'odd';
     }
 
     public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
-        this.currentGrid = newGrid;
+        this.grid = newGrid;
         deserializedState.divisions = this.divisions;
         deserializedState.xParity = this.xParity;
         deserializedState.yParity = this.yParity;

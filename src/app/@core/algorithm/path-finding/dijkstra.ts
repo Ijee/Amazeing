@@ -10,11 +10,11 @@ export class Dijkstra extends PathFindingAlgorithmAbstract {
     }
 
     public nextStep(): Node[][] {
-        return this.currentGrid;
+        return this.grid;
     }
 
-    public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
-        this.currentGrid = currentGrid;
+    public setInitialData(grid: Node[][], startLocation: GridLocation): void {
+        this.grid = grid;
     }
 
     public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {

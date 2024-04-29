@@ -107,9 +107,9 @@ export class WallFollower extends PathFindingAlgorithmAbstract {
         if (
             x < 0 ||
             y < 0 ||
-            x >= this.currentGrid.length ||
-            y >= this.currentGrid[0].length ||
-            this.currentGrid[x][y].status === 1
+            x >= this.grid.length ||
+            y >= this.grid[0].length ||
+            this.grid[x][y].status === 1
         ) {
             console.log('isValid: false');
             return false;
@@ -139,7 +139,7 @@ export class WallFollower extends PathFindingAlgorithmAbstract {
 
     public nextStep(): Node[][] {
         // check if the new cursor is the goal
-        if (this.currentGrid[this.cursor.x][this.cursor.y].status === 3) {
+        if (this.grid[this.cursor.x][this.cursor.y].status === 3) {
             return null;
         }
 
@@ -150,12 +150,12 @@ export class WallFollower extends PathFindingAlgorithmAbstract {
         this.direction = this.newDirection(order);
         this.moveCursor();
 
-        return this.currentGrid;
+        return this.grid;
     }
 
-    public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
-        this.currentGrid = currentGrid;
-        this.cursor = currentStartPoint;
+    public setInitialData(grid: Node[][], startLocation: GridLocation): void {
+        this.grid = grid;
+        this.cursor = startLocation;
         // as far as I know there is no standardized direction
         // so I just choose the algorithm to go 'right' at the start.
         const order = this.determineOrder();
@@ -168,7 +168,7 @@ export class WallFollower extends PathFindingAlgorithmAbstract {
     }
 
     public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
-        this.currentGrid = newGrid;
+        this.grid = newGrid;
         this.statRecords = statRecords;
         this.cursor = deserializedState.cursor;
         this.direction = deserializedState.direction;

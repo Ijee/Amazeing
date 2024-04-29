@@ -33,10 +33,10 @@ export class DeadEndFilling extends PathFindingAlgorithmAbstract {
      */
     private findDeadEnds(): GridLocation[] {
         const deadEnds: GridLocation[] = [];
-        for (let i = 0; i < this.currentGrid.length; i++) {
-            for (let j = 0; j < this.currentGrid[0].length; j++) {
+        for (let i = 0; i < this.grid.length; i++) {
+            for (let j = 0; j < this.grid[0].length; j++) {
                 const loc = new GridLocation(i, j);
-                if (this.currentGrid[loc.x][loc.y].status !== 1) {
+                if (this.grid[loc.x][loc.y].status !== 1) {
                     const neighbours = this.getNeighbours(loc, 1).filter((neighbour) => {
                         return neighbour.status !== 1;
                     });
@@ -91,13 +91,13 @@ export class DeadEndFilling extends PathFindingAlgorithmAbstract {
             this.deadEnds = nextDeadEnds;
         }
 
-        return this.currentGrid;
+        return this.grid;
     }
-    public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
-        this.currentGrid = currentGrid;
+    public setInitialData(grid: Node[][], startLocation: GridLocation): void {
+        this.grid = grid;
     }
     public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
-        this.currentGrid = newGrid;
+        this.grid = newGrid;
         this.statRecords = statRecords;
     }
     public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {

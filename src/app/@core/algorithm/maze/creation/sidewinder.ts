@@ -38,9 +38,9 @@ export class Sidewinder extends MazeAlgorithmAbstract {
      */
     private selectNextCursor(oldX: number, oldY: number): GridLocation {
         let newCursor = null;
-        if (oldX === this.currentGrid.length - 1) {
+        if (oldX === this.grid.length - 1) {
             newCursor = new GridLocation(0, oldY + 2);
-        } else if (oldX >= this.currentGrid.length - 2) {
+        } else if (oldX >= this.grid.length - 2) {
             newCursor = new GridLocation(oldX + 1, oldY);
         } else {
             newCursor = new GridLocation(oldX + 2, oldY);
@@ -51,13 +51,13 @@ export class Sidewinder extends MazeAlgorithmAbstract {
     private buildEastward(drawRunSet: boolean): void {
         this.buildWalls(this.cursor, 0);
         let newStatus = drawRunSet ? 5 : 9;
-        this.currentGrid[this.cursor.x][this.cursor.y].status = newStatus;
+        this.grid[this.cursor.x][this.cursor.y].status = newStatus;
         if (
-            this.currentGrid?.[this.cursor.x + 1]?.[this.cursor.y] !== undefined &&
-            this.currentGrid?.[this.cursor.x + 1]?.[this.cursor.y].status !== 2 &&
-            this.currentGrid?.[this.cursor.x + 1]?.[this.cursor.y].status !== 3
+            this.grid?.[this.cursor.x + 1]?.[this.cursor.y] !== undefined &&
+            this.grid?.[this.cursor.x + 1]?.[this.cursor.y].status !== 2 &&
+            this.grid?.[this.cursor.x + 1]?.[this.cursor.y].status !== 3
         ) {
-            this.currentGrid[this.cursor.x + 1][this.cursor.y].status = newStatus;
+            this.grid[this.cursor.x + 1][this.cursor.y].status = newStatus;
         }
     }
 
@@ -68,33 +68,30 @@ export class Sidewinder extends MazeAlgorithmAbstract {
     private carveAndRestore(): void {
         if (this.runSet.length !== 0) {
             const randomElement = this.runSet[Math.floor(Math.random() * this.runSet.length)];
-            this.currentGrid[randomElement.x][randomElement.y - 1].status = 9;
+            this.grid[randomElement.x][randomElement.y - 1].status = 9;
         }
         for (let i = 0; i < this.runSet.length; i++) {
             const node = this.runSet[i];
-            this.currentGrid[node.x][node.y].status = 9;
-            if (this.currentGrid?.[node.x + 1]?.[node.y] !== undefined) {
-                this.currentGrid[node.x + 1][node.y].status = 9;
+            this.grid[node.x][node.y].status = 9;
+            if (this.grid?.[node.x + 1]?.[node.y] !== undefined) {
+                this.grid[node.x + 1][node.y].status = 9;
             }
         }
     }
 
     public nextStep(): Node[][] {
-        if (
-            this.cursor.y === this.currentGrid[0].length - 1 &&
-            this.cursor.x === this.currentGrid.length - 1
-        ) {
+        if (this.cursor.y === this.grid[0].length - 1 && this.cursor.x === this.grid.length - 1) {
             this.carveAndRestore();
             // Not sure how to differentiate the last step and when it is really done.
             // IT'S OVER 9000!
             this.cursor = new GridLocation(0, 9001);
-            return this.currentGrid;
+            return this.grid;
         }
-        if (this.cursor.y > this.currentGrid[0].length - 1) {
+        if (this.cursor.y > this.grid[0].length - 1) {
             return null;
         }
 
-        if (!this.currentGrid[this.cursor.x][this.cursor.y - 1]) {
+        if (!this.grid[this.cursor.x][this.cursor.y - 1]) {
             this.buildEastward(false);
             this.cursor = this.selectNextCursor(this.cursor.x, this.cursor.y);
         } else {
@@ -109,35 +106,30 @@ export class Sidewinder extends MazeAlgorithmAbstract {
                 this.carveAndRestore();
                 // paint the wall
                 if (
-                    this.currentGrid?.[this.cursor.x - 1]?.[this.cursor.y] !== undefined &&
-                    this.currentGrid[this.cursor.x][this.cursor.y].status !== 2 &&
-                    this.currentGrid[this.cursor.x][this.cursor.y].status !== 3
+                    this.grid?.[this.cursor.x - 1]?.[this.cursor.y] !== undefined &&
+                    this.grid[this.cursor.x][this.cursor.y].status !== 2 &&
+                    this.grid[this.cursor.x][this.cursor.y].status !== 3
                 ) {
-                    this.currentGrid[this.cursor.x - 1][this.cursor.y].status = 1;
+                    this.grid[this.cursor.x - 1][this.cursor.y].status = 1;
                 }
                 this.runSet = [];
             }
         }
         // Yeah, yeah I know it's not length * 2, but it's all smoke and mirrors around here.
         this.statRecords[0].currentValue = this.runSet.length * 2;
-        return this.currentGrid;
+        return this.grid;
     }
 
-    public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
-        this.currentGrid = currentGrid;
+    public setInitialData(grid: Node[][], startLocation: GridLocation): void {
+        this.grid = grid;
 
-        this.cursor = new GridLocation(
-            0,
-            0,
-            this.currentGrid[0][0].weight,
-            this.currentGrid[0][0].status
-        );
+        this.cursor = new GridLocation(0, 0, this.grid[0][0].weight, this.grid[0][0].status);
 
-        this.buildWalls(currentStartPoint);
+        this.buildWalls(startLocation);
     }
 
     public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
-        this.currentGrid = newGrid;
+        this.grid = newGrid;
         this.statRecords = statRecords;
         this.cursor = deserializedState.cursor;
         this.runSet = deserializedState.runSet;

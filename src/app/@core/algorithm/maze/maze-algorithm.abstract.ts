@@ -5,7 +5,7 @@ import { AlgorithmOptions, JsonFormData } from '../../types/jsonform.types';
 export abstract class MazeAlgorithmAbstract {
     protected options: AlgorithmOptions;
     protected constructor(
-        protected currentGrid: Node[][],
+        protected grid: Node[][],
         protected statRecords: Statistic[],
         protected jsonFormData: JsonFormData
     ) {}
@@ -36,10 +36,10 @@ export abstract class MazeAlgorithmAbstract {
                 if (
                     xAxis >= 0 &&
                     yAxis >= 0 &&
-                    xAxis < this.currentGrid.length &&
-                    yAxis < this.currentGrid[0].length
+                    xAxis < this.grid.length &&
+                    yAxis < this.grid[0].length
                 ) {
-                    const status = this.currentGrid[xAxis][yAxis].status;
+                    const status = this.grid[xAxis][yAxis].status;
                     switch (status) {
                         case 0:
                             statusChange.status0++;
@@ -70,7 +70,7 @@ export abstract class MazeAlgorithmAbstract {
                     }
                     // Only overwrite the nodes that should disappear.
                     if (overwritable.includes(status)) {
-                        this.currentGrid[xAxis][yAxis].status = 1;
+                        this.grid[xAxis][yAxis].status = 1;
                     }
                 }
             }
@@ -92,7 +92,7 @@ export abstract class MazeAlgorithmAbstract {
     protected buildPath(loc1: GridLocation, loc2: GridLocation, nodeStatus: number): void {
         const x = Math.floor((loc1.x + loc2.x) / 2);
         const y = Math.floor((loc1.y + loc2.y) / 2);
-        const node = this.currentGrid[x][y];
+        const node = this.grid[x][y];
         // if (node.status === 1) {
         //   node.status = nodeStatus;
         // }
@@ -117,10 +117,10 @@ export abstract class MazeAlgorithmAbstract {
     protected paintNode(xOrLoc: number | GridLocation, yOrStatus: number, status?: number): void {
         if (typeof xOrLoc === 'number') {
             if (
-                this.currentGrid[xOrLoc][yOrStatus].status !== 2 &&
-                this.currentGrid[xOrLoc][yOrStatus].status !== 3
+                this.grid[xOrLoc][yOrStatus].status !== 2 &&
+                this.grid[xOrLoc][yOrStatus].status !== 3
             ) {
-                this.currentGrid[xOrLoc][yOrStatus].status = status;
+                this.grid[xOrLoc][yOrStatus].status = status;
             }
         } else {
             this.paintNode(xOrLoc.x, xOrLoc.y, yOrStatus);
@@ -136,20 +136,20 @@ export abstract class MazeAlgorithmAbstract {
      */
     protected getNeighbours(loc: GridLocation, distance: number): GridLocation[] {
         const res: GridLocation[] = [];
-        if (loc.y < this.currentGrid[0].length - distance) {
-            const node = this.currentGrid[loc.x][loc.y + distance];
+        if (loc.y < this.grid[0].length - distance) {
+            const node = this.grid[loc.x][loc.y + distance];
             res.push(new GridLocation(loc.x, loc.y + distance, node.weight, node.status));
         }
-        if (loc.x < this.currentGrid.length - distance) {
-            const node = this.currentGrid[loc.x + distance][loc.y];
+        if (loc.x < this.grid.length - distance) {
+            const node = this.grid[loc.x + distance][loc.y];
             res.push(new GridLocation(loc.x + distance, loc.y, node.weight, node.status));
         }
         if (loc.y >= distance) {
-            const node = this.currentGrid[loc.x][loc.y - distance];
+            const node = this.grid[loc.x][loc.y - distance];
             res.push(new GridLocation(loc.x, loc.y - distance, node.weight, node.status));
         }
         if (loc.x >= distance) {
-            const node = this.currentGrid[loc.x - distance][loc.y];
+            const node = this.grid[loc.x - distance][loc.y];
             res.push(new GridLocation(loc.x - distance, loc.y, node.weight, node.status));
         }
         return res;
@@ -165,10 +165,10 @@ export abstract class MazeAlgorithmAbstract {
      * Sets the starting point for the algorithm to the one
      * the user set on the grid
      *
-     * @param currentGrid the current grid from the simulation service
-     * @param currentStartPoint the starting point for the algorithm
+     * @param grid the current grid from the simulation service
+     * @param startLocation the starting point for the algorithm
      */
-    public abstract setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void;
+    public abstract setInitialData(grid: Node[][], startLocation: GridLocation): void;
 
     /**
      * Sets the options for the algorithm.

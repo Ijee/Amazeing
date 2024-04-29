@@ -84,13 +84,13 @@ export class GrowingTree extends MazeAlgorithmAbstract {
      */
     private determineDirection(loc: GridLocation): Direction {
         let direction: Direction = 'unknown';
-        if (this.currentGrid?.[loc.x]?.[loc.y - 1]?.status === 5) {
+        if (this.grid?.[loc.x]?.[loc.y - 1]?.status === 5) {
             direction = 'up';
-        } else if (this.currentGrid?.[loc.x + 1]?.[loc.y]?.status === 5) {
+        } else if (this.grid?.[loc.x + 1]?.[loc.y]?.status === 5) {
             direction = 'right';
-        } else if (this.currentGrid?.[loc.x]?.[loc.y + 1]?.status === 5) {
+        } else if (this.grid?.[loc.x]?.[loc.y + 1]?.status === 5) {
             direction = 'down';
-        } else if (this.currentGrid?.[loc.x - 1]?.[loc.y]?.status === 5) {
+        } else if (this.grid?.[loc.x - 1]?.[loc.y]?.status === 5) {
             direction = 'left';
         }
         return direction;
@@ -105,7 +105,7 @@ export class GrowingTree extends MazeAlgorithmAbstract {
                 neighbours = shuffleFisherYates(neighbours);
                 for (let i = 0; i < neighbours.length; i++) {
                     let neighbour = neighbours[i];
-                    if (this.currentGrid[neighbour.x][neighbour.y].status === 0) {
+                    if (this.grid[neighbour.x][neighbour.y].status === 0) {
                         this.buildWalls(neighbour, 0);
                         this.buildPath(selectedNode, neighbour, 5);
                         this.nodeCollection.push({
@@ -115,10 +115,10 @@ export class GrowingTree extends MazeAlgorithmAbstract {
                         viableNeighbourFound = true;
                         // So we avoid repainting start and goal
                         if (
-                            this.currentGrid[neighbour.x][neighbour.y].status !== 2 &&
-                            this.currentGrid[neighbour.x][neighbour.y].status !== 3
+                            this.grid[neighbour.x][neighbour.y].status !== 2 &&
+                            this.grid[neighbour.x][neighbour.y].status !== 3
                         ) {
-                            this.currentGrid[neighbour.x][neighbour.y].status = 5;
+                            this.grid[neighbour.x][neighbour.y].status = 5;
                         }
                         break;
                     }
@@ -129,51 +129,51 @@ export class GrowingTree extends MazeAlgorithmAbstract {
                 // (The buildPath(...) node)
                 switch (this.nodeCollection[selectedNodeIndex].direction) {
                     case 'up':
-                        this.currentGrid[selectedNode.x][selectedNode.y - 1].status = 9;
+                        this.grid[selectedNode.x][selectedNode.y - 1].status = 9;
                         break;
                     case 'right':
-                        this.currentGrid[selectedNode.x + 1][selectedNode.y].status = 9;
+                        this.grid[selectedNode.x + 1][selectedNode.y].status = 9;
                         break;
                     case 'down':
-                        this.currentGrid[selectedNode.x][selectedNode.y + 1].status = 9;
+                        this.grid[selectedNode.x][selectedNode.y + 1].status = 9;
                         break;
                     case 'left':
-                        this.currentGrid[selectedNode.x - 1][selectedNode.y].status = 9;
+                        this.grid[selectedNode.x - 1][selectedNode.y].status = 9;
                         break;
                     default:
                 }
-                this.currentGrid[selectedNode.x][selectedNode.y].status = 9;
+                this.grid[selectedNode.x][selectedNode.y].status = 9;
                 this.nodeCollection.splice(selectedNodeIndex, 1);
             }
             this.statRecords[0].currentValue = this.nodeCollection.length * 2;
-            return this.currentGrid;
+            return this.grid;
         }
         return null;
     }
 
-    public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
-        this.currentGrid = currentGrid;
+    public setInitialData(grid: Node[][], startLocation: GridLocation): void {
+        this.grid = grid;
         // idk, it was late. make it make more sense.
         // I only do this because I want the starting point to be on the same axis as the starting point.
         // It is not even needed for the algorithm, and it's probably doable in a one-liner.
         let randomXPosition =
-            currentStartPoint.x % 2 === 0
-                ? getRandomNumber(0, currentGrid.length, 2)
-                : getRandomNumber(1, currentGrid.length, 2);
+            startLocation.x % 2 === 0
+                ? getRandomNumber(0, grid.length, 2)
+                : getRandomNumber(1, grid.length, 2);
 
         let randomYPosition =
-            currentStartPoint.y % 2 === 0
-                ? getRandomNumber(0, currentGrid[0].length, 2)
-                : getRandomNumber(1, currentGrid[0].length, 2);
+            startLocation.y % 2 === 0
+                ? getRandomNumber(0, grid[0].length, 2)
+                : getRandomNumber(1, grid[0].length, 2);
         let startNode = new GridLocation(randomXPosition, randomYPosition);
         this.nodeCollection.push({ gridLocation: startNode, direction: 'unknown' });
 
         this.buildWalls(startNode, 0);
-        this.currentGrid[startNode.x][startNode.y].status = 5;
+        this.grid[startNode.x][startNode.y].status = 5;
     }
 
     public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
-        this.currentGrid = newGrid;
+        this.grid = newGrid;
         this.statRecords = statRecords;
         this.nodeCollection = deserializedState.nodeCollection;
     }

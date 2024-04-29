@@ -37,7 +37,7 @@ export class RecursiveBacktracking extends MazeAlgorithmAbstract {
         if (this.backtrack) {
             if (this.walkingPath.length >= 2) {
                 // paint the grid back
-                this.currentGrid[this.cursor.x][this.cursor.y].status = 0;
+                this.grid[this.cursor.x][this.cursor.y].status = 0;
                 this.buildPath(this.cursor, this.walkingPath[this.walkingPath.length - 2], 0);
                 this.walkingPath.pop();
             } else {
@@ -52,10 +52,7 @@ export class RecursiveBacktracking extends MazeAlgorithmAbstract {
             // see if there are valid neighbours so we can build again
             for (let i = 0; i < backtrackNeighbours.length - 1; i++) {
                 let node = backtrackNeighbours[i];
-                if (
-                    !this.visitedNodes.contains(node) &&
-                    this.currentGrid[node.x][node.y].status === 0
-                ) {
+                if (!this.visitedNodes.contains(node) && this.grid[node.x][node.y].status === 0) {
                     this.visitedNodes.add(this.cursor);
                     this.backtrack = false;
                     this.cursor = previousLocation;
@@ -74,10 +71,7 @@ export class RecursiveBacktracking extends MazeAlgorithmAbstract {
             this.backtrack = true;
             for (let i = 0; i < neighbours.length; i++) {
                 let node = neighbours[i];
-                if (
-                    !this.visitedNodes.contains(node) &&
-                    this.currentGrid[node.x][node.y].status === 0
-                ) {
+                if (!this.visitedNodes.contains(node) && this.grid[node.x][node.y].status === 0) {
                     // this.buildWalls(this.cursor, 0);
                     this.buildWalls(node, 0);
                     this.buildPath(this.cursor, node, 5);
@@ -86,29 +80,29 @@ export class RecursiveBacktracking extends MazeAlgorithmAbstract {
                     this.backtrack = false;
 
                     if (
-                        this.currentGrid[this.cursor.x][this.cursor.y].status !== 2 &&
-                        this.currentGrid[this.cursor.x][this.cursor.y].status !== 3
+                        this.grid[this.cursor.x][this.cursor.y].status !== 2 &&
+                        this.grid[this.cursor.x][this.cursor.y].status !== 3
                     ) {
-                        this.currentGrid[node.x][node.y].status = 5;
-                        this.currentGrid[this.cursor.x][this.cursor.y].status = 5;
+                        this.grid[node.x][node.y].status = 5;
+                        this.grid[this.cursor.x][this.cursor.y].status = 5;
                     }
                     break;
                 }
             }
         }
-        return this.currentGrid;
+        return this.grid;
     }
 
-    public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
-        this.currentGrid = currentGrid;
+    public setInitialData(grid: Node[][], startLocation: GridLocation): void {
+        this.grid = grid;
 
-        this.walkingPath.push(currentStartPoint);
-        this.cursor = currentStartPoint;
-        this.buildWalls(currentStartPoint, 0);
+        this.walkingPath.push(startLocation);
+        this.cursor = startLocation;
+        this.buildWalls(startLocation, 0);
     }
 
     public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
-        this.currentGrid = newGrid;
+        this.grid = newGrid;
         this.cursor = deserializedState.cursor;
         this.walkingPath = deserializedState.walkingPath;
         this.visitedNodes = deserializedState.visitedNodes;

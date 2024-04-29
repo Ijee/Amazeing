@@ -60,14 +60,14 @@ export class Wilsons extends MazeAlgorithmAbstract {
         neighbours.every((neighbour) => {
             // so we don't paint over walls, start and goal.
             // this.currentGrid[neighbour.x][neighbour.y].status !== 2 &&
-            if (this.currentGrid[neighbour.x][neighbour.y].status !== 1) {
+            if (this.grid[neighbour.x][neighbour.y].status !== 1) {
                 if (
-                    this.currentGrid[neighbour.x][neighbour.y].status !== 2 &&
-                    this.currentGrid[neighbour.x][neighbour.y].status !== 3 &&
-                    this.currentGrid[neighbour.x][neighbour.y].status !== 5
+                    this.grid[neighbour.x][neighbour.y].status !== 2 &&
+                    this.grid[neighbour.x][neighbour.y].status !== 3 &&
+                    this.grid[neighbour.x][neighbour.y].status !== 5
                 ) {
-                    this.currentGrid[neighbour.x][neighbour.y].status = 8;
-                    this.currentGrid[this.cursor.x][this.cursor.y].status = 8;
+                    this.grid[neighbour.x][neighbour.y].status = 8;
+                    this.grid[this.cursor.x][this.cursor.y].status = 8;
                 }
 
                 this.buildPath(this.cursor, neighbour, 8);
@@ -83,15 +83,15 @@ export class Wilsons extends MazeAlgorithmAbstract {
             let node = this.walkingPath[i];
             if (
                 eraseLoop &&
-                this.currentGrid[node.x][node.y].status !== 1 &&
-                this.currentGrid[node.x][node.y].status !== 2 &&
-                this.currentGrid[node.x][node.y].status !== 3
+                this.grid[node.x][node.y].status !== 1 &&
+                this.grid[node.x][node.y].status !== 2 &&
+                this.grid[node.x][node.y].status !== 3
             ) {
-                this.currentGrid[node.x][node.y].status = 0;
+                this.grid[node.x][node.y].status = 0;
                 const lastNode = this.walkingPath[i - 1];
                 this.buildPath(this.walkingPath[i], lastNode, 0);
-                this.currentGrid[node.x][node.y].status = 0;
-                this.currentGrid[lastNode.x][lastNode.y].status = 0;
+                this.grid[node.x][node.y].status = 0;
+                this.grid[lastNode.x][lastNode.y].status = 0;
             } else {
                 newWalkingPath.push(this.walkingPath[i]);
             }
@@ -105,13 +105,13 @@ export class Wilsons extends MazeAlgorithmAbstract {
             this.walkingPath = newWalkingPath;
             // otherwise there's more flickering during autoplay because the cursor will often
             // be repainted from empty (0) to 8 and back.
-            this.currentGrid[this.cursor.x][this.cursor.y].status = 8;
+            this.grid[this.cursor.x][this.cursor.y].status = 8;
         } else {
             this.walkingPath.push(this.cursor);
         }
         if (
-            this.currentGrid[this.cursor.x][this.cursor.y].status === 5 ||
-            this.currentGrid[this.cursor.x][this.cursor.y].status === 2
+            this.grid[this.cursor.x][this.cursor.y].status === 5 ||
+            this.grid[this.cursor.x][this.cursor.y].status === 2
         ) {
             this.isWalking = false;
         }
@@ -125,8 +125,8 @@ export class Wilsons extends MazeAlgorithmAbstract {
                 this.cursor = this.unusedNodes.getRandomItem();
                 this.walkingPath.push(this.cursor);
                 this.isWalking = true;
-                this.currentGrid[this.cursor.x][this.cursor.y].status = 8;
-                return this.currentGrid;
+                this.grid[this.cursor.x][this.cursor.y].status = 8;
+                return this.grid;
             }
             // random walk
             if (this.isWalking) {
@@ -138,7 +138,7 @@ export class Wilsons extends MazeAlgorithmAbstract {
                 const node = this.walkingPath[0];
                 for (let i = node.x - 1; i <= node.x + 1; i++) {
                     for (let j = node.y - 1; j <= node.y + 1; j++) {
-                        if (this.currentGrid[i]?.[j] !== undefined) {
+                        if (this.grid[i]?.[j] !== undefined) {
                             const loc = new GridLocation(i, j, 0);
                             this.unusedNodes.remove(loc);
                         }
@@ -148,10 +148,10 @@ export class Wilsons extends MazeAlgorithmAbstract {
                 this.statRecords[1].currentValue = this.unusedNodes.size();
                 // paint walkingPaths first node as an 'in node' + the node inbetween.
                 if (
-                    this.currentGrid[node.x][node.y].status !== 2 &&
-                    this.currentGrid[node.x][node.y].status !== 3
+                    this.grid[node.x][node.y].status !== 2 &&
+                    this.grid[node.x][node.y].status !== 3
                 ) {
-                    this.currentGrid[node.x][node.y].status = 5;
+                    this.grid[node.x][node.y].status = 5;
                 }
                 if (this.walkingPath[1]) {
                     this.buildPath(node, this.walkingPath[1], 5);
@@ -162,22 +162,22 @@ export class Wilsons extends MazeAlgorithmAbstract {
                 }
             }
 
-            return this.currentGrid;
+            return this.grid;
         } else {
             return null;
         }
     }
 
-    public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
-        this.currentGrid = currentGrid;
-        this.gridWith = this.currentGrid.length;
-        this.gridHeight = this.currentGrid[0].length;
-        for (let i = currentStartPoint.x % 2; i < this.gridWith; i += 2) {
-            for (let j = currentStartPoint.y % 2; j < this.gridHeight; j += 2) {
+    public setInitialData(grid: Node[][], startLocation: GridLocation): void {
+        this.grid = grid;
+        this.gridWith = this.grid.length;
+        this.gridHeight = this.grid[0].length;
+        for (let i = startLocation.x % 2; i < this.gridWith; i += 2) {
+            for (let j = startLocation.y % 2; j < this.gridHeight; j += 2) {
                 if (
-                    this.currentGrid[i][j].status !== 1 &&
-                    this.currentGrid[i][j].status !== 2 &&
-                    this.currentGrid[i][j].status !== 3
+                    this.grid[i][j].status !== 1 &&
+                    this.grid[i][j].status !== 2 &&
+                    this.grid[i][j].status !== 3
                 ) {
                     // weight = 0 because we don't need it anyway for this algorithm.
                     this.unusedNodes.add(new GridLocation(i, j, 0));
@@ -188,7 +188,7 @@ export class Wilsons extends MazeAlgorithmAbstract {
     }
 
     public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
-        this.currentGrid = newGrid;
+        this.grid = newGrid;
         this.statRecords = statRecords;
         this.gridWith = deserializedState.gridWidth;
         this.gridHeight = deserializedState.gridHeight;

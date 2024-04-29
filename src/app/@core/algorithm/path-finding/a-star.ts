@@ -14,7 +14,7 @@ export class AStar extends PathFindingAlgorithmAbstract {
         throw new Error('Method not implemented.');
     }
 
-    public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
+    public setInitialData(grid: Node[][], startLocation: GridLocation): void {
         throw new Error('Method not implemented.');
     }
 

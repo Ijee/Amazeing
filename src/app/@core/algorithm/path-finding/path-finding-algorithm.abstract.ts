@@ -15,7 +15,7 @@ export abstract class PathFindingAlgorithmAbstract {
     private heuristic: PathFindingHeuristic = 'None';
     protected options: AlgorithmOptions;
     protected constructor(
-        protected currentGrid: Node[][],
+        protected grid: Node[][],
         protected statRecords: Statistic[],
         protected jsonFormData: JsonFormData
     ) {}
@@ -59,10 +59,10 @@ export abstract class PathFindingAlgorithmAbstract {
     protected paintNode(xOrLoc: number | GridLocation, yOrStatus: number, status?: number): void {
         if (typeof xOrLoc === 'number') {
             if (
-                this.currentGrid[xOrLoc][yOrStatus].status !== 2 &&
-                this.currentGrid[xOrLoc][yOrStatus].status !== 3
+                this.grid[xOrLoc][yOrStatus].status !== 2 &&
+                this.grid[xOrLoc][yOrStatus].status !== 3
             ) {
-                this.currentGrid[xOrLoc][yOrStatus].status = status;
+                this.grid[xOrLoc][yOrStatus].status = status;
             }
         } else {
             this.paintNode(xOrLoc.x, xOrLoc.y, yOrStatus);
@@ -78,20 +78,20 @@ export abstract class PathFindingAlgorithmAbstract {
      */
     protected getNeighbours(loc: GridLocation, distance: number): GridLocation[] {
         const res: GridLocation[] = [];
-        if (loc.y < this.currentGrid[0].length - distance) {
-            const node = this.currentGrid[loc.x][loc.y + distance];
+        if (loc.y < this.grid[0].length - distance) {
+            const node = this.grid[loc.x][loc.y + distance];
             res.push(new GridLocation(loc.x, loc.y + distance, node.weight, node.status));
         }
-        if (loc.x < this.currentGrid.length - distance) {
-            const node = this.currentGrid[loc.x + distance][loc.y];
+        if (loc.x < this.grid.length - distance) {
+            const node = this.grid[loc.x + distance][loc.y];
             res.push(new GridLocation(loc.x + distance, loc.y, node.weight, node.status));
         }
         if (loc.y >= distance) {
-            const node = this.currentGrid[loc.x][loc.y - distance];
+            const node = this.grid[loc.x][loc.y - distance];
             res.push(new GridLocation(loc.x, loc.y - distance, node.weight, node.status));
         }
         if (loc.x >= distance) {
-            const node = this.currentGrid[loc.x - distance][loc.y];
+            const node = this.grid[loc.x - distance][loc.y];
             res.push(new GridLocation(loc.x - distance, loc.y, node.weight, node.status));
         }
         return res;
@@ -107,11 +107,16 @@ export abstract class PathFindingAlgorithmAbstract {
      * Sets the starting point for the algorithm to the one
      * the user set on the grid
      *
-     * @param currentGrid the current grid from the simulation service
-     * @param currentStartPoint the starting point for the algorithm
+     * @param grid the current grid from the simulation service
+     * @param startLocation the starting point for the algorithm
      */
-    public abstract setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void;
+    public abstract setInitialData(grid: Node[][], startLocation: GridLocation): void;
 
+    /**
+     * Sets the heuristic for the algorithm.
+     *
+     * @param heuristic the heuristic to be used
+     */
     public setHeuristic(heuristic: PathFindingHeuristic): void {
         this.heuristic = heuristic;
     }

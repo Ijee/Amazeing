@@ -29,17 +29,12 @@ export class Prims extends MazeAlgorithmAbstract {
     }
 
     private addFrontier(xAxis: number, yAxis: number): void {
-        if (
-            xAxis >= 0 &&
-            yAxis >= 0 &&
-            xAxis < this.currentGrid.length &&
-            yAxis < this.currentGrid[0].length
-        ) {
-            const node = this.currentGrid[xAxis][yAxis];
+        if (xAxis >= 0 && yAxis >= 0 && xAxis < this.grid.length && yAxis < this.grid[0].length) {
+            const node = this.grid[xAxis][yAxis];
             const status = node.status;
             if (status === 0) {
                 this.frontierNodes.add(new GridLocation(xAxis, yAxis, node.weight));
-                this.currentGrid[xAxis][yAxis].status = 4;
+                this.grid[xAxis][yAxis].status = 4;
             } else if (status === 3) {
                 this.frontierNodes.add(new GridLocation(xAxis, yAxis, node.weight));
             }
@@ -47,7 +42,7 @@ export class Prims extends MazeAlgorithmAbstract {
     }
 
     private mark(xAxis: number, yAxis: number): void {
-        const node = this.currentGrid[xAxis][yAxis];
+        const node = this.grid[xAxis][yAxis];
         if (node.status === 4) {
             // TODO 5 -> in
             node.status = 5;
@@ -86,7 +81,7 @@ export class Prims extends MazeAlgorithmAbstract {
             this.frontierNodes.remove(selectedFrontierItem);
             this.buildWalls(selectedFrontierItem, 0);
             const neighbours = this.getNeighbours(selectedFrontierItem, 2).filter((neighbour) => {
-                const status = this.currentGrid[neighbour.x][neighbour.y].status;
+                const status = this.grid[neighbour.x][neighbour.y].status;
                 // So that we can build a path between the randomLowestWeightFrontier and the randomNeighbour
                 if (status === 2 || status === 3 || status === 5) {
                     return neighbour;
@@ -99,20 +94,20 @@ export class Prims extends MazeAlgorithmAbstract {
 
             // For the stats to show correctly.
             this.statRecords[0].currentValue = this.frontierNodes.size();
-            return this.currentGrid;
+            return this.grid;
         }
         return null;
     }
 
-    public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
+    public setInitialData(grid: Node[][], startLocation: GridLocation): void {
         this.frontierNodes.clear();
-        this.currentGrid = currentGrid;
-        this.buildWalls(currentStartPoint, 0);
-        this.mark(currentStartPoint.x, currentStartPoint.y);
+        this.grid = grid;
+        this.buildWalls(startLocation, 0);
+        this.mark(startLocation.x, startLocation.y);
     }
 
     public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
-        this.currentGrid = newGrid;
+        this.grid = newGrid;
         this.statRecords = statRecords;
         this.frontierNodes = deserializedState.frontierNodes;
     }

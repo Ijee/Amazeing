@@ -63,26 +63,26 @@ export class Tremaux extends PathFindingAlgorithmAbstract {
             const randomPassage =
                 withoutEntrance[Math.floor(Math.random() * withoutEntrance.length)];
 
-            this.currentGrid[prevLoc.x][prevLoc.y].weight = 1;
-            this.currentGrid[randomPassage.x][randomPassage.y].weight = 1;
+            this.grid[prevLoc.x][prevLoc.y].weight = 1;
+            this.grid[randomPassage.x][randomPassage.y].weight = 1;
             return randomPassage;
         } else if (knownIntersection && prevLoc.weight === null) {
             // 2. Known intersection and unknown pathway to intersection.
-            this.currentGrid[prevLoc.x][prevLoc.y].weight += 1;
+            this.grid[prevLoc.x][prevLoc.y].weight += 1;
             return prevLoc;
         } else if (knownIntersection && prevLoc.weight === 1 && !allMarked) {
             // 3. Known intersection and pathway to intersection was already known.
             const unmarkedPassages = neighbours.filter((neighbour) => {
                 return neighbour.weight === null;
             });
-            this.currentGrid[prevLoc.x][prevLoc.y].weight += 1;
+            this.grid[prevLoc.x][prevLoc.y].weight += 1;
             const randomUmarkedPassage =
                 unmarkedPassages[Math.floor(Math.random() * unmarkedPassages.length)];
-            this.currentGrid[randomUmarkedPassage.x][randomUmarkedPassage.y].weight += 1;
+            this.grid[randomUmarkedPassage.x][randomUmarkedPassage.y].weight += 1;
             return randomUmarkedPassage;
         } else if (allMarked && prevLoc.weight === 1) {
             // 4. Known intersection and all at least marked with weight = 1.
-            this.currentGrid[prevLoc.x][prevLoc.y].weight += 1;
+            this.grid[prevLoc.x][prevLoc.y].weight += 1;
 
             // remove entrance to intersection and passage that has already been marked twice.
             const remainingPassages = neighbours.filter((neighbour) => {
@@ -90,7 +90,7 @@ export class Tremaux extends PathFindingAlgorithmAbstract {
             });
             const randomWeightedPassage =
                 remainingPassages[Math.floor(Math.random() * remainingPassages.length)];
-            this.currentGrid[randomWeightedPassage.x][randomWeightedPassage.y].weight += 1;
+            this.grid[randomWeightedPassage.x][randomWeightedPassage.y].weight += 1;
             return randomWeightedPassage;
         }
     }
@@ -137,22 +137,22 @@ export class Tremaux extends PathFindingAlgorithmAbstract {
             this.visitedNodes.push(nextLoc);
         }
 
-        return this.currentGrid;
+        return this.grid;
     }
 
-    public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
-        this.currentGrid = currentGrid;
+    public setInitialData(grid: Node[][], startLocation: GridLocation): void {
+        this.grid = grid;
         // TODO: Adding it twice is stupid but works. blame @Ijee
-        this.visitedNodes.push(currentStartPoint, currentStartPoint);
+        this.visitedNodes.push(startLocation, startLocation);
         // So no other node weights are shown.
-        for (let i = 0; i < this.currentGrid.length; i++) {
-            for (let j = 0; j < this.currentGrid[0].length; j++) {
-                this.currentGrid[i][j].weight = null;
+        for (let i = 0; i < this.grid.length; i++) {
+            for (let j = 0; j < this.grid[0].length; j++) {
+                this.grid[i][j].weight = null;
             }
         }
     }
     public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
-        this.currentGrid = newGrid;
+        this.grid = newGrid;
         this.cursor = deserializedState.cursor;
         this.visitedNodes = deserializedState.visitedNodes;
     }

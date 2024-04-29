@@ -50,49 +50,49 @@ export class MazeRouting extends PathFindingAlgorithmAbstract {
                 this.paintNode(nextLoc.x, nextLoc.y, 8);
                 this.backtracking = nextLoc;
                 console.log('backtracking node', this.backtracking);
-                return this.currentGrid;
+                return this.grid;
             }
         } else {
             const neighbours = this.getNeighbours(currLoc, 1).filter((neighbour) => {
                 return neighbour.status !== 1;
             });
             // TODO: Sort neighbours to north, east, south, west.
-            const currWeight = this.currentGrid[currLoc.x][currLoc.y].weight;
+            const currWeight = this.grid[currLoc.x][currLoc.y].weight;
             neighbours.forEach((neighbour) => {
                 if (neighbour.status === 3) {
                     this.backtracking = neighbour;
-                } else if (this.currentGrid[neighbour.x][neighbour.y].weight === null) {
-                    this.currentGrid[neighbour.x][neighbour.y].weight = currWeight + 1;
+                } else if (this.grid[neighbour.x][neighbour.y].weight === null) {
+                    this.grid[neighbour.x][neighbour.y].weight = currWeight + 1;
                     this.queue.push(neighbour);
                 }
             });
-            return this.currentGrid;
+            return this.grid;
         }
     }
-    public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
-        this.currentGrid = currentGrid;
+    public setInitialData(grid: Node[][], startLocation: GridLocation): void {
+        this.grid = grid;
         // This forces the count to start from 0.
         const changedStartLoc = new GridLocation(
-            currentStartPoint.x,
-            currentStartPoint.y,
+            startLocation.x,
+            startLocation.y,
             0,
-            currentStartPoint.status
+            startLocation.status
         );
-        console.log(currentStartPoint);
+        console.log(startLocation);
         this.queue.push(changedStartLoc);
         // So no other node weights are shown.
         // TODO: Make it work with weighted graph
         // + rename algorithm?
-        for (let i = 0; i < this.currentGrid.length; i++) {
-            for (let j = 0; j < this.currentGrid[0].length; j++) {
-                if (this.currentGrid[i][j].status !== 2) {
-                    this.currentGrid[i][j].weight = null;
+        for (let i = 0; i < this.grid.length; i++) {
+            for (let j = 0; j < this.grid[0].length; j++) {
+                if (this.grid[i][j].status !== 2) {
+                    this.grid[i][j].weight = null;
                 }
             }
         }
     }
     public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
-        this.currentGrid = newGrid;
+        this.grid = newGrid;
         this.queue = deserializedState.queue;
         this.backtracking = deserializedState.backtracking;
     }

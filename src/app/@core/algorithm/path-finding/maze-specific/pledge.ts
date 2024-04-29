@@ -120,9 +120,9 @@ export class Pledge extends PathFindingAlgorithmAbstract {
         if (
             x < 0 ||
             y < 0 ||
-            x >= this.currentGrid.length ||
-            y >= this.currentGrid[0].length ||
-            this.currentGrid[x][y].status === 1
+            x >= this.grid.length ||
+            y >= this.grid[0].length ||
+            this.grid[x][y].status === 1
         ) {
             console.log('isValid: false');
             return false;
@@ -191,11 +191,11 @@ export class Pledge extends PathFindingAlgorithmAbstract {
         const newDirection = this.newDirection(order);
 
         // check if the new cursor is the goal
-        if (this.currentGrid[this.cursor.x][this.cursor.y].status === 3) {
+        if (this.grid[this.cursor.x][this.cursor.y].status === 3) {
             return null;
         } else if (this.angle === 0 && forwardIsValid) {
             this.moveCursor();
-            return this.currentGrid;
+            return this.grid;
         } else {
             const turnResult = this.determineTurn(this.direction, newDirection);
             if (turnResult.leftTurn) {
@@ -211,16 +211,16 @@ export class Pledge extends PathFindingAlgorithmAbstract {
             this.direction = this.newDirection(order);
             this.moveCursor();
 
-            return this.currentGrid;
+            return this.grid;
         }
     }
 
-    public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
-        this.currentGrid = currentGrid;
-        this.cursor = currentStartPoint;
+    public setInitialData(grid: Node[][], startLocation: GridLocation): void {
+        this.grid = grid;
+        this.cursor = startLocation;
     }
     public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
-        this.currentGrid = newGrid;
+        this.grid = newGrid;
         this.statRecords = statRecords;
         this.cursor = deserializedState.cursor;
         this.direction = deserializedState.direction;

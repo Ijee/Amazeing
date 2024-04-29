@@ -50,7 +50,7 @@ export class HuntAndKill extends MazeAlgorithmAbstract {
      */
     private restoreRow(row: number): void {
         for (let i = 0; i < this.gridSnapshot.length; i++) {
-            this.currentGrid[i][row].status = this.gridSnapshot[i].status;
+            this.grid[i][row].status = this.gridSnapshot[i].status;
         }
         this.gridSnapshot = [];
     }
@@ -60,8 +60,8 @@ export class HuntAndKill extends MazeAlgorithmAbstract {
      * @private
      */
     private markRow(): void {
-        for (let i = 0; i < this.currentGrid.length; i++) {
-            this.currentGrid[i][this.scanAtY].status = 6;
+        for (let i = 0; i < this.grid.length; i++) {
+            this.grid[i][this.scanAtY].status = 6;
         }
     }
 
@@ -75,11 +75,11 @@ export class HuntAndKill extends MazeAlgorithmAbstract {
                 if (neighbour.status === 0) {
                     this.buildWalls(neighbour, 0);
                     this.buildPath(this.cursor, neighbour, 5);
-                    this.currentGrid[neighbour.x][neighbour.y].status = 5;
+                    this.grid[neighbour.x][neighbour.y].status = 5;
                     this.cursor = neighbour;
                     this.randomWalk = true;
 
-                    return this.currentGrid;
+                    return this.grid;
                 }
             }
         } else {
@@ -88,15 +88,15 @@ export class HuntAndKill extends MazeAlgorithmAbstract {
                 this.restoreRow(this.scanAtY - 1);
             }
 
-            for (let i = 0; i < this.currentGrid.length; i++) {
+            for (let i = 0; i < this.grid.length; i++) {
                 const loc = new GridLocation(
                     i,
                     this.scanAtY,
                     undefined,
-                    this.currentGrid[i][this.scanAtY].status
+                    this.grid[i][this.scanAtY].status
                 );
                 this.gridSnapshot.push(loc);
-                if (this.currentGrid[i][this.scanAtY].status === 0 && i % 2 === this.evenOrOddX) {
+                if (this.grid[i][this.scanAtY].status === 0 && i % 2 === this.evenOrOddX) {
                     let neighbours = this.getNeighbours(loc, 2);
                     for (let j = 0; j < neighbours.length; j++) {
                         let neighbour = neighbours[j];
@@ -113,12 +113,12 @@ export class HuntAndKill extends MazeAlgorithmAbstract {
                             console.log('neighbour', neighbour);
                             console.log('cursor', this.cursor);
                             this.buildPath(this.cursor, neighbour, 5);
-                            this.currentGrid[this.cursor.x][this.cursor.y].status = 5;
+                            this.grid[this.cursor.x][this.cursor.y].status = 5;
                             this.randomWalk = true;
                             this.nodeFound = false;
                             this.scanAtY = 0;
                             this.gridSnapshot = [];
-                            return this.currentGrid;
+                            return this.grid;
                         } else if (neighbour.status === 5) {
                             this.cursor = loc;
                             this.nodeFound = true;
@@ -132,29 +132,29 @@ export class HuntAndKill extends MazeAlgorithmAbstract {
             if (!this.randomWalk) {
                 this.markRow();
                 if (this.nodeFound) {
-                    this.currentGrid[this.cursor.x][this.cursor.y].status = 8;
+                    this.grid[this.cursor.x][this.cursor.y].status = 8;
                 }
                 this.scanAtY += 1;
             }
-            return this.currentGrid;
+            return this.grid;
         }
     }
 
-    public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
-        this.currentGrid = currentGrid;
-        const randomXPosition = Math.floor(Math.random() * this.currentGrid.length);
-        const randomYPosition = Math.floor(Math.random() * this.currentGrid[0].length);
+    public setInitialData(grid: Node[][], startLocation: GridLocation): void {
+        this.grid = grid;
+        const randomXPosition = Math.floor(Math.random() * this.grid.length);
+        const randomYPosition = Math.floor(Math.random() * this.grid[0].length);
 
         this.evenOrOddX = randomXPosition % 2;
         console.log(this.evenOrOddX);
         this.cursor = new GridLocation(randomXPosition, randomYPosition, 0);
-        this.currentGrid[randomXPosition][randomYPosition].status = 5;
+        this.grid[randomXPosition][randomYPosition].status = 5;
         this.buildWalls(this.cursor, 0);
         this.randomWalk = true;
     }
 
     public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
-        this.currentGrid = newGrid;
+        this.grid = newGrid;
         this.statRecords = statRecords;
         this.cursor = deserializedState.cursor;
         this.gridSnapshot = deserializedState.gridSnapshot;

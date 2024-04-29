@@ -109,15 +109,15 @@ export class Ellers extends MazeAlgorithmAbstract {
         }
         if (this.setSize === 1) {
             this.setSize = -1;
-            return this.currentGrid;
+            return this.grid;
         }
         if (this.setSize === -1) {
             return null;
         }
         if (this.setsCreated) {
             // Merging sets
-            if (this.cursor.x < this.currentGrid.length - 2) {
-                this.mergeSets(this.cursor.y >= this.currentGrid[0].length - 1);
+            if (this.cursor.x < this.grid.length - 2) {
+                this.mergeSets(this.cursor.y >= this.grid[0].length - 1);
                 this.cursor = new GridLocation(this.cursor.x + 2, this.cursor.y);
             } else {
                 this.setsCreated = false;
@@ -127,7 +127,7 @@ export class Ellers extends MazeAlgorithmAbstract {
             }
         } else if (this.setsMerged) {
             //Vertical Passages
-            if (this.cursor.x < this.currentGrid.length) {
+            if (this.cursor.x < this.grid.length) {
                 this.buildPassage();
                 this.cursor = new GridLocation(this.cursor.x + 2, this.cursor.y);
             } else {
@@ -136,7 +136,7 @@ export class Ellers extends MazeAlgorithmAbstract {
             }
         } else {
             // Create new Sets
-            for (let i = this.cursor.x % 2; i < this.currentGrid.length; i += 2) {
+            for (let i = this.cursor.x % 2; i < this.grid.length; i += 2) {
                 const loc = new GridLocation(i, this.cursor.y);
                 if (!this.sets.contains(loc)) {
                     this.buildWalls(loc, 0);
@@ -150,20 +150,20 @@ export class Ellers extends MazeAlgorithmAbstract {
             this.setsCreated = true;
         }
 
-        return this.currentGrid;
+        return this.grid;
     }
 
-    public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
-        this.currentGrid = currentGrid;
-        console.log('width:', this.currentGrid.length);
-        console.log('height:', this.currentGrid[0].length);
+    public setInitialData(grid: Node[][], startLocation: GridLocation): void {
+        this.grid = grid;
+        console.log('width:', this.grid.length);
+        console.log('height:', this.grid[0].length);
         this.sets = new HashMap<GridLocation, HashSet<GridLocation>>();
         this.setSize = 0;
-        this.cursor = new GridLocation(currentStartPoint.x % 2, 0);
+        this.cursor = new GridLocation(startLocation.x % 2, 0);
     }
 
     public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
-        this.currentGrid = newGrid;
+        this.grid = newGrid;
         this.statRecords = statRecords;
 
         this.cursor = deserializedState.cursor;

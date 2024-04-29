@@ -145,18 +145,18 @@ export class Kruskals extends MazeAlgorithmAbstract {
                 this.cleanup = false;
             }
             this.findSet();
-            return this.currentGrid;
+            return this.grid;
         } else {
             return null;
         }
     }
-    public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
-        this.currentGrid = currentGrid;
-        const xParity = this.currentGrid.length % 2;
-        const yParity = this.currentGrid[0].length % 2;
-        for (let i = xParity; i < currentGrid.length; i += 2) {
-            for (let j = yParity; j < currentGrid[0].length; j += 2) {
-                this.edges.add(new GridLocation(i, j, this.currentGrid[i][j].weight));
+    public setInitialData(grid: Node[][], startLocation: GridLocation): void {
+        this.grid = grid;
+        const xParity = this.grid.length % 2;
+        const yParity = this.grid[0].length % 2;
+        for (let i = xParity; i < grid.length; i += 2) {
+            for (let j = yParity; j < grid[0].length; j += 2) {
+                this.edges.add(new GridLocation(i, j, this.grid[i][j].weight));
                 const newSet = new HashSet<GridLocation>();
                 newSet.add(new GridLocation(i, j));
                 this.sets.push(newSet);
@@ -164,7 +164,7 @@ export class Kruskals extends MazeAlgorithmAbstract {
         }
     }
     public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
-        this.currentGrid = newGrid;
+        this.grid = newGrid;
         this.statRecords = statRecords;
         this.edges = deserializedState.edges;
         this.sets = deserializedState.sets;
