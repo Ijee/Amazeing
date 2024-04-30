@@ -32,6 +32,7 @@ import { Tremaux } from '../algorithm/path-finding/maze-specific/tremaux';
 import { DeadEndFilling } from '../algorithm/path-finding/maze-specific/dead-end-filling';
 import { MazeRouting } from '../algorithm/path-finding/maze-specific/maze-routing';
 import { BreadthFirstSearch } from '../algorithm/path-finding/breadth-first-search';
+import { DepthFirstSearch } from '../algorithm/path-finding/depth-first-search';
 
 @Injectable({
     providedIn: 'root'
@@ -142,6 +143,7 @@ export class AlgorithmService {
                 this.currentPathAlgorithm = new BreadthFirstSearch();
                 break;
             case 'Depth-FS':
+                this.currentPathAlgorithm = new DepthFirstSearch();
                 break;
             case 'Best-FS':
                 break;
