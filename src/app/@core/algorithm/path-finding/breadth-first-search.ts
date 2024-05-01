@@ -104,6 +104,7 @@ export class BreadthFirstSearch extends PathFindingAlgorithmAbstract {
 
         this.queue = deserializedState.queue;
         this.visitedNodes = deserializedState.visitedNodes;
+        this.tracePath = deserializedState.tracePath;
     }
     public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
         const queue: GridLocation[] = [];
@@ -127,10 +128,16 @@ export class BreadthFirstSearch extends PathFindingAlgorithmAbstract {
             };
             visitedNodes.push(visitedNode);
         });
+        const tracePath = serializedState.tracePath;
         const deserializedState = {
             queue: queue,
             visitedNodes: visitedNodes,
-            isWalking: serializedState.isWalking
+            tracePath: new GridLocation(
+                tracePath.x,
+                tracePath.y,
+                tracePath.weight,
+                tracePath.status
+            )
         };
         this.updateState(newGrid, deserializedState, statRecords);
     }
@@ -143,7 +150,7 @@ export class BreadthFirstSearch extends PathFindingAlgorithmAbstract {
             serializedState.queue.push(gridLocation.toObject());
         });
         this.visitedNodes.forEach((ele) => {
-            serializedState.queue.push({
+            serializedState.visitedNodes.push({
                 node: ele.node.toObject(),
                 predecessor: ele.predecessor.toObject()
             });

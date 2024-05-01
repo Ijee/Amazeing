@@ -105,6 +105,7 @@ export class DepthFirstSearch extends PathFindingAlgorithmAbstract {
 
         this.stack = deserializedState.queue;
         this.visitedNodes = deserializedState.visitedNodes;
+        this.tracePath = deserializedState.tracePath;
     }
     public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
         const queue: GridLocation[] = [];
