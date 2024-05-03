@@ -166,6 +166,9 @@ export class GridComponent implements OnInit, OnDestroy {
         const cell = this.gridList[x][y];
         cell.status = node.status;
         cell.weight = node.weight;
+        if (node.hasOwnProperty('text')) {
+            cell.text = node.text;
+        }
     }
 
     /**

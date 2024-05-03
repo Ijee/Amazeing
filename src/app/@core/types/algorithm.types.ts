@@ -4,6 +4,7 @@ import { GridLocation } from '../../@shared/classes/GridLocation';
 export type Node = {
     status: number;
     weight: number;
+    text?: string;
 };
 export type Statistic = {
     name: string;

@@ -231,6 +231,9 @@ export class SimulationService {
                 if (!useWeights) {
                     node.weight = 1;
                 }
+                if (node.hasOwnProperty('text')) {
+                    delete node.text;
+                }
             });
         });
         this.gridList$.next(grid);

@@ -12,6 +12,7 @@ import { NgClass } from '@angular/common';
 export class NodeComponent {
     @Input() status: number;
     @Input() weight: number;
+    @Input() text: string;
     @Input() isMouseDown: boolean;
     @Output() wasUpdated: EventEmitter<void>;
 
@@ -19,14 +20,17 @@ export class NodeComponent {
         this.wasUpdated = new EventEmitter<void>();
     }
 
-    getWeight(): number {
-        return this.simulationService.getShowWeightStatus() &&
-            this.status !== 1 &&
-            this.status !== 2 &&
-            this.status !== 3 &&
-            this.weight !== null
-            ? this.weight
-            : undefined;
+    getText(): string {
+        if (!this.simulationService.getShowWeightStatus()) {
+            return this.text;
+        } else {
+            return this.status !== 1 &&
+                this.status !== 2 &&
+                this.status !== 3 &&
+                this.weight !== null
+                ? this.weight.toString()
+                : undefined;
+        }
     }
 
     getNodeClasses(): string {

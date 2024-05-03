@@ -1,6 +1,6 @@
 <div
     [ngClass]="getNodeClasses()"
     class="node"
-    [attr.text]="getWeight()"
+    [attr.text]="getText()"
     (mousedown)="setNewStatus(true)"
     (mouseover)="setNewStatus(isMouseDown)"></div>
