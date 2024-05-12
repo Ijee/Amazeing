@@ -217,12 +217,7 @@ export class SimulationService {
     public prepareGrid(): void {
         // deletes all the algorithm specific nodes from the grid
         const grid = cloneDeep(this.gridList$.value);
-        let useWeights: boolean;
-        if (this.algorithmService.getAlgorithmMode() === 'maze') {
-            useWeights = this.algorithmService.usesNodeWeights();
-        } else {
-            // TODO implement PathFindingService interface / service like the one in AlgorithmService / Maze-Algorithm
-        }
+        const useWeights = this.algorithmService.usesNodeWeights();
         grid.forEach((column) => {
             column.forEach((node) => {
                 const status = node.status;
@@ -243,7 +238,7 @@ export class SimulationService {
         this.setDisablePlay(false);
         this.recordService.setIteration(0);
         this.backwardStepsAmount = 0;
-        this.recordService.setGridSavePoint([]);
+        this.recordService.setGridSavePoint(grid);
     }
 
     /**
