@@ -116,7 +116,8 @@ export class GridComponent implements OnInit, OnDestroy {
      * @param row the selected row
      */
     drawModeLogic(col: number, row: number): void {
-        const oldStatus = this.gridList[col][row].status;
+        const node = this.gridList[col][row];
+        const oldStatus = node.status;
         let drawMode = this.simulationService.getDrawingMode();
         if (drawMode < 0) {
             if (oldStatus === 1) {
@@ -129,13 +130,14 @@ export class GridComponent implements OnInit, OnDestroy {
         if (oldStatus === 2 || oldStatus === 3 || oldStatus === drawMode) {
             return;
         }
+        node.status = drawMode;
         switch (drawMode) {
             case 2:
                 const startLocation = this.recordService.getGridStartLocation();
                 const startNode = this.gridList[startLocation.x][startLocation.y];
                 startNode.status = 0;
                 this.recordService.setGridStartLocation(
-                    new GridLocation(col, row, startNode.weight)
+                    new GridLocation(col, row, node.weight, node.status)
                 );
                 this.onMouseUp();
                 break;
@@ -143,13 +145,14 @@ export class GridComponent implements OnInit, OnDestroy {
                 const goalLocation = this.recordService.getGridGoalLocation();
                 const goalNode = this.gridList[goalLocation.x][goalLocation.y];
                 goalNode.status = 0;
-                this.recordService.setGridGoalLocation(new GridLocation(col, row, goalNode.weight));
+                this.recordService.setGridGoalLocation(
+                    new GridLocation(col, row, node.weight, node.status)
+                );
                 this.onMouseUp();
                 break;
             default:
                 break;
         }
-        this.gridList[col][row].status = drawMode;
         // this.updateCellStats(drawMode);
     }
 

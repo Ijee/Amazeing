@@ -103,6 +103,7 @@ export class SimulationService {
         let newGrid: Node[][];
 
         if (this.recordService.getIteration() === 0) {
+            console.log(this.recordService.getGridStartLocation());
             this.algorithmService.setInitialData(
                 cloneDeep(this.gridList$.getValue()),
                 this.recordService.getGridStartLocation()
