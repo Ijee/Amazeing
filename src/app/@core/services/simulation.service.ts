@@ -192,11 +192,15 @@ export class SimulationService {
             this.recordService.resetHistory();
             this.gridList$.next(this.recordService.getGridSavePoint());
             // this resets the statrecords currentValues backto 0
-            this.algorithmService.getAlgorithmMode() === 'maze'
-                ? this.algorithmService.setMazeAlgorithm(
-                      this.algorithmService.getAlgorithmName() as MazeAlgorithm
-                  )
-                : (this.algorithmService.getAlgorithmName() as PathFindingAlgorithm);
+            if (this.algorithmService.getAlgorithmMode() === 'maze') {
+                this.algorithmService.setMazeAlgorithm(
+                    this.algorithmService.getAlgorithmName() as MazeAlgorithm
+                );
+            } else {
+                this.algorithmService.setPathAlgorithm(
+                    this.algorithmService.getAlgorithmName() as PathFindingAlgorithm
+                );
+            }
             // this.gridList$.next(this.recordService.getGridSavePoint());
         } else {
             // Hard reset
