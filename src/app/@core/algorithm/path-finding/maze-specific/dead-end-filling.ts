@@ -6,16 +6,16 @@ import {
 } from 'src/app/@core/types/algorithm.types';
 import { GridLocation } from 'src/app/@shared/classes/GridLocation';
 import { PathFindingAlgorithmAbstract } from '../path-finding-algorithm.abstract';
+import { HashSet } from 'src/app/@shared/classes/HashSet';
 
 export class DeadEndFilling extends PathFindingAlgorithmAbstract {
     private deadEnds: GridLocation[];
-    private fill: boolean;
     constructor() {
         super(
             [],
             [
                 {
-                    name: 'Dead Ends Filled',
+                    name: 'Filled node',
                     type: 'status-5'
                 }
             ],
@@ -23,7 +23,6 @@ export class DeadEndFilling extends PathFindingAlgorithmAbstract {
                 controls: []
             }
         );
-        this.deadEnds = [];
     }
 
     /**
@@ -60,35 +59,31 @@ export class DeadEndFilling extends PathFindingAlgorithmAbstract {
         const filteredNeighbours = this.getNeighbours(loc, 1).filter((neighbour) => {
             return neighbour.status !== 1 && neighbour.status !== 5;
         });
-        if (filteredNeighbours.length >= 2) {
-            return null;
-        } else if (filteredNeighbours.length === 1) {
+        if (filteredNeighbours.length === 1) {
             this.paintNode(loc.x, loc.y, 5);
-            return filteredNeighbours[filteredNeighbours.length - 1];
-        } else if (filteredNeighbours.length === 0) {
-            return null;
+            return filteredNeighbours[0];
         }
     }
 
     public nextStep(): Node[][] {
-        if (this.deadEnds.length === 0) {
-            console.log('in finddeadends secftion');
+        if (!this.deadEnds) {
             this.deadEnds = this.findDeadEnds();
-            console.log(this.deadEnds.length);
             for (let i = 0; i < this.deadEnds.length; i++) {
                 const deadEnd = this.deadEnds[i];
                 this.paintNode(deadEnd.x, deadEnd.y, 5);
             }
+        } else if (this.deadEnds.length === 0) {
+            return null;
         } else {
-            const nextDeadEnds: GridLocation[] = [];
+            const nextDeadEnds: HashSet<GridLocation> = new HashSet<GridLocation>();
             for (let i = 0; i < this.deadEnds.length; i++) {
                 const loc = this.deadEnds[i];
                 const newLoc = this.fillDeadEnd(loc);
-                if (newLoc !== null) {
-                    nextDeadEnds.push(newLoc);
+                if (newLoc) {
+                    nextDeadEnds.add(newLoc);
                 }
             }
-            this.deadEnds = nextDeadEnds;
+            this.deadEnds = [...nextDeadEnds];
         }
 
         return this.grid;
@@ -99,15 +94,32 @@ export class DeadEndFilling extends PathFindingAlgorithmAbstract {
     public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
         this.grid = newGrid;
         this.statRecords = statRecords;
+        this.deadEnds = deserializedState.deadEnds;
     }
     public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
-        throw new Error('Method not implemented.');
+        const deadEnds: GridLocation[] = [];
+        serializedState.walkingPath.forEach((item) => {
+            const deadEnd = new GridLocation(item.x, item.y, item.weight);
+            deadEnds.push(deadEnd);
+        });
+        const deserializedState = {
+            deadEnds: deadEnds
+        };
+        this.updateState(newGrid, deserializedState, statRecords);
     }
     public serialize(): Object {
-        throw new Error('Method not implemented.');
+        const serializedState = {
+            deadEnds: []
+        };
+        this.deadEnds.forEach((gridLocation) => {
+            serializedState.deadEnds.push(gridLocation.toObject());
+        });
+
+        return serializedState;
     }
+
     public getState(): Object {
-        return { deadEnds: this.deadEnds, fill: this.fill };
+        return { deadEnds: this.deadEnds };
     }
     public getAlgorithmName(): PathFindingAlgorithm {
         return 'Dead-End-Filling';
