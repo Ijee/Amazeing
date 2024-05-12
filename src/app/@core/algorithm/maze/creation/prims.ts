@@ -5,6 +5,8 @@ import { MazeAlgorithm, Node, Statistic } from '../../../types/algorithm.types';
 
 export class Prims extends MazeAlgorithmAbstract {
     private frontierNodes: HashSet<GridLocation>;
+    private goalWasFrontier: boolean;
+    private goalIsInMaze: boolean;
 
     constructor() {
         super(
@@ -35,8 +37,9 @@ export class Prims extends MazeAlgorithmAbstract {
             if (status === 0) {
                 this.frontierNodes.add(new GridLocation(xAxis, yAxis, node.weight));
                 this.grid[xAxis][yAxis].status = 4;
-            } else if (status === 3) {
+            } else if (status === 3 && !this.goalWasFrontier) {
                 this.frontierNodes.add(new GridLocation(xAxis, yAxis, node.weight));
+                this.goalWasFrontier = true;
             }
         }
     }
@@ -44,8 +47,9 @@ export class Prims extends MazeAlgorithmAbstract {
     private mark(xAxis: number, yAxis: number): void {
         const node = this.grid[xAxis][yAxis];
         if (node.status === 4) {
-            // TODO 5 -> in
             node.status = 5;
+        } else if (node.status === 3) {
+            this.goalIsInMaze = true;
         }
         // marks neighbours as frontierNodes
         this.addFrontier(xAxis - 2, yAxis);
@@ -83,9 +87,7 @@ export class Prims extends MazeAlgorithmAbstract {
             const neighbours = this.getNeighbours(selectedFrontierItem, 2).filter((neighbour) => {
                 const status = this.grid[neighbour.x][neighbour.y].status;
                 // So that we can build a path between the randomLowestWeightFrontier and the randomNeighbour
-                if (status === 2 || status === 3 || status === 5) {
-                    return neighbour;
-                }
+                return status === 2 || (status === 3 && this.goalIsInMaze) || status === 5;
             });
 
             const randomNeighbour = neighbours[Math.floor(Math.random() * neighbours.length)];
@@ -110,6 +112,8 @@ export class Prims extends MazeAlgorithmAbstract {
         this.grid = newGrid;
         this.statRecords = statRecords;
         this.frontierNodes = deserializedState.frontierNodes;
+        this.goalIsInMaze = deserializedState.goalIsInMaze;
+        this.goalWasFrontier = deserializedState.goalWasFrontier;
     }
 
     public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
@@ -119,14 +123,18 @@ export class Prims extends MazeAlgorithmAbstract {
             tempFrontierNodes.add(tempGridLocation);
         });
         const deserializedState = {
-            frontierNodes: tempFrontierNodes
+            frontierNodes: tempFrontierNodes,
+            goalIsInMaze: serializedState.goalIsInMaze,
+            goalWasFrontier: serializedState.goalWasFrontier
         };
         this.updateState(newGrid, deserializedState, statRecords);
     }
 
     public serialize(): Object {
         const serializedState = {
-            gridLocations: []
+            gridLocations: [],
+            goalIsInMaze: this.goalIsInMaze,
+            goalWasFrontier: this.goalWasFrontier
         };
         this.frontierNodes.forEach((gridLocation) => {
             serializedState.gridLocations.push(gridLocation.toObject());
@@ -136,7 +144,9 @@ export class Prims extends MazeAlgorithmAbstract {
 
     public getState(): Object {
         return {
-            frontierNodes: this.frontierNodes
+            frontierNodes: this.frontierNodes,
+            goalIsInMaze: this.goalIsInMaze,
+            goalWasFrontier: this.goalWasFrontier
         };
     }
 
