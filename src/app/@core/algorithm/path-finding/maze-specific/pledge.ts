@@ -22,11 +22,11 @@ export class Pledge extends PathFindingAlgorithmAbstract {
             [
                 {
                     name: 'Cursor',
-                    type: 'status-8'
+                    type: 'status-4'
                 },
                 {
                     name: 'Path taken',
-                    type: 'status-4'
+                    type: 'status-5'
                 },
                 {
                     name: 'Angle',
@@ -132,7 +132,7 @@ export class Pledge extends PathFindingAlgorithmAbstract {
     }
 
     private moveCursor(): void {
-        this.paintNode(this.cursor.x, this.cursor.y, 8);
+        this.paintNode(this.cursor.x, this.cursor.y, 5);
         switch (this.direction) {
             case 'up':
                 this.cursor = new GridLocation(this.cursor.x, this.cursor.y - 1);
@@ -147,7 +147,7 @@ export class Pledge extends PathFindingAlgorithmAbstract {
                 this.cursor = new GridLocation(this.cursor.x - 1, this.cursor.y);
                 break;
         }
-        this.paintNode(this.cursor.x, this.cursor.y, 7);
+        this.paintNode(this.cursor.x, this.cursor.y, 4);
     }
 
     private determineTurn(oldDirection: Direction, newDirection: Direction): TurnResult {

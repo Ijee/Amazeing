@@ -17,11 +17,11 @@ export class WallFollower extends PathFindingAlgorithmAbstract {
             [
                 {
                     name: 'Cursor',
-                    type: 'status-8'
+                    type: 'status-4'
                 },
                 {
                     name: 'Path taken',
-                    type: 'status-4'
+                    type: 'status-5'
                 }
             ],
             {
@@ -119,7 +119,7 @@ export class WallFollower extends PathFindingAlgorithmAbstract {
     }
 
     private moveCursor(): void {
-        this.paintNode(this.cursor.x, this.cursor.y, 8);
+        this.paintNode(this.cursor.x, this.cursor.y, 5);
         switch (this.direction) {
             case 'up':
                 this.cursor = new GridLocation(this.cursor.x, this.cursor.y - 1);
@@ -134,7 +134,7 @@ export class WallFollower extends PathFindingAlgorithmAbstract {
                 this.cursor = new GridLocation(this.cursor.x - 1, this.cursor.y);
                 break;
         }
-        this.paintNode(this.cursor.x, this.cursor.y, 7);
+        this.paintNode(this.cursor.x, this.cursor.y, 4);
     }
 
     public nextStep(): Node[][] {
@@ -145,7 +145,7 @@ export class WallFollower extends PathFindingAlgorithmAbstract {
 
         const order = this.determineOrder();
 
-        this.paintNode(this.cursor.x, this.cursor.y, 8);
+        this.paintNode(this.cursor.x, this.cursor.y, 5);
 
         this.direction = this.newDirection(order);
         this.moveCursor();

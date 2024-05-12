@@ -17,11 +17,11 @@ export class DepthFirstSearch extends PathFindingAlgorithmAbstract {
             [
                 {
                     name: 'Queue node',
-                    type: 'status-5'
+                    type: 'status-4'
                 },
                 {
                     name: 'Explored node',
-                    type: 'status-7'
+                    type: 'status-5'
                 },
                 {
                     name: 'Path found',
@@ -59,7 +59,7 @@ export class DepthFirstSearch extends PathFindingAlgorithmAbstract {
     public nextStep(): Node[][] {
         if (this.stack.length !== 0) {
             const currLoc = this.stack.pop();
-            this.paintNode(currLoc.x, currLoc.y, 7);
+            this.paintNode(currLoc.x, currLoc.y, 5);
             if (currLoc.status === 3) {
                 this.stack = [];
                 this.tracePath = currLoc;
@@ -72,7 +72,7 @@ export class DepthFirstSearch extends PathFindingAlgorithmAbstract {
                     if (!this.isKnown(neighbour)) {
                         this.visitedNodes.push({ node: neighbour, predecessor: currLoc });
                         this.stack.push(neighbour);
-                        this.paintNode(neighbour.x, neighbour.y, 5);
+                        this.paintNode(neighbour.x, neighbour.y, 4);
                     }
                 }
             }
