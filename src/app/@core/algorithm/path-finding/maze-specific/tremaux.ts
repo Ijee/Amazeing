@@ -6,7 +6,6 @@ import {
 } from 'src/app/@core/types/algorithm.types';
 import { GridLocation } from 'src/app/@shared/classes/GridLocation';
 import { PathFindingAlgorithmAbstract } from '../path-finding-algorithm.abstract';
-import { random } from 'lodash-es';
 
 export class Tremaux extends PathFindingAlgorithmAbstract {
     private cursor: GridLocation;
@@ -151,26 +150,56 @@ export class Tremaux extends PathFindingAlgorithmAbstract {
             }
         }
     }
+
     public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
         this.grid = newGrid;
         this.cursor = deserializedState.cursor;
         this.visitedNodes = deserializedState.visitedNodes;
     }
+
     public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
-        throw new Error('Method not implemented.');
+        const visitedNodes: GridLocation[] = [];
+        const cursor = serializedState.cursor;
+
+        serializedState.walkingPath.forEach((item) => {
+            const visitedNode = new GridLocation(item.x, item.y, item.weight);
+            visitedNodes.push(visitedNode);
+        });
+        const deserializedState = {
+            cursor: new GridLocation(cursor.x, cursor.y, cursor.weight, cursor.status),
+            visitedNodes: visitedNodes
+        };
+        this.updateState(newGrid, deserializedState, statRecords);
     }
+
     public serialize(): Object {
-        throw new Error('Method not implemented.');
+        const serializedState = {
+            cursor: this.cursor.toObject(),
+            visitedNodes: []
+        };
+        this.visitedNodes.forEach((gridLocation) => {
+            serializedState.visitedNodes.push(gridLocation.toObject());
+        });
+
+        return serializedState;
     }
+
     public getState(): Object {
-        return { cursor: this.cursor, visitedNodes: this.visitedNodes };
+        return;
+        {
+            cursor: this.cursor;
+            visitedNodes: this.visitedNodes;
+        }
     }
+
     public getAlgorithmName(): PathFindingAlgorithm {
         return 'Trémaux';
     }
+
     public usesNodeWeights(): boolean {
         return false;
     }
+
     public usesHeuristics(): boolean {
         return false;
     }

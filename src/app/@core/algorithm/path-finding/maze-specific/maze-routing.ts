@@ -97,10 +97,34 @@ export class MazeRouting extends PathFindingAlgorithmAbstract {
         this.backtracking = deserializedState.backtracking;
     }
     public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
-        throw new Error('Method not implemented.');
+        const queue: GridLocation[] = [];
+        const backtracking = serializedState.backtracking;
+
+        serializedState.queue.forEach((item) => {
+            const visitedNode = new GridLocation(item.x, item.y, item.weight);
+            queue.push(visitedNode);
+        });
+        const deserializedState = {
+            queue: new GridLocation(
+                backtracking.x,
+                backtracking.y,
+                backtracking.weight,
+                backtracking.status
+            ),
+            backtracking: queue
+        };
+        this.updateState(newGrid, deserializedState, statRecords);
     }
     public serialize(): Object {
-        throw new Error('Method not implemented.');
+        const serializedState = {
+            queue: [],
+            backtracking: this.backtracking.toObject()
+        };
+        this.queue.forEach((gridLocation) => {
+            serializedState.queue.push(gridLocation.toObject());
+        });
+
+        return serializedState;
     }
     public getState(): Object {
         return { queue: this.queue, backtracking: this.backtracking };

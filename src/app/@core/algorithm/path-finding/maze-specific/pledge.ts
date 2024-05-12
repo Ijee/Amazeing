@@ -227,7 +227,14 @@ export class Pledge extends PathFindingAlgorithmAbstract {
         this.angle = deserializedState.angle;
     }
     public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
-        throw new Error('Method not implemented.');
+        const cursor = serializedState.cursor;
+        const deserializedState = {
+            cursor: new GridLocation(cursor.x, cursor.y, cursor.weight, cursor.status),
+            direction: serializedState.direction,
+            angle: serializedState.angle
+        };
+
+        this.updateState(newGrid, deserializedState, statRecords);
     }
     public serialize(): Object {
         return {
