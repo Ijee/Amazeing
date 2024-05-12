@@ -160,21 +160,19 @@ export class SimulationService {
         this.setSimulationStatus(false);
         this.setDisablePlay(true);
         this.settingsService.setUserTourTaken(true);
-        if (this.algorithmService.getAlgorithmMode() === 'maze') {
-            if (this.recordService.getIteration() === 0) {
-                this.algorithmService.setInitialData(
-                    this.gridList$.getValue(),
-                    this.recordService.getGridStartLocation()
-                );
-            }
-            const [iterationCount, newGrid] = this.algorithmService.completeAlgorithm(
-                this.gridList$.getValue()
+        if (this.recordService.getIteration() === 0) {
+            this.algorithmService.setInitialData(
+                this.gridList$.getValue(),
+                this.recordService.getGridStartLocation()
             );
-            this.recordService.setIteration(this.recordService.getIteration() + iterationCount);
-            this.updateRecords(newGrid);
-        } else {
-            // TODO for path-finding service!
-            // this.setGridList(this.pathFindingService.completeAlgorithm(this.gridList$.getValue()));
+        }
+        const [iterationCount, newGrid] = this.algorithmService.completeAlgorithm(
+            this.gridList$.getValue()
+        );
+        this.recordService.setIteration(this.recordService.getIteration() + iterationCount);
+        this.updateRecords(newGrid);
+        if (this.backwardStepsAmount < RecordService.MAX_SAVE_STEPS - 1) {
+            this.changeBackwardStepsAmount(1);
         }
     }
 

@@ -39,6 +39,9 @@ export class RecordService {
      * @param statRecord the statRecord to be saved
      */
     public addHistoryStep(grid: Node[][], state: any, statRecord: Statistic[]) {
+        while (this.currentHistoryIndex < this.history.length - 1) {
+            this.history.pop();
+        }
         if (this.history.length >= RecordService.MAX_SAVE_STEPS) {
             this.history.shift();
         } else {
