@@ -109,6 +109,10 @@ export class HashSet<T extends EqualsHashCode> {
         return this.length;
     }
 
+    public *[Symbol.iterator]() {
+        yield* [...this.flatMembers()];
+    }
+
     /**
      * Internes Initialisieren, auch geeignet zum leeren.
      * @param size die (neue) Größe des internen Arrays
