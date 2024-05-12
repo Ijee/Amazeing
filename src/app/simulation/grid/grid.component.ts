@@ -101,7 +101,7 @@ export class GridComponent implements OnInit, OnDestroy {
                     break;
                 case 2:
                 case 3:
-                    this.simulationService.setGridList(cloneDeep(this.gridList));
+                    this.simulationService.setGridList(this.gridList);
                     break;
             }
             this.simulationService.setDrawingMode(-1);
@@ -184,7 +184,7 @@ export class GridComponent implements OnInit, OnDestroy {
                 node.weight = Math.floor(Math.random() * 10);
             });
         });
-        this.simulationService.setGridList(cloneDeep(this.gridList));
+        this.simulationService.setGridList(this.gridList);
         if (!this.simulationService.getShowWeightStatus()) {
             this.simulationService.toggleWeightStatus();
         }
@@ -205,6 +205,6 @@ export class GridComponent implements OnInit, OnDestroy {
         this.gridList[startLocation.x][startLocation.y].status = 2;
         const goalLocation = this.recordService.getGridGoalLocation();
         this.gridList[goalLocation.x][goalLocation.y].status = 3;
-        this.simulationService.setGridList(cloneDeep(this.gridList));
+        this.simulationService.setGridList(this.gridList);
     }
 }

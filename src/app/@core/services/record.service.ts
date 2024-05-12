@@ -61,6 +61,7 @@ export class RecordService {
         if (this.history.length >= RecordService.MAX_SAVE_STEPS) {
             this.history.shift();
         }
+        this.currentHistoryIndex = this.history.length;
         this.history.push({
             grid: grid,
             state: null,
