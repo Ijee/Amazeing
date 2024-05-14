@@ -106,7 +106,8 @@ export class SimulationService {
             console.log(this.recordService.getGridStartLocation());
             this.algorithmService.setInitialData(
                 cloneDeep(this.gridList$.getValue()),
-                this.recordService.getGridStartLocation()
+                this.recordService.getGridStartLocation(),
+                this.recordService.getGridGoalLocation()
             );
         }
         newGrid = this.algorithmService.getNextStep();
@@ -163,7 +164,8 @@ export class SimulationService {
         if (this.recordService.getIteration() === 0) {
             this.algorithmService.setInitialData(
                 this.gridList$.getValue(),
-                this.recordService.getGridStartLocation()
+                this.recordService.getGridStartLocation(),
+                this.recordService.getGridGoalLocation()
             );
         }
         const [iterationCount, newGrid] = this.algorithmService.completeAlgorithm(

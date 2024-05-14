@@ -33,21 +33,22 @@ import { DeadEndFilling } from '../algorithm/path-finding/maze-specific/dead-end
 import { MazeRouting } from '../algorithm/path-finding/maze-specific/maze-routing';
 import { BreadthFirstSearch } from '../algorithm/path-finding/breadth-first-search';
 import { DepthFirstSearch } from '../algorithm/path-finding/depth-first-search';
+import { BestFIrstSearch } from '../algorithm/path-finding/best-first-search';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AlgorithmService {
     private algorithmMode: AlgorithmMode;
-    private currentMazeAlgorithm: MazeAlgorithmAbstract;
-    private currentPathAlgorithm: PathFindingAlgorithmAbstract;
-    private currentHeuristic: PathFindingHeuristic;
+    private mazeAlgorithm: MazeAlgorithmAbstract;
+    private pathAlgorithm: PathFindingAlgorithmAbstract;
+    private heuristic: PathFindingHeuristic;
 
     constructor(private meta: Meta) {
         this.setAlgorithmMode('maze');
         this.setMazeAlgorithm('Prims');
         this.setPathAlgorithm('Dijkstra');
-        this.setCurrentHeuristic('Manhattan');
+        this.setHeuristic('Manhattan');
     }
 
     /**
@@ -85,37 +86,37 @@ export class AlgorithmService {
     public setMazeAlgorithm(newAlgo: MazeAlgorithm): void {
         switch (newAlgo) {
             case 'Prims':
-                this.currentMazeAlgorithm = new Prims();
+                this.mazeAlgorithm = new Prims();
                 break;
             case 'Kruskals':
-                this.currentMazeAlgorithm = new Kruskals();
+                this.mazeAlgorithm = new Kruskals();
                 break;
             case 'Aldous-Broder':
-                this.currentMazeAlgorithm = new AldousBroder();
+                this.mazeAlgorithm = new AldousBroder();
                 break;
             case 'Wilsons':
-                this.currentMazeAlgorithm = new Wilsons();
+                this.mazeAlgorithm = new Wilsons();
                 break;
             case 'Ellers':
-                this.currentMazeAlgorithm = new Ellers();
+                this.mazeAlgorithm = new Ellers();
                 break;
             case 'Sidewinder':
-                this.currentMazeAlgorithm = new Sidewinder();
+                this.mazeAlgorithm = new Sidewinder();
                 break;
             case 'Hunt-and-Kill':
-                this.currentMazeAlgorithm = new HuntAndKill();
+                this.mazeAlgorithm = new HuntAndKill();
                 break;
             case 'Growing-Tree':
-                this.currentMazeAlgorithm = new GrowingTree();
+                this.mazeAlgorithm = new GrowingTree();
                 break;
             case 'Binary-Tree':
-                this.currentMazeAlgorithm = new BinaryTree();
+                this.mazeAlgorithm = new BinaryTree();
                 break;
             case 'Recursive-Backtracking':
-                this.currentMazeAlgorithm = new RecursiveBacktracking();
+                this.mazeAlgorithm = new RecursiveBacktracking();
                 break;
             case 'Recursive-Division':
-                this.currentMazeAlgorithm = new RecursiveDivision();
+                this.mazeAlgorithm = new RecursiveDivision();
                 break;
             case 'Cellular-Automation':
                 break;
@@ -132,20 +133,21 @@ export class AlgorithmService {
     public setPathAlgorithm(newAlgo: PathFindingAlgorithm): void {
         switch (newAlgo) {
             case 'A-Star':
-                this.currentPathAlgorithm = new AStar();
+                this.pathAlgorithm = new AStar();
                 break;
             case 'IDA-Star':
                 break;
             case 'Dijkstra':
-                this.currentPathAlgorithm = new Dijkstra();
+                this.pathAlgorithm = new Dijkstra();
                 break;
             case 'Breadth-FS':
-                this.currentPathAlgorithm = new BreadthFirstSearch();
+                this.pathAlgorithm = new BreadthFirstSearch();
                 break;
             case 'Depth-FS':
-                this.currentPathAlgorithm = new DepthFirstSearch();
+                this.pathAlgorithm = new DepthFirstSearch();
                 break;
             case 'Best-FS':
+                this.pathAlgorithm = new BestFIrstSearch();
                 break;
             case 'Trace':
                 break;
@@ -154,43 +156,49 @@ export class AlgorithmService {
             case 'Orthogonal-Jump-PS':
                 break;
             case 'Wall-Follower':
-                this.currentPathAlgorithm = new WallFollower();
+                this.pathAlgorithm = new WallFollower();
                 break;
             case 'Pledge':
-                this.currentPathAlgorithm = new Pledge();
+                this.pathAlgorithm = new Pledge();
                 break;
             case 'Trémaux':
-                this.currentPathAlgorithm = new Tremaux();
+                this.pathAlgorithm = new Tremaux();
                 break;
             case 'Recursive':
                 break;
             case 'Dead-End-Filling':
-                this.currentPathAlgorithm = new DeadEndFilling();
+                this.pathAlgorithm = new DeadEndFilling();
                 break;
             case 'Maze-Routing':
-                this.currentPathAlgorithm = new MazeRouting();
+                this.pathAlgorithm = new MazeRouting();
                 break;
             default:
                 throw new Error('Unknown path-finding algorithm selected!');
         }
     }
 
-    public setCurrentHeuristic(newHeuristic: PathFindingHeuristic): void {
-        this.currentHeuristic = newHeuristic;
+    public setHeuristic(newHeuristic: PathFindingHeuristic): void {
+        this.heuristic = newHeuristic;
     }
 
     /**
      * Sets the initial data required for the algorithm to work.
      *
      * @param currentGrid - the currentGrid
-     * @param currentStartPoint - the current start point
+     * @param startLocation - the goal location
+     * @param goalLocation - the goal location
      */
-    public setInitialData(currentGrid: Node[][], currentStartPoint: GridLocation): void {
+    public setInitialData(
+        currentGrid: Node[][],
+        startLocation: GridLocation,
+        goalLocation: GridLocation
+    ): void {
         if (this.algorithmMode === 'maze') {
-            this.currentMazeAlgorithm.setInitialData(currentGrid, currentStartPoint);
+            this.mazeAlgorithm.setInitialData(currentGrid, startLocation);
         } else {
-            this.currentPathAlgorithm.setInitialData(currentGrid, currentStartPoint);
-            this.currentPathAlgorithm.setHeuristic(this.currentHeuristic);
+            this.pathAlgorithm.setInitialData(currentGrid, startLocation);
+            this.pathAlgorithm.setHeuristic(this.heuristic);
+            this.pathAlgorithm.setGoal(goalLocation);
         }
     }
 
@@ -201,8 +209,8 @@ export class AlgorithmService {
      */
     public setOptions(options: AlgorithmOptions) {
         this.algorithmMode === 'maze'
-            ? this.currentMazeAlgorithm.setOptions(options)
-            : this.currentPathAlgorithm.setOptions(options);
+            ? this.mazeAlgorithm.setOptions(options)
+            : this.pathAlgorithm.setOptions(options);
     }
 
     /**
@@ -210,8 +218,8 @@ export class AlgorithmService {
      */
     public getNextStep(): Node[][] {
         return this.algorithmMode === 'maze'
-            ? this.currentMazeAlgorithm.nextStep()
-            : this.currentPathAlgorithm.nextStep();
+            ? this.mazeAlgorithm.nextStep()
+            : this.pathAlgorithm.nextStep();
     }
 
     /**
@@ -254,22 +262,22 @@ export class AlgorithmService {
     ): void {
         if (isEmpty(state)) {
             this.algorithmMode === 'maze'
-                ? this.setMazeAlgorithm(this.currentMazeAlgorithm.getAlgorithmName())
-                : this.setPathAlgorithm(this.currentPathAlgorithm.getAlgorithmName());
+                ? this.setMazeAlgorithm(this.mazeAlgorithm.getAlgorithmName())
+                : this.setPathAlgorithm(this.pathAlgorithm.getAlgorithmName());
         } else {
             if (deserialize) {
                 try {
                     this.algorithmMode === 'maze'
-                        ? this.currentMazeAlgorithm.deserialize(newGrid, state, statRecord)
-                        : this.currentPathAlgorithm.deserialize(newGrid, state, statRecord);
+                        ? this.mazeAlgorithm.deserialize(newGrid, state, statRecord)
+                        : this.pathAlgorithm.deserialize(newGrid, state, statRecord);
                 } catch (error) {
                     console.error('Can not set algorithm State');
                     throw error;
                 }
             } else {
                 this.algorithmMode === 'maze'
-                    ? this.currentMazeAlgorithm.updateState(newGrid, state, statRecord)
-                    : this.currentPathAlgorithm.updateState(newGrid, state, statRecord);
+                    ? this.mazeAlgorithm.updateState(newGrid, state, statRecord)
+                    : this.pathAlgorithm.updateState(newGrid, state, statRecord);
             }
         }
     }
@@ -286,8 +294,8 @@ export class AlgorithmService {
      */
     public getCurrentAlgorithmState(): any {
         return this.algorithmMode === 'maze'
-            ? this.currentMazeAlgorithm.getState()
-            : this.currentPathAlgorithm.getState();
+            ? this.mazeAlgorithm.getState()
+            : this.pathAlgorithm.getState();
     }
 
     /**
@@ -295,8 +303,8 @@ export class AlgorithmService {
      * Maze-Solving Algorithm has been selected.
      */
     public getCurrentHeuristic(): PathFindingHeuristic {
-        if (this.currentPathAlgorithm.usesHeuristics()) {
-            return this.currentHeuristic;
+        if (this.pathAlgorithm.usesHeuristics()) {
+            return this.heuristic;
         } else {
             return 'None';
         }
@@ -307,8 +315,8 @@ export class AlgorithmService {
      */
     public getAlgorithmName(): MazeAlgorithm | PathFindingAlgorithm {
         return this.algorithmMode === 'maze'
-            ? this.currentMazeAlgorithm.getAlgorithmName()
-            : this.currentPathAlgorithm.getAlgorithmName();
+            ? this.mazeAlgorithm.getAlgorithmName()
+            : this.pathAlgorithm.getAlgorithmName();
     }
 
     /**
@@ -316,8 +324,8 @@ export class AlgorithmService {
      */
     public getStatRecords(): Statistic[] {
         return this.algorithmMode === 'maze'
-            ? this.currentMazeAlgorithm.getStatRecords()
-            : this.currentPathAlgorithm.getStatRecords();
+            ? this.mazeAlgorithm.getStatRecords()
+            : this.pathAlgorithm.getStatRecords();
     }
 
     /**
@@ -325,14 +333,14 @@ export class AlgorithmService {
      */
     public getJsonFormData(): JsonFormData {
         return this.algorithmMode === 'maze'
-            ? this.currentMazeAlgorithm.getJsonFormData()
-            : this.currentPathAlgorithm.getJsonFormData();
+            ? this.mazeAlgorithm.getJsonFormData()
+            : this.pathAlgorithm.getJsonFormData();
     }
 
     public getOptions(): AlgorithmOptions {
         return this.algorithmMode === 'maze'
-            ? this.currentMazeAlgorithm.getOptions()
-            : this.currentPathAlgorithm.getOptions();
+            ? this.mazeAlgorithm.getOptions()
+            : this.pathAlgorithm.getOptions();
     }
 
     /**
@@ -340,8 +348,8 @@ export class AlgorithmService {
      */
     public getSerializedState(): any {
         return this.algorithmMode === 'maze'
-            ? this.currentMazeAlgorithm.serialize()
-            : this.currentPathAlgorithm.serialize();
+            ? this.mazeAlgorithm.serialize()
+            : this.pathAlgorithm.serialize();
     }
 
     /**
@@ -349,7 +357,7 @@ export class AlgorithmService {
      */
     public usesNodeWeights(): boolean {
         return this.algorithmMode === 'maze'
-            ? this.currentMazeAlgorithm.usesNodeWeights()
-            : this.currentPathAlgorithm.usesNodeWeights();
+            ? this.mazeAlgorithm.usesNodeWeights()
+            : this.pathAlgorithm.usesNodeWeights();
     }
 }

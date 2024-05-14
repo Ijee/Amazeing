@@ -14,6 +14,7 @@ import { octileDistance } from './heuristic/octile';
 export abstract class PathFindingAlgorithmAbstract {
     private heuristic: PathFindingHeuristic = 'None';
     protected options: AlgorithmOptions;
+    protected goalLocation: GridLocation;
     protected constructor(
         protected grid: Node[][],
         protected statRecords: Statistic[],
@@ -24,22 +25,22 @@ export abstract class PathFindingAlgorithmAbstract {
      * Calculates the heuristic distance of two given GridLocations
      * based on which heuristic the user selected.
      *
-     * @param loc1 the first location
-     * @param loc2 the second location
+     * @param loc the location to calculate from
      * @param heuristic the selected heuristic
      * @returns the caluldated distance
      */
-    protected calculateDistance(loc1: GridLocation, loc2: GridLocation): number {
+    protected calculateDistance(loc: GridLocation): number {
         switch (this.heuristic) {
             case 'Manhattan':
-                return manhattanDistance(loc1, loc2);
+                return manhattanDistance(loc, this.goalLocation);
             case 'Euclidean':
-                return euclideanDistance(loc1, loc2);
+                return euclideanDistance(loc, this.goalLocation);
             case 'Octile':
-                return octileDistance(loc1, loc2);
+                return octileDistance(loc, this.goalLocation);
             case 'Chebyshev':
-                return chebyshevDistance(loc1, loc2);
+                return chebyshevDistance(loc, this.goalLocation);
             default:
+                throw new Error('Unknown heuristic selected');
         }
     }
 
@@ -111,6 +112,15 @@ export abstract class PathFindingAlgorithmAbstract {
      * @param startLocation the starting point for the algorithm
      */
     public abstract setInitialData(grid: Node[][], startLocation: GridLocation): void;
+
+    /**
+     * Sets the goal location for the algorithm.
+     *
+     * @param goal the goal location
+     */
+    public setGoal(goal: GridLocation): void {
+        this.goalLocation = goal;
+    }
 
     /**
      * Sets the heuristic for the algorithm.

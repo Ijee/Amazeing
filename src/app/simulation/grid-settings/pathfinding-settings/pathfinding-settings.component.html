@@ -55,7 +55,6 @@
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="best-first-search"
                 [ngClass]="algorithmService.getAlgorithmName() === 'Best-FS' ? 'is-danger' : ''"
-                disabled
                 (click)="handleWarning('Best-FS')">
                 <b>Best-First-Search</b>
             </button>
@@ -165,7 +164,7 @@
             data-testid="manhattan"
             [disabled]="algorithmService.getCurrentHeuristic() === 'None'"
             [ngClass]="algorithmService.getCurrentHeuristic() === 'Manhattan' ? 'is-danger' : ''"
-            (click)="algorithmService.setCurrentHeuristic('Manhattan')">
+            (click)="algorithmService.setHeuristic('Manhattan')">
             <b>Manhattan</b>
         </button>
         <button
@@ -173,7 +172,7 @@
             data-testid="euclidean"
             [disabled]="algorithmService.getCurrentHeuristic() === 'None'"
             [ngClass]="algorithmService.getCurrentHeuristic() === 'Euclidean' ? 'is-danger' : ''"
-            (click)="algorithmService.setCurrentHeuristic('Euclidean')">
+            (click)="algorithmService.setHeuristic('Euclidean')">
             <b>Euclidean</b>
         </button>
         <button
@@ -181,7 +180,7 @@
             data-testid="octile"
             [disabled]="algorithmService.getCurrentHeuristic() === 'None'"
             [ngClass]="algorithmService.getCurrentHeuristic() === 'Octile' ? 'is-danger' : ''"
-            (click)="algorithmService.setCurrentHeuristic('Octile')">
+            (click)="algorithmService.setHeuristic('Octile')">
             <b>Octile</b>
         </button>
         <button
@@ -189,7 +188,7 @@
             data-testid="chebhyshev"
             [disabled]="algorithmService.getCurrentHeuristic() === 'None'"
             [ngClass]="algorithmService.getCurrentHeuristic() === 'Chebyshev' ? 'is-danger' : 't'"
-            (click)="algorithmService.setCurrentHeuristic('Chebyshev')">
+            (click)="algorithmService.setHeuristic('Chebyshev')">
             <b>Chebyshev</b>
         </button>
     </div>
