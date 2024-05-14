@@ -181,7 +181,7 @@ export class GridComponent implements OnInit, OnDestroy {
     public addNodeWeights(): void {
         this.gridList.forEach((column) => {
             column.forEach((node) => {
-                node.weight = Math.floor(Math.random() * 10);
+                node.weight = Math.floor(Math.random() * 9 + 1);
             });
         });
         this.simulationService.setGridList(this.gridList);
