@@ -73,14 +73,20 @@
                 <fieldset class="columns is-multiline is-gapless mb-0">
                     @if (control?.type === 'checkbox') {
                     <div class="column is-12 control">
-                        <label class="checkbox">
-                            <input type="checkbox" [formControlName]="control.name" [value]="control.value" />
-                            {{ control.name }}
+                        <label class="checkbox form-text-size">
+                            <input
+                                type="checkbox"
+                                [class]="algorithmService.getAlgorithmMode() === 'maze' ? 'active-color-primary' : 'active-color-danger'"
+                                appDisableControl
+                                [disableControl]="recordService.getIteration() > 0"
+                                [formControlName]="control.name"
+                                [value]="control.value" />
+                            {{ control.label }}
                         </label>
                     </div>
                     } @if (control?.type === 'radio') { @for (value of control?.values; track value) {
                     <div class="column is-12 control is-size-8">
-                        <label class="radio">
+                        <label class="radio form-text-size">
                             <input
                                 type="radio"
                                 [class]="algorithmService.getAlgorithmMode() === 'maze' ? 'active-color-primary' : 'active-color-danger'"
@@ -94,10 +100,10 @@
                     </div>
                     } } @if (control?.type === 'select') {
                     <div class="columns column is-full is-multiline field is-horizontal is-flex-direction-column">
-                        <div class="options-size column is-full field-label has-text-centered is-normal p-0">
+                        <div class="form-text-size column is-full field-label has-text-centered is-normal p-0">
                             <label class="label">{{ control.name }}</label>
                         </div>
-                        <div class="options-size column is-full is-justify-content-center field is-horizontal p-0">
+                        <div class="form-text-size column is-full is-justify-content-center field is-horizontal p-0">
                             <div class="select is-black">
                                 <select
                                     class="has-text-weight-medium"

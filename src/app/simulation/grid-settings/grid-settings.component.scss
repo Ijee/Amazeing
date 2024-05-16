@@ -85,6 +85,11 @@ input[type='radio'] {
     --input-color: var(--bulma-danger);
 }
 
+input[type='checkbox'] {
+    --_test: var(--input-color);
+    accent-color: var(--_test);
+}
+
 input[type='radio']::before {
     --_test: var(--input-color);
     content: '';
@@ -105,8 +110,8 @@ select {
     font-weight: bold;
 }
 
-.options-size {
-    font-size: 0.85rem;
+.form-text-size {
+    font-size: 0.95rem;
 }
 
 .learn-button {
