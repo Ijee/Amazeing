@@ -20,6 +20,14 @@ export class PriorityQueue {
         this.elements = [];
     }
 
+    update(node: GridLocation, newPriority: number): void {
+        const index = this.elements.findIndex((element) => element.node.equals(node));
+        if (index !== -1) {
+            this.elements.splice(index, 1);
+        }
+        this.enqueue(node, newPriority);
+    }
+
     toObject(): Object {
         const obj = [];
         this.elements.forEach((ele) => {
