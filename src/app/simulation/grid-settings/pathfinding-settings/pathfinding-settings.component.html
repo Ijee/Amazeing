@@ -50,7 +50,7 @@
                 <b>Depth-First-Search</b>
             </button>
         </div>
-        <div class="cell is-row-start-3 is-col-span-2">
+        <div class="cell is-row-start-3 is-col-span-3">
             <button
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="best-first-search"
@@ -59,17 +59,7 @@
                 <b>Best-First-Search</b>
             </button>
         </div>
-        <div class="cell is-row-start-3 is-col-span-2">
-            <button
-                class="button is-small is-responsive is-fullwidth"
-                data-testid="trace"
-                [ngClass]="algorithmService.getAlgorithmName() === 'Trace' ? 'is-danger' : ''"
-                disabled
-                (click)="handleWarning('Trace')">
-                <b>Trace</b>
-            </button>
-        </div>
-        <div class="cell is-row-start-3 is-col-span-2">
+        <div class="cell is-row-start-3 is-col-span-3">
             <button
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="jump-point-search"
@@ -123,17 +113,7 @@
                 <b>Trémaux's</b>
             </button>
         </div>
-        <div class="cell is-row-start-2 is-col-span-2">
-            <button
-                class="button is-small is-responsive is-fullwidth is-flex-grow-1"
-                data-testid="recursive"
-                [ngClass]="algorithmService.getAlgorithmName() === 'Recursive' ? 'is-danger' : ''"
-                disabled
-                (click)="handleWarning('Recursive')">
-                <b>Recursive</b>
-            </button>
-        </div>
-        <div class="cell is-row-start-2 is-col-span-2">
+        <div class="cell is-row-start-2 is-col-span-3">
             <button
                 class="button is-small is-responsive is-fullwidth is-flex-grow-1"
                 data-testid="maze-routing"
@@ -142,7 +122,7 @@
                 <b>Maze-Routing</b>
             </button>
         </div>
-        <div class="cell is-row-start-2 is-col-span-2">
+        <div class="cell is-row-start-2 is-col-span-3">
             <button
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="dead-end-filling"

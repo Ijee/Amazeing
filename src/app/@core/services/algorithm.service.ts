@@ -149,8 +149,6 @@ export class AlgorithmService {
             case 'Best-FS':
                 this.pathAlgorithm = new BestFIrstSearch();
                 break;
-            case 'Trace':
-                break;
             case 'Jump-PS':
                 break;
             case 'Orthogonal-Jump-PS':
@@ -163,8 +161,6 @@ export class AlgorithmService {
                 break;
             case 'Trémaux':
                 this.pathAlgorithm = new Tremaux();
-                break;
-            case 'Recursive':
                 break;
             case 'Dead-End-Filling':
                 this.pathAlgorithm = new DeadEndFilling();

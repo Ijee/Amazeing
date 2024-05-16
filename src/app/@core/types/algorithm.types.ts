@@ -55,13 +55,11 @@ export type PathFindingAlgorithm =
     | 'Breadth-FS'
     | 'Depth-FS'
     | 'Best-FS'
-    | 'Trace'
     | 'Jump-PS'
     | 'Orthogonal-Jump-PS'
     | 'Wall-Follower'
     | 'Pledge'
     | 'Trémaux'
-    | 'Recursive'
     | 'Dead-End-Filling'
     | 'Maze-Routing';
 
