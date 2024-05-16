@@ -7,7 +7,6 @@
             <button
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="a-star"
-                disabled
                 [ngClass]="algorithmService.getAlgorithmName() === 'A-Star' ? 'is-danger' : ''"
                 (click)="handleWarning('A-Star')">
                 <b>A-Star</b>
