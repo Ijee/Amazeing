@@ -51,7 +51,7 @@ export class BestFIrstSearch extends PathFindingAlgorithmAbstract {
             });
             neighbours.forEach((neighbour) => {
                 if (!this.visitedNodes.contains(neighbour)) {
-                    const distance = this.calculateDistance(neighbour) + (neighbour.weight || 0);
+                    const distance = this.calculateHeuristic(neighbour) + (neighbour.weight || 0);
                     this.visitedNodes.put(neighbour, currLoc);
                     this.priorityQueue.enqueue(neighbour, distance);
                     this.paintNode(neighbour.x, neighbour.y, 4); // Mark as queued

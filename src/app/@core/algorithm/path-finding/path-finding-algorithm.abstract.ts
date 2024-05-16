@@ -22,14 +22,13 @@ export abstract class PathFindingAlgorithmAbstract {
     ) {}
 
     /**
-     * Calculates the heuristic distance of two given GridLocations
+     * Calculates the heuristic distance for the algorithm
      * based on which heuristic the user selected.
      *
      * @param loc the location to calculate from
-     * @param heuristic the selected heuristic
      * @returns the caluldated distance
      */
-    protected calculateDistance(loc: GridLocation): number {
+    protected calculateHeuristic(loc: GridLocation): number {
         switch (this.heuristic) {
             case 'Manhattan':
                 return manhattanDistance(loc, this.goalLocation);

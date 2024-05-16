@@ -33,6 +33,7 @@ export type Direction = 'unknown' | 'up' | 'right' | 'down' | 'left';
 export type Orientation = 'horizontal' | 'vertical';
 export type Parity = 'odd' | 'even';
 export type NodeCollection = [{ gridLocation: GridLocation; direction: Direction }];
+export type VisitedNode = { predecessor: GridLocation; distance: number };
 
 export type AlgorithmMode = 'maze' | 'path-finding';
 export type MazeAlgorithm =
