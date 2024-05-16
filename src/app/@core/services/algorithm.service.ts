@@ -47,7 +47,7 @@ export class AlgorithmService {
     constructor(private meta: Meta) {
         this.setAlgorithmMode('maze');
         this.setMazeAlgorithm('Prims');
-        this.setPathAlgorithm('Dijkstra');
+        this.setPathAlgorithm('A-Star');
         this.setHeuristic('Manhattan');
     }
 
