@@ -188,6 +188,7 @@ export class GridComponent implements OnInit, OnDestroy {
         if (!this.simulationService.getShowWeightStatus()) {
             this.simulationService.toggleWeightStatus();
         }
+        this.simulationService.setSavePoint(cloneDeep(this.gridList));
     }
 
     /**
