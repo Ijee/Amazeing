@@ -141,7 +141,7 @@
         <button
             class="button is-small is-responsive"
             data-testid="manhattan"
-            [disabled]="algorithmService.getCurrentHeuristic() === 'None'"
+            [disabled]="algorithmService.getCurrentHeuristic() === 'None' || recordService.getIteration() > 0"
             [ngClass]="algorithmService.getCurrentHeuristic() === 'Manhattan' ? 'is-danger' : ''"
             (click)="algorithmService.setHeuristic('Manhattan')">
             <b>Manhattan</b>
@@ -149,7 +149,7 @@
         <button
             class="button is-small is-responsive"
             data-testid="euclidean"
-            [disabled]="algorithmService.getCurrentHeuristic() === 'None'"
+            [disabled]="algorithmService.getCurrentHeuristic() === 'None'|| recordService.getIteration() > 0"
             [ngClass]="algorithmService.getCurrentHeuristic() === 'Euclidean' ? 'is-danger' : ''"
             (click)="algorithmService.setHeuristic('Euclidean')">
             <b>Euclidean</b>
@@ -157,7 +157,7 @@
         <button
             class="button is-small is-responsive"
             data-testid="octile"
-            [disabled]="algorithmService.getCurrentHeuristic() === 'None'"
+            [disabled]="algorithmService.getCurrentHeuristic() === 'None' || recordService.getIteration() > 0"
             [ngClass]="algorithmService.getCurrentHeuristic() === 'Octile' ? 'is-danger' : ''"
             (click)="algorithmService.setHeuristic('Octile')">
             <b>Octile</b>
@@ -165,7 +165,7 @@
         <button
             class="button is-small is-responsive"
             data-testid="chebhyshev"
-            [disabled]="algorithmService.getCurrentHeuristic() === 'None'"
+            [disabled]="algorithmService.getCurrentHeuristic() === 'None' || recordService.getIteration() > 0"
             [ngClass]="algorithmService.getCurrentHeuristic() === 'Chebyshev' ? 'is-danger' : 't'"
             (click)="algorithmService.setHeuristic('Chebyshev')">
             <b>Chebyshev</b>
