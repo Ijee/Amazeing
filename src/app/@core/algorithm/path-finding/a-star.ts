@@ -56,27 +56,32 @@ export class AStar extends PathFindingAlgorithmAbstract {
      * @param neighbourNode the neighbour node
      */
     private relaxation(currentNode: GridLocation, neighbourNode: GridLocation): void {
-        const currentVisitedNode = this.visitedNodes.get(currentNode);
-        const neighborVisitedNode = this.visitedNodes.get(neighbourNode);
+        const currentDistance = this.visitedNodes.get(currentNode).distance;
+        const neighbourDistance =
+            this.visitedNodes.get(neighbourNode)?.distance ?? Number.POSITIVE_INFINITY;
 
         // Calculate tentative g-cost
-        const tentativeGCost = currentVisitedNode.distance + neighbourNode.weight;
+        const tentativeGCost = currentDistance + neighbourNode.weight;
 
-        if (tentativeGCost < neighborVisitedNode.distance) {
+        if (tentativeGCost < neighbourDistance) {
             // Compare tentative g-cost with the current distance
             const heuristicCost = this.calculateHeuristic(neighbourNode);
             const totalCost = tentativeGCost + heuristicCost; // Total cost is g(n) + h(n)
 
-            const updatedVisitedNode: VisitedNode = {
+            this.visitedNodes.put(neighbourNode, {
                 predecessor: currentNode,
                 distance: tentativeGCost
-            };
+            });
+            // this.visitedNodes.put(neighbourNode, updatedVisitedNode);
+            if (this.priorityQueue.indexOf(neighbourNode) !== -1) {
+                this.priorityQueue.enqueue(neighbourNode, totalCost);
+                this.paintNode(neighbourNode.x, neighbourNode.y, 4);
+            } else {
+                // Update the priority queue with the total cost (g + h)
+                this.priorityQueue.update(neighbourNode, totalCost);
+            }
 
-            this.visitedNodes.put(neighbourNode, updatedVisitedNode);
             this.grid[neighbourNode.x][neighbourNode.y].text = tentativeGCost.toString();
-
-            // Update the priority queue with the total cost (g + h)
-            this.priorityQueue.update(neighbourNode, totalCost);
         }
     }
 
@@ -90,6 +95,7 @@ export class AStar extends PathFindingAlgorithmAbstract {
 
         if (!this.priorityQueue.isEmpty()) {
             const currLoc = this.priorityQueue.dequeue();
+
             if (this.grid[currLoc.x][currLoc.y].status === 3) {
                 this.tracePath = currLoc;
                 this.priorityQueue.empty();
@@ -108,28 +114,11 @@ export class AStar extends PathFindingAlgorithmAbstract {
                     }
                 }
             }
-            const currentVisitedNode = this.visitedNodes.get(currLoc);
             const neighbours = this.getNeighbours(currLoc, 1).filter((neighbour) => {
                 return neighbour.status !== 1;
             });
             neighbours.forEach((neighbour) => {
-                if (!this.visitedNodes.contains(neighbour)) {
-                    const distance =
-                        currentVisitedNode.distance +
-                        neighbour.weight +
-                        this.calculateHeuristic(neighbour);
-                    const visitedNode: VisitedNode = {
-                        predecessor: currLoc,
-                        distance: distance
-                    };
-                    this.grid[neighbour.x][neighbour.y].text = distance.toString();
-                    this.visitedNodes.put(neighbour, visitedNode);
-                    this.priorityQueue.enqueue(neighbour, distance);
-                    // Mark as queued
-                    this.paintNode(neighbour.x, neighbour.y, 4);
-                } else {
-                    this.relaxation(currLoc, neighbour);
-                }
+                this.relaxation(currLoc, neighbour);
             });
         } else if (this.priorityQueue.isEmpty() && !this.tracePath) {
             // No path to goal exists.
@@ -150,7 +139,10 @@ export class AStar extends PathFindingAlgorithmAbstract {
         this.grid = grid;
 
         this.priorityQueue.enqueue(startLocation, 0);
-        this.visitedNodes.put(startLocation, { predecessor: startLocation, distance: 0 });
+        this.visitedNodes.put(startLocation, {
+            predecessor: startLocation,
+            distance: 0
+        });
 
         // initial distances (excluding walls)
 
