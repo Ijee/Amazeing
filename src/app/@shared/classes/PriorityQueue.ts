@@ -27,6 +27,15 @@ export class PriorityQueue {
         }
         this.enqueue(node, newPriority);
     }
+    // TODO: not sure if number return is the correct thing to do here.
+    contains(node: GridLocation): number {
+        this.elements.forEach((ele) => {
+            if (ele.node.equals(node)) {
+                return ele.priority;
+            }
+        });
+        return -1;
+    }
 
     toObject(): Object {
         const obj = [];
