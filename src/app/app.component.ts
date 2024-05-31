@@ -1,5 +1,5 @@
+import { environment } from '../environments/environment';
 import { Component, HostListener, OnDestroy, OnInit, Renderer2 } from '@angular/core';
-import packageInfo from '../../package.json';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
     faAdjust,
@@ -36,7 +36,6 @@ import { SimulationService } from './@core/services/simulation.service';
 import { Subject } from 'rxjs';
 import { SettingsService } from './@core/services/settings.service';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { takeUntil } from 'rxjs/operators';
 import { modalFadeInOut } from './@shared/animations/modalFadeInOut';
 import { fadeRouteAnimation } from './@shared/animations/fadeRouteAnimation';
 import { WarningDialogService } from './@shared/components/warning-modal/warning-dialog.service';
@@ -78,8 +77,8 @@ import { AmazeingBreakpoints } from './@core/services/breakpoint.service';
     animations: [modalFadeInOut, fadeRouteAnimation]
 })
 export class AppComponent implements OnInit, OnDestroy {
-    public deferredInstallPrompt: any;
     public version: string;
+    public deferredInstallPrompt: any;
     public showNavbar: boolean;
     public showSettingsDropdown: boolean;
     public isBouncing: boolean;
@@ -142,7 +141,7 @@ export class AppComponent implements OnInit, OnDestroy {
             faCircleQuestion,
             faTag
         );
-        this.version = packageInfo.version;
+        this.version = environment.version;
         this.isBouncing = true;
 
         this.destroyed$ = new Subject<void>();
