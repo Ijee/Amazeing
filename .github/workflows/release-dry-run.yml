@@ -27,7 +27,7 @@ jobs:
               run: npm clean-install
             - name: Verify the integrity of provenance attestations and registry signatures for installed dependencies
               run: npm audit signatures
-            - name: Release
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              run: npx semantic-release --dry-run
+            - name: Checkout branch
+              run: git checkout $GITHUB_HEAD_REF
+            - name: Preview semantic-release
+              run: unset GITHUB_ACTIONS && npx semantic-release --dry-run --no-ci
