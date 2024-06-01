@@ -1,18 +1,11 @@
 @media screen and (max-width: 1023px) {
-    .navbar-dropdown .is-active {
-        display: block;
-    }
-    .navbar-dropdown:not(.is-active) {
-        display: none;
-    }
-
     .navbar-menu {
         border-radius: var(--bulma-radius-large);
         display: grid;
         grid-template-rows: 0fr;
         transition-property: grid-template-rows, background-color;
-        transition: 250ms;
-        transition-timing-function: ease-in-out;
+        transition: 350ms;
+        transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
         background-color: transparent;
         box-shadow: none;
     }
@@ -29,23 +22,30 @@
         grid-row: 1 / span 2;
     }
 
-    // .navbar-item.has-dropdown {
-    //     display: grid;
-    //     grid-template-rows: 0fr;
-    //     transition-property: grid-template-rows, background-color;
-    //     transition: 250ms;
-    //     transition-timing-function: ease-in-out;
-    //     background-color: transparent;
-    // }
-    // .navbar-item.has-dropdown.is-active {
-    //     grid-template-rows: 1fr;
-    //     background-color: var(--background-color-light);
-    // }
+    .navbar-dropdown-wrapper {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition-property: grid-template-rows, background-color;
+        transition: 350ms;
+        transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+        background-color: transparent;
+    }
+    .navbar-dropdown-wrapper.is-active {
+        grid-template-rows: 1fr;
+        background-color: var(--background-color-light);
+    }
 
-    // .navbar-item.has-dropdown > div {
-    //     overflow: hidden;
-    //     grid-row: 1 / span 2;
-    // }
+    .navbar-dropdown-wrapper:not(.is-active) .navbar-dropdown > .columns {
+        background-color: transparent;
+    }
+
+    body.theme-dark :host .navbar-dropdown-wrapper.is-active {
+        background-color: var(--bulma-dark);
+    }
+
+    .navbar-dropdown {
+        overflow: hidden;
+    }
 }
 
 body.theme-dark :host .navbar-item {
