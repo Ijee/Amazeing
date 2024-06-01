@@ -1,4 +1,4 @@
-<!-- <div class="columns is-fullwidth is-gapless is-justify-content-space-between">
+<div class="columns is-fullwidth is-gapless is-justify-content-space-between">
     <div class="column is-2 is-half-mobile">
         <strong class="has-text-centered">
             <p class="heading has-text-weight-bold is-uppercase is-size-7 is-size-6-mobile">Iteration</p>
@@ -6,7 +6,7 @@
         </strong>
     </div>
     @for (stat of algorithmService.getStatRecords(); track trackByName($index, stat)) { @if (stat.currentValue !==
-    undefined) {
+    undefined && ((breakpointService.isMobile() | async) === false)) {
     <div [@.disabled]="!this.settingsService.getAnimationsSetting()" @fadeInOutList class="column is-half-mobile">
         <strong class="has-text-centered">
             <p class="heading has-text-weight-bold is-uppercase is-size-7 is-size-6-mobile">{{ stat.name }}</p>
@@ -32,8 +32,8 @@
             </p>
         </strong>
     </div>
-</div> -->
-<nav class="level is-mobile px-2">
+</div>
+<!-- <nav class="level is-mobile px-2">
     <div class="level-left">
         <div class="level-item has-text-centered">
             <strong>
@@ -74,4 +74,4 @@
             </strong>
         </div>
     </div>
-</nav>
+</nav> -->
