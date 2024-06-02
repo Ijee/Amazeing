@@ -11,7 +11,7 @@ export const fadeRouteAnimation = trigger('fadeRouteAnimation', [
             [
                 style({
                     position: 'absolute',
-                    width: 'calc(100% - 1rem)'
+                    width: 'calc(100% - 1.47rem)'
                 })
             ],
             { optional: true }
