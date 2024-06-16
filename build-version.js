@@ -6,7 +6,7 @@ try {
     // Fetch the current commit hash.
     const commitHash = execSync('git rev-parse HEAD').toString().trim();
     // Fetch the Git tag associated with the current commit.
-    const version = execSync(`git describe --tags ${commitHash}`).toString().trim();
+    const version = execSync(`git describe --tags --always ${commitHash}`).toString().trim();
 
     fs.writeFileSync('.env', `VERSION=${version}\n`);
     console.log(`VERSION=${version}`);
