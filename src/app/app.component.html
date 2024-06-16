@@ -206,9 +206,12 @@
                                     <span><b>Dark mode</b></span>
                                 </div>
                                 <button
-                                    class="column is-4 button is-responsive"
+                                    class="column custom-button is-4 p-2 button is-responsive"
                                     style="margin-left: auto"
-                                    [class]="(settingsService.getDarkModeSetting() | async) ? 'is-primary' : 'is-danger'"
+                                    [ngClass]="{
+                                        'is-primary': (settingsService.getDarkModeSetting() | async) === true,
+                                        'is-danger': (settingsService.getDarkModeSetting() | async) === false,
+                                        'is-outlined': (settingsService.getDarkModeSetting() | async) === true }"
                                     (click)="settingsService.setDarkModeSetting()">
                                     <b>{{ (settingsService.getDarkModeSetting() | async) ? 'ON' : 'OFF' }}</b>
                                 </button>
@@ -221,9 +224,12 @@
                                     <span><b>Animations</b></span>
                                 </div>
                                 <button
-                                    class="column is-4 button is-responsive"
+                                    class="column custom-button is-4 p-2 button is-responsive"
                                     style="margin-left: auto"
-                                    [class]="settingsService.getAnimationsSetting() ? 'is-primary' : 'is-danger'"
+                                    [ngClass]="{
+                                        'is-primary': settingsService.getAnimationsSetting(),
+                                        'is-danger': !settingsService.getAnimationsSetting(),
+                                        'is-outlined': (settingsService.getDarkModeSetting() | async) === true }"
                                     (click)="settingsService.setAnimationSetting()">
                                     <b>{{ settingsService.getAnimationsSetting() ? 'ON' : 'OFF' }}</b>
                                 </button>
@@ -236,9 +242,12 @@
                                     <span><b>Warnings</b></span>
                                 </div>
                                 <button
-                                    class="column is-4 button is-responsive"
+                                    class="column custom-button is-4 p-2 button is-responsive"
                                     style="margin-left: auto"
-                                    [class]="settingsService.getWarningsSetting() ? 'is-primary' : 'is-danger'"
+                                    [ngClass]="{
+                                        'is-primary': settingsService.getWarningsSetting(),
+                                        'is-danger': !settingsService.getWarningsSetting(),
+                                        'is-outlined': (settingsService.getDarkModeSetting() | async) === true }"
                                     (click)="settingsService.setWarningsSetting()">
                                     <b>{{ settingsService.getWarningsSetting() ? 'ON' : 'OFF' }}</b>
                                 </button>
@@ -279,7 +288,8 @@
                             <div class="navbar-item px-2 m-1">
                                 <a
                                     role="button"
-                                    class="button dropdown-button is-link force-blue-bg is-fullwidth"
+                                    [ngClass]="(settingsService.getDarkModeSetting() | async) === true ? 'is-outlined' : ''"
+                                    class="button dropdown-button custom-button is-link force-blue-bg is-fullwidth"
                                     href="https://github.com/Ijee/Amazeing/issues"
                                     target="_blank"
                                     rel="noopener">

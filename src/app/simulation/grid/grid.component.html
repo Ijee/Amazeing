@@ -1,6 +1,6 @@
 <app-stats
     [ngClass]="algorithmService.getAlgorithmMode() === 'maze' ? 'box-shadow-maze' : 'box-shadow-path'"
-    class="box mb-4 tourStats"
+    class="box custom-box mb-4 tourStats"
     [isMouseDown]="isMouseDown"></app-stats>
 <section class="block outer-wall mb-1" [ngClass]="{ 'wrapper-forbidden': recordService.getIteration() > 0 }">
     <div
@@ -62,7 +62,7 @@
                 </p>
                 <p class="control">
                     <button
-                        class="button is-pulled-right is-responsive"
+                        class="button weight-button is-pulled-right is-responsive"
                         data-testid="toggle-weights"
                         [ngClass]="simulationService.getShowWeightStatus() ? 'is-primary is-light' : 'is-danger is-light'"
                         title="Toggle weights"

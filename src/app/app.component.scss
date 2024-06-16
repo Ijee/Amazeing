@@ -3,7 +3,7 @@
         border-radius: var(--bulma-radius-large);
         display: grid;
         grid-template-rows: 0fr;
-        transition-property: grid-template-rows, background-color;
+        transition-property: grid-template-rows, background-color, box-shadow;
         transition: 350ms;
         transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
         background-color: transparent;
@@ -16,6 +16,7 @@
 
     body.theme-dark :host .navbar-menu.is-active {
         background-color: var(--bulma-dark);
+        box-shadow: var(--dark-mode-shadow);
     }
     .navbar-menu > div {
         overflow: hidden;
@@ -25,7 +26,7 @@
     .navbar-dropdown-wrapper {
         display: grid;
         grid-template-rows: 0fr;
-        transition-property: grid-template-rows, background-color;
+        transition-property: grid-template-rows, background-color, box-shadow;
         transition: 350ms;
         transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
         background-color: transparent;
@@ -41,11 +42,19 @@
 
     body.theme-dark :host .navbar-dropdown-wrapper.is-active {
         background-color: var(--bulma-dark);
+        box-shadow: var(--dark-mode-shadow);
+    }
+    body.theme-dark :host .navbar-dropdown {
+        box-shadow: var(--dark-mode-shadow);
     }
 
     .navbar-dropdown {
         overflow: hidden;
     }
+}
+
+body.theme-dark :host .navbar-dropdown {
+    box-shadow: var(--dark-mode-shadow);
 }
 
 body.theme-dark :host .navbar-item {

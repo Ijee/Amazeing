@@ -27,24 +27,8 @@ bootstrapApplication(AppComponent, {
         SettingsService,
         provideRouter(
             AppRoutes,
-            withRouterConfig({ onSameUrlNavigation: 'reload' }),
-            withViewTransitions({
-                onViewTransitionCreated: ({ transition, to }) => {
-                    const router = inject(Router);
-                    const toTree = createUrlTreeFromSnapshot(to, []);
-                    // Skip the transition if the only thing changing is the fragment and queryParams
-                    if (
-                        router.isActive(toTree, {
-                            paths: 'exact',
-                            matrixParams: 'exact',
-                            fragment: 'ignored',
-                            queryParams: 'ignored'
-                        })
-                    ) {
-                        transition.skipTransition();
-                    }
-                }
-            })
+            withViewTransitions(),
+            withRouterConfig({ onSameUrlNavigation: 'reload' })
         ),
         provideAnimationsAsync(),
         provideServiceWorker('ngsw-worker.js', {
@@ -53,3 +37,22 @@ bootstrapApplication(AppComponent, {
         })
     ]
 }).catch((err) => console.error(err));
+
+// TODO: re-add this
+// {
+//     onViewTransitionCreated: ({ transition, to }) => {
+//         const router = inject(Router);
+//         const toTree = createUrlTreeFromSnapshot(to, []);
+//         // Skip the transition if the only thing changing is the fragment and queryParams
+//         if (
+//             router.isActive(toTree, {
+//                 paths: 'exact',
+//                 matrixParams: 'exact',
+//                 fragment: 'ignored',
+//                 queryParams: 'ignored'
+//             })
+//         ) {
+//             transition.skipTransition();
+//         }
+//     }
+// }

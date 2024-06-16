@@ -7,7 +7,7 @@
     <div class="grid column is-multiline is-gapless is-full">
         <div class="cell is-col-min-6 is">
             <button
-                class="button algo-mode-button border-radius-top-left is-medium has-text-black is-fullwidth"
+                class="button custom-button algo-mode-button border-radius-top-left is-medium has-text-black is-fullwidth"
                 data-testid="maze-mode"
                 [ngClass]="this.algorithmService.getAlgorithmMode() === 'maze' ? 'has-background-primary' : 'has-background-primary-light'"
                 (click)="handleWarning('maze')">
@@ -16,7 +16,7 @@
         </div>
         <div class="cell is-col-min-6">
             <button
-                class="button algo-mode-button border-radius-top-right is-medium has-text-black' is-fullwidth"
+                class="button custom-button algo-mode-button border-radius-top-right is-medium has-text-black' is-fullwidth"
                 data-testid="pathfinding-mode"
                 [ngClass]="algorithmService.getAlgorithmMode() === 'path-finding' ? 'has-background-danger' : 'has-background-danger-light'"
                 (click)="handleWarning('path-finding')">
@@ -129,7 +129,7 @@
     } @if ((breakpointService.isTouch() | async) === false) {
     <div class="column is-flex is-full is-flex-grow-1 is-justify-content-end is-flex-direction-column">
         <a
-            class="button learn-button border-radius-bottom is-fullwidth"
+            class="button custom-button learn-button border-radius-bottom is-fullwidth"
             [ngClass]="algorithmService.getAlgorithmMode() === 'maze' ? 'is-primary' : 'is-danger'"
             data-testid="learn-more"
             (click)="navigateToLearn()">

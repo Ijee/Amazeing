@@ -1,12 +1,14 @@
 import { environment } from '../environments/environment';
-import { Component, HostListener, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { Component, HostListener, Inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
     faAdjust,
+    faArrowUpRightFromSquare,
     faBackward,
     faBalanceScaleRight,
     faChalkboardTeacher,
     faCheck,
+    faChevronRight,
     faCog,
     faDownload,
     faExclamationTriangle,
@@ -45,7 +47,7 @@ import { WarningModalComponent } from './@shared/components/warning-modal/warnin
 import { LegendModalComponent } from './@core/modals/legend/legend-modal.component';
 import { ImportModalComponent } from './@core/modals/import-modal/import-modal.component';
 import { ExportModalComponent } from './@core/modals/export-modal/export-modal.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { ClickOutsideDirective } from './@shared/directives/click-outside.directive';
 import { faPaste } from '@fortawesome/free-solid-svg-icons/faPaste';
 import { faSquareFull } from '@fortawesome/free-solid-svg-icons/faSquareFull';
@@ -88,6 +90,7 @@ export class AppComponent implements OnInit, OnDestroy {
     constructor(
         library: FaIconLibrary,
         private readonly renderer: Renderer2,
+        @Inject(DOCUMENT) private document: Document,
         private readonly router: Router,
         private readonly userTourService: UserTourService,
         public readonly simulationService: SimulationService,
@@ -139,7 +142,10 @@ export class AppComponent implements OnInit, OnDestroy {
             faGithub,
             faTriangleExclamation,
             faCircleQuestion,
-            faTag
+            faTag,
+            // learn
+            faArrowUpRightFromSquare,
+            faChevronRight
         );
         this.version = environment.version;
         this.isBouncing = true;
@@ -156,12 +162,14 @@ export class AppComponent implements OnInit, OnDestroy {
         });
 
         this.settingsService.getDarkModeSetting().subscribe((val) => {
-            if (val) {
-                this.renderer.removeClass(document.body, 'theme-light');
-                this.renderer.addClass(document.body, 'theme-dark');
-            } else {
-                this.renderer.removeClass(document.body, 'theme-dark');
-                this.renderer.addClass(document.body, 'theme-light');
+            //@ts-ignore
+            this.document.startViewTransition(() => {
+                this.switchTheme(val);
+            });
+
+            //@ts-ignore
+            if (!document.startViewTransition) {
+                this.switchTheme(val);
             }
         });
 
@@ -205,6 +213,16 @@ export class AppComponent implements OnInit, OnDestroy {
             } else if (event.code === 'KeyR') {
                 this.simulationService.reset();
             }
+        }
+    }
+
+    private switchTheme(val: boolean): void {
+        if (val) {
+            this.renderer.removeClass(document.body, 'theme-light');
+            this.renderer.addClass(document.body, 'theme-dark');
+        } else {
+            this.renderer.removeClass(document.body, 'theme-dark');
+            this.renderer.addClass(document.body, 'theme-light');
         }
     }
 
