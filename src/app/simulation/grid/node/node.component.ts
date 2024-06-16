@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { SimulationService } from '../../../@core/services/simulation.service';
 import { NgClass } from '@angular/common';
 
@@ -21,15 +21,12 @@ export class NodeComponent {
     }
 
     getText(): string {
-        if (!this.simulationService.getShowWeightStatus()) {
-            return this.text;
-        } else {
-            return this.status !== 1 &&
-                this.status !== 2 &&
-                this.status !== 3 &&
-                this.weight !== null
-                ? this.weight.toString()
-                : undefined;
+        if (this.status !== 1) {
+            if (!this.simulationService.getShowWeightStatus()) {
+                return this.text;
+            } else if (this.status !== 2 && this.status !== 3) {
+                return this.weight?.toString();
+            }
         }
     }
 

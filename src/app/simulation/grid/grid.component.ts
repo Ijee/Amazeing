@@ -169,9 +169,7 @@ export class GridComponent implements OnInit, OnDestroy {
         const cell = this.gridList[x][y];
         cell.status = node.status;
         cell.weight = node.weight;
-        if (node.hasOwnProperty('text')) {
-            cell.text = node.text;
-        }
+        cell.text = node.text;
     }
 
     /**
@@ -200,6 +198,7 @@ export class GridComponent implements OnInit, OnDestroy {
             column.forEach((node) => {
                 node.status = 0;
                 node.weight = 1;
+                delete node.text;
             });
         });
         const startLocation = this.recordService.getGridStartLocation();

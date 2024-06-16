@@ -9,6 +9,6 @@ import { GridLocation } from 'src/app/@shared/classes/GridLocation';
 export function octileDistance(loc1: GridLocation, loc2: GridLocation): number {
     const dx = Math.abs(loc1.x - loc2.x);
     const dy = Math.abs(loc1.y - loc2.y);
-    const F = Math.SQRT2 - 1;
-    return dx < dy ? F * dx + dy : F * dy + dx;
+    const f = Math.SQRT2 - 1;
+    return dx < dy ? f * dx + dy : f * dy + dx;
 }
