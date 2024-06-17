@@ -10,13 +10,14 @@ import { AlgorithmService } from '../../../@core/services/algorithm.service';
 import { RecordService } from '../../../@core/services/record.service';
 import { PathFindingAlgorithm } from '../../../@core/types/algorithm.types';
 import { NgClass } from '@angular/common';
+import { HrComponent } from 'src/app/@shared/components/hr/hr.component';
 
 @Component({
     selector: 'app-pathfinding-settings',
     templateUrl: './pathfinding-settings.component.html',
     styleUrls: ['./pathfinding-settings.component.scss'],
     standalone: true,
-    imports: [NgClass, AlgorithmOptionsComponent]
+    imports: [NgClass, AlgorithmOptionsComponent, HrComponent]
 })
 export class PathfindingSettingsComponent implements OnInit, OnDestroy {
     private readonly destroyed$: Subject<void>;

@@ -7,11 +7,12 @@
 @use 'styles/bulma-variables';
 @use 'styles/colors';
 @use 'styles/dark-theme';
-//@use 'driverjs';
 
+@import 'styles/forms.scss';
+
+//@use 'driverjs';
 // The CSS in this project here is quite messy
 // but at least it looks kind of good - so there's that.
-
 /* poppins-200 - latin */
 @font-face {
     font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */

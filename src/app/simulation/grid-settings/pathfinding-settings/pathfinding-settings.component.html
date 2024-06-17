@@ -1,4 +1,4 @@
-<p class="menu-label mb-1 is-size-7 has-text-centered">
+<p class="menu-label is-size-7 mt-21 mb-2 has-text-centered">
     <b>Algorithms</b>
 </p>
 <div class="fixed-grid has-6-cols p-0 m-0 gap-0">
@@ -80,7 +80,7 @@
         </div>
     </div>
 </div>
-<p class="menu-label is-size-7 my-1 has-text-centered">
+<p class="menu-label is-size-7 my-2 has-text-centered">
     <b>Maze solving algorithms</b>
 </p>
 <div class="fixed-grid has-6-cols p-0 m-0 gap-0">
@@ -133,7 +133,7 @@
     </div>
 </div>
 
-<p class="menu-label is-size-7 my-1 has-text-centered">
+<p class="menu-label is-size-7 my-2 has-text-centered">
     <b>Heuristics</b>
 </p>
 <div class="grid is-gapless">
@@ -173,3 +173,22 @@
     </div>
 </div>
 <app-algorithm-options></app-algorithm-options>
+<app-hr [text]="'PATHFINDING SETTINGS'"></app-hr>
+<div class="column is-full mt-0 pt-0" style="min-height: 0">
+    <form>
+        <fieldset class="columns is-multiline is-gapless">
+            <div class="column is-12 control">
+                <label class="checkbox form-text-size active-color-danger">
+                    <input type="checkbox" />
+                    Diagonal Movement
+                </label>
+            </div>
+            <div class="column is-12 control">
+                <label class="checkbox form-text-size active-color-danger">
+                    <input type="checkbox" appDisableControl />
+                    Corner Movement
+                </label>
+            </div>
+        </fieldset>
+    </form>
+</div>
