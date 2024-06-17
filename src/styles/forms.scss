@@ -72,3 +72,7 @@ body.theme-dark label {
 body.theme-dark input[type='radio'] {
     border: 0.15em solid var(--white-dark-87);
 }
+
+.is-not-allowed {
+    cursor: not-allowed;
+}

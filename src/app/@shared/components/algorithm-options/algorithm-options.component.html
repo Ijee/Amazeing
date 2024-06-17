@@ -11,7 +11,9 @@
                 <fieldset class="columns is-multiline is-gapless mb-0">
                     @if (control?.type === 'checkbox') {
                     <div class="column is-12 control">
-                        <label class="checkbox form-text-size">
+                        <label
+                            class="checkbox form-text-size"
+                            [ngClass]="recordService.getIteration() > 0 ? 'is-not-allowed' : ''">
                             <input
                                 type="checkbox"
                                 [class]="algorithmService.getAlgorithmMode() === 'maze' ? 'active-color-primary' : 'active-color-danger'"
@@ -24,7 +26,9 @@
                     </div>
                     } @if (control?.type === 'radio') { @for (value of control?.values; track value) {
                     <div class="column is-12 control is-size-8">
-                        <label class="radio form-text-size">
+                        <label
+                            class="radio form-text-size"
+                            [ngClass]="recordService.getIteration() > 0 ? 'is-not-allowed' : ''">
                             <input
                                 type="radio"
                                 [class]="algorithmService.getAlgorithmMode() === 'maze' ? 'active-color-primary' : 'active-color-danger'"

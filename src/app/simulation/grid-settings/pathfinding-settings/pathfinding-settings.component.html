@@ -178,7 +178,9 @@
     <form>
         <fieldset class="columns is-multiline is-gapless">
             <div class="column is-12 control">
-                <label class="checkbox form-text-size active-color-danger">
+                <label
+                    class="checkbox form-text-size active-color-danger"
+                    [ngClass]="recordService.getIteration() > 0 || !algorithmService.usesPathFindingSettings() ? 'is-not-allowed' : ''">
                     <input
                         type="checkbox"
                         [disabled]="recordService.getIteration() > 0 || !algorithmService.usesPathFindingSettings()"
@@ -188,7 +190,9 @@
                 </label>
             </div>
             <div class="column is-12 control">
-                <label class="checkbox form-text-size active-color-danger">
+                <label
+                    class="checkbox form-text-size active-color-danger"
+                    [ngClass]="recordService.getIteration() > 0 || !algorithmService.usesPathFindingSettings() ? 'is-not-allowed' : ''">
                     <input
                         type="checkbox"
                         [disabled]="recordService.getIteration() > 0 || !algorithmService.usesPathFindingSettings()"
