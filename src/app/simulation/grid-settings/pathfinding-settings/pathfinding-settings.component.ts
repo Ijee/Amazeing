@@ -1,3 +1,4 @@
+import { AlgorithmOptionsComponent } from '../../../@shared/components/algorithm-options/algorithm-options.component';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { SettingsService } from '../../../@core/services/settings.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,7 +16,7 @@ import { NgClass } from '@angular/common';
     templateUrl: './pathfinding-settings.component.html',
     styleUrls: ['./pathfinding-settings.component.scss'],
     standalone: true,
-    imports: [NgClass]
+    imports: [NgClass, AlgorithmOptionsComponent]
 })
 export class PathfindingSettingsComponent implements OnInit, OnDestroy {
     private readonly destroyed$: Subject<void>;

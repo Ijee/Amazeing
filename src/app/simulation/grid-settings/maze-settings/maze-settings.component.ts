@@ -1,3 +1,4 @@
+import { AlgorithmOptionsComponent } from '../../../@shared/components/algorithm-options/algorithm-options.component';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { SettingsService } from '../../../@core/services/settings.service';
 import { AlgorithmService } from '../../../@core/services/algorithm.service';
@@ -15,7 +16,7 @@ import { NgClass } from '@angular/common';
     templateUrl: './maze-settings.component.html',
     styleUrls: ['./maze-settings.component.scss'],
     standalone: true,
-    imports: [NgClass]
+    imports: [NgClass, AlgorithmOptionsComponent]
 })
 export class MazeSettingsComponent implements OnInit, OnDestroy {
     // protected readonly SimulationService = SimulationService;
