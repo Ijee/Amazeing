@@ -29,11 +29,12 @@ export class PriorityQueue {
     }
 
     indexOf(node: GridLocation): number {
-        this.elements.forEach((ele) => {
+        for (let i = 0; i < this.elements.length; i++) {
+            const ele = this.elements[i];
             if (ele.node.equals(node)) {
                 return ele.priority;
             }
-        });
+        }
         return -1;
     }
 

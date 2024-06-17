@@ -73,7 +73,7 @@ export class AStar extends PathFindingAlgorithmAbstract {
                 distance: tentativeGCost
             });
             // this.visitedNodes.put(neighbourNode, updatedVisitedNode);
-            if (this.priorityQueue.indexOf(neighbourNode) !== -1) {
+            if (this.priorityQueue.indexOf(neighbourNode) === -1) {
                 this.priorityQueue.enqueue(neighbourNode, totalCost);
                 this.paintNode(neighbourNode.x, neighbourNode.y, 4);
             } else {
