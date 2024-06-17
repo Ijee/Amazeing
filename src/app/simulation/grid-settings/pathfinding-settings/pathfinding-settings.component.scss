@@ -1,14 +1,13 @@
-.button {
-    border-radius: 0;
-}
-
 body.theme-dark :host .is-danger {
-    color: var(--bulma-dark) !important;
     background-color: var(--bulma-danger) !important;
 }
 
 body.theme-dark :host .button {
     outline: 1px solid var(--white-dark-87);
+}
+
+.button {
+    border-radius: 0;
 }
 
 .radio {

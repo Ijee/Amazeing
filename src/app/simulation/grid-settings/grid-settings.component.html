@@ -16,7 +16,7 @@
         </div>
         <div class="cell is-col-min-6">
             <button
-                class="button custom-button algo-mode-button border-radius-top-right is-medium has-text-black' is-fullwidth"
+                class="button custom-button algo-mode-button border-radius-top-right is-medium has-text-black is-fullwidth"
                 data-testid="pathfinding-mode"
                 [ngClass]="algorithmService.getAlgorithmMode() === 'path-finding' ? 'has-background-danger' : 'has-background-danger-light'"
                 (click)="handleWarning('path-finding')">
@@ -58,7 +58,7 @@
         </div>
     </div>
     }
-    <div class="column is-full mt-4 mb-2" [@fadeAnimationSafe]="o.isActivated && o.activatedRoute">
+    <div class="column is-full mt-4 mb-2">
         <router-outlet #o="outlet"></router-outlet>
     </div>
 

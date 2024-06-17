@@ -7,7 +7,7 @@
             <button
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="a-star"
-                [ngClass]="algorithmService.getAlgorithmName() === 'A-Star' ? 'is-danger' : ''"
+                [ngClass]="algorithmService.getAlgorithmName() === 'A-Star' ? 'is-danger has-text-black' : ''"
                 (click)="handleWarning('A-Star')">
                 <b>A-Star</b>
             </button>
@@ -17,7 +17,7 @@
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="ida-star"
                 disabled
-                [ngClass]="algorithmService.getAlgorithmName() === 'IDA-Star' ? 'is-danger' : ''"
+                [ngClass]="algorithmService.getAlgorithmName() === 'IDA-Star' ? 'is-danger has-text-black' : ''"
                 (click)="handleWarning('IDA-Star')">
                 <b>IDA-Star</b>
             </button>
@@ -26,7 +26,7 @@
             <button
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="dijkstra"
-                [ngClass]="algorithmService.getAlgorithmName() === 'Dijkstra' ? 'is-danger' : ''"
+                [ngClass]="algorithmService.getAlgorithmName() === 'Dijkstra' ? 'is-danger has-text-black' : ''"
                 (click)="handleWarning('Dijkstra')">
                 <b>Dijkstra</b>
             </button>
@@ -35,7 +35,7 @@
             <button
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="breadth-first-search"
-                [ngClass]="algorithmService.getAlgorithmName() === 'Breadth-FS' ? 'is-danger' : ''"
+                [ngClass]="algorithmService.getAlgorithmName() === 'Breadth-FS' ? 'is-danger has-text-black' : ''"
                 (click)="handleWarning('Breadth-FS')">
                 <b>Breadth-First-Search</b>
             </button>
@@ -44,7 +44,7 @@
             <button
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="depth-first-search"
-                [ngClass]="algorithmService.getAlgorithmName() === 'Depth-FS' ? 'is-danger' : ''"
+                [ngClass]="algorithmService.getAlgorithmName() === 'Depth-FS' ? 'is-danger has-text-black' : ''"
                 (click)="handleWarning('Depth-FS')">
                 <b>Depth-First-Search</b>
             </button>
@@ -53,7 +53,7 @@
             <button
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="best-first-search"
-                [ngClass]="algorithmService.getAlgorithmName() === 'Best-FS' ? 'is-danger' : ''"
+                [ngClass]="algorithmService.getAlgorithmName() === 'Best-FS' ? 'is-danger has-text-black' : ''"
                 (click)="handleWarning('Best-FS')">
                 <b>Best-First-Search</b>
             </button>
@@ -62,7 +62,7 @@
             <button
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="jump-point-search"
-                [ngClass]="algorithmService.getAlgorithmName() === 'Jump-PS' ? 'is-danger' : ''"
+                [ngClass]="algorithmService.getAlgorithmName() === 'Jump-PS' ? 'is-danger has-text-black' : ''"
                 disabled
                 (click)="handleWarning('Jump-PS')">
                 <b>Jump Point Search</b>
@@ -72,7 +72,7 @@
             <button
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="orthogonal-jump-point-search"
-                [ngClass]="algorithmService.getAlgorithmName() === 'Orthogonal-Jump-PS' ? 'is-danger' : ''"
+                [ngClass]="algorithmService.getAlgorithmName() === 'Orthogonal-Jump-PS' ? 'is-danger has-text-black' : ''"
                 disabled
                 (click)="handleWarning('Orthogonal-Jump-PS')">
                 <b>Orthogonal Jump Point Search</b>
@@ -89,7 +89,7 @@
             <button
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="wall-follower"
-                [ngClass]="algorithmService.getAlgorithmName() === 'Wall-Follower' ? 'is-danger' : ''"
+                [ngClass]="algorithmService.getAlgorithmName() === 'Wall-Follower' ? 'is-danger has-text-black' : ''"
                 (click)="handleWarning('Wall-Follower')">
                 <b>Wall-Follower</b>
             </button>
@@ -98,7 +98,7 @@
             <button
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="pledge"
-                [ngClass]="algorithmService.getAlgorithmName() === 'Pledge' ? 'is-danger' : ''"
+                [ngClass]="algorithmService.getAlgorithmName() === 'Pledge' ? 'is-danger has-text-black' : ''"
                 (click)="handleWarning('Pledge')">
                 <b>Pledge</b>
             </button>
@@ -107,7 +107,7 @@
             <button
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="tremauxs"
-                [ngClass]="algorithmService.getAlgorithmName() === 'Trémaux' ? 'is-danger' : ''"
+                [ngClass]="algorithmService.getAlgorithmName() === 'Trémaux' ? 'is-danger has-text-black' : ''"
                 (click)="handleWarning('Trémaux')">
                 <b>Trémaux's</b>
             </button>
@@ -116,7 +116,7 @@
             <button
                 class="button is-small is-responsive is-fullwidth is-flex-grow-1"
                 data-testid="maze-routing"
-                [ngClass]="algorithmService.getAlgorithmName() === 'Maze-Routing' ? 'is-danger' : ''"
+                [ngClass]="algorithmService.getAlgorithmName() === 'Maze-Routing' ? 'is-danger has-text-black' : ''"
                 (click)="handleWarning('Maze-Routing')">
                 <b>Maze-Routing</b>
             </button>
@@ -125,7 +125,7 @@
             <button
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="dead-end-filling"
-                [ngClass]="algorithmService.getAlgorithmName() === 'Dead-End-Filling' ? 'is-danger' : ''"
+                [ngClass]="algorithmService.getAlgorithmName() === 'Dead-End-Filling' ? 'is-danger has-text-black' : ''"
                 (click)="handleWarning('Dead-End-Filling')">
                 <b>Dead-End Filling</b>
             </button>
@@ -142,7 +142,7 @@
             class="button is-small is-responsive"
             data-testid="manhattan"
             [disabled]="algorithmService.getCurrentHeuristic() === 'None' || recordService.getIteration() > 0"
-            [ngClass]="algorithmService.getCurrentHeuristic() === 'Manhattan' ? 'is-danger' : ''"
+            [ngClass]="algorithmService.getCurrentHeuristic() === 'Manhattan' ? 'is-danger has-text-black' : ''"
             (click)="algorithmService.setHeuristic('Manhattan')">
             <b>Manhattan</b>
         </button>
@@ -150,7 +150,7 @@
             class="button is-small is-responsive"
             data-testid="euclidean"
             [disabled]="algorithmService.getCurrentHeuristic() === 'None'|| recordService.getIteration() > 0"
-            [ngClass]="algorithmService.getCurrentHeuristic() === 'Euclidean' ? 'is-danger' : ''"
+            [ngClass]="algorithmService.getCurrentHeuristic() === 'Euclidean' ? 'is-danger has-text-black' : ''"
             (click)="algorithmService.setHeuristic('Euclidean')">
             <b>Euclidean</b>
         </button>
@@ -158,7 +158,7 @@
             class="button is-small is-responsive"
             data-testid="octile"
             [disabled]="algorithmService.getCurrentHeuristic() === 'None' || recordService.getIteration() > 0"
-            [ngClass]="algorithmService.getCurrentHeuristic() === 'Octile' ? 'is-danger' : ''"
+            [ngClass]="algorithmService.getCurrentHeuristic() === 'Octile' ? 'is-danger has-text-black' : ''"
             (click)="algorithmService.setHeuristic('Octile')">
             <b>Octile</b>
         </button>
@@ -166,7 +166,7 @@
             class="button is-small is-responsive"
             data-testid="chebhyshev"
             [disabled]="algorithmService.getCurrentHeuristic() === 'None' || recordService.getIteration() > 0"
-            [ngClass]="algorithmService.getCurrentHeuristic() === 'Chebyshev' ? 'is-danger' : 't'"
+            [ngClass]="algorithmService.getCurrentHeuristic() === 'Chebyshev' ? 'is-danger has-text-black' : ''"
             (click)="algorithmService.setHeuristic('Chebyshev')">
             <b>Chebyshev</b>
         </button>
