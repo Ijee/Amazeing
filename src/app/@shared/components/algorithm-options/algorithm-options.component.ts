@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { SimulationService } from '../../../@core/services/simulation.service';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
@@ -10,7 +11,7 @@ import { DisableControlDirective } from 'src/app/@shared/directives/disable-cont
 @Component({
     selector: 'app-algorithm-options',
     standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, DisableControlDirective, AlgorithmOptionsComponent],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, DisableControlDirective],
     templateUrl: './algorithm-options.component.html',
     styleUrl: './algorithm-options.component.scss'
 })

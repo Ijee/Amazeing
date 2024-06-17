@@ -175,4 +175,10 @@ export class DepthFirstSearch extends PathFindingAlgorithmAbstract {
     public usesHeuristics(): boolean {
         return false;
     }
+    public usesPathFindingSettings(): boolean {
+        return true;
+    }
+    public forcesDiagonalMovement(): boolean {
+        return false;
+    }
 }

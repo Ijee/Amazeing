@@ -240,4 +240,10 @@ export class AStar extends PathFindingAlgorithmAbstract {
     public usesHeuristics(): boolean {
         return true;
     }
+    public usesPathFindingSettings(): boolean {
+        return true;
+    }
+    public forcesDiagonalMovement(): boolean {
+        return false;
+    }
 }

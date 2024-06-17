@@ -43,6 +43,8 @@ export class AlgorithmService {
     private mazeAlgorithm: MazeAlgorithmAbstract;
     private pathAlgorithm: PathFindingAlgorithmAbstract;
     private heuristic: PathFindingHeuristic;
+    private diagonalMovement = false;
+    private cornerMovement = false;
 
     constructor(private meta: Meta) {
         this.setAlgorithmMode('maze');
@@ -194,6 +196,8 @@ export class AlgorithmService {
         } else {
             this.pathAlgorithm.setInitialData(currentGrid, startLocation);
             this.pathAlgorithm.setHeuristic(this.heuristic);
+            this.pathAlgorithm.setDiagonalMovement(this.diagonalMovement);
+            this.pathAlgorithm.setCornerMovement(this.cornerMovement);
             this.pathAlgorithm.setGoal(goalLocation);
         }
     }
@@ -207,6 +211,24 @@ export class AlgorithmService {
         this.algorithmMode === 'maze'
             ? this.mazeAlgorithm.setOptions(options)
             : this.pathAlgorithm.setOptions(options);
+    }
+
+    /**
+     * Sets the diagonal movement setting.
+     *
+     * @param val the setting to be
+     */
+    public setDiagonalMovement(val: boolean) {
+        this.pathAlgorithm.setDiagonalMovement(val);
+    }
+
+    /**
+     * Sets the diagonal movement setting.
+     *
+     * @param val the setting to be
+     */
+    public setCornerMovement(val: boolean) {
+        this.pathAlgorithm.setCornerMovement(val);
     }
 
     /**
@@ -325,7 +347,7 @@ export class AlgorithmService {
     }
 
     /**
-     *
+     * Returns the jsonFormData.
      */
     public getJsonFormData(): JsonFormData {
         return this.algorithmMode === 'maze'
@@ -333,10 +355,33 @@ export class AlgorithmService {
             : this.pathAlgorithm.getJsonFormData();
     }
 
+    /**
+     * Returns the algorithm options.
+     *
+     * @returns the algorithm options
+     */
     public getOptions(): AlgorithmOptions {
         return this.algorithmMode === 'maze'
             ? this.mazeAlgorithm.getOptions()
             : this.pathAlgorithm.getOptions();
+    }
+
+    /**
+     * Returns the diagonal movement user setting (pathfinding mode only).
+     *
+     * @returns the user setting
+     */
+    public getDiagonalMovement(): boolean {
+        return this.diagonalMovement;
+    }
+
+    /**
+     * Returns the corner movement user setting (pathfinding mode only).
+     *
+     * @returns the user setting
+     */
+    public getCornerMovement(): boolean {
+        return this.cornerMovement;
     }
 
     /**
@@ -355,5 +400,18 @@ export class AlgorithmService {
         return this.algorithmMode === 'maze'
             ? this.mazeAlgorithm.usesNodeWeights()
             : this.pathAlgorithm.usesNodeWeights();
+    }
+
+    /**
+     * Returns whether the current algorithm allowes the use of the pathfinding settings
+     */
+    public usesPathFindingSettings(): boolean {
+        return this.pathAlgorithm.usesPathFindingSettings();
+    }
+    /**
+     * Returns whether the current algorithm forces the diagonal movement functionality.
+     */
+    public forcesDiagonalMovement(): boolean {
+        return this.pathAlgorithm.forcesDiagonalMovement();
     }
 }

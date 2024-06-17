@@ -1,16 +1,16 @@
-import { Directive, Input } from '@angular/core';
-import { NgControl } from '@angular/forms';
+import { Directive, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { FormsModule, NgControl, ReactiveFormsModule } from '@angular/forms';
 
 @Directive({
     selector: '[appDisableControl]',
     standalone: true
 })
-export class DisableControlDirective {
-    @Input() disableControl;
+export class DisableControlDirective implements OnChanges {
+    @Input() disableControl: boolean;
 
     constructor(private ngControl: NgControl) {}
 
-    ngOnChanges(changes) {
+    ngOnChanges(changes: SimpleChanges) {
         if (changes['disableControl']) {
             const action = this.disableControl ? 'disable' : 'enable';
 

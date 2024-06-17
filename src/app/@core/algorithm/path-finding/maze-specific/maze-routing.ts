@@ -138,4 +138,10 @@ export class MazeRouting extends PathFindingAlgorithmAbstract {
     public usesHeuristics(): boolean {
         return false;
     }
+    public usesPathFindingSettings(): boolean {
+        return false;
+    }
+    public forcesDiagonalMovement(): boolean {
+        return false;
+    }
 }

@@ -13,7 +13,10 @@ import { octileDistance } from './heuristic/octile';
 
 export abstract class PathFindingAlgorithmAbstract {
     private heuristic: PathFindingHeuristic = 'None';
+    private diagonalMovement = false;
+    private cornerMovement = false;
     protected options: AlgorithmOptions;
+
     protected goalLocation: GridLocation;
     protected constructor(
         protected grid: Node[][],
@@ -141,6 +144,24 @@ export abstract class PathFindingAlgorithmAbstract {
     }
 
     /**
+     * Sets the diagonal movement setting.
+     *
+     * @param val the setting to be
+     */
+    public setDiagonalMovement(val: boolean) {
+        this.diagonalMovement = val;
+    }
+
+    /**
+     * Sets the diagonal movement setting.
+     *
+     * @param val the setting to be
+     */
+    public setCornerMovement(val: boolean) {
+        this.cornerMovement = val;
+    }
+
+    /**
      * Updates the algorithm state that needs to be done when
      * either a backwards step has been set or the client
      * tried to import from a string through the ui.
@@ -225,4 +246,14 @@ export abstract class PathFindingAlgorithmAbstract {
      * Returns whether the current algorithm allowes the user to use the heuristics options.
      */
     public abstract usesHeuristics(): boolean;
+
+    /**
+     * Returns whether the current algorithm allowes the use of the pathfinding settings
+     */
+    public abstract usesPathFindingSettings(): boolean;
+
+    /**
+     * Returns whether the current algorithm forces the diagonal movement functionality.
+     */
+    public abstract forcesDiagonalMovement(): boolean;
 }
