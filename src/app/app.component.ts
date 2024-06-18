@@ -163,14 +163,13 @@ export class AppComponent implements OnInit, OnDestroy {
 
         this.settingsService.getDarkModeSetting().subscribe((val) => {
             //@ts-ignore
-            this.document.startViewTransition(() => {
-                this.switchTheme(val);
-            });
-
-            //@ts-ignore
             if (!document.startViewTransition) {
                 this.switchTheme(val);
             }
+            //@ts-ignore
+            this.document.startViewTransition(() => {
+                this.switchTheme(val);
+            });
         });
 
         window.addEventListener('beforeinstallprompt', (e) => {
