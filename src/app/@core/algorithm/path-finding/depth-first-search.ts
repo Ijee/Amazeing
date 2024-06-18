@@ -1,7 +1,6 @@
 import { GridLocation } from 'src/app/@shared/classes/GridLocation';
 import { Node, Statistic, PathFindingAlgorithm } from '../../types/algorithm.types';
 import { PathFindingAlgorithmAbstract } from './path-finding-algorithm.abstract';
-import { pathToFileURL } from 'url';
 
 type VisitedNode = { node: GridLocation; predecessor: GridLocation };
 

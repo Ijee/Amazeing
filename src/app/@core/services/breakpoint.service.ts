@@ -1,6 +1,6 @@
-import { BreakpointObserver, BreakpointState, Breakpoints } from '@angular/cdk/layout';
+import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, map, shareReplay } from 'rxjs';
+import { Observable, map, shareReplay } from 'rxjs';
 
 export const AmazeingBreakpoints: Record<string, string> = {
     mobile: '(max-width:768px)',

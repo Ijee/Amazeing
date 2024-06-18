@@ -1,11 +1,5 @@
 import { MazeAlgorithm, PathFindingAlgorithm } from './../../@core/types/algorithm.types';
-import {
-    AfterViewInit,
-    ChangeDetectorRef,
-    Component,
-    ComponentRef,
-    OnDestroy
-} from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { SettingsService } from '../../@core/services/settings.service';
 import { SimulationService } from '../../@core/services/simulation.service';

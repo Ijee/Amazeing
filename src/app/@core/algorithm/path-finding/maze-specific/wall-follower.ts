@@ -6,7 +6,6 @@ import {
 } from 'src/app/@core/types/algorithm.types';
 import { GridLocation } from 'src/app/@shared/classes/GridLocation';
 import { PathFindingAlgorithmAbstract } from '../path-finding-algorithm.abstract';
-import { Direct } from 'protractor/built/driverProviders';
 
 export class WallFollower extends PathFindingAlgorithmAbstract {
     private cursor: GridLocation;

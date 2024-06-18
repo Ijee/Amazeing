@@ -1,8 +1,8 @@
-import { PathFindingAlgorithmAbstract } from './path-finding-algorithm.abstract';
+import { HashMap } from 'src/app/@shared/classes/HasMap';
+import { PriorityQueue } from 'src/app/@shared/classes/PriorityQueue';
 import { GridLocation } from '../../../@shared/classes/GridLocation';
 import { Node, PathFindingAlgorithm, Statistic, VisitedNode } from '../../types/algorithm.types';
-import { PriorityQueue } from 'src/app/@shared/classes/PriorityQueue';
-import { HashMap } from 'src/app/@shared/classes/HasMap';
+import { PathFindingAlgorithmAbstract } from './path-finding-algorithm.abstract';
 
 export class AStar extends PathFindingAlgorithmAbstract {
     private priorityQueue: PriorityQueue;

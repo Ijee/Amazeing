@@ -2,8 +2,6 @@ import { GridLocation } from 'src/app/@shared/classes/GridLocation';
 import { Node, Statistic, PathFindingAlgorithm } from '../../types/algorithm.types';
 import { PathFindingAlgorithmAbstract } from './path-finding-algorithm.abstract';
 import { PriorityQueue } from 'src/app/@shared/classes/PriorityQueue';
-import { HashSet } from 'src/app/@shared/classes/HashSet';
-import { EqualsHashCode } from 'src/app/@shared/classes/EqualsHashCode';
 import { HashMap } from 'src/app/@shared/classes/HasMap';
 
 export class BestFIrstSearch extends PathFindingAlgorithmAbstract {

@@ -1,5 +1,5 @@
 import { Directive, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { FormsModule, NgControl, ReactiveFormsModule } from '@angular/forms';
+import { NgControl } from '@angular/forms';
 
 @Directive({
     selector: '[appDisableControl]',

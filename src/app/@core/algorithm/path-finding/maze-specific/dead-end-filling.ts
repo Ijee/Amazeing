@@ -1,9 +1,4 @@
-import {
-    Node,
-    PathFindingHeuristic,
-    Statistic,
-    PathFindingAlgorithm
-} from 'src/app/@core/types/algorithm.types';
+import { Node, Statistic, PathFindingAlgorithm } from 'src/app/@core/types/algorithm.types';
 import { GridLocation } from 'src/app/@shared/classes/GridLocation';
 import { PathFindingAlgorithmAbstract } from '../path-finding-algorithm.abstract';
 import { HashSet } from 'src/app/@shared/classes/HashSet';

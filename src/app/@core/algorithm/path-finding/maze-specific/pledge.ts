@@ -1,11 +1,5 @@
 import { GridLocation } from '../../../../@shared/classes/GridLocation';
-import {
-    Node,
-    PathFindingHeuristic,
-    Statistic,
-    PathFindingAlgorithm,
-    Direction
-} from '../../../types/algorithm.types';
+import { Node, Statistic, PathFindingAlgorithm, Direction } from '../../../types/algorithm.types';
 import { PathFindingAlgorithmAbstract } from '../path-finding-algorithm.abstract';
 interface TurnResult {
     leftTurn: boolean;
