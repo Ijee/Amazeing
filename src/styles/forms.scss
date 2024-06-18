@@ -26,21 +26,6 @@ input[type='radio'] {
     place-content: center;
 }
 
-.active-color-primary {
-    //--input-color: #{bulma.$primary};
-    --input-color: var(--bulma-primary);
-}
-
-.active-color-danger {
-    //--input-color: #{bulma.$danger};
-    --input-color: var(--bulma-danger);
-}
-
-input[type='checkbox'] {
-    --_test: var(--input-color);
-    accent-color: var(--_test);
-}
-
 input[type='radio']::before {
     --_test: var(--input-color);
     content: '';
@@ -56,13 +41,39 @@ input[type='radio']:checked::before {
     transform: scale(1);
 }
 
+.active-color-primary {
+    //--input-color: #{bulma.$primary};
+    --input-color: var(--bulma-primary);
+}
+
+.active-color-danger {
+    //--input-color: #{bulma.$danger};
+    --input-color: var(--bulma-danger);
+}
+
+input[type='checkbox'] {
+    --_test: var(--input-color);
+    accent-color: var(--_test);
+    transform: scale(1.4);
+    margin-right: 0.2rem;
+}
+
+input[type='checkbox'][disabled][checked] {
+    filter: grayscale(100%);
+}
+
+input[type='checkbox'][disabled] {
+    filter: grayscale(100%);
+}
+
 select {
     font-size: 0.85rem;
     font-weight: bold;
 }
 
 .form-text-size {
-    font-size: 0.95rem;
+    // font-size: 0.95rem;
+    font-size: var(--bulma-size-normal);
 }
 
 body.theme-dark label {
