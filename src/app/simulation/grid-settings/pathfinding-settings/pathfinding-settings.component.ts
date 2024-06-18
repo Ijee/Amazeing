@@ -11,7 +11,6 @@ import { SettingsService } from '../../../@core/services/settings.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { WarningDialogService } from '../../../@shared/components/warning-modal/warning-dialog.service';
 import { SimulationService } from '../../../@core/services/simulation.service';
 import { AlgorithmService } from '../../../@core/services/algorithm.service';
 import { RecordService } from '../../../@core/services/record.service';
@@ -45,7 +44,6 @@ export class PathfindingSettingsComponent implements OnInit, OnDestroy {
         private readonly route: ActivatedRoute,
         private readonly router: Router,
         private readonly changeDetector: ChangeDetectorRef,
-        private readonly warningDialog: WarningDialogService,
         public readonly recordService: RecordService,
         public readonly simulationService: SimulationService,
         public readonly algorithmService: AlgorithmService,

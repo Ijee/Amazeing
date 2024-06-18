@@ -12,7 +12,6 @@ import { AlgorithmService } from '../../../@core/services/algorithm.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { WarningDialogService } from '../../../@shared/components/warning-modal/warning-dialog.service';
 import { SimulationService } from '../../../@core/services/simulation.service';
 import { RecordService } from '../../../@core/services/record.service';
 import { MazeAlgorithm } from '../../../@core/types/algorithm.types';
@@ -36,7 +35,6 @@ export class MazeSettingsComponent implements OnInit, OnDestroy {
         private readonly route: ActivatedRoute,
         private readonly router: Router,
         private readonly changeDetector: ChangeDetectorRef,
-        private readonly warningDialog: WarningDialogService,
         public readonly recordService: RecordService,
         public readonly simulationService: SimulationService,
         public readonly settingsService: SettingsService,

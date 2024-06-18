@@ -40,10 +40,8 @@ import { SettingsService } from './@core/services/settings.service';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { modalFadeInOut } from './@shared/animations/modalFadeInOut';
 import { fadeRouteAnimation } from './@shared/animations/fadeRouteAnimation';
-import { WarningDialogService } from './@shared/components/warning-modal/warning-dialog.service';
 import { AlgorithmService } from './@core/services/algorithm.service';
 import { UserTourService } from './@core/services/user-tour.service';
-import { WarningModalComponent } from './@shared/components/warning-modal/warning-modal.component';
 import { LegendModalComponent } from './@core/modals/legend/legend-modal.component';
 import { ImportModalComponent } from './@core/modals/import-modal/import-modal.component';
 import { ExportModalComponent } from './@core/modals/export-modal/export-modal.component';
@@ -57,7 +55,6 @@ import { faCircleQuestion } from '@fortawesome/free-solid-svg-icons/faCircleQues
 import { faEye } from '@fortawesome/free-solid-svg-icons/faEye';
 import { faEyeSlash } from '@fortawesome/free-solid-svg-icons/faEyeSlash';
 import { BreakpointService } from './@core/services/breakpoint.service';
-import { AmazeingBreakpoints } from './@core/services/breakpoint.service';
 
 @Component({
     selector: 'app-root',
@@ -71,7 +68,6 @@ import { AmazeingBreakpoints } from './@core/services/breakpoint.service';
         RouterLinkActive,
         FontAwesomeModule,
         ClickOutsideDirective,
-        WarningModalComponent,
         LegendModalComponent,
         ImportModalComponent,
         ExportModalComponent
@@ -96,8 +92,7 @@ export class AppComponent implements OnInit, OnDestroy {
         public readonly simulationService: SimulationService,
         public readonly settingsService: SettingsService,
         public readonly algorithmService: AlgorithmService,
-        public readonly breakpointService: BreakpointService,
-        public readonly warnDialogService: WarningDialogService
+        public readonly breakpointService: BreakpointService
     ) {
         // Icon library which is globally available. Please check before removing icons.
         library.addIcons(
