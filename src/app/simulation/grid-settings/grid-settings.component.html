@@ -1,37 +1,39 @@
-<div
-    class="columns is-multiline is-gapless is-centered is-flex-direction-column is-align-items-center is-justify-content-flex-start"
-    style="height: 100%">
-    <div class="column is-full">
-        <app-hr text="ALGORITHM MODE"></app-hr>
-    </div>
-    <div class="grid column is-multiline is-gapless is-full">
-        <div class="cell is-col-min-6 is">
-            <button
-                class="button custom-button algo-mode-button border-radius-top-left is-medium has-text-black is-fullwidth"
-                data-testid="maze-mode"
-                [ngClass]="this.algorithmService.getAlgorithmMode() === 'maze' ? 'has-background-primary' : 'has-background-primary-light'"
-                (click)="handleWarning('maze')">
-                <b>MAZE</b>
-            </button>
+<div class="fixed-grid has-12-cols is-centered mb-0" style="height: 100%; align-items: center">
+    <div class class="grid is-gap-0 is-row-gap-0">
+        <div class="cell is-col-span-12 is-row-start-1">
+            <app-hr text="ALGORITHM MODE"></app-hr>
         </div>
-        <div class="cell is-col-min-6">
-            <button
-                class="button custom-button algo-mode-button border-radius-top-right is-medium has-text-black is-fullwidth"
-                data-testid="pathfinding-mode"
-                [ngClass]="algorithmService.getAlgorithmMode() === 'path-finding' ? 'has-background-danger' : 'has-background-danger-light'"
-                (click)="handleWarning('path-finding')">
-                <b>PATHFINDING</b>
-            </button>
-        </div>
-    </div>
-    @if (showWarning) {
-    <div class="column is-full">
-        <div class="is-warning-box has-background-warning p-2">
-            <div class="columns is-multiline is-gapless">
-                <div class="column warning-message is-full has-text-centered">
-                    <b> {{ 'Doing this will partially reset the grid' | uppercase }} </b>
+        <div class="fixed-grid has-12-cols cell is-col-span-12 is-row-start-2">
+            <div class="grid is-gap-0">
+                <div class="cell is-col-span-6">
+                    <button
+                        class="button custom-button algo-mode-button border-radius-top-left is-medium has-text-black is-fullwidth"
+                        data-testid="maze-mode"
+                        [ngClass]="this.algorithmService.getAlgorithmMode() === 'maze' ? 'has-background-primary' : 'has-background-primary-light'"
+                        (click)="handleWarning('maze')">
+                        <b>MAZE</b>
+                    </button>
                 </div>
-                <div class="column is-full">
+                <div class="cell is-col-span-6">
+                    <button
+                        class="button custom-button algo-mode-button border-radius-top-right is-medium has-text-black is-fullwidth"
+                        data-testid="pathfinding-mode"
+                        [ngClass]="algorithmService.getAlgorithmMode() === 'path-finding' ? 'has-background-danger' : 'has-background-danger-light'"
+                        (click)="handleWarning('path-finding')">
+                        <b>PATHFINDING</b>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="cell algorithm-settings" [ngClass]="showWarning ? 'frost-effect' : '' ">
+            <router-outlet #o="outlet"></router-outlet>
+        </div>
+        <div class="fixed-grid has-12-cols cell switch-warning" [ngClass]="{ 'is-active': showWarning }">
+            <div class="grid is-gap-1 has-background-warning">
+                <div class="cell is-col-span-12 is-row-start-1 warning-message has-text-centered mt-2">
+                    <b> Doing this will partially reset the grid </b>
+                </div>
+                <div class="cell is-col-span-12 is-row-start-2 mb-2">
                     <div class="buttons is-centered">
                         <button
                             class="button danger-button is-small is-warning has-text-white"
@@ -56,13 +58,8 @@
                 </div>
             </div>
         </div>
-    </div>
-    }
-    <div class="column is-full mt-4 mb-2">
-        <router-outlet #o="outlet"></router-outlet>
-    </div>
 
-    @if ((breakpointService.isTouch() | async) === false) {
+        <!-- @if ((breakpointService.isTouch() | async) === false) {
     <div class="column is-flex is-full is-flex-grow-1 is-justify-content-end is-flex-direction-column">
         <a
             class="button custom-button learn-button border-radius-bottom is-fullwidth"
@@ -72,5 +69,6 @@
             <b>LEARN MORE</b>
         </a>
     </div>
-    }
+    } -->
+    </div>
 </div>
