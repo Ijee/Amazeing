@@ -1,5 +1,12 @@
 import { AlgorithmOptionsComponent } from '../../../@shared/components/algorithm-options/algorithm-options.component';
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    OnDestroy,
+    OnInit,
+    Output
+} from '@angular/core';
 import { SettingsService } from '../../../@core/services/settings.service';
 import { AlgorithmService } from '../../../@core/services/algorithm.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -20,6 +27,8 @@ import { NgClass } from '@angular/common';
 })
 export class MazeSettingsComponent implements OnInit, OnDestroy {
     // protected readonly SimulationService = SimulationService;
+
+    @Output() switchAlgo = new EventEmitter();
 
     private readonly destroyed$: Subject<void>;
 
@@ -74,38 +83,7 @@ export class MazeSettingsComponent implements OnInit, OnDestroy {
         this.destroyed$.complete();
     }
 
-    public handleWarning(newAlgorithm: MazeAlgorithm): void {
-        if (this.recordService.getIteration() !== 0 && this.settingsService.getWarningsSetting()) {
-            this.warningDialog.openDialog();
-            this.warningDialog
-                .afterClosed()
-                .pipe(takeUntil(this.destroyed$))
-                .subscribe((result) => {
-                    if (result === 'continue') {
-                        this.handleAlgorithmSwitch(newAlgorithm);
-                    } else {
-                        return;
-                    }
-                });
-        } else {
-            this.handleAlgorithmSwitch(newAlgorithm);
-        }
-    }
-
-    /**
-     * Switches the algorithm and appends the query param to the url.
-     *
-     * @param newAlgorithm - the new algorithm to be set
-     */
-    private handleAlgorithmSwitch(newAlgorithm: MazeAlgorithm): void {
-        this.algorithmService.setMazeAlgorithm(newAlgorithm);
-        this.simulationService.setSimulationStatus(false);
-        // TODO soft reset or hard reset / grid savepoint?
-        this.simulationService.prepareGrid();
-        this.router.navigate([], {
-            relativeTo: this.route,
-            queryParams: { algorithm: newAlgorithm },
-            queryParamsHandling: 'merge' // remove to replace all query params by provided
-        });
+    public emitAlgorithmChange(newAlgo: MazeAlgorithm): void {
+        this.switchAlgo.emit(newAlgo);
     }
 }

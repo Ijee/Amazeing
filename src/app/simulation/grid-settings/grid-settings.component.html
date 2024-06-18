@@ -25,8 +25,8 @@
                 </div>
             </div>
         </div>
-        <div class="cell algorithm-settings" [ngClass]="showWarning ? 'frost-effect' : '' ">
-            <router-outlet #o="outlet"></router-outlet>
+        <div class="cell algorithm-settings mt-3" [ngClass]="showWarning ? 'frost-effect' : '' ">
+            <router-outlet (activate)="subscribeToEmitter($event)" #o="outlet"></router-outlet>
         </div>
         <div class="fixed-grid has-12-cols cell switch-warning" [ngClass]="{ 'is-active': showWarning }">
             <div class="grid is-gap-1 has-background-warning">
@@ -39,7 +39,7 @@
                             class="button danger-button is-small is-warning has-text-white"
                             data-testid="mode-continue"
                             title="continue"
-                            (click)="switchAlgoMode()">
+                            (click)="delegateSwitch()">
                             <span class="icon">
                                 <fa-icon [icon]="['fas', 'check']"></fa-icon>
                             </span>

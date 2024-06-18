@@ -8,7 +8,7 @@
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="prims"
                 [ngClass]="algorithmService.getAlgorithmName() === 'Prims' ? 'is-primary has-text-black' : ''"
-                (click)="handleWarning('Prims')">
+                (click)="emitAlgorithmChange('Prims')">
                 <b>Prim's</b>
             </button>
         </div>
@@ -17,7 +17,7 @@
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="kruskals"
                 [ngClass]="algorithmService.getAlgorithmName() === 'Kruskals' ? 'is-primary has-text-black' : ''"
-                (click)="handleWarning('Kruskals')">
+                (click)="emitAlgorithmChange('Kruskals')">
                 <b>Kruskal's</b>
             </button>
         </div>
@@ -26,7 +26,7 @@
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="aldous-broder"
                 [ngClass]="algorithmService.getAlgorithmName() === 'Aldous-Broder' ? 'is-primary has-text-black' : ''"
-                (click)="handleWarning('Aldous-Broder')">
+                (click)="emitAlgorithmChange('Aldous-Broder')">
                 <b>Aldous-Broder</b>
             </button>
         </div>
@@ -35,7 +35,7 @@
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="wilsons"
                 [ngClass]="algorithmService.getAlgorithmName() === 'Wilsons' ? 'is-primary has-text-black' : ''"
-                (click)="handleWarning('Wilsons')">
+                (click)="emitAlgorithmChange('Wilsons')">
                 <b>Wilson's</b>
             </button>
         </div>
@@ -44,7 +44,7 @@
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="ellers"
                 [ngClass]="algorithmService.getAlgorithmName() === 'Ellers' ? 'is-primary has-text-black' : ''"
-                (click)="handleWarning('Ellers')">
+                (click)="emitAlgorithmChange('Ellers')">
                 <b>Eller's</b>
             </button>
         </div>
@@ -53,7 +53,7 @@
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="sidewinder"
                 [ngClass]="algorithmService.getAlgorithmName() === 'Sidewinder' ? 'is-primary has-text-black' : ''"
-                (click)="handleWarning('Sidewinder')">
+                (click)="emitAlgorithmChange('Sidewinder')">
                 <b>Sidewinder</b>
             </button>
         </div>
@@ -62,7 +62,7 @@
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="hunt-and-kill"
                 [ngClass]="algorithmService.getAlgorithmName() === 'Hunt-and-Kill' ? 'is-primary has-text-black' : ''"
-                (click)="handleWarning('Hunt-and-Kill')">
+                (click)="emitAlgorithmChange('Hunt-and-Kill')">
                 <b>Hunt and Kill</b>
             </button>
         </div>
@@ -71,7 +71,7 @@
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="growing-tree"
                 [ngClass]="algorithmService.getAlgorithmName() === 'Growing-Tree' ? 'is-primary has-text-black' : ''"
-                (click)="handleWarning('Growing-Tree')">
+                (click)="emitAlgorithmChange('Growing-Tree')">
                 <b>Growing Tree</b>
             </button>
         </div>
@@ -80,7 +80,7 @@
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="binary-tree"
                 [ngClass]="algorithmService.getAlgorithmName() === 'Binary-Tree' ? 'is-primary has-text-black' : ''"
-                (click)="handleWarning('Binary-Tree')">
+                (click)="emitAlgorithmChange('Binary-Tree')">
                 <b>Binary Tree</b>
             </button>
         </div>
@@ -89,7 +89,7 @@
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="recursive-backtracking"
                 [ngClass]="algorithmService.getAlgorithmName() === 'Recursive-Backtracking' ? 'is-primary has-text-black' : ''"
-                (click)="handleWarning('Recursive-Backtracking')">
+                (click)="emitAlgorithmChange('Recursive-Backtracking')">
                 <b>Recursive-Backtracking</b>
             </button>
         </div>
@@ -98,7 +98,7 @@
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="recursive-division"
                 [ngClass]="algorithmService.getAlgorithmName() === 'Recursive-Division' ? 'is-primary has-text-black' : ''"
-                (click)="handleWarning('Recursive-Division')">
+                (click)="emitAlgorithmChange('Recursive-Division')">
                 <b>Recursive Division</b>
             </button>
         </div>
@@ -108,7 +108,7 @@
                 data-testid="cellular-automation"
                 [ngClass]="algorithmService.getAlgorithmName() === 'Cellular-Automation' ? 'is-primary has-text-black' : ''"
                 disabled
-                (click)="handleWarning('Cellular-Automation')">
+                (click)="emitAlgorithmChange('Cellular-Automation')">
                 <b>Cellular Automation</b>
             </button>
         </div>

@@ -8,7 +8,7 @@
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="a-star"
                 [ngClass]="algorithmService.getAlgorithmName() === 'A-Star' ? 'is-danger has-text-black' : ''"
-                (click)="handleWarning('A-Star')">
+                (click)="emitAlgorithmChange('A-Star')">
                 <b>A-Star</b>
             </button>
         </div>
@@ -18,7 +18,7 @@
                 data-testid="ida-star"
                 disabled
                 [ngClass]="algorithmService.getAlgorithmName() === 'IDA-Star' ? 'is-danger has-text-black' : ''"
-                (click)="handleWarning('IDA-Star')">
+                (click)="emitAlgorithmChange('IDA-Star')">
                 <b>IDA-Star</b>
             </button>
         </div>
@@ -27,7 +27,7 @@
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="dijkstra"
                 [ngClass]="algorithmService.getAlgorithmName() === 'Dijkstra' ? 'is-danger has-text-black' : ''"
-                (click)="handleWarning('Dijkstra')">
+                (click)="emitAlgorithmChange('Dijkstra')">
                 <b>Dijkstra</b>
             </button>
         </div>
@@ -36,7 +36,7 @@
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="breadth-first-search"
                 [ngClass]="algorithmService.getAlgorithmName() === 'Breadth-FS' ? 'is-danger has-text-black' : ''"
-                (click)="handleWarning('Breadth-FS')">
+                (click)="emitAlgorithmChange('Breadth-FS')">
                 <b>Breadth-First-Search</b>
             </button>
         </div>
@@ -45,7 +45,7 @@
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="depth-first-search"
                 [ngClass]="algorithmService.getAlgorithmName() === 'Depth-FS' ? 'is-danger has-text-black' : ''"
-                (click)="handleWarning('Depth-FS')">
+                (click)="emitAlgorithmChange('Depth-FS')">
                 <b>Depth-First-Search</b>
             </button>
         </div>
@@ -54,7 +54,7 @@
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="best-first-search"
                 [ngClass]="algorithmService.getAlgorithmName() === 'Best-FS' ? 'is-danger has-text-black' : ''"
-                (click)="handleWarning('Best-FS')">
+                (click)="emitAlgorithmChange('Best-FS')">
                 <b>Best-First-Search</b>
             </button>
         </div>
@@ -64,7 +64,7 @@
                 data-testid="jump-point-search"
                 [ngClass]="algorithmService.getAlgorithmName() === 'Jump-PS' ? 'is-danger has-text-black' : ''"
                 disabled
-                (click)="handleWarning('Jump-PS')">
+                (click)="emitAlgorithmChange('Jump-PS')">
                 <b>Jump Point Search</b>
             </button>
         </div>
@@ -74,7 +74,7 @@
                 data-testid="orthogonal-jump-point-search"
                 [ngClass]="algorithmService.getAlgorithmName() === 'Orthogonal-Jump-PS' ? 'is-danger has-text-black' : ''"
                 disabled
-                (click)="handleWarning('Orthogonal-Jump-PS')">
+                (click)="emitAlgorithmChange('Orthogonal-Jump-PS')">
                 <b>Orthogonal Jump Point Search</b>
             </button>
         </div>
@@ -90,7 +90,7 @@
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="wall-follower"
                 [ngClass]="algorithmService.getAlgorithmName() === 'Wall-Follower' ? 'is-danger has-text-black' : ''"
-                (click)="handleWarning('Wall-Follower')">
+                (click)="emitAlgorithmChange('Wall-Follower')">
                 <b>Wall-Follower</b>
             </button>
         </div>
@@ -99,7 +99,7 @@
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="pledge"
                 [ngClass]="algorithmService.getAlgorithmName() === 'Pledge' ? 'is-danger has-text-black' : ''"
-                (click)="handleWarning('Pledge')">
+                (click)="emitAlgorithmChange('Pledge')">
                 <b>Pledge</b>
             </button>
         </div>
@@ -108,7 +108,7 @@
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="tremauxs"
                 [ngClass]="algorithmService.getAlgorithmName() === 'Trémaux' ? 'is-danger has-text-black' : ''"
-                (click)="handleWarning('Trémaux')">
+                (click)="emitAlgorithmChange('Trémaux')">
                 <b>Trémaux's</b>
             </button>
         </div>
@@ -117,7 +117,7 @@
                 class="button is-small is-responsive is-fullwidth is-flex-grow-1"
                 data-testid="maze-routing"
                 [ngClass]="algorithmService.getAlgorithmName() === 'Maze-Routing' ? 'is-danger has-text-black' : ''"
-                (click)="handleWarning('Maze-Routing')">
+                (click)="emitAlgorithmChange('Maze-Routing')">
                 <b>Maze-Routing</b>
             </button>
         </div>
@@ -126,7 +126,7 @@
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="dead-end-filling"
                 [ngClass]="algorithmService.getAlgorithmName() === 'Dead-End-Filling' ? 'is-danger has-text-black' : ''"
-                (click)="handleWarning('Dead-End-Filling')">
+                (click)="emitAlgorithmChange('Dead-End-Filling')">
                 <b>Dead-End Filling</b>
             </button>
         </div>
