@@ -75,23 +75,29 @@ export abstract class PathFindingAlgorithmAbstract {
     /**
      * Returns the neighbours for a given GridLocation.
      *
+     * ! This version also respects the diagonal movement and corner movement user settings.
+     * Note: Only use a distance of 1 when the algorithm allows diagonal movements or change
+     *       this function if you feel like it. (Probably not a good idea)
+     *
      * @param loc the GridLocation to get the neighbours from
      * @param distance the distance from the location where the neighbours should be located
      * @protected
      */
     protected getNeighbours(loc: GridLocation, distance: number): GridLocation[] {
         const res: GridLocation[] = [];
-        if (loc.y < this.grid[0].length - distance) {
-            const node = this.grid[loc.x][loc.y + distance];
-            res.push(new GridLocation(loc.x, loc.y + distance, node.weight, node.status));
+
+        if (loc.y >= distance) {
+            const node = this.grid[loc.x][loc.y - distance];
+            res.push(new GridLocation(loc.x, loc.y - distance, node.weight, node.status));
         }
+
         if (loc.x < this.grid.length - distance) {
             const node = this.grid[loc.x + distance][loc.y];
             res.push(new GridLocation(loc.x + distance, loc.y, node.weight, node.status));
         }
-        if (loc.y >= distance) {
-            const node = this.grid[loc.x][loc.y - distance];
-            res.push(new GridLocation(loc.x, loc.y - distance, node.weight, node.status));
+        if (loc.y < this.grid[0].length - distance) {
+            const node = this.grid[loc.x][loc.y + distance];
+            res.push(new GridLocation(loc.x, loc.y + distance, node.weight, node.status));
         }
         if (loc.x >= distance) {
             const node = this.grid[loc.x - distance][loc.y];

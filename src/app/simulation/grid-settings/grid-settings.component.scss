@@ -1,15 +1,60 @@
+:host {
+    --switch-animationn-duration: 250ms;
+}
+
 .fixed-grid:not(:last-child) {
     margin-bottom: 0;
 }
 
 body.theme-dark :host .button.algo-mode-button {
-    outline: 2px var(--white-dark-78) solid;
+    // outline: 2px var(--white-dark-78) solid;
     border: none;
 }
 
 body.theme-dark :host .switch-warning {
     outline: 2px var(--white-dark-78) solid;
     border: none;
+}
+
+// @keyframes zick-zack-maze {
+//     0% {
+//         background-position: left bottom;
+//     }
+//     50% {
+//         background-position: center;
+//     }
+//     100% {
+//         background-position: left top;
+//     }
+// }
+
+.maze-button {
+    background: linear-gradient(to right, var(--bulma-primary-light) 50%, var(--bulma-primary) 50%);
+    // background-color: var(--bulma-primary-light);
+    // background-image: radial-gradient(at 75% 25%, var(--bulma-danger) 0px),
+    //     radial-gradient(at 75% 75%, var(--bulma-danger-light) 0px, transparent 35%),
+    //     radial-gradient(at 25% 75%, var(--bulma-primary) 0px, transparent 35%),
+    //     radial-gradient(at 25% 25%, var(--bulma-primary-light) 0px, transparent 35%);
+    background-color: var(--bulma-primary-light);
+    background-size: 200% 100%;
+    transition: background-position var(--switch-animationn-duration) var(--smooth-animation);
+    background-position: left bottom;
+}
+.maze-active {
+    transition: all var(--switch-animationn-duration) var(--smooth-animation);
+    background-position: right bottom;
+}
+
+.path-button {
+    // background: linear-gradient(to right, var(--bulma-danger) 50%, var(--bulma-danger-light) 50%);
+    background: linear-gradient(to right, var(--bulma-danger) 50%, var(--bulma-danger-light) 50%);
+    background-size: 200% 100%;
+    background-position: right bottom;
+    transition: background-position var(--switch-animationn-duration) var(--smooth-animation);
+}
+.path-active {
+    transition: all var(--switch-animationn-duration) var(--smooth-animation);
+    background-position: left bottom;
 }
 
 .switch-warning {

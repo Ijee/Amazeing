@@ -93,6 +93,7 @@
         /* multiple soft shadows */ 0 0.3px 0.4px hsla(0, 0%, 0%, 0.02),
         0 0.9px 1.5px hsla(0, 0%, 0%, 0.045), 0 3.5px 6px hsla(0, 0%, 0%, 0.09);
     --background-color-light: #f5f5f5;
+    --smooth-animation: cubic-bezier(0.62, 0.16, 0.13, 1.01);
 
     --algorithm-mode-color: var(--bulma-primary);
 }
@@ -115,6 +116,125 @@ body {
 
     // overflow: auto;
 }
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+}
+
+@keyframes fade-out {
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes blur-out {
+    from {
+        filter: none;
+    }
+    to {
+        filter: blur(6px);
+    }
+}
+
+@keyframes blur-in {
+    from {
+        filter: none;
+    }
+    to {
+        filter: blur(4px);
+    }
+}
+@keyframes slide-from-right {
+    from {
+        transform: translateX(50px);
+    }
+    to {
+        transform: translatX(0);
+    }
+}
+
+@keyframes slide-from-left {
+    from {
+        transform: translateX(-50px);
+    }
+    to {
+        transform: translatX(0);
+    }
+}
+
+@keyframes slide-to-left {
+    from {
+        transform: translatX(0);
+    }
+    to {
+        transform: translateX(-50px);
+    }
+}
+@keyframes slide-to-right {
+    from {
+        transform: translatX(0);
+    }
+    to {
+        transform: translateX(50px);
+    }
+}
+
+.disable-transition + * {
+    animation: none !important;
+    view-transition-name: none;
+}
+
+.toMaze + * {
+    view-transition-name: toMaze;
+}
+.toPath + * {
+    view-transition-name: toPath;
+}
+
+::view-transition-old(toMaze) {
+    animation:
+        150ms var(--smooth-animation) both fade-out,
+        150ms var(--smooth-animation) 75ms both blur-out,
+        300ms var(--smooth-animation) both slide-to-right;
+}
+
+::view-transition-new(toMaze) {
+    animation:
+        210ms var(--smooth-animation) 90ms both fade-in,
+        300ms var(--smooth-animation) both slide-from-left;
+}
+
+::view-transition-old(toPath) {
+    animation:
+        150ms var(--smooth-animation) both fade-out,
+        300ms var(--smooth-animation) both slide-to-left;
+}
+
+::view-transition-new(toPath) {
+    animation:
+        210ms var(--smooth-animation) 90ms both fade-in,
+        300ms var(--smooth-animation) both slide-from-right;
+}
+
+// ::view-transition-old(slide-left) {
+//     // animation:
+//     //     90ms cubic-bezier(0.4, 0, 1, 1) both fade-out,
+//     //     300ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
+//     animation:
+//         90ms var(--smooth-animation) both fade-out,
+//         300ms var(--smooth-animation) both slide-to-left;
+// }
+
+// ::view-transition-new(slide-left) {
+//     // animation:
+//     //     210ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in,
+//     //     300ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-right;
+//     animation:
+//         210ms var(--smooth-animation) 90ms both fade-in,
+//         300ms var(--smooth-animation) both slide-from-right;
+// }
 
 // body,
 // .box,

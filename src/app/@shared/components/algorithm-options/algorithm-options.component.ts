@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { SimulationService } from '../../../@core/services/simulation.service';
-import { Component } from '@angular/core';
+import { Component, OnChanges, OnDestroy } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 import { AlgorithmService } from 'src/app/@core/services/algorithm.service';
 import { RecordService } from 'src/app/@core/services/record.service';
 import { SettingsService } from 'src/app/@core/services/settings.service';
 import { JsonFormControls, JsonFormData } from 'src/app/@core/types/jsonform.types';
 import { DisableControlDirective } from 'src/app/@shared/directives/disable-control.directive';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
     selector: 'app-algorithm-options',
@@ -15,8 +16,10 @@ import { DisableControlDirective } from 'src/app/@shared/directives/disable-cont
     templateUrl: './algorithm-options.component.html',
     styleUrl: './algorithm-options.component.scss'
 })
-export class AlgorithmOptionsComponent {
+export class AlgorithmOptionsComponent implements OnDestroy {
     public readonly optionsForm = this.formBuilder.group({});
+
+    private readonly destroyed$: Subject<void>;
     constructor(
         public readonly algorithmService: AlgorithmService,
         public readonly simulationService: SimulationService,
@@ -24,21 +27,32 @@ export class AlgorithmOptionsComponent {
         public readonly recordService: RecordService,
         public readonly formBuilder: UntypedFormBuilder
     ) {
+        this.destroyed$ = new Subject<void>();
+
         // Send changes to the current algorithm.
         this.optionsForm.valueChanges.subscribe(() => {
             this.setAlgorithmOptions();
         });
 
-        this.simulationService.getPatchFormValues().subscribe((newValue) => {
-            if (newValue) {
-                for (const [key, value] of Object.entries(newValue)) {
-                    this.optionsForm.controls[key].setValue(value, {
-                        onlySelf: true
-                    });
+        this.simulationService
+            .getPatchFormValues()
+            .pipe(takeUntil(this.destroyed$))
+            .subscribe((newValue) => {
+                if (newValue) {
+                    for (const [key, value] of Object.entries(newValue)) {
+                        this.optionsForm.controls[key].setValue(value, {
+                            onlySelf: true
+                        });
+                    }
                 }
-            }
-        });
+            });
     }
+
+    ngOnDestroy(): void {
+        this.destroyed$.next();
+        this.destroyed$.complete();
+    }
+
     private createForm(controls: JsonFormControls[]) {
         for (const control of controls) {
             const validatorsToAdd = [];

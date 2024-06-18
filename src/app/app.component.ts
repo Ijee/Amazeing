@@ -160,11 +160,17 @@ export class AppComponent implements OnInit, OnDestroy {
             //@ts-ignore
             if (!document.startViewTransition) {
                 this.switchTheme(val);
+                return;
             }
-            //@ts-ignore
-            this.document.startViewTransition(() => {
+
+            if (this.settingsService.getAnimationsSetting()) {
+                //@ts-ignore
+                this.document.startViewTransition(() => {
+                    this.switchTheme(val);
+                });
+            } else {
                 this.switchTheme(val);
-            });
+            }
         });
 
         window.addEventListener('beforeinstallprompt', (e) => {

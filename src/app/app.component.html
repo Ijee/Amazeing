@@ -118,6 +118,7 @@
                     </svg>
                 </span>
             </a>
+            @if ((breakpointService.isMobile() | async) === false) {
             <div role="button" class="navbar-item navbar-end is-hidden-desktop">
                 <a
                     class="button github-brand-color is-pulled-right"
@@ -133,6 +134,7 @@
                     </span>
                 </a>
             </div>
+            }
             <span
                 class="navbar-burger has-text-white-ter is-unselectable"
                 role="button"

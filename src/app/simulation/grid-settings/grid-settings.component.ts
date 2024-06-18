@@ -25,7 +25,8 @@ import { PathfindingSettingsComponent } from './pathfinding-settings/pathfinding
 })
 export class GridSettingsComponent implements AfterViewInit, OnDestroy {
     public showWarning: boolean;
-    private newAlgorithm: MazeAlgorithm | PathFindingAlgorithm;
+    public transitionName: 'toMaze' | 'toPath' | 'disable-transition';
+    public newAlgorithm: MazeAlgorithm | PathFindingAlgorithm;
 
     private readonly destroyed$: Subject<void>;
 
@@ -95,14 +96,12 @@ export class GridSettingsComponent implements AfterViewInit, OnDestroy {
      * @param algoMode - the new algorithm mode to be set
      */
     public handleWarning(algoMode?: AlgorithmMode): void {
-        console.log('newAlgo in handlewarning', this.newAlgorithm);
         if (this.algorithmService.getAlgorithmMode() !== algoMode) {
             if (
                 this.recordService.getIteration() === 0 ||
                 !this.settingsService.getWarningsSetting()
             ) {
                 if (this.newAlgorithm) {
-                    console.log('wtf?');
                     this.switchAlgorithm();
                 } else {
                     this.switchAlgoMode();
@@ -122,16 +121,30 @@ export class GridSettingsComponent implements AfterViewInit, OnDestroy {
         this.simulationService.prepareGrid();
         if (this.algorithmService.getAlgorithmMode() === 'maze') {
             this.algorithmService.setAlgorithmMode('path-finding');
+            this.transitionName = 'toPath';
         } else {
             this.algorithmService.setAlgorithmMode('maze');
+            this.transitionName = 'toMaze';
         }
 
-        this.router.navigate([this.algorithmService.getAlgorithmMode()], {
-            relativeTo: this.route.parent,
-            queryParams: {
-                algorithm: this.algorithmService.getAlgorithmName()
-            }
-        });
+        if (!this.settingsService.getAnimationsSetting()) {
+            this.transitionName = 'disable-transition';
+        }
+        setTimeout(() => {
+            this.router
+                .navigate([this.algorithmService.getAlgorithmMode()], {
+                    relativeTo: this.route.parent,
+                    queryParams: {
+                        algorithm: this.algorithmService.getAlgorithmName()
+                    }
+                })
+                .finally(() => {
+                    // remove class after it is done
+                    setTimeout(() => {
+                        this.transitionName = undefined;
+                    }, 300);
+                });
+        }, 10);
     }
 
     /**

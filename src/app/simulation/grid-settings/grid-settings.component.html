@@ -7,26 +7,29 @@
             <div class="grid is-gap-0">
                 <div class="cell is-col-span-6">
                     <button
-                        class="button custom-button algo-mode-button border-radius-top-left is-medium has-text-black is-fullwidth"
+                        class="button custom-button algo-mode-button maze-button border-radius-top-left is-medium has-text-black is-fullwidth"
                         data-testid="maze-mode"
-                        [ngClass]="this.algorithmService.getAlgorithmMode() === 'maze' ? 'has-background-primary' : 'has-background-primary-light'"
-                        (click)="handleWarning('maze')">
+                        [ngClass]="this.algorithmService.getAlgorithmMode() === 'maze' ? 'maze-active' : ''"
+                        (click)="handleWarning('maze'); newAlgorithm = undefined">
                         <b>MAZE</b>
                     </button>
                 </div>
                 <div class="cell is-col-span-6">
                     <button
-                        class="button custom-button algo-mode-button border-radius-top-right is-medium has-text-black is-fullwidth"
+                        class="button custom-button algo-mode-button path-button border-radius-top-right is-medium has-text-black is-fullwidth"
                         data-testid="pathfinding-mode"
-                        [ngClass]="algorithmService.getAlgorithmMode() === 'path-finding' ? 'has-background-danger' : 'has-background-danger-light'"
-                        (click)="handleWarning('path-finding')">
+                        [ngClass]="algorithmService.getAlgorithmMode() === 'path-finding' ? 'path-active' : ''"
+                        (click)="handleWarning('path-finding'); newAlgorithm = undefined">
                         <b>PATHFINDING</b>
                     </button>
                 </div>
             </div>
         </div>
-        <div class="cell algorithm-settings mt-3" [ngClass]="showWarning ? 'frost-effect' : '' ">
-            <router-outlet (activate)="subscribeToEmitter($event)" #o="outlet"></router-outlet>
+        <div class="cell algorithm-settings mt-3" [ngClass]="showWarning ? 'frost-effect' : ''">
+            <router-outlet
+                [ngClass]="transitionName"
+                (activate)="subscribeToEmitter($event)"
+                #o="outlet"></router-outlet>
         </div>
         <div class="fixed-grid has-12-cols cell switch-warning" [ngClass]="{ 'is-active': showWarning }">
             <div class="grid is-gap-1 has-background-warning">
