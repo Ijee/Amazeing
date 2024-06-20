@@ -7,26 +7,12 @@
 }
 
 body.theme-dark :host .button.algo-mode-button {
-    // outline: 2px var(--white-dark-78) solid;
     border: none;
 }
 
-body.theme-dark :host .switch-warning {
-    outline: 2px var(--white-dark-78) solid;
-    border: none;
+.switch-warning > .has-background-warning {
+    border-radius: 0 0 4px 4px;
 }
-
-// @keyframes zick-zack-maze {
-//     0% {
-//         background-position: left bottom;
-//     }
-//     50% {
-//         background-position: center;
-//     }
-//     100% {
-//         background-position: left top;
-//     }
-// }
 
 .maze-button {
     background: linear-gradient(to right, var(--bulma-primary-light) 50%, var(--bulma-primary) 50%);
@@ -67,10 +53,6 @@ body.theme-dark :host .switch-warning {
 .path-active {
     transition: all var(--switch-animationn-duration) var(--smooth-animation);
     background-position: left bottom;
-}
-
-.switch-warning {
-    border-radius: 0 0 4px 4px;
 }
 
 .algorithm-settings {
