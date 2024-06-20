@@ -25,13 +25,11 @@
                 </div>
             </div>
         </div>
-        <div class="cell is-col-span-12 is-row-start-3 mt-3 mb-2">
-            <p class="menu-label is-size-7 has-text-centered">
-                <b>Algorithms</b>
-            </p>
-        </div>
 
         <div class="cell algorithm-settings" [ngClass]="showWarning ? 'frost-effect' : ''">
+            <p class="menu-label is-size-7 has-text-centered mt-3 mb-2">
+                <b>Algorithms</b>
+            </p>
             <router-outlet
                 [ngClass]="transitionName"
                 (activate)="subscribeToEmitter($event)"
