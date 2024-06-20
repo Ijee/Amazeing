@@ -185,6 +185,16 @@
                         (change)="handleDiagonalMovement($event)" />
                     Diagonal movement
                 </label>
+
+                @if ((algorithmService.getCurrentHeuristic() === 'Octile' || algorithmService.getCurrentHeuristic() ===
+                'Chebyshev') && algorithmService.getDiagonalMovement() === false) {
+                <span class="icon has-text-warning">
+                    <fa-icon [icon]="['fas', 'circle-exclamation']"></fa-icon>
+                </span>
+                <!-- <span class="box tooltip is-size-7 p-1" popover
+                        >It is recommended to use this option when using Octile or Chebyshev distance
+                    </span> -->
+                }
             </div>
             <div class="column is-12 control">
                 <label

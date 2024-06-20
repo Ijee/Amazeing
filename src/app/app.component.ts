@@ -9,6 +9,7 @@ import {
     faChalkboardTeacher,
     faCheck,
     faChevronRight,
+    faCircleExclamation,
     faCog,
     faDownload,
     faExclamationTriangle,
@@ -118,6 +119,8 @@ export class AppComponent implements OnInit, OnDestroy {
             faBalanceScaleRight,
             faEye,
             faEyeSlash,
+            // grid-settings
+            faCircleExclamation,
             // modals
             faPaste,
             faDownload,

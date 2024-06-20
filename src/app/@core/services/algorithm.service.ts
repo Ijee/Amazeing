@@ -219,7 +219,7 @@ export class AlgorithmService {
      * @param val the setting to be
      */
     public setDiagonalMovement(val: boolean) {
-        this.pathAlgorithm.setDiagonalMovement(val);
+        this.diagonalMovement = val;
     }
 
     /**
