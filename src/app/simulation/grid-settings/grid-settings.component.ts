@@ -1,5 +1,12 @@
 import { MazeAlgorithm, PathFindingAlgorithm } from './../../@core/types/algorithm.types';
-import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
+import {
+    AfterViewInit,
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnDestroy,
+    Renderer2
+} from '@angular/core';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { SettingsService } from '../../@core/services/settings.service';
 import { SimulationService } from '../../@core/services/simulation.service';
@@ -9,7 +16,7 @@ import { Subject } from 'rxjs';
 import { fadeAnimationSafe } from '../../@shared/animations/fadeRouteAnimation';
 import { RecordService } from '../../@core/services/record.service';
 import { AlgorithmMode } from '../../@core/types/algorithm.types';
-import { CommonModule, NgClass, UpperCasePipe } from '@angular/common';
+import { CommonModule, DOCUMENT, NgClass, UpperCasePipe } from '@angular/common';
 import { HrComponent } from '../../@shared/components/hr/hr.component';
 import { BreakpointService } from 'src/app/@core/services/breakpoint.service';
 import { MazeSettingsComponent } from './maze-settings/maze-settings.component';
@@ -25,7 +32,7 @@ import { PathfindingSettingsComponent } from './pathfinding-settings/pathfinding
 })
 export class GridSettingsComponent implements AfterViewInit, OnDestroy {
     public showWarning: boolean;
-    public transitionName: 'toMaze' | 'toPath' | 'disable-transition';
+    public transitionName: 'toMaze' | 'toPath' | 'disableTransition';
     public newAlgorithm: MazeAlgorithm | PathFindingAlgorithm;
 
     private readonly destroyed$: Subject<void>;
@@ -34,6 +41,8 @@ export class GridSettingsComponent implements AfterViewInit, OnDestroy {
         private readonly route: ActivatedRoute,
         private readonly router: Router,
         private readonly ref: ChangeDetectorRef,
+        private renderer: Renderer2,
+        @Inject(DOCUMENT) private document: Document,
         public readonly recordService: RecordService,
         public readonly algorithmService: AlgorithmService,
         public readonly simulationService: SimulationService,
@@ -119,6 +128,7 @@ export class GridSettingsComponent implements AfterViewInit, OnDestroy {
         this.showWarning = false;
         this.simulationService.setSimulationStatus(false);
         this.simulationService.prepareGrid();
+
         if (this.algorithmService.getAlgorithmMode() === 'maze') {
             this.algorithmService.setAlgorithmMode('path-finding');
             this.transitionName = 'toPath';
@@ -127,10 +137,16 @@ export class GridSettingsComponent implements AfterViewInit, OnDestroy {
             this.transitionName = 'toMaze';
         }
 
+        const rootElement = this.document.documentElement; // Target the root element
+        this.renderer.addClass(rootElement, 'no-root-view-transition');
+
         if (!this.settingsService.getAnimationsSetting()) {
-            this.transitionName = 'disable-transition';
+            this.transitionName = undefined;
+            console.log('no animation');
         }
+
         setTimeout(() => {
+            console.log(this.transitionName);
             this.router
                 .navigate([this.algorithmService.getAlgorithmMode()], {
                     relativeTo: this.route.parent,
@@ -142,9 +158,11 @@ export class GridSettingsComponent implements AfterViewInit, OnDestroy {
                     // remove class after it is done
                     setTimeout(() => {
                         this.transitionName = undefined;
-                    }, 300);
+
+                        this.renderer.removeClass(rootElement, 'no-root-view-transition');
+                    }, 10); // Ensure the class is removed after the navigation has completed
                 });
-        }, 10);
+        }, 10); // Delay to ensure the class is applied before the transition
     }
 
     /**

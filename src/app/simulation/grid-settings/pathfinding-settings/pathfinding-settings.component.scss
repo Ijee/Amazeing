@@ -1,13 +1,3 @@
-:host {
-    // .slide-left {
-    //     view-transition-name: slide-left;
-    // }
-
-    // .slide-right {
-    //     view-transition-name: slide-right;
-    // }
-}
-
 body.theme-dark :host .is-danger {
     background-color: var(--bulma-danger) !important;
 }
