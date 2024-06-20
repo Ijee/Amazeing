@@ -1,11 +1,11 @@
-// TODO somehow remove the important tags due to specificity stuff
-
+// Adjust media queries
 @media screen and (max-width: 768px) {
     .node {
-        font-size: 0.4rem !important;
+        font-size: 0.4rem;
     }
 }
 
+// Base styles
 .node {
     display: flex;
     position: relative;
@@ -32,6 +32,7 @@
     justify-content: center;
 }
 
+// Dark mode styles
 body.theme-dark :host .node {
     background-color: hsla(
         (var(--bulma-white-h)),
@@ -41,41 +42,52 @@ body.theme-dark :host .node {
     );
 }
 
-.node:hover {
-    background-color: rgba(129, 128, 120, 0.6);
-}
+// This is just to increase specificty. I probably just don't understand specificity enough. Blame @Ijee
 
-.status-1 {
-    background-color: var(--bulma-grey-dark) !important;
+body.theme-dark :host .node.status-1,
+body.theme-light :host .node.status-1 {
+    background-color: var(--bulma-grey-dark);
     // background-color: #3c4353;
 }
-
-.start:hover {
-    //background-color: fade-out(var(--bulma-primary), 0.4) !important;
-    background-color: hsla(var(--bulma-primary-rgb), 0, 4) !important;
+body.theme-dark :host .node:hover,
+body.theme-light :host .node:hover {
+    background-color: rgba(95, 94, 91, 0.6);
 }
 
-.goal:hover {
-    background-color: hsla(var(--bulma-danger-rgb), 0, 4) !important;
+body.theme-dark :host .node.start:hover,
+body.theme-light :host .node.start:hover {
+    //background-color: fade-out(var(--bulma-primary), 0.4);
+    background-color: hsla(var(--bulma-primary-rgb), 0.4);
 }
 
-.status-4 {
-    background-color: var(--node-4) !important;
+body.theme-dark :host .node.goal:hover,
+body.theme-light :host .node.goal:hover {
+    background-color: hsla(var(--bulma-danger-rgb), 0.4);
+}
+
+// Status-specific styles with increased specificity
+body.theme-dark :host .node.status-4,
+body.theme-light :host .node.status-4 {
+    background-color: var(--node-4);
     // background-color: #f99a6d;
 }
 
-.status-5 {
-    background-color: var(--node-5) !important;
+body.theme-dark :host .node.status-5,
+body.theme-light :host .node.status-5 {
+    background-color: var(--node-5);
 }
 
-.status-6 {
-    background-color: var(--node-6) !important;
+body.theme-dark :host .node.status-6,
+body.theme-light :host .node.status-6 {
+    background-color: var(--node-6);
 }
 
-.status-7 {
-    background-color: var(--node-7) !important;
+body.theme-dark :host .node.status-7,
+body.theme-light :host .node.status-7 {
+    background-color: var(--node-7);
 }
 
-.status-8 {
-    background-color: var(--node-8) !important;
+body.theme-dark :host .node.status-8,
+body.theme-light :host .node.status-8 {
+    background-color: var(--node-8);
 }

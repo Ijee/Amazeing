@@ -57,10 +57,10 @@ export class NodeComponent {
                 return 'status-1';
             case 2:
                 // start
-                return 'has-background-primary';
+                return 'start has-background-primary';
             case 3:
                 // goal
-                return 'has-background-danger';
+                return 'goal has-background-danger';
             case 4:
                 return 'status-4';
             case 5:
