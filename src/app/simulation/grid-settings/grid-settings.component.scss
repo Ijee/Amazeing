@@ -40,6 +40,12 @@ body.theme-dark :host .switch-warning {
     transition: background-position var(--switch-animationn-duration) var(--smooth-animation);
     background-position: left bottom;
 }
+
+.maze-button:hover {
+    transition: filter 150ms easse-in-out;
+    filter: invert(10%);
+}
+
 .maze-active {
     transition: all var(--switch-animationn-duration) var(--smooth-animation);
     background-position: right bottom;
@@ -52,6 +58,12 @@ body.theme-dark :host .switch-warning {
     background-position: right bottom;
     transition: background-position var(--switch-animationn-duration) var(--smooth-animation);
 }
+
+.path-button:hover {
+    transition: filter 150ms easse-in-out;
+    filter: invert(10%);
+}
+
 .path-active {
     transition: all var(--switch-animationn-duration) var(--smooth-animation);
     background-position: left bottom;
