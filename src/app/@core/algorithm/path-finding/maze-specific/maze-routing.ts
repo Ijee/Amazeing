@@ -44,7 +44,6 @@ export class MazeRouting extends PathFindingAlgorithmAbstract {
                 );
                 this.paintNode(nextLoc.x, nextLoc.y, 8);
                 this.backtracking = nextLoc;
-                console.log('backtracking node', this.backtracking);
                 return this.grid;
             }
         } else {
@@ -73,7 +72,6 @@ export class MazeRouting extends PathFindingAlgorithmAbstract {
             0,
             startLocation.status
         );
-        console.log(startLocation);
         this.queue.push(changedStartLoc);
         // So no other node weights are shown.
         // TODO: Make it work with weighted graph

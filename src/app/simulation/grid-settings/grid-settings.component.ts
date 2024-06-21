@@ -142,11 +142,9 @@ export class GridSettingsComponent implements AfterViewInit, OnDestroy {
 
         if (!this.settingsService.getAnimationsSetting()) {
             this.transitionName = undefined;
-            console.log('no animation');
         }
 
         setTimeout(() => {
-            console.log(this.transitionName);
             this.router
                 .navigate([this.algorithmService.getAlgorithmMode()], {
                     relativeTo: this.route.parent,

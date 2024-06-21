@@ -135,7 +135,6 @@ export class AlgorithmOptionsComponent implements OnDestroy {
                   ))
                 : (options[field] = this.optionsForm.controls[field].getRawValue());
         }
-        // console.log(options);
         this.algorithmService.setOptions(options);
     }
 }

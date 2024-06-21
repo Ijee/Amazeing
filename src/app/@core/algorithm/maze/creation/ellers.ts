@@ -37,7 +37,6 @@ export class Ellers extends MazeAlgorithmAbstract {
         const coinFlip = Math.random() > 0.5;
 
         if (coinFlip || skipCoinFlip) {
-            console.log('merging');
             set2.forEach((loc) => {
                 set1.add(loc);
                 this.sets.put(loc, set1);
@@ -52,7 +51,6 @@ export class Ellers extends MazeAlgorithmAbstract {
             this.lastColouredSet = set1;
         } else {
             // not merging.
-            // console.log('not merging');
             // this.buildWalls(cursor, 0);
             // this.lastColouredSet = undefined;
             this.paintNode(cursor, 5);
@@ -64,7 +62,6 @@ export class Ellers extends MazeAlgorithmAbstract {
      * @private
      */
     private buildPassage(): void {
-        console.log('vertical passages');
         const cursor = this.cursor;
         const lineAbove = cursor.y - 2;
         const above = new GridLocation(cursor.x, lineAbove);
@@ -81,8 +78,6 @@ export class Ellers extends MazeAlgorithmAbstract {
         const mustBuild = lastAbove.equals(above) && !hasPassage;
 
         if (coinFlip || mustBuild) {
-            console.log('vert coinflip');
-
             this.buildWalls(cursor, 0);
             this.buildPath(cursor, above, 5);
             set.add(cursor);
@@ -99,7 +94,6 @@ export class Ellers extends MazeAlgorithmAbstract {
     }
 
     public nextStep(): Node[][] {
-        console.log(this.setSize);
         // Cleanup (Painting the color back)
         if (this.lastColouredSet) {
             this.lastColouredSet.forEach((loc) => {
@@ -155,8 +149,7 @@ export class Ellers extends MazeAlgorithmAbstract {
 
     public setInitialData(grid: Node[][], startLocation: GridLocation): void {
         this.grid = grid;
-        console.log('width:', this.grid.length);
-        console.log('height:', this.grid[0].length);
+
         this.sets = new HashMap<GridLocation, HashSet<GridLocation>>();
         this.setSize = 0;
         this.cursor = new GridLocation(startLocation.x % 2, 0);

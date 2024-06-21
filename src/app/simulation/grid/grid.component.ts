@@ -53,8 +53,6 @@ export class GridComponent implements OnInit, OnDestroy {
         // set initial start and goal
         const initialStartX = Math.round((33 * this.width) / 100);
         const initialGoalX = Math.round((66 * this.width) / 100);
-        console.log('initialStartX', initialStartX);
-        console.log('initialStartY', initialGoalX);
         const initialNodeHeightY = Math.round((50 * this.height) / 100);
         const startNode = this.gridList[initialStartX][initialNodeHeightY];
         startNode.status = 2;

@@ -103,7 +103,6 @@ export class SimulationService {
         let newGrid: Node[][];
 
         if (this.recordService.getIteration() === 0) {
-            console.log(this.recordService.getGridStartLocation());
             this.algorithmService.setInitialData(
                 cloneDeep(this.gridList$.getValue()),
                 this.recordService.getGridStartLocation(),
@@ -285,7 +284,7 @@ export class SimulationService {
                 this.algorithmService.setPathAlgorithm(session.algorithm as PathFindingAlgorithm);
                 // TODO set heuristic for path-finding service
             }
-            console.log('session import', session);
+            // console.log('session import', session);
             this.algorithmService.updateAlgorithmState(
                 session.grid,
                 session.state,

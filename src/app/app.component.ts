@@ -152,13 +152,6 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.breakpointService.isTouch().subscribe((val) => {
-            console.log('isTouch Value', val);
-        });
-        this.breakpointService.isMobile().subscribe((val) => {
-            console.log('isMobile Value', val);
-        });
-
         this.settingsService.getDarkModeSetting().subscribe((val) => {
             //@ts-ignore
             if (!document.startViewTransition) {
@@ -255,9 +248,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.deferredInstallPrompt.prompt();
         // Wait for the user to respond to the prompt
         const { outcome } = await this.deferredInstallPrompt.userChoice;
-        // Optionally, send analytics event with outcome of user choice
-        console.log(`User response to the install prompt: ${outcome}`);
-        // We've used the prompt, and can't use it again, throw it away
+
         this.deferredInstallPrompt = null;
     }
 

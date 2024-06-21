@@ -73,7 +73,6 @@ export class Pledge extends PathFindingAlgorithmAbstract {
         if (this.options.Rule === 'Left-Hand-Rule') {
             [directions[0], directions[2]] = [directions[2], directions[0]];
         }
-        console.log('directions', directions);
         return directions;
     }
 
@@ -118,7 +117,6 @@ export class Pledge extends PathFindingAlgorithmAbstract {
             y >= this.grid[0].length ||
             this.grid[x][y].status === 1
         ) {
-            console.log('isValid: false');
             return false;
         } else {
             return true;

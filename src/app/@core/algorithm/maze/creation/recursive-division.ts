@@ -56,7 +56,7 @@ export class RecursiveDivision extends MazeAlgorithmAbstract {
             }
 
             let divideAtY = getRandomIntInclusive(division.yStart, division.yEnd - 1, this.yParity);
-            console.log('divideAtY', divideAtY);
+            // console.log('divideAtY', divideAtY);
             for (let i = division.xStart; i < division.xEnd; i++) {
                 this.grid[i][divideAtY].status = 1;
             }
@@ -95,7 +95,7 @@ export class RecursiveDivision extends MazeAlgorithmAbstract {
                 return false;
             }
             let divideAtX = getRandomIntInclusive(division.xStart, division.xEnd - 1, this.yParity);
-            console.log('divideAtX', divideAtX);
+            // console.log('divideAtX', divideAtX);
 
             for (let i = division.yStart; i < division.yEnd; i++) {
                 this.grid[divideAtX][i].status = 1;
@@ -106,14 +106,14 @@ export class RecursiveDivision extends MazeAlgorithmAbstract {
             let passageFound = false;
             if (this.grid?.[divideAtX]?.[division.yStart - 1]?.status === 9) {
                 this.grid[divideAtX][division.yStart].status = 9;
-                console.log('Vertical anfang yStart:', division.yStart, 'yEnd:', division.yEnd);
+                // console.log('Vertical start yStart:', division.yStart, 'yEnd:', division.yEnd);
 
                 let passageFound = true;
             }
             if (this.grid?.[divideAtX]?.[division.yEnd]?.status === 9) {
                 this.grid[divideAtX][division.yEnd - 1].status = 9;
                 // TODO this and xEnd check above broken I guess
-                console.log('Vertical ende yStart:', division.yStart, 'yEnd:', division.yEnd);
+                // console.log('Vertical ends yStart:', division.yStart, 'yEnd:', division.yEnd);
                 let passageFound = true;
             }
             if (!passageFound) {
