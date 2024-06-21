@@ -329,10 +329,15 @@ export class AlgorithmService {
     }
 
     /**
-     * Returns the name of the current algorithm.
+     * Returns the name of the current algorithm or the current one
+     * from the requested algorithm mode.
+     *
+     * @param algoMode the algorithm mode to be used
      */
-    public getAlgorithmName(): MazeAlgorithm | PathFindingAlgorithm {
-        return this.algorithmMode === 'maze'
+    public getAlgorithmName(algoMode?: AlgorithmMode): MazeAlgorithm | PathFindingAlgorithm {
+        const mode = algoMode || this.algorithmMode;
+
+        return mode === 'maze'
             ? this.mazeAlgorithm.getAlgorithmName()
             : this.pathAlgorithm.getAlgorithmName();
     }
@@ -349,8 +354,8 @@ export class AlgorithmService {
     /**
      * Returns the jsonFormData.
      */
-    public getJsonFormData(): JsonFormData {
-        return this.algorithmMode === 'maze'
+    public getJsonFormData(algoMode: AlgorithmMode): JsonFormData {
+        return algoMode === 'maze'
             ? this.mazeAlgorithm.getJsonFormData()
             : this.pathAlgorithm.getJsonFormData();
     }

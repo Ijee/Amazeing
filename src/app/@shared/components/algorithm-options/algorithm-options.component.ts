@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { SimulationService } from '../../../@core/services/simulation.service';
-import { Component, OnChanges, OnDestroy } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 import { AlgorithmService } from 'src/app/@core/services/algorithm.service';
 import { RecordService } from 'src/app/@core/services/record.service';
@@ -8,6 +8,7 @@ import { SettingsService } from 'src/app/@core/services/settings.service';
 import { JsonFormControls, JsonFormData } from 'src/app/@core/types/jsonform.types';
 import { DisableControlDirective } from 'src/app/@shared/directives/disable-control.directive';
 import { Subject, takeUntil } from 'rxjs';
+import { AlgorithmMode } from 'src/app/@core/types/algorithm.types';
 
 @Component({
     selector: 'app-algorithm-options',
@@ -17,6 +18,7 @@ import { Subject, takeUntil } from 'rxjs';
     styleUrl: './algorithm-options.component.scss'
 })
 export class AlgorithmOptionsComponent implements OnDestroy {
+    @Input() algorithmMode: AlgorithmMode;
     public readonly optionsForm = this.formBuilder.group({});
 
     private readonly destroyed$: Subject<void>;
@@ -115,7 +117,7 @@ export class AlgorithmOptionsComponent implements OnDestroy {
      * Gets and handles the creation of the form based on JsonFormData.
      */
     public handleJsonFormData(): JsonFormData {
-        const jsonFormData = this.algorithmService.getJsonFormData();
+        const jsonFormData = this.algorithmService.getJsonFormData(this.algorithmMode);
         this.createForm(jsonFormData.controls);
         return jsonFormData;
     }
