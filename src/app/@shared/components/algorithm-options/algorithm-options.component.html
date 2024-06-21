@@ -42,13 +42,13 @@
                     </div>
                     } } @if (control?.type === 'select') {
                     <div class="columns column is-full is-multiline field is-horizontal is-flex-direction-column">
-                        <div class="form-text-size column is-full field-label has-text-centered is-normal p-0">
+                        <div class="form-text-size column is-full field-label has-text-left p-0 is-normal">
                             <label class="label">{{ control.name }}</label>
                         </div>
-                        <div class="form-text-size column is-full is-justify-content-center field is-horizontal p-0">
+                        <div class="form-text-size column is-full field is-horizontal p-0">
                             <div class="select is-black">
                                 <select
-                                    class="has-text-weight-medium"
+                                    class="has-text-weight-medium is-small"
                                     appDisableControl
                                     [disableControl]="recordService.getIteration() > 0"
                                     [formControlName]="control.name">
