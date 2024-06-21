@@ -34,6 +34,7 @@ import { MazeRouting } from '../algorithm/path-finding/maze-specific/maze-routin
 import { BreadthFirstSearch } from '../algorithm/path-finding/breadth-first-search';
 import { DepthFirstSearch } from '../algorithm/path-finding/depth-first-search';
 import { BestFIrstSearch } from '../algorithm/path-finding/best-first-search';
+import { JumpPointSearch } from '../algorithm/path-finding/jump-point-search';
 import { CellularAutomaton } from '../algorithm/maze/creation/cellular-automaton';
 
 @Injectable({
@@ -150,6 +151,7 @@ export class AlgorithmService {
                 this.pathAlgorithm = new BestFIrstSearch();
                 break;
             case 'Jump-PS':
+                this.pathAlgorithm = new JumpPointSearch();
                 break;
             case 'Orthogonal-Jump-PS':
                 break;
