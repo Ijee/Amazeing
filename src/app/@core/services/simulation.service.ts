@@ -277,6 +277,8 @@ export class SimulationService {
         try {
             const uint8arr = Uint8Array.from(importText.split(',').map((str) => parseInt(str, 10)));
             session = JSON.parse(pako.inflate(uint8arr, { to: 'string' }));
+            // Hi from the past. Nice seeing you.
+            // console.log('session', session);
             this.algorithmService.setAlgorithmMode(session.algorithmMode);
             if (this.algorithmService.getAlgorithmMode() === 'maze') {
                 this.algorithmService.setMazeAlgorithm(session.algorithm as MazeAlgorithm);

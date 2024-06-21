@@ -3,6 +3,7 @@ import { GridLocation } from 'src/app/@shared/classes/GridLocation';
 import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
 import { HashSet } from '../../../../@shared/classes/HashSet';
 import { HashMap } from '../../../../@shared/classes/HasMap';
+import { set } from 'lodash-es';
 
 export class Ellers extends MazeAlgorithmAbstract {
     private cursor: GridLocation;
@@ -171,22 +172,41 @@ export class Ellers extends MazeAlgorithmAbstract {
     public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
         const cursor = serializedState.cursor;
 
-        const tempPassagesCreated: HashSet<GridLocation>[] = [];
-        serializedState.passagesCreated.forEach((set) => {
-            const tempSet = new HashSet<GridLocation>();
-            set.forEach((item) => {
-                const tempGridLocation = new GridLocation(item.x, item.y);
-                tempSet.add(tempGridLocation);
+        const tempMap = new HashMap<GridLocation, HashSet<GridLocation>>();
+        serializedState.sets.forEach((mapEle) => {
+            const tempHashSet = new HashSet<GridLocation>();
+            const keyLoc = new GridLocation(
+                mapEle.key.x,
+                mapEle.key.y,
+                mapEle.key.weight,
+                mapEle.key.status
+            );
+            mapEle.value.forEach((loc) => {
+                tempHashSet.add(new GridLocation(loc.x, loc.y, loc.weight, loc.status));
             });
-            tempPassagesCreated.push(tempSet);
+            tempMap.put(keyLoc, tempHashSet);
         });
-        const tempSets = new HashMap<GridLocation, HashSet<GridLocation>>();
+        console.log('tempMap', tempMap);
+
+        const tempLastColouredSet = new HashSet<GridLocation>();
+        if (serializedState.lastColouredSet) {
+            serializedState.lastColouredSet.forEach((ele) => {
+                tempLastColouredSet.add(new GridLocation(ele.x, ele.y, ele.weight, ele.status));
+            });
+        }
+
+        const tempPassagesCreated = new HashSet<GridLocation>();
+        if (serializedState.passagesCreate4d) {
+            serializedState.passagesCreate4d.forEach((ele) => {
+                tempPassagesCreated.add(new GridLocation(ele.x, ele.y, ele.weight, ele.status));
+            });
+        }
 
         const deserializedState = {
             cursor: new GridLocation(cursor.x, cursor.y),
             setSize: serializedState.setSize,
-            sets: tempSets,
-            lastColouredSet: serializedState.lastColouredSet,
+            sets: tempMap,
+            lastColouredSet: tempLastColouredSet,
             setsCreated: serializedState.setsCreated,
             setsMerged: serializedState.setsMerged,
             passagesCreated: tempPassagesCreated
@@ -205,32 +225,37 @@ export class Ellers extends MazeAlgorithmAbstract {
             setsMerged: this.setsMerged,
             passagesCreated: []
         };
-        const setsObj = [];
-        this.sets.forEach((key, value) => {
-            let locList = [];
-            value.forEach((loc) => {
-                locList.push(loc.toObject());
+        if (this.sets) {
+            this.sets.forEach((ele, value) => {
+                const setArr = [];
+                value.forEach((locSet) => {
+                    setArr.push(locSet.toObject());
+                });
+                const entry = { key: ele.toObject(), value: setArr };
+                serializedState.sets.push(entry);
             });
-            setsObj.push({ key: key.toObject(), locList: locList });
-        });
-        serializedState.sets = setsObj;
-
-        for (let i = 0; i < this.lastColouredSet.size(); i++) {
-            let serialSet = [];
-            this.lastColouredSet[i].forEach((val) => {
-                serialSet.push(val.toObject());
-            });
-            serializedState.lastColouredSet.push(serialSet);
+        } else {
+            serializedState.sets = undefined;
         }
 
-        for (let i = 0; i < this.passagesCreated.length; i++) {
-            let serialSet = [];
-            this.passagesCreated[i].forEach((val) => {
-                serialSet.push(val.toObject());
+        if (this.lastColouredSet) {
+            this.lastColouredSet.forEach((gridLocation) => {
+                serializedState.lastColouredSet.push(gridLocation.toObject());
             });
-            serializedState.passagesCreated.push(serialSet);
+        } else {
+            serializedState.lastColouredSet = undefined;
         }
-        console.log(serializedState, 'serialized State');
+        if (this.passagesCreated) {
+            this.passagesCreated.forEach((ele) => {
+                const setArr = [];
+                ele.forEach((value) => {
+                    setArr.push(value.toObject());
+                });
+                serializedState.passagesCreated.push(setArr);
+            });
+        } else {
+            serializedState.passagesCreated = undefined;
+        }
 
         return serializedState;
     }
