@@ -228,7 +228,7 @@ export class AlgorithmService {
      * @param val the setting to be
      */
     public setCornerMovement(val: boolean) {
-        this.pathAlgorithm.setCornerMovement(val);
+        this.cornerMovement = val;
     }
 
     /**

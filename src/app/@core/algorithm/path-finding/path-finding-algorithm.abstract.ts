@@ -85,24 +85,59 @@ export abstract class PathFindingAlgorithmAbstract {
      */
     protected getNeighbours(loc: GridLocation, distance: number): GridLocation[] {
         const res: GridLocation[] = [];
+        const addDiagonalNeighbour = (dx: number, dy: number) => {
+            const newX = loc.x + dx;
+            const newY = loc.y + dy;
+            if (
+                this.diagonalMovement &&
+                newX >= 0 &&
+                newX < this.grid.length &&
+                newY >= 0 &&
+                newY < this.grid[0].length
+            ) {
+                const node = this.grid[newX][newY];
+                if (
+                    this.cornerMovement ||
+                    this.grid[loc.x + dx][loc.y].status !== 1 ||
+                    this.grid[loc.x][loc.y + dy].status !== 1
+                ) {
+                    res.push(new GridLocation(newX, newY, node.weight, node.status));
+                }
+            }
+        };
 
         if (loc.y >= distance) {
             const node = this.grid[loc.x][loc.y - distance];
             res.push(new GridLocation(loc.x, loc.y - distance, node.weight, node.status));
         }
 
+        // top right
+        addDiagonalNeighbour(distance, -distance);
+
         if (loc.x < this.grid.length - distance) {
             const node = this.grid[loc.x + distance][loc.y];
             res.push(new GridLocation(loc.x + distance, loc.y, node.weight, node.status));
         }
+
+        // bottom right
+        addDiagonalNeighbour(distance, distance);
+
         if (loc.y < this.grid[0].length - distance) {
             const node = this.grid[loc.x][loc.y + distance];
             res.push(new GridLocation(loc.x, loc.y + distance, node.weight, node.status));
         }
+
+        // bottom left
+        addDiagonalNeighbour(-distance, distance);
+
         if (loc.x >= distance) {
             const node = this.grid[loc.x - distance][loc.y];
             res.push(new GridLocation(loc.x - distance, loc.y, node.weight, node.status));
         }
+
+        // top left
+        addDiagonalNeighbour(-distance, -distance);
+
         return res;
     }
 
