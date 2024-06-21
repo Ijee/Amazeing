@@ -5,6 +5,8 @@ import { shuffleFisherYates } from '../../../../@shared/utils/fisher-yates';
 import { MazeAlgorithm, Node, Statistic } from '../../../types/algorithm.types';
 
 export class Wilsons extends MazeAlgorithmAbstract {
+    private xStart: number;
+    private yStart: number;
     private gridWith: number;
     private gridHeight: number;
     private cursor: GridLocation;
@@ -66,8 +68,8 @@ export class Wilsons extends MazeAlgorithmAbstract {
                     this.grid[neighbour.x][neighbour.y].status !== 3 &&
                     this.grid[neighbour.x][neighbour.y].status !== 5
                 ) {
-                    this.grid[neighbour.x][neighbour.y].status = 8;
-                    this.grid[this.cursor.x][this.cursor.y].status = 8;
+                    this.paintNode(neighbour.x, neighbour.y, 8);
+                    this.paintNode(this.cursor.x, this.cursor.y, 8);
                 }
 
                 this.buildPath(this.cursor, neighbour, 8);
@@ -87,11 +89,10 @@ export class Wilsons extends MazeAlgorithmAbstract {
                 this.grid[node.x][node.y].status !== 2 &&
                 this.grid[node.x][node.y].status !== 3
             ) {
-                this.grid[node.x][node.y].status = 0;
                 const lastNode = this.walkingPath[i - 1];
                 this.buildPath(this.walkingPath[i], lastNode, 0);
-                this.grid[node.x][node.y].status = 0;
-                this.grid[lastNode.x][lastNode.y].status = 0;
+                this.paintNode(node.x, node.y, 0);
+                this.paintNode(lastNode.x, lastNode.y, 0);
             } else {
                 newWalkingPath.push(this.walkingPath[i]);
             }
@@ -105,7 +106,7 @@ export class Wilsons extends MazeAlgorithmAbstract {
             this.walkingPath = newWalkingPath;
             // otherwise there's more flickering during autoplay because the cursor will often
             // be repainted from empty (0) to 8 and back.
-            this.grid[this.cursor.x][this.cursor.y].status = 8;
+            this.paintNode(this.cursor.x, this.cursor.y, 8);
         } else {
             this.walkingPath.push(this.cursor);
         }
@@ -122,10 +123,29 @@ export class Wilsons extends MazeAlgorithmAbstract {
         if (this.unusedNodes.size() > 0) {
             // starting node
             if (this.cursor === null) {
-                this.cursor = this.unusedNodes.getRandomItem();
+                if (this.options['Node Choice'] === 'choose random node') {
+                    this.cursor = this.unusedNodes.getRandomItem();
+                } else {
+                    let foundNode = false;
+
+                    for (let j = this.yStart; j < this.grid[0].length && !foundNode; j += 2) {
+                        for (let i = this.xStart; i < this.grid.length && !foundNode; i += 2) {
+                            let node = this.grid[i][j];
+                            if (
+                                node.status !== 1 &&
+                                node.status !== 2 &&
+                                node.status !== 3 &&
+                                node.status !== 5
+                            ) {
+                                this.cursor = new GridLocation(i, j, node.weight, node.status);
+                                foundNode = true;
+                            }
+                        }
+                    }
+                }
                 this.walkingPath.push(this.cursor);
                 this.isWalking = true;
-                this.grid[this.cursor.x][this.cursor.y].status = 8;
+                this.paintNode(this.cursor.x, this.cursor.y, 8);
                 return this.grid;
             }
             // random walk
@@ -151,7 +171,7 @@ export class Wilsons extends MazeAlgorithmAbstract {
                     this.grid[node.x][node.y].status !== 2 &&
                     this.grid[node.x][node.y].status !== 3
                 ) {
-                    this.grid[node.x][node.y].status = 5;
+                    this.paintNode(node.x, node.y, 5);
                 }
                 if (this.walkingPath[1]) {
                     this.buildPath(node, this.walkingPath[1], 5);
@@ -170,6 +190,8 @@ export class Wilsons extends MazeAlgorithmAbstract {
 
     public setInitialData(grid: Node[][], startLocation: GridLocation): void {
         this.grid = grid;
+        this.xStart = startLocation.x % 2;
+        this.yStart = startLocation.y % 2;
         this.gridWith = this.grid.length;
         this.gridHeight = this.grid[0].length;
         for (let i = startLocation.x % 2; i < this.gridWith; i += 2) {
@@ -190,6 +212,8 @@ export class Wilsons extends MazeAlgorithmAbstract {
     public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
         this.grid = newGrid;
         this.statRecords = statRecords;
+        this.xStart = deserializedState.xStart;
+        this.yStart = deserializedState.yStart;
         this.gridWith = deserializedState.gridWidth;
         this.gridHeight = deserializedState.gridHeight;
         this.cursor = deserializedState.cursor;
@@ -211,6 +235,8 @@ export class Wilsons extends MazeAlgorithmAbstract {
             walkingPath.push(tempWalkingPath);
         });
         const deserializedState = {
+            xStart: serializedState.xStart,
+            yStart: serializedState.yStart,
             gridWidth: serializedState.gridWith,
             gridHeight: serializedState.gridHeight,
             cursor: new GridLocation(cursor.x, cursor.y, cursor.weight),
@@ -223,6 +249,8 @@ export class Wilsons extends MazeAlgorithmAbstract {
 
     public serialize(): Object {
         const serializedState = {
+            xStart: this.xStart,
+            yStart: this.yStart,
             gridWidth: this.gridWith,
             gridHeight: this.gridHeight,
             cursor: this.cursor.toObject(),
@@ -241,6 +269,8 @@ export class Wilsons extends MazeAlgorithmAbstract {
 
     public getState(): Object {
         return {
+            xStart: this.xStart,
+            yStart: this.yStart,
             gridWidth: this.gridWith,
             gridHeight: this.gridHeight,
             cursor: this.cursor,
