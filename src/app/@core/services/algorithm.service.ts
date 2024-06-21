@@ -194,6 +194,10 @@ export class AlgorithmService {
         if (this.algorithmMode === 'maze') {
             this.mazeAlgorithm.setInitialData(currentGrid, startLocation);
         } else {
+            if (!this.pathAlgorithm.usesPathFindingSettings()) {
+                this.diagonalMovement = false;
+                this.cornerMovement = false;
+            }
             this.pathAlgorithm.setInitialData(currentGrid, startLocation);
             this.pathAlgorithm.setHeuristic(this.heuristic);
             this.pathAlgorithm.setDiagonalMovement(this.diagonalMovement);
