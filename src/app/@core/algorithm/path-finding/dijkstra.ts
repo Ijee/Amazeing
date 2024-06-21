@@ -1,15 +1,13 @@
-import { PathFindingAlgorithmAbstract } from './path-finding-algorithm.abstract';
+import { HashMap } from 'src/app/@shared/classes/HasMap';
+import { PriorityQueue } from 'src/app/@shared/classes/PriorityQueue';
 import { GridLocation } from '../../../@shared/classes/GridLocation';
-import { Node, PathFindingAlgorithm, Statistic } from '../../types/algorithm.types';
-import { PriorityQueue } from '../../../@shared/classes/PriorityQueue';
-
-type DijkstraNode = { predecessor: GridLocation; distance: number };
-// TODO: I don't like this implementation at all and it should at least be revised if not
-// rewritten in the future. blame @Ijee
+import { Node, PathFindingAlgorithm, Statistic, VisitedNode } from '../../types/algorithm.types';
+import { PathFindingAlgorithmAbstract } from './path-finding-algorithm.abstract';
 
 export class Dijkstra extends PathFindingAlgorithmAbstract {
     private priorityQueue: PriorityQueue;
-    private dijkstraNodes: DijkstraNode[][];
+    private visitedNodes: HashMap<GridLocation, VisitedNode>;
+    private currentPath: GridLocation[];
     private tracePath: GridLocation;
     constructor() {
         super(
@@ -26,76 +24,111 @@ export class Dijkstra extends PathFindingAlgorithmAbstract {
                 {
                     name: 'Fastest Path',
                     type: 'status-8'
+                },
+                {
+                    name: 'Current Path (optional)',
+                    type: 'status-6'
                 }
             ],
             {
-                controls: []
+                controls: [
+                    {
+                        name: 'Show current path',
+                        label: 'Show current path',
+                        value: '',
+                        type: 'checkbox',
+                        validators: {
+                            required: true
+                        }
+                    }
+                ]
             }
         );
         this.priorityQueue = new PriorityQueue();
-        this.dijkstraNodes = [];
+        this.visitedNodes = new HashMap<GridLocation, VisitedNode>();
+        this.currentPath = [];
     }
 
     /**
+     * Calculates whether a better path is available for a neighbour node.
      *
-     *
-     * @param neighbour the neighbour location
-     * @param currLoc the current location
+     * @param currentNode the current node
+     * @param neighbourNode the neighbour node
      */
-    private updateDistance(neighbour: GridLocation, currLoc: GridLocation): void {
-        const currNode = this.dijkstraNodes[currLoc.x][currLoc.y];
+    private relaxation(currentNode: GridLocation, neighbourNode: GridLocation): void {
+        const currentDistance = this.visitedNodes.get(currentNode).distance;
+        const neighbourDistance =
+            this.visitedNodes.get(neighbourNode)?.distance ?? Number.POSITIVE_INFINITY;
 
-        const neighbourNode = this.dijkstraNodes[neighbour.x][neighbour.y];
+        // Calculate tentative g-cost
+        const tentativeGCost = currentDistance + neighbourNode.weight;
 
-        const alternativeDistance = currNode.distance + neighbour.weight;
-        if (alternativeDistance < neighbourNode.distance) {
-            this.dijkstraNodes[neighbour.x][neighbour.y].distance = alternativeDistance;
-            this.dijkstraNodes[neighbour.x][neighbour.y].predecessor = currLoc;
+        if (tentativeGCost < neighbourDistance) {
+            this.visitedNodes.put(neighbourNode, {
+                predecessor: currentNode,
+                distance: tentativeGCost
+            });
+            // this.visitedNodes.put(neighbourNode, updatedVisitedNode);
+            // console.log('neighbour:', neighbourNode, 'tentativeGcost', tentativeGCost);
+            if (this.priorityQueue.indexOf(neighbourNode) === -1) {
+                this.priorityQueue.enqueue(neighbourNode, tentativeGCost);
+                this.paintNode(neighbourNode.x, neighbourNode.y, 4);
+            } else {
+                // Update the priority queue with the total cost (g + h)
+                this.priorityQueue.update(neighbourNode, tentativeGCost);
+            }
+
+            this.grid[neighbourNode.x][neighbourNode.y].text = tentativeGCost.toString();
         }
     }
 
     public nextStep(): Node[][] {
+        // Paints the current path back
+        for (var i = 0; i < this.currentPath.length; i++) {
+            const node = this.currentPath[i];
+            this.paintNode(node.x, node.y, 5);
+        }
+        this.currentPath = [];
+
         if (!this.priorityQueue.isEmpty()) {
             const currLoc = this.priorityQueue.dequeue();
+
             if (this.grid[currLoc.x][currLoc.y].status === 3) {
                 this.tracePath = currLoc;
                 this.priorityQueue.empty();
                 return this.grid;
             }
             this.paintNode(currLoc.x, currLoc.y, 5);
-
+            if (this.options['Show current path']) {
+                let pathNode = currLoc;
+                while (pathNode) {
+                    if (pathNode.status === 2) {
+                        pathNode = undefined;
+                    } else {
+                        pathNode = this.visitedNodes.get(pathNode).predecessor;
+                        this.currentPath.push(pathNode);
+                        this.paintNode(pathNode.x, pathNode.y, 6);
+                    }
+                }
+            }
             const neighbours = this.getNeighbours(currLoc, 1).filter((neighbour) => {
                 return neighbour.status !== 1;
             });
             neighbours.forEach((neighbour) => {
-                if (this.dijkstraNodes[neighbour.x][neighbour.y].predecessor === null) {
-                    const newDistance = (this.dijkstraNodes[neighbour.x][neighbour.y].distance =
-                        neighbour.weight + this.dijkstraNodes[currLoc.x][currLoc.y].distance);
-                    this.dijkstraNodes[neighbour.x][neighbour.y].distance = newDistance;
-                    this.grid[neighbour.x][neighbour.y].text = newDistance.toString();
-                    this.dijkstraNodes[neighbour.x][neighbour.y].predecessor = currLoc;
-                    this.priorityQueue.enqueue(neighbour, newDistance);
-                    this.paintNode(neighbour, 4);
-                } else {
-                    this.updateDistance(neighbour, currLoc);
-                }
+                this.relaxation(currLoc, neighbour);
             });
-        } else {
-            // show path
-            if (this.tracePath === null) {
-                return null;
-            } else {
-                const predecessor =
-                    this.dijkstraNodes[this.tracePath.x][this.tracePath.y].predecessor;
-                this.paintNode(this.tracePath.x, this.tracePath.y, 8);
-
-                if (this.grid[predecessor.x][predecessor.y].status === 2) {
-                    this.tracePath = null;
-                } else {
-                    this.tracePath = predecessor;
-                }
+        } else if (this.priorityQueue.isEmpty() && !this.tracePath) {
+            // No path to goal exists.
+            return null;
+        } else if (this.tracePath) {
+            // Backtracking to show the path
+            this.paintNode(this.tracePath.x, this.tracePath.y, 8); // Paint the path
+            this.tracePath = this.visitedNodes.get(this.tracePath).predecessor || undefined;
+            if (this.grid[this.tracePath.x][this.tracePath.y].status === 2) {
+                this.tracePath = null;
             }
         }
+
         return this.grid;
     }
 
@@ -103,29 +136,21 @@ export class Dijkstra extends PathFindingAlgorithmAbstract {
         this.grid = grid;
 
         this.priorityQueue.enqueue(startLocation, 0);
+        this.visitedNodes.put(startLocation, {
+            predecessor: startLocation,
+            distance: 0
+        });
 
         // initial distances (excluding walls)
 
         for (let i = 0; i < this.grid.length; i++) {
-            this.dijkstraNodes[i] = [];
             for (let j = 0; j < this.grid[0].length; j++) {
                 let node = this.grid[i][j];
                 if (this.grid[i][j].status !== 2 && this.grid[i][j].status !== 1) {
                     node.text = '∞';
-                    const DijkstraNode: DijkstraNode = {
-                        predecessor: null,
-                        distance: 9999
-                    };
-                    this.dijkstraNodes[i][j] = DijkstraNode;
                 } else if (this.grid[i][j].status === 2) {
                     node.text = '0';
                     node.weight = 0;
-
-                    const DijkstraNode: DijkstraNode = {
-                        predecessor: null,
-                        distance: 0
-                    };
-                    this.dijkstraNodes[i][j] = DijkstraNode;
                 }
             }
         }
@@ -136,7 +161,8 @@ export class Dijkstra extends PathFindingAlgorithmAbstract {
         this.statRecords = statRecords;
 
         this.priorityQueue = deserializedState.priorityQueue;
-        this.dijkstraNodes = deserializedState.distances;
+        this.visitedNodes = deserializedState.visitedNodes;
+        this.currentPath = deserializedState.currentPath;
         this.tracePath = deserializedState.tracePath;
     }
 
@@ -144,7 +170,7 @@ export class Dijkstra extends PathFindingAlgorithmAbstract {
         const tracePath = serializedState.tracePath;
         const deserializedState = {
             priorityQueue: new PriorityQueue(),
-            dijkstraNodes: [],
+            visitedNodes: new HashMap<GridLocation, GridLocation>(),
             tracePath: new GridLocation(
                 tracePath.x,
                 tracePath.y,
@@ -152,52 +178,50 @@ export class Dijkstra extends PathFindingAlgorithmAbstract {
                 tracePath.status
             )
         };
-        for (let i = 0; i < serializedState.dijkstraNodes.length; i++) {
-            deserializedState[i].dijkstraNodes = [];
-            for (let j = 0; j < this.grid[0].length; j++) {
-                let element = serializedState.dijkstraNodes[i][j];
-                let predecessor = element.predecessor;
-                let loc = new GridLocation(
-                    predecessor.x,
-                    predecessor.y,
-                    predecessor.weight,
-                    predecessor.status
-                );
-                this.dijkstraNodes[i][j] = { predecessor: loc, distance: element.distance };
-            }
-        }
         serializedState.priorityQueue.forEach((element) => {
             const node = element.node;
             const loc = new GridLocation(node.x, node.y, node.weight, node.status);
             deserializedState.priorityQueue.enqueue(loc, element.priority);
         });
+
+        serializedState.visitedNodes.forEach((ele) => {
+            deserializedState.visitedNodes.put(ele.key, ele.value);
+        });
+        for (var i = 0; i < serializedState.currentPath.length; i++) {
+            const node = serializedState.currentPath[i];
+            serializedState.currentPath.push(
+                new GridLocation(node.x, node.y, node.weight, node.status)
+            );
+        }
+
         this.updateState(newGrid, deserializedState, statRecords);
     }
 
     public serialize(): Object {
         const serializedState = {
             priorityQueue: this.priorityQueue.toObject(),
-            dijkstraNodes: [],
+            visitedNodes: [],
+            currentPath: [],
             tracePath: this.tracePath.toObject()
         };
-        for (let i = 0; i < serializedState.dijkstraNodes.length; i++) {
-            serializedState[i].dijkstraNodes = [];
-            for (let j = 0; j < this.grid[0].length; j++) {
-                let element = this.dijkstraNodes[i][j];
 
-                serializedState.dijkstraNodes[i][j] = {
-                    predecessor: element.predecessor.toObject(),
-                    distance: element.distance
-                };
-            }
+        this.visitedNodes.forEach((ele) => {
+            const entry = { key: ele.toObject(), value: this.visitedNodes.get(ele) };
+            serializedState.visitedNodes.push(entry);
+        });
+        for (var i = 0; i < this.currentPath.length; i++) {
+            const node = this.currentPath[i];
+            serializedState.currentPath.push(node.toObject());
         }
+
         return serializedState;
     }
 
     public getState(): Object {
         return {
             priorityQueue: this.priorityQueue,
-            dijkstraNodes: this.dijkstraNodes,
+            visitedNodes: this.visitedNodes,
+            currentPath: this.currentPath,
             tracePath: this.tracePath
         };
     }
