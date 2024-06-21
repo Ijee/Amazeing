@@ -6,7 +6,7 @@
                 data-testid="a-star"
                 [ngClass]="algorithmService.getAlgorithmName() === 'A-Star' ? 'is-danger has-text-black' : ''"
                 (click)="emitAlgorithmChange('A-Star')">
-                <b>A-Star</b>
+                <b>A*</b>
             </button>
         </div>
         <div class="cell is-row-start-1 is-col-span-2">
@@ -16,7 +16,7 @@
                 disabled
                 [ngClass]="algorithmService.getAlgorithmName() === 'IDA-Star' ? 'is-danger has-text-black' : ''"
                 (click)="emitAlgorithmChange('IDA-Star')">
-                <b>IDA-Star</b>
+                <b>IDA*</b>
             </button>
         </div>
         <div class="cell is-row-start-1 is-col-span-2">
@@ -34,7 +34,7 @@
                 data-testid="breadth-first-search"
                 [ngClass]="algorithmService.getAlgorithmName() === 'Breadth-FS' ? 'is-danger has-text-black' : ''"
                 (click)="emitAlgorithmChange('Breadth-FS')">
-                <b>Breadth-First-Search</b>
+                <b>Breadth-First Search</b>
             </button>
         </div>
         <div class="cell is-row-start-2 is-col-span-3">
@@ -43,7 +43,7 @@
                 data-testid="depth-first-search"
                 [ngClass]="algorithmService.getAlgorithmName() === 'Depth-FS' ? 'is-danger has-text-black' : ''"
                 (click)="emitAlgorithmChange('Depth-FS')">
-                <b>Depth-First-Search</b>
+                <b>Depth-First Search</b>
             </button>
         </div>
         <div class="cell is-row-start-3 is-col-span-3">
@@ -52,7 +52,7 @@
                 data-testid="best-first-search"
                 [ngClass]="algorithmService.getAlgorithmName() === 'Best-FS' ? 'is-danger has-text-black' : ''"
                 (click)="emitAlgorithmChange('Best-FS')">
-                <b>Best-First-Search</b>
+                <b>Best-First Search</b>
             </button>
         </div>
         <div class="cell is-row-start-3 is-col-span-3">
@@ -88,7 +88,7 @@
                 data-testid="wall-follower"
                 [ngClass]="algorithmService.getAlgorithmName() === 'Wall-Follower' ? 'is-danger has-text-black' : ''"
                 (click)="emitAlgorithmChange('Wall-Follower')">
-                <b>Wall-Follower</b>
+                <b>Wall Follower</b>
             </button>
         </div>
         <div class="cell is-row-start-1 is-col-span-2">
@@ -115,7 +115,7 @@
                 data-testid="maze-routing"
                 [ngClass]="algorithmService.getAlgorithmName() === 'Maze-Routing' ? 'is-danger has-text-black' : ''"
                 (click)="emitAlgorithmChange('Maze-Routing')">
-                <b>Maze-Routing</b>
+                <b>Maze Routing</b>
             </button>
         </div>
         <div class="cell is-row-start-2 is-col-span-3">
