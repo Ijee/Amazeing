@@ -103,10 +103,9 @@
             <button
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="cellular-automation"
-                [ngClass]="algorithmService.getAlgorithmName('maze') === 'Cellular-Automation' ? 'is-primary has-text-black' : ''"
-                disabled
-                (click)="emitAlgorithmChange('Cellular-Automation')">
-                <b>Cellular Automation</b>
+                [ngClass]="algorithmService.getAlgorithmName('maze') === 'Cellular-Automaton' ? 'is-primary has-text-black' : ''"
+                (click)="emitAlgorithmChange('Cellular-Automaton')">
+                <b>Cellular Automaton</b>
             </button>
         </div>
     </div>

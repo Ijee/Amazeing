@@ -57,7 +57,7 @@ export class MazeSettingsComponent implements OnInit, OnDestroy {
                 'Binary-Tree',
                 'Recursive-Backtracking',
                 'Recursive-Division',
-                'Cellular-Automation'
+                'Cellular-Automaton'
             ]);
             if (pathFindingAlgorithms.has(params.algorithm)) {
                 this.algorithmService.setMazeAlgorithm(params.algorithm);

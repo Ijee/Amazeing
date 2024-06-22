@@ -34,6 +34,7 @@ import { MazeRouting } from '../algorithm/path-finding/maze-specific/maze-routin
 import { BreadthFirstSearch } from '../algorithm/path-finding/breadth-first-search';
 import { DepthFirstSearch } from '../algorithm/path-finding/depth-first-search';
 import { BestFIrstSearch } from '../algorithm/path-finding/best-first-search';
+import { CellularAutomaton } from '../algorithm/maze/creation/cellular-automaton';
 
 @Injectable({
     providedIn: 'root'
@@ -120,7 +121,8 @@ export class AlgorithmService {
             case 'Recursive-Division':
                 this.mazeAlgorithm = new RecursiveDivision();
                 break;
-            case 'Cellular-Automation':
+            case 'Cellular-Automaton':
+                this.mazeAlgorithm = new CellularAutomaton();
                 break;
             default:
                 throw new Error('Unknown maze algorithm selected!');

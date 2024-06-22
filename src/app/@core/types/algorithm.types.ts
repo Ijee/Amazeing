@@ -51,7 +51,7 @@ export type MazeAlgorithm =
     | 'Binary-Tree'
     | 'Recursive-Backtracking'
     | 'Recursive-Division'
-    | 'Cellular-Automation';
+    | 'Cellular-Automaton';
 export type PathFindingAlgorithm =
     | 'A-Star'
     | 'IDA-Star'
