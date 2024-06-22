@@ -2,7 +2,7 @@ import {
     Direction,
     MazeAlgorithm,
     Node,
-    NodeCollection,
+    NodeDirection,
     Statistic
 } from 'src/app/@core/types/algorithm.types';
 import { GridLocation } from 'src/app/@shared/classes/GridLocation';
@@ -11,7 +11,10 @@ import { getRandomNumber } from '../../../../@shared/utils/general-utils';
 import { shuffleFisherYates } from '../../../../@shared/utils/fisher-yates';
 
 export class GrowingTree extends MazeAlgorithmAbstract {
-    private nodeCollection: NodeCollection;
+    private nodeDirections: NodeDirection[];
+    // TODO: is there a way not to have these variables? primarily for newest first option "backtracking" / repainting
+    private startAlreadyAdded: boolean;
+    private goalAlreadyAdded: boolean;
 
     constructor() {
         super(
@@ -42,7 +45,9 @@ export class GrowingTree extends MazeAlgorithmAbstract {
                 ]
             }
         );
-        this.nodeCollection = [] as any;
+        this.nodeDirections = [] as any;
+        this.startAlreadyAdded = false;
+        this.goalAlreadyAdded = false;
     }
 
     /**
@@ -55,15 +60,15 @@ export class GrowingTree extends MazeAlgorithmAbstract {
         let selectedNodeIndex: number;
         switch (this.options['Node Selection']) {
             case 'Newest First (Recursive Backtracker)':
-                loc = this.nodeCollection[this.nodeCollection.length - 1].gridLocation;
-                selectedNodeIndex = this.nodeCollection.length - 1;
+                loc = this.nodeDirections[this.nodeDirections.length - 1].gridLocation;
+                selectedNodeIndex = this.nodeDirections.length - 1;
                 break;
             case "Random (Prim's)":
-                selectedNodeIndex = Math.floor(Math.random() * this.nodeCollection.length);
-                loc = this.nodeCollection[selectedNodeIndex].gridLocation;
+                selectedNodeIndex = Math.floor(Math.random() * this.nodeDirections.length);
+                loc = this.nodeDirections[selectedNodeIndex].gridLocation;
                 break;
             case 'Oldest':
-                loc = this.nodeCollection[0].gridLocation;
+                loc = this.nodeDirections[0].gridLocation;
                 selectedNodeIndex = 0;
                 break;
             default:
@@ -75,7 +80,7 @@ export class GrowingTree extends MazeAlgorithmAbstract {
 
     /**
      * This function determines the direction from which a node has been build
-     * to from. This is important here because we can not be certain what nodes
+     * from. This is important here because we can not be certain what nodes
      * to repaint once we delete nodes form our nodeCollection.
      * Annoying but needed in a grid where a node is either a wall or something else.
      *
@@ -97,7 +102,7 @@ export class GrowingTree extends MazeAlgorithmAbstract {
     }
 
     public nextStep(): Node[][] {
-        if (this.nodeCollection.length > 0) {
+        if (this.nodeDirections.length > 0) {
             let [selectedNode, selectedNodeIndex] = this.selectLocation();
             let neighbours = this.getNeighbours(selectedNode, 2);
             let viableNeighbourFound = false;
@@ -105,14 +110,24 @@ export class GrowingTree extends MazeAlgorithmAbstract {
                 neighbours = shuffleFisherYates(neighbours);
                 for (let i = 0; i < neighbours.length; i++) {
                     let neighbour = neighbours[i];
-                    if (this.grid[neighbour.x][neighbour.y].status === 0) {
+                    if (
+                        this.grid[neighbour.x][neighbour.y].status === 0 ||
+                        (this.grid[neighbour.x][neighbour.y].status === 2 &&
+                            !this.startAlreadyAdded) ||
+                        (this.grid[neighbour.x][neighbour.y].status === 3 && !this.goalAlreadyAdded)
+                    ) {
                         this.buildWalls(neighbour, 0);
                         this.buildPath(selectedNode, neighbour, 5);
-                        this.nodeCollection.push({
+                        this.nodeDirections.push({
                             gridLocation: neighbour,
                             direction: this.determineDirection(neighbour)
                         });
                         viableNeighbourFound = true;
+                        if (this.grid[neighbour.x][neighbour.y].status === 2) {
+                            this.startAlreadyAdded = true;
+                        } else if (this.grid[neighbour.x][neighbour.y].status === 3) {
+                            this.goalAlreadyAdded = true;
+                        }
                         this.paintNode(neighbour.x, neighbour.y, 5);
 
                         break;
@@ -122,25 +137,26 @@ export class GrowingTree extends MazeAlgorithmAbstract {
             if (!viableNeighbourFound) {
                 // Repaint the other node that would stay behind otherwise.
                 // (The buildPath(...) node)
-                switch (this.nodeCollection[selectedNodeIndex].direction) {
+                switch (this.nodeDirections[selectedNodeIndex].direction) {
                     case 'up':
-                        this.grid[selectedNode.x][selectedNode.y - 1].status = 9;
+                        this.paintNode(selectedNode.x, selectedNode.y - 1, 9);
                         break;
                     case 'right':
-                        this.grid[selectedNode.x + 1][selectedNode.y].status = 9;
+                        this.paintNode(selectedNode.x + 1, selectedNode.y, 9);
                         break;
                     case 'down':
-                        this.grid[selectedNode.x][selectedNode.y + 1].status = 9;
+                        this.paintNode(selectedNode.x, selectedNode.y + 1, 9);
                         break;
                     case 'left':
-                        this.grid[selectedNode.x - 1][selectedNode.y].status = 9;
+                        this.paintNode(selectedNode.x - 1, selectedNode.y, 9);
                         break;
                     default:
                 }
-                this.grid[selectedNode.x][selectedNode.y].status = 9;
-                this.nodeCollection.splice(selectedNodeIndex, 1);
+                // this.grid[selectedNode.x][selectedNode.y].status = 9;
+                this.paintNode(selectedNode.x, selectedNode.y, 9);
+                this.nodeDirections.splice(selectedNodeIndex, 1);
             }
-            this.statRecords[0].currentValue = this.nodeCollection.length * 2;
+            this.statRecords[0].currentValue = this.nodeDirections.length * 2;
             return this.grid;
         }
         return null;
@@ -161,7 +177,7 @@ export class GrowingTree extends MazeAlgorithmAbstract {
                 ? getRandomNumber(0, grid[0].length, 2)
                 : getRandomNumber(1, grid[0].length, 2);
         let startNode = new GridLocation(randomXPosition, randomYPosition);
-        this.nodeCollection.push({ gridLocation: startNode, direction: 'unknown' });
+        this.nodeDirections.push({ gridLocation: startNode, direction: 'unknown' });
 
         this.buildWalls(startNode, 0);
         this.grid[startNode.x][startNode.y].status = 5;
@@ -170,12 +186,16 @@ export class GrowingTree extends MazeAlgorithmAbstract {
     public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
         this.grid = newGrid;
         this.statRecords = statRecords;
-        this.nodeCollection = deserializedState.nodeCollection;
+        this.nodeDirections = deserializedState.nodeCollection;
+        this.startAlreadyAdded = deserializedState.startAlreadyAdded;
+        this.goalAlreadyAdded = deserializedState.goalAlreadyAdded;
     }
 
     public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
         const deserializedState = {
-            nodeCollection: []
+            nodeCollection: [],
+            startAlreadyAdded: serializedState.startAlreadyAdded,
+            goalAlreadyAdded: serializedState.goalAlreadyAdded
         };
         serializedState.nodeCollection.forEach(
             (arr: { gridLocation: GridLocation; direction: Direction }, index: number) => {
@@ -191,9 +211,11 @@ export class GrowingTree extends MazeAlgorithmAbstract {
 
     public serialize(): Object {
         const serializedState = {
-            nodeCollection: []
+            nodeCollection: [],
+            startAlreadyAdded: this.startAlreadyAdded,
+            goalAlreadyAdded: this.goalAlreadyAdded
         };
-        this.nodeCollection.forEach((arr) => {
+        this.nodeDirections.forEach((arr) => {
             serializedState.nodeCollection.push({
                 gridLocation: arr.gridLocation.toObject(),
                 direction: arr.direction
@@ -204,7 +226,9 @@ export class GrowingTree extends MazeAlgorithmAbstract {
 
     public getState(): Object {
         return {
-            nodeCollection: this.nodeCollection
+            nodeCollection: this.nodeDirections,
+            startAlreadyAdded: this.startAlreadyAdded,
+            goalAlradyAdded: this.goalAlreadyAdded
         };
     }
 
