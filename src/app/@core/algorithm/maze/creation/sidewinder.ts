@@ -52,12 +52,8 @@ export class Sidewinder extends MazeAlgorithmAbstract {
         this.buildWalls(this.cursor, 0);
         let newStatus = drawRunSet ? 5 : 9;
         this.grid[this.cursor.x][this.cursor.y].status = newStatus;
-        if (
-            this.grid?.[this.cursor.x + 1]?.[this.cursor.y] !== undefined &&
-            this.grid?.[this.cursor.x + 1]?.[this.cursor.y].status !== 2 &&
-            this.grid?.[this.cursor.x + 1]?.[this.cursor.y].status !== 3
-        ) {
-            this.grid[this.cursor.x + 1][this.cursor.y].status = newStatus;
+        if (this.grid?.[this.cursor.x + 1]?.[this.cursor.y] !== undefined) {
+            this.paintNode(this.cursor.x + 1, this.cursor.y, newStatus);
         }
     }
 
@@ -68,13 +64,13 @@ export class Sidewinder extends MazeAlgorithmAbstract {
     private carveAndRestore(): void {
         if (this.runSet.length !== 0) {
             const randomElement = this.runSet[Math.floor(Math.random() * this.runSet.length)];
-            this.grid[randomElement.x][randomElement.y - 1].status = 9;
+            this.paintNode(randomElement.x, randomElement.y - 1, 9);
         }
         for (let i = 0; i < this.runSet.length; i++) {
             const node = this.runSet[i];
             this.grid[node.x][node.y].status = 9;
             if (this.grid?.[node.x + 1]?.[node.y] !== undefined) {
-                this.grid[node.x + 1][node.y].status = 9;
+                this.paintNode(node.x + 1, node.y, 9);
             }
         }
     }
@@ -105,12 +101,9 @@ export class Sidewinder extends MazeAlgorithmAbstract {
                 // carve north from run set
                 this.carveAndRestore();
                 // paint the wall
-                if (
-                    this.grid?.[this.cursor.x - 1]?.[this.cursor.y] !== undefined &&
-                    this.grid[this.cursor.x][this.cursor.y].status !== 2 &&
-                    this.grid[this.cursor.x][this.cursor.y].status !== 3
-                ) {
-                    this.grid[this.cursor.x - 1][this.cursor.y].status = 1;
+                if (this.grid?.[this.cursor.x - 1]?.[this.cursor.y] !== undefined) {
+                    // this.grid[this.cursor.x - 1][this.cursor.y].status = 1;
+                    this.paintNode(this.cursor.x - 1, this.cursor.y, 1);
                 }
                 this.runSet = [];
             }
