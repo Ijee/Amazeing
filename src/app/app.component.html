@@ -118,23 +118,6 @@
                     </svg>
                 </span>
             </a>
-            @if ((breakpointService.isMobile() | async) === false) {
-            <div role="button" class="navbar-item navbar-end is-hidden-desktop">
-                <a
-                    class="button github-brand-color is-pulled-right"
-                    [ngClass]="(breakpointService.isMobile()| async) ? 'is-small' : 'is-normal'"
-                    href="https://github.com/Ijee/Amazeing"
-                    target="_blank"
-                    rel="noopener">
-                    <span class="icon">
-                        <fa-icon [icon]="['fab', 'github']"></fa-icon>
-                    </span>
-                    <span>
-                        <b>Ijee</b>
-                    </span>
-                </a>
-            </div>
-            }
             <span
                 class="navbar-burger has-text-white-ter is-unselectable"
                 role="button"
@@ -181,6 +164,21 @@
                     </span>
                     <span routerLinkActive="simple-border-bottom"><b>LEARN</b></span>
                 </a>
+                @if ((breakpointService.isTouch() | async) === true) {
+                <a
+                    role="button"
+                    class="navbar-item is-unselectable"
+                    [ngClass]="{ 'font-white': ((breakpointService.isTouch() | async) === false) }"
+                    href="https://github.com/Ijee/Amazeing"
+                    target="_blank"
+                    rel="noopener">
+                    <span class="icon">
+                        <fa-icon [icon]="['fab', 'github']"></fa-icon>
+                    </span>
+                    <span>
+                        <b>Ijee</b>
+                    </span> </a
+                >}
                 <div
                     role="button"
                     class="navbar-item has-dropdown"
