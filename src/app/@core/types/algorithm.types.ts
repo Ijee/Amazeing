@@ -69,12 +69,17 @@ export type PathFindingAlgorithm =
 
 export type PathFindingHeuristic = 'Manhattan' | 'Euclidean' | 'Octile' | 'Chebyshev' | 'None';
 export type Session = {
+    version: number;
     algorithm: MazeAlgorithm | PathFindingAlgorithm;
     algorithmMode: AlgorithmMode;
-    heuristic?: PathFindingHeuristic;
-    state: any;
     iteration: number;
+    state: any;
     stats: Statistic[];
+    heuristic?: PathFindingHeuristic;
     options: AlgorithmOptions;
+    pathFindingSettings?: {
+        diagonalMovement: boolean;
+        cornerMovement: boolean;
+    };
     grid: Node[][];
 };

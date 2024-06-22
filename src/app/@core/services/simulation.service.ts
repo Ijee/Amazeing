@@ -279,12 +279,24 @@ export class SimulationService {
             session = JSON.parse(pako.inflate(uint8arr, { to: 'string' }));
             // Hi from the past. Nice seeing you.
             // console.log('session', session);
+            if (session.version !== 1) {
+                throw new Error(
+                    'This import token can not be imported in this version of the app. ' +
+                        'Version needed: ' +
+                        session.version +
+                        '.x'
+                );
+            }
             this.algorithmService.setAlgorithmMode(session.algorithmMode);
             if (this.algorithmService.getAlgorithmMode() === 'maze') {
                 this.algorithmService.setMazeAlgorithm(session.algorithm as MazeAlgorithm);
             } else {
                 this.algorithmService.setPathAlgorithm(session.algorithm as PathFindingAlgorithm);
-                // TODO set heuristic for path-finding service
+                this.algorithmService.setHeuristic(session.heuristic);
+                this.algorithmService.setDiagonalMovement(
+                    session.pathFindingSettings.cornerMovement
+                );
+                this.algorithmService.setCornerMovement(session.pathFindingSettings.cornerMovement);
             }
             // console.log('session import', session);
             this.algorithmService.updateAlgorithmState(
@@ -313,24 +325,39 @@ export class SimulationService {
      * as possible.
      */
     public exportSession(): void {
-        if (this.algorithmService.getAlgorithmMode() === 'maze') {
-            const session: Session = {
+        let session: Session = undefined;
+        if (this.recordService.getIteration() === 0) {
+            this.exportToken = '';
+            return;
+        } else if (this.algorithmService.getAlgorithmMode() === 'maze') {
+            session = {
+                version: 1,
                 algorithm: this.algorithmService.getAlgorithmName() as MazeAlgorithm,
                 algorithmMode: this.algorithmService.getAlgorithmMode(),
-                state: this.algorithmService.getSerializedState(),
                 iteration: this.recordService.getIteration(),
+                state: this.algorithmService.getSerializedState(),
                 stats: this.algorithmService.getStatRecords(),
                 options: this.algorithmService.getOptions(),
                 grid: this.gridList$.getValue()
             };
-            if (this.recordService.getIteration() > 0) {
-                this.exportToken = pako.deflate(JSON.stringify(session));
-            } else {
-                this.exportToken = '';
-            }
         } else {
-            // TODO sync mazeService with path-finding service to make this object assignable
+            session = {
+                version: 1,
+                algorithm: this.algorithmService.getAlgorithmName() as PathFindingAlgorithm,
+                algorithmMode: this.algorithmService.getAlgorithmMode(),
+                iteration: this.recordService.getIteration(),
+                state: this.algorithmService.getSerializedState(),
+                stats: this.algorithmService.getStatRecords(),
+                heuristic: this.algorithmService.getCurrentHeuristic(),
+                pathFindingSettings: {
+                    diagonalMovement: this.algorithmService.getDiagonalMovement(),
+                    cornerMovement: this.algorithmService.getCornerMovement()
+                },
+                options: this.algorithmService.getOptions(),
+                grid: this.gridList$.getValue()
+            };
         }
+        this.exportToken = pako.deflate(JSON.stringify(session));
     }
 
     /**
