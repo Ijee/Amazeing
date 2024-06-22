@@ -30,7 +30,7 @@
         <footer class="modal-card-foot">
             <div class="field is-grouped">
                 <button
-                    class="button is-success"
+                    class="button custom-button is-success"
                     data-testid="copy-to-clipboard"
                     title="Copy to clipboard"
                     (click)="exportSession()"
@@ -41,7 +41,7 @@
                     @if ((breakpointService.isTouch() | async) === false) { <span>Copy</span> }
                 </button>
                 <button
-                    class="button is-warning"
+                    class="button custom-button is-warning"
                     data-testid="export-as-file"
                     title="export as file"
                     (click)="exportAsFile()"
@@ -53,7 +53,7 @@
                 </button>
                 @if (canShare) {
                 <button
-                    class="button is-link"
+                    class="button custom-button is-link"
                     data-testid="export-as-file"
                     title="export as file"
                     (click)="shareFile()"

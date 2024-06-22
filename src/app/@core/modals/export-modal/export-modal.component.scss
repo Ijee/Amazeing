@@ -1,8 +1,19 @@
-.modal-card-head {
-    border-bottom: 1px solid var(--bulma-grey-lighter);
-    box-shadow: none;
+body.theme-dark :host .modal.is-active {
+    // TODO not working
+    box-shadow: var(--dark-mode-shadow);
 }
 
+body.theme-dark :host .modal-card-head,
+body.theme-dark :host .modal-card-body,
+body.theme-dark :host .modal-card-foot {
+    background-color: var(--bulma-dark);
+}
+
+.modal-card-head {
+    border-bottom: 1px solid var(--bulma-grey-lighter);
+
+    box-shadow: none;
+}
 
 .modal-card-foot {
     border-top: 1px solid var(--bulma-grey-lighter);
