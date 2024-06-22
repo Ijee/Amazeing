@@ -53,6 +53,10 @@
     }
 }
 
+.navbar {
+    z-index: auto;
+}
+
 body.theme-dark :host .navbar-dropdown {
     box-shadow: var(--dark-mode-shadow);
 }
