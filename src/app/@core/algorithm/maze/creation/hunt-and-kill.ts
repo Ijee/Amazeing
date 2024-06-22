@@ -1,3 +1,4 @@
+import { style } from '@angular/animations';
 import { GridLocation } from 'src/app/@shared/classes/GridLocation';
 import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
 import { shuffleFisherYates } from '../../../../@shared/utils/fisher-yates';
@@ -5,27 +6,27 @@ import { MazeAlgorithm, Node, Statistic } from '../../../types/algorithm.types';
 
 export class HuntAndKill extends MazeAlgorithmAbstract {
     private cursor: GridLocation;
-    private gridSnapshot: GridLocation[];
+    private rowSnapshot: GridLocation[];
+    private nodesFound: GridLocation[];
     private scanAtY: number;
     private evenOrOddX: number;
     private randomWalk: boolean;
-    private nodeFound: boolean;
 
     constructor() {
         super(
             [],
             [
                 {
-                    name: 'Current Cursor',
+                    name: 'Random Connection',
                     type: 'status-4'
                 },
                 {
-                    name: 'Found Nodes',
+                    name: 'Visited Nodes',
                     type: 'status-5'
                 },
                 {
                     name: 'Selected Row',
-                    type: 'status-8'
+                    type: 'status-6'
                 },
                 {
                     name: 'Building Streak',
@@ -37,10 +38,10 @@ export class HuntAndKill extends MazeAlgorithmAbstract {
                 controls: []
             }
         );
-        this.gridSnapshot = [];
+        this.rowSnapshot = [];
+        this.nodesFound = [];
         this.scanAtY = 0;
         this.randomWalk = false;
-        this.nodeFound = false;
     }
 
     /**
@@ -48,96 +49,126 @@ export class HuntAndKill extends MazeAlgorithmAbstract {
      * @param row - the row to be
      * @private
      */
-    private restoreRow(row: number): void {
-        for (let i = 0; i < this.gridSnapshot.length; i++) {
-            this.grid[i][row].status = this.gridSnapshot[i].status;
+    private restoreRow(): void {
+        for (let i = 0; i < this.rowSnapshot.length; i++) {
+            const loc = this.rowSnapshot[i];
+            this.grid[loc.x][loc.y].status = loc.status;
         }
-        this.gridSnapshot = [];
+        this.rowSnapshot = [];
     }
 
     /**
-     * Marks the whole row and paints the previous
-     * @private
+     * Scans a whole grid row for viable neighbours, saves the status and paints it over.
+     *
+     * @returns whether it found viable nodes.
      */
-    private markRow(): void {
+    private scanRow(): boolean {
         for (let i = 0; i < this.grid.length; i++) {
-            this.grid[i][this.scanAtY].status = 6;
+            const loc = new GridLocation(
+                i,
+                this.scanAtY,
+                undefined,
+                this.grid[i][this.scanAtY].status
+            );
+            // Save current row state
+            this.rowSnapshot.push(loc);
+            // if (this.grid[i][this.scanAtY].status === 0) {
+            if (this.grid[i][this.scanAtY].status === 0 && i % 2 === this.evenOrOddX) {
+                let neighbours = this.getNeighbours(loc, 2);
+                for (let j = 0; j < neighbours.length; j++) {
+                    let neighbour = neighbours[j];
+                    if (neighbour.status === 5) {
+                        // when a node has been found we connect it to the existing grid
+                        // after hunt and kill.
+                        this.nodesFound.push(loc);
+
+                        this.paintNode(loc.x, loc.y, 8);
+                    }
+                }
+            }
+            // Mark location (basically marking the whole row but not the node that has been found)
+
+            // TODDO: When custom node classes can be set in the algorithm itself this can be changed back.
+            // Meaning we can put an overlay class instead of changing the status and then we will also get all viable neighbours.
+            // if (!this.nodesFound.includes(loc)) {
+            //     this.paintNode(loc.x, loc.y, 6);
+            // }
+        }
+        // Mark whole row
+        for (let i = 0; i < this.grid.length; i++) {
+            if (this.grid[i][this.scanAtY].status !== 8) {
+                this.paintNode(i, this.scanAtY, 6);
+            }
+        }
+
+        return this.nodesFound.length === 0;
+    }
+
+    /**
+     * Is responsible for the ranodmo walk.
+     */
+    private walk(): void {
+        let neighbours = this.getNeighbours(this.cursor, 2);
+        neighbours = shuffleFisherYates(neighbours);
+        this.randomWalk = false;
+        for (let i = 0; i < neighbours.length; i++) {
+            let neighbour = neighbours[i];
+            if (neighbour.status === 0) {
+                this.buildWalls(neighbour, 0);
+                this.buildPath(this.cursor, neighbour, 5);
+                this.paintNode(neighbour.x, neighbour.y, 5);
+                this.cursor = neighbour;
+                this.randomWalk = true;
+                this.statRecords[3].currentValue += 1;
+                break;
+            }
+        }
+        if (!this.randomWalk) {
+            this.statRecords[3].currentValue = 0;
+            this.scanAtY = 0;
         }
     }
 
     public nextStep(): Node[][] {
-        if (this.randomWalk) {
-            let neighbours = this.getNeighbours(this.cursor, 2);
-            neighbours = shuffleFisherYates(neighbours);
-            this.randomWalk = false;
-            for (let i = 0; i < neighbours.length; i++) {
-                let neighbour = neighbours[i];
-                if (neighbour.status === 0) {
-                    this.buildWalls(neighbour, 0);
-                    this.buildPath(this.cursor, neighbour, 5);
-                    this.grid[neighbour.x][neighbour.y].status = 5;
-                    this.cursor = neighbour;
-                    this.randomWalk = true;
+        if (this.scanAtY >= 0) {
+            this.restoreRow();
+        }
+        if (this.scanAtY >= this.grid[0].length + 1) {
+            return null;
+        }
 
+        if (this.randomWalk) {
+            this.walk();
+        } else {
+            // hunt mode / search unused node
+            if (this.nodesFound.length !== 0) {
+                // Cconnecting the new start with the existing maze.
+                this.restoreRow();
+                const randomLoc =
+                    this.nodesFound[Math.floor(Math.random() * this.nodesFound.length)];
+                const viableNeighbour = this.getNeighbours(randomLoc, 2).find((neighbour) => {
+                    return this.grid[neighbour.x][neighbour.y].status === 5;
+                });
+                this.buildWalls(randomLoc, 0);
+                this.paintNode(randomLoc.x, randomLoc.y, 5);
+                this.buildPath(viableNeighbour, randomLoc, 5);
+                this.cursor = randomLoc;
+                this.randomWalk = true;
+                this.nodesFound = [];
+                this.scanAtY = -1;
+            } else {
+                // So we paint back the last row when it's the last row and no viable nodes have been found.
+                if (this.scanAtY >= this.grid[0].length && this.nodesFound.length === 0) {
+                    this.restoreRow();
+                    this.scanAtY += 1;
                     return this.grid;
                 }
-            }
-        } else {
-            // hunt mode  / search unused node
-            if (this.scanAtY >= 1) {
-                this.restoreRow(this.scanAtY - 1);
-            }
+                const nextRow = this.scanRow();
 
-            for (let i = 0; i < this.grid.length; i++) {
-                const loc = new GridLocation(
-                    i,
-                    this.scanAtY,
-                    undefined,
-                    this.grid[i][this.scanAtY].status
-                );
-                this.gridSnapshot.push(loc);
-                if (this.grid[i][this.scanAtY].status === 0 && i % 2 === this.evenOrOddX) {
-                    let neighbours = this.getNeighbours(loc, 2);
-                    for (let j = 0; j < neighbours.length; j++) {
-                        let neighbour = neighbours[j];
-                        if (this.nodeFound && neighbour.status === 5) {
-                            // when a node has been found we connect it to the existing grid
-                            // after hunt and kill.
-
-                            // man würde denken, dass ich nur beim cursor bauen
-                            // und einen Weg zwischen neighbour und cursor machen müsste.
-                            // bzw eigentlich loc und neighbour, aber ka
-                            this.buildWalls(this.cursor, 0, 8);
-                            this.buildWalls(loc, 5);
-                            console.log('loc', loc);
-                            console.log('neighbour', neighbour);
-                            console.log('cursor', this.cursor);
-                            this.buildPath(this.cursor, neighbour, 5);
-                            this.grid[this.cursor.x][this.cursor.y].status = 5;
-                            this.randomWalk = true;
-                            this.nodeFound = false;
-                            this.scanAtY = 0;
-                            this.gridSnapshot = [];
-                            return this.grid;
-                        } else if (neighbour.status === 5) {
-                            this.cursor = loc;
-                            this.nodeFound = true;
-                            break;
-                        }
-                    }
-                }
+                nextRow ? (this.scanAtY += 1) : (this.scanAtY = 0);
             }
-            // no viable node has been found, so we search the next row
-            // during the following iteration
-            if (!this.randomWalk) {
-                this.markRow();
-                if (this.nodeFound) {
-                    this.grid[this.cursor.x][this.cursor.y].status = 8;
-                }
-                this.scanAtY += 1;
-            }
-            return this.grid;
         }
+        return this.grid;
     }
 
     public setInitialData(grid: Node[][], startLocation: GridLocation): void {
@@ -146,7 +177,6 @@ export class HuntAndKill extends MazeAlgorithmAbstract {
         const randomYPosition = Math.floor(Math.random() * this.grid[0].length);
 
         this.evenOrOddX = randomXPosition % 2;
-        console.log(this.evenOrOddX);
         this.cursor = new GridLocation(randomXPosition, randomYPosition, 0);
         this.grid[randomXPosition][randomYPosition].status = 5;
         this.buildWalls(this.cursor, 0);
@@ -157,44 +187,67 @@ export class HuntAndKill extends MazeAlgorithmAbstract {
         this.grid = newGrid;
         this.statRecords = statRecords;
         this.cursor = deserializedState.cursor;
-        this.gridSnapshot = deserializedState.gridSnapshot;
+        this.rowSnapshot = deserializedState.rowSnapshot;
+        this.nodesFound = deserializedState.nodesFound;
         this.scanAtY = deserializedState.scanAtY;
         this.evenOrOddX = deserializedState.evenOrOddX;
         this.randomWalk = deserializedState.randomWalk;
-        this.nodeFound = deserializedState.nodeFound;
     }
 
     public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
-        const cursor = serializedState.cursor;
-        const gridSnapShot: GridLocation[] = [];
-        serializedState.walkingPath.forEach((item) => {
-            const tempGridSnapShot = new GridLocation(item.x, item.y, item.weight);
-            gridSnapShot.push(tempGridSnapShot);
-        });
-
+        let cursor = serializedState.cursor;
+        if (serializedState.cursor) {
+            cursor = new GridLocation(cursor.x, cursor.y, cursor.weight);
+        }
+        const tempRowSnapshot: GridLocation[] = [];
+        if (serializedState.rowSnapshot.lengh !== 0) {
+            serializedState.rowSnapshot.forEach((item) => {
+                const node = new GridLocation(item.x, item.y, item.weight, item.status);
+                tempRowSnapshot.push(node);
+            });
+        }
+        const tempNodesFound: GridLocation[] = [];
+        if (serializedState.nodesFound.length !== 0) {
+            serializedState.nodesFound.forEach((item) => {
+                const node = new GridLocation(item.x, item.y, item.weight, item.status);
+                tempNodesFound.push(node);
+            });
+        }
         const deserializedState = {
             cursor: new GridLocation(cursor.x, cursor.y, cursor.weight),
-            gridSnapshot: gridSnapShot,
+            rowSnapshot: tempRowSnapshot,
+            nodesFound: tempNodesFound,
             scanAtY: serializedState.scanAtY,
             evenOrOddX: serializedState.evenOrOddX,
-            randomWalk: serializedState.randomWalk,
-            nodeFound: serializedState.nodeFound
+            randomWalk: serializedState.randomWalk
         };
         this.updateState(newGrid, deserializedState, statRecords);
     }
 
     public serialize(): Object {
+        let cursor: object | undefined = undefined;
+        if (this.cursor) {
+            cursor = JSON.parse(JSON.stringify(this.cursor));
+        }
+
         const serializedState = {
-            cursor: this.cursor.toObject(),
-            gridSnapshot: [],
+            cursor: cursor,
+            rowSnapshot: [],
+            nodesFound: [],
             scanAtY: this.scanAtY,
             evenOrOddX: this.evenOrOddX,
-            randomWalk: this.randomWalk,
-            nodeFound: this.nodeFound
+            randomWalk: this.randomWalk
         };
-        this.gridSnapshot.forEach((gridLocation) => {
-            serializedState.gridSnapshot.push(gridLocation.toObject());
-        });
+        if (this.rowSnapshot.length !== 0)
+            this.rowSnapshot.forEach((gridLocation) => {
+                serializedState.rowSnapshot.push(gridLocation.toObject());
+            });
+
+        if (this.nodesFound.length !== 0) {
+            this.nodesFound.forEach((gridLocation) => {
+                serializedState.nodesFound.push(gridLocation.toObject());
+            });
+        }
 
         return serializedState;
     }
@@ -202,20 +255,12 @@ export class HuntAndKill extends MazeAlgorithmAbstract {
     public getState(): Object {
         return {
             cursor: this.cursor,
-            gridSnapshot: this.gridSnapshot,
+            rowSnapshot: this.rowSnapshot,
+            nodesFound: this.nodesFound,
             scanAtY: this.scanAtY,
             evenOrOddX: this.evenOrOddX,
-            randomWalk: this.randomWalk,
-            nodeFound: this.nodeFound
+            randomWalk: this.randomWalk
         };
-
-        //
-        //     private cursor: GridLocation;
-        //     private scanAtY: number;
-        // private evenOrOddX: number;
-        //     private randomWalk: boolean;
-        //     private nodeFound: boolean;
-        //     private gridSnapshot: GridLocation[];
     }
 
     public getAlgorithmName(): MazeAlgorithm {
