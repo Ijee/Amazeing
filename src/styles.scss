@@ -7,7 +7,7 @@
 @use 'styles/bulma-variables';
 @use 'styles/colors';
 @use 'styles/dark-theme';
-
+@import 'styles/driverjs';
 @import 'styles/forms.scss';
 
 //@use 'driverjs';
@@ -332,24 +332,24 @@ input:focus {
 }
 
 // TODO specificity???
-@media (prefers-reduced-motion: no-preference) {
-    button:focus-visible {
-        transition: outline-offset 75ms ease-out;
-        outline-offset: 0.5rem;
-    }
+// @media (prefers-reduced-motion: no-preference) {
+//     button:focus-visible {
+//         transition: outline-offset 75ms ease-out;
+//         outline-offset: 0.5rem;
+//     }
 
-    button:not(:active):focus-visible {
-        transition: outline-offset 25ms ease-in;
-    }
-}
+//     button:not(:active):focus-visible {
+//         transition: outline-offset 25ms ease-in;
+//     }
+// }
 
-button:not(:active):focus-visible {
-    outline-offset: 1rem;
-}
+// button:not(:active):focus-visible {
+//     outline-offset: 1rem;
+// }
 
-button:focus-visible {
-    outline: 1rem solid;
-}
+// button:focus-visible {
+//     outline: 1rem solid;
+// }
 
 // Gets adjusted in the algorithm service (setAlgorithmMode()) whenever the algorithm mode changes.
 ::selection {

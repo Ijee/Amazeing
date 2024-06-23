@@ -1,27 +1,29 @@
 <div class="fixed-grid has-12-cols is-centered mb-0" style="height: 100%; align-items: center">
     <div class class="grid is-gap-0 is-row-gap-0">
-        <div class="cell is-col-span-12 is-row-start-1">
-            <app-hr text="ALGORITHM MODE"></app-hr>
-        </div>
-        <div class="fixed-grid has-12-cols cell is-col-span-12 is-row-start-2">
-            <div class="grid is-gap-0">
-                <div class="cell is-col-span-6">
-                    <button
-                        class="button custom-button algo-mode-button maze-button border-radius-top-left is-medium has-text-black is-fullwidth"
-                        data-testid="maze-mode"
-                        [ngClass]="this.algorithmService.getAlgorithmMode() === 'maze' ? 'maze-active' : ''"
-                        (click)="handleWarning('maze'); newAlgorithm = undefined">
-                        <b>MAZE</b>
-                    </button>
-                </div>
-                <div class="cell is-col-span-6">
-                    <button
-                        class="button custom-button algo-mode-button path-button border-radius-top-right is-medium has-text-black is-fullwidth"
-                        data-testid="pathfinding-mode"
-                        [ngClass]="algorithmService.getAlgorithmMode() === 'path-finding' ? 'path-active' : ''"
-                        (click)="handleWarning('path-finding'); newAlgorithm = undefined">
-                        <b>PATHFINDING</b>
-                    </button>
+        <div class="cell is-col-span-12 is-row-start-1 tourAlgorithmMode">
+            <div class="cell is-col-span-12 is-row-start-1">
+                <app-hr text="ALGORITHM MODE"></app-hr>
+            </div>
+            <div class="fixed-grid has-12-cols cell is-col-span-12 is-row-start-2 tourAlgorithmModeButton">
+                <div class="grid is-gap-0">
+                    <div class="cell is-col-span-6">
+                        <button
+                            class="button custom-button algo-mode-button maze-button border-radius-top-left is-medium has-text-black is-fullwidth"
+                            data-testid="maze-mode"
+                            [ngClass]="this.algorithmService.getAlgorithmMode() === 'maze' ? 'maze-active' : ''"
+                            (click)="handleWarning('maze'); newAlgorithm = undefined">
+                            <b>MAZE</b>
+                        </button>
+                    </div>
+                    <div class="cell is-col-span-6">
+                        <button
+                            class="button custom-button algo-mode-button path-button border-radius-top-right is-medium has-text-black is-fullwidth"
+                            data-testid="pathfinding-mode"
+                            [ngClass]="algorithmService.getAlgorithmMode() === 'path-finding' ? 'path-active' : ''"
+                            (click)="handleWarning('path-finding'); newAlgorithm = undefined">
+                            <b>PATHFINDING</b>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

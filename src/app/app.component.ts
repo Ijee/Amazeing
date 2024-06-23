@@ -234,9 +234,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
     public prepareUserTour(): void {
         this.router.navigate(['/simulation']).then((value) => {
+            this.showSettingsDropdown = false;
             this.settingsService.setUserTourTaken(true);
             this.settingsService.setUserTourActive(true);
-            this.userTourService.startTour();
+            this.userTourService.startTour(this.settingsService.getAnimationsSetting());
         });
     }
 

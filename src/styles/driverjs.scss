@@ -1,16 +1,19 @@
-@use "bulma/sass/utilities";
 /* Class assigned to popover wrapper */
 
 body.theme-dark .driver-popover {
-    color: var(--bulma-white-ter);
+    color: var(--white-dark-87);
     background-color: var(--bulma-dark);
+    box-shadow: var(--dark-mode-shadow);
+    opacity: 1;
 }
 
 .driver-popover {
 }
 
 /* Arrow pointing towards the highlighted element */
-.tour .driver-popover-arrow {
+.driver-popover-arrow {
+    // margin: 0px;
+    border-width: 10px;
 }
 
 /* Title and description */
@@ -19,13 +22,29 @@ body.theme-dark .driver-popover {
 }
 .tour .driver-popover-description {
     font-family: inherit;
-    @extend .is-size-6 !optional;
+    // @extend .is-size-6 !optional;
 }
 
 /* Close button displayed on the top right corner */
-.tour .driver-popover-close-btn {
-    @extend .delete !optional;
-    @extend .is-pulled-right !optional;
+body.theme-dark :host .tour .driver-popover-close-btn {
+    color: var(--white-dark-87);
+}
+
+.tour .driver-popover-close-btn:hover {
+    color: var(--bulma-warning);
+}
+
+.driver-popover-close-btn:hover,
+.driver-popover-close-btn:focus {
+    color: var(--white-dark-87);
+}
+a:focus-visible,
+button:focus-visible {
+    outline: none;
+    outline-color: var(--white-dark-87);
+}
+
+.driver-popover button {
 }
 
 /* Footer of the popover displaying progress and navigation buttons */
@@ -35,13 +54,15 @@ body.theme-dark .driver-popover {
 .tour .driver-popover-progress-text {
     font-weight: 900;
 }
-.tour .driver-popover-prev-btn {
-    @extend .button !optional;
-    @extend .is-normal !optional;
-}
+.tour .driver-popover-prev-btn,
 .tour .driver-popover-next-btn {
-    @extend .button !optional;
-    @extend .is-success !optional;
-    @extend .is-normal !optional;
-    color: red;
+    // color: red;
+    flex: 1;
+    text-align: center;
+
+    border: 2px solid #000;
+    text-shadow: none;
+    font-size: 14px;
+    padding: 5px 8px;
+    border-radius: 6px;
 }
