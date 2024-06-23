@@ -225,6 +225,9 @@ export class AlgorithmService {
      * @param val the setting to be
      */
     public setDiagonalMovement(val: boolean) {
+        if (!val && this.cornerMovement) {
+            this.cornerMovement = false;
+        }
         this.diagonalMovement = val;
     }
 
