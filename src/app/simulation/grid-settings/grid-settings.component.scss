@@ -22,7 +22,7 @@ body.theme-dark :host .button.algo-mode-button {
     //     radial-gradient(at 25% 75%, var(--bulma-primary) 0px, transparent 35%),
     //     radial-gradient(at 25% 25%, var(--bulma-primary-light) 0px, transparent 35%);
     background-color: var(--bulma-primary-light);
-    background-size: 200% 100%;
+    background-size: 210% 100%;
     transition: background-position var(--switch-animationn-duration) var(--smooth-animation);
     background-position: left bottom;
 }
@@ -40,7 +40,7 @@ body.theme-dark :host .button.algo-mode-button {
 .path-button {
     // background: linear-gradient(to right, var(--bulma-danger) 50%, var(--bulma-danger-light) 50%);
     background: linear-gradient(to right, var(--bulma-danger) 50%, var(--bulma-danger-light) 50%);
-    background-size: 200% 100%;
+    background-size: 210% 100%;
     background-position: right bottom;
     transition: background-position var(--switch-animationn-duration) var(--smooth-animation);
 }
