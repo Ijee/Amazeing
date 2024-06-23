@@ -299,12 +299,12 @@
                         </div>
                     </div>
                 </div>
-                @if (!settingsService.getUserTourTaken()) {
+                @if (!settingsService.getUserTourTaken() && ((breakpointService.isTouch() | async) === false)) {
                 <span class="navbar-item p-0">
                     <a
                         role="button"
                         [class.fa-bounce]="isBouncing"
-                        class="button is-rounded button-user-tour"
+                        class="button custom-button is-rounded button-user-tour"
                         (click)="prepareUserTour()">
                         <span class="icon has-text-white">
                             <fa-icon class="fa-xl" [icon]="['fas', 'circle-question']"></fa-icon>

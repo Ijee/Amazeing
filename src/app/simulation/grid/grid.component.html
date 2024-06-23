@@ -64,14 +64,13 @@
                     <button
                         class="button weight-button is-pulled-right is-responsive"
                         data-testid="toggle-weights"
-                        [ngClass]="simulationService.getShowWeightStatus() ? 'is-primary is-light' : 'is-danger is-light'"
                         title="Toggle weights"
                         (click)="simulationService.toggleWeightStatus()">
                         <span class="icon">
                             @if (simulationService.getShowWeightStatus()) {
-                            <fa-icon [icon]="['fas', 'eye']"></fa-icon>
+                            <fa-icon class="has-text-primary" [icon]="['fas', 'eye']"></fa-icon>
                             } @if (!simulationService.getShowWeightStatus()) {
-                            <fa-icon [icon]="['fas', 'eye-slash']"></fa-icon>
+                            <fa-icon class="has-text-danger" [icon]="['fas', 'eye-slash']"></fa-icon>
                             }
                         </span>
                     </button>

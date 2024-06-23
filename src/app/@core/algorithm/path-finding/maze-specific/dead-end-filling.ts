@@ -93,7 +93,7 @@ export class DeadEndFilling extends PathFindingAlgorithmAbstract {
     }
     public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
         const deadEnds: GridLocation[] = [];
-        serializedState.walkingPath.forEach((item) => {
+        serializedState.deadEnds.forEach((item) => {
             const deadEnd = new GridLocation(item.x, item.y, item.weight);
             deadEnds.push(deadEnd);
         });

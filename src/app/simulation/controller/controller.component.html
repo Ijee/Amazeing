@@ -40,15 +40,14 @@
     <p class="control">
         <button
             [disabled]="simulationService.getIsPlayDisabled()"
-            [ngClass]="simulationService.getSimulationStatus() ? 'is-primary is-light' : 'is-danger is-light'"
             class="button is-responsive"
             data-testid="stop-play"
             title="play"
             (click)="simulationService.setSimulationStatus()">
             @if (simulationService.getSimulationStatus()) {
-            <fa-icon [icon]="['fas', 'stop']"></fa-icon>
+            <fa-icon class="has-text-danger" [icon]="['fas', 'stop']"></fa-icon>
             } @if (!simulationService.getSimulationStatus()) {
-            <fa-icon [icon]="['fas', 'play']"></fa-icon>
+            <fa-icon class="has-text-primary" [icon]="['fas', 'play']"></fa-icon>
             }
         </button>
     </p>
