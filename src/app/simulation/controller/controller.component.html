@@ -5,6 +5,7 @@
             class="button is-responsive"
             data-testid="slowdown"
             title="slow down"
+            aria-label="slow down"
             (click)="simulationService.setSpeedDown()">
             <fa-icon [icon]="['fas', 'backward']"></fa-icon>
         </button>
@@ -14,7 +15,8 @@
             [disabled]="simulationService.getBackwardStepsAmount() < 1"
             class="button is-responsive"
             data-testid="iteration-backward"
-            title="iteration backward"
+            title="iteration backwards"
+            aria-label="iteration backwards"
             [ngClass]="{
                 buttonBackwards: simulationService.getBackwardStepsAmount() < 1
             }"
@@ -28,6 +30,7 @@
             class="button is-responsive"
             data-testid="clear-grid"
             title="clear grid"
+            aria-label="clear grid"
             [disabled]="simulationService.getSimulationStatus()"
             (click)="simulationService.reset()">
             @if (recordService.getIteration() > 0) {
@@ -43,6 +46,7 @@
             class="button is-responsive"
             data-testid="stop-play"
             title="play"
+            aria-label="play"
             (click)="simulationService.setSimulationStatus()">
             @if (simulationService.getSimulationStatus()) {
             <fa-icon class="has-text-danger" [icon]="['fas', 'stop']"></fa-icon>
@@ -57,6 +61,7 @@
             class="button is-responsive"
             data-testid="next-iteration"
             title="next iteration"
+            aria-label="next iteration"
             (click)="simulationService.stepForward()">
             <fa-icon [icon]="['fas', 'step-forward']"></fa-icon>
         </button>
@@ -67,6 +72,7 @@
             class="button is-responsive"
             data-testid="complete-algorithm"
             title="complete algorithm"
+            aria-label="complete algorithm"
             (click)="simulationService.completeAlgorithm()">
             <fa-icon [icon]="['fas', 'fast-forward']"></fa-icon>
         </button>
@@ -76,6 +82,7 @@
             class="button is-responsive"
             data-testid="speed-up"
             title="speed up"
+            aria-label="speed up"
             (click)="simulationService.setSpeedUp()">
             <fa-icon [icon]="['fas', 'forward']"></fa-icon>
         </button>
@@ -87,6 +94,7 @@
             class="button is-responsive"
             data-testid="import"
             title="import"
+            aria-label="import"
             (click)="simulationService.toggleShowImportModal(); simulationService.setSimulationStatus(false)">
             <span class="icon">
                 <fa-icon [icon]="['far', 'edit']"></fa-icon>
@@ -95,7 +103,12 @@
         </button>
     </p>
     <p class="control">
-        <button class="button is-responsive" data-testid="export" title="export" (click)="handleExportLogic()">
+        <button
+            class="button is-responsive"
+            data-testid="export"
+            title="export"
+            aria-label="export"
+            (click)="handleExportLogic()">
             <span class="icon">
                 <fa-icon [icon]="['far', 'save']"></fa-icon>
             </span>
