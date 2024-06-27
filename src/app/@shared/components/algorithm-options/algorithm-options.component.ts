@@ -31,6 +31,8 @@ export class AlgorithmOptionsComponent implements OnDestroy {
     ) {
         this.destroyed$ = new Subject<void>();
 
+        // this.handleJsonFormData();
+
         // Send changes to the current algorithm.
         this.optionsForm.valueChanges.subscribe(() => {
             this.setAlgorithmOptions();

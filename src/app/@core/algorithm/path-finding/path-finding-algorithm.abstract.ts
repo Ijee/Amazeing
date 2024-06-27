@@ -12,11 +12,14 @@ import { manhattanDistance } from './heuristic/manhattan';
 import { octileDistance } from './heuristic/octile';
 
 export abstract class PathFindingAlgorithmAbstract {
-    private heuristic: PathFindingHeuristic = 'None';
+    private heuristic: PathFindingHeuristic = 'Manhattan';
     private diagonalMovement = false;
     private cornerMovement = false;
     protected options: AlgorithmOptions;
 
+    // TODO: How the start and/or goal location is being set needs a makeover.
+    //       When importing it I need to set it explicitly but that only happens when setInitialData() is
+    //       being called (iteration === 0).
     protected goalLocation: GridLocation;
     protected constructor(
         protected grid: Node[][],
@@ -276,6 +279,31 @@ export abstract class PathFindingAlgorithmAbstract {
      */
     public getOptions(): AlgorithmOptions {
         return this.options;
+    }
+
+    /**
+     * Returns the selected heuristic
+     */
+    public getHeuristic(): PathFindingHeuristic {
+        return this.heuristic;
+    }
+
+    /**
+     * Returns the corner diagonal movement setting.
+     *
+     * @returns the user setting
+     */
+    public getDiagonalMovement(): boolean {
+        return this.diagonalMovement;
+    }
+
+    /**
+     * Returns the corner movement setting.
+     *
+     * @returns the user setting
+     */
+    public getCornerMovement(): boolean {
+        return this.cornerMovement;
     }
 
     /**
