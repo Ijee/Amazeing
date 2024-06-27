@@ -12,7 +12,7 @@ import { SettingsService } from '../../@core/services/settings.service';
 import { SimulationService } from '../../@core/services/simulation.service';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { AlgorithmService } from '../../@core/services/algorithm.service';
-import { Subject } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { fadeAnimationSafe } from '../../@shared/animations/fadeRouteAnimation';
 import { RecordService } from '../../@core/services/record.service';
 import { AlgorithmMode } from '../../@core/types/algorithm.types';
@@ -49,6 +49,7 @@ export class GridSettingsComponent implements AfterViewInit, OnDestroy {
         public readonly settingsService: SettingsService,
         public readonly breakpointService: BreakpointService
     ) {
+        this.destroyed$ = new Subject<void>();
         this.showWarning = false;
         // activates the right algorithm mode button based on the matched url
         if (this.router.url.includes('maze')) {
@@ -57,7 +58,12 @@ export class GridSettingsComponent implements AfterViewInit, OnDestroy {
             this.algorithmService.setAlgorithmMode('path-finding');
         }
 
-        this.destroyed$ = new Subject<void>();
+        this.simulationService
+            .getHandleImport()
+            .pipe(takeUntil(this.destroyed$))
+            .subscribe(() => {
+                this.navigateMode();
+            });
     }
 
     ngAfterViewInit() {
@@ -128,15 +134,18 @@ export class GridSettingsComponent implements AfterViewInit, OnDestroy {
         this.showWarning = false;
         this.simulationService.setSimulationStatus(false);
         this.simulationService.prepareGrid();
-
         if (this.algorithmService.getAlgorithmMode() === 'maze') {
             this.algorithmService.setAlgorithmMode('path-finding');
-            this.transitionName = 'toPath';
         } else {
             this.algorithmService.setAlgorithmMode('maze');
-            this.transitionName = 'toMaze';
         }
 
+        this.navigateMode();
+    }
+
+    public navigateMode(): void {
+        this.transitionName =
+            this.algorithmService.getAlgorithmMode() === 'maze' ? 'toPath' : 'toMaze';
         const rootElement = this.document.documentElement; // Target the root element
         this.renderer.addClass(rootElement, 'no-root-view-transition');
 

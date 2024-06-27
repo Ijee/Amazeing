@@ -43,15 +43,11 @@ export class AlgorithmService {
     private algorithmMode: AlgorithmMode;
     private mazeAlgorithm: MazeAlgorithmAbstract;
     private pathAlgorithm: PathFindingAlgorithmAbstract;
-    private heuristic: PathFindingHeuristic;
-    private diagonalMovement = false;
-    private cornerMovement = false;
 
     constructor(private meta: Meta) {
         this.setAlgorithmMode('maze');
         this.setMazeAlgorithm('Prims');
         this.setPathAlgorithm('A-Star');
-        this.setHeuristic('Manhattan');
     }
 
     /**
@@ -175,10 +171,9 @@ export class AlgorithmService {
             default:
                 throw new Error('Unknown path-finding algorithm selected!');
         }
-    }
-
-    public setHeuristic(newHeuristic: PathFindingHeuristic): void {
-        this.heuristic = newHeuristic;
+        if (!this.pathAlgorithm.usesHeuristics()) {
+            this.pathAlgorithm.setHeuristic('None');
+        }
     }
 
     /**
@@ -197,15 +192,22 @@ export class AlgorithmService {
             this.mazeAlgorithm.setInitialData(currentGrid, startLocation);
         } else {
             if (!this.pathAlgorithm.usesPathFindingSettings()) {
-                this.diagonalMovement = false;
-                this.cornerMovement = false;
+                this.pathAlgorithm.setDiagonalMovement(false);
+                this.pathAlgorithm.setCornerMovement(false);
             }
             this.pathAlgorithm.setInitialData(currentGrid, startLocation);
-            this.pathAlgorithm.setHeuristic(this.heuristic);
-            this.pathAlgorithm.setDiagonalMovement(this.diagonalMovement);
-            this.pathAlgorithm.setCornerMovement(this.cornerMovement);
+
             this.pathAlgorithm.setGoal(goalLocation);
         }
+    }
+
+    /**
+     *  Sets the new goal location for the pathfinding algorithm.
+     *
+     * @param loc the new goal location
+     */
+    public setGoalLocation(loc: GridLocation): void {
+        this.pathAlgorithm.setGoal(loc);
     }
 
     /**
@@ -219,16 +221,20 @@ export class AlgorithmService {
             : this.pathAlgorithm.setOptions(options);
     }
 
+    public setHeuristic(newHeuristic: PathFindingHeuristic): void {
+        this.pathAlgorithm.setHeuristic(newHeuristic);
+    }
+
     /**
      * Sets the diagonal movement setting.
      *
      * @param val the setting to be
      */
     public setDiagonalMovement(val: boolean) {
-        if (!val && this.cornerMovement) {
-            this.cornerMovement = false;
+        if (!val && this.pathAlgorithm.getCornerMovement) {
+            this.pathAlgorithm.setCornerMovement(false);
         }
-        this.diagonalMovement = val;
+        this.pathAlgorithm.setDiagonalMovement(val);
     }
 
     /**
@@ -238,9 +244,9 @@ export class AlgorithmService {
      */
     public setCornerMovement(val: boolean) {
         if (val) {
-            this.diagonalMovement = true;
+            this.pathAlgorithm.setDiagonalMovement(true);
         }
-        this.cornerMovement = val;
+        this.pathAlgorithm.setCornerMovement(val);
     }
 
     /**
@@ -329,15 +335,10 @@ export class AlgorithmService {
     }
 
     /**
-     * Returns the currently selected heuristic or 'None' when a
-     * Maze-Solving Algorithm has been selected.
+     * Returns the currently selected heuristic or 'None
      */
     public getCurrentHeuristic(): PathFindingHeuristic {
-        if (this.pathAlgorithm.usesHeuristics()) {
-            return this.heuristic;
-        } else {
-            return 'None';
-        }
+        return this.pathAlgorithm.getHeuristic();
     }
 
     /**
@@ -389,7 +390,7 @@ export class AlgorithmService {
      * @returns the user setting
      */
     public getDiagonalMovement(): boolean {
-        return this.diagonalMovement;
+        return this.pathAlgorithm.getDiagonalMovement();
     }
 
     /**
@@ -398,7 +399,7 @@ export class AlgorithmService {
      * @returns the user setting
      */
     public getCornerMovement(): boolean {
-        return this.cornerMovement;
+        return this.pathAlgorithm.getCornerMovement();
     }
 
     /**

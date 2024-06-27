@@ -5,8 +5,15 @@ import * as pako from 'pako';
 import { SettingsService } from './settings.service';
 import { AlgorithmService } from './algorithm.service';
 import { RecordService } from './record.service';
-import { MazeAlgorithm, Node, PathFindingAlgorithm, Session } from '../types/algorithm.types';
+import {
+    MazeAlgorithm,
+    Node,
+    PathFindingAlgorithm,
+    Session,
+    Statistic
+} from '../types/algorithm.types';
 import { AlgorithmOptions } from '../types/jsonform.types';
+import { GridLocation } from 'src/app/@shared/classes/GridLocation';
 
 @Injectable({
     providedIn: 'root'
@@ -25,6 +32,7 @@ export class SimulationService {
     private showImportModal: boolean;
     private showExportModal: boolean;
     private exportToken: string;
+    private handleImport$: Subject<void>;
     private intervalID: number;
 
     constructor(
@@ -42,6 +50,7 @@ export class SimulationService {
         this.showLegendModal = false;
         this.showImportModal = false;
         this.showExportModal = false;
+        this.handleImport$ = new Subject<void>();
     }
 
     /**
@@ -274,10 +283,12 @@ export class SimulationService {
      */
     public importSession(importText: string): void {
         let session: Session;
+        let oldAlgoMode = this.algorithmService.getAlgorithmMode();
+
         try {
             const uint8arr = Uint8Array.from(importText.split(',').map((str) => parseInt(str, 10)));
             session = JSON.parse(pako.inflate(uint8arr, { to: 'string' }));
-            // Hi from the past. Nice seeing you.
+            // Hi from the past. Nice seeing you again.
             // console.log('session', session);
             if (session.version !== 1) {
                 throw new Error(
@@ -287,6 +298,7 @@ export class SimulationService {
                         '.x'
                 );
             }
+
             this.algorithmService.setAlgorithmMode(session.algorithmMode);
             if (this.algorithmService.getAlgorithmMode() === 'maze') {
                 this.algorithmService.setMazeAlgorithm(session.algorithm as MazeAlgorithm);
@@ -297,22 +309,53 @@ export class SimulationService {
                     session.pathFindingSettings.cornerMovement
                 );
                 this.algorithmService.setCornerMovement(session.pathFindingSettings.cornerMovement);
+                // console.log('I just set the pathfindings settings');
             }
             // console.log('session import', session);
-            this.algorithmService.updateAlgorithmState(
-                session.grid,
-                session.state,
-                session.stats,
-                true
-            );
+            if (session.iteration !== 0) {
+                this.algorithmService.updateAlgorithmState(
+                    session.grid,
+                    session.state,
+                    session.stats,
+                    true
+                );
+            }
+
             this.recordService.setIteration(session.iteration);
             this.recordService.resetHistory();
+            const newStartLoc = new GridLocation(
+                session.startLoc.x,
+                session.startLoc.y,
+                session.startLoc.weight,
+                session.startLoc.status
+            );
+            const newGoalLoc = new GridLocation(
+                session.goalLoc.x,
+                session.goalLoc.y,
+                session.goalLoc.weight,
+                session.goalLoc.status
+            );
+            this.recordService.setGridStartLocation(newStartLoc);
+            this.recordService.setGridGoalLocation(newGoalLoc);
+            this.algorithmService.setGoalLocation(newGoalLoc);
             // TODO setOptions doesn't really do anything here and I am not sure
             // if this is the best way to patch the values.
             this.algorithmService.setOptions(session.options);
-            this.patchFormValues$.next(session.options);
+
+            if (oldAlgoMode !== session.algorithmMode) {
+                // console.log('navigating to other mode');
+                this.handleImport$.next();
+            }
+
+            // console.log('patchFormValue', this.patchFormValues$.value);
+
             this.gridList$.next(session.grid);
+
             this.toggleShowImportModal();
+
+            setTimeout(() => {
+                this.patchFormValues$.next(session.options);
+            }, 100);
         } catch (error) {
             console.error('Input String is invalid');
             throw error;
@@ -326,19 +369,26 @@ export class SimulationService {
      */
     public exportSession(): void {
         let session: Session = undefined;
-        if (this.recordService.getIteration() === 0) {
-            this.exportToken = '';
-            return;
-        } else if (this.algorithmService.getAlgorithmMode() === 'maze') {
+        let state: any = undefined;
+        let stats: Statistic[] = undefined;
+
+        if (this.recordService.getIteration() !== 0) {
+            state = this.algorithmService.getSerializedState();
+            stats = this.algorithmService.getStatRecords();
+        }
+
+        if (this.algorithmService.getAlgorithmMode() === 'maze') {
             session = {
                 version: 1,
                 algorithm: this.algorithmService.getAlgorithmName() as MazeAlgorithm,
                 algorithmMode: this.algorithmService.getAlgorithmMode(),
                 iteration: this.recordService.getIteration(),
-                state: this.algorithmService.getSerializedState(),
-                stats: this.algorithmService.getStatRecords(),
+                state: state,
+                stats: stats,
                 options: this.algorithmService.getOptions(),
-                grid: this.gridList$.getValue()
+                grid: this.gridList$.getValue(),
+                startLoc: this.recordService.getGridStartLocation(),
+                goalLoc: this.recordService.getGridGoalLocation()
             };
         } else {
             session = {
@@ -346,17 +396,20 @@ export class SimulationService {
                 algorithm: this.algorithmService.getAlgorithmName() as PathFindingAlgorithm,
                 algorithmMode: this.algorithmService.getAlgorithmMode(),
                 iteration: this.recordService.getIteration(),
-                state: this.algorithmService.getSerializedState(),
-                stats: this.algorithmService.getStatRecords(),
+                state: state,
+                stats: stats,
                 heuristic: this.algorithmService.getCurrentHeuristic(),
                 pathFindingSettings: {
                     diagonalMovement: this.algorithmService.getDiagonalMovement(),
                     cornerMovement: this.algorithmService.getCornerMovement()
                 },
                 options: this.algorithmService.getOptions(),
-                grid: this.gridList$.getValue()
+                grid: this.gridList$.getValue(),
+                startLoc: this.recordService.getGridStartLocation(),
+                goalLoc: this.recordService.getGridGoalLocation()
             };
         }
+        console.log('session', session);
         this.exportToken = pako.deflate(JSON.stringify(session));
     }
 
@@ -531,5 +584,9 @@ export class SimulationService {
      */
     public getExportToken(): string {
         return this.exportToken;
+    }
+
+    public getHandleImport(): Observable<void> {
+        return this.handleImport$;
     }
 }

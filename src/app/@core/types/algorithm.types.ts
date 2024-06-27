@@ -82,4 +82,6 @@ export type Session = {
         cornerMovement: boolean;
     };
     grid: Node[][];
+    startLoc: GridLocation;
+    goalLoc: GridLocation;
 };
