@@ -9,6 +9,7 @@ export class BreadthFirstSearch extends PathFindingAlgorithmAbstract {
     private visitedNodes: VisitedNode[];
     // TODO: this can probably be removed and done differently
     // but I am lazy at this point. (Change it in DFS also)
+    // Just make it a HashSet lol. I just did it like this because I felt like it.
     private tracePath: GridLocation;
     constructor() {
         super(
@@ -78,26 +79,26 @@ export class BreadthFirstSearch extends PathFindingAlgorithmAbstract {
             return this.grid;
         } else {
             // show path
-            if (this.tracePath === null) {
-                return null;
-            } else {
-                for (let i = 0; i < this.visitedNodes.length; i++) {
-                    const visitedNode = this.visitedNodes[i];
-                    if (visitedNode.node.equals(this.tracePath)) {
-                        this.paintNode(this.tracePath.x, this.tracePath.y, 8);
-                        this.tracePath = visitedNode.predecessor;
-                    }
+            for (let i = 0; i < this.visitedNodes.length; i++) {
+                const visitedNode = this.visitedNodes[i];
+                if (this.tracePath.status === 2) {
+                    return null;
+                } else if (visitedNode.node.equals(this.tracePath)) {
+                    this.tracePath = visitedNode.predecessor;
                 }
-                return this.grid;
+                this.paintNode(this.tracePath.x, this.tracePath.y, 8);
             }
+            return this.grid;
         }
     }
+
     public setInitialData(grid: Node[][], startLocation: GridLocation): void {
         this.grid = grid;
 
         this.queue.push(startLocation);
-        this.visitedNodes.push({ node: startLocation, predecessor: null });
+        this.visitedNodes.push({ node: startLocation, predecessor: startLocation });
     }
+
     public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
         this.grid = newGrid;
         this.statRecords = statRecords;
@@ -106,6 +107,7 @@ export class BreadthFirstSearch extends PathFindingAlgorithmAbstract {
         this.visitedNodes = deserializedState.visitedNodes;
         this.tracePath = deserializedState.tracePath;
     }
+
     public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
         const queue: GridLocation[] = [];
         serializedState.queue.forEach((ele) => {
@@ -113,7 +115,7 @@ export class BreadthFirstSearch extends PathFindingAlgorithmAbstract {
             queue.push(tempQueueEle);
         });
         const visitedNodes: VisitedNode[] = [];
-        serializedState.queue.forEach((ele: VisitedNode) => {
+        serializedState.visitedNodes.forEach((ele: VisitedNode) => {
             // const tempQueueEle =  new GridLocation(ele.x, ele.y, ele.weight, ele.status);
             const node = ele.node;
             const predecessor = ele.predecessor;
@@ -128,23 +130,32 @@ export class BreadthFirstSearch extends PathFindingAlgorithmAbstract {
             };
             visitedNodes.push(visitedNode);
         });
-        const tracePath = serializedState.tracePath;
+        let tracePath: GridLocation | undefined = undefined;
+        if (serializedState.tracePath) {
+            tracePath = new GridLocation(
+                serializedState.tracePath.x,
+                serializedState.tracePath.y,
+                serializedState.tracePath.weight,
+                serializedState.tracePath.status
+            );
+        }
         const deserializedState = {
             queue: queue,
             visitedNodes: visitedNodes,
-            tracePath: new GridLocation(
-                tracePath.x,
-                tracePath.y,
-                tracePath.weight,
-                tracePath.status
-            )
+            tracePath: tracePath
         };
         this.updateState(newGrid, deserializedState, statRecords);
     }
+
     public serialize(): Object {
+        let tracePathObj: object | undefined = undefined;
+        if (this.tracePath) {
+            tracePathObj = this.tracePath.toObject();
+        }
         const serializedState = {
             queue: [],
-            visitedNodes: []
+            visitedNodes: [],
+            tracePath: tracePathObj
         };
         this.queue.forEach((gridLocation) => {
             serializedState.queue.push(gridLocation.toObject());
@@ -157,24 +168,31 @@ export class BreadthFirstSearch extends PathFindingAlgorithmAbstract {
         });
         return serializedState;
     }
+
     public getState(): Object {
         return {
             queue: this.queue,
-            visitedNodes: this.visitedNodes
+            visitedNodes: this.visitedNodes,
+            tracePath: this.tracePath
         };
     }
+
     public getAlgorithmName(): PathFindingAlgorithm {
         return 'Breadth-FS';
     }
+
     public usesNodeWeights(): boolean {
         return false;
     }
+
     public usesHeuristics(): boolean {
         return false;
     }
+
     public usesPathFindingSettings(): boolean {
         return true;
     }
+
     public forcesDiagonalMovement(): boolean {
         return false;
     }

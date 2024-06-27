@@ -189,6 +189,7 @@ export class Wilsons extends MazeAlgorithmAbstract {
     }
 
     public setInitialData(grid: Node[][], startLocation: GridLocation): void {
+        console.log('setinitialdata wilsons');
         this.grid = grid;
         this.xStart = startLocation.x % 2;
         this.yStart = startLocation.y % 2;
@@ -223,7 +224,14 @@ export class Wilsons extends MazeAlgorithmAbstract {
     }
 
     public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
-        const cursor = serializedState.cursor;
+        let cursor: GridLocation | object;
+        if (serializedState.cursor) {
+            cursor = new GridLocation(
+                serializedState.cursor.x,
+                serializedState.cursor.y,
+                serializedState.cursor.weight
+            );
+        }
         const unusedNodes: HashSet<GridLocation> = new HashSet<GridLocation>();
         serializedState.unusedNodes.forEach((item) => {
             const tempUnusedNodes = new GridLocation(item.x, item.y, item.weight, item.status);
@@ -239,21 +247,26 @@ export class Wilsons extends MazeAlgorithmAbstract {
             yStart: serializedState.yStart,
             gridWidth: serializedState.gridWith,
             gridHeight: serializedState.gridHeight,
-            cursor: new GridLocation(cursor.x, cursor.y, cursor.weight),
+            cursor: cursor,
             unusedNodes: unusedNodes,
             walkingPath: walkingPath,
             isWalking: serializedState.isWalking
         };
+        console.log(deserializedState);
         this.updateState(newGrid, deserializedState, statRecords);
     }
 
     public serialize(): Object {
+        let cursor: object | undefined = null;
+        if (this.cursor) {
+            cursor = this.cursor.toObject();
+        }
         const serializedState = {
             xStart: this.xStart,
             yStart: this.yStart,
             gridWidth: this.gridWith,
             gridHeight: this.gridHeight,
-            cursor: this.cursor.toObject(),
+            cursor: cursor,
             unusedNodes: [],
             walkingPath: [],
             isWalking: this.isWalking
@@ -264,6 +277,8 @@ export class Wilsons extends MazeAlgorithmAbstract {
         this.walkingPath.forEach((gridLocation) => {
             serializedState.walkingPath.push(gridLocation.toObject());
         });
+        console.log(serializedState);
+
         return serializedState;
     }
 

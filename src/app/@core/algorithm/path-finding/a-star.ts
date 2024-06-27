@@ -170,16 +170,13 @@ export class AStar extends PathFindingAlgorithmAbstract {
     }
 
     public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
-        const tracePath = serializedState.tracePath;
+        let tracePath = serializedState.tracePath;
+
         const deserializedState = {
             priorityQueue: new PriorityQueue(),
-            visitedNodes: new HashMap<GridLocation, GridLocation>(),
-            tracePath: new GridLocation(
-                tracePath.x,
-                tracePath.y,
-                tracePath.weight,
-                tracePath.status
-            )
+            visitedNodes: new HashMap<GridLocation, VisitedNode>(),
+            currentPath: [],
+            tracePath: tracePath
         };
         serializedState.priorityQueue.forEach((element) => {
             const node = element.node;
@@ -188,11 +185,23 @@ export class AStar extends PathFindingAlgorithmAbstract {
         });
 
         serializedState.visitedNodes.forEach((ele) => {
-            deserializedState.visitedNodes.put(ele.key, ele.value);
+            const key = new GridLocation(ele.key.x, ele.key.y, ele.key.weight, ele.key.status);
+            const predecessor = ele.value.predecessor;
+            const loc = new GridLocation(
+                predecessor.x,
+                predecessor.y,
+                predecessor.weight,
+                predecessor.status
+            );
+            const visitedNode: VisitedNode = {
+                predecessor: loc,
+                distance: ele.value.distance
+            };
+            deserializedState.visitedNodes.put(key, visitedNode);
         });
         for (var i = 0; i < serializedState.currentPath.length; i++) {
             const node = serializedState.currentPath[i];
-            serializedState.currentPath.push(
+            deserializedState.currentPath.push(
                 new GridLocation(node.x, node.y, node.weight, node.status)
             );
         }
@@ -205,7 +214,7 @@ export class AStar extends PathFindingAlgorithmAbstract {
             priorityQueue: this.priorityQueue.toObject(),
             visitedNodes: [],
             currentPath: [],
-            tracePath: this.tracePath.toObject()
+            tracePath: this.tracePath
         };
 
         this.visitedNodes.forEach((ele) => {
@@ -216,6 +225,7 @@ export class AStar extends PathFindingAlgorithmAbstract {
             const node = this.currentPath[i];
             serializedState.currentPath.push(node.toObject());
         }
+        console.log(serializedState);
 
         return serializedState;
     }

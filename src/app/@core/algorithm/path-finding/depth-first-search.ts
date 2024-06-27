@@ -36,10 +36,6 @@ export class DepthFirstSearch extends PathFindingAlgorithmAbstract {
         this.tracePath = null;
     }
 
-    // private backtrace(): void {
-    //     for (let i = 0; i < this.visitedNodes.length)
-    // }
-
     /**
      * Checks if the node has already been explored.
      *
@@ -78,43 +74,43 @@ export class DepthFirstSearch extends PathFindingAlgorithmAbstract {
             return this.grid;
         } else {
             // show path
-            if (this.tracePath === null) {
-                return null;
-            } else {
-                for (let i = 0; i < this.visitedNodes.length; i++) {
-                    const visitedNode = this.visitedNodes[i];
-                    if (visitedNode.node.equals(this.tracePath)) {
-                        this.paintNode(this.tracePath.x, this.tracePath.y, 8);
-                        this.tracePath = visitedNode.predecessor;
-                    }
+            for (let i = 0; i < this.visitedNodes.length; i++) {
+                const visitedNode = this.visitedNodes[i];
+                if (this.tracePath.status === 2) {
+                    return null;
+                } else if (visitedNode.node.equals(this.tracePath)) {
+                    this.tracePath = visitedNode.predecessor;
                 }
-                return this.grid;
+                this.paintNode(this.tracePath.x, this.tracePath.y, 8);
             }
+            return this.grid;
         }
     }
+
     public setInitialData(grid: Node[][], startLocation: GridLocation): void {
         this.grid = grid;
 
         this.stack.push(startLocation);
-        this.visitedNodes.push({ node: startLocation, predecessor: null });
+        this.visitedNodes.push({ node: startLocation, predecessor: startLocation });
     }
+
     public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
         this.grid = newGrid;
         this.statRecords = statRecords;
 
-        this.stack = deserializedState.queue;
+        this.stack = deserializedState.stack;
         this.visitedNodes = deserializedState.visitedNodes;
         this.tracePath = deserializedState.tracePath;
     }
+
     public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
-        const queue: GridLocation[] = [];
-        serializedState.queue.forEach((ele) => {
-            const tempQueueEle = new GridLocation(ele.x, ele.y, ele.weight, ele.status);
-            queue.push(tempQueueEle);
+        const stack: GridLocation[] = [];
+        serializedState.stack.forEach((ele) => {
+            const temStackEle = new GridLocation(ele.x, ele.y, ele.weight, ele.status);
+            stack.push(temStackEle);
         });
         const visitedNodes: VisitedNode[] = [];
-        serializedState.queue.forEach((ele: VisitedNode) => {
-            // const tempQueueEle =  new GridLocation(ele.x, ele.y, ele.weight, ele.status);
+        serializedState.visitedNodes.forEach((ele: VisitedNode) => {
             const node = ele.node;
             const predecessor = ele.predecessor;
             const visitedNode = {
@@ -128,24 +124,32 @@ export class DepthFirstSearch extends PathFindingAlgorithmAbstract {
             };
             visitedNodes.push(visitedNode);
         });
-        const tracePath = serializedState.tracePath;
+        let tracePath: GridLocation | undefined = undefined;
+        if (serializedState.tracePath) {
+            tracePath = new GridLocation(
+                serializedState.tracePath.x,
+                serializedState.tracePath.y,
+                serializedState.tracePath.weight,
+                serializedState.tracePath.status
+            );
+        }
         const deserializedState = {
-            queue: queue,
+            stack: stack,
             visitedNodes: visitedNodes,
-            tracePath: new GridLocation(
-                tracePath.x,
-                tracePath.y,
-                tracePath.weight,
-                tracePath.status
-            )
+            tracePath: tracePath
         };
         this.updateState(newGrid, deserializedState, statRecords);
     }
+
     public serialize(): Object {
+        let tracePathObj: object | undefined = undefined;
+        if (this.tracePath) {
+            tracePathObj = this.tracePath.toObject();
+        }
         const serializedState = {
             stack: [],
             visitedNodes: [],
-            tracePath: this.tracePath.toObject()
+            tracePath: tracePathObj
         };
         this.stack.forEach((gridLocation) => {
             serializedState.stack.push(gridLocation.toObject());
@@ -158,6 +162,7 @@ export class DepthFirstSearch extends PathFindingAlgorithmAbstract {
         });
         return serializedState;
     }
+
     public getState(): Object {
         return {
             stack: this.stack,
@@ -165,18 +170,23 @@ export class DepthFirstSearch extends PathFindingAlgorithmAbstract {
             tracePath: this.tracePath
         };
     }
+
     public getAlgorithmName(): PathFindingAlgorithm {
         return 'Depth-FS';
     }
+
     public usesNodeWeights(): boolean {
         return false;
     }
+
     public usesHeuristics(): boolean {
         return false;
     }
+
     public usesPathFindingSettings(): boolean {
         return true;
     }
+
     public forcesDiagonalMovement(): boolean {
         return false;
     }

@@ -154,7 +154,15 @@ export class Tremaux extends PathFindingAlgorithmAbstract {
 
     public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
         const visitedNodes: GridLocation[] = [];
-        const cursor = serializedState.cursor;
+        let cursor: GridLocation | undefined = undefined;
+        if (serializedState.cursor) {
+            cursor = new GridLocation(
+                serializedState.cursor.x,
+                serializedState.cursor.y,
+                serializedState.cursor.weight,
+                serializedState.cursor.status
+            );
+        }
 
         serializedState.walkingPath.forEach((item) => {
             const visitedNode = new GridLocation(item.x, item.y, item.weight);
@@ -168,8 +176,12 @@ export class Tremaux extends PathFindingAlgorithmAbstract {
     }
 
     public serialize(): Object {
+        let cursorObj: object | undefined = undefined;
+        if (this.cursor) {
+            cursorObj = this.cursor.toObject();
+        }
         const serializedState = {
-            cursor: this.cursor.toObject(),
+            cursor: cursorObj,
             visitedNodes: []
         };
         this.visitedNodes.forEach((gridLocation) => {

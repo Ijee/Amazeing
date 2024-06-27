@@ -85,16 +85,19 @@ export class BestFIrstSearch extends PathFindingAlgorithmAbstract {
     }
 
     public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
-        const tracePath = serializedState.tracePath;
+        let tracePath: GridLocation | undefined = undefined;
+        if (serializedState.tracePath) {
+            tracePath = new GridLocation(
+                serializedState.tracePath.x,
+                serializedState.tracePath.y,
+                serializedState.tracePath.weight,
+                serializedState.tracePath.status
+            );
+        }
         const deserializedState = {
             priorityQueue: new PriorityQueue(),
             visitedNodes: new HashMap<GridLocation, GridLocation>(),
-            tracePath: new GridLocation(
-                tracePath.x,
-                tracePath.y,
-                tracePath.weight,
-                tracePath.status
-            )
+            tracePath: tracePath
         };
         serializedState.priorityQueue.forEach((element) => {
             const node = element.node;
@@ -110,14 +113,18 @@ export class BestFIrstSearch extends PathFindingAlgorithmAbstract {
     }
 
     public serialize(): Object {
+        let tracePathObj: object | undefined = undefined;
+        if (this.tracePath) {
+            tracePathObj = this.tracePath.toObject();
+        }
         const serializedState = {
             priorityQueue: this.priorityQueue.toObject(),
             visitedNodes: [],
-            tracePath: this.tracePath.toObject()
+            tracePath: tracePathObj
         };
 
         this.visitedNodes.forEach((ele) => {
-            const entry = { key: ele.toObject(), value: this.visitedNodes.get(ele) };
+            const entry = { key: ele.toObject(), value: this.visitedNodes.get(ele).toObject() };
             serializedState.visitedNodes.push(entry);
         });
 
