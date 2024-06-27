@@ -100,19 +100,31 @@ export class AldousBroder extends MazeAlgorithmAbstract {
     }
 
     deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
-        const cursor = serializedState.cursor;
+        let cursor: GridLocation | object;
+        if (serializedState.cursor) {
+            cursor = new GridLocation(
+                serializedState.cursor.x,
+                serializedState.cursor.y,
+                serializedState.cursor.weight
+            );
+        }
         const deserializedState = {
-            cursor: new GridLocation(cursor.x, cursor.y, cursor.weight),
+            cursor: cursor,
             remainingNodes: serializedState.remainingNodes
         };
         this.updateState(newGrid, deserializedState, statRecords);
     }
 
     serialize(): Object {
-        return {
-            cursor: this.cursor.toObject(),
+        let cursor: object | undefined = undefined;
+        if (this.cursor) {
+            cursor = this.cursor.toObject();
+        }
+        const serializedState = {
+            cursor: cursor,
             remainingNodes: this.remainingNodes
         };
+        return serializedState;
     }
 
     getState(): Object {

@@ -50,7 +50,6 @@ export class MazeRouting extends PathFindingAlgorithmAbstract {
             const neighbours = this.getNeighbours(currLoc, 1).filter((neighbour) => {
                 return neighbour.status !== 1;
             });
-            // TODO: Sort neighbours to north, east, south, west.
             const currWeight = this.grid[currLoc.x][currLoc.y].weight;
             neighbours.forEach((neighbour) => {
                 if (neighbour.status === 3) {
@@ -65,7 +64,7 @@ export class MazeRouting extends PathFindingAlgorithmAbstract {
     }
     public setInitialData(grid: Node[][], startLocation: GridLocation): void {
         this.grid = grid;
-        // This forces the count to start from 0.
+        // Just to start the count to start from 0
         const changedStartLoc = new GridLocation(
             startLocation.x,
             startLocation.y,
@@ -73,9 +72,7 @@ export class MazeRouting extends PathFindingAlgorithmAbstract {
             startLocation.status
         );
         this.queue.push(changedStartLoc);
-        // So no other node weights are shown.
-        // TODO: Make it work with weighted graph
-        // + rename algorithm?
+
         for (let i = 0; i < this.grid.length; i++) {
             for (let j = 0; j < this.grid[0].length; j++) {
                 if (this.grid[i][j].status !== 2) {
@@ -91,27 +88,34 @@ export class MazeRouting extends PathFindingAlgorithmAbstract {
     }
     public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
         const queue: GridLocation[] = [];
-        const backtracking = serializedState.backtracking;
+        let backtracking: GridLocation | undefined = undefined;
+        if (serializedState.backtracking) {
+            backtracking = new GridLocation(
+                serializedState.backtracking.x,
+                serializedState.backtracking.y,
+                serializedState.backtracking.weight,
+                serializedState.backtracking.status
+            );
+        }
 
+        const deserializedState = {
+            queue: [],
+            backtracking: backtracking
+        };
         serializedState.queue.forEach((item) => {
             const visitedNode = new GridLocation(item.x, item.y, item.weight);
             queue.push(visitedNode);
         });
-        const deserializedState = {
-            queue: new GridLocation(
-                backtracking.x,
-                backtracking.y,
-                backtracking.weight,
-                backtracking.status
-            ),
-            backtracking: queue
-        };
         this.updateState(newGrid, deserializedState, statRecords);
     }
     public serialize(): Object {
+        let backtrackingObj: object | undefined = undefined;
+        if (this.backtracking) {
+            backtrackingObj = this.backtracking.toObject();
+        }
         const serializedState = {
             queue: [],
-            backtracking: this.backtracking.toObject()
+            backtracking: backtrackingObj
         };
         this.queue.forEach((gridLocation) => {
             serializedState.queue.push(gridLocation.toObject());
