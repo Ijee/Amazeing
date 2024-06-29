@@ -14,6 +14,15 @@ import { CommonModule, NgClass } from '@angular/common';
 import { StatsComponent } from './stats/stats.component';
 import { BreakpointService } from 'src/app/@core/services/breakpoint.service';
 
+/**
+ * ! Welcome to some of the most confusing code of the whole app.
+ * I might have skipped the planning phase a bit here and there
+ * and with constantly changing requirements it was bound to happen.
+ * That's why I am now stuck with this beautiful code.
+ *
+ * I would just go somewhere else instead.
+ * As always: blame @Ijee
+ */
 @Component({
     selector: 'app-grid',
     templateUrl: './grid.component.html',
