@@ -101,7 +101,7 @@ export class GridComponent implements OnInit, OnDestroy {
                     break;
                 case 2:
                 case 3:
-                    this.simulationService.setGridList(this.gridList);
+                    this.simulationService.setSavePoint(cloneDeep(this.gridList));
                     break;
             }
             this.simulationService.setDrawingMode(-1);
@@ -182,7 +182,6 @@ export class GridComponent implements OnInit, OnDestroy {
                 node.weight = Math.floor(Math.random() * 9 + 1);
             });
         });
-        this.simulationService.setGridList(this.gridList);
         if (!this.simulationService.getShowWeightStatus()) {
             this.simulationService.toggleWeightStatus();
         }
