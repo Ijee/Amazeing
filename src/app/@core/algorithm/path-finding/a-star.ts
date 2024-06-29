@@ -62,6 +62,11 @@ export class AStar extends PathFindingAlgorithmAbstract {
 
         // Calculate tentative g-cost
         const tentativeGCost = currentDistance + neighbourNode.weight;
+        // Was an idea to "fix" diagonal paths taking precedence when available.
+        // Math.sqrt(
+        //     Math.pow(currentNode.x - neighbourNode.x, 2) +
+        //         Math.pow(currentNode.y - neighbourNode.y, 2)
+        // );
 
         if (tentativeGCost < neighbourDistance) {
             // Compare tentative g-cost with the current distance
@@ -82,6 +87,9 @@ export class AStar extends PathFindingAlgorithmAbstract {
             }
 
             this.grid[neighbourNode.x][neighbourNode.y].text = tentativeGCost.toString();
+            // Same idea as above for diagonal paths but it just makes it more connfusing.
+            // this.grid[neighbourNode.x][neighbourNode.y].text =
+            //     Math.round(tentativeGCost).toString();
         }
     }
 
