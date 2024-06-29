@@ -56,13 +56,12 @@ body.theme-light :host .node:hover {
 
 body.theme-dark :host .node.start:hover,
 body.theme-light :host .node.start:hover {
-    //background-color: fade-out(var(--bulma-primary), 0.4);
-    background-color: hsla(var(--bulma-primary-rgb), 0.4);
+    background-color: rgba(var(--bulma-primary-rgb), 0.8);
 }
 
 body.theme-dark :host .node.goal:hover,
 body.theme-light :host .node.goal:hover {
-    background-color: hsla(var(--bulma-danger-rgb), 0.4);
+    background-color: rgba(var(--bulma-danger-rgb), 0.8);
 }
 
 // Status-specific styles with increased specificity
