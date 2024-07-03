@@ -18,7 +18,7 @@ export class UserTourService {
             animate: animate,
             overlayOpacity: 0.7,
             popoverClass: 'tour',
-            overlayColor: 'var(--bulma-dark)',
+            overlayColor: 'var(--modal-background-background-color)',
             stagePadding: 8,
             nextBtnText: 'Next',
             prevBtnText: 'Previous',
