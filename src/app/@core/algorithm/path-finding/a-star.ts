@@ -178,7 +178,15 @@ export class AStar extends PathFindingAlgorithmAbstract {
     }
 
     public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
-        let tracePath = serializedState.tracePath;
+        let tracePath: GridLocation | undefined = undefined;
+        if (serializedState.tracePath) {
+            tracePath = new GridLocation(
+                serializedState.tracePath.x,
+                serializedState.tracePath.y,
+                serializedState.tracePath.weight,
+                serializedState.tracePath.status
+            );
+        }
 
         const deserializedState = {
             priorityQueue: new PriorityQueue(),
@@ -213,11 +221,12 @@ export class AStar extends PathFindingAlgorithmAbstract {
                 new GridLocation(node.x, node.y, node.weight, node.status)
             );
         }
-
+        console.log(deserializedState);
         this.updateState(newGrid, deserializedState, statRecords);
     }
 
     public serialize(): Object {
+        console.log('visitied nodes', this.visitedNodes);
         const serializedState = {
             priorityQueue: this.priorityQueue.toObject(),
             visitedNodes: [],

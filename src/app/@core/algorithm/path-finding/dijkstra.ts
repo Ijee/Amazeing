@@ -167,7 +167,15 @@ export class Dijkstra extends PathFindingAlgorithmAbstract {
     }
 
     public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
-        let tracePath = serializedState.tracePath;
+        let tracePath: GridLocation | undefined = undefined;
+        if (serializedState.tracePath) {
+            tracePath = new GridLocation(
+                serializedState.tracePath.x,
+                serializedState.tracePath.y,
+                serializedState.tracePath.weight,
+                serializedState.tracePath.status
+            );
+        }
 
         const deserializedState = {
             priorityQueue: new PriorityQueue(),
