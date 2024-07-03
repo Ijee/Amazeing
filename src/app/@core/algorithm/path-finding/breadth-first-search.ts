@@ -16,7 +16,7 @@ export class BreadthFirstSearch extends PathFindingAlgorithmAbstract {
             [],
             [
                 {
-                    name: 'Queue node',
+                    name: 'Queued node',
                     type: 'status-4'
                 },
                 {

@@ -3,6 +3,9 @@ import { HashSet } from '../../../../@shared/classes/HashSet';
 import { GridLocation } from '../../../../@shared/classes/GridLocation';
 import { MazeAlgorithm, Node, Statistic } from '../../../types/algorithm.types';
 
+// TODO: The queued nodes are called frontier nodes because
+//       the website I found the information on called them that.
+//       Basically: do this when a refactoring this code as well (->paintNode(), etc).
 export class Prims extends MazeAlgorithmAbstract {
     private frontierNodes: HashSet<GridLocation>;
     private goalWasFrontier: boolean;
@@ -13,7 +16,7 @@ export class Prims extends MazeAlgorithmAbstract {
             [],
             [
                 {
-                    name: 'Frontier Nodes',
+                    name: 'Queued Nodes',
                     type: 'status-4',
                     currentValue: 0
                 },

@@ -14,7 +14,25 @@ export class Ellers extends MazeAlgorithmAbstract {
     private setsMerged: boolean;
     private passagesCreated: HashSet<GridLocation>[]; // Only checks for indizes
     constructor() {
-        super([], [], { controls: [] });
+        super(
+            [],
+            [
+                {
+                    name: 'Set',
+                    type: 'status-5'
+                },
+                {
+                    name: 'New Sets',
+                    type: 'status-4'
+                },
+                {
+                    name: 'Merged Sets',
+                    type: 'status-7',
+                    currentValue: 0
+                }
+            ],
+            { controls: [] }
+        );
 
         this.lastColouredSet = undefined;
         this.setsCreated = false;

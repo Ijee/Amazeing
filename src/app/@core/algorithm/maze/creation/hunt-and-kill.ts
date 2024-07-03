@@ -29,6 +29,10 @@ export class HuntAndKill extends MazeAlgorithmAbstract {
                     type: 'status-6'
                 },
                 {
+                    name: 'Viable Nodes',
+                    type: 'status-8'
+                },
+                {
                     name: 'Building Streak',
                     type: 'status-none',
                     currentValue: 0

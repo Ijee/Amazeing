@@ -20,15 +20,15 @@ export class Kruskals extends MazeAlgorithmAbstract {
             [],
             [
                 {
-                    name: 'Already Merged Node',
+                    name: 'Set',
                     type: 'status-5'
                 },
                 {
-                    name: 'Set 1',
+                    name: 'Set 1 Merge',
                     type: 'status-4'
                 },
                 {
-                    name: 'Set 2',
+                    name: 'Set 2 Merge',
                     type: 'status-7'
                 }
             ],

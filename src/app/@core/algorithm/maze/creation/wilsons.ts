@@ -29,7 +29,7 @@ export class Wilsons extends MazeAlgorithmAbstract {
                     currentValue: 0
                 },
                 {
-                    name: 'Walking Distance',
+                    name: 'Path distance',
                     type: 'status-5',
                     currentValue: 0
                 }

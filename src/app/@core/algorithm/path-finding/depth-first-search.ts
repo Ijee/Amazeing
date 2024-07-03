@@ -15,7 +15,7 @@ export class DepthFirstSearch extends PathFindingAlgorithmAbstract {
             [],
             [
                 {
-                    name: 'Queue node',
+                    name: 'Stack node',
                     type: 'status-4'
                 },
                 {

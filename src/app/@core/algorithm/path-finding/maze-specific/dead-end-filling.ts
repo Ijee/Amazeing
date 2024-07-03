@@ -10,7 +10,7 @@ export class DeadEndFilling extends PathFindingAlgorithmAbstract {
             [],
             [
                 {
-                    name: 'Filled node',
+                    name: 'Backfilled node',
                     type: 'status-5'
                 }
             ],
