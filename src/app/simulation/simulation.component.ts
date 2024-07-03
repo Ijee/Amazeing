@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { fadeAnimationSafe } from '../@shared/animations/fadeRouteAnimation';
 import { ControllerComponent } from './controller/controller.component';
 import { GridSettingsComponent } from './grid-settings/grid-settings.component';
 import { GridComponent } from './grid/grid.component';
@@ -10,7 +9,7 @@ import { CommonModule } from '@angular/common';
     selector: 'app-simulation',
     templateUrl: './simulation.component.html',
     styleUrls: ['./simulation.component.scss'],
-    animations: [fadeAnimationSafe],
+    animations: [],
     standalone: true,
     imports: [CommonModule, GridComponent, GridSettingsComponent, ControllerComponent]
 })

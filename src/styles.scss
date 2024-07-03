@@ -198,6 +198,10 @@ body {
     view-transition-name: toPath;
 }
 
+.routeViewTransition + * {
+    view-transition-name: routeAnimation;
+}
+
 ::view-transition-old(toMaze) {
     animation:
         150ms var(--smooth-animation) both fade-out,
@@ -220,6 +224,14 @@ body {
     animation:
         210ms var(--smooth-animation) 90ms both fade-in,
         300ms var(--smooth-animation) both slide-from-right;
+}
+
+::view-transition-old(routeAnimation) {
+    animation: 225ms var(--smooth-animation) both fade-out;
+}
+
+::view-transition-new(routeAnimation) {
+    animation: 225ms var(--smooth-animation) 225ms both fade-in;
 }
 
 ::view ::view-transition-group(disableTransition),

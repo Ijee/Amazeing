@@ -29,12 +29,3 @@ export const fadeRouteAnimation = trigger('fadeRouteAnimation', [
         query(':leave *', [style({}), animate(1, style({}))])
     ])
 ]);
-
-export const fadeAnimationSafe = trigger('fadeAnimationSafe', [
-    transition('* => *', [
-        sequence([
-            query(':enter', [style({ display: 'none' })], { optional: true }),
-            query(':leave', [animate('0s')], { optional: true })
-        ])
-    ])
-]);

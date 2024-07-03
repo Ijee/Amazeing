@@ -40,7 +40,6 @@ import { Subject } from 'rxjs';
 import { SettingsService } from './@core/services/settings.service';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { modalFadeInOut } from './@shared/animations/modalFadeInOut';
-import { fadeRouteAnimation } from './@shared/animations/fadeRouteAnimation';
 import { AlgorithmService } from './@core/services/algorithm.service';
 import { UserTourService } from './@core/services/user-tour.service';
 import { LegendModalComponent } from './@core/modals/legend/legend-modal.component';
@@ -73,7 +72,7 @@ import { BreakpointService } from './@core/services/breakpoint.service';
         ImportModalComponent,
         ExportModalComponent
     ],
-    animations: [modalFadeInOut, fadeRouteAnimation]
+    animations: [modalFadeInOut]
 })
 export class AppComponent implements OnInit, OnDestroy {
     public version: string;
@@ -81,6 +80,7 @@ export class AppComponent implements OnInit, OnDestroy {
     public showNavbar: boolean;
     public showSettingsDropdown: boolean;
     public isBouncing: boolean;
+    public routeViewTransition: string;
 
     private readonly destroyed$: Subject<void>;
 
@@ -167,11 +167,6 @@ export class AppComponent implements OnInit, OnDestroy {
                 this.switchTheme(val);
             }
         });
-
-        this.breakpointService.isDesktop().subscribe((val) => {
-            console.log('desktop:', val);
-        });
-
         window.addEventListener('beforeinstallprompt', (e) => {
             // Prevent the mini-infobar from appearing on mobile
             e.preventDefault();
@@ -256,19 +251,50 @@ export class AppComponent implements OnInit, OnDestroy {
         this.deferredInstallPrompt = null;
     }
 
-    /**
-     * Is responsible for triggering the animation for the main routing
-     *
-     * @param outlet - the angular outlet to be used
-     *
-     * @return a boolean or an empty string that triggers the animation
-     */
-    public prepareRoute(outlet: RouterOutlet): any {
-        return outlet.isActivated ? outlet.activatedRouteData.animationState : '';
-    }
+    // /**
+    //  * Is responsible for triggering the animation for the main routing
+    //  *
+    //  * @param outlet - the angular outlet to be used
+    //  *
+    //  * @return a boolean or an empty string that triggers the animation
+    //  */
+    // public prepareRoute(outlet: RouterOutlet): any {
+    //     return outlet.isActivated ? outlet.activatedRouteData.animationState : '';
+    // }
 
     public navigateToSimulation(): void {
-        this.simulationService.setSimulationStatus(false);
         this.router.navigate(['simulation/' + this.algorithmService.getAlgorithmMode()]);
+    }
+
+    public navigateRoute(newRoute: string): void {
+        this.routeViewTransition = 'routeViewTransition';
+        this.simulationService.setSimulationStatus(false);
+        const determinedRoute =
+            newRoute === 'simulation'
+                ? 'simulation/' +
+                  this.algorithmService.getAlgorithmMode() +
+                  '/' +
+                  '?algorithm=' +
+                  this.algorithmService.getAlgorithmName
+                : 'learn';
+
+        const rootElement = this.document.documentElement; // Target the root element
+
+        this.renderer.addClass(rootElement, 'no-root-view-transition');
+
+        if (!this.settingsService.getAnimationsSetting()) {
+            this.routeViewTransition = undefined;
+        }
+
+        setTimeout(() => {
+            this.router.navigateByUrl(determinedRoute).finally(() => {
+                // remove class after it is done
+                setTimeout(() => {
+                    this.routeViewTransition = undefined;
+                    console.log('yo lol');
+                    this.renderer.removeClass(rootElement, 'no-root-view-transition');
+                }, 10); // Ensure the class is removed after the navigation has completed
+            });
+        }, 10); // Delay to ensure the class is applied before the transition
     }
 }

@@ -13,7 +13,6 @@ import { SimulationService } from '../../@core/services/simulation.service';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { AlgorithmService } from '../../@core/services/algorithm.service';
 import { Subject, takeUntil } from 'rxjs';
-import { fadeAnimationSafe } from '../../@shared/animations/fadeRouteAnimation';
 import { RecordService } from '../../@core/services/record.service';
 import { AlgorithmMode } from '../../@core/types/algorithm.types';
 import { CommonModule, DOCUMENT, NgClass, UpperCasePipe } from '@angular/common';
@@ -26,7 +25,7 @@ import { PathfindingSettingsComponent } from './pathfinding-settings/pathfinding
     selector: 'app-grid-settings',
     templateUrl: './grid-settings.component.html',
     styleUrls: ['./grid-settings.component.scss'],
-    animations: [fadeAnimationSafe],
+    animations: [],
     standalone: true,
     imports: [CommonModule, HrComponent, NgClass, FaIconComponent, RouterOutlet, UpperCasePipe]
 })
