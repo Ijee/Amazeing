@@ -128,7 +128,6 @@ export class AppComponent implements OnInit, OnDestroy {
             faTimesCircle,
             faFileImport,
             faFile,
-            faInfo,
             faExclamationTriangle,
             faCheckSquare,
             faWindowClose,
@@ -167,6 +166,10 @@ export class AppComponent implements OnInit, OnDestroy {
             } else {
                 this.switchTheme(val);
             }
+        });
+
+        this.breakpointService.isDesktop().subscribe((val) => {
+            console.log('desktop:', val);
         });
 
         window.addEventListener('beforeinstallprompt', (e) => {

@@ -68,6 +68,7 @@ export class BreakpointService {
     }
 
     public isDesktop(): Observable<boolean> {
+        console.log('desktop?');
         return this.getBreakpointState().pipe(
             map((state) => state.matches && state.breakpoints[this.desktop])
         );
