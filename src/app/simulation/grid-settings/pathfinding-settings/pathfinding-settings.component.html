@@ -82,7 +82,7 @@
 </p>
 <div class="fixed-grid has-6-cols p-0 m-0 gap-0">
     <div class="grid is-gapless">
-        <div class="cell is-row-start-1 is-col-span-2">
+        <div class="cell is-row-start-1 is-col-span-3">
             <button
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="wall-follower"
@@ -91,7 +91,7 @@
                 <b>Wall Follower</b>
             </button>
         </div>
-        <div class="cell is-row-start-1 is-col-span-2">
+        <div class="cell is-row-start-1 is-col-span-3">
             <button
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="pledge"
@@ -100,22 +100,13 @@
                 <b>Pledge</b>
             </button>
         </div>
-        <div class="cell is-row-start-1 is-col-span-2">
+        <div class="cell is-row-start-2 is-col-span-3">
             <button
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="tremauxs"
                 [ngClass]="algorithmService.getAlgorithmName('path-finding') === 'Trémaux' ? 'is-danger has-text-black' : ''"
                 (click)="emitAlgorithmChange('Trémaux')">
                 <b>Trémaux's</b>
-            </button>
-        </div>
-        <div class="cell is-row-start-2 is-col-span-3">
-            <button
-                class="button is-small is-responsive is-fullwidth is-flex-grow-1"
-                data-testid="maze-routing"
-                [ngClass]="algorithmService.getAlgorithmName('path-finding') === 'Maze-Routing' ? 'is-danger has-text-black' : ''"
-                (click)="emitAlgorithmChange('Maze-Routing')">
-                <b>Maze Routing</b>
             </button>
         </div>
         <div class="cell is-row-start-2 is-col-span-3">
