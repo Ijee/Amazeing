@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { SimulationService } from '../../@core/services/simulation.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -42,7 +42,8 @@ export class GridComponent implements OnInit, OnDestroy {
         public readonly simulationService: SimulationService,
         public readonly recordService: RecordService,
         public readonly algorithmService: AlgorithmService,
-        public readonly breakpointService: BreakpointService
+        public readonly breakpointService: BreakpointService,
+        private readonly changeDetector: ChangeDetectorRef
     ) {
         this.width = 47;
         this.height = 21;
@@ -89,6 +90,7 @@ export class GridComponent implements OnInit, OnDestroy {
                     this.reset();
                 }
             });
+        this.changeDetector.detectChanges();
     }
 
     ngOnDestroy(): void {
