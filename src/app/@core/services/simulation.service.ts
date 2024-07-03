@@ -308,7 +308,8 @@ export class SimulationService {
                 this.algorithmService.setDiagonalMovement(
                     session.pathFindingSettings.cornerMovement
                 );
-                this.algorithmService.setCornerMovement(session.pathFindingSettings.cornerMovement);
+                this.algorithmService.setCrossCorners(session.pathFindingSettings.cornerMovement);
+                this.algorithmService.updatePathfindingSettings();
                 // console.log('I just set the pathfindings settings');
             }
             // console.log('session import', session);
@@ -401,7 +402,7 @@ export class SimulationService {
                 heuristic: this.algorithmService.getCurrentHeuristic(),
                 pathFindingSettings: {
                     diagonalMovement: this.algorithmService.getDiagonalMovement(),
-                    cornerMovement: this.algorithmService.getCornerMovement()
+                    cornerMovement: this.algorithmService.getCrossCorners()
                 },
                 options: this.algorithmService.getOptions(),
                 grid: this.gridList$.getValue(),

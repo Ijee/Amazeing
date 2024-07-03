@@ -43,6 +43,9 @@ export class AlgorithmService {
     private algorithmMode: AlgorithmMode;
     private mazeAlgorithm: MazeAlgorithmAbstract;
     private pathAlgorithm: PathFindingAlgorithmAbstract;
+    private heuristic: PathFindingHeuristic = 'Manhattan';
+    private diagonalMovement = false;
+    private crossCorners = false;
 
     constructor(private meta: Meta) {
         this.setAlgorithmMode('maze');
@@ -172,7 +175,11 @@ export class AlgorithmService {
                 throw new Error('Unknown path-finding algorithm selected!');
         }
         if (!this.pathAlgorithm.usesHeuristics()) {
-            this.pathAlgorithm.setHeuristic('None');
+            this.heuristic = 'None';
+        }
+        if (!this.pathAlgorithm.usesPathFindingSettings()) {
+            this.diagonalMovement = false;
+            this.crossCorners = false;
         }
     }
 
@@ -191,10 +198,8 @@ export class AlgorithmService {
         if (this.algorithmMode === 'maze') {
             this.mazeAlgorithm.setInitialData(currentGrid, startLocation);
         } else {
-            if (!this.pathAlgorithm.usesPathFindingSettings()) {
-                this.pathAlgorithm.setDiagonalMovement(false);
-                this.pathAlgorithm.setCornerMovement(false);
-            }
+            this.pathAlgorithm.setDiagonalMovement(this.diagonalMovement);
+            this.pathAlgorithm.setCrossCorners(this.crossCorners);
             this.pathAlgorithm.setInitialData(currentGrid, startLocation);
 
             this.pathAlgorithm.setGoal(goalLocation);
@@ -222,7 +227,7 @@ export class AlgorithmService {
     }
 
     public setHeuristic(newHeuristic: PathFindingHeuristic): void {
-        this.pathAlgorithm.setHeuristic(newHeuristic);
+        this.heuristic = newHeuristic;
     }
 
     /**
@@ -231,22 +236,22 @@ export class AlgorithmService {
      * @param val the setting to be
      */
     public setDiagonalMovement(val: boolean) {
-        if (!val && this.pathAlgorithm.getCornerMovement) {
-            this.pathAlgorithm.setCornerMovement(false);
+        if (!val) {
+            this.crossCorners = false;
         }
-        this.pathAlgorithm.setDiagonalMovement(val);
+        this.diagonalMovement = val;
     }
 
     /**
-     * Sets the diagonal movement setting.
+     * Sets the cross corners setting.
      *
      * @param val the setting to be
      */
-    public setCornerMovement(val: boolean) {
+    public setCrossCorners(val: boolean) {
         if (val) {
-            this.pathAlgorithm.setDiagonalMovement(true);
+            this.diagonalMovement = true;
         }
-        this.pathAlgorithm.setCornerMovement(val);
+        this.crossCorners = val;
     }
 
     /**
@@ -319,6 +324,17 @@ export class AlgorithmService {
     }
 
     /**
+     * Updates the algorithm speciifc settings on the currently selected pathfinding algorithm.
+     *
+     * Only gets called when importing a pathfinding algorithm.
+     */
+    public updatePathfindingSettings(): void {
+        this.pathAlgorithm.setHeuristic(this.heuristic);
+        this.pathAlgorithm.setDiagonalMovement(this.crossCorners);
+        this.pathAlgorithm.setCrossCorners(this.crossCorners);
+    }
+
+    /**
      * Returns the current algorithm mode.
      */
     public getAlgorithmMode(): AlgorithmMode {
@@ -338,7 +354,7 @@ export class AlgorithmService {
      * Returns the currently selected heuristic or 'None
      */
     public getCurrentHeuristic(): PathFindingHeuristic {
-        return this.pathAlgorithm.getHeuristic();
+        return this.heuristic;
     }
 
     /**
@@ -390,16 +406,16 @@ export class AlgorithmService {
      * @returns the user setting
      */
     public getDiagonalMovement(): boolean {
-        return this.pathAlgorithm.getDiagonalMovement();
+        return this.diagonalMovement;
     }
 
     /**
-     * Returns the corner movement user setting (pathfinding mode only).
+     * Returns the cross corners user setting (pathfinding mode only).
      *
      * @returns the user setting
      */
-    public getCornerMovement(): boolean {
-        return this.pathAlgorithm.getCornerMovement();
+    public getCrossCorners(): boolean {
+        return this.crossCorners;
     }
 
     /**

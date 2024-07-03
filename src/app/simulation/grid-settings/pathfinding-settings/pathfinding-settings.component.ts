@@ -114,7 +114,7 @@ export class PathfindingSettingsComponent implements OnInit, OnDestroy {
      * Just exists because of the typing that will not work in the markup.
      * @param event the event
      */
-    public handleCornerMovement(event: any): void {
-        this.algorithmService.setCornerMovement(event.target.checked);
+    public handleCrossCorners(event: any): void {
+        this.algorithmService.setCrossCorners(event.target.checked);
     }
 }

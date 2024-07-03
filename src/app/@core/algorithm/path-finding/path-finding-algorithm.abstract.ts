@@ -14,7 +14,7 @@ import { octileDistance } from './heuristic/octile';
 export abstract class PathFindingAlgorithmAbstract {
     private heuristic: PathFindingHeuristic = 'Manhattan';
     private diagonalMovement = false;
-    private cornerMovement = false;
+    private crossCorners = false;
     protected options: AlgorithmOptions;
 
     // TODO: How the start and/or goal location is being set needs a makeover.
@@ -133,7 +133,7 @@ export abstract class PathFindingAlgorithmAbstract {
         ) {
             const node = this.grid[newX][newY];
             if (
-                this.cornerMovement ||
+                this.crossCorners ||
                 this.grid[loc.x + dx][loc.y].status !== 1 ||
                 this.grid[loc.x][loc.y + dy].status !== 1
             ) {
@@ -195,12 +195,12 @@ export abstract class PathFindingAlgorithmAbstract {
     }
 
     /**
-     * Sets the diagonal movement setting.
+     * Sets the cross corners setting.
      *
      * @param val the setting to be
      */
-    public setCornerMovement(val: boolean) {
-        this.cornerMovement = val;
+    public setCrossCorners(val: boolean) {
+        this.crossCorners = val;
     }
 
     /**
@@ -284,24 +284,6 @@ export abstract class PathFindingAlgorithmAbstract {
      */
     public getHeuristic(): PathFindingHeuristic {
         return this.heuristic;
-    }
-
-    /**
-     * Returns the corner diagonal movement setting.
-     *
-     * @returns the user setting
-     */
-    public getDiagonalMovement(): boolean {
-        return this.diagonalMovement;
-    }
-
-    /**
-     * Returns the corner movement setting.
-     *
-     * @returns the user setting
-     */
-    public getCornerMovement(): boolean {
-        return this.cornerMovement;
     }
 
     /**
