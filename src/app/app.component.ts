@@ -168,10 +168,6 @@ export class AppComponent implements OnInit, OnDestroy {
             }
         });
 
-        this.breakpointService.isDesktop().subscribe((val) => {
-            console.log('desktop:', val);
-        });
-
         window.addEventListener('beforeinstallprompt', (e) => {
             // Prevent the mini-infobar from appearing on mobile
             e.preventDefault();

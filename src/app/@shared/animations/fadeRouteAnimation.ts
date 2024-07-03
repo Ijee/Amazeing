@@ -26,7 +26,7 @@ export const fadeRouteAnimation = trigger('fadeRouteAnimation', [
         }),
         // fixes child-route collapse before :leave animation ends
         // see: https://github.com/angular/angular/issues/15477#issuecomment-377619882
-        query(':leave *', [style({}), animate(1, style({}))])
+        query(':leave *', [style({}), animate(1, style({}))], { optional: true })
     ])
 ]);
 
