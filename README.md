@@ -24,12 +24,12 @@ and solving them with various path finding algorithms.
 
 ## Features
 
--   Implements 27 algorithms for maze creation and traversal.
+-   Implements 21+ algorithms for maze creation and traversal.
 -   Extensive control over algorithm execution (autoplay, iteration history, etc.).
 -   Paintable grid graph for custom maze creation.
 -   Easy import/export feature.
 -   Statistics tracking during algorithm execution.
--   "Learn More" page with general info and additional resources.
+-   "Learn More" page with general info and additional resources. (soon™)
 -   Available as a Progressive Web App (PWA).
 
 ---
@@ -44,12 +44,12 @@ and solving them with various path finding algorithms.
 
 Contributions are welcome! :heart:
 
-**If you like what you see and just want to show some appreciation, you can do so on [ko-fi](https://ko-fi.com/ijeee).**
+**If you like what you see and just want to show some appreciation, you can do so on [ko-fi](https://ko-fi.com/ijeee) or just share this project with people you know.**
 
 There are quite a few TODOs throughout this project, but I haven't created specific issues for them yet. Some of these tasks might be a good start for a first pull request, while others might be based on old information or poorly written notes.
 
 Either way please create an issue first to avoid unnecessary work and to check if the feature/bug in question is
-something that you can work on. PRs without any kind of discussion beforehand will almost certainly not be accepted.
+something that you can work on. PRs without any kind of discussion beforehand have a high chance of not being accepted. (Sorry)
 
 When bugs related to the algorithms themselves are reported, they will always be prioritized over new features."
 
@@ -58,7 +58,7 @@ When bugs related to the algorithms themselves are reported, they will always be
 -   Code comments only when necessary but always for functions.
 
 **Note:** The project is based on my other project which is quite boring
-in comparison to be honest. Have a look [here](https://github.com/Ijee/Game-of-Life-Angular).
+in comparison to be honest. It was originally a Vue.js projected that was then converted to Angular. Have a look [here](https://github.com/Ijee/Game-of-Life-Vue).
 
 ---
 
@@ -73,8 +73,9 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 ### Running tests
 
 This project uses [Playwright](https://playwright.dev/) for e2e tests and ensures that
-the most common use-cases are covered. More tests could be introduced but there is no way
-to automatically test for the `correctness` of the algorithms themselves automatically.
+the most common use-cases are covered and don't produce errors while executing the algorithms.
+More tests could be introduced but there is no way to automatically test for the `correctness` 
+of the algorithms themselves.
 
 Run locally: `npm run test:pw`
 
