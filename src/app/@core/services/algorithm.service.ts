@@ -174,9 +174,7 @@ export class AlgorithmService {
             default:
                 throw new Error('Unknown path-finding algorithm selected!');
         }
-        if (!this.pathAlgorithm.usesHeuristics()) {
-            this.heuristic = 'None';
-        }
+
         if (!this.pathAlgorithm.usesPathFindingSettings()) {
             this.diagonalMovement = false;
             this.crossCorners = false;
@@ -354,7 +352,11 @@ export class AlgorithmService {
      * Returns the currently selected heuristic or 'None
      */
     public getCurrentHeuristic(): PathFindingHeuristic {
-        return this.heuristic;
+        if (this.pathAlgorithm.usesHeuristics()) {
+            return this.heuristic;
+        } else {
+            return 'None';
+        }
     }
 
     /**
