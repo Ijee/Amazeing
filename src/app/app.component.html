@@ -143,7 +143,7 @@
             <div class="navbar-end">
                 <a
                     role="button"
-                    class="navbar-item is-unselectable"
+                    class="navbar-item navbar-item-hover is-unselectable"
                     data-testid="simulation"
                     [ngClass]="{ 'font-white': ((breakpointService.isTouch() | async) === false) }"
                     routerLink="simulation"
@@ -155,7 +155,7 @@
                 </a>
                 <a
                     role="button"
-                    class="navbar-item is-unselectable"
+                    class="navbar-item navbar-item-hover is-unselectable"
                     data-testid="learn"
                     [ngClass]="{ 'font-white': ((breakpointService.isTouch() | async) === false) }"
                     routerLink="learn"
@@ -182,7 +182,7 @@
                 >}
                 <div
                     role="button"
-                    class="navbar-item has-dropdown"
+                    class="navbar-item navbar-item-hover has-dropdown"
                     [ngClass]="{ 'is-active': showSettingsDropdown }"
                     appClickOutside
                     (clickOutside)="showSettingsDropdown = false">

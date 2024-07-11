@@ -147,13 +147,16 @@ body.theme-dark .is-primary {
 //TODO: Yeah this isn't a good solution for navbar-item/link.
 body.theme-light :host .navbar-item:hover,
 body.theme-light :host .navbar-item.has-dropdown:hover {
-    // filter: sepia(10%);
     transition: unset;
 }
 
 body.theme-light :host .navbar-link:hover {
-    // filter: sepia(10%);
-    color: var(--bulma-light);
+    color: hsl(0, 3%, 85%);
+    transition: unset;
+}
+
+body.theme-light :host .navbar-item-hover:hover {
+    color: hsl(0, 3%, 85%);
     transition: unset;
 }
 
