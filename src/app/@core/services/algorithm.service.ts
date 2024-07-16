@@ -199,6 +199,7 @@ export class AlgorithmService {
             this.pathAlgorithm.setDiagonalMovement(this.diagonalMovement);
             this.pathAlgorithm.setCrossCorners(this.crossCorners);
             this.pathAlgorithm.setInitialData(currentGrid, startLocation);
+            this.pathAlgorithm.setHeuristic(this.heuristic);
 
             this.pathAlgorithm.setGoal(goalLocation);
         }
@@ -354,6 +355,7 @@ export class AlgorithmService {
     public getCurrentHeuristic(): PathFindingHeuristic {
         if (this.pathAlgorithm.usesHeuristics()) {
             return this.heuristic;
+            console.log('algorithm service heuristic:', this.heuristic);
         } else {
             return 'None';
         }
