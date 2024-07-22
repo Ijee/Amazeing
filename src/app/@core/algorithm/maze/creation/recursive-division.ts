@@ -173,7 +173,6 @@ export class RecursiveDivision extends MazeAlgorithmAbstract {
 
     public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
         this.grid = newGrid;
-        console.log('deserialized', deserializedState);
         deserializedState.divisions = this.divisions;
         deserializedState.xParity = this.xParity;
         deserializedState.yParity = this.yParity;

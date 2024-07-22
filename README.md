@@ -58,7 +58,7 @@ When bugs related to the algorithms themselves are reported, they will always be
 -   Code comments only when necessary but always for functions.
 
 **Note:** The project is based on my other project which is quite boring
-in comparison to be honest. It was originally a Vue.js projected that was then converted to Angular. Have a look [here](https://github.com/Ijee/Game-of-Life-Vue).
+in comparison to be honest. It was originally a Vue.js project that was then converted to Angular. Have a look [here](https://github.com/Ijee/Game-of-Life-Vue).
 
 ---
 
