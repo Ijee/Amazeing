@@ -12,13 +12,13 @@ import { getRandomIntInclusive } from '../../../../@shared/utils/general-utils';
 type Division = { xStart: number; xEnd: number; yStart: number; yEnd: number };
 
 export class RecursiveDivision extends MazeAlgorithmAbstract {
-    private divisions: [Division];
+    private divisions: Division[];
     // so we divide the "correct way" in an odd or even grid
     private xParity: Parity;
     private yParity: Parity;
 
     constructor() {
-        super([], [{ name: 'divisions', type: 'status-none', currentValue: 0 }], {
+        super([], [], {
             controls: []
         });
     }
@@ -58,23 +58,23 @@ export class RecursiveDivision extends MazeAlgorithmAbstract {
             let divideAtY = getRandomIntInclusive(division.yStart, division.yEnd - 1, this.yParity);
             // console.log('divideAtY', divideAtY);
             for (let i = division.xStart; i < division.xEnd; i++) {
-                this.grid[i][divideAtY].status = 1;
+                this.paintNode(i, divideAtY, 1);
             }
             // create passage
             let randomX =
                 Math.floor(Math.random() * (division.xEnd - division.xStart)) + division.xStart;
             let passageFound = false;
             if (this.grid?.[division.xStart - 1]?.[divideAtY]?.status === 9) {
-                this.grid[division.xStart][divideAtY].status = 9;
+                this.paintNode(division.xStart, divideAtY, 9);
                 passageFound = true;
             }
             if (this.grid?.[division.xEnd]?.[divideAtY]?.status === 9) {
-                this.grid[division.xEnd - 1][divideAtY].status = 9;
+                this.paintNode(division.xEnd - 1, divideAtY, 9);
 
                 passageFound = true;
             }
             if (!passageFound) {
-                this.grid[randomX][divideAtY].status = 9;
+                this.paintNode(randomX, divideAtY, 9);
             }
             // calculate subdivisions
             let upperDivision: Division = {
@@ -98,26 +98,26 @@ export class RecursiveDivision extends MazeAlgorithmAbstract {
             // console.log('divideAtX', divideAtX);
 
             for (let i = division.yStart; i < division.yEnd; i++) {
-                this.grid[divideAtX][i].status = 1;
+                this.paintNode(divideAtX, i, 1);
             }
             // create passage
             let randomY =
                 Math.floor(Math.random() * (division.yEnd - division.yStart)) + division.yStart;
             let passageFound = false;
             if (this.grid?.[divideAtX]?.[division.yStart - 1]?.status === 9) {
-                this.grid[divideAtX][division.yStart].status = 9;
+                this.paintNode(divideAtX, division.yStart, 9);
                 // console.log('Vertical start yStart:', division.yStart, 'yEnd:', division.yEnd);
 
                 let passageFound = true;
             }
             if (this.grid?.[divideAtX]?.[division.yEnd]?.status === 9) {
-                this.grid[divideAtX][division.yEnd - 1].status = 9;
+                this.paintNode(divideAtX, division.yEnd - 1, 9);
                 // TODO this and xEnd check above broken I guess
                 // console.log('Vertical ends yStart:', division.yStart, 'yEnd:', division.yEnd);
                 let passageFound = true;
             }
             if (!passageFound) {
-                this.grid[divideAtX][randomY].status = 9;
+                this.paintNode(divideAtX, randomY, 9);
             }
 
             // calculate subdivisions
@@ -136,7 +136,6 @@ export class RecursiveDivision extends MazeAlgorithmAbstract {
             this.divisions.push(leftDivision, rightDivision);
         }
 
-        this.statRecords[0].currentValue += 1;
         return true;
     }
 
@@ -174,6 +173,7 @@ export class RecursiveDivision extends MazeAlgorithmAbstract {
 
     public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
         this.grid = newGrid;
+        console.log('deserialized', deserializedState);
         deserializedState.divisions = this.divisions;
         deserializedState.xParity = this.xParity;
         deserializedState.yParity = this.yParity;
