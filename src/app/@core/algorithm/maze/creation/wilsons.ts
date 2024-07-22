@@ -24,11 +24,6 @@ export class Wilsons extends MazeAlgorithmAbstract {
                     type: 'status-4'
                 },
                 {
-                    name: 'Remaining Nodes',
-                    type: 'status-none',
-                    currentValue: 0
-                },
-                {
                     name: 'Path distance',
                     type: 'status-5',
                     currentValue: 0
@@ -116,7 +111,7 @@ export class Wilsons extends MazeAlgorithmAbstract {
         ) {
             this.isWalking = false;
         }
-        this.statRecords[2].currentValue = this.walkingPath.length;
+        this.statRecords[1].currentValue = this.walkingPath.length;
     }
 
     public nextStep(): Node[][] | null {
@@ -165,7 +160,6 @@ export class Wilsons extends MazeAlgorithmAbstract {
                     }
                 }
                 this.buildWalls(node, 0, 8);
-                this.statRecords[1].currentValue = this.unusedNodes.size();
                 // paint walkingPaths first node as an 'in node' + the node inbetween.
                 if (
                     this.grid[node.x][node.y].status !== 2 &&
@@ -207,7 +201,6 @@ export class Wilsons extends MazeAlgorithmAbstract {
                 }
             }
         }
-        this.statRecords[1].currentValue = this.unusedNodes.size();
     }
 
     public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
