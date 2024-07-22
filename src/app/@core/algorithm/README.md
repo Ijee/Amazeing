@@ -16,7 +16,7 @@ You can find them in the /styles/colors.scss file and there is some consistency 
 3. the goal node
 4. general node tracking
 5. node that has already been built on for the maze mode and already explored node for the pathfinding mode
-6. tbd
+6. used for showing the current path for a* / dijkstra as an option
 7. general node tracking
 8. the cursor / current position of the algorithm or (fastest) path for the pathfinding mode
 9. to track something without it needing to be visible / already touched node
@@ -26,8 +26,8 @@ because I am really good in planning ahead.
 
 # Node Weights
 
-Node weights are generally in the 0 - 9 range and only
+Node weights are generally in the 1 - 9 range and only
 some algorithm go higher than 9 because it makes it
 not very readable on certain devices.
 
-Also: avoid negative node weights because they are reserved and most if not every algorithm won't be able to handle them anyway.
+Also: avoid negative node weights because they are currently reserved (check grid component / simulation service) and most if not every algorithm won't be able to handle them anyway. This may need to be adressed if an algorithm like Bellman-Ford is considered to be implemented.
