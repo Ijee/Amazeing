@@ -179,6 +179,10 @@ export class AlgorithmService {
             this.diagonalMovement = false;
             this.crossCorners = false;
         }
+
+        if (this.pathAlgorithm.usesHeuristics() && this.heuristic === 'None') {
+            this.heuristic = 'Manhattan';
+        }
     }
 
     /**
@@ -353,12 +357,7 @@ export class AlgorithmService {
      * Returns the currently selected heuristic or 'None
      */
     public getCurrentHeuristic(): PathFindingHeuristic {
-        if (this.pathAlgorithm.usesHeuristics()) {
-            return this.heuristic;
-            console.log('algorithm service heuristic:', this.heuristic);
-        } else {
-            return 'None';
-        }
+        return this.heuristic;
     }
 
     /**
@@ -438,6 +437,13 @@ export class AlgorithmService {
         return this.algorithmMode === 'maze'
             ? this.mazeAlgorithm.usesNodeWeights()
             : this.pathAlgorithm.usesNodeWeights();
+    }
+
+    /**
+     * Returns whether the current algorithm uses heuristics..
+     */
+    public usesHeuristics(): boolean {
+        return this.pathAlgorithm.usesHeuristics();
     }
 
     /**

@@ -129,32 +129,32 @@
         <button
             class="button is-small is-responsive"
             data-testid="manhattan"
-            [disabled]="algorithmService.getCurrentHeuristic() === 'None' || recordService.getIteration() > 0"
-            [ngClass]="algorithmService.getCurrentHeuristic() === 'Manhattan' ? 'is-danger has-text-black' : ''"
+            [disabled]="!algorithmService.usesHeuristics() || recordService.getIteration() > 0"
+            [ngClass]="(algorithmService.usesHeuristics() && algorithmService.getCurrentHeuristic() === 'Manhattan') ? 'is-danger has-text-black' : ''"
             (click)="algorithmService.setHeuristic('Manhattan')">
             <b>Manhattan</b>
         </button>
         <button
             class="button is-small is-responsive"
             data-testid="euclidean"
-            [disabled]="algorithmService.getCurrentHeuristic() === 'None'|| recordService.getIteration() > 0"
-            [ngClass]="algorithmService.getCurrentHeuristic() === 'Euclidean' ? 'is-danger has-text-black' : ''"
+            [disabled]="!algorithmService.usesHeuristics() || recordService.getIteration() > 0"
+            [ngClass]="(algorithmService.usesHeuristics() && algorithmService.getCurrentHeuristic() === 'Euclidean') ? 'is-danger has-text-black' : ''"
             (click)="algorithmService.setHeuristic('Euclidean')">
             <b>Euclidean</b>
         </button>
         <button
             class="button is-small is-responsive"
             data-testid="octile"
-            [disabled]="algorithmService.getCurrentHeuristic() === 'None' || recordService.getIteration() > 0"
-            [ngClass]="algorithmService.getCurrentHeuristic() === 'Octile' ? 'is-danger has-text-black' : ''"
+            [disabled]="!algorithmService.usesHeuristics()|| recordService.getIteration() > 0"
+            [ngClass]="(algorithmService.usesHeuristics() && algorithmService.getCurrentHeuristic() === 'Octile') ? 'is-danger has-text-black' : ''"
             (click)="algorithmService.setHeuristic('Octile')">
             <b>Octile</b>
         </button>
         <button
             class="button is-small is-responsive"
             data-testid="chebhyshev"
-            [disabled]="algorithmService.getCurrentHeuristic() === 'None' || recordService.getIteration() > 0"
-            [ngClass]="algorithmService.getCurrentHeuristic() === 'Chebyshev' ? 'is-danger has-text-black' : ''"
+            [disabled]="!algorithmService.usesHeuristics() || recordService.getIteration() > 0"
+            [ngClass]="(algorithmService.usesHeuristics() && algorithmService.getCurrentHeuristic() === 'Chebyshev') ? 'is-danger has-text-black' : ''"
             (click)="algorithmService.setHeuristic('Chebyshev')">
             <b>Chebyshev</b>
         </button>
