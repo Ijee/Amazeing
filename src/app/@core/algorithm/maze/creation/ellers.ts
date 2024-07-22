@@ -65,6 +65,7 @@ export class Ellers extends MazeAlgorithmAbstract {
             set1.forEach((loc) => {
                 this.paintNode(loc, 7);
             });
+            this.statRecords[2].currentValue += 1;
             this.buildWalls(next, 0);
             this.buildPath(cursor, next, 7);
             this.lastColouredSet = set1;
