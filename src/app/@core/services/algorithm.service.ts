@@ -35,6 +35,7 @@ import { BreadthFirstSearch } from '../algorithm/path-finding/breadth-first-sear
 import { DepthFirstSearch } from '../algorithm/path-finding/depth-first-search';
 import { BestFIrstSearch } from '../algorithm/path-finding/best-first-search';
 import { CellularAutomaton } from '../algorithm/maze/creation/cellular-automaton';
+import { JumpPointSearch } from '../algorithm/path-finding/jump-poin-search';
 import { IDAStar } from '../algorithm/path-finding/ida-star';
 
 @Injectable({
@@ -154,6 +155,7 @@ export class AlgorithmService {
                 this.pathAlgorithm = new BestFIrstSearch();
                 break;
             case 'Jump-PS':
+                this.pathAlgorithm = new JumpPointSearch();
                 break;
             case 'Orthogonal-Jump-PS':
                 break;
@@ -409,6 +411,9 @@ export class AlgorithmService {
      * @returns the user setting
      */
     public getDiagonalMovement(): boolean {
+        if (this.getAlgorithmName() === 'Jump-PS') {
+            this.setDiagonalMovement(true);
+        }
         return this.diagonalMovement;
     }
 
@@ -418,6 +423,9 @@ export class AlgorithmService {
      * @returns the user setting
      */
     public getCrossCorners(): boolean {
+        if (this.getAlgorithmName() === 'Jump-PS') {
+            this.setCrossCorners(false);
+        }
         return this.crossCorners;
     }
 

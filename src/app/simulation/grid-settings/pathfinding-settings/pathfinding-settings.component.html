@@ -59,7 +59,6 @@
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="jump-point-search"
                 [ngClass]="algorithmService.getAlgorithmName('path-finding') === 'Jump-PS' ? 'is-danger has-text-black' : ''"
-                disabled
                 (click)="emitAlgorithmChange('Jump-PS')">
                 <b>Jump Point Search</b>
             </button>
@@ -171,7 +170,7 @@
                     [ngClass]="recordService.getIteration() > 0 || !algorithmService.usesPathFindingSettings() ? 'is-not-allowed' : ''">
                     <input
                         type="checkbox"
-                        [disabled]="recordService.getIteration() > 0 || !algorithmService.usesPathFindingSettings()"
+                        [disabled]="algorithmService.getAlgorithmName() === 'Jump-PS' || recordService.getIteration() > 0 || !algorithmService.usesPathFindingSettings()"
                         [checked]="algorithmService.getDiagonalMovement()"
                         (change)="handleDiagonalMovement($event)" />
                     Diagonal movement
@@ -193,9 +192,9 @@
                     [ngClass]="recordService.getIteration() > 0 || !algorithmService.usesPathFindingSettings() ? 'is-not-allowed' : ''">
                     <input
                         type="checkbox"
-                        [disabled]="recordService.getIteration() > 0 || !algorithmService.usesPathFindingSettings()"
-                        (change)="handleCrossCorners($event)"
-                        [checked]="algorithmService.getCrossCorners()" />
+                        [disabled]="algorithmService.getAlgorithmName() === 'Jump-PS' || recordService.getIteration() > 0 || !algorithmService.usesPathFindingSettings()"
+                        [checked]=" algorithmService.getCrossCorners()"
+                        (change)="handleCrossCorners($event)" />
                     Cross corners
                 </label>
             </div>

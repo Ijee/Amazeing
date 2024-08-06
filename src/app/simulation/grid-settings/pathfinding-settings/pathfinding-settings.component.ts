@@ -17,7 +17,6 @@ import { RecordService } from '../../../@core/services/record.service';
 import { PathFindingAlgorithm } from '../../../@core/types/algorithm.types';
 import { CommonModule, NgClass } from '@angular/common';
 import { HrComponent } from 'src/app/@shared/components/hr/hr.component';
-import { DisableControlDirective } from 'src/app/@shared/directives/disable-control.directive';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 
