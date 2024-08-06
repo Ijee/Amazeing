@@ -59,7 +59,6 @@
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="jump-point-search"
                 [ngClass]="algorithmService.getAlgorithmName('path-finding') === 'Jump-PS' ? 'is-danger has-text-black' : ''"
-                disabled
                 (click)="emitAlgorithmChange('Jump-PS')">
                 <b>Jump Point Search</b>
             </button>
