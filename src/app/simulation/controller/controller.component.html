@@ -50,7 +50,7 @@
             (click)="simulationService.setSimulationStatus()">
             @if (simulationService.getSimulationStatus()) {
             <fa-icon class="has-text-danger" [icon]="['fas', 'stop']"></fa-icon>
-            } @if (!simulationService.getSimulationStatus()) {
+            } @else {
             <fa-icon class="has-text-primary" [icon]="['fas', 'play']"></fa-icon>
             }
         </button>
