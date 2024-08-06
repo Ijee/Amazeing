@@ -35,6 +35,7 @@ import { BreadthFirstSearch } from '../algorithm/path-finding/breadth-first-sear
 import { DepthFirstSearch } from '../algorithm/path-finding/depth-first-search';
 import { BestFIrstSearch } from '../algorithm/path-finding/best-first-search';
 import { CellularAutomaton } from '../algorithm/maze/creation/cellular-automaton';
+import { IDAStar } from '../algorithm/path-finding/ida-star';
 
 @Injectable({
     providedIn: 'root'
@@ -139,6 +140,7 @@ export class AlgorithmService {
                 this.pathAlgorithm = new AStar();
                 break;
             case 'IDA-Star':
+                this.pathAlgorithm = new IDAStar();
                 break;
             case 'Dijkstra':
                 this.pathAlgorithm = new Dijkstra();

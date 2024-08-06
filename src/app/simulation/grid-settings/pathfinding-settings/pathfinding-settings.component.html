@@ -13,7 +13,6 @@
             <button
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="ida-star"
-                disabled
                 [ngClass]="algorithmService.getAlgorithmName('path-finding') === 'IDA-Star' ? 'is-danger has-text-black' : ''"
                 (click)="emitAlgorithmChange('IDA-Star')">
                 <b>IDA*</b>
