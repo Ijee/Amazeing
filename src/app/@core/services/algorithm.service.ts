@@ -204,10 +204,9 @@ export class AlgorithmService {
         } else {
             this.pathAlgorithm.setDiagonalMovement(this.diagonalMovement);
             this.pathAlgorithm.setCrossCorners(this.crossCorners);
+            this.pathAlgorithm.setGoal(goalLocation);
             this.pathAlgorithm.setInitialData(currentGrid, startLocation);
             this.pathAlgorithm.setHeuristic(this.heuristic);
-
-            this.pathAlgorithm.setGoal(goalLocation);
         }
     }
 

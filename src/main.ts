@@ -1,10 +1,4 @@
-import {
-    APP_INITIALIZER,
-    enableProdMode,
-    importProvidersFrom,
-    inject,
-    isDevMode
-} from '@angular/core';
+import { enableProdMode, importProvidersFrom, isDevMode } from '@angular/core';
 
 import { environment } from './environments/environment';
 import { AppComponent } from './app/app.component';
@@ -13,15 +7,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { bootstrapApplication, BrowserModule } from '@angular/platform-browser';
 import { AppRoutes } from './app/app.routes';
-import {
-    Router,
-    createUrlTreeFromSnapshot,
-    provideRouter,
-    withRouterConfig,
-    withViewTransitions
-} from '@angular/router';
+import { provideRouter, withRouterConfig, withViewTransitions } from '@angular/router';
 import { SettingsService } from './app/@core/services/settings.service';
-import { SwUpdate, provideServiceWorker } from '@angular/service-worker';
+import { provideServiceWorker } from '@angular/service-worker';
 
 if (environment.production) {
     enableProdMode();

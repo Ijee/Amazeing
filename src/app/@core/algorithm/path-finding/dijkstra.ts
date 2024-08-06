@@ -230,7 +230,6 @@ export class Dijkstra extends PathFindingAlgorithmAbstract {
             const node = this.currentPath[i];
             serializedState.currentPath.push(node.toObject());
         }
-        console.log(serializedState);
 
         return serializedState;
     }

@@ -95,7 +95,7 @@ export class AStar extends PathFindingAlgorithmAbstract {
 
     public nextStep(): Node[][] {
         // Paints the current path back
-        for (var i = 0; i < this.currentPath.length; i++) {
+        for (let i = 0; i < this.currentPath.length; i++) {
             const node = this.currentPath[i];
             this.paintNode(node.x, node.y, 5);
         }
@@ -221,12 +221,10 @@ export class AStar extends PathFindingAlgorithmAbstract {
                 new GridLocation(node.x, node.y, node.weight, node.status)
             );
         }
-        console.log(deserializedState);
         this.updateState(newGrid, deserializedState, statRecords);
     }
 
     public serialize(): Object {
-        console.log('visitied nodes', this.visitedNodes);
         const serializedState = {
             priorityQueue: this.priorityQueue.toObject(),
             visitedNodes: [],
@@ -242,7 +240,6 @@ export class AStar extends PathFindingAlgorithmAbstract {
             const node = this.currentPath[i];
             serializedState.currentPath.push(node.toObject());
         }
-        console.log(serializedState);
 
         return serializedState;
     }

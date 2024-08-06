@@ -410,7 +410,7 @@ export class SimulationService {
                 goalLoc: this.recordService.getGridGoalLocation()
             };
         }
-        console.log('session', session);
+        // console.log('session', session);
         this.exportToken = pako.deflate(JSON.stringify(session));
     }
 

@@ -183,7 +183,6 @@ export class Wilsons extends MazeAlgorithmAbstract {
     }
 
     public setInitialData(grid: Node[][], startLocation: GridLocation): void {
-        console.log('setinitialdata wilsons');
         this.grid = grid;
         this.xStart = startLocation.x % 2;
         this.yStart = startLocation.y % 2;
@@ -245,7 +244,6 @@ export class Wilsons extends MazeAlgorithmAbstract {
             walkingPath: walkingPath,
             isWalking: serializedState.isWalking
         };
-        console.log(deserializedState);
         this.updateState(newGrid, deserializedState, statRecords);
     }
 
@@ -270,7 +268,6 @@ export class Wilsons extends MazeAlgorithmAbstract {
         this.walkingPath.forEach((gridLocation) => {
             serializedState.walkingPath.push(gridLocation.toObject());
         });
-        console.log(serializedState);
 
         return serializedState;
     }

@@ -3,7 +3,6 @@ import { GridLocation } from 'src/app/@shared/classes/GridLocation';
 import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
 import { HashSet } from '../../../../@shared/classes/HashSet';
 import { HashMap } from '../../../../@shared/classes/HasMap';
-import { set } from 'lodash-es';
 
 export class Ellers extends MazeAlgorithmAbstract {
     private cursor: GridLocation;
@@ -205,7 +204,6 @@ export class Ellers extends MazeAlgorithmAbstract {
             });
             tempMap.put(keyLoc, tempHashSet);
         });
-        console.log('tempMap', tempMap);
 
         const tempLastColouredSet = new HashSet<GridLocation>();
         if (serializedState.lastColouredSet) {

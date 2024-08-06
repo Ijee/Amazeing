@@ -1,6 +1,5 @@
 import { AlgorithmOptionsComponent } from '../../../@shared/components/algorithm-options/algorithm-options.component';
 import {
-    AfterViewChecked,
     ChangeDetectorRef,
     Component,
     EventEmitter,

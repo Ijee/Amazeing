@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { SimulationService } from '../../../@core/services/simulation.service';
-import { Component, Input, OnChanges, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 import { AlgorithmService } from 'src/app/@core/services/algorithm.service';
 import { RecordService } from 'src/app/@core/services/record.service';
