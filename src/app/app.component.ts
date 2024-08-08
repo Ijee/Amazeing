@@ -1,3 +1,4 @@
+import { AlgorithmMode } from './@core/types/algorithm.types';
 import { environment } from '../environments/environment';
 import { Component, HostListener, Inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -266,5 +267,16 @@ export class AppComponent implements OnInit, OnDestroy {
     public navigateToSimulation(): void {
         this.simulationService.setSimulationStatus(false);
         this.router.navigate(['simulation/' + this.algorithmService.getAlgorithmMode()]);
+    }
+
+    public determineLogoClass(): string {
+        const algorithmMode = this.algorithmService.getAlgorithmMode();
+        if (algorithmMode === undefined) {
+            return;
+        } else if (algorithmMode === 'maze') {
+            return 'maze-mode';
+        } else {
+            return 'path-mode';
+        }
     }
 }
