@@ -7,20 +7,18 @@
                 aria-label="Amazeing Logo"
                 data-testid="amazeing-logo"
                 (click)="navigateToSimulation()">
-                <span
-                    class="logo"
-                    [ngClass]="algorithmService.getAlgorithmMode() === 'maze' ? 'maze-mode' : 'path-mode'">
+                <span class="logo" [ngClass]="determineLogoClass()">
                     <svg
                         id="svg1"
-                        width="100%"
-                        height="100%"
+                        width="175.52643mm"
+                        height="23.531349mm"
                         version="1.1"
                         viewBox="0 0 175.52643 23.531349"
-                        xmlns="http://www.w3.org/2000/svg">
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:svg="http://www.w3.org/2000/svg">
                         <defs id="defs1" />
                         <g
                             id="shade"
-                            fill="#50cfb2"
                             stroke="#000000"
                             stroke-linecap="square"
                             stroke-linejoin="round"
@@ -29,33 +27,27 @@
                             <path
                                 id="path21"
                                 d="m 189.46,160.06 3,-3 v -10 l -3,3 z m -5,-10 3,-3 h 5 l -3,3 z m -4,6 3,-3 h 3 v 3 z m 0,0 3,-3 v -9 l -3,-0.0854 z m -5,-14 2.3367,-2 -0.05,2 z m 14,2 3,-3 v -4 l -3,3 z m -11.663,-4 3.7133,-3 h 10.95 l -3,3 z"
-                                stroke-width="0.52917"
-                                style="paint-order: normal" />
+                                stroke-width="0.52917" />
                             <path
                                 id="path16"
                                 d="m 168.46,160.06 3,-3 v -20 l -3,3 z m -5,-20 3,-3 h 5 l -3,3 z m -11,20 3,-3 v -9 h -3 z m 8,-8 h 3 v -3 z m 0,0 3,-3 v -3 l -3,3 z m -2,-3 v -3 l 3,-3 v 3 z m 0,0 h 2 l 3,-3 h -2 z m -2,-3 h 2 l 3,-3 h -2 z m 0,0 3,-3 v -3 l -3,3 z m 0,-3 3,-3 h -2 l -3,3 z m -2,0 3,-3 v -3 l -3,3 z m -7,-3 3,-3 h 7 l -3,3 z"
-                                stroke-width="0.52917"
-                                style="paint-order: normal" />
+                                stroke-width="0.52917" />
                             <path
                                 id="path10"
                                 d="m 140.46,160.06 3,-3.0008 v -20.001 l -3,3.0016 z m -5,-20 3,-2.9928 5,-0.008 -3,3.0008 z"
-                                stroke-width="0.52917"
-                                style="paint-order: normal" />
+                                stroke-width="0.52917" />
                             <path
                                 id="path8"
                                 d="m 128.46,160.06 3,-3 v -4 l -2.9889,3 z m -9.9903,-4 2.9903,-3 h 10 l -3,3 z m 0,0 2.9903,-3 v -1 h -2.9903 z m 10.001,-4 2.9889,-3 v -4 l -2.9889,3 z m -10.001,-4 2.9903,-3 h 10 l -2.9889,3 z m 0,0 2.9903,-3 v -1 l -2.9904,1e-5 z m 10.001,-4 2.9889,-3 v -4 l -2.9889,3 z m -13.011,-4 3.0014,-3 h 12.999 l -2.9889,3 z m -2,2 2,-2 v 2 z"
-                                stroke-width="0.52917"
-                                style="paint-order: normal" />
+                                stroke-width="0.52917" />
                             <path
                                 id="path4"
                                 d="m 106.46,160.06 3,-3 v -4 l -3,3 z m -11,-12 3,-3 2,2e-5 -10e-6,3 z m 8,4 3,-3 v -1 h -3 z m -4,4 3,-3 v -1 l -3,-4.4e-4 z m 0,0 3,-3 7,1e-5 -3,3 z m 10,-11 v -8 l -3,3 v 8 z m -15,-8 h 15 l -3,3 -15,-1e-5 z m -3,17 3,-3 h 1 v 3 z"
-                                stroke-width="0.52917"
-                                style="paint-order: normal" />
+                                stroke-width="0.52917" />
                             <path
                                 id="path18"
                                 d="m 74.462,160.06 3,-3 v -6 h -3 z m 3,-16 v 1 l -3,3 v -4 z m -8,-2 2,-2 v 2 z m 15,18 3,-3 v -18 l -3,3 z m 0,-18 3,-3 h -2 l -3,3 z m -2,0 3,-3 -10e-7,-2 -3,3 z m -11,-2 3,-3 h 11 l -3,3 z m 3,8 h 5 l 10e-7,-3 h -2 z"
-                                stroke-width="0.52917"
-                                style="paint-order: normal" />
+                                stroke-width="0.52917" />
                             <path
                                 id="path46"
                                 d="m 52.462,153.06 2,-2 h -2 z m 2,-2 3,-3 h -3 z m -6,-5 3,-3 v -2 l -3,3 z m -2,-2 h 2 l 3,-3 h -2 z m -2,-2 h 2 l 3,-3 h -2 z m 0,0 3,-3 v -2 l -3,3 z m 0,-2 3,-3 h -5 l -3,3 z m 0,20 3,-3 v -9 h -3 z m 18,0 3,-3 v -20 l -3,2.9654 z m -5,-20 3,-3 5,-1e-5 -3,3 z m -2,2 2,-2 -1e-6,2 z m -2,2 2,-2 v 2 z m -5,2 h 5 v -2 l 1,-1 h -3 z m 0,0 3,-3 z m -2,-2 3,-3 v -2 l -3,3 z"
@@ -63,8 +55,7 @@
                             <path
                                 id="path24"
                                 d="m 22.463,160.06 3,-3 v -6 h -3 z m 3,-16 v 1 l -3,3 v -4 z m -8,-2 2,-2 v 2 z m 15,18 3,-3 v -18 l -3,3 z m 0,-18 3,-3 h -2 l -3,3 z m -2,0 3,-3 -10e-7,-2 -3,3 z m -11,-2 3,-3 h 11 l -3,3 z m 3,8 h 5 l 10e-7,-3 h -2 z"
-                                stroke-width="0.52917"
-                                style="paint-order: normal" />
+                                stroke-width="0.52917" />
                         </g>
                         <g
                             id="front"
@@ -73,8 +64,7 @@
                             stroke="#000000"
                             stroke-miterlimit="0"
                             stroke-width="0.52917"
-                            transform="translate(-17.198412,-136.79365)"
-                            inkscape:label="front">
+                            transform="translate(-17.198412,-136.79365)">
                             <path
                                 id="path20"
                                 d="m 175.46,142.06 2.2867,1e-5 0.05,-2 11.663,-0.0854 v 4.0854 h -9 v 11.915 h 6 v -3.9146 h -2 v -2 h 5 v 10 l -11.95,-1e-5 v -2 l -2.05,1e-5 z"

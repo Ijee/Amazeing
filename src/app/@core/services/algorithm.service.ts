@@ -49,7 +49,6 @@ export class AlgorithmService {
     private crossCorners = false;
 
     constructor(private meta: Meta) {
-        this.setAlgorithmMode('maze');
         this.setMazeAlgorithm('Prims');
         this.setPathAlgorithm('A-Star');
     }

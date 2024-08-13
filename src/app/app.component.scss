@@ -82,9 +82,14 @@ body.theme-dark :host .navbar-dropdown {
     max-width: 100%;
     width: 100%;
     height: auto;
+    fill-opacity: 0.5;
 }
 
 .logo #front {
+    fill: var(--background-color-light);
+}
+
+.logo #shade {
     fill: var(--background-color-light);
 }
 
@@ -94,10 +99,12 @@ body.theme-dark :host .navbar-dropdown {
 
 .maze-mode #shade {
     fill: var(--bulma-primary);
+    fill-opacity: 1;
 }
 
 .path-mode #shade {
     fill: var(--bulma-danger);
+    fill-opacity: 1;
 }
 
 .logo svg {
