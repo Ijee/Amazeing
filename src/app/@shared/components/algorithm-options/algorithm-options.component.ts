@@ -130,7 +130,8 @@ export class AlgorithmOptionsComponent implements OnDestroy {
         const options = {};
         for (const field in this.optionsForm.controls) {
             // sets the value on the options obj also casts string boolean back to boolean
-            this.optionsForm.controls[field].value === ('true' || 'false')
+            this.optionsForm.controls[field].value === 'true' ||
+            this.optionsForm.controls[field].value === 'false'
                 ? (options[field] = JSON.parse(
                       this.optionsForm.controls[field].value.toLowerCase()
                   ))
