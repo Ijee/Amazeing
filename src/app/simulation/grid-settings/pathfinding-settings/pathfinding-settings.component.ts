@@ -32,8 +32,7 @@ import { FaIconComponent } from '@fortawesome/angular-fontawesome';
         ReactiveFormsModule,
         AlgorithmOptionsComponent,
         HrComponent,
-        FaIconComponent,
-        DisableControlDirective
+        FaIconComponent
     ]
 })
 export class PathfindingSettingsComponent implements OnInit, OnDestroy {
