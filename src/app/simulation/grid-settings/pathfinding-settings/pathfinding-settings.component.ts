@@ -25,7 +25,6 @@ import { FaIconComponent } from '@fortawesome/angular-fontawesome';
     selector: 'app-pathfinding-settings',
     templateUrl: './pathfinding-settings.component.html',
     styleUrls: ['./pathfinding-settings.component.scss'],
-    standalone: true,
     imports: [
         NgClass,
         CommonModule,

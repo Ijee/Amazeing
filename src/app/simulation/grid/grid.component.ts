@@ -27,7 +27,6 @@ import { BreakpointService } from 'src/app/@core/services/breakpoint.service';
     selector: 'app-grid',
     templateUrl: './grid.component.html',
     styleUrls: ['./grid.component.scss'],
-    standalone: true,
     imports: [CommonModule, StatsComponent, NgClass, NodeComponent, HrComponent, FaIconComponent]
 })
 export class GridComponent implements OnInit, OnDestroy, AfterViewInit {

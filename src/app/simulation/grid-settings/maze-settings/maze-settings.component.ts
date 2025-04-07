@@ -21,7 +21,6 @@ import { NgClass } from '@angular/common';
     selector: 'app-maze-settings',
     templateUrl: './maze-settings.component.html',
     styleUrls: ['./maze-settings.component.scss'],
-    standalone: true,
     imports: [NgClass, AlgorithmOptionsComponent]
 })
 export class MazeSettingsComponent implements OnInit, OnDestroy {

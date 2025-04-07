@@ -12,7 +12,6 @@ import { AlgorithmMode } from 'src/app/@core/types/algorithm.types';
 
 @Component({
     selector: 'app-algorithm-options',
-    standalone: true,
     imports: [CommonModule, FormsModule, ReactiveFormsModule, DisableControlDirective],
     templateUrl: './algorithm-options.component.html',
     styleUrl: './algorithm-options.component.scss'

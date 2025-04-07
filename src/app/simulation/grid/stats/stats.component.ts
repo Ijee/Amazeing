@@ -15,7 +15,6 @@ import { BreakpointService } from 'src/app/@core/services/breakpoint.service';
     templateUrl: './stats.component.html',
     styleUrls: ['./stats.component.scss'],
     animations: [fadeInOutList, trigger('blockInitialRenderAnimation', [transition(':enter', [])])],
-    standalone: true,
     imports: [CommonModule, CountAnimationDirective]
 })
 export class StatsComponent {

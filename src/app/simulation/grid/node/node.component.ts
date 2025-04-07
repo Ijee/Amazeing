@@ -6,7 +6,6 @@ import { NgClass } from '@angular/common';
     selector: 'app-node',
     templateUrl: './node.component.html',
     styleUrls: ['./node.component.scss'],
-    standalone: true,
     imports: [NgClass]
 })
 export class NodeComponent {

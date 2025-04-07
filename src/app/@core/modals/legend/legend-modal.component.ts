@@ -10,7 +10,6 @@ import { FaIconComponent } from '@fortawesome/angular-fontawesome';
     selector: 'app-legend-modal',
     templateUrl: './legend-modal.component.html',
     styleUrls: ['./legend-modal.component.scss'],
-    standalone: true,
     imports: [CommonModule, FaIconComponent, HrComponent, NgClass]
 })
 export class LegendModalComponent {

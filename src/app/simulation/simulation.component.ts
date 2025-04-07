@@ -9,7 +9,6 @@ import { CommonModule } from '@angular/common';
     templateUrl: './simulation.component.html',
     styleUrls: ['./simulation.component.scss'],
     animations: [],
-    standalone: true,
     imports: [CommonModule, GridComponent, GridSettingsComponent, ControllerComponent]
 })
 export class SimulationComponent {

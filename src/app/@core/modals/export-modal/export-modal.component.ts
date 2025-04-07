@@ -12,7 +12,6 @@ import { CommonModule } from '@angular/common';
     selector: 'app-export-modal',
     templateUrl: './export-modal.component.html',
     styleUrls: ['./export-modal.component.scss'],
-    standalone: true,
     imports: [CommonModule, FaIconComponent, FormsModule]
 })
 export class ExportModalComponent implements OnInit, OnDestroy {

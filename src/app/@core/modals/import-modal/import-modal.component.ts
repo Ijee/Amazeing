@@ -12,7 +12,6 @@ import { BreakpointService } from '../../services/breakpoint.service';
     selector: 'app-import-modal',
     templateUrl: './import-modal.component.html',
     styleUrls: ['./import-modal.component.scss'],
-    standalone: true,
     imports: [CommonModule, FaIconComponent, FormsModule, NgClass, HrComponent, DropZoneDirective]
 })
 export class ImportModalComponent implements OnDestroy {

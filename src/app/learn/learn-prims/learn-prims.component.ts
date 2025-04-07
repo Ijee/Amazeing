@@ -6,7 +6,6 @@ import { FaIconComponent } from '@fortawesome/angular-fontawesome';
     selector: 'app-learn-prims',
     templateUrl: './learn-prims.component.html',
     styleUrls: ['./learn-prims.component.scss'],
-    standalone: true,
     imports: [FaIconComponent, HrComponent]
 })
 export class LearnPrimsComponent {

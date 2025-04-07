@@ -10,7 +10,6 @@ import { HrComponent } from '../../@shared/components/hr/hr.component';
     selector: 'app-controller',
     templateUrl: './controller.component.html',
     styleUrls: ['./controller.component.scss'],
-    standalone: true,
     imports: [HrComponent, FaIconComponent, NgClass, MaxNumberPipe]
 })
 export class ControllerComponent {

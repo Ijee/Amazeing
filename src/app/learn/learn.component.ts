@@ -7,7 +7,6 @@ import { HrComponent } from '../@shared/components/hr/hr.component';
     selector: 'app-learn',
     templateUrl: './learn.component.html',
     styleUrls: ['./learn.component.scss'],
-    standalone: true,
     imports: [FaIconComponent, HrComponent, LearnPrimsComponent]
 })
 export class LearnComponent {
