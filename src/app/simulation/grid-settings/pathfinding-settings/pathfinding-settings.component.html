@@ -103,6 +103,7 @@
             <button
                 class="button is-small is-responsive is-fullwidth"
                 data-testid="tremauxs"
+                disabled
                 [ngClass]="algorithmService.getAlgorithmName('path-finding') === 'Trémaux' ? 'is-danger has-text-black' : ''"
                 (click)="emitAlgorithmChange('Trémaux')">
                 <b>Trémaux's</b>
