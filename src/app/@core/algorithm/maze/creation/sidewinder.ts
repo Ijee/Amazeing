@@ -50,7 +50,7 @@ export class Sidewinder extends MazeAlgorithmAbstract {
 
     private buildEastward(drawRunSet: boolean): void {
         this.buildWalls(this.cursor, 0);
-        let newStatus = drawRunSet ? 5 : 9;
+        const newStatus = drawRunSet ? 5 : 9;
         this.grid[this.cursor.x][this.cursor.y].status = newStatus;
         if (this.grid?.[this.cursor.x + 1]?.[this.cursor.y] !== undefined) {
             this.paintNode(this.cursor.x + 1, this.cursor.y, newStatus);
@@ -91,7 +91,7 @@ export class Sidewinder extends MazeAlgorithmAbstract {
             this.buildEastward(false);
             this.cursor = this.selectNextCursor(this.cursor.x, this.cursor.y);
         } else {
-            let coinFlip = Math.floor(Math.random() * 2) + 1;
+            const coinFlip = Math.floor(Math.random() * 2) + 1;
             // build eastward
             if (coinFlip === 1 || this.runSet.length === 0) {
                 this.buildEastward(true);
@@ -143,7 +143,7 @@ export class Sidewinder extends MazeAlgorithmAbstract {
         this.updateState(newGrid, deserializedState, statRecords);
     }
 
-    public serialize(): Object {
+    public serialize(): object {
         const serializedState = {
             cursor: this.cursor.toObject(),
             runSet: []
@@ -155,7 +155,7 @@ export class Sidewinder extends MazeAlgorithmAbstract {
         return serializedState;
     }
 
-    public getState(): Object {
+    public getState(): object {
         return {
             cursor: this.cursor,
             runSet: this.runSet

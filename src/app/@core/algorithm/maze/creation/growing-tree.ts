@@ -103,13 +103,13 @@ export class GrowingTree extends MazeAlgorithmAbstract {
 
     public nextStep(): Node[][] {
         if (this.nodeDirections.length > 0) {
-            let [selectedNode, selectedNodeIndex] = this.selectLocation();
+            const [selectedNode, selectedNodeIndex] = this.selectLocation();
             let neighbours = this.getNeighbours(selectedNode, 2);
             let viableNeighbourFound = false;
             if (neighbours.length > 0) {
                 neighbours = shuffleFisherYates(neighbours);
                 for (let i = 0; i < neighbours.length; i++) {
-                    let neighbour = neighbours[i];
+                    const neighbour = neighbours[i];
                     if (
                         this.grid[neighbour.x][neighbour.y].status === 0 ||
                         (this.grid[neighbour.x][neighbour.y].status === 2 &&
@@ -167,16 +167,16 @@ export class GrowingTree extends MazeAlgorithmAbstract {
         // idk, it was late. make it make more sense.
         // I only do this because I want the starting point to be on the same axis as the starting point.
         // It is not even needed for the algorithm, and it's probably doable in a one-liner.
-        let randomXPosition =
+        const randomXPosition =
             startLocation.x % 2 === 0
                 ? getRandomNumber(0, grid.length, 2)
                 : getRandomNumber(1, grid.length, 2);
 
-        let randomYPosition =
+        const randomYPosition =
             startLocation.y % 2 === 0
                 ? getRandomNumber(0, grid[0].length, 2)
                 : getRandomNumber(1, grid[0].length, 2);
-        let startNode = new GridLocation(randomXPosition, randomYPosition);
+        const startNode = new GridLocation(randomXPosition, randomYPosition);
         this.nodeDirections.push({ gridLocation: startNode, direction: 'unknown' });
 
         this.buildWalls(startNode, 0);
@@ -198,7 +198,7 @@ export class GrowingTree extends MazeAlgorithmAbstract {
             goalAlreadyAdded: serializedState.goalAlreadyAdded
         };
         serializedState.nodeCollection.forEach(
-            (arr: { gridLocation: GridLocation; direction: Direction }, index: number) => {
+            (arr: { gridLocation: GridLocation; direction: Direction }) => {
                 const loc = new GridLocation(arr.gridLocation.x, arr.gridLocation.y);
                 deserializedState.nodeCollection.push({
                     gridLocation: loc,
@@ -209,7 +209,7 @@ export class GrowingTree extends MazeAlgorithmAbstract {
         this.updateState(newGrid, deserializedState, statRecords);
     }
 
-    public serialize(): Object {
+    public serialize(): object {
         const serializedState = {
             nodeCollection: [],
             startAlreadyAdded: this.startAlreadyAdded,
@@ -224,7 +224,7 @@ export class GrowingTree extends MazeAlgorithmAbstract {
         return serializedState;
     }
 
-    public getState(): Object {
+    public getState(): object {
         return {
             nodeCollection: this.nodeDirections,
             startAlreadyAdded: this.startAlreadyAdded,

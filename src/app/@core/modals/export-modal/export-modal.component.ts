@@ -79,7 +79,7 @@ export class ExportModalComponent implements OnInit, OnDestroy {
      */
     exportAsFile(): void {
         try {
-            let [exportBlob, fileName] = this.prepareFile();
+            const [exportBlob, fileName] = this.prepareFile();
             saveAs(exportBlob, fileName);
             this.simulationService.toggleShowExportModal();
         } catch (error) {
@@ -93,8 +93,8 @@ export class ExportModalComponent implements OnInit, OnDestroy {
      * Tries to share the file with the OS native share functionality.
      */
     async shareFile(): Promise<void> {
-        let [exportBlob, fileName] = this.prepareFile();
-        let filesArray = [];
+        const [exportBlob, fileName] = this.prepareFile();
+        const filesArray = [];
         filesArray.push(new File([exportBlob], fileName, { type: 'text/plain' }));
         if (navigator.canShare && navigator.canShare({ files: filesArray })) {
             await navigator

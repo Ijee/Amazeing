@@ -108,7 +108,7 @@ export class MazeRouting extends PathFindingAlgorithmAbstract {
         });
         this.updateState(newGrid, deserializedState, statRecords);
     }
-    public serialize(): Object {
+    public serialize(): object {
         let backtrackingObj: object | undefined = undefined;
         if (this.backtracking) {
             backtrackingObj = this.backtracking.toObject();
@@ -123,7 +123,7 @@ export class MazeRouting extends PathFindingAlgorithmAbstract {
 
         return serializedState;
     }
-    public getState(): Object {
+    public getState(): object {
         return { queue: this.queue, backtracking: this.backtracking };
     }
     public getAlgorithmName(): PathFindingAlgorithm {

@@ -75,9 +75,9 @@ export class Wilsons extends MazeAlgorithmAbstract {
 
         // remove loops
         let eraseLoop = false;
-        let newWalkingPath: GridLocation[] = [];
+        const newWalkingPath: GridLocation[] = [];
         for (let i = 0; i < this.walkingPath.length; i++) {
-            let node = this.walkingPath[i];
+            const node = this.walkingPath[i];
             if (
                 eraseLoop &&
                 this.grid[node.x][node.y].status !== 1 &&
@@ -125,7 +125,7 @@ export class Wilsons extends MazeAlgorithmAbstract {
 
                     for (let j = this.yStart; j < this.grid[0].length && !foundNode; j += 2) {
                         for (let i = this.xStart; i < this.grid.length && !foundNode; i += 2) {
-                            let node = this.grid[i][j];
+                            const node = this.grid[i][j];
                             if (
                                 node.status !== 1 &&
                                 node.status !== 2 &&
@@ -247,7 +247,7 @@ export class Wilsons extends MazeAlgorithmAbstract {
         this.updateState(newGrid, deserializedState, statRecords);
     }
 
-    public serialize(): Object {
+    public serialize(): object {
         let cursor: object | undefined = null;
         if (this.cursor) {
             cursor = this.cursor.toObject();
@@ -272,7 +272,7 @@ export class Wilsons extends MazeAlgorithmAbstract {
         return serializedState;
     }
 
-    public getState(): Object {
+    public getState(): object {
         return {
             xStart: this.xStart,
             yStart: this.yStart,

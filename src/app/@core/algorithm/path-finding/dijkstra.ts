@@ -84,7 +84,7 @@ export class Dijkstra extends PathFindingAlgorithmAbstract {
 
     public nextStep(): Node[][] {
         // Paints the current path back
-        for (var i = 0; i < this.currentPath.length; i++) {
+        for (let i = 0; i < this.currentPath.length; i++) {
             const node = this.currentPath[i];
             this.paintNode(node.x, node.y, 5);
         }
@@ -145,7 +145,7 @@ export class Dijkstra extends PathFindingAlgorithmAbstract {
 
         for (let i = 0; i < this.grid.length; i++) {
             for (let j = 0; j < this.grid[0].length; j++) {
-                let node = this.grid[i][j];
+                const node = this.grid[i][j];
                 if (this.grid[i][j].status !== 2 && this.grid[i][j].status !== 1) {
                     node.text = '∞';
                 } else if (this.grid[i][j].status === 2) {
@@ -204,7 +204,7 @@ export class Dijkstra extends PathFindingAlgorithmAbstract {
             };
             deserializedState.visitedNodes.put(key, visitedNode);
         });
-        for (var i = 0; i < serializedState.currentPath.length; i++) {
+        for (let i = 0; i < serializedState.currentPath.length; i++) {
             const node = serializedState.currentPath[i];
             deserializedState.currentPath.push(
                 new GridLocation(node.x, node.y, node.weight, node.status)
@@ -214,7 +214,7 @@ export class Dijkstra extends PathFindingAlgorithmAbstract {
         this.updateState(newGrid, deserializedState, statRecords);
     }
 
-    public serialize(): Object {
+    public serialize(): object {
         const serializedState = {
             priorityQueue: this.priorityQueue.toObject(),
             visitedNodes: [],
@@ -226,7 +226,7 @@ export class Dijkstra extends PathFindingAlgorithmAbstract {
             const entry = { key: ele.toObject(), value: this.visitedNodes.get(ele) };
             serializedState.visitedNodes.push(entry);
         });
-        for (var i = 0; i < this.currentPath.length; i++) {
+        for (let i = 0; i < this.currentPath.length; i++) {
             const node = this.currentPath[i];
             serializedState.currentPath.push(node.toObject());
         }
@@ -234,7 +234,7 @@ export class Dijkstra extends PathFindingAlgorithmAbstract {
         return serializedState;
     }
 
-    public getState(): Object {
+    public getState(): object {
         return {
             priorityQueue: this.priorityQueue,
             visitedNodes: this.visitedNodes,

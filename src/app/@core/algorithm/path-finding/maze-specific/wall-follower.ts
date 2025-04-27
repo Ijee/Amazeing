@@ -78,7 +78,6 @@ export class WallFollower extends PathFindingAlgorithmAbstract {
      * @returns the new direction to move to
      */
     private newDirection(order: Direction[]): Direction {
-        let newDirection: Direction = 'down';
         for (let i = 0; i < order.length; i++) {
             const direction = order[i];
             if (direction === 'up' && this.isValid(this.cursor.x, this.cursor.y - 1)) {
@@ -180,14 +179,14 @@ export class WallFollower extends PathFindingAlgorithmAbstract {
         this.updateState(newGrid, deserializedState, statRecords);
     }
 
-    public serialize(): Object {
+    public serialize(): object {
         return {
             cursor: this.cursor.toObject(),
             direction: this.direction
         };
     }
 
-    public getState(): Object {
+    public getState(): object {
         return {
             cursor: this.cursor,
             direction: this.direction

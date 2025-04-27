@@ -134,7 +134,7 @@ export class Prims extends MazeAlgorithmAbstract {
         this.updateState(newGrid, deserializedState, statRecords);
     }
 
-    public serialize(): Object {
+    public serialize(): object {
         const serializedState = {
             gridLocations: [],
             goalIsInMaze: this.goalIsInMaze,
@@ -146,7 +146,7 @@ export class Prims extends MazeAlgorithmAbstract {
         return serializedState;
     }
 
-    public getState(): Object {
+    public getState(): object {
         return {
             frontierNodes: this.frontierNodes,
             goalIsInMaze: this.goalIsInMaze,

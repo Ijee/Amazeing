@@ -102,7 +102,7 @@ export class DeadEndFilling extends PathFindingAlgorithmAbstract {
         };
         this.updateState(newGrid, deserializedState, statRecords);
     }
-    public serialize(): Object {
+    public serialize(): object {
         const serializedState = {
             deadEnds: []
         };
@@ -113,7 +113,7 @@ export class DeadEndFilling extends PathFindingAlgorithmAbstract {
         return serializedState;
     }
 
-    public getState(): Object {
+    public getState(): object {
         return { deadEnds: this.deadEnds };
     }
     public getAlgorithmName(): PathFindingAlgorithm {

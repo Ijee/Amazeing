@@ -221,13 +221,13 @@ export abstract class MazeAlgorithmAbstract {
      *
      * Remember that classes can not be serialized with JSON.stringify as they most often include functions.
      */
-    public abstract serialize(): Object;
+    public abstract serialize(): object;
 
     /**
      * Returns the current algorithm state that should at least
      * be an object.
      */
-    public abstract getState(): Object;
+    public abstract getState(): object;
 
     /**
      * Returns the name of the algorithm.

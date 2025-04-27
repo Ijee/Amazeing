@@ -2,7 +2,7 @@ import { GridLocation } from 'src/app/@shared/classes/GridLocation';
 import { Node, Statistic, PathFindingAlgorithm } from '../../types/algorithm.types';
 import { PathFindingAlgorithmAbstract } from './path-finding-algorithm.abstract';
 
-type VisitedNode = { node: GridLocation; predecessor: GridLocation };
+interface VisitedNode { node: GridLocation; predecessor: GridLocation }
 
 export class BreadthFirstSearch extends PathFindingAlgorithmAbstract {
     private queue: GridLocation[];
@@ -147,7 +147,7 @@ export class BreadthFirstSearch extends PathFindingAlgorithmAbstract {
         this.updateState(newGrid, deserializedState, statRecords);
     }
 
-    public serialize(): Object {
+    public serialize(): object {
         let tracePathObj: object | undefined = undefined;
         if (this.tracePath) {
             tracePathObj = this.tracePath.toObject();
@@ -169,7 +169,7 @@ export class BreadthFirstSearch extends PathFindingAlgorithmAbstract {
         return serializedState;
     }
 
-    public getState(): Object {
+    public getState(): object {
         return {
             queue: this.queue,
             visitedNodes: this.visitedNodes,

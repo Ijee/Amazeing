@@ -115,7 +115,7 @@ export class AldousBroder extends MazeAlgorithmAbstract {
         this.updateState(newGrid, deserializedState, statRecords);
     }
 
-    serialize(): Object {
+    serialize(): object {
         let cursor: object | undefined = undefined;
         if (this.cursor) {
             cursor = this.cursor.toObject();
@@ -127,7 +127,7 @@ export class AldousBroder extends MazeAlgorithmAbstract {
         return serializedState;
     }
 
-    getState(): Object {
+    getState(): object {
         return {
             cursor: this.cursor,
             remainingNodes: this.remainingNodes

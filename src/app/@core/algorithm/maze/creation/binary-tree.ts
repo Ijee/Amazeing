@@ -84,7 +84,7 @@ export class BinaryTree extends MazeAlgorithmAbstract {
         for (let i = this.yStart; i < this.yEnd; i++) {
             for (let j = 0; j < this.grid.length; j++) {
                 if (this.grid[j][i].status === 0) {
-                    let coinFlip = Math.floor(Math.random() * 2) + 1;
+                    const coinFlip = Math.floor(Math.random() * 2) + 1;
 
                     if (coinFlip === 1) {
                         this.buildDirection(j, i, this.direction1);
@@ -150,7 +150,7 @@ export class BinaryTree extends MazeAlgorithmAbstract {
         this.updateState(newGrid, deserializedState, statRecords);
     }
 
-    public serialize(): Object {
+    public serialize(): object {
         return {
             direction1: this.direction1,
             direction2: this.direction2,
@@ -159,7 +159,7 @@ export class BinaryTree extends MazeAlgorithmAbstract {
         };
     }
 
-    public getState(): Object {
+    public getState(): object {
         return {
             direction1: this.direction1,
             direction2: this.direction2,

@@ -109,8 +109,6 @@ export class SimulationService {
      * for the iteration to continue.
      */
     public stepForward(): void {
-        let newGrid: Node[][];
-
         if (this.recordService.getIteration() === 0) {
             this.algorithmService.setInitialData(
                 cloneDeep(this.gridList$.getValue()),
@@ -118,7 +116,7 @@ export class SimulationService {
                 this.recordService.getGridGoalLocation()
             );
         }
-        newGrid = this.algorithmService.getNextStep();
+        const newGrid = this.algorithmService.getNextStep();
         if (newGrid) {
             this.recordService.setIteration(this.recordService.getIteration() + 1);
             if (this.recordService.tryHistoryStepForward()) {
@@ -176,9 +174,7 @@ export class SimulationService {
                 this.recordService.getGridGoalLocation()
             );
         }
-        const [iterationCount, newGrid] = this.algorithmService.completeAlgorithm(
-            this.gridList$.getValue()
-        );
+        const [iterationCount, newGrid] = this.algorithmService.completeAlgorithm();
         this.recordService.setIteration(this.recordService.getIteration() + iterationCount);
         this.updateRecords(newGrid);
         if (this.backwardStepsAmount < RecordService.MAX_SAVE_STEPS - 1) {
@@ -195,7 +191,7 @@ export class SimulationService {
         this.setSimulationStatus(false);
         this.setDisablePlay(false);
         if (this.recordService.getIteration() > 0) {
-            const gridSavepoint = this.recordService.getGridSavePoint();
+            // const gridSavepoint = this.recordService.getGridSavePoint();
             // Resets to save point
             this.recordService.setIteration(0);
             this.recordService.resetHistory();
@@ -239,7 +235,7 @@ export class SimulationService {
                 if (!useWeights) {
                     node.weight = 1;
                 }
-                if (node.hasOwnProperty('text')) {
+                if (Object.hasOwn(node, 'text')) {
                     delete node.text;
                 }
             });
@@ -282,8 +278,8 @@ export class SimulationService {
      * @param importText - the new session to be used
      */
     public importSession(importText: string): void {
+        const oldAlgoMode = this.algorithmService.getAlgorithmMode();
         let session: Session;
-        let oldAlgoMode = this.algorithmService.getAlgorithmMode();
 
         try {
             const uint8arr = Uint8Array.from(importText.split(',').map((str) => parseInt(str, 10)));
@@ -437,7 +433,8 @@ export class SimulationService {
      * Sets the new speed up between boundaries
      */
     public setSpeedUp(): void {
-        this.simulationSpeed < 100 ? this.setSimulationSpeed(20) : this.setSimulationSpeed(100);
+        // this.simulationSpeed < 100 ? this.setSimulationSpeed(20) : this.setSimulationSpeed(100);
+        this.setSimulationSpeed(this.simulationSpeed < 100 ? 20 : 100);
         this.restartInterval();
     }
 
@@ -445,7 +442,8 @@ export class SimulationService {
      * Sets the new speed down between boundaries
      */
     public setSpeedDown(): void {
-        this.simulationSpeed > 100 ? this.setSimulationSpeed(-100) : this.setSimulationSpeed(-20);
+        // this.simulationSpeed > 100 ? this.setSimulationSpeed(-100) : this.setSimulationSpeed(-20);
+        this.setSimulationSpeed(this.simulationSpeed > 100 ? -100 : -20);
         this.restartInterval();
     }
 

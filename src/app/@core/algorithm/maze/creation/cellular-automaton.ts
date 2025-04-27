@@ -120,10 +120,10 @@ export class CellularAutomaton extends MazeAlgorithmAbstract {
     public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
         this.updateState(newGrid, {}, statRecords);
     }
-    public serialize(): Object {
+    public serialize(): object {
         return {};
     }
-    public getState(): Object {
+    public getState(): object {
         return {};
     }
     public getAlgorithmName(): MazeAlgorithm {

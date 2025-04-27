@@ -69,7 +69,7 @@ export class AlgorithmService {
                 'var(' + newColor + ')'
             );
 
-            let colour = getComputedStyle(document.documentElement).getPropertyValue(
+            const colour = getComputedStyle(document.documentElement).getPropertyValue(
                 '--algorithm-mode-color'
             );
             // This changes the notch / title bar colour
@@ -226,9 +226,11 @@ export class AlgorithmService {
      * @param options - the new options to be set
      */
     public setOptions(options: AlgorithmOptions) {
-        this.algorithmMode === 'maze'
-            ? this.mazeAlgorithm.setOptions(options)
-            : this.pathAlgorithm.setOptions(options);
+        if (this.algorithmMode === 'maze') {
+            this.mazeAlgorithm.setOptions(options);
+        } else {
+            this.pathAlgorithm.setOptions(options);
+        }
     }
 
     public setHeuristic(newHeuristic: PathFindingHeuristic): void {
@@ -274,7 +276,7 @@ export class AlgorithmService {
      *
      * @param currentGrid - the currentGrid
      */
-    public completeAlgorithm(currentGrid: Node[][]): [number, Node[][]] {
+    public completeAlgorithm(): [number, Node[][]] {
         let algorithmEnded = false;
         let lastGrid: Node[][];
         let iterationCount = 0;
@@ -307,23 +309,29 @@ export class AlgorithmService {
         deserialize?: boolean
     ): void {
         if (isEmpty(state)) {
-            this.algorithmMode === 'maze'
-                ? this.setMazeAlgorithm(this.mazeAlgorithm.getAlgorithmName())
-                : this.setPathAlgorithm(this.pathAlgorithm.getAlgorithmName());
+            if (this.algorithmMode === 'maze') {
+                this.setMazeAlgorithm(this.mazeAlgorithm.getAlgorithmName());
+            } else {
+                this.setPathAlgorithm(this.pathAlgorithm.getAlgorithmName());
+            }
         } else {
             if (deserialize) {
                 try {
-                    this.algorithmMode === 'maze'
-                        ? this.mazeAlgorithm.deserialize(newGrid, state, statRecord)
-                        : this.pathAlgorithm.deserialize(newGrid, state, statRecord);
+                    if (this.algorithmMode === 'maze') {
+                        this.mazeAlgorithm.deserialize(newGrid, state, statRecord);
+                    } else {
+                        this.pathAlgorithm.deserialize(newGrid, state, statRecord);
+                    }
                 } catch (error) {
                     console.error('Can not set algorithm State');
                     throw error;
                 }
             } else {
-                this.algorithmMode === 'maze'
-                    ? this.mazeAlgorithm.updateState(newGrid, state, statRecord)
-                    : this.pathAlgorithm.updateState(newGrid, state, statRecord);
+                if (this.algorithmMode === 'maze') {
+                    this.mazeAlgorithm.updateState(newGrid, state, statRecord);
+                } else {
+                    this.pathAlgorithm.updateState(newGrid, state, statRecord);
+                }
             }
         }
     }

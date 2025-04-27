@@ -77,9 +77,9 @@ export class HuntAndKill extends MazeAlgorithmAbstract {
             this.rowSnapshot.push(loc);
             // if (this.grid[i][this.scanAtY].status === 0) {
             if (this.grid[i][this.scanAtY].status === 0 && i % 2 === this.evenOrOddX) {
-                let neighbours = this.getNeighbours(loc, 2);
+                const neighbours = this.getNeighbours(loc, 2);
                 for (let j = 0; j < neighbours.length; j++) {
-                    let neighbour = neighbours[j];
+                    const neighbour = neighbours[j];
                     if (neighbour.status === 5) {
                         // when a node has been found we connect it to the existing grid
                         // after hunt and kill.
@@ -115,7 +115,7 @@ export class HuntAndKill extends MazeAlgorithmAbstract {
         neighbours = shuffleFisherYates(neighbours);
         this.randomWalk = false;
         for (let i = 0; i < neighbours.length; i++) {
-            let neighbour = neighbours[i];
+            const neighbour = neighbours[i];
             if (neighbour.status === 0) {
                 this.buildWalls(neighbour, 0);
                 this.buildPath(this.cursor, neighbour, 5);
@@ -168,7 +168,8 @@ export class HuntAndKill extends MazeAlgorithmAbstract {
                 }
                 const nextRow = this.scanRow();
 
-                nextRow ? (this.scanAtY += 1) : (this.scanAtY = 0);
+                // nextRow ? (this.scanAtY += 1) : (this.scanAtY = 0);
+                this.scanAtY = nextRow ? this.scanAtY + 1 : 0;
             }
         }
         return this.grid;
@@ -227,7 +228,7 @@ export class HuntAndKill extends MazeAlgorithmAbstract {
         this.updateState(newGrid, deserializedState, statRecords);
     }
 
-    public serialize(): Object {
+    public serialize(): object {
         let cursor: object | undefined = undefined;
         if (this.cursor) {
             cursor = JSON.parse(JSON.stringify(this.cursor));
@@ -255,7 +256,7 @@ export class HuntAndKill extends MazeAlgorithmAbstract {
         return serializedState;
     }
 
-    public getState(): Object {
+    public getState(): object {
         return {
             cursor: this.cursor,
             rowSnapshot: this.rowSnapshot,

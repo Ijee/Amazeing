@@ -196,7 +196,7 @@ export class Kruskals extends MazeAlgorithmAbstract {
 
         this.updateState(newGrid, deserializedState, statRecords);
     }
-    public serialize(): Object {
+    public serialize(): object {
         const serializedState = {
             edges: [],
             sets: [],
@@ -207,7 +207,7 @@ export class Kruskals extends MazeAlgorithmAbstract {
             serializedState.edges.push(loc.toObject());
         });
         for (let i = 0; i < this.sets.length; i++) {
-            let serialSet = [];
+            const serialSet = [];
             this.sets[i].forEach((val) => {
                 serialSet.push(val.toObject());
             });
@@ -215,7 +215,7 @@ export class Kruskals extends MazeAlgorithmAbstract {
         }
         return serializedState;
     }
-    public getState(): Object {
+    public getState(): object {
         return {
             edges: this.edges,
             sets: this.sets,

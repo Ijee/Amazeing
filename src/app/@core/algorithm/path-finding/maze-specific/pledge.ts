@@ -228,14 +228,14 @@ export class Pledge extends PathFindingAlgorithmAbstract {
 
         this.updateState(newGrid, deserializedState, statRecords);
     }
-    public serialize(): Object {
+    public serialize(): object {
         return {
             cursor: this.cursor.toObject(),
             direction: this.direction,
             angle: this.angle
         };
     }
-    public getState(): Object {
+    public getState(): object {
         return {
             cursor: this.cursor,
             direction: this.direction,

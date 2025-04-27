@@ -112,7 +112,7 @@ export class BestFIrstSearch extends PathFindingAlgorithmAbstract {
         this.updateState(newGrid, deserializedState, statRecords);
     }
 
-    public serialize(): Object {
+    public serialize(): object {
         let tracePathObj: object | undefined = undefined;
         if (this.tracePath) {
             tracePathObj = this.tracePath.toObject();
@@ -131,7 +131,7 @@ export class BestFIrstSearch extends PathFindingAlgorithmAbstract {
         return serializedState;
     }
 
-    public getState(): Object {
+    public getState(): object {
         return {
             priorityQueue: this.priorityQueue,
             visitedNodes: this.visitedNodes,

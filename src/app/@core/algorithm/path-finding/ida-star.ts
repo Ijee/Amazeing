@@ -3,12 +3,12 @@ import { Node, Statistic, PathFindingAlgorithm } from '../../types/algorithm.typ
 import { PathFindingAlgorithmAbstract } from './path-finding-algorithm.abstract';
 import { HashSet } from 'src/app/@shared/classes/HashSet';
 
-type PathInformation = {
+interface PathInformation {
     g: number;
     f: number;
     node: GridLocation;
     predecessor?: PathInformation;
-};
+}
 
 export class IDAStar extends PathFindingAlgorithmAbstract {
     private currentPath: PathInformation;
@@ -97,7 +97,7 @@ export class IDAStar extends PathFindingAlgorithmAbstract {
         });
         this.pathSet.clear();
         let minPath: PathInformation;
-        for (let neighbour of neighbours) {
+        for (const neighbour of neighbours) {
             const g = path.g + neighbour.weight;
             const f = g + this.calculateHeuristic(neighbour);
 
@@ -190,7 +190,7 @@ export class IDAStar extends PathFindingAlgorithmAbstract {
         this.updateState(newGrid, deserializedState, statRecords);
     }
 
-    public serialize(): Object {
+    public serialize(): object {
         const toPathObject = (pathInfo: PathInformation): object => {
             return {
                 g: pathInfo.g,
@@ -209,7 +209,7 @@ export class IDAStar extends PathFindingAlgorithmAbstract {
         return serializedState;
     }
 
-    public getState(): Object {
+    public getState(): object {
         return {
             currentPath: this.currentPath,
             basePath: this.basePath,

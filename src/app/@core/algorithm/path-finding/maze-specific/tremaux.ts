@@ -175,7 +175,7 @@ export class Tremaux extends PathFindingAlgorithmAbstract {
         this.updateState(newGrid, deserializedState, statRecords);
     }
 
-    public serialize(): Object {
+    public serialize(): object {
         let cursorObj: object | undefined = undefined;
         if (this.cursor) {
             cursorObj = this.cursor.toObject();
@@ -191,12 +191,11 @@ export class Tremaux extends PathFindingAlgorithmAbstract {
         return serializedState;
     }
 
-    public getState(): Object {
-        return;
-        {
-            cursor: this.cursor;
-            visitedNodes: this.visitedNodes;
-        }
+    public getState(): object {
+        return {
+            cursor: this.cursor,
+            visitedNodes: this.visitedNodes
+        };
     }
 
     public getAlgorithmName(): PathFindingAlgorithm {

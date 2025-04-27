@@ -146,20 +146,27 @@ export class GridComponent implements OnInit, OnDestroy, AfterViewInit {
             return;
         }
         node.status = drawMode;
+
+        let changeNode: GridLocation;
         switch (drawMode) {
             case 2:
-                const startLocation = this.recordService.getGridStartLocation();
-                const startNode = this.gridList[startLocation.x][startLocation.y];
-                startNode.status = 0;
+                changeNode = this.recordService.getGridStartLocation();
+                this.gridList[changeNode.x][changeNode.y].status = 0;
+                // This was probably bad before
+                // const startLocation = this.recordService.getGridStartLocation();
+                // const startNode = this.gridList[startLocation.x][startLocation.y];
+                // startNode.status = 0;
                 this.recordService.setGridStartLocation(
                     new GridLocation(col, row, node.weight, node.status)
                 );
                 this.onMouseUp();
                 break;
             case 3:
-                const goalLocation = this.recordService.getGridGoalLocation();
-                const goalNode = this.gridList[goalLocation.x][goalLocation.y];
-                goalNode.status = 0;
+                changeNode = this.recordService.getGridGoalLocation();
+                this.gridList[changeNode.x][changeNode.y].status = 0;
+                // const goalLocation = this.recordService.getGridGoalLocation();
+                // const goalNode = this.gridList[goalLocation.x][goalLocation.y];
+                // goalNode.status = 0;
                 this.recordService.setGridGoalLocation(
                     new GridLocation(col, row, node.weight, node.status)
                 );
@@ -168,7 +175,6 @@ export class GridComponent implements OnInit, OnDestroy, AfterViewInit {
             default:
                 break;
         }
-        // this.updateCellStats(drawMode);
     }
 
     /**

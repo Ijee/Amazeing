@@ -152,14 +152,12 @@ export class AppComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.settingsService.getDarkModeSetting().subscribe((val) => {
-            //@ts-ignore
             if (!document.startViewTransition) {
                 this.switchTheme(val);
                 return;
             }
 
             if (this.settingsService.getAnimationsSetting()) {
-                //@ts-ignore
                 this.document.startViewTransition(() => {
                     this.switchTheme(val);
                 });
