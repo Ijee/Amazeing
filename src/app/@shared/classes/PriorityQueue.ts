@@ -32,14 +32,18 @@ export class PriorityQueue {
         for (let i = 0; i < this.elements.length; i++) {
             const ele = this.elements[i];
             if (ele.node.equals(node)) {
-                return ele.priority;
+                return i;
             }
         }
         return -1;
     }
+    getPriority(index: number): number | undefined {
+        return index !== -1 ? this.elements[index].priority : undefined;
+    }
 
-    toObject(): Object {
+    toObject(): object {
         const obj = [];
+
         this.elements.forEach((ele) => {
             obj.push({ priority: ele.priority, node: ele.node.toObject() });
         });
