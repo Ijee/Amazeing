@@ -1,4 +1,3 @@
-import { animation } from '@angular/animations';
 import { Routes } from '@angular/router';
 
 export const AppRoutes: Routes = [

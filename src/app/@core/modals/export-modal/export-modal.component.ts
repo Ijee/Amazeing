@@ -4,7 +4,6 @@ import { SimulationService } from '../../services/simulation.service';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { saveAs } from 'file-saver';
 import { FormsModule } from '@angular/forms';
-import { takeUntil } from 'rxjs/operators';
 import { BreakpointService } from '../../services/breakpoint.service';
 import { CommonModule } from '@angular/common';
 
@@ -84,7 +83,8 @@ export class ExportModalComponent implements OnInit, OnDestroy {
             this.simulationService.toggleShowExportModal();
         } catch (error) {
             console.error(
-                'Could not download file. Please check if your browser is blocking downloads.'
+                'Could not download file. Please check if your browser is blocking downloads. ' +
+                    error
             );
         }
     }
@@ -128,7 +128,7 @@ export class ExportModalComponent implements OnInit, OnDestroy {
             .query({ name: 'clipboard-write' as PermissionName })
             .then((result) => {
                 if (result.state === 'granted' || result.state === 'prompt') {
-                    navigator.clipboard.write(data).then((val) => {
+                    navigator.clipboard.write(data).then(() => {
                         console.info('Yee-ha copying worked...');
                     });
                 }

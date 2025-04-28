@@ -83,7 +83,7 @@ export class DeadEndFilling extends PathFindingAlgorithmAbstract {
 
         return this.grid;
     }
-    public setInitialData(grid: Node[][], startLocation: GridLocation): void {
+    public setInitialData(grid: Node[][]): void {
         this.grid = grid;
     }
     public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {

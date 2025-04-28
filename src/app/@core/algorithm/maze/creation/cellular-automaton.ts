@@ -109,7 +109,7 @@ export class CellularAutomaton extends MazeAlgorithmAbstract {
         }
         return this.grid;
     }
-    public setInitialData(grid: Node[][], startLocation: GridLocation): void {
+    public setInitialData(grid: Node[][]): void {
         this.grid = grid;
     }
 

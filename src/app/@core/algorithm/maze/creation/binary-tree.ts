@@ -99,7 +99,7 @@ export class BinaryTree extends MazeAlgorithmAbstract {
         return null;
     }
 
-    public setInitialData(grid: Node[][], startLocation: GridLocation): void {
+    public setInitialData(grid: Node[][]): void {
         this.grid = grid;
         // Settings the options once.
         switch (this.options.Bias) {

@@ -88,15 +88,15 @@ export class Tremaux extends PathFindingAlgorithmAbstract {
             return randomWeightedPassage;
         }
     }
-    /**
-     * Checks if the node is an intersection.
-     *
-     * @param loc location to be checked
-     * @returns whether it is an intersection
-     */
-    private isIntersection(loc: GridLocation): boolean {
-        return;
-    }
+    // /**
+    //  * Checks if the node is an intersection.
+    //  *
+    //  * @param loc location to be checked
+    //  * @returns whether it is an intersection
+    //  */
+    // private isIntersection(loc: GridLocation): boolean {
+    //     return;
+    // }
 
     public nextStep(): Node[][] {
         const prevLoc = this.visitedNodes[this.visitedNodes.length - 2];
@@ -148,6 +148,7 @@ export class Tremaux extends PathFindingAlgorithmAbstract {
 
     public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
         this.grid = newGrid;
+        this.statRecords = statRecords;
         this.cursor = deserializedState.cursor;
         this.visitedNodes = deserializedState.visitedNodes;
     }

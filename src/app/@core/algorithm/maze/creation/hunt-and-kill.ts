@@ -175,7 +175,7 @@ export class HuntAndKill extends MazeAlgorithmAbstract {
         return this.grid;
     }
 
-    public setInitialData(grid: Node[][], startLocation: GridLocation): void {
+    public setInitialData(grid: Node[][]): void {
         this.grid = grid;
         const randomXPosition = Math.floor(Math.random() * this.grid.length);
         const randomYPosition = Math.floor(Math.random() * this.grid[0].length);

@@ -103,6 +103,7 @@ export class RecursiveBacktracking extends MazeAlgorithmAbstract {
 
     public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
         this.grid = newGrid;
+        this.statRecords = statRecords;
         this.cursor = deserializedState.cursor;
         this.walkingPath = deserializedState.walkingPath;
         this.visitedNodes = deserializedState.visitedNodes;

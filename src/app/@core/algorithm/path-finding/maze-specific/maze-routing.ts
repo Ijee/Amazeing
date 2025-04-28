@@ -83,6 +83,7 @@ export class MazeRouting extends PathFindingAlgorithmAbstract {
     }
     public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
         this.grid = newGrid;
+        this.statRecords = statRecords;
         this.queue = deserializedState.queue;
         this.backtracking = deserializedState.backtracking;
     }

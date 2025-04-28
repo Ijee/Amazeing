@@ -80,7 +80,7 @@ export class ImportModalComponent implements OnDestroy {
             const fileReader = new FileReader();
             this.fileName = newFile.name;
             fileReader.readAsText(newFile);
-            fileReader.onloadend = (e) => {
+            fileReader.onloadend = () => {
                 this.importToken = fileReader.result as string;
             };
             this.importError = false;

@@ -130,12 +130,20 @@ export class AlgorithmOptionsComponent implements OnDestroy {
         const options = {};
         for (const field in this.optionsForm.controls) {
             // sets the value on the options obj also casts string boolean back to boolean
-            this.optionsForm.controls[field].value === 'true' ||
-            this.optionsForm.controls[field].value === 'false'
-                ? (options[field] = JSON.parse(
-                      this.optionsForm.controls[field].value.toLowerCase()
-                  ))
-                : (options[field] = this.optionsForm.controls[field].getRawValue());
+            // this.optionsForm.controls[field].value === 'true' ||
+            // this.optionsForm.controls[field].value === 'false'
+            //     ? (options[field] = JSON.parse(
+            //           this.optionsForm.controls[field].value.toLowerCase()
+            //       ))
+            //     : (options[field] = this.optionsForm.controls[field].getRawValue());
+            if (
+                this.optionsForm.controls[field].value === 'true' ||
+                this.optionsForm.controls[field].value === 'false'
+            ) {
+                options[field] = JSON.parse(this.optionsForm.controls[field].value.toLowerCase());
+            } else {
+                options[field] = this.optionsForm.controls[field].getRawValue();
+            }
         }
         this.algorithmService.setOptions(options);
     }

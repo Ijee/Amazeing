@@ -16,7 +16,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { fadeAnimationSafe } from '../../@shared/animations/fadeRouteAnimation';
 import { RecordService } from '../../@core/services/record.service';
 import { AlgorithmMode } from '../../@core/types/algorithm.types';
-import { CommonModule, DOCUMENT, NgClass, UpperCasePipe } from '@angular/common';
+import { CommonModule, DOCUMENT, NgClass } from '@angular/common';
 import { HrComponent } from '../../@shared/components/hr/hr.component';
 import { BreakpointService } from 'src/app/@core/services/breakpoint.service';
 import { MazeSettingsComponent } from './maze-settings/maze-settings.component';

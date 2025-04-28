@@ -11,6 +11,4 @@ import { CommonModule } from '@angular/common';
     animations: [],
     imports: [CommonModule, GridComponent, GridSettingsComponent, ControllerComponent]
 })
-export class SimulationComponent {
-    constructor() {}
-}
+export class SimulationComponent {}

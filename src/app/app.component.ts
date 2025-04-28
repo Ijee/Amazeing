@@ -1,4 +1,3 @@
-import { AlgorithmMode } from './@core/types/algorithm.types';
 import { environment } from '../environments/environment';
 import { Component, HostListener, Inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -18,7 +17,6 @@ import {
     faFile,
     faFileImport,
     faForward,
-    faInfo,
     faInfoCircle,
     faMicrochip,
     faPlay,
@@ -230,7 +228,7 @@ export class AppComponent implements OnInit, OnDestroy {
     // }
 
     public prepareUserTour(): void {
-        this.router.navigate(['/simulation']).then((value) => {
+        this.router.navigate(['/simulation']).then(() => {
             this.showSettingsDropdown = false;
             this.settingsService.setUserTourTaken(true);
             this.settingsService.setUserTourActive(true);

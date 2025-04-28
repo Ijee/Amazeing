@@ -5,11 +5,15 @@ import {
     Parity,
     Statistic
 } from 'src/app/@core/types/algorithm.types';
-import { GridLocation } from 'src/app/@shared/classes/GridLocation';
 import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
 import { getRandomIntInclusive } from '../../../../@shared/utils/general-utils';
 
-interface Division { xStart: number; xEnd: number; yStart: number; yEnd: number }
+interface Division {
+    xStart: number;
+    xEnd: number;
+    yStart: number;
+    yEnd: number;
+}
 
 export class RecursiveDivision extends MazeAlgorithmAbstract {
     private divisions: Division[];
@@ -165,7 +169,7 @@ export class RecursiveDivision extends MazeAlgorithmAbstract {
         return this.grid;
     }
 
-    public setInitialData(grid: Node[][], startLocation: GridLocation): void {
+    public setInitialData(grid: Node[][]): void {
         this.grid = grid;
         this.divisions = [
             {

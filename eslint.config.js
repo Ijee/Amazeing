@@ -1,62 +1,42 @@
 // @ts-check
+// Import ESLint core
+import eslint from '@eslint/js';
 
-// Allows us to bring in the recommended core rules from eslint itself
-import eslintPlugin from '@eslint/js';
-const { configs } = eslintPlugin;
+// Import TypeScript ESLint
+import tseslint from 'typescript-eslint';
 
-// Allows us to use the typed utility for our config, and to bring in the recommended rules for TypeScript projects from typescript-eslint
-import { config, configs as _configs } from 'typescript-eslint';
+// Import Angular ESLint
+import angular from 'angular-eslint';
 
-// Allows us to bring in the recommended rules for Angular projects from angular-eslint
-import { configs as __configs, processInlineTemplates } from 'angular-eslint';
-// Export our config array, which is composed together thanks to the typed utility function from typescript-eslint
-export default config(
+export default tseslint.config(
     {
-        // Everything in this config object targets our TypeScript files (Components, Directives, Pipes etc)
+        ignores: ['**/dist/**', '**/.angular/**']
+    },
+    {
         files: ['**/*.ts'],
         extends: [
-            // Apply the recommended core rules
-            configs.recommended,
-            // Apply the recommended TypeScript rules
-            ..._configs.recommended,
-            // Optionally apply stylistic rules from typescript-eslint that improve code consistency
-            ..._configs.stylistic,
-            // Apply the recommended Angular rules
-            ...__configs.tsRecommended
+            eslint.configs.recommended,
+            ...tseslint.configs.recommended,
+            ...tseslint.configs.stylistic,
+            ...angular.configs.tsRecommended
         ],
-        // Set the custom processor which will allow us to have our inline Component templates extracted
-        // and treated as if they are HTML files (and therefore have the .html config below applied to them)
-        processor: processInlineTemplates,
-        // Override specific rules for TypeScript files (these will take priority over the extended configs above)
+        processor: angular.processInlineTemplates,
         rules: {
-            '@angular-eslint/directive-selector': [
-                'error',
-                {
-                    type: 'attribute',
-                    prefix: 'app',
-                    style: 'camelCase'
-                }
-            ],
-            '@angular-eslint/component-selector': [
-                'error',
-                {
-                    type: 'element',
-                    prefix: 'app',
-                    style: 'kebab-case'
-                }
-            ]
+            '@angular-eslint/no-input-rename': 'off',
+            '@typescript-eslint/no-explicit-any': 'off',
+            '@typescript-eslint/prefer-for-of': 'off',
+            '@typescript-eslint/consistent-type-assertions': 'warn',
+            '@typescript-eslint/no-unused-vars': 'warn',
+            'no-empty-function': 'off',
+            '@typescript-eslint/no-empty-function': 'off',
+            '@typescript-eslint/consistent-type-definitions': 'warn'
         }
     },
     {
-        // Everything in this config object targets our HTML files (external templates,
-        // and inline templates as long as we have the `processor` set on our TypeScript config above)
         files: ['**/*.html'],
-        extends: [
-            // Apply the recommended Angular template rules
-            ...__configs.templateRecommended,
-            // Apply the Angular template rules which focus on accessibility of our apps
-            ...__configs.templateAccessibility
-        ],
-        rules: {}
+        extends: [...angular.configs.templateRecommended, ...angular.configs.templateAccessibility],
+        rules: {
+            '@angular-eslint/template/no-negated-async': 'off'
+        }
     }
 );

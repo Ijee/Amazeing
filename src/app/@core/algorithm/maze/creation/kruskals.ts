@@ -150,7 +150,7 @@ export class Kruskals extends MazeAlgorithmAbstract {
             return null;
         }
     }
-    public setInitialData(grid: Node[][], startLocation: GridLocation): void {
+    public setInitialData(grid: Node[][]): void {
         this.grid = grid;
         const xParity = this.grid.length % 2;
         const yParity = this.grid[0].length % 2;
