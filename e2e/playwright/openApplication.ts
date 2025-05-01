@@ -1,7 +1,8 @@
-import { Page, test as setup } from '@playwright/test';
+import { Page } from '@playwright/test';
+import clientSideScripts from 'protractor/built/clientsidescripts.js';
 
 async function waitForAngular(page) {
-    const clientSideScripts = require('protractor/built/clientsidescripts.js');
+    // const clientSideScripts = require('protractor/built/clientsidescripts.js');
 
     async function executeScriptAsync(page, script, ...scriptArgs) {
         await page.evaluate(`

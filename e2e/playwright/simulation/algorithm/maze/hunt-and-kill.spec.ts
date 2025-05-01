@@ -4,7 +4,7 @@ import { openApplication } from '../../../openApplication';
 test.describe('Hunt and Kill @algorithm @maze', () => {
     test.beforeEach(async ({ page }) => {
         await openApplication(page);
-        await page.getByTestId('hunt-and-kil').click();
+        await page.getByTestId('hunt-and-kill').click();
     });
 
     test('Algorithm completes', async ({ page }) => {
@@ -30,7 +30,7 @@ test.describe('Hunt and Kill @algorithm @maze', () => {
         expect(errors.length).toBe(0);
     });
 
-    test('Algorithm 20 iterations; export then import and continue', async ({ page, context }) => {
+    test('Algorithm 20 iterations; export then import and continue', async ({ page }) => {
         // await context.grantPermissions(['clipboard-read', 'clipboard-write']);
 
         const errors = [];

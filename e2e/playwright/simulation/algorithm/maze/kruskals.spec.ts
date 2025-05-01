@@ -30,7 +30,7 @@ test.describe('Kruskals @algorithm @maze', () => {
         expect(errors.length).toBe(0);
     });
 
-    test('Algorithm 20 iterations; export then import and continue', async ({ page, context }) => {
+    test('Algorithm 20 iterations; export then import and continue', async ({ page }) => {
         // await context.grantPermissions(['clipboard-read', 'clipboard-write']);
 
         const errors = [];
