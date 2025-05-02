@@ -1,7 +1,3 @@
-.button {
-    border-radius: 0;
-}
-
 body.theme-dark :host .button {
     outline: 1px solid var(--white-dark-87);
 }
@@ -14,6 +10,36 @@ body.theme-dark :host .is-primary {
     border: 2px var(--bulma-light) solid;
 }
 
-body.theme-dark :host .outline {
-    border: 2px hsl(0, 1%, 34%) solid;
+.button {
+    border-radius: 0;
+}
+
+button:is(.algo-button) {
+    background-image: initial;
+    transition:
+        background-color ease 150ms,
+        filter ease 150ms,
+        color ease 75ms;
+}
+
+button:is(.algo-button)[disabled] {
+    transition: none;
+}
+
+button:is(.algo-button):not(.is-primary, [disabled]):hover {
+    background-image: initial;
+    background-color: var(--algorithm-mode-color);
+    filter: invert(10%);
+    color: hsl(0, 0%, 4%); /* Black on hover */
+    transition:
+        background-color ease 150ms,
+        filter ease 150ms,
+        color ease 75ms;
+}
+
+button:is(.algo-button):not([disabled]) {
+    transition:
+        background-color ease 150ms,
+        filter ease 150ms,
+        color ease 75ms;
 }

@@ -2,7 +2,7 @@
     <div class="grid is-gapless">
         <div class="cell is-row-start-1 is-col-span-2">
             <button
-                class="button is-small is-responsive is-fullwidth"
+                class="button algo-button is-small is-responsive is-fullwidth"
                 data-testid="prims"
                 [ngClass]="algorithmService.getAlgorithmName('maze') === 'Prims' ? 'is-primary has-text-black' : ''"
                 (click)="emitAlgorithmChange('Prims')">
@@ -11,7 +11,7 @@
         </div>
         <div class="cell is-row-start-1 is-col-span-2">
             <button
-                class="button is-small is-responsive is-fullwidth"
+                class="button algo-button is-small is-responsive is-fullwidth"
                 data-testid="kruskals"
                 [ngClass]="algorithmService.getAlgorithmName('maze') === 'Kruskals' ? 'is-primary has-text-black' : ''"
                 (click)="emitAlgorithmChange('Kruskals')">
@@ -20,7 +20,7 @@
         </div>
         <div class="cell is-row-start-1 is-col-span-2">
             <button
-                class="button is-small is-responsive is-fullwidth"
+                class="button algo-button is-small is-responsive is-fullwidth"
                 data-testid="aldous-broder"
                 [ngClass]="algorithmService.getAlgorithmName('maze') === 'Aldous-Broder' ? 'is-primary has-text-black' : ''"
                 (click)="emitAlgorithmChange('Aldous-Broder')">
@@ -29,7 +29,7 @@
         </div>
         <div class="cell is-row-start-2 is-col-span-2">
             <button
-                class="button is-small is-responsive is-fullwidth"
+                class="button algo-button is-small is-responsive is-fullwidth"
                 data-testid="wilsons"
                 [ngClass]="algorithmService.getAlgorithmName('maze') === 'Wilsons' ? 'is-primary has-text-black' : ''"
                 (click)="emitAlgorithmChange('Wilsons')">
@@ -38,7 +38,7 @@
         </div>
         <div class="cell is-row-start-2 is-col-span-2">
             <button
-                class="button is-small is-responsive is-fullwidth"
+                class="button algo-button is-small is-responsive is-fullwidth"
                 data-testid="ellers"
                 [ngClass]="algorithmService.getAlgorithmName('maze') === 'Ellers' ? 'is-primary has-text-black' : ''"
                 (click)="emitAlgorithmChange('Ellers')">
@@ -47,7 +47,7 @@
         </div>
         <div class="cell is-row-start-2 is-col-span-2">
             <button
-                class="button is-small is-responsive is-fullwidth"
+                class="button algo-button is-small is-responsive is-fullwidth"
                 data-testid="sidewinder"
                 [ngClass]="algorithmService.getAlgorithmName('maze') === 'Sidewinder' ? 'is-primary has-text-black' : ''"
                 (click)="emitAlgorithmChange('Sidewinder')">
@@ -56,7 +56,7 @@
         </div>
         <div class="cell is-row-start-3 is-col-span-2">
             <button
-                class="button is-small is-responsive is-fullwidth"
+                class="button algo-button is-small is-responsive is-fullwidth"
                 data-testid="hunt-and-kill"
                 [ngClass]="algorithmService.getAlgorithmName('maze') === 'Hunt-and-Kill' ? 'is-primary has-text-black' : ''"
                 (click)="emitAlgorithmChange('Hunt-and-Kill')">
@@ -65,7 +65,7 @@
         </div>
         <div class="cell is-row-start-3 is-col-span-2">
             <button
-                class="button is-small is-responsive is-fullwidth"
+                class="button algo-button is-small is-responsive is-fullwidth"
                 data-testid="growing-tree"
                 [ngClass]="algorithmService.getAlgorithmName('maze') === 'Growing-Tree' ? 'is-primary has-text-black' : ''"
                 (click)="emitAlgorithmChange('Growing-Tree')">
@@ -74,7 +74,7 @@
         </div>
         <div class="cell is-row-start-3 is-col-span-2">
             <button
-                class="button is-small is-responsive is-fullwidth"
+                class="button algo-button is-small is-responsive is-fullwidth"
                 data-testid="binary-tree"
                 [ngClass]="algorithmService.getAlgorithmName('maze') === 'Binary-Tree' ? 'is-primary has-text-black' : ''"
                 (click)="emitAlgorithmChange('Binary-Tree')">
@@ -83,7 +83,7 @@
         </div>
         <div class="cell is-row-start-4 is-col-span-3">
             <button
-                class="button is-small is-responsive is-fullwidth"
+                class="button algo-button is-small is-responsive is-fullwidth"
                 data-testid="recursive-backtracking"
                 [ngClass]="algorithmService.getAlgorithmName('maze') === 'Recursive-Backtracking' ? 'is-primary has-text-black' : ''"
                 (click)="emitAlgorithmChange('Recursive-Backtracking')">
@@ -92,7 +92,7 @@
         </div>
         <div class="cell is-row-start-4 is-col-span-3">
             <button
-                class="button is-small is-responsive is-fullwidth"
+                class="button algo-button is-small is-responsive is-fullwidth"
                 data-testid="recursive-division"
                 [ngClass]="algorithmService.getAlgorithmName('maze') === 'Recursive-Division' ? 'is-primary has-text-black' : ''"
                 (click)="emitAlgorithmChange('Recursive-Division')">
@@ -101,7 +101,7 @@
         </div>
         <div class="cell is-row-start-5 is-col-span-6">
             <button
-                class="button is-small is-responsive is-fullwidth"
+                class="button algo-button is-small is-responsive is-fullwidth"
                 data-testid="cellular-automation"
                 [ngClass]="algorithmService.getAlgorithmName('maze') === 'Cellular-Automaton' ? 'is-primary has-text-black' : ''"
                 (click)="emitAlgorithmChange('Cellular-Automaton')">

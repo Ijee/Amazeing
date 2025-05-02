@@ -2,7 +2,7 @@
     <div class="grid is-gapless">
         <div class="cell is-row-start-1 is-col-span-2">
             <button
-                class="button is-small is-responsive is-fullwidth"
+                class="button algo-button is-small is-responsive is-fullwidth"
                 data-testid="a-star"
                 [ngClass]="algorithmService.getAlgorithmName('path-finding') === 'A-Star' ? 'is-danger has-text-black' : ''"
                 (click)="emitAlgorithmChange('A-Star')">
@@ -11,7 +11,7 @@
         </div>
         <div class="cell is-row-start-1 is-col-span-2">
             <button
-                class="button is-small is-responsive is-fullwidth"
+                class="button algo-button is-small is-responsive is-fullwidth"
                 data-testid="ida-star"
                 [ngClass]="algorithmService.getAlgorithmName('path-finding') === 'IDA-Star' ? 'is-danger has-text-black' : ''"
                 (click)="emitAlgorithmChange('IDA-Star')">
@@ -20,7 +20,7 @@
         </div>
         <div class="cell is-row-start-1 is-col-span-2">
             <button
-                class="button is-small is-responsive is-fullwidth"
+                class="button algo-button is-small is-responsive is-fullwidth"
                 data-testid="dijkstra"
                 [ngClass]="algorithmService.getAlgorithmName('path-finding') === 'Dijkstra' ? 'is-danger has-text-black' : ''"
                 (click)="emitAlgorithmChange('Dijkstra')">
@@ -29,7 +29,7 @@
         </div>
         <div class="cell is-row-start-2 is-col-span-3">
             <button
-                class="button is-small is-responsive is-fullwidth"
+                class="button algo-button is-small is-responsive is-fullwidth"
                 data-testid="breadth-first-search"
                 [ngClass]="algorithmService.getAlgorithmName('path-finding') === 'Breadth-FS' ? 'is-danger has-text-black' : ''"
                 (click)="emitAlgorithmChange('Breadth-FS')">
@@ -38,7 +38,7 @@
         </div>
         <div class="cell is-row-start-2 is-col-span-3">
             <button
-                class="button is-small is-responsive is-fullwidth"
+                class="button algo-button is-small is-responsive is-fullwidth"
                 data-testid="depth-first-search"
                 [ngClass]="algorithmService.getAlgorithmName('path-finding') === 'Depth-FS' ? 'is-danger has-text-black' : ''"
                 (click)="emitAlgorithmChange('Depth-FS')">
@@ -47,7 +47,7 @@
         </div>
         <div class="cell is-row-start-3 is-col-span-3">
             <button
-                class="button is-small is-responsive is-fullwidth"
+                class="button algo-button is-small is-responsive is-fullwidth"
                 data-testid="best-first-search"
                 [ngClass]="algorithmService.getAlgorithmName('path-finding') === 'Best-FS' ? 'is-danger has-text-black' : ''"
                 (click)="emitAlgorithmChange('Best-FS')">
@@ -56,7 +56,7 @@
         </div>
         <div class="cell is-row-start-3 is-col-span-3">
             <button
-                class="button is-small is-responsive is-fullwidth"
+                class="button algo-button is-small is-responsive is-fullwidth"
                 data-testid="jump-point-search"
                 [ngClass]="algorithmService.getAlgorithmName('path-finding') === 'Jump-PS' ? 'is-danger has-text-black' : ''"
                 (click)="emitAlgorithmChange('Jump-PS')">
@@ -65,7 +65,7 @@
         </div>
         <div class="cell is-row-start-4 is-col-span-6">
             <button
-                class="button is-small is-responsive is-fullwidth"
+                class="button algo-button is-small is-responsive is-fullwidth"
                 data-testid="orthogonal-jump-point-search"
                 [ngClass]="algorithmService.getAlgorithmName('path-finding') === 'Orthogonal-Jump-PS' ? 'is-danger has-text-black' : ''"
                 disabled
@@ -82,7 +82,7 @@
     <div class="grid is-gapless">
         <div class="cell is-row-start-1 is-col-span-3">
             <button
-                class="button is-small is-responsive is-fullwidth"
+                class="button algo-button is-small is-responsive is-fullwidth"
                 data-testid="wall-follower"
                 [ngClass]="algorithmService.getAlgorithmName('path-finding') === 'Wall-Follower' ? 'is-danger has-text-black' : ''"
                 (click)="emitAlgorithmChange('Wall-Follower')">
@@ -91,7 +91,7 @@
         </div>
         <div class="cell is-row-start-1 is-col-span-3">
             <button
-                class="button is-small is-responsive is-fullwidth"
+                class="button algo-button is-small is-responsive is-fullwidth"
                 data-testid="pledge"
                 [ngClass]="algorithmService.getAlgorithmName('path-finding') === 'Pledge' ? 'is-danger has-text-black' : ''"
                 (click)="emitAlgorithmChange('Pledge')">
@@ -100,7 +100,7 @@
         </div>
         <div class="cell is-row-start-2 is-col-span-3">
             <button
-                class="button is-small is-responsive is-fullwidth"
+                class="button algo-button is-small is-responsive is-fullwidth"
                 data-testid="tremauxs"
                 disabled
                 [ngClass]="algorithmService.getAlgorithmName('path-finding') === 'Trémaux' ? 'is-danger has-text-black' : ''"
@@ -110,7 +110,7 @@
         </div>
         <div class="cell is-row-start-2 is-col-span-3">
             <button
-                class="button is-small is-responsive is-fullwidth"
+                class="button algo-button is-small is-responsive is-fullwidth"
                 data-testid="dead-end-filling"
                 [ngClass]="algorithmService.getAlgorithmName('path-finding') === 'Dead-End-Filling' ? 'is-danger has-text-black' : ''"
                 (click)="emitAlgorithmChange('Dead-End-Filling')">
@@ -126,7 +126,7 @@
 <div class="grid is-gapless">
     <div class="buttons has-addons is-centered">
         <button
-            class="button is-small is-responsive"
+            class="button algo-button is-small is-responsive"
             data-testid="manhattan"
             [disabled]="!algorithmService.usesHeuristics() || recordService.getIteration() > 0"
             [ngClass]="(algorithmService.usesHeuristics() && algorithmService.getCurrentHeuristic() === 'Manhattan') ? 'is-danger has-text-black' : ''"
@@ -134,7 +134,7 @@
             <b>Manhattan</b>
         </button>
         <button
-            class="button is-small is-responsive"
+            class="button algo-button is-small is-responsive"
             data-testid="euclidean"
             [disabled]="!algorithmService.usesHeuristics() || recordService.getIteration() > 0"
             [ngClass]="(algorithmService.usesHeuristics() && algorithmService.getCurrentHeuristic() === 'Euclidean') ? 'is-danger has-text-black' : ''"
@@ -142,7 +142,7 @@
             <b>Euclidean</b>
         </button>
         <button
-            class="button is-small is-responsive"
+            class="button algo-button is-small is-responsive"
             data-testid="octile"
             [disabled]="!algorithmService.usesHeuristics()|| recordService.getIteration() > 0"
             [ngClass]="(algorithmService.usesHeuristics() && algorithmService.getCurrentHeuristic() === 'Octile') ? 'is-danger has-text-black' : ''"
@@ -150,7 +150,7 @@
             <b>Octile</b>
         </button>
         <button
-            class="button is-small is-responsive"
+            class="button algo-button is-small is-responsive"
             data-testid="chebhyshev"
             [disabled]="!algorithmService.usesHeuristics() || recordService.getIteration() > 0"
             [ngClass]="(algorithmService.usesHeuristics() && algorithmService.getCurrentHeuristic() === 'Chebyshev') ? 'is-danger has-text-black' : ''"

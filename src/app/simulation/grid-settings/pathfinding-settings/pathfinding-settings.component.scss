@@ -9,3 +9,33 @@ body.theme-dark :host .button {
 .button {
     border-radius: 0;
 }
+
+button:is(.algo-button) {
+    background-image: initial;
+    transition:
+        background-color ease 150ms,
+        filter ease 150ms,
+        color ease 75ms;
+}
+
+button:is(.algo-button)[disabled] {
+    transition: none;
+}
+
+button:is(.algo-button):not(.is-primary, [disabled]):hover {
+    background-image: initial;
+    background-color: var(--algorithm-mode-color);
+    filter: invert(10%);
+    color: hsl(0, 0%, 4%); /* Black on hover */
+    transition:
+        background-color ease 150ms,
+        filter ease 150ms,
+        color ease 75ms;
+}
+
+button:is(.algo-button):not([disabled]) {
+    transition:
+        background-color ease 150ms,
+        filter ease 150ms,
+        color ease 75ms;
+}

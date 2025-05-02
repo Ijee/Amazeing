@@ -7,7 +7,7 @@
         @if (handleJsonFormData().controls.length > 0) {
         <div class="column is-full mt-0 pt-0" style="min-height: 0">
             <form [formGroup]="optionsForm">
-                @for (control of handleJsonFormData()?.controls; track control) {
+                @for (control of handleJsonFormData()?.controls; track control.name) {
                 <fieldset class="columns is-multiline is-gapless mb-0">
                     @if (control?.type === 'checkbox') {
                     <div class="column is-12 control">
@@ -42,11 +42,13 @@
                     </div>
                     } } @if (control?.type === 'select') {
                     <div class="columns column is-full is-multiline field is-horizontal is-flex-direction-column">
-                        <div class="form-text-size column is-full field-label has-text-left p-0 is-normal">
-                            <label class="label">{{ control.name }}</label>
+                        <div class="form-text-size column is-full field-label has-text-left p-0 is-size-6">
+                            <label class="label" [for]="control.name">{{ control.name }}</label>
                         </div>
                         <div class="form-text-size column is-full field is-horizontal p-0">
-                            <div class="select is-black">
+                            <div
+                                class="select is-small"
+                                [ngClass]="algorithmService.getAlgorithmMode() === 'maze' ? 'is-primary' : 'is-danger'">
                                 <select
                                     class="has-text-weight-medium is-small"
                                     appDisableControl
