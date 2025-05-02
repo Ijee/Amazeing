@@ -6,6 +6,7 @@ import { saveAs } from 'file-saver';
 import { FormsModule } from '@angular/forms';
 import { BreakpointService } from '../../services/breakpoint.service';
 import { CommonModule } from '@angular/common';
+import { AlgorithmService } from '../../services/algorithm.service';
 
 @Component({
     selector: 'app-export-modal',
@@ -19,6 +20,7 @@ export class ExportModalComponent implements OnInit, OnDestroy {
     private readonly destroyed$: Subject<void>;
 
     constructor(
+        public readonly algorithmService: AlgorithmService,
         public readonly simulationService: SimulationService,
         public readonly breakpointService: BreakpointService
     ) {
