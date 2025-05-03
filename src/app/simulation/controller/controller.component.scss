@@ -1,5 +1,18 @@
-//@use 'bulma/bulma' as bulma;
+.button {
+    margin: 1px;
+}
 
-.buttonBackwards {
-    color: #ff0000;
+.button:hover {
+    outline: 1px solid whitesmoke !important;
+}
+
+.backwards-button {
+    min-width: 70px;
+}
+
+.import-button {
+    border-top-left-radius: 0;
+}
+.export-button {
+    border-top-right-radius: 0;
 }

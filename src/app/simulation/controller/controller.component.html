@@ -13,7 +13,7 @@
     <p class="control">
         <button
             [disabled]="simulationService.getBackwardStepsAmount() < 1"
-            class="button is-responsive"
+            class="button backwards-button is-responsive"
             data-testid="iteration-backward"
             title="iteration backwards"
             aria-label="iteration backwards"
@@ -91,7 +91,7 @@
 <div class="field has-addons has-addons-centered">
     <p class="control">
         <button
-            class="button is-responsive"
+            class="button import-button is-responsive"
             data-testid="import"
             title="import"
             aria-label="import"
@@ -104,7 +104,7 @@
     </p>
     <p class="control">
         <button
-            class="button is-responsive"
+            class="button export-button is-responsive"
             data-testid="export"
             title="export"
             aria-label="export"
