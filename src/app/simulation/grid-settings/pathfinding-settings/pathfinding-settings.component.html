@@ -119,7 +119,6 @@
         </div>
     </div>
 </div>
-
 <p class="menu-label is-size-7 my-2 has-text-centered">
     <b>Heuristics</b>
 </p>
@@ -159,8 +158,9 @@
         </button>
     </div>
 </div>
-<app-algorithm-options [algorithmMode]="'path-finding'"></app-algorithm-options>
-<app-hr [text]="'PATHFINDING SETTINGS'"></app-hr>
+<p class="menu-label is-size-7 my-2 has-text-centered">
+    <b>PATHFINDING SETTINGS</b>
+</p>
 <div class="column is-full mt-0 pt-0 is-align-self-flex-end" style="min-height: 0">
     <form>
         <fieldset class="columns is-multiline is-gapless">
@@ -201,3 +201,4 @@
         </fieldset>
     </form>
 </div>
+<app-algorithm-options [algorithmMode]="'path-finding'"></app-algorithm-options>

@@ -30,7 +30,6 @@ import { FaIconComponent } from '@fortawesome/angular-fontawesome';
         FormsModule,
         ReactiveFormsModule,
         AlgorithmOptionsComponent,
-        HrComponent,
         FaIconComponent
     ]
 })
