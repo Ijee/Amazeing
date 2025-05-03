@@ -3,14 +3,16 @@
     --primary-color-a20: hsl(171, 100%, 41%, 0.2);
     --danger-color-a20: hsla(348, 100%, 61%, 0.2);
 
-    --box-shadow-maze-old: 0 0.2em 1.2em 0 var(--primary-color-a20),
-        0 0px 0 1px rgba(10, 10, 10, 0.02);
-    --box-shadow-path-old: 0 0.2em 1.2em -0.125em var(--danger-color-a20),
-        0 0px 0 1px rgba(10, 10, 10, 0.02);
+    --box-shadow-maze-old:
+        0 0.2em 1.2em 0 var(--primary-color-a20), 0 0px 0 1px rgba(10, 10, 10, 0.02);
+    --box-shadow-path-old:
+        0 0.2em 1.2em -0.125em var(--danger-color-a20), 0 0px 0 1px rgba(10, 10, 10, 0.02);
 
-    --box-shadow-maze: inset 0 0 0.5px 1px hsla(0, 0%, 100%, 0.075),
+    --box-shadow-maze:
+        inset 0 0 0.5px 1px hsla(0, 0%, 100%, 0.075),
         0 0.2rem 1.2rem -0.125rem var(--primary-color-a20), 0 0px 0 1.2rem rgba(10, 10, 10, 0.02);
-    --box-shadow-path: inset 0 0 0.5px 1px hsla(0, 0%, 100%, 0.075),
+    --box-shadow-path:
+        inset 0 0 0.5px 1px hsla(0, 0%, 100%, 0.075),
         0 0.2rem 1.2rem -0.125rem var(--danger-color-a20), 0 0px 0 1.2rem rgba(10, 10, 10, 0.02);
 }
 
@@ -70,6 +72,14 @@ body.theme-dark :host .box-shadow-path {
 
 .goal-icon {
     color: var(--bulma-danger);
+}
+
+.button {
+    margin: 1px;
+}
+
+.button:hover {
+    outline: 1px solid whitesmoke !important;
 }
 
 .control-button-wrapper:before {

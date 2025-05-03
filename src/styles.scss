@@ -125,6 +125,59 @@
     --smooth-animation: cubic-bezier(0.62, 0.16, 0.13, 1.01);
 
     --algorithm-mode-color: var(--bulma-primary);
+
+    // :focus-visible {
+    //     transition: outline-offset 75ms ease-out;
+    // }
+    // :not(:active):focus-visible {
+    //     transition-duration: 0.25s;
+    // }
+
+    // :not(:active):focus-visible {
+    //     outline-offset: 0.5rem;
+    // }
+    /* Override Bulma's focus styles with zero specificity on the button part */
+    .button:focus-visible {
+        border-color: transparent;
+        border: none;
+        box-shadow: none;
+    }
+
+    // :focus-visible {
+    //     transition:
+    //         outline-width 200ms ease,
+    //         outline-offset 200ms ease;
+    //     outline-width: 2px;
+    //     outline-color: var(--algorithm-mode-color) !important;
+    //     z-index: 1;
+    //     position: relative;
+    // }
+
+    // :not(:active):focus-visible {
+    //     transition-duration: 0.75s;
+    // }
+
+    // :not(:active):focus-visible {
+    //     outline-width: 1px;
+    // }
+
+    :focus-visible {
+        outline-color: var(--algorithm-mode-color) !important;
+    }
+
+    // :not(:active):focus-visible {
+    //     transition-duration: 75ms;
+    // }
+
+    :not(:active):focus-visible {
+        // outline: var(--outline);
+        // outline-width: 1px !important;
+    }
+    // *,
+    // *::before,
+    // *::after {
+    //     box-sizing: border-box;
+    // }
 }
 
 html,
@@ -314,7 +367,7 @@ body.theme-dark .button:not(.custom-button) {
 }
 
 body.theme-dark .button:not(.custom-button):hover {
-    color: var(--white-dark-60);
+    // color: var(--white-dark-60);
 }
 
 body.theme-dark .button:not(.custom-button):disabled,

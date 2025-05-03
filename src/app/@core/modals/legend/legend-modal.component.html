@@ -1,14 +1,18 @@
 <div class="modal is-active">
-    <div class="modal-background" (click)="simulationService.toggleShowLegendModal()"></div>
+    <div
+        class="modal-background"
+        (click)="simulationService.toggleShowLegendModal()"
+        (keyup)="simulationService.toggleShowLegendModal()"
+        tabindex="0"></div>
     <div class="modal-card">
         <header class="modal-card-head">
             <p class="modal-card-title">
                 <span class="icon">
                     <fa-icon [icon]="['fas', 'info-circle']"></fa-icon>
                 </span>
-                <label class="p-1">
+                <span class="p-1">
                     <b>Legend</b>
-                </label>
+                </span>
             </p>
             <button class="delete" aria-label="close" (click)="simulationService.toggleShowLegendModal()"></button>
         </header>

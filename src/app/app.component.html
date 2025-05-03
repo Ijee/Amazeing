@@ -6,7 +6,9 @@
                 class="navbar-item pb-1 font-white is-unselectable"
                 aria-label="Amazeing Logo"
                 data-testid="amazeing-logo"
-                (click)="navigateToSimulation()">
+                (click)="navigateToSimulation()"
+                (keyup)="navigateToSimulation()"
+                tabindex="0">
                 <span class="logo" [ngClass]="determineLogoClass()">
                     <svg
                         id="svg1"
@@ -116,7 +118,9 @@
                 [attr.aria-expanded]="showNavbar ? 'true' : 'false'"
                 data-target="navbarMenuHeroA"
                 [ngClass]="{ 'is-active': showNavbar }"
-                (click)="showNavbar = !showNavbar">
+                (click)="showNavbar = !showNavbar"
+                (keyup)="showNavbar = !showNavbar"
+                tabindex="0">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
@@ -130,7 +134,7 @@
                 'is-active': showNavbar,
                 'transparent-navbar': ((breakpointService.isTouch() | async) === false)
             }">
-            <div class="navbar-end">
+            <div class="navbar-end" style="position: relative">
                 <a
                     role="button"
                     class="navbar-item navbar-item-hover is-unselectable"
@@ -179,7 +183,9 @@
                     <div
                         class="navbar-link is-unselectable"
                         [ngClass]="{ 'font-white is-arrowless': ((breakpointService.isTouch() | async) === false) }"
-                        (click)="showSettingsDropdown = !showSettingsDropdown; $event.stopPropagation()">
+                        (click)="showSettingsDropdown = !showSettingsDropdown; $event.stopPropagation()"
+                        (keyup)="showSettingsDropdown = !showSettingsDropdown; $event.stopPropagation()"
+                        tabindex="0">
                         <span class="icon">
                             <fa-icon [icon]="['fas', 'cog']"></fa-icon>
                         </span>
@@ -189,7 +195,7 @@
                         <div
                             class="navbar-dropdown is-right is-boxed"
                             [ngClass]="{ 'is-active': showSettingsDropdown }">
-                            <div class="columns is-mobile is-flex px-2 m-1 pb-0 navbar-item">
+                            <div class="columns is-mobile is-flex pl-2 m-1 pb-0 navbar-item">
                                 <div class="column is-8 pl-0 is-unselectable">
                                     <span class="icon">
                                         <fa-icon [icon]="['fas', 'adjust']"></fa-icon>
@@ -198,7 +204,7 @@
                                 </div>
                                 <button
                                     class="column custom-button is-4 p-2 button is-responsive"
-                                    style="margin-left: auto"
+                                    style="margin: -3px"
                                     [ngClass]="{
                                         'is-primary': (settingsService.getDarkModeSetting() | async) === true,
                                         'is-danger': (settingsService.getDarkModeSetting() | async) === false,
@@ -207,7 +213,7 @@
                                     <b>{{ (settingsService.getDarkModeSetting() | async) ? 'ON' : 'OFF' }}</b>
                                 </button>
                             </div>
-                            <div class="columns is-mobile is-flex px-2 m-1 pb-0 navbar-item">
+                            <div class="columns is-mobile is-flex pl-2 m-1 pb-0 navbar-item">
                                 <div class="column is-8 pl-0 is-unselectable">
                                     <span class="icon">
                                         <fa-icon [icon]="['fas', 'wind']"></fa-icon>
@@ -216,7 +222,7 @@
                                 </div>
                                 <button
                                     class="column custom-button is-4 p-2 button is-responsive"
-                                    style="margin-left: auto"
+                                    style="margin: -3px"
                                     [ngClass]="{
                                         'is-primary': settingsService.getAnimationsSetting(),
                                         'is-danger': !settingsService.getAnimationsSetting(),
@@ -225,7 +231,7 @@
                                     <b>{{ settingsService.getAnimationsSetting() ? 'ON' : 'OFF' }}</b>
                                 </button>
                             </div>
-                            <div class="columns is-mobile is-flex px-2 m-1 navbar-item">
+                            <div class="columns is-mobile is-flex pl-2 m-1 navbar-item">
                                 <div class="column is-8 pl-0 is-unselectable">
                                     <span class="icon">
                                         <fa-icon [icon]="['fas', 'triangle-exclamation']"></fa-icon>
@@ -234,7 +240,7 @@
                                 </div>
                                 <button
                                     class="column custom-button is-4 p-2 button is-responsive"
-                                    style="margin-left: auto"
+                                    style="margin: -3px"
                                     [ngClass]="{
                                         'is-primary': settingsService.getWarningsSetting(),
                                         'is-danger': !settingsService.getWarningsSetting(),
@@ -244,7 +250,12 @@
                                 </button>
                             </div>
                             <hr class="navbar-divider" />
-                            <a role="button" class="navbar-item is-unselectable px-2 m-1" (click)="prepareUserTour()">
+                            <a
+                                role="button"
+                                class="navbar-item is-unselectable px-2 m-1"
+                                (click)="prepareUserTour()"
+                                (keyup)="prepareUserTour()"
+                                tabindex="0">
                                 <span class="icon">
                                     <fa-icon [icon]="['fas', 'circle-question']"></fa-icon>
                                 </span>
@@ -252,7 +263,12 @@
                                 <span class="subtitle"></span>
                             </a>
                             @if (deferredInstallPrompt !== undefined) {
-                            <a role="button" class="navbar-item is-unselectable px-2 m-1" (click)="showInstallPrompt()">
+                            <a
+                                role="button"
+                                class="navbar-item is-unselectable px-2 m-1"
+                                (click)="showInstallPrompt()"
+                                (keyup)="showInstallPrompt()"
+                                tabindex="0">
                                 <span class="icon">
                                     <fa-icon [icon]="['fas', 'download']"></fa-icon>
                                 </span>
@@ -280,7 +296,7 @@
                                 <a
                                     role="button"
                                     [ngClass]="(settingsService.getDarkModeSetting() | async) === true ? 'is-outlined' : ''"
-                                    class="button dropdown-button custom-button is-link force-blue-bg is-fullwidth"
+                                    class="button custom-button is-link force-blue-bg is-fullwidth"
                                     href="https://github.com/Ijee/Amazeing/issues"
                                     target="_blank"
                                     rel="noopener">
@@ -296,7 +312,9 @@
                         role="button"
                         [class.fa-bounce]="isBouncing"
                         class="button custom-button is-rounded button-user-tour"
-                        (click)="prepareUserTour()">
+                        (click)="prepareUserTour()"
+                        (keyup)="prepareUserTour()"
+                        tabindex="0">
                         <span class="icon has-text-white">
                             <fa-icon class="fa-xl" [icon]="['fas', 'circle-question']"></fa-icon>
                         </span>

@@ -68,6 +68,10 @@ body.theme-dark :host .navbar-item {
 body.theme-dark :host .navbar-link {
     color: var(--white-dark-87);
 }
+.navbar-link {
+    background-color: transparent !important;
+}
+
 body.theme-dark :host .navbar-dropdown .navbar-item {
     background-color: var(--bulma-dark);
 }
@@ -111,6 +115,15 @@ body.theme-dark :host .navbar-dropdown {
     max-width: 100%;
     width: 100%;
     height: auto;
+    transition: fill 350ms ease-out;
+}
+
+.logo svg:hover {
+    #front {
+        fill: var(--white-dark-78);
+        fill-opacity: 1;
+        transition: fill 350ms ease;
+    }
 }
 
 .github-brand-color {
@@ -132,10 +145,6 @@ body.theme-dark .is-primary {
     background-color: var(--bulma-danger) !important;
 }
 
-// .dropdown-button {
-//     margin-left: auto;
-// }
-
 .transparent-navbar {
     background-color: transparent;
 }
@@ -154,7 +163,7 @@ body.theme-dark .is-primary {
 //TODO: Yeah this isn't a good solution for navbar-item/link.
 body.theme-light :host .navbar-item:hover,
 body.theme-light :host .navbar-item.has-dropdown:hover {
-    transition: unset;
+    // transition: unset;
 }
 
 body.theme-light :host .navbar-link:hover {
@@ -164,8 +173,39 @@ body.theme-light :host .navbar-link:hover {
 
 body.theme-light :host .navbar-item-hover:hover {
     color: hsl(0, 3%, 85%);
-    transition: unset;
 }
+.navbar-item-hover {
+    text-decoration: none;
+    position: relative;
+    transition: all 350ms ease;
+}
+
+.navbar-item-hover:hover {
+    // color: var(--algorithm-mode-color);
+    text-shadow:
+        0 0 2px var(--algorithm-mode-color),
+        0 0 4px var(--algorithm-mode-color),
+        0 0 6px var(--algorithm-mode-color),
+        0 0 8px var(--algorithm-mode-color);
+    > a {
+        color: inherit;
+    }
+}
+
+.navbar-dropdown-wrapper {
+    text-shadow: none;
+}
+// .navbar-dropdown-wrapper {
+//     text-shadow: revert;
+// }
+// a:hover {
+//     color: var(--algorithm-mode-color);
+//     text-shadow:
+//         0 0 10px var(--algorithm-mode-color),
+//         0 0 20px var(--algorithm-mode-color),
+//         0 0 30px var(--algorithm-mode-color),
+//         0 0 40px var(--algorithm-mode-color);
+// }
 
 body.theme-light :host .navbar-item .icon {
     // background-color: transparent;
@@ -201,4 +241,9 @@ body.theme-light :host .navbar-item .icon {
 
 .font-white {
     color: whitesmoke;
+}
+
+.force-blue-bg {
+    background-color: var(--bulma-link);
+    color: var(--white-dark-87);
 }
