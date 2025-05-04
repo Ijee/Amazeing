@@ -139,6 +139,7 @@ export class GridSettingsComponent implements AfterViewInit, OnDestroy {
             this.algorithmService.setAlgorithmMode('maze');
         }
 
+        this.simulationService.prepareGrid();
         this.navigateMode();
     }
 
