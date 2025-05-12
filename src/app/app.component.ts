@@ -9,7 +9,6 @@ import {
     faCalendarDays,
     faChalkboardTeacher,
     faCheck,
-    faChevronRight,
     faCircleExclamation,
     faCog,
     faDownload,
@@ -265,6 +264,15 @@ export class AppComponent implements OnInit, OnDestroy {
     public navigateToSimulation(): void {
         this.simulationService.setSimulationStatus(false);
         this.router.navigate(['simulation/' + this.algorithmService.getAlgorithmMode()]);
+    }
+
+    public navigateToLearn(): void {
+        this.simulationService.setSimulationStatus(false);
+        this.router.navigate(['learn'], {
+            queryParams: {
+                algorithm: this.algorithmService.getAlgorithmName()
+            }
+        });
     }
 
     public determineLogoClass(): string {

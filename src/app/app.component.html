@@ -153,8 +153,7 @@
                     data-testid="learn"
                     [ngClass]="{ 'font-white': ((breakpointService.isTouch() | async) === false) }"
                     [routerLink]="['learn']"
-                    [queryParams]="{ algorithm: algorithmService.getAlgorithmName() }"
-                    (click)="simulationService.setSimulationStatus(false)">
+                    (click)="navigateToLearn()">
                     <span class="icon">
                         <fa-icon [icon]="['fas', 'chalkboard-teacher']"></fa-icon>
                     </span>

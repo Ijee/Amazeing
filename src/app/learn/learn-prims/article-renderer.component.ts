@@ -12,7 +12,5 @@ import { CommonModule } from '@angular/common';
 })
 export class ArticleRendererComponent {
     @Input() content: Frontmatter = null;
-    constructor() {
-        console.log(this.content);
-    }
+    constructor() {}
 }

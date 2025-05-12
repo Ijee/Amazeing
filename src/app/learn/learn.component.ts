@@ -57,14 +57,12 @@ export class LearnComponent implements OnInit {
         this.algorithm = this.activatedRoute.snapshot.params['algorithm'];
 
         effect(() => {
-            console.log('effect running');
             if (this.algorithmSelection() !== null) {
                 this.router.navigate([], {
                     relativeTo: this.activatedRoute,
                     queryParams: { algorithm: this.algorithmSelection() },
                     queryParamsHandling: 'merge'
                 });
-                console.log('trying to load it');
                 this.http
                     .get('assets/articles/' + this.algorithmSelection().toLowerCase() + '.json', {
                         responseType: 'json'
@@ -81,6 +79,16 @@ export class LearnComponent implements OnInit {
             const pathFindingAlgorithms = new Set<MazeAlgorithm | PathFindingAlgorithm>([
                 'Prims',
                 'Kruskals',
+                'Aldous-Broder',
+                'Wilsons',
+                'Ellers',
+                'Sidewinder',
+                'Hunt-and-Kill',
+                'Growing-Tree',
+                'Binary-Tree',
+                'Recursive-Backtracking',
+                'Recursive-Division',
+                'Cellular-Automaton',
                 'A-Star',
                 'IDA-Star',
                 'Dijkstra',

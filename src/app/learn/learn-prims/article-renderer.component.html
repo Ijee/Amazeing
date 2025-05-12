@@ -4,7 +4,7 @@
             <b>{{ content?.data.title }}</b>
         </h2>
         <h3 class="is-italic mb-3">
-            <fa-icon aria-label="last-change" [icon]="['fas', 'calendar-days']"></fa-icon>
+            <fa-icon title="last change" aria-label="last change" [icon]="['fas', 'calendar-days']"></fa-icon>
             {{ content?.data['last-change'] | date: 'mediumDate'}}
         </h3>
         @for (link of content?.data.links; track $index) {
