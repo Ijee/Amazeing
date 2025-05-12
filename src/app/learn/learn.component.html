@@ -1,7 +1,7 @@
 <div class="columns is-multiline is-align-items-stretch">
     <div class="column is-12 is-flex-grow-1">
         <div class="box">
-            <h1 class="title">
+            <h1 class="ml-2 title">
                 <span class="icon mr-3">
                     <fa-icon [icon]="['fas', 'chalkboard-teacher']"></fa-icon>
                 </span>
@@ -14,43 +14,161 @@
             <div class="columns is-gapless">
                 <div class="column is-half">
                     <div class="buttons maze-buttons is-centered mb-1">
-                        <button class="button is-primary is-light is-active">Prim's</button>
-                        <button class="button is-primary is-light">Kruskal's</button>
-                        <button class="button is-primary is-light">Aldous-Broder</button>
-                        <button class="button is-primary is-light">Wilson's</button>
-                        <button class="button is-primary is-light">Eller's</button>
-                        <button class="button is-primary is-light">Sidewinder</button>
-                        <button class="button is-primary is-light">Hunt and Kill</button>
-                        <button class="button is-primary is-light">Growing Tree</button>
-                        <button class="button is-primary is-light">Binary Tree</button>
-                        <button class="button is-primary is-light">Recursive-Backtracker</button>
-                        <button class="button is-primary is-light">Recursive-Division</button>
-                        <button class="button is-primary is-light">Cellular Automation</button>
+                        <button
+                            class="button custom-button"
+                            [ngClass]=" algorithmSelection() === 'Prims' ? 'is-primary' : 'is-primary is-light'"
+                            (click)="algorithmSelection.set('Prims')">
+                            Prim's
+                        </button>
+                        <button
+                            class="button custom-button"
+                            (click)="algorithmSelection.set('Kruskals')"
+                            [ngClass]=" algorithmSelection() === 'Kruskals' ? 'is-primary' : 'is-primary is-light'">
+                            Kruskals
+                        </button>
+                        <button
+                            class="button custom-button"
+                            (click)="algorithmSelection.set('Aldous-Broder')"
+                            [ngClass]=" algorithmSelection() === 'Aldous-Broder' ? 'is-primary' : 'is-primary is-light'">
+                            Aldous-Broder
+                        </button>
+                        <button
+                            class="button custom-button"
+                            (click)="algorithmSelection.set('Wilsons')"
+                            [ngClass]=" algorithmSelection() === 'Wilsons' ? 'is-primary' : 'is-primary is-light'">
+                            Wilson's
+                        </button>
+                        <button
+                            class="button custom-button"
+                            (click)="algorithmSelection.set('Ellers')"
+                            [ngClass]=" algorithmSelection() === 'Ellers' ? 'is-primary' : 'is-primary is-light'">
+                            Eller's
+                        </button>
+                        <button
+                            class="button custom-button"
+                            (click)="algorithmSelection.set('Sidewinder')"
+                            [ngClass]=" algorithmSelection() === 'Sidewinder' ? 'is-primary' : 'is-primary is-light'">
+                            Sidewinder
+                        </button>
+                        <button
+                            class="button custom-button"
+                            (click)="algorithmSelection.set('Hunt-and-Kill')"
+                            [ngClass]=" algorithmSelection() === 'Hunt-and-Kill' ? 'is-primary' : 'is-primary is-light'">
+                            Hunt and Kill
+                        </button>
+                        <button
+                            class="button custom-button"
+                            (click)="algorithmSelection.set('Growing-Tree')"
+                            [ngClass]=" algorithmSelection() === 'Growing-Tree' ? 'is-primary' : 'is-primary is-light'">
+                            Growing Tree
+                        </button>
+                        <button
+                            class="button custom-button"
+                            (click)="algorithmSelection.set('Binary-Tree')"
+                            [ngClass]=" algorithmSelection() === 'Binary-Tree' ? 'is-primary' : 'is-primary is-light'">
+                            Binary Tree
+                        </button>
+                        <button
+                            class="button custom-button"
+                            (click)="algorithmSelection.set('Recursive-Backtracking')"
+                            [ngClass]=" algorithmSelection() === 'Recursive-Backtracking' ? 'is-primary' : 'is-primary is-light'">
+                            Recursive-Backtracking
+                        </button>
+                        <button
+                            class="button custom-button"
+                            (click)="algorithmSelection.set('Recursive-Division')"
+                            [ngClass]=" algorithmSelection() === 'Recursive-Division' ? 'is-primary' : 'is-primary is-light'">
+                            Recursive-Division
+                        </button>
+                        <button
+                            class="button custom-button"
+                            (click)="algorithmSelection.set('Cellular-Automaton')"
+                            [ngClass]=" algorithmSelection() === 'Cellular-Automaton' ? 'is-primary' : 'is-primary is-light'">
+                            Cellular Automaton
+                        </button>
                     </div>
                 </div>
                 <div class="column is-half">
                     <div class="buttons pathfinding-buttons is-centered mb-1">
-                        <button class="button is-danger is-light">A*</button>
-                        <button class="button is-danger is-light">IDA*</button>
-                        <button class="button is-danger is-light">Dijkstra</button>
-                        <button class="button is-danger is-light">Breadth-First-Search</button>
-                        <button class="button is-danger is-light">Depth-First-Search</button>
-                        <button class="button is-danger is-light">Best-First-Search</button>
-                        <button class="button is-danger is-light">Trace</button>
-                        <button class="button is-danger is-light">Jump Point Search</button>
-                        <button class="button is-danger is-light">Orthogonal Jump Point Search</button>
+                        <button
+                            class="button custom-button"
+                            [ngClass]=" algorithmSelection() === 'A-Star' ? 'is-danger' : 'is-danger is-light'"
+                            (click)="algorithmSelection.set('A-Star')">
+                            A*
+                        </button>
+                        <button
+                            class="button custom-button"
+                            [ngClass]=" algorithmSelection() === 'IDA-Star' ? 'is-danger' : 'is-danger is-light'"
+                            (click)="algorithmSelection.set('IDA-Star')">
+                            IDA*
+                        </button>
+                        <button
+                            class="button custom-button"
+                            [ngClass]=" algorithmSelection() === 'Dijkstra' ? 'is-danger' : 'is-danger is-light'"
+                            (click)="algorithmSelection.set('Dijkstra')">
+                            Dijkstra
+                        </button>
+                        <button
+                            class="button custom-button"
+                            [ngClass]=" algorithmSelection() === 'Breadth-FS' ? 'is-danger' : 'is-danger is-light'"
+                            (click)="algorithmSelection.set('Breadth-FS')">
+                            Breadth-First-Search
+                        </button>
+                        <button
+                            class="button custom-button"
+                            [ngClass]=" algorithmSelection() === 'Depth-FS' ? 'is-danger' : 'is-danger is-light'"
+                            (click)="algorithmSelection.set('Depth-FS')">
+                            Depth-First-Search
+                        </button>
+                        <button
+                            class="button custom-button"
+                            [ngClass]=" algorithmSelection() === 'Best-FS' ? 'is-danger' : 'is-danger is-light'"
+                            (click)="algorithmSelection.set('Best-FS')">
+                            Best-First-Search
+                        </button>
+                        <button
+                            class="button custom-button"
+                            [ngClass]=" algorithmSelection() === 'Jump-PS' ? 'is-danger' : 'is-danger is-light'"
+                            (click)="algorithmSelection.set('Jump-PS')">
+                            Jump Point Search
+                        </button>
+                        <button
+                            class="button custom-button"
+                            [ngClass]=" algorithmSelection() === 'Orthogonal-Jump-PS' ? 'is-danger' : 'is-danger is-light'"
+                            (click)="algorithmSelection.set('Orthogonal-Jump-PS')">
+                            Orthogonal Jump Point Search
+                        </button>
                     </div>
                     <div class="buttons pathfinding-buttons is-centered pt-2 mb-1">
-                        <button class="button is-danger is-light">Wall Follower</button>
-                        <button class="button is-danger is-light">Pledge</button>
-                        <button class="button is-danger is-light">Tremaux's</button>
-                        <button class="button is-danger is-light">Recursive</button>
-                        <button class="button is-danger is-light">Maze-Routing</button>
-                        <button class="button is-danger is-light">Dead-End Filling</button>
+                        <button
+                            class="button custom-button"
+                            [ngClass]=" algorithmSelection() === 'Wall-Follower' ? 'is-danger' : 'is-danger is-light'"
+                            (click)="algorithmSelection.set('Wall-Follower')">
+                            Wall Follower
+                        </button>
+                        <button
+                            class="button custom-button"
+                            [ngClass]=" algorithmSelection() === 'Pledge' ? 'is-danger' : 'is-danger is-light'"
+                            (click)="algorithmSelection.set('Pledge')">
+                            Pledge
+                        </button>
+                        <button
+                            class="button custom-button"
+                            [ngClass]=" algorithmSelection() === 'Trémaux' ? 'is-danger' : 'is-danger is-light'"
+                            (click)="algorithmSelection.set('Trémaux')">
+                            Tremaux's
+                        </button>
+                        <button
+                            class="button custom-button"
+                            [ngClass]=" algorithmSelection() === 'Dead-End-Filling' ? 'is-danger' : 'is-danger is-light'"
+                            (click)="algorithmSelection.set('Dead-End-Filling')">
+                            Dead-End Filling
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
+        @if (false) {
         <article class="message is-warning">
             <div class="message-header">
                 <p>No content yet</p>
@@ -64,11 +182,12 @@
                 This is obviously not meant to replace Wikipedia, etc.
             </div>
         </article>
+        }
     </div>
 
     <div class="column is-12 is-flex-grow-1">
         <div class="box">
-            <app-learn-prims></app-learn-prims>
+            <app-article-renderer [content]="content"></app-article-renderer>
         </div>
     </div>
 </div>

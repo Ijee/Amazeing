@@ -6,6 +6,7 @@
 /out-tsc
 /build
 /playwright-report
+/src/assets/articles
 
 # Only exists if Bazel was run
 /bazel-out

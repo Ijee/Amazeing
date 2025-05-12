@@ -1,18 +1,31 @@
+.maze-buttons > .button {
+    transition: background-color 150ms ease;
+}
+
+.maze-buttons > .button:hover {
+    background-color: var(--bulma-primary) !important;
+    transition: background-color 150ms ease;
+}
+
+.pathfinding-buttons > .button {
+    transition: background-color 150ms ease;
+}
+
+.pathfinding-buttons > .button:hover {
+    background-color: var(--bulma-danger) !important;
+    transition: background-color 150ms ease;
+}
+
 .subtitle {
     color: grey;
 }
 
 body.theme-dark :host .maze-buttons .button {
-    background-color: var(--bulma-primary-light);
-    color: var(--white-dark-38);
+    // background-color: var(--bulma-primary-light);
+    // color: var(--white-dark-38);
 }
 
-body.theme-dark :host .pathfinding-buttons .button{
-    background-color: var(--bulma-danger-light);
-    color: var(--white-dark-38);
+body.theme-dark :host .pathfinding-buttons .button {
+    // background-color: var(--bulma-danger-light);
+    // color: var(--white-dark-38);
 }
-
-//:host {
-//  flex: 1 0;
-//  display: flex;
-//}

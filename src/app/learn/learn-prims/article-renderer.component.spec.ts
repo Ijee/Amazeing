@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LearnPrimsComponent } from './learn-prims.component';
+import { ArticleRendererComponent } from './article-renderer.component';
 
 describe('LearnPrimsComponent', () => {
-    let component: LearnPrimsComponent;
-    let fixture: ComponentFixture<LearnPrimsComponent>;
+    let component: ArticleRendererComponent;
+    let fixture: ComponentFixture<ArticleRendererComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [LearnPrimsComponent]
+            imports: [ArticleRendererComponent]
         }).compileComponents();
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(LearnPrimsComponent);
+        fixture = TestBed.createComponent(ArticleRendererComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

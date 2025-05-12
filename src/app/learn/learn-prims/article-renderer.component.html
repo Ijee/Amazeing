@@ -1,0 +1,39 @@
+<div class="columns is-multiline container">
+    <div class="column is-3 is-col-span-1">
+        <h2 class="title mb-2">
+            <b>{{ content?.data.title }}</b>
+        </h2>
+        <h3 class="is-italic mb-3">
+            <fa-icon aria-label="last-change" [icon]="['fas', 'calendar-days']"></fa-icon>
+            {{ content?.data['last-change'] | date: 'mediumDate'}}
+        </h3>
+        @for (link of content?.data.links; track $index) {
+        <div class="tags m-1">
+            <a
+                class="tag is-normal is-light"
+                href="{{ link.url }}"
+                [ngClass]="{ 'is-danger': $first, 'is-link': !$first }"
+                target="_blank"
+                rel="noopener">
+                <span class="icon">
+                    @if ($first) { <fa-icon [icon]="['fab', 'github']"></fa-icon> } @else {
+                    <fa-icon [icon]="['fas', 'link']"></fa-icon> }
+                </span>
+                <span>
+                    <b>{{ link.title }}</b>
+                </span>
+            </a>
+        </div>
+        }
+    </div>
+
+    <main class="column is-9 is-size-5" style="text-wrap: balance">
+        <div class="content" [innerHTML]="content?.content"></div>
+    </main>
+    <div class="column is-12 has-text-centered">
+        Found an error or have more to add? Please create an
+        <a href="https://github.com/Ijee/Amazeing/issues" target="_blank" rel="noopener">issue</a>
+        or
+        <a href="https://github.com/Ijee/Amazeing/pulls" target="_blank" rel="noopener">pull request</a>
+    </div>
+</div>

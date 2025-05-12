@@ -6,6 +6,7 @@ import {
     faArrowUpRightFromSquare,
     faBackward,
     faBalanceScaleRight,
+    faCalendarDays,
     faChalkboardTeacher,
     faCheck,
     faChevronRight,
@@ -18,6 +19,7 @@ import {
     faFileImport,
     faForward,
     faInfoCircle,
+    faLink,
     faMicrochip,
     faPlay,
     faRedo,
@@ -140,7 +142,8 @@ export class AppComponent implements OnInit, OnDestroy {
             faTag,
             // learn
             faArrowUpRightFromSquare,
-            faChevronRight
+            faLink,
+            faCalendarDays
         );
         this.version = environment.version;
         this.isBouncing = true;

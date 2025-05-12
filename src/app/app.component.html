@@ -152,7 +152,8 @@
                     class="navbar-item navbar-item-hover is-unselectable"
                     data-testid="learn"
                     [ngClass]="{ 'font-white': ((breakpointService.isTouch() | async) === false) }"
-                    routerLink="learn"
+                    [routerLink]="['learn']"
+                    [queryParams]="{ algorithm: algorithmService.getAlgorithmName() }"
                     (click)="simulationService.setSimulationStatus(false)">
                     <span class="icon">
                         <fa-icon [icon]="['fas', 'chalkboard-teacher']"></fa-icon>
