@@ -9,7 +9,6 @@ links:
     url: https://en.wikipedia.org/wiki/Kruskal%27s_algorithm
   - title: The Buckblog - Kruskal's
     url: https://weblog.jamisbuck.org/2011/1/3/maze-generation-kruskal-s-algorithm
- 
 last-change: 2025-05-12
 ---
 

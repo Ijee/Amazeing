@@ -456,7 +456,6 @@ export class JumpPointSearch extends PathFindingAlgorithmAbstract {
     public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
         let tracePath: GridLocation | undefined = undefined;
 
-        console.log('serializedState import', serializedState);
         if (serializedState.tracePath) {
             tracePath = new GridLocation(
                 serializedState.tracePath.x,
@@ -517,7 +516,6 @@ export class JumpPointSearch extends PathFindingAlgorithmAbstract {
             const node = this.currentPath[i];
             serializedState.currentPath.push(node.toObject());
         }
-        console.log('serializedState', serializedState);
         return serializedState;
     }
     public getState(): object {

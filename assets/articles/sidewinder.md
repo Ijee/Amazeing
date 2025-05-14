@@ -7,7 +7,6 @@ links:
     url: https://weblog.jamisbuck.org/2011/2/3/maze-generation-sidewinder-algorithm
   - title: astrolog.org - algorihms
     url: https://www.astrolog.org/labyrnth/algrithm.htm#:~:text=Sidewinder%20Mazes%3A,next%20to%20it.
- 
 last-change: 2025-05-12
 ---
 

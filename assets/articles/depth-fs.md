@@ -5,7 +5,6 @@ links:
     url: https://github.com/Ijee/Amazeing/blob/main/src/app/%40core/algorithm/path-finding/depth-first-search.ts
   - title: Wikipedia - Depth-First Search
     url: https://en.wikipedia.org/wiki/Breadth-first_search
-
 last-change: 2025-05-14
 ---
 

@@ -26,7 +26,7 @@ import { PathfindingSettingsComponent } from './pathfinding-settings/pathfinding
     selector: 'app-grid-settings',
     templateUrl: './grid-settings.component.html',
     styleUrls: ['./grid-settings.component.scss'],
-    animations: [fadeAnimationSafe],
+    animations: [],
     imports: [CommonModule, HrComponent, NgClass, FaIconComponent, RouterOutlet]
 })
 export class GridSettingsComponent implements AfterViewInit, OnDestroy {

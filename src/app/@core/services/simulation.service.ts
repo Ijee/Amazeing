@@ -1,3 +1,4 @@
+import { Session } from './../types/algorithm.types';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { cloneDeep } from 'lodash-es';
@@ -5,13 +6,7 @@ import * as pako from 'pako';
 import { SettingsService } from './settings.service';
 import { AlgorithmService } from './algorithm.service';
 import { RecordService } from './record.service';
-import {
-    MazeAlgorithm,
-    Node,
-    PathFindingAlgorithm,
-    Session,
-    Statistic
-} from '../types/algorithm.types';
+import { MazeAlgorithm, Node, PathFindingAlgorithm, Statistic } from '../types/algorithm.types';
 import { AlgorithmOptions } from '../types/jsonform.types';
 import { GridLocation } from 'src/app/@shared/classes/GridLocation';
 

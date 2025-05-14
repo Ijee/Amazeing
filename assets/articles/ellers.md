@@ -7,7 +7,6 @@ links:
     url: https://weblog.jamisbuck.org/2010/12/29/maze-generation-eller-s-algorithm
   - title: astrolog.org - algorihms
     url: https://www.astrolog.org/labyrnth/algrithm.htm#:~:text=Eller%27s%20algorithm%3A,prevent%20texture%20blemishes.
- 
 last-change: 2025-05-12
 ---
 

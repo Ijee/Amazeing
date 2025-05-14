@@ -7,7 +7,6 @@ links:
     url: https://weblog.jamisbuck.org/2010/12/27/maze-generation-recursive-backtracking
   - title: Wikipedia - Backtracking
     url: https://en.wikipedia.org/wiki/Backtracking
- 
 last-change: 2025-05-12
 ---
 

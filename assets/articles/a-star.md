@@ -6,7 +6,7 @@ links:
   - title: Wikipedia - A*   
     url: https://en.wikipedia.org/wiki/A*_search_algorithm
 
-last-change: 2025-05-12
+last-change: 2025-05-14
 ---
 
 YES A STAR WAS BORN

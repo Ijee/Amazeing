@@ -5,7 +5,6 @@ links:
     url: https://github.com/Ijee/Amazeing/blob/main/src/app/%40core/algorithm/path-finding/maze-specific/wall-follower.ts
   - title: Wikipedia - Wall Follower
     url: https://en.wikipedia.org/wiki/Maze-solving_algorithm#Hand_On_Wall_Rule
-
 last-change: 2025-05-14
 ---
 

@@ -5,7 +5,6 @@ links:
     url: https://github.com/Ijee/Amazeing/blob/main/src/app/%40core/algorithm/path-finding/maze-specific/dead-end-filling.ts
   - title: Wikipedia - Dead-end filling
     url: https://en.wikipedia.org/wiki/Maze-solving_algorithm#Dead-end_filling
-
 last-change: 2025-05-14
 ---
 

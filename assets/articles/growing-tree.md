@@ -5,7 +5,6 @@ links:
     url: https://github.com/Ijee/Amazeing/blob/main/src/app/%40core/algorithm/maze/creation/growing-tree.ts
   - title: The Buckblog - Growing Tree
     url: https://weblog.jamisbuck.org/2011/1/27/maze-generation-growing-tree-algorithm
- 
 last-change: 2025-05-12
 ---
 

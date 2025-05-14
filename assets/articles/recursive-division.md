@@ -7,7 +7,6 @@ links:
     url: https://en.wikipedia.org/wiki/Maze_generation_algorithm#Recursive_division_method
   - title: The Buckblog - Recursive Division
     url: https://weblog.jamisbuck.org/2011/1/12/maze-generation-recursive-division-algorithm
-
 last-change: 2025-05-14
 ---
 

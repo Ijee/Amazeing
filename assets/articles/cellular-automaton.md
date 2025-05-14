@@ -9,7 +9,6 @@ links:
     url: https://conwaylife.com/wiki/OCA:Maze
   - title: lazyslug - lifeview
     url: https://lazyslug.com/lifeview/
- 
 last-change: 2025-05-14
 ---
 

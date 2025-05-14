@@ -16,7 +16,6 @@ import { AlgorithmService } from '../../../@core/services/algorithm.service';
 import { RecordService } from '../../../@core/services/record.service';
 import { PathFindingAlgorithm } from '../../../@core/types/algorithm.types';
 import { CommonModule, NgClass } from '@angular/common';
-import { HrComponent } from 'src/app/@shared/components/hr/hr.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 

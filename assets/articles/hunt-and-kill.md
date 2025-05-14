@@ -7,7 +7,6 @@ links:
     url: https://weblog.jamisbuck.org/2011/1/24/maze-generation-hunt-and-kill-algorithm
   - title: astrolog.org - algorihms
     url: https://www.astrolog.org/labyrnth/algrithm.htm#:~:text=Hunt%20and%20kill%20algorithm%3A,issues%20the%20recursive%20backtracker%20has.
- 
 last-change: 2025-05-12
 ---
 

@@ -5,7 +5,6 @@ links:
     url: https://github.com/Ijee/Amazeing/blob/main/src/app/%40core/algorithm/path-finding/best-first-search.ts
   - title: Wikipedia - Best-First Search
     url: https://en.wikipedia.org/wiki/Best-first_search
-
 last-change: 2025-05-14
 ---
 

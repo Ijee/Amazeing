@@ -1,22 +1,22 @@
 import { AlgorithmOptions } from './jsonform.types';
 import { GridLocation } from '../../@shared/classes/GridLocation';
 
-export type Node = {
+export interface Node {
     status: number;
     weight: number;
     text?: string;
-};
-export type Statistic = {
+}
+export interface Statistic {
     name: string;
     type: string;
     currentValue?: number;
-};
-export type AlgorithmRecord = {
+}
+export interface AlgorithmRecord {
     grid: Node[][];
     state: any;
     statRecord: Statistic[];
-};
-export type StatusChange = {
+}
+export interface StatusChange {
     status0?: number;
     status1?: number;
     status2?: number;
@@ -27,16 +27,17 @@ export type StatusChange = {
     status7?: number;
     status8?: number;
     status9?: number;
-};
+}
 
 export type Direction = 'unknown' | 'up' | 'right' | 'down' | 'left';
+export type CardinalDirection = 'North-West' | 'North-East' | 'South-West' | 'South-East';
 export type Orientation = 'horizontal' | 'vertical';
 export type Parity = 'odd' | 'even';
-export type NodeDirection = { gridLocation: GridLocation; direction: Direction };
-export type VisitedNode = {
+export interface NodeDirection { gridLocation: GridLocation; direction: Direction }
+export interface VisitedNode {
     predecessor: GridLocation;
     distance: number;
-};
+}
 
 export type AlgorithmMode = 'maze' | 'path-finding';
 export type MazeAlgorithm =
@@ -68,7 +69,7 @@ export type PathFindingAlgorithm =
     | 'Maze-Routing';
 
 export type PathFindingHeuristic = 'Manhattan' | 'Euclidean' | 'Octile' | 'Chebyshev' | 'None';
-export type Session = {
+export interface Session {
     version: number;
     algorithm: MazeAlgorithm | PathFindingAlgorithm;
     algorithmMode: AlgorithmMode;
@@ -84,4 +85,4 @@ export type Session = {
     grid: Node[][];
     startLoc: GridLocation;
     goalLoc: GridLocation;
-};
+}
