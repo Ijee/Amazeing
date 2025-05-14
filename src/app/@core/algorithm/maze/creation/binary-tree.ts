@@ -3,13 +3,6 @@ import { GridLocation } from 'src/app/@shared/classes/GridLocation';
 import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
 
 export class BinaryTree extends MazeAlgorithmAbstract {
-    // Actually, we don't have any state for the algorithm itself.
-    // This is only for the algorithm options or rather for the directional loop to be exact.
-    private direction1: Direction;
-    private direction2: Direction;
-    private yStart: number;
-    private yEnd: number;
-
     constructor() {
         super([], [], {
             controls: [
@@ -37,62 +30,88 @@ export class BinaryTree extends MazeAlgorithmAbstract {
     private buildDirection(xAxis: number, yAxis: number, direction: Direction): void {
         const loc = new GridLocation(xAxis, yAxis);
         this.buildWalls(loc, 0);
-        this.grid[xAxis][yAxis].status = 9;
+        // this.grid[xAxis][yAxis].status = 9;
+        this.paintNode(xAxis, yAxis, 9);
         switch (direction) {
             case 'up':
-                if (
-                    this.grid?.[xAxis]?.[yAxis - 1] !== undefined &&
-                    this.grid?.[xAxis]?.[yAxis - 1].status !== 2 &&
-                    this.grid?.[xAxis]?.[yAxis - 1].status !== 3
-                ) {
-                    this.grid[xAxis][yAxis - 1].status = 9;
-                }
+                this.paintNode(xAxis, yAxis - 1, 9);
                 break;
             case 'right':
-                if (
-                    this.grid?.[xAxis + 1]?.[yAxis] !== undefined &&
-                    this.grid?.[xAxis + 1]?.[yAxis].status !== 2 &&
-                    this.grid?.[xAxis + 1]?.[yAxis].status !== 3
-                ) {
-                    this.grid[xAxis + 1][yAxis].status = 9;
-                }
+                this.paintNode(xAxis + 1, yAxis, 9);
                 break;
             case 'down':
-                if (
-                    this.grid?.[xAxis]?.[yAxis + 1] !== undefined &&
-                    this.grid?.[xAxis]?.[yAxis + 1].status !== 2 &&
-                    this.grid?.[xAxis]?.[yAxis + 1].status !== 3
-                ) {
-                    this.grid[xAxis][yAxis + 1].status = 9;
-                }
+                this.paintNode(xAxis, yAxis + 1, 9);
                 break;
             case 'left':
-                if (
-                    this.grid?.[xAxis - 1]?.[yAxis] !== undefined &&
-                    this.grid?.[xAxis - 1]?.[yAxis].status !== 2 &&
-                    this.grid?.[xAxis - 1]?.[yAxis].status !== 3
-                ) {
-                    this.grid[xAxis - 1][yAxis].status = 9;
-                }
+                this.paintNode(xAxis - 1, yAxis, 9);
                 break;
             default:
                 throw new Error('Unknown Direction!');
         }
     }
-
     public nextStep(): Node[][] {
-        for (let i = this.yStart; i < this.yEnd; i++) {
-            for (let j = 0; j < this.grid.length; j++) {
-                if (this.grid[j][i].status === 0) {
-                    const coinFlip = Math.floor(Math.random() * 2) + 1;
+        // grid.length is number of columns (width)
+        // grid[0].length is number of rows (height)
 
-                    if (coinFlip === 1) {
-                        this.buildDirection(j, i, this.direction1);
-                        return this.grid;
-                    } else {
-                        this.buildDirection(j, i, this.direction2);
-                        return this.grid;
+        for (let i = 0; i < this.grid[0].length; i++) {
+            // Iterate rows (y-axis)
+            for (let j = 0; j < this.grid.length; j++) {
+                // Iterate columns (x-axis)
+                if (this.grid[j][i].status === 0) {
+                    let chosenDirection: Direction | null = null;
+
+                    const hasUpNeighbor = i > 0;
+                    const hasLeftNeighbor = j > 0;
+
+                    // Determine possible directions based on bias and boundaries
+                    const potentialDirections: Direction[] = [];
+
+                    switch (this.options.Bias) {
+                        case 'North-West':
+                            if (hasUpNeighbor) potentialDirections.push('up');
+                            if (hasLeftNeighbor) potentialDirections.push('left');
+                            break;
+                        case 'North-East':
+                            if (hasUpNeighbor) potentialDirections.push('up');
+                            if (j < this.grid.length - 1) potentialDirections.push('right'); // Check if has right neighbor
+                            break;
+                        case 'South-West':
+                            if (i < this.grid[0].length - 1) potentialDirections.push('down'); // Check if has down neighbor
+                            if (hasLeftNeighbor) potentialDirections.push('left');
+                            break;
+                        case 'South-East':
+                            if (i < this.grid[0].length - 1) potentialDirections.push('down');
+                            if (j < this.grid.length - 1) potentialDirections.push('right');
+                            break;
                     }
+
+                    // Apply "must carve" rule for boundaries
+                    if (potentialDirections.length === 0) {
+                        this.paintNode(i, j, 9);
+                    } else if (potentialDirections.length === 1) {
+                        chosenDirection = potentialDirections[0]; // Must carve in the only possible direction
+                    } else {
+                        // Randomly choose between the two available directions (this.direction1, this.direction2)
+                        const coinFlip = Math.floor(Math.random() * 2) + 1;
+                        if (coinFlip === 1) {
+                            chosenDirection = potentialDirections[0];
+                        } else {
+                            chosenDirection = potentialDirections[1];
+                        }
+
+                        // chosenDirection =
+                        //     potentialDirections[
+                        //         Math.floor(Math.random() * potentialDirections.length)
+                        //     ];
+                    }
+
+                    if (chosenDirection) {
+                        this.buildDirection(j, i, chosenDirection);
+                    } else {
+                        // This cell has no available directions to carve
+                        this.paintNode(j, i, 9);
+                    }
+                    return this.grid;
                 }
             }
         }
@@ -101,71 +120,25 @@ export class BinaryTree extends MazeAlgorithmAbstract {
 
     public setInitialData(grid: Node[][]): void {
         this.grid = grid;
-        // Settings the options once.
-        switch (this.options.Bias) {
-            case 'North-West':
-                this.direction1 = 'up';
-                this.direction2 = 'left';
-                this.yStart = 2;
-                this.yEnd = this.grid[0].length;
-                break;
-            case 'North-East':
-                this.direction1 = 'up';
-                this.direction2 = 'right';
-                this.yStart = 2;
-                this.yEnd = this.grid[0].length;
-                break;
-            case 'South-West':
-                this.direction1 = 'down';
-                this.direction2 = 'left';
-                this.yStart = 0;
-                this.yEnd = this.grid[0].length - 1;
-                break;
-            case 'South-East':
-                this.direction1 = 'down';
-                this.direction2 = 'right';
-                this.yStart = 0;
-                this.yEnd = this.grid[0].length - 1;
-                break;
-            default:
-        }
     }
 
     public updateState(newGrid: Node[][], deserializedState: any, statRecords: Statistic[]): void {
         this.grid = newGrid;
         this.statRecords = statRecords;
-        this.direction1 = deserializedState.direction1;
-        this.direction2 = deserializedState.direction2;
-        this.yStart = deserializedState.yStart;
-        this.yEnd = deserializedState.yEnd;
     }
 
     public deserialize(newGrid: Node[][], serializedState: any, statRecords: Statistic[]): void {
-        const deserializedState = {
-            direction1: serializedState.direction1,
-            direction2: serializedState.direction2,
-            yStart: serializedState.yStart,
-            yEnd: serializedState.yEnd
-        };
+        const deserializedState = {};
+
         this.updateState(newGrid, deserializedState, statRecords);
     }
 
     public serialize(): object {
-        return {
-            direction1: this.direction1,
-            direction2: this.direction2,
-            yStart: this.yStart,
-            yEnd: this.yEnd
-        };
+        return {};
     }
 
     public getState(): object {
-        return {
-            direction1: this.direction1,
-            direction2: this.direction2,
-            yStart: this.yStart,
-            yEnd: this.yEnd
-        };
+        return {};
     }
 
     public getAlgorithmName(): MazeAlgorithm {
