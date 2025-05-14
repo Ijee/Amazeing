@@ -17,7 +17,7 @@ interface Division {
 
 export class RecursiveDivision extends MazeAlgorithmAbstract {
     private divisions: Division[];
-    // so we divide the "correct way" in an odd or even grid
+    // So that we divide the "correct way" in an odd or even grid width/length.
     private xParity: Parity;
     private yParity: Parity;
 
@@ -64,11 +64,10 @@ export class RecursiveDivision extends MazeAlgorithmAbstract {
                 division.yEnd - 1,
                 this.yParity
             );
-            // console.log('divideAtY', divideAtY);
             for (let i = division.xStart; i < division.xEnd; i++) {
                 this.paintNode(i, divideAtY, 1);
             }
-            // create passage
+            // create passage.
             const randomX =
                 Math.floor(Math.random() * (division.xEnd - division.xStart)) + division.xStart;
             let passageFound = false;
@@ -84,7 +83,7 @@ export class RecursiveDivision extends MazeAlgorithmAbstract {
             if (!passageFound) {
                 this.paintNode(randomX, divideAtY, 9);
             }
-            // calculate subdivisions
+            // Calculate subdivisions.
             const upperDivision: Division = {
                 xStart: division.xStart,
                 xEnd: division.xEnd,
@@ -105,34 +104,27 @@ export class RecursiveDivision extends MazeAlgorithmAbstract {
             const divideAtX = getRandomIntInclusive(
                 division.xStart,
                 division.xEnd - 1,
-                this.yParity
+                this.xParity
             );
-            // console.log('divideAtX', divideAtX);
 
             for (let i = division.yStart; i < division.yEnd; i++) {
                 this.paintNode(divideAtX, i, 1);
             }
-            // create passage
+            // Create passage.
             const randomY =
                 Math.floor(Math.random() * (division.yEnd - division.yStart)) + division.yStart;
             const passageFound = false;
             if (this.grid?.[divideAtX]?.[division.yStart - 1]?.status === 9) {
                 this.paintNode(divideAtX, division.yStart, 9);
-                // console.log('Vertical start yStart:', division.yStart, 'yEnd:', division.yEnd);
-
-                // let passageFound = true;
             }
             if (this.grid?.[divideAtX]?.[division.yEnd]?.status === 9) {
                 this.paintNode(divideAtX, division.yEnd - 1, 9);
-                // TODO this and xEnd check above broken I guess
-                // console.log('Vertical ends yStart:', division.yStart, 'yEnd:', division.yEnd);
-                // let passageFound = true;
             }
             if (!passageFound) {
                 this.paintNode(divideAtX, randomY, 9);
             }
 
-            // calculate subdivisions
+            // Calculate subdivisions.
             const leftDivision: Division = {
                 xStart: division.xStart,
                 xEnd: divideAtX,
@@ -151,22 +143,23 @@ export class RecursiveDivision extends MazeAlgorithmAbstract {
         return true;
     }
 
-    public nextStep(): Node[][] {
-        if (this.divisions.length > 0) {
-            let viableDivision = false;
-            while (!viableDivision) {
-                const division = this.divisions[this.divisions.length - 1];
-                this.divisions.pop();
-                const orientation = this.chooseOrientation(
-                    division.xEnd - division.xStart,
-                    division.yEnd - division.yStart
-                );
-                viableDivision = this.divide(division, orientation);
+    public nextStep(): Node[][] | null {
+        while (this.divisions.length > 0) {
+            const division = this.divisions.pop();
+
+            const orientation = this.chooseOrientation(
+                division.xEnd - division.xStart,
+                division.yEnd - division.yStart
+            );
+
+            // It returns false if the region was too small.
+            if (this.divide(division, orientation)) {
+                return this.grid;
             }
-        } else {
-            return null;
         }
-        return this.grid;
+
+        // No other divisions can be found.
+        return null;
     }
 
     public setInitialData(grid: Node[][]): void {
