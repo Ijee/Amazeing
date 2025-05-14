@@ -1,9 +1,11 @@
+import { SettingsService } from './../@core/services/settings.service';
 import { AlgorithmService } from 'src/app/@core/services/algorithm.service';
 import {
     Component,
     effect,
     ElementRef,
     OnInit,
+    Renderer2,
     signal,
     ViewChild,
     ViewEncapsulation
@@ -12,7 +14,7 @@ import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { HrComponent } from '../@shared/components/hr/hr.component';
 import { ArticleRendererComponent } from './learn-prims/article-renderer.component';
 import { MazeAlgorithm, PathFindingAlgorithm } from '../@core/types/algorithm.types';
-import { NgClass } from '@angular/common';
+import { DOCUMENT, NgClass } from '@angular/common';
 import { inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -49,6 +51,9 @@ export class LearnComponent implements OnInit {
     private readonly http = inject(HttpClient);
     private readonly route = inject(ActivatedRoute);
     private readonly router = inject(Router);
+    private readonly renderer = inject(Renderer2);
+    private readonly document = inject(DOCUMENT);
+    private readonly settingsService = inject(SettingsService);
     private algorithm: string;
     public content: Frontmatter;
     public algorithmSelection = signal<MazeAlgorithm | PathFindingAlgorithm>(null);
@@ -58,11 +63,24 @@ export class LearnComponent implements OnInit {
 
         effect(() => {
             if (this.algorithmSelection() !== null) {
-                this.router.navigate([], {
-                    relativeTo: this.activatedRoute,
-                    queryParams: { algorithm: this.algorithmSelection() },
-                    queryParamsHandling: 'merge'
-                });
+                const rootElement = this.document.documentElement; // Target the root element
+
+                if (!this.settingsService.getAnimationsSetting()) {
+                    this.renderer.addClass(rootElement, 'no-root-view-transition');
+                }
+                this.router
+                    .navigate([], {
+                        relativeTo: this.activatedRoute,
+                        queryParams: { algorithm: this.algorithmSelection() },
+                        queryParamsHandling: 'merge'
+                    })
+                    .finally(() => {
+                        // remove class after it is done
+                        setTimeout(() => {
+                            this.renderer.removeClass(rootElement, 'no-root-view-transition');
+                        }, 10); // Ensure the class is removed after the navigation has completed
+                    });
+
                 this.http
                     .get('assets/articles/' + this.algorithmSelection().toLowerCase() + '.json', {
                         responseType: 'json'
