@@ -4,30 +4,20 @@ import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
 
 export class CellularAutomaton extends MazeAlgorithmAbstract {
     constructor() {
-        super(
-            [],
-            [
+        super([], [], {
+            controls: [
                 {
-                    name: 'Alive',
-                    type: 'status-1',
-                    currentValue: 0
-                }
-            ],
-            {
-                controls: [
-                    {
-                        name: 'Ruleset',
-                        label: 'Ruleset',
-                        value: 'Mazectric Ruleset (B3/S1234)',
-                        values: ['Mazectric Ruleset (B3/S1234)', 'Maze Ruleset (B3/S12345)'],
-                        type: 'radio',
-                        validators: {
-                            required: true
-                        }
+                    name: 'Ruleset',
+                    label: 'Ruleset',
+                    value: 'Mazectric Ruleset (B3/S1234)',
+                    values: ['Mazectric Ruleset (B3/S1234)', 'Maze Ruleset (B3/S12345)'],
+                    type: 'radio',
+                    validators: {
+                        required: true
                     }
-                ]
-            }
-        );
+                }
+            ]
+        });
     }
 
     protected override getNeighbours(loc: GridLocation): GridLocation[] {
