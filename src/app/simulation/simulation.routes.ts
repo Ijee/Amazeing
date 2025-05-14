@@ -1,6 +1,4 @@
 import { Routes } from '@angular/router';
-import { MazeSettingsComponent } from './grid-settings/maze-settings/maze-settings.component';
-import { PathfindingSettingsComponent } from './grid-settings/pathfinding-settings/pathfinding-settings.component';
 
 export const SimulationRoutes: Routes = [
     {
@@ -10,11 +8,17 @@ export const SimulationRoutes: Routes = [
         children: [
             {
                 path: 'maze',
-                component: MazeSettingsComponent
+                loadComponent: () =>
+                    import('./grid-settings/maze-settings/maze-settings.component').then(
+                        (m) => m.MazeSettingsComponent
+                    )
             },
             {
                 path: 'path-finding',
-                component: PathfindingSettingsComponent
+                loadComponent: () =>
+                    import(
+                        './grid-settings/pathfinding-settings/pathfinding-settings.component'
+                    ).then((m) => m.PathfindingSettingsComponent)
             },
             {
                 path: '',
