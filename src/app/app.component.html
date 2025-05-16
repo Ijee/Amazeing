@@ -348,9 +348,16 @@
     <router-outlet #o="outlet"></router-outlet>
 </main>
 @defer (on immediate) { @if (simulationService.getShowLegendModal()) {
-<app-legend-modal [@.disabled]="!settingsService.getAnimationsSetting()" @modalFadeInOut> </app-legend-modal>
+<app-legend-modal class="modal-fix" [@.disabled]="!settingsService.getAnimationsSetting()" @modalFadeInOut>
+</app-legend-modal>
 } @if (simulationService.getShowImportModal()) {
-<app-import-modal [@.disabled]="!settingsService.getAnimationsSetting()" @modalFadeInOut></app-import-modal>
+<app-import-modal
+    class="modal-fix"
+    [@.disabled]="!settingsService.getAnimationsSetting()"
+    @modalFadeInOut></app-import-modal>
 } @if (simulationService.getShowExportModal()) {
-<app-export-modal [@.disabled]="!settingsService.getAnimationsSetting()" @modalFadeInOut></app-export-modal>
+<app-export-modal
+    class="modal-fix"
+    [@.disabled]="!settingsService.getAnimationsSetting()"
+    @modalFadeInOut></app-export-modal>
 } }

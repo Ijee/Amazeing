@@ -247,3 +247,8 @@ body.theme-light :host .navbar-item .icon {
     background-color: var(--bulma-link);
     color: var(--white-dark-87);
 }
+
+.modal-fix {
+    position: fixed;
+    z-index: 100;
+}
