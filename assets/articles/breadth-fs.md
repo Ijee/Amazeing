@@ -20,7 +20,7 @@ the fastest depending on the input graph.
 > 2. While the queue is not empty:
 >    * Dequeue a vertex from the queue.
 >    * If the vertex is the goal:
->         * terminate / backtrack by checking the predecessors from the goal vertex to get the full path found.
+>         * Terminate / backtrack by checking the predecessors from the goal vertex to get the full path found.
 >    * For all neighbors of the current vertex connected by edges do:
 >        * If the neighbour vertex is not marked as visited:
 >             * Mark the vertex as visited.

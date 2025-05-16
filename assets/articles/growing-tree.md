@@ -25,4 +25,4 @@ as well as the prims algorithm with a few lines of code.
 >    * Remove the current vertex from the list of vertices to be processed.
 > 8. Repeat step 3 until the list of vertices to be processed is empty.
 
-A selection strategy in this context can mean newest first (Resursive Backtracker), random vertex (Prims), oldest, etc.
+A selection strategy in this context can mean newest first (Recursive Backtracker), random vertex (Prims), oldest, etc.

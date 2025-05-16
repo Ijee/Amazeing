@@ -15,3 +15,5 @@ find a wall you keep your hands on the wall depending on which hand you initiall
  Just like the wall follower method you should not change hands. Follow it while counting the turns by having a clockwise turn be positive (e.g. 90°) and a counter clockwise turn is negative (e.g. -90°). 
  
  When the sum of the of the turns you made come back to 0° and face your original chosen direction you leave the walls/obstacles again and go in your original direction until you find another wall or hopefuly the exit.
+
+**Note**: The implementation of this method always assumes the initial direction to be east/right. I may update it in the future so that the user can choose the initial direction themselves.
