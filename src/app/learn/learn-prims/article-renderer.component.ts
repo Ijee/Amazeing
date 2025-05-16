@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { HrComponent } from '../../@shared/components/hr/hr.component';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { Frontmatter } from '../learn.component';
 import { CommonModule } from '@angular/common';

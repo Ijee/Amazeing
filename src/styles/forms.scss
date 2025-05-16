@@ -41,6 +41,10 @@ input[type='radio']:checked::before {
     transform: scale(1);
 }
 
+input[type='radio']:focus-visible {
+    outline: 2px solid var(--bulma-link);
+}
+
 .active-color-primary {
     //--input-color: #{bulma.$primary};
     --input-color: var(--bulma-primary);
@@ -56,6 +60,10 @@ input[type='checkbox'] {
     accent-color: var(--_test);
     transform: scale(1.4);
     margin-right: 0.2rem;
+}
+
+input[type='checkbox']:focus-visible {
+    outline: 2px solid var(--bulma-link);
 }
 
 input[type='checkbox'][disabled][checked] {

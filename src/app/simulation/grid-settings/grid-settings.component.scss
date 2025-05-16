@@ -55,6 +55,12 @@ body.theme-dark :host .button.algo-mode-button {
     background-position: left bottom;
 }
 
+body.theme-dark :host .maze-button:focus-visible,
+body.theme-dark :host .path-button:focus-visible {
+    outline: 2px solid var(--bulma-link);
+    transition: none;
+}
+
 .algorithm-settings {
     grid-area: 3 / 1 / 13 / 13;
 }

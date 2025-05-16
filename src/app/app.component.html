@@ -185,7 +185,7 @@
                         class="navbar-link is-unselectable"
                         [ngClass]="{ 'font-white is-arrowless': ((breakpointService.isTouch() | async) === false) }"
                         (click)="showSettingsDropdown = !showSettingsDropdown; $event.stopPropagation()"
-                        (keyup)="showSettingsDropdown = !showSettingsDropdown; $event.stopPropagation()"
+                        (keyup.enter)="showSettingsDropdown = !showSettingsDropdown; $event.stopPropagation()"
                         tabindex="0">
                         <span class="icon">
                             <fa-icon [icon]="['fas', 'cog']"></fa-icon>
@@ -195,7 +195,7 @@
                     <div class="navbar-dropdown-wrapper" [ngClass]="{ 'is-active': showSettingsDropdown }">
                         <div
                             class="navbar-dropdown is-right is-boxed"
-                            [ngClass]="{ 'is-active': showSettingsDropdown }">
+                            [ngClass]="{ 'is-active': showSettingsDropdown  }">
                             <div class="columns is-mobile is-flex pl-2 m-1 pb-0 navbar-item">
                                 <div class="column is-8 pl-0 is-unselectable">
                                     <span class="icon">
@@ -210,7 +210,8 @@
                                         'is-primary': (settingsService.getDarkModeSetting() | async) === true,
                                         'is-danger': (settingsService.getDarkModeSetting() | async) === false,
                                         'is-outlined': (settingsService.getDarkModeSetting() | async) === true }"
-                                    (click)="settingsService.setDarkModeSetting()">
+                                    (click)="settingsService.setDarkModeSetting()"
+                                    [attr.tabindex]="showSettingsDropdown ? '0' : '-1'">
                                     <b>{{ (settingsService.getDarkModeSetting() | async) ? 'ON' : 'OFF' }}</b>
                                 </button>
                             </div>
@@ -228,7 +229,8 @@
                                         'is-primary': settingsService.getAnimationsSetting(),
                                         'is-danger': !settingsService.getAnimationsSetting(),
                                         'is-outlined': (settingsService.getDarkModeSetting() | async) === true }"
-                                    (click)="settingsService.setAnimationSetting()">
+                                    (click)="settingsService.setAnimationSetting()"
+                                    [attr.tabindex]="showSettingsDropdown ? '0' : '-1'">
                                     <b>{{ settingsService.getAnimationsSetting() ? 'ON' : 'OFF' }}</b>
                                 </button>
                             </div>
@@ -246,7 +248,8 @@
                                         'is-primary': settingsService.getWarningsSetting(),
                                         'is-danger': !settingsService.getWarningsSetting(),
                                         'is-outlined': (settingsService.getDarkModeSetting() | async) === true }"
-                                    (click)="settingsService.setWarningsSetting()">
+                                    (click)="settingsService.setWarningsSetting()"
+                                    [attr.tabindex]="showSettingsDropdown ? '0' : '-1'">
                                     <b>{{ settingsService.getWarningsSetting() ? 'ON' : 'OFF' }}</b>
                                 </button>
                             </div>
@@ -255,8 +258,8 @@
                                 role="button"
                                 class="navbar-item is-unselectable px-2 m-1"
                                 (click)="prepareUserTour()"
-                                (keyup)="prepareUserTour()"
-                                tabindex="0">
+                                (keyup.enter)="prepareUserTour()"
+                                [attr.tabindex]="showSettingsDropdown ? '0' : '-1'">
                                 <span class="icon">
                                     <fa-icon [icon]="['fas', 'circle-question']"></fa-icon>
                                 </span>
@@ -268,8 +271,8 @@
                                 role="button"
                                 class="navbar-item is-unselectable px-2 m-1"
                                 (click)="showInstallPrompt()"
-                                (keyup)="showInstallPrompt()"
-                                tabindex="0">
+                                (keyup.enter)="showInstallPrompt()"
+                                [attr.tabindex]="showSettingsDropdown ? '0' : '-1'">
                                 <span class="icon">
                                     <fa-icon [icon]="['fas', 'download']"></fa-icon>
                                 </span>
@@ -281,13 +284,16 @@
                                 class="navbar-item has-text-link is-unselectable px-2 m-1"
                                 href="https://github.com/Ijee/Amazeing/releases"
                                 target="_blank"
-                                rel="noopener">
+                                rel="noopener"
+                                [attr.tabindex]="showSettingsDropdown ? '0' : '-1'">
                                 <span class="icon">
                                     <fa-icon [icon]="['fas', 'info-circle']"></fa-icon>
                                 </span>
                                 <b>Changelog</b>
                             </a>
-                            <div class="navbar-item has-text-danger px-2 m-1">
+                            <div
+                                class="navbar-item has-text-danger px-2 m-1"
+                                [attr.tabindex]="showSettingsDropdown ? '0' : '-1'">
                                 <span class="icon">
                                     <fa-icon [icon]="['fas', 'tag']"></fa-icon>
                                 </span>
@@ -297,10 +303,11 @@
                                 <a
                                     role="button"
                                     [ngClass]="(settingsService.getDarkModeSetting() | async) === true ? 'is-outlined' : ''"
-                                    class="button custom-button is-link force-blue-bg is-fullwidth"
+                                    class="button custom-button report-button is-link force-blue-bg is-fullwidth"
                                     href="https://github.com/Ijee/Amazeing/issues"
                                     target="_blank"
-                                    rel="noopener">
+                                    rel="noopener"
+                                    [attr.tabindex]="showSettingsDropdown ? '0' : '-1'">
                                     <b>REPORT A PROBLEM</b>
                                 </a>
                             </div>
@@ -324,10 +331,11 @@
                 } @if ((breakpointService.isTouch() | async) === false) {
                 <span class="navbar-item pl-0">
                     <a
-                        class="button github-brand-color force-blue-bg"
+                        class="button github-brand-button force-blue-bg"
                         href="https://github.com/Ijee/Amazeing"
                         target="_blank"
-                        rel="noopener">
+                        rel="noopener"
+                        (focusin)="showSettingsDropdown = false">
                         <span class="icon">
                             <fa-icon [icon]="['fab', 'github']"></fa-icon>
                         </span>

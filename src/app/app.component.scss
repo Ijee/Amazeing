@@ -126,11 +126,16 @@ body.theme-dark :host .navbar-dropdown {
     }
 }
 
-.github-brand-color {
+.github-brand-button {
     color: var(--bulma-white) !important;
     background-color: var(--github-brand-color) !important;
     outline: none !important;
     border: none;
+}
+
+.github-brand-button:focus-visible {
+    outline: 2px solid var(--white-dark-78) !important;
+    transition: none;
 }
 
 main {
@@ -158,12 +163,6 @@ body.theme-dark .is-primary {
 
 .navbar-item:hover {
     background-color: transparent;
-}
-
-//TODO: Yeah this isn't a good solution for navbar-item/link.
-body.theme-light :host .navbar-item:hover,
-body.theme-light :host .navbar-item.has-dropdown:hover {
-    // transition: unset;
 }
 
 body.theme-light :host .navbar-link:hover {
@@ -195,17 +194,6 @@ body.theme-light :host .navbar-item-hover:hover {
 .navbar-dropdown-wrapper {
     text-shadow: none;
 }
-// .navbar-dropdown-wrapper {
-//     text-shadow: revert;
-// }
-// a:hover {
-//     color: var(--algorithm-mode-color);
-//     text-shadow:
-//         0 0 10px var(--algorithm-mode-color),
-//         0 0 20px var(--algorithm-mode-color),
-//         0 0 30px var(--algorithm-mode-color),
-//         0 0 40px var(--algorithm-mode-color);
-// }
 
 body.theme-light :host .navbar-item .icon {
     // background-color: transparent;
@@ -221,6 +209,21 @@ body.theme-light :host .navbar-item .icon {
 .navbar-item:focus {
     outline: none;
     background-color: transparent;
+    transition: none;
+}
+
+.navbar-item:focus-visible {
+    outline: 2px solid var(--bulma-link);
+    background-color: transparent;
+}
+
+.navbar-link:focus-visible {
+    outline: 2px solid var(--bulma-link);
+    background-color: transparent;
+}
+
+.report-button:focus-visible {
+    outline: 2px solid var(--white-dark-78) !important;
 }
 
 .simple-border-bottom {

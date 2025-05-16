@@ -53,7 +53,9 @@
                                     class="has-text-weight-medium is-small"
                                     appDisableControl
                                     [disableControl]="recordService.getIteration() > 0"
-                                    [formControlName]="control.name">
+                                    [formControlName]="control.name"
+                                    [id]="control.name"
+                                    [name]="control.name">
                                     @for (value of control?.values; track value) {
                                     <option [value]="value">{{value}}</option>
                                     }

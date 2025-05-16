@@ -1,9 +1,5 @@
 @charset "utf-8";
 
-//@import ;url('https://fonts.googleapis.com/css?family=Open+Sans|Libre+Baskerville');
-
-//@use 'bulma/versions/bulma-no-dark-mode';
-// @use 'node_modules/driver.js/dist/driver.css';
 @use 'driver.js/dist/driver.css';
 @use 'styles/bulma-variables';
 @use 'styles/colors';
@@ -11,7 +7,6 @@
 @use 'styles/driverjs';
 @use 'styles/forms.scss';
 
-//@use 'driverjs';
 // The CSS in this project here is quite messy
 // but at least it looks kind of good - so there's that.
 
@@ -110,10 +105,7 @@
     // Bulma overwrites
     --bulma-family-primary: 'Poppins';
     --bulma-family-secondary: 'Poppins';
-    // TODO test this
     --bulma-button-static-background-color: #f5f5f5;
-
-    //--bulma-button-color
 
     // Non-Bulma theming
     --dark-mode-shadow:
@@ -126,67 +118,17 @@
 
     --algorithm-mode-color: var(--bulma-primary);
 
-    // :focus-visible {
-    //     transition: outline-offset 75ms ease-out;
-    // }
-    // :not(:active):focus-visible {
-    //     transition-duration: 0.25s;
-    // }
-
-    // :not(:active):focus-visible {
-    //     outline-offset: 0.5rem;
-    // }
-    /* Override Bulma's focus styles with zero specificity on the button part */
-    .button:focus-visible {
-        border-color: transparent;
-        border: none;
-        box-shadow: none;
-    }
-
-    // :focus-visible {
-    //     transition:
-    //         outline-width 200ms ease,
-    //         outline-offset 200ms ease;
-    //     outline-width: 2px;
-    //     outline-color: var(--algorithm-mode-color) !important;
-    //     z-index: 1;
-    //     position: relative;
-    // }
-
-    // :not(:active):focus-visible {
-    //     transition-duration: 0.75s;
-    // }
-
-    // :not(:active):focus-visible {
-    //     outline-width: 1px;
-    // }
-
     :focus-visible {
-        outline-color: var(--algorithm-mode-color) !important;
+        transition:
+            outline-width 200ms ease,
+            outline-offset 200ms ease;
+        z-index: 1;
+        position: relative;
     }
-
-    // :not(:active):focus-visible {
-    //     transition-duration: 75ms;
-    // }
-
-    :not(:active):focus-visible {
-        // outline: var(--outline);
-        // outline-width: 1px !important;
-    }
-    // *,
-    // *::before,
-    // *::after {
-    //     box-sizing: border-box;
-    // }
 }
 
 html,
 body {
-    // background-image: linear-gradient(to top, #a3bded 0%, #6991c7 100%);
-    // background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
-    // background-image: linear-gradient(60deg, #2c343b 0%, #485563 100%);
-    // background-image: linear-gradient(-20deg, #616161 0%, #9bc5c3 100%);
-
     font-family: 'Poppins', 'Arial Fallback', 'Robot Fallback', serif;
     background-attachment: fixed;
     color: #000;
@@ -195,9 +137,8 @@ body {
     margin: 0;
     padding: 0;
     min-height: 100dvh;
-
-    // overflow: auto;
 }
+
 @keyframes fade-in {
     from {
         opacity: 0;
@@ -413,33 +354,9 @@ input:focus {
     outline: none;
 }
 
-// TODO specificity???
-// @media (prefers-reduced-motion: no-preference) {
-//     button:focus-visible {
-//         transition: outline-offset 75ms ease-out;
-//         outline-offset: 0.5rem;
-//     }
-
-//     button:not(:active):focus-visible {
-//         transition: outline-offset 25ms ease-in;
-//     }
-// }
-
-// button:not(:active):focus-visible {
-//     outline-offset: 1rem;
-// }
-
-// button:focus-visible {
-//     outline: 1rem solid;
-// }
-
 // Gets adjusted in the algorithm service (setAlgorithmMode()) whenever the algorithm mode changes.
 ::selection {
     background: var(--algorithm-mode-color);
 }
-
-//body.theme-dark ::selection {
-//    background: var(--white-dark-38);
-//}
 
 @import 'styles/darcula.css';
