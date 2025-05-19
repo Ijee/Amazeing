@@ -1,7 +1,7 @@
 import { test, expect, Page } from '@playwright/test'; // Import Page type
-import { openApplication } from '../../../openApplication';
+import { openApplication } from '../../openApplication';
 
-test.describe('Sidewinder @algorithm @maze', () => {
+test.describe('Wall Follower @algorithm @pathfinding', () => {
     let pageErrors: Error[] = [];
     let consoleErrors: string[] = [];
 
@@ -33,7 +33,8 @@ test.describe('Sidewinder @algorithm @maze', () => {
     test.beforeEach(async ({ page }) => {
         setupErrorListeners(page);
         await openApplication(page);
-        await page.getByTestId('sidewinder').click();
+        await page.getByTestId('pathfinding-mode').click();
+        await page.getByTestId('wall-follower').click();
     });
 
     test('Algorithm completes', async ({ page }) => {
@@ -48,8 +49,8 @@ test.describe('Sidewinder @algorithm @maze', () => {
         expectNoErrors();
     });
 
-    test('Algorithm 20 iterations; export then import and continue', async ({ page }) => {
-        await page.getByTestId('next-iteration').click({ clickCount: 20 });
+    test('Algorithm 10 iterations; export then import and continue', async ({ page }) => {
+        await page.getByTestId('next-iteration').click({ clickCount: 10 });
         await page.getByTestId('export').click();
         await page.getByTestId('copy-to-clipboard').click();
 

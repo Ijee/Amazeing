@@ -1,7 +1,7 @@
 import { test, expect, Page } from '@playwright/test'; // Import Page type
-import { openApplication } from '../../../openApplication';
+import { openApplication } from '../../openApplication';
 
-test.describe('Sidewinder @algorithm @maze', () => {
+test.describe('Breadth First Search @algorithm @pathfinding', () => {
     let pageErrors: Error[] = [];
     let consoleErrors: string[] = [];
 
@@ -33,13 +33,14 @@ test.describe('Sidewinder @algorithm @maze', () => {
     test.beforeEach(async ({ page }) => {
         setupErrorListeners(page);
         await openApplication(page);
-        await page.getByTestId('sidewinder').click();
+        await page.getByTestId('pathfinding-mode').click();
+        await page.getByTestId('breadth-first-search').click();
     });
 
     test('Algorithm completes', async ({ page }) => {
         await page.getByTestId('complete-algorithm').click();
         const iteration = parseInt((await page.getByTestId('iteration').textContent()) || '0'); // Add default for safety
-        expect(iteration).toBeGreaterThan(0);
+        expect(iteration).toBeGreaterThan(1);
         expectNoErrors(); // Assert no errors at the end
     });
 
