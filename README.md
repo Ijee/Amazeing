@@ -14,8 +14,7 @@
 </p>
 
 <p align="center">
-This project visualizes different algorithms adapted for creating mazes<br>
-and solving them with various path finding algorithms.
+This project visualizes different algorithms adapted to creating and solving mazes.
 </p>
 
 > [!TIP]
@@ -26,10 +25,10 @@ and solving them with various path finding algorithms.
 
 -   Implements 21+ algorithms for maze creation and traversal.
 -   Extensive control over algorithm execution (autoplay, iteration history, etc.).
--   Paintable grid graph for custom maze creation.
--   Easy import/export feature.
--   Statistics tracking during algorithm execution.
--   "Learn More" page with general info and additional resources. (soon™)
+-   Paintable grid to create or alter your existing maze.
+-   Easy import/export feature at any stage of the algorithm execution.
+-   Statistics tracking during the algorithm execution.
+-   Learn page with general information and additional resources.
 -   Available as a Progressive Web App (PWA).
 
 ---
@@ -40,25 +39,30 @@ and solving them with various path finding algorithms.
 
 ---
 
-## Contributions / Support
+##  Support
+
+This has been a passion project of mine which I did not create for profit and it
+will always remain open source and ad-free.
+
+If you enjoy this project and want to show your appreciation, you can:
+* **Support the project:** [Ko-fi](https://ko-fi.com/ijeee) :coffee:
+* **Spread the word:** Share this project with others!
+
+## Contributions
 
 Contributions are welcome! :heart:
 
-**If you like what you see and just want to show some appreciation, you can do so on [ko-fi](https://ko-fi.com/ijeee) or just share this project with people you know.**
+To ensure a smooth collaboration, please follow these guidelines:
 
-There are quite a few TODOs throughout this project, but I haven't created specific issues for them yet. Some of these tasks might be a good start for a first pull request, while others might be based on old information or poorly written notes.
+1.  **Create an Issue First:** If you're planning to work on a feature or bug fix, please create an issue beforehand to discuss it. This helps avoid duplicate efforts and ensures your contribution aligns with the project's direction. Pull Requests without prior discussion have a high chance of not being accepted. (Sorry!)
+2.  **Style Guides:**
+    * Respect the [Angular style guide](https://angular.io/guide/styleguide).
+    * Adhere to [conventional commits](https://www.conventionalcommits.org/).
+3.  **Code Comments:** Only comment when necessary, but always for functions.
 
-Either way please create an issue first to avoid unnecessary work and to check if the feature/bug in question is
-something that you can work on. PRs without any kind of discussion beforehand have a high chance of not being accepted. (Sorry)
+There are quite a few TODOs throughout this project that could be good starting points. Feel free to browse existing [issues](https://github.com/Ijee/Amazeing/issues) or create a new one to propose an idea.
 
-When bugs related to the algorithms themselves are reported, they will always be prioritized over new features."
-
--   Please respect the [Angular style guide](https://angular.io/guide/styleguide) for contributions.
--   This project also adheres to [conventional commits](https://www.conventionalcommits.org/).
--   Code comments only when necessary but always for functions.
-
-**Note:** The project is based on my other project which is quite boring
-in comparison to be honest. It was originally a Vue.js project that was then converted to Angular. Have a look [here](https://github.com/Ijee/Game-of-Life-Vue).
+**Note:** This project is based on a previous Vue.js project of mine, which was later converted to Angular. You can check out the original [Game of Life Vue project here](https://github.com/Ijee/Game-of-Life-Vue).
 
 ---
 
@@ -74,6 +78,7 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 This project uses [Playwright](https://playwright.dev/) for e2e tests and ensures that
 the most common use-cases are covered and don't produce errors while executing the algorithms.
+
 More tests could be introduced but there is no way to automatically test for the `correctness` 
 of the algorithms themselves.
 
