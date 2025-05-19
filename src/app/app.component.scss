@@ -179,7 +179,8 @@ body.theme-light :host .navbar-item-hover:hover {
     transition: all 350ms ease;
 }
 
-.navbar-item-hover:hover {
+.navbar-item-hover:hover,
+:focus {
     // color: var(--algorithm-mode-color);
     text-shadow:
         0 0 2px var(--algorithm-mode-color),

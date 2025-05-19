@@ -118,13 +118,13 @@
 
     --algorithm-mode-color: var(--bulma-primary);
 
-    :focus-visible {
-        transition:
-            outline-width 200ms ease,
-            outline-offset 200ms ease;
-        z-index: 1;
-        position: relative;
-    }
+    // :focus-visible {
+    //     transition:
+    //         outline-width 200ms ease,
+    //         outline-offset 200ms ease;
+    //     z-index: 1;
+    //     position: relative;
+    // }
 }
 
 html,
