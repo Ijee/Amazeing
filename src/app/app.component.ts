@@ -189,13 +189,13 @@ export class AppComponent implements OnInit, OnDestroy {
     @HostListener('document:keydown', ['$event'])
     handleKeyboardEvent(event: KeyboardEvent): void {
         if (!this.settingsService.getUserTourActive()) {
-            if (event.key === 'ArrowRight') {
+            if (event.key === 'd') {
                 if (!this.simulationService.getIsPlayDisabled()) {
                     this.simulationService.stepForward();
                 }
-            } else if (event.key === 'ArrowLeft') {
+            } else if (event.key === 'a') {
                 this.simulationService.stepBackwards();
-            } else if (event.code === 'Space') {
+            } else if (event.key === 's') {
                 if (!this.simulationService.getIsPlayDisabled()) {
                     this.simulationService.setSimulationStatus();
                 }
