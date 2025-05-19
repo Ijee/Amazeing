@@ -29,7 +29,7 @@ export class JumpPointSearch extends PathFindingAlgorithmAbstract {
                 },
                 {
                     name: 'Scanned',
-                    type: 'status-6'
+                    type: 'status-7'
                 }
             ],
             {
