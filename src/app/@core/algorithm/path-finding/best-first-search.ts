@@ -106,7 +106,14 @@ export class BestFIrstSearch extends PathFindingAlgorithmAbstract {
         });
 
         serializedState.visitedNodes.forEach((ele) => {
-            deserializedState.visitedNodes.put(ele.key, ele.value);
+            const key = new GridLocation(ele.key.x, ele.key.y, ele.key.weight, ele.key.status);
+            const value = new GridLocation(
+                ele.value.x,
+                ele.value.y,
+                ele.value.weight,
+                ele.value.status
+            );
+            deserializedState.visitedNodes.put(key, value);
         });
 
         this.updateState(newGrid, deserializedState, statRecords);
