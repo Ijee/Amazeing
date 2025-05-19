@@ -28,7 +28,7 @@ bootstrapApplication(AppComponent, {
         provideRouter(
             AppRoutes,
             withComponentInputBinding(),
-            withViewTransitions(),
+            withViewTransitions({ skipInitialTransition: true }),
             withRouterConfig({ onSameUrlNavigation: 'reload' })
         ),
         provideAnimationsAsync(),
