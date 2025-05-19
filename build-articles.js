@@ -1,4 +1,4 @@
-import { readFile, readdir, writeFile, mkdir } from 'node:fs/promises';
+import { readdir, writeFile, mkdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import matter from 'gray-matter';
 import { marked } from 'marked';
@@ -6,7 +6,8 @@ import { Renderer } from 'marked';
 
 /**
  * This script runs during the ci build and converts all markdown files in the assets/articles
- * directory into json files because I added some additonal frontmatter data.
+ * directory into json files because it also includes some additonal frontmatter data and it was easier to
+ * write markdown than writing html directly.
  */
 
 async function processFiles(path) {
@@ -59,6 +60,13 @@ class CustomMarkdownRenderer extends Renderer {
         const level = token.depth; // depth property already gives the level (1-6)
         const text = token.text; // Access the rendered text
         return `<h${level} class="title is-${level}">${text}</h${level}>`;
+    }
+    link(token) {
+        return `
+        <a href="${token.href}" 
+        target="_blank" 
+        rel="noopener">
+        ${token.text}</a>`;
     }
 }
 
