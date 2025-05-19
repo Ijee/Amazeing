@@ -266,7 +266,13 @@ export class JumpPointSearch extends PathFindingAlgorithmAbstract {
             }
         } else {
             // Continue straight jump
-            return this.jump(cx + dx, cy + dy, cx, cy);
+            if (dx !== 0) {
+                // Horizontal jump
+                return this.jump(cx + dx, cy, cx, cy);
+            } else {
+                // Vertical jump (dy !== 0)
+                return this.jump(cx, cy + dy, cx, cy);
+            }
         }
     }
 

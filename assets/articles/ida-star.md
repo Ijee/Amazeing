@@ -18,7 +18,7 @@ that is limited by a threshold of f(n) = g(n) + h(n). Just like A*, this algorit
 
 **h(n):** The estimated cost calculated by the chosen heuristic from the current node to the goal node.
 
-**f(n):** The estimated total cost from the start node to the goal node. Calculated by f(n) = g(n) + h(n);
+**f(n):** The estimated total cost from the start node to the goal node. Calculated by `f(n) = g(n) + h(n)`;
 
 **Threshold:** The maximum f(n) value allowed for nodes to be expanded in the current iteration.
 
