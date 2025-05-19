@@ -47,6 +47,11 @@ button:focus-visible {
 .driver-popover button {
 }
 
+.driver-popover button:focus-visible {
+    outline: 3px solid var(--algorithm-mode-color);
+    outline-offset: -2px;
+}
+
 /* Footer of the popover displaying progress and navigation buttons */
 .tour .driver-popover-footer {
     font-family: inherit;
