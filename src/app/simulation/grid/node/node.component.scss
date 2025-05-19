@@ -26,11 +26,19 @@
     color: #000;
     height: 100%;
     width: 100%;
-    font-size: clamp(0.4rem, 1vw, 0.7rem);
+    font-size: clamp(0.25rem, 0.85vw, 0.6rem);
     font-weight: bold;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
 }
+
+// TODO only show node.text for screens above mobile breakpoint.
+// @media (max-width: 768px) {
+//     .node:before {
+//         content: none;
+//     }
+// }
 
 // Dark mode styles
 body.theme-dark :host .node {

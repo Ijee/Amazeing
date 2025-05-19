@@ -78,7 +78,7 @@ export class LearnComponent implements OnInit {
                         // remove class after it is done
                         setTimeout(() => {
                             this.renderer.removeClass(rootElement, 'no-root-view-transition');
-                        }, 10); // Ensure the class is removed after the navigation has completed
+                        }, 300); // Ensure the class is removed after the navigation has completed
                     });
 
                 this.http
