@@ -3,7 +3,7 @@ title: Trémaux
 links:
   - title: Project Implementation
     url: https://github.com/Ijee/Amazeing/blob/main/src/app/%40core/algorithm/path-finding/maze-specific/tremaux.ts
-  - title: Wikipedia - Wall Follower
+  - title: Wikipedia - Trémaux
     url: https://en.wikipedia.org/wiki/Maze-solving_algorithm#Tr%C3%A9maux's_algorithm
 last-change: 2025-05-14
 ---

@@ -3,8 +3,8 @@ title: Binary Tree
 links:
   - title: Project Implementation
     url: https://github.com/Ijee/Amazeing/blob/main/src/app/%40core/algorithm/maze/creation/binary-tree.ts
-  - title: The Buckblog - Growing Tree
-    url: https://weblog.jamisbuck.org/2011/1/27/maze-generation-growing-tree-algorithm
+  - title: The Buckblog - Binary Tree
+    url: https://weblog.jamisbuck.org/2011/2/1/maze-generation-binary-tree-algorithm
 last-change: 2025-05-12
 ---
 

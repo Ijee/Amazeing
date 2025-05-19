@@ -33,17 +33,7 @@ export class JumpPointSearch extends PathFindingAlgorithmAbstract {
                 }
             ],
             {
-                controls: [
-                    {
-                        name: 'Visualise recursion',
-                        label: 'Visualise recursion',
-                        value: '',
-                        type: 'checkbox',
-                        validators: {
-                            required: true
-                        }
-                    }
-                ]
+                controls: []
             }
         );
         this.priorityQueue = new PriorityQueue();

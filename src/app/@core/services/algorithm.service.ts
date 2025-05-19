@@ -35,7 +35,7 @@ import { BreadthFirstSearch } from '../algorithm/path-finding/breadth-first-sear
 import { DepthFirstSearch } from '../algorithm/path-finding/depth-first-search';
 import { BestFIrstSearch } from '../algorithm/path-finding/best-first-search';
 import { CellularAutomaton } from '../algorithm/maze/creation/cellular-automaton';
-import { JumpPointSearch } from '../algorithm/path-finding/jump-poin-search';
+import { JumpPointSearch } from '../algorithm/path-finding/jump-point-search';
 import { IDAStar } from '../algorithm/path-finding/ida-star';
 
 @Injectable({

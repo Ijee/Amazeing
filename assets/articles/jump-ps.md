@@ -2,7 +2,7 @@
 title: Jump Point Search
 links:
   - title: Project Implementation
-    url: https://github.com/Ijee/Amazeing/blob/main/src/app/%40core/algorithm/path-finding/jump-poin-search.ts
+    url: https://github.com/Ijee/Amazeing/blob/main/src/app/%40core/algorithm/path-finding/jump-point-search.ts
   - title: Original Publication
     url: https://users.cecs.anu.edu.au/~dharabor/data/papers/harabor-grastien-aaai11.pdf
   - title: Wikipedia - Jump Point Search

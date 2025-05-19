@@ -16,7 +16,7 @@ This is an efficient and widely used pathfinding algorithm that is considered an
 
 **h(n):** The estimated cost calculated by the chosen heuristic from the current node to the goal node.
 
-**f(n):** The estimated total cost from the start node to the goal node. Calculated by f(n) = g(n) + h(n);
+**f(n):** The estimated total cost from the start node to the goal node. Calculated by `f(n) = g(n) + h(n)`.
 
 > 1. Create an open set and add the starting node to it with itself as its predecessor and a closed set for
 >    visited nodes which is initially empty.
@@ -30,7 +30,7 @@ This is an efficient and widely used pathfinding algorithm that is considered an
 >        * Calculate the tentative g score which is g(current node) + the weight of the edge to the neighbour.
 >        * If the tentative g score is less than the neighbour's current g(neighbour):
 >            * Set the newly calculated tentative g score on the neighbour node.
->            * Calculate f(neighbour) = g(neighbour) + h(neighbour).
+>            * Calculate `f(neighbour) = g(neighbour) + h(neighbour)`.
 >            * Set the predecessor of the neighbour to the current node.
 >            * If the neighbour is not already in the open set, add it to the open_set with its f(neighbour) as its priority.
 >            * If the neighbour is already in the open set, update its priority in the open set to its new f(neighbour) value.
