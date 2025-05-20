@@ -5,7 +5,7 @@ links:
     url: https://github.com/Ijee/Amazeing/blob/main/src/app/%40core/algorithm/path-finding/ida-star.ts
   - title: Wikipedia - IDA*
     url: https://en.wikipedia.org/wiki/Iterative_deepening_A*
-last-change: 2025-05-19
+last-change: 2025-05-20
 ---
 
 The Iterative Deepening A* algorithm that combines the principles of the A* algorithm where each search performs a depth-limited search
@@ -18,7 +18,7 @@ that is limited by a threshold of f(n) = g(n) + h(n). Just like A*, this algorit
 
 **h(n):** The estimated cost calculated by the chosen heuristic from the current node to the goal node.
 
-**f(n):** The estimated total cost from the start node to the goal node. Calculated by `f(n) = g(n) + h(n)`;
+**f(n):** The estimated total cost from the start node to the goal node. Calculated by `f(n) = g(n) + h(n)`
 
 **Threshold:** The maximum f(n) value allowed for nodes to be expanded in the current iteration.
 
