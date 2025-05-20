@@ -134,7 +134,10 @@ export class BinaryTree extends MazeAlgorithmAbstract {
     }
 
     public serialize(): object {
-        return {};
+        // TODO See https://github.com/Ijee/Amazeing/issues/10
+        return {
+            dumbFix: 'yes'
+        };
     }
 
     public getState(): object {
