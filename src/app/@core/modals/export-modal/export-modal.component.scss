@@ -15,6 +15,10 @@ body.theme-dark :host .modal-card-foot {
     box-shadow: none;
 }
 
+.textarea {
+    font-family: inherit;
+}
+
 .modal-card-foot {
     border-top: 1px solid var(--bulma-grey-lighter);
 }

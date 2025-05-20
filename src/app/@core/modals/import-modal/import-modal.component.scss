@@ -18,6 +18,10 @@ body.theme-dark :host .file-name {
     box-shadow: none;
 }
 
+.textarea {
+    font-family: inherit;
+}
+
 .modal-card-foot {
     border-top: 1px solid var(--bulma-grey-lighter);
 }
