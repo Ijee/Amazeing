@@ -1,5 +1,13 @@
 import { environment } from '../environments/environment';
-import { Component, HostListener, Inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import {
+    Component,
+    HostListener,
+    OnDestroy,
+    OnInit,
+    Renderer2,
+    DOCUMENT,
+    inject
+} from '@angular/core';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
     faAdjust,
@@ -46,7 +54,7 @@ import { UserTourService } from './@core/services/user-tour.service';
 import { LegendModalComponent } from './@core/modals/legend/legend-modal.component';
 import { ImportModalComponent } from './@core/modals/import-modal/import-modal.component';
 import { ExportModalComponent } from './@core/modals/export-modal/export-modal.component';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { ClickOutsideDirective } from './@shared/directives/click-outside.directive';
 import { faPaste } from '@fortawesome/free-solid-svg-icons/faPaste';
 import { faSquareFull } from '@fortawesome/free-solid-svg-icons/faSquareFull';
@@ -75,6 +83,15 @@ import { BreakpointService } from './@core/services/breakpoint.service';
     animations: [modalFadeInOut, fadeRouteAnimation]
 })
 export class AppComponent implements OnInit, OnDestroy {
+    private readonly renderer = inject(Renderer2);
+    private document = inject<Document>(DOCUMENT);
+    private readonly router = inject(Router);
+    private readonly userTourService = inject(UserTourService);
+    readonly simulationService = inject(SimulationService);
+    readonly settingsService = inject(SettingsService);
+    readonly algorithmService = inject(AlgorithmService);
+    readonly breakpointService = inject(BreakpointService);
+
     public version: string;
     public deferredInstallPrompt: any;
     public showNavbar: boolean;
@@ -83,17 +100,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
     private readonly destroyed$: Subject<void>;
 
-    constructor(
-        library: FaIconLibrary,
-        private readonly renderer: Renderer2,
-        @Inject(DOCUMENT) private document: Document,
-        private readonly router: Router,
-        private readonly userTourService: UserTourService,
-        public readonly simulationService: SimulationService,
-        public readonly settingsService: SettingsService,
-        public readonly algorithmService: AlgorithmService,
-        public readonly breakpointService: BreakpointService
-    ) {
+    constructor() {
+        const library = inject(FaIconLibrary);
+
         // Icon library which is globally available. Please check before removing icons.
         library.addIcons(
             // general

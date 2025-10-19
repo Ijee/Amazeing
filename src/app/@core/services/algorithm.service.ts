@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { MazeAlgorithmAbstract } from '../algorithm/maze/maze-algorithm.abstract';
 import { Prims } from '../algorithm/maze/creation/prims';
 import { GridLocation } from '../../@shared/classes/GridLocation';
@@ -42,6 +42,8 @@ import { IDAStar } from '../algorithm/path-finding/ida-star';
     providedIn: 'root'
 })
 export class AlgorithmService {
+    private meta = inject(Meta);
+
     private algorithmMode: AlgorithmMode;
     private mazeAlgorithm: MazeAlgorithmAbstract;
     private pathAlgorithm: PathFindingAlgorithmAbstract;
@@ -49,7 +51,7 @@ export class AlgorithmService {
     private diagonalMovement = false;
     private crossCorners = false;
 
-    constructor(private meta: Meta) {
+    constructor() {
         this.setMazeAlgorithm('Prims');
         this.setPathAlgorithm('A-Star');
     }

@@ -1,4 +1,11 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
+import {
+    ChangeDetectorRef,
+    Component,
+    OnDestroy,
+    OnInit,
+    AfterViewInit,
+    inject
+} from '@angular/core';
 import { SimulationService } from '../../@core/services/simulation.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -30,6 +37,12 @@ import { BreakpointService } from 'src/app/@core/services/breakpoint.service';
     imports: [CommonModule, StatsComponent, NgClass, NodeComponent, HrComponent, FaIconComponent]
 })
 export class GridComponent implements OnInit, OnDestroy, AfterViewInit {
+    readonly simulationService = inject(SimulationService);
+    readonly recordService = inject(RecordService);
+    readonly algorithmService = inject(AlgorithmService);
+    readonly breakpointService = inject(BreakpointService);
+    private readonly changeDetector = inject(ChangeDetectorRef);
+
     private readonly width: number;
     private readonly height: number;
     public gridList: Node[][];
@@ -37,13 +50,7 @@ export class GridComponent implements OnInit, OnDestroy, AfterViewInit {
 
     private readonly destroyed$: Subject<void>;
 
-    constructor(
-        public readonly simulationService: SimulationService,
-        public readonly recordService: RecordService,
-        public readonly algorithmService: AlgorithmService,
-        public readonly breakpointService: BreakpointService,
-        private readonly changeDetector: ChangeDetectorRef
-    ) {
+    constructor() {
         this.width = 47;
         this.height = 21;
         this.gridList = [];

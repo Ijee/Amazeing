@@ -1,10 +1,12 @@
-import { Directive, ElementRef, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Directive, ElementRef, Input, OnChanges, SimpleChanges, inject } from '@angular/core';
 
 @Directive({
     selector: '[appCountAnimation]',
     standalone: true
 })
 export class CountAnimationDirective implements OnChanges {
+    private elementRef = inject(ElementRef);
+
     @Input() newValue: number;
     @Input() duration: number;
     @Input() disableAnimation: boolean;
@@ -12,7 +14,7 @@ export class CountAnimationDirective implements OnChanges {
     private readonly refreshInterval: number;
     private intervalID: number;
 
-    constructor(private elementRef: ElementRef) {
+    constructor() {
         this.newValue = 0;
         // the duration in which the 'animation' has to be done
         this.duration = 300;

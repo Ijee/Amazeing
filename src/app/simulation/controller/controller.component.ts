@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SimulationService } from '../../@core/services/simulation.service';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { RecordService } from '../../@core/services/record.service';
@@ -13,10 +13,8 @@ import { HrComponent } from '../../@shared/components/hr/hr.component';
     imports: [HrComponent, FaIconComponent, NgClass, MaxNumberPipe]
 })
 export class ControllerComponent {
-    constructor(
-        public readonly simulationService: SimulationService,
-        public readonly recordService: RecordService
-    ) {}
+    readonly simulationService = inject(SimulationService);
+    readonly recordService = inject(RecordService);
 
     /**
      * Delegates the logic when trying to open the export modal.

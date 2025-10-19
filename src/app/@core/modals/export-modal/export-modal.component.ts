@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { Subject } from 'rxjs';
 import { SimulationService } from '../../services/simulation.service';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
@@ -15,15 +15,15 @@ import { AlgorithmService } from '../../services/algorithm.service';
     imports: [CommonModule, FaIconComponent, FormsModule]
 })
 export class ExportModalComponent implements OnInit, OnDestroy {
+    readonly algorithmService = inject(AlgorithmService);
+    readonly simulationService = inject(SimulationService);
+    readonly breakpointService = inject(BreakpointService);
+
     public canShare: boolean;
 
     private readonly destroyed$: Subject<void>;
 
-    constructor(
-        public readonly algorithmService: AlgorithmService,
-        public readonly simulationService: SimulationService,
-        public readonly breakpointService: BreakpointService
-    ) {
+    constructor() {
         this.destroyed$ = new Subject<void>();
     }
 

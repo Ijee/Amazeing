@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { SimulationService } from '../../../@core/services/simulation.service';
 import { NgClass } from '@angular/common';
 
@@ -9,13 +9,15 @@ import { NgClass } from '@angular/common';
     imports: [NgClass]
 })
 export class NodeComponent {
+    private simulationService = inject(SimulationService);
+
     @Input() status: number;
     @Input() weight: number;
     @Input() text: string;
     @Input() isMouseDown: boolean;
     @Output() wasUpdated: EventEmitter<void>;
 
-    constructor(private simulationService: SimulationService) {
+    constructor() {
         this.wasUpdated = new EventEmitter<void>();
     }
 

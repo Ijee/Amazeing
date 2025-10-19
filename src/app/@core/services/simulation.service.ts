@@ -1,5 +1,5 @@
 import { Session } from './../types/algorithm.types';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { cloneDeep } from 'lodash-es';
 import * as pako from 'pako';
@@ -14,6 +14,10 @@ import { GridLocation } from 'src/app/@shared/classes/GridLocation';
     providedIn: 'root'
 })
 export class SimulationService {
+    private settingsService = inject(SettingsService);
+    private recordService = inject(RecordService);
+    private algorithmService = inject(AlgorithmService);
+
     private readonly gridList$: BehaviorSubject<Node[][]>;
 
     private drawingMode: number;
@@ -30,11 +34,7 @@ export class SimulationService {
     private handleImport$: Subject<void>;
     private intervalID: number;
 
-    constructor(
-        private settingsService: SettingsService,
-        private recordService: RecordService,
-        private algorithmService: AlgorithmService
-    ) {
+    constructor() {
         this.gridList$ = new BehaviorSubject<Node[][]>([]);
         this.drawingMode = -1;
         this.simulationSpeed = 100;

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { driver } from 'driver.js';
 import { SettingsService } from './settings.service';
 
@@ -6,9 +6,9 @@ import { SettingsService } from './settings.service';
     providedIn: 'root'
 })
 export class UserTourService {
-    private driver: any;
+    private settingsService = inject(SettingsService);
 
-    constructor(private settingsService: SettingsService) {}
+    private driver: any;
 
     /**
      * Starts the user tour.

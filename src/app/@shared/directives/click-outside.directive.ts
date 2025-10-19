@@ -1,11 +1,11 @@
-import { Directive, ElementRef, EventEmitter, HostListener, Output } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, HostListener, Output, inject } from '@angular/core';
 
 @Directive({
     standalone: true,
     selector: '[appClickOutside]'
 })
 export class ClickOutsideDirective {
-    constructor(private _elementRef: ElementRef) {}
+    private _elementRef = inject(ElementRef);
 
     @Output()
     public clickOutside = new EventEmitter();

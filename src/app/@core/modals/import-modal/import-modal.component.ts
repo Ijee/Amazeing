@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, inject } from '@angular/core';
 import { SimulationService } from '../../services/simulation.service';
 import { Subject } from 'rxjs';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
@@ -15,6 +15,9 @@ import { BreakpointService } from '../../services/breakpoint.service';
     imports: [CommonModule, FaIconComponent, FormsModule, NgClass, HrComponent, DropZoneDirective]
 })
 export class ImportModalComponent implements OnDestroy {
+    readonly simulationService = inject(SimulationService);
+    readonly breakpointService = inject(BreakpointService);
+
     public usedFileUpload: boolean;
     public fileName: string;
     public importToken: string;
@@ -22,10 +25,7 @@ export class ImportModalComponent implements OnDestroy {
 
     private readonly destroyed$: Subject<void>;
 
-    constructor(
-        public readonly simulationService: SimulationService,
-        public readonly breakpointService: BreakpointService
-    ) {
+    constructor() {
         this.fileName = 'No file selected...';
         this.importError = false;
         this.importToken = '';

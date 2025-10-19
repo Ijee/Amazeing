@@ -1,5 +1,5 @@
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable, map, shareReplay } from 'rxjs';
 
 export const AmazeingBreakpoints: Record<string, string> = {
@@ -12,6 +12,8 @@ export const AmazeingBreakpoints: Record<string, string> = {
 
 @Injectable({ providedIn: 'root' })
 export class BreakpointService {
+    private breakpointObserver = inject(BreakpointObserver);
+
     // Taken from https://bulma.io/documentation/start/responsiveness/
     // Touch means everything below in touch + mobile
     private mobile: string;
@@ -23,7 +25,7 @@ export class BreakpointService {
 
     private breakpointState$: Observable<BreakpointState> | undefined;
 
-    constructor(private breakpointObserver: BreakpointObserver) {
+    constructor() {
         this.mobile = '(max-width:768px)';
         this.tablet = '(min-width:769px) and (max-width:1023px)';
         this.touch = '(max-width:1023px)';

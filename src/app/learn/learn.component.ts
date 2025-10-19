@@ -8,13 +8,14 @@ import {
     Renderer2,
     signal,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    DOCUMENT
 } from '@angular/core';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { HrComponent } from '../@shared/components/hr/hr.component';
 import { ArticleRendererComponent } from './learn-prims/article-renderer.component';
 import { MazeAlgorithm, PathFindingAlgorithm } from '../@core/types/algorithm.types';
-import { DOCUMENT, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';

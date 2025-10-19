@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { SimulationService } from '../../../@core/services/simulation.service';
 import { SettingsService } from '../../../@core/services/settings.service';
 import { RecordService } from '../../../@core/services/record.service';
@@ -18,15 +18,13 @@ import { BreakpointService } from 'src/app/@core/services/breakpoint.service';
     imports: [CommonModule, CountAnimationDirective]
 })
 export class StatsComponent {
-    @Input() isMouseDown: boolean;
+    readonly simulationService = inject(SimulationService);
+    readonly algorithmService = inject(AlgorithmService);
+    readonly recordService = inject(RecordService);
+    readonly settingsService = inject(SettingsService);
+    readonly breakpointService = inject(BreakpointService);
 
-    constructor(
-        public readonly simulationService: SimulationService,
-        public readonly algorithmService: AlgorithmService,
-        public readonly recordService: RecordService,
-        public readonly settingsService: SettingsService,
-        public readonly breakpointService: BreakpointService
-    ) {}
+    @Input() isMouseDown: boolean;
 
     public trackByName(index: number, item: Statistic): string {
         return item.name;

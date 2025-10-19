@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { SimulationService } from '../../../@core/services/simulation.service';
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy, inject } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 import { AlgorithmService } from 'src/app/@core/services/algorithm.service';
 import { RecordService } from 'src/app/@core/services/record.service';
@@ -17,17 +17,17 @@ import { AlgorithmMode } from 'src/app/@core/types/algorithm.types';
     styleUrl: './algorithm-options.component.scss'
 })
 export class AlgorithmOptionsComponent implements OnDestroy {
+    readonly algorithmService = inject(AlgorithmService);
+    readonly simulationService = inject(SimulationService);
+    readonly settingsService = inject(SettingsService);
+    readonly recordService = inject(RecordService);
+    readonly formBuilder = inject(UntypedFormBuilder);
+
     @Input() algorithmMode: AlgorithmMode;
     public readonly optionsForm = this.formBuilder.group({});
 
     private readonly destroyed$: Subject<void>;
-    constructor(
-        public readonly algorithmService: AlgorithmService,
-        public readonly simulationService: SimulationService,
-        public readonly settingsService: SettingsService,
-        public readonly recordService: RecordService,
-        public readonly formBuilder: UntypedFormBuilder
-    ) {
+    constructor() {
         this.destroyed$ = new Subject<void>();
 
         // this.handleJsonFormData();

@@ -5,7 +5,8 @@ import {
     EventEmitter,
     OnDestroy,
     OnInit,
-    Output
+    Output,
+    inject
 } from '@angular/core';
 import { SettingsService } from '../../../@core/services/settings.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -33,19 +34,19 @@ import { FaIconComponent } from '@fortawesome/angular-fontawesome';
     ]
 })
 export class PathfindingSettingsComponent implements OnInit, OnDestroy {
+    private readonly route = inject(ActivatedRoute);
+    private readonly router = inject(Router);
+    private readonly changeDetector = inject(ChangeDetectorRef);
+    readonly recordService = inject(RecordService);
+    readonly simulationService = inject(SimulationService);
+    readonly algorithmService = inject(AlgorithmService);
+    readonly settingsService = inject(SettingsService);
+
     @Output() switchAlgo = new EventEmitter();
 
     private readonly destroyed$: Subject<void>;
 
-    constructor(
-        private readonly route: ActivatedRoute,
-        private readonly router: Router,
-        private readonly changeDetector: ChangeDetectorRef,
-        public readonly recordService: RecordService,
-        public readonly simulationService: SimulationService,
-        public readonly algorithmService: AlgorithmService,
-        public readonly settingsService: SettingsService
-    ) {
+    constructor() {
         this.destroyed$ = new Subject<void>();
     }
 

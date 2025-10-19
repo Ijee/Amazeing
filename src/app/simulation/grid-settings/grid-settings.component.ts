@@ -3,9 +3,10 @@ import {
     AfterViewInit,
     ChangeDetectorRef,
     Component,
-    Inject,
     OnDestroy,
-    Renderer2
+    Renderer2,
+    DOCUMENT,
+    inject
 } from '@angular/core';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { SettingsService } from '../../@core/services/settings.service';
@@ -16,7 +17,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { fadeAnimationSafe } from '../../@shared/animations/fadeRouteAnimation';
 import { RecordService } from '../../@core/services/record.service';
 import { AlgorithmMode } from '../../@core/types/algorithm.types';
-import { CommonModule, DOCUMENT, NgClass } from '@angular/common';
+import { CommonModule, NgClass } from '@angular/common';
 import { HrComponent } from '../../@shared/components/hr/hr.component';
 import { BreakpointService } from 'src/app/@core/services/breakpoint.service';
 import { MazeSettingsComponent } from './maze-settings/maze-settings.component';
@@ -30,24 +31,24 @@ import { PathfindingSettingsComponent } from './pathfinding-settings/pathfinding
     imports: [CommonModule, HrComponent, NgClass, FaIconComponent, RouterOutlet]
 })
 export class GridSettingsComponent implements AfterViewInit, OnDestroy {
+    private readonly route = inject(ActivatedRoute);
+    private readonly router = inject(Router);
+    private readonly ref = inject(ChangeDetectorRef);
+    private renderer = inject(Renderer2);
+    private document = inject<Document>(DOCUMENT);
+    readonly recordService = inject(RecordService);
+    readonly algorithmService = inject(AlgorithmService);
+    readonly simulationService = inject(SimulationService);
+    readonly settingsService = inject(SettingsService);
+    readonly breakpointService = inject(BreakpointService);
+
     public showWarning: boolean;
     public transitionName: 'toMaze' | 'toPath' | 'disableTransition';
     public newAlgorithm: MazeAlgorithm | PathFindingAlgorithm;
 
     private readonly destroyed$: Subject<void>;
 
-    constructor(
-        private readonly route: ActivatedRoute,
-        private readonly router: Router,
-        private readonly ref: ChangeDetectorRef,
-        private renderer: Renderer2,
-        @Inject(DOCUMENT) private document: Document,
-        public readonly recordService: RecordService,
-        public readonly algorithmService: AlgorithmService,
-        public readonly simulationService: SimulationService,
-        public readonly settingsService: SettingsService,
-        public readonly breakpointService: BreakpointService
-    ) {
+    constructor() {
         this.destroyed$ = new Subject<void>();
         this.showWarning = false;
         // activates the right algorithm mode button based on the matched url

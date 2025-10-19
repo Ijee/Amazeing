@@ -1,5 +1,5 @@
 import { BreakpointService } from './../../services/breakpoint.service';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AlgorithmService } from '../../services/algorithm.service';
 import { SimulationService } from '../../services/simulation.service';
 import { NgClass, CommonModule } from '@angular/common';
@@ -13,9 +13,7 @@ import { FaIconComponent } from '@fortawesome/angular-fontawesome';
     imports: [CommonModule, FaIconComponent, HrComponent, NgClass]
 })
 export class LegendModalComponent {
-    constructor(
-        public readonly simulationService: SimulationService,
-        public readonly algorithmService: AlgorithmService,
-        public readonly breakpointService: BreakpointService
-    ) {}
+    readonly simulationService = inject(SimulationService);
+    readonly algorithmService = inject(AlgorithmService);
+    readonly breakpointService = inject(BreakpointService);
 }
