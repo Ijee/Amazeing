@@ -6,7 +6,8 @@ import {
     OnInit,
     Renderer2,
     DOCUMENT,
-    inject
+    inject,
+    signal
 } from '@angular/core';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
@@ -46,9 +47,7 @@ import { faEdit, faSave } from '@fortawesome/free-regular-svg-icons';
 import { SimulationService } from './@core/services/simulation.service';
 import { Subject } from 'rxjs';
 import { SettingsService } from './@core/services/settings.service';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { modalFadeInOut } from './@shared/animations/modalFadeInOut';
-import { fadeRouteAnimation } from './@shared/animations/fadeRouteAnimation';
+import { Router, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { AlgorithmService } from './@core/services/algorithm.service';
 import { UserTourService } from './@core/services/user-tour.service';
 import { LegendModalComponent } from './@core/modals/legend/legend-modal.component';
@@ -72,15 +71,13 @@ import { BreakpointService } from './@core/services/breakpoint.service';
     imports: [
         CommonModule,
         RouterOutlet,
-        RouterLink,
         RouterLinkActive,
         FontAwesomeModule,
         ClickOutsideDirective,
         LegendModalComponent,
         ImportModalComponent,
         ExportModalComponent
-    ],
-    animations: [modalFadeInOut, fadeRouteAnimation]
+    ]
 })
 export class AppComponent implements OnInit, OnDestroy {
     private readonly renderer = inject(Renderer2);
@@ -97,6 +94,8 @@ export class AppComponent implements OnInit, OnDestroy {
     public showNavbar: boolean;
     public showSettingsDropdown: boolean;
     public isBouncing: boolean;
+
+    protected routeTransition = signal<boolean>(true);
 
     private readonly destroyed$: Subject<void>;
 
@@ -185,6 +184,7 @@ export class AppComponent implements OnInit, OnDestroy {
         });
 
         setTimeout(() => (this.isBouncing = false), 10000);
+        setTimeout(() => this.routeTransition.set(false), 100);
     }
 
     ngOnDestroy(): void {
@@ -269,19 +269,44 @@ export class AppComponent implements OnInit, OnDestroy {
     public prepareRoute(outlet: RouterOutlet): any {
         return outlet.isActivated ? outlet.activatedRouteData.animationState : '';
     }
-
     public navigateToSimulation(): void {
         this.simulationService.setSimulationStatus(false);
-        this.router.navigate(['simulation/' + this.algorithmService.getAlgorithmMode()]);
+        const rootElement = this.document.documentElement;
+        this.renderer.addClass(rootElement, 'no-root-view-transition');
+        this.routeTransition.set(true);
+
+        this.router
+            .navigate(['simulation/' + this.algorithmService.getAlgorithmMode()], {
+                queryParams: {
+                    algorithm: this.algorithmService.getAlgorithmName()
+                }
+            })
+            .finally(() => {
+                setTimeout(() => {
+                    this.renderer.removeClass(rootElement, 'no-root-view-transition');
+                    this.routeTransition.set(false);
+                }, 10);
+            });
     }
 
     public navigateToLearn(): void {
         this.simulationService.setSimulationStatus(false);
-        this.router.navigate(['learn'], {
-            queryParams: {
-                algorithm: this.algorithmService.getAlgorithmName()
-            }
-        });
+        const rootElement = this.document.documentElement;
+        this.renderer.addClass(rootElement, 'no-root-view-transition');
+        this.routeTransition.set(true);
+
+        this.router
+            .navigate(['learn/'], {
+                queryParams: {
+                    algorithm: this.algorithmService.getAlgorithmName()
+                }
+            })
+            .finally(() => {
+                setTimeout(() => {
+                    this.renderer.removeClass(rootElement, 'no-root-view-transition');
+                    this.routeTransition.set(false);
+                }, 10);
+            });
     }
 
     public determineLogoClass(): string {

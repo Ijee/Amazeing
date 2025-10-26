@@ -20,3 +20,81 @@
 .title {
     font-family: 'Poppins';
 }
+.statistic {
+    display: block;
+    opacity: 1;
+}
+
+.statistic {
+    @starting-style {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+}
+
+.enter-animation {
+    animation: slide-fade-in 225ms 225ms ease-in both;
+}
+
+@keyframes slide-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.leave-animation {
+    animation: fade-out 225ms ease-out;
+}
+
+@keyframes fade-out {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-areas: 'a b c d e f';
+    height: 50px;
+}
+
+.gridPos2_1 {
+    grid-area: a / a / auto / d;
+}
+
+.gridPos2_2 {
+    grid-area: d / d / auto / f;
+}
+
+.gridPosSingle {
+    grid-area: a / a / auto / f;
+}
+
+.gridPos3_1 {
+    grid-area: a / 1 / auto / 3;
+    justify-self: center;
+    align-self: center;
+}
+
+.gridPos3_2 {
+    grid-area: a / 3 / auto / 5;
+    justify-self: center;
+    align-self: center;
+}
+
+.gridPos3_3 {
+    grid-area: a / 5 / auto / 7;
+    justify-self: center;
+    align-self: center;
+}

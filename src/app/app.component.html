@@ -6,7 +6,6 @@
                 class="navbar-item pb-1 font-white is-unselectable"
                 aria-label="Amazeing Logo"
                 data-testid="amazeing-logo"
-                routerLink="simulation"
                 (click)="navigateToSimulation()"
                 (keyup.enter)="navigateToSimulation()"
                 (keyup.space)="navigateToSimulation()"
@@ -142,7 +141,7 @@
                     class="navbar-item navbar-item-hover is-unselectable"
                     data-testid="simulation"
                     [ngClass]="{ 'font-white': ((breakpointService.isTouch() | async) === false) }"
-                    routerLink="simulation"
+                    tabindex="0"
                     (click)="navigateToSimulation()">
                     <span class="icon">
                         <fa-icon [icon]="['fas', 'microchip']"></fa-icon>
@@ -154,7 +153,7 @@
                     class="navbar-item navbar-item-hover is-unselectable"
                     data-testid="learn"
                     [ngClass]="{ 'font-white': ((breakpointService.isTouch() | async) === false) }"
-                    [routerLink]="['learn']"
+                    tabindex="0"
                     (click)="navigateToLearn()">
                     <span class="icon">
                         <fa-icon [icon]="['fas', 'chalkboard-teacher']"></fa-icon>
@@ -353,23 +352,13 @@
         </div>
     </div>
 </nav>
-<main
-    class="container is-fullhd pt-2 px-1"
-    [@.disabled]="!settingsService.getAnimationsSetting()"
-    [@fadeRouteAnimation]="prepareRoute(o)">
-    <router-outlet #o="outlet"></router-outlet>
+<main class="content-wraper container is-fullhd pt-2 px-1 routeTransition" [class.routeTransition]="routeTransition()">
+    <router-outlet #routerOutlet #o="outlet"></router-outlet>
 </main>
 @defer (on immediate) { @if (simulationService.getShowLegendModal()) {
-<app-legend-modal class="modal-fix" [@.disabled]="!settingsService.getAnimationsSetting()" @modalFadeInOut>
-</app-legend-modal>
+<app-legend-modal class="modal-fix" animate.enter="modal-fade-in" animate.leave="modal-fade-out"> </app-legend-modal>
 } @if (simulationService.getShowImportModal()) {
-<app-import-modal
-    class="modal-fix"
-    [@.disabled]="!settingsService.getAnimationsSetting()"
-    @modalFadeInOut></app-import-modal>
+<app-import-modal class="modal-fix" animate.enter="modal-fade-in" animate.leave="modal-fade-out"></app-import-modal>
 } @if (simulationService.getShowExportModal()) {
-<app-export-modal
-    class="modal-fix"
-    [@.disabled]="!settingsService.getAnimationsSetting()"
-    @modalFadeInOut></app-export-modal>
+<app-export-modal class="modal-fix" animate.enter="modal-fade-in" animate.leave="modal-fade-out"></app-export-modal>
 } }

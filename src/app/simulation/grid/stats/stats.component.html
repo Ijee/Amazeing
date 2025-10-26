@@ -1,72 +1,42 @@
-<div class="columns is-fullwidth is-gapless is-justify-content-space-between">
-    <div class="column is-2 is-half-mobile">
-        <strong class="has-text-centered">
-            <p class="heading has-text-weight-bold is-uppercase is-size-7 is-size-6-mobile">Iteration</p>
-            <p class="title is-size-6-mobile" data-testid="iteration">{{ recordService.getIteration() }}</p>
-        </strong>
-    </div>
-    @for (stat of algorithmService.getStatRecords(); track trackByName($index, stat)) { @if (stat.currentValue !==
-    undefined && ((breakpointService.isMobile() | async) === false)) {
-    <div [@.disabled]="!this.settingsService.getAnimationsSetting()" @fadeInOutList class="column is-half-mobile">
-        <strong class="has-text-centered">
-            <p class="heading has-text-weight-bold is-uppercase is-size-7 is-size-6-mobile">{{ stat.name }}</p>
-            <p
-                class="title is-size-6-mobile"
-                [class]="algorithmService.getAlgorithmMode() === 'maze' ? 'has-text-primary' : 'has-text-danger'"
-                appCountAnimation
-                [newValue]="stat.currentValue"
-                [disableAnimation]="
-                        isMouseDown || this.simulationService.getSimulationSpeed() >= 300 || !settingsService.getAnimationsSetting()
-                    "></p>
-        </strong>
-    </div>
-    } }
-    <div class="column is-2 is-half-mobile is-size-7 is-size-7-mobile is-align-content-end">
-        <strong class="has-text-centered">
-            <p class="heading has-text-weight-bold is-uppercase is-size-6-mobile">Speed</p>
-            <p
-                class="title speed is-uppercase is-size-6-mobile"
-                data-testid="speed"
-                [class]="algorithmService.getAlgorithmMode() === 'maze' ? 'has-text-primary' : 'has-text-danger'">
-                {{ simulationService.getSimulationSpeed() }}%
-            </p>
-        </strong>
-    </div>
-</div>
-<!-- <nav class="level is-mobile px-2">
-    <div class="level-left">
-        <div class="level-item has-text-centered">
-            <strong>
-                <p class="heading has-text-weight-bold is-uppercase is-size-7">Iteration</p>
+<div class="fixed-grid has-6-cols">
+    <div class="grid">
+        <div class="cell is-col-span-1">
+            <strong class="has-text-centered">
+                <p class="heading has-text-weight-bold is-uppercase is-size-7 is-size-6-mobile">Iteration</p>
                 <p class="title is-size-6-mobile" data-testid="iteration">{{ recordService.getIteration() }}</p>
             </strong>
         </div>
-    </div>
-    @for (stat of algorithmService.getStatRecords(); track trackByName($index, stat)) { @if (stat.currentValue !==
-    undefined && ((breakpointService.isMobile() | async) === false)) {
-    <div
-        class="level-item has-text-centered"
-        [@.disabled]="!this.settingsService.getAnimationsSetting()"
-        @fadeInOutList>
-        <strong class="has-text-centered">
-            <p class="heading has-text-weight-bold is-uppercase is-size-7">{{ stat.name }}</p>
-            <p
-                class="title is-size-6-mobile"
-                [class]="algorithmService.getAlgorithmMode() === 'maze' ? 'has-text-primary' : 'has-text-danger'"
-                appCountAnimation
-                [newValue]="stat.currentValue"
-                [disableAnimation]="
+        <div class="cell is-col-span-4">
+            <div class="stat-grid" style="position: relative">
+                @for (stat of algorithmService.getStatRecords(); track trackByName($index, stat)) { @if
+                (stat.currentValue !== undefined && ((breakpointService.isMobile() | async) === false)) {
+                <div
+                    class="statistic cell"
+                    [classList]="getGridPos(stat)"
+                    [animate.enter]="statEnterAnimation()"
+                    animate.leave="leave-animation">
+                    <strong class="has-text-centered">
+                        <p class="heading has-text-weight-bold is-uppercase is-size-7 is-size-6-mobile">
+                            {{ stat.name }}
+                        </p>
+                        <p
+                            class="title is-size-6-mobile"
+                            [class]="algorithmService.getAlgorithmMode() === 'maze' ? 'has-text-primary' : 'has-text-danger'"
+                            appCountAnimation
+                            [newValue]="stat.currentValue"
+                            [disableAnimation]="
                         isMouseDown || this.simulationService.getSimulationSpeed() >= 300 || !settingsService.getAnimationsSetting()
                     "></p>
-        </strong>
-    </div>
-    } }
-    <div class="level-right">
-        <div class="level-item has-text-centered">
+                    </strong>
+                </div>
+                } }
+            </div>
+        </div>
+        <div class="cell is-col-span-1 is-col-start-6 is-size-7 is-size-7-mobile">
             <strong class="has-text-centered">
-                <p class="heading has-text-weight-bold is-uppercase is-size-7">Speed</p>
+                <p class="heading has-text-weight-bold is-uppercase is-size-6-mobile">Speed</p>
                 <p
-                    class="title is-uppercase is-size-6-mobile"
+                    class="title speed is-uppercase is-size-6-mobile"
                     data-testid="speed"
                     [class]="algorithmService.getAlgorithmMode() === 'maze' ? 'has-text-primary' : 'has-text-danger'">
                     {{ simulationService.getSimulationSpeed() }}%
@@ -74,4 +44,4 @@
             </strong>
         </div>
     </div>
-</nav> -->
+</div>

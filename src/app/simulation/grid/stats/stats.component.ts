@@ -1,9 +1,7 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, afterRenderEffect, inject, signal } from '@angular/core';
 import { SimulationService } from '../../../@core/services/simulation.service';
 import { SettingsService } from '../../../@core/services/settings.service';
 import { RecordService } from '../../../@core/services/record.service';
-import { fadeInOutList } from '../../../@shared/animations/fadeInOutList';
-import { transition, trigger } from '@angular/animations';
 import { AlgorithmService } from '../../../@core/services/algorithm.service';
 import { Statistic } from '../../../@core/types/algorithm.types';
 import { CountAnimationDirective } from '../../../@shared/directives/count-animation.directive';
@@ -14,19 +12,66 @@ import { BreakpointService } from 'src/app/@core/services/breakpoint.service';
     selector: 'app-stats',
     templateUrl: './stats.component.html',
     styleUrls: ['./stats.component.scss'],
-    animations: [fadeInOutList, trigger('blockInitialRenderAnimation', [transition(':enter', [])])],
     imports: [CommonModule, CountAnimationDirective]
 })
 export class StatsComponent {
-    readonly simulationService = inject(SimulationService);
-    readonly algorithmService = inject(AlgorithmService);
-    readonly recordService = inject(RecordService);
-    readonly settingsService = inject(SettingsService);
-    readonly breakpointService = inject(BreakpointService);
-
     @Input() isMouseDown: boolean;
 
+    public readonly simulationService = inject(SimulationService);
+    public readonly algorithmService = inject(AlgorithmService);
+    public readonly recordService = inject(RecordService);
+    public readonly settingsService = inject(SettingsService);
+    public readonly breakpointService = inject(BreakpointService);
+
+    protected readonly animationsEnabled = signal(false);
+    protected readonly statEnterAnimation = signal<string | null>(null);
+
+    constructor() {
+        afterRenderEffect(() => {
+            const animationsEnabled = this.animationsEnabled();
+            if (animationsEnabled) {
+                this.statEnterAnimation.set('enter-animation');
+            }
+        });
+
+        afterRenderEffect(() => {
+            const staticData = this.algorithmService.getStatRecords();
+            if (staticData != null) {
+                this.animationsEnabled.set(true);
+            }
+        });
+    }
     public trackByName(index: number, item: Statistic): string {
-        return item.name;
+        return `stat-${index}-${item.name}`;
+    }
+
+    /**
+     * Returns the css class for the grid position for a single
+     * stat element the component.
+     *
+     * This is being done to enable the overlap
+     * of the elements during their enter and leave animation and
+     * prevent layout shifts.
+     *
+     * @param stat the stat to get the grid position for
+     * @returns the appropriate css class
+     */
+    getGridPos(stat: Statistic): string {
+        const stats = this.algorithmService
+            .getStatRecords()
+            .filter((stat) => stat.currentValue !== undefined);
+
+        const index = stats.findIndex((s) => s == stat);
+
+        switch (stats.length) {
+            case 1:
+                return 'gridPosSingle';
+            case 2:
+                return `gridPos2_${index + 1}`;
+            case 3:
+                return `gridPos3_${index + 1}`;
+            default:
+                return 'gridPosSingle';
+        }
     }
 }

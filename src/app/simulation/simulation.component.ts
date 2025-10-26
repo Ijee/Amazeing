@@ -7,7 +7,6 @@ import { GridComponent } from './grid/grid.component';
     selector: 'app-simulation',
     templateUrl: './simulation.component.html',
     styleUrls: ['./simulation.component.scss'],
-    animations: [],
     imports: [GridComponent, GridSettingsComponent, ControllerComponent]
 })
 export class SimulationComponent {}

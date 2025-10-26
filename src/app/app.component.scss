@@ -278,4 +278,23 @@ body.theme-light :host .navbar-item .icon {
 .modal-fix {
     position: fixed;
     z-index: 100;
+    transition-behavior: allow-discrete;
+    transition-property: display, opacity;
+    transition-duration: 150ms;
+}
+
+.modal-fade-in {
+    transition-timing-function: ease-in;
+    display: block;
+    opacity: 1;
+
+    @starting-style {
+        opacity: 0;
+    }
+}
+
+.modal-fade-out {
+    transition-timing-function: ease-out;
+    display: block;
+    opacity: 0;
 }

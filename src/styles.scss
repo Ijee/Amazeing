@@ -162,9 +162,31 @@ body {
     view-transition-name: none !important;
     transition: none !important;
 }
+.no-view-transition,
+.no-view-transition * {
+    view-transition-name: none;
+}
 
-.disableTransition + * {
-    view-transition-name: disableTransition;
+.routeTransition {
+    view-transition-name: routeTransition;
+}
+
+/* 1. Animation for the old content (fades out) */
+::view-transition-old(routeTransition) {
+    position: absolute;
+    inset: 0;
+    // width: 'calc(100% - 0.5rem)';
+
+    animation: 225ms ease-out both fade-out;
+}
+
+::view-transition-new(routeTransition) {
+    position: absolute;
+    inset: 0;
+
+    // width: 'calc(100% - 0.5rem)';
+
+    animation: 225ms 225ms ease-in both fade-in;
 }
 
 .toMaze + * {
@@ -210,7 +232,7 @@ body {
     border-left: 1px solid #dbdbdb;
 }
 
-// dark mode
+// Dark mode
 
 body.theme-light {
     background-size: cover;
