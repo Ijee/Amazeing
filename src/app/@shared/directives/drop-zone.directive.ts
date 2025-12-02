@@ -1,4 +1,4 @@
-import { Directive, EventEmitter, HostBinding, HostListener, Output } from '@angular/core';
+import { Directive, HostBinding, HostListener, output } from '@angular/core';
 
 /**
  * Drag and drop functionality as a directive for a DOM element.
@@ -12,7 +12,7 @@ import { Directive, EventEmitter, HostBinding, HostListener, Output } from '@ang
     standalone: true
 })
 export class DropZoneDirective {
-    @Output() fileDropped = new EventEmitter<any>();
+    readonly fileDropped = output<any>();
 
     // @HostBinding('style.background-color') private background = '';
     @HostBinding('class') protected class = '';

@@ -1,13 +1,5 @@
 import { AlgorithmOptionsComponent } from '../../../@shared/components/algorithm-options/algorithm-options.component';
-import {
-    ChangeDetectorRef,
-    Component,
-    EventEmitter,
-    OnDestroy,
-    OnInit,
-    Output,
-    inject
-} from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, inject, output } from '@angular/core';
 import { SettingsService } from '../../../@core/services/settings.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -42,7 +34,7 @@ export class PathfindingSettingsComponent implements OnInit, OnDestroy {
     protected readonly algorithmService = inject(AlgorithmService);
     protected readonly settingsService = inject(SettingsService);
 
-    @Output() switchAlgo = new EventEmitter();
+    readonly switchAlgo = output<PathFindingAlgorithm>();
 
     private readonly destroyed$: Subject<void>;
 

@@ -1,13 +1,5 @@
 import { AlgorithmOptionsComponent } from '../../../@shared/components/algorithm-options/algorithm-options.component';
-import {
-    ChangeDetectorRef,
-    Component,
-    EventEmitter,
-    OnDestroy,
-    OnInit,
-    Output,
-    inject
-} from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, inject, output } from '@angular/core';
 import { AlgorithmService } from '../../../@core/services/algorithm.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
@@ -22,7 +14,7 @@ import { NgClass } from '@angular/common';
     imports: [NgClass, AlgorithmOptionsComponent]
 })
 export class MazeSettingsComponent implements OnInit, OnDestroy {
-    @Output() switchAlgo = new EventEmitter();
+    readonly switchAlgo = output<MazeAlgorithm>();
 
     private readonly route = inject(ActivatedRoute);
     private readonly router = inject(Router);

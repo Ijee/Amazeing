@@ -1,4 +1,4 @@
-import { Directive, ElementRef, EventEmitter, HostListener, Output, inject } from '@angular/core';
+import { Directive, ElementRef, HostListener, inject, output } from '@angular/core';
 
 @Directive({
     standalone: true,
@@ -7,8 +7,7 @@ import { Directive, ElementRef, EventEmitter, HostListener, Output, inject } fro
 export class ClickOutsideDirective {
     private _elementRef = inject(ElementRef);
 
-    @Output()
-    public clickOutside = new EventEmitter();
+    public readonly clickOutside = output<MouseEvent>();
 
     @HostListener('document:click', ['$event', '$event.target'])
     public onClick(event: MouseEvent, targetElement: EventTarget): void {
