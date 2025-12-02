@@ -79,7 +79,7 @@ export class LearnComponent implements OnInit {
                         // remove class after it is done
                         setTimeout(() => {
                             this.renderer.removeClass(rootElement, 'no-root-view-transition');
-                        }, 300); // Ensure the class is removed after the navigation has completed
+                        }, 1000); // Ensure the class is removed after the navigation has completed
                     });
 
                 this.http
@@ -88,7 +88,6 @@ export class LearnComponent implements OnInit {
                     })
                     .subscribe((res: Frontmatter) => {
                         this.content = res;
-                        // this.textContent = this.sanitizer.bypassSecurityTrustHtml(res.content);
                     });
             }
         });
