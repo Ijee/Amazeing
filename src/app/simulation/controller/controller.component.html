@@ -17,9 +17,7 @@
             data-testid="iteration-backward"
             title="iteration backwards"
             aria-label="iteration backwards"
-            [ngClass]="{
-                buttonBackwards: simulationService.getBackwardStepsAmount() < 1
-            }"
+            [class.buttonBackwards]="simulationService.getBackwardStepsAmount() < 1"
             (click)="simulationService.stepBackwards()">
             <fa-icon class="pr-1" [icon]="['fas', 'step-backward']"></fa-icon>
             <b> {{ simulationService.getBackwardStepsAmount() | maxNumber : 9 }} </b>

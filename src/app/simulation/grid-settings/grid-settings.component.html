@@ -37,7 +37,7 @@
                 (activate)="subscribeToEmitter($event)"
                 #o="outlet"></router-outlet>
         </div>
-        <div class="fixed-grid has-12-cols cell switch-warning" [ngClass]="{ 'is-active': showWarning }">
+        <div class="fixed-grid has-12-cols cell switch-warning" [class.is-active]="showWarning">
             <div class="grid is-gap-1 has-background-warning">
                 <div class="cell is-col-span-12 is-row-start-1 warning-message has-text-centered mt-2">
                     <b> Doing this will partially reset the grid </b>

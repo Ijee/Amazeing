@@ -13,7 +13,7 @@
                     <div class="column is-12 control">
                         <label
                             class="checkbox form-text-size"
-                            [ngClass]="recordService.getIteration() > 0 ? 'is-not-allowed' : ''">
+                            [class.is-not-allowed]="recordService.getIteration() > 0">
                             <input
                                 type="checkbox"
                                 [class]="algorithmMode === 'maze' ? 'active-color-primary' : 'active-color-danger'"
@@ -26,9 +26,7 @@
                     </div>
                     } @if (control?.type === 'radio') { @for (value of control?.values; track value) {
                     <div class="column is-12 control">
-                        <label
-                            class="radio form-text-size"
-                            [ngClass]="recordService.getIteration() > 0 ? 'is-not-allowed' : ''">
+                        <label class="radio form-text-size" [class.is-not-allowed]="recordService.getIteration() > 0">
                             <input
                                 type="radio"
                                 [class]="algorithmMode === 'maze' ? 'active-color-primary' : 'active-color-danger'"

@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { DropZoneDirective } from '../../../@shared/directives/drop-zone.directive';
 import { HrComponent } from '../../../@shared/components/hr/hr.component';
-import { CommonModule, NgClass } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BreakpointService } from '../../services/breakpoint.service';
 
@@ -12,7 +12,7 @@ import { BreakpointService } from '../../services/breakpoint.service';
     selector: 'app-import-modal',
     templateUrl: './import-modal.component.html',
     styleUrls: ['./import-modal.component.scss'],
-    imports: [CommonModule, FaIconComponent, FormsModule, NgClass, HrComponent, DropZoneDirective]
+    imports: [CommonModule, FaIconComponent, FormsModule, HrComponent, DropZoneDirective]
 })
 export class ImportModalComponent implements OnDestroy {
     protected readonly simulationService = inject(SimulationService);

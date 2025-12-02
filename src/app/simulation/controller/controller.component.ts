@@ -3,14 +3,14 @@ import { SimulationService } from '../../@core/services/simulation.service';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { RecordService } from '../../@core/services/record.service';
 import { MaxNumberPipe } from '../../@shared/pipes/max-number.pipe';
-import { NgClass } from '@angular/common';
+
 import { HrComponent } from '../../@shared/components/hr/hr.component';
 
 @Component({
     selector: 'app-controller',
     templateUrl: './controller.component.html',
     styleUrls: ['./controller.component.scss'],
-    imports: [HrComponent, FaIconComponent, NgClass, MaxNumberPipe]
+    imports: [HrComponent, FaIconComponent, MaxNumberPipe]
 })
 export class ControllerComponent {
     protected readonly simulationService = inject(SimulationService);

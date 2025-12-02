@@ -532,7 +532,7 @@ export class JumpPointSearch extends PathFindingAlgorithmAbstract {
         return true;
     }
     public usesPathFindingSettings(): boolean {
-        return true;
+        return false;
     }
     public forcesDiagonalMovement(): boolean {
         return true;

@@ -170,7 +170,7 @@
                     [ngClass]="recordService.getIteration() > 0 || !algorithmService.usesPathFindingSettings() ? 'is-not-allowed' : ''">
                     <input
                         type="checkbox"
-                        [disabled]="algorithmService.getAlgorithmName() === 'Jump-PS' || recordService.getIteration() > 0 || !algorithmService.usesPathFindingSettings()"
+                        [disabled]="!algorithmService.usesPathFindingSettings() || recordService.getIteration() > 0"
                         [checked]="algorithmService.getDiagonalMovement()"
                         (change)="handleDiagonalMovement($event)" />
                     Diagonal movement
@@ -189,10 +189,10 @@
             <div class="column is-12 control">
                 <label
                     class="checkbox form-text-size active-color-danger"
-                    [ngClass]="recordService.getIteration() > 0 || !algorithmService.usesPathFindingSettings() ? 'is-not-allowed' : ''">
+                    [class.is-not-allowed]="recordService.getIteration() > 0 || !algorithmService.usesPathFindingSettings()">
                     <input
                         type="checkbox"
-                        [disabled]="algorithmService.getAlgorithmName() === 'Jump-PS' || recordService.getIteration() > 0 || !algorithmService.usesPathFindingSettings()"
+                        [disabled]="!algorithmService.usesPathFindingSettings() || recordService.getIteration() > 0"
                         [checked]=" algorithmService.getCrossCorners()"
                         (change)="handleCrossCorners($event)" />
                     Cross corners

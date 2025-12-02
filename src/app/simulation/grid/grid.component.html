@@ -2,10 +2,10 @@
     [ngClass]="algorithmService.getAlgorithmMode() === 'maze' ? 'box-shadow-maze' : 'box-shadow-path'"
     class="box custom-box mb-4 tourStats"
     [isMouseDown]="isMouseDown"></app-stats>
-<section class="block outer-wall mb-1" [ngClass]="{ 'wrapper-forbidden': recordService.getIteration() > 0 }">
+<section class="block outer-wall mb-1" [class.wrapper-forbidden]="recordService.getIteration() > 0">
     <div
         class="game-grid"
-        [ngClass]="{ 'game-grid-lock': recordService.getIteration() > 0 }"
+        [class.game-grid-lock]="recordService.getIteration() > 0"
         (mousedown)="isMouseDown = true"
         (mouseup)="onMouseUp()"
         (mouseleave)="onMouseUp()">

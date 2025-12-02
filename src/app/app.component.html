@@ -118,7 +118,7 @@
                 aria-label="menu"
                 [attr.aria-expanded]="showNavbar ? 'true' : 'false'"
                 data-target="navbarMenuHeroA"
-                [ngClass]="{ 'is-active': showNavbar }"
+                [class.is-active]="showNavbar"
                 (click)="showNavbar = !showNavbar"
                 (keyup)="showNavbar = !showNavbar"
                 tabindex="0">
@@ -131,7 +131,7 @@
         <div
             id="navbarMenuHeroA"
             class="navbar-menu touch-menu"
-            [ngClass]="{
+            [class]="{
                 'is-active': showNavbar,
                 'transparent-navbar': ((breakpointService.isTouch() | async) === false)
             }">
@@ -140,7 +140,7 @@
                     role="button"
                     class="navbar-item navbar-item-hover is-unselectable"
                     data-testid="simulation"
-                    [ngClass]="{ 'font-white': ((breakpointService.isTouch() | async) === false) }"
+                    [class.font-white]="((breakpointService.isTouch() | async) === false)"
                     tabindex="0"
                     (click)="navigateToSimulation()">
                     <span class="icon">
@@ -152,7 +152,7 @@
                     role="button"
                     class="navbar-item navbar-item-hover is-unselectable"
                     data-testid="learn"
-                    [ngClass]="{ 'font-white': ((breakpointService.isTouch() | async) === false) }"
+                    [class.font-white]="((breakpointService.isTouch() | async) === false)"
                     tabindex="0"
                     (click)="navigateToLearn()">
                     <span class="icon">
@@ -164,7 +164,7 @@
                 <a
                     role="button"
                     class="navbar-item is-unselectable"
-                    [ngClass]="{ 'font-white': ((breakpointService.isTouch() | async) === false) }"
+                    [class.font-white]="((breakpointService.isTouch() | async) === false)"
                     href="https://github.com/Ijee/Amazeing"
                     target="_blank"
                     rel="noopener">
@@ -178,7 +178,7 @@
                 <div
                     role="button"
                     class="navbar-item navbar-item-hover has-dropdown"
-                    [ngClass]="{ 'is-active': showSettingsDropdown }"
+                    [class.is-active]="showSettingsDropdown"
                     appClickOutside
                     (clickOutside)="showSettingsDropdown = false">
                     <div
@@ -192,10 +192,8 @@
                         </span>
                         <span><b>Settings</b></span>
                     </div>
-                    <div class="navbar-dropdown-wrapper" [ngClass]="{ 'is-active': showSettingsDropdown }">
-                        <div
-                            class="navbar-dropdown is-right is-boxed"
-                            [ngClass]="{ 'is-active': showSettingsDropdown  }">
+                    <div class="navbar-dropdown-wrapper" [class.is-active]="showSettingsDropdown">
+                        <div class="navbar-dropdown is-right is-boxed" [class.is-active]="showSettingsDropdown">
                             <div class="columns is-mobile is-flex pl-2 m-1 pb-0 navbar-item">
                                 <div class="column is-8 pl-0 is-unselectable">
                                     <span class="icon">
@@ -206,7 +204,7 @@
                                 <button
                                     class="column custom-button is-4 p-2 button is-responsive"
                                     style="margin: -3px"
-                                    [ngClass]="{
+                                    [class]="{
                                         'is-primary': (settingsService.getDarkModeSetting() | async) === true,
                                         'is-danger': (settingsService.getDarkModeSetting() | async) === false,
                                         'is-outlined': (settingsService.getDarkModeSetting() | async) === true }"
@@ -225,7 +223,7 @@
                                 <button
                                     class="column custom-button is-4 p-2 button is-responsive"
                                     style="margin: -3px"
-                                    [ngClass]="{
+                                    [class]="{
                                         'is-primary': settingsService.getAnimationsSetting(),
                                         'is-danger': !settingsService.getAnimationsSetting(),
                                         'is-outlined': (settingsService.getDarkModeSetting() | async) === true }"
@@ -244,7 +242,7 @@
                                 <button
                                     class="column custom-button is-4 p-2 button is-responsive"
                                     style="margin: -3px"
-                                    [ngClass]="{
+                                    [class]="{
                                         'is-primary': settingsService.getWarningsSetting(),
                                         'is-danger': !settingsService.getWarningsSetting(),
                                         'is-outlined': (settingsService.getDarkModeSetting() | async) === true }"

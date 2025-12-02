@@ -15,75 +15,75 @@
                 <div class="column is-half">
                     <div class="buttons maze-buttons is-centered mb-1">
                         <button
-                            class="button custom-button"
-                            [ngClass]=" algorithmSelection() === 'Prims' ? 'is-primary' : 'is-primary is-light'"
+                            class="button custom-button is-primary"
+                            [class.is-light]="algorithmSelection() !== 'Prims'"
                             (click)="algorithmSelection.set('Prims')">
                             Prim's
                         </button>
                         <button
-                            class="button custom-button"
-                            (click)="algorithmSelection.set('Kruskals')"
-                            [ngClass]=" algorithmSelection() === 'Kruskals' ? 'is-primary' : 'is-primary is-light'">
+                            class="button custom-button is-primary"
+                            [class.is-light]="algorithmSelection() !== 'Kruskals'"
+                            (click)="algorithmSelection.set('Kruskals')">
                             Kruskals
                         </button>
                         <button
-                            class="button custom-button"
-                            (click)="algorithmSelection.set('Aldous-Broder')"
-                            [ngClass]=" algorithmSelection() === 'Aldous-Broder' ? 'is-primary' : 'is-primary is-light'">
+                            class="button custom-button is-primary"
+                            [class.is-light]="algorithmSelection() !== 'Aldous-Broder'"
+                            (click)="algorithmSelection.set('Aldous-Broder')">
                             Aldous-Broder
                         </button>
                         <button
-                            class="button custom-button"
-                            (click)="algorithmSelection.set('Wilsons')"
-                            [ngClass]=" algorithmSelection() === 'Wilsons' ? 'is-primary' : 'is-primary is-light'">
+                            class="button custom-button is-primary"
+                            [class.is-light]="algorithmSelection() !== 'Wilsons'"
+                            (click)="algorithmSelection.set('Wilsons')">
                             Wilson's
                         </button>
                         <button
-                            class="button custom-button"
-                            (click)="algorithmSelection.set('Ellers')"
-                            [ngClass]=" algorithmSelection() === 'Ellers' ? 'is-primary' : 'is-primary is-light'">
+                            class="button custom-button is-primary"
+                            [class.is-light]="algorithmSelection() !== 'Ellers'"
+                            (click)="algorithmSelection.set('Ellers')">
                             Eller's
                         </button>
                         <button
-                            class="button custom-button"
-                            (click)="algorithmSelection.set('Sidewinder')"
-                            [ngClass]=" algorithmSelection() === 'Sidewinder' ? 'is-primary' : 'is-primary is-light'">
+                            class="button custom-button is-primary"
+                            [class.is-light]="algorithmSelection() !== 'Sidewinder'"
+                            (click)="algorithmSelection.set('Sidewinder')">
                             Sidewinder
                         </button>
                         <button
-                            class="button custom-button"
-                            (click)="algorithmSelection.set('Hunt-and-Kill')"
-                            [ngClass]=" algorithmSelection() === 'Hunt-and-Kill' ? 'is-primary' : 'is-primary is-light'">
+                            class="button custom-button is-primary"
+                            [class.is-light]="algorithmSelection() !== 'Hunt-and-Kill'"
+                            (click)="algorithmSelection.set('Hunt-and-Kill')">
                             Hunt and Kill
                         </button>
                         <button
-                            class="button custom-button"
-                            (click)="algorithmSelection.set('Growing-Tree')"
-                            [ngClass]=" algorithmSelection() === 'Growing-Tree' ? 'is-primary' : 'is-primary is-light'">
+                            class="button custom-button is-primary"
+                            [class.is-light]="algorithmSelection() !== 'Growing-Tree'"
+                            (click)="algorithmSelection.set('Growing-Tree')">
                             Growing Tree
                         </button>
                         <button
-                            class="button custom-button"
-                            (click)="algorithmSelection.set('Binary-Tree')"
-                            [ngClass]=" algorithmSelection() === 'Binary-Tree' ? 'is-primary' : 'is-primary is-light'">
+                            class="button custom-button is-primary"
+                            [class.is-light]="algorithmSelection() !== 'Binary-Tree'"
+                            (click)="algorithmSelection.set('Binary-Tree')">
                             Binary Tree
                         </button>
                         <button
-                            class="button custom-button"
-                            (click)="algorithmSelection.set('Recursive-Backtracking')"
-                            [ngClass]=" algorithmSelection() === 'Recursive-Backtracking' ? 'is-primary' : 'is-primary is-light'">
+                            class="button custom-button is-primary"
+                            [class.is-light]="algorithmSelection() !== 'Recursive-Backtracking'"
+                            (click)="algorithmSelection.set('Recursive-Backtracking')">
                             Recursive-Backtracking
                         </button>
                         <button
-                            class="button custom-button"
-                            (click)="algorithmSelection.set('Recursive-Division')"
-                            [ngClass]=" algorithmSelection() === 'Recursive-Division' ? 'is-primary' : 'is-primary is-light'">
+                            class="button custom-button is-primary"
+                            [class.is-light]="algorithmSelection() !== 'Recursive-Division'"
+                            (click)="algorithmSelection.set('Recursive-Division')">
                             Recursive-Division
                         </button>
                         <button
-                            class="button custom-button"
-                            (click)="algorithmSelection.set('Cellular-Automaton')"
-                            [ngClass]=" algorithmSelection() === 'Cellular-Automaton' ? 'is-primary' : 'is-primary is-light'">
+                            class="button custom-button is-primary"
+                            [class.is-light]="algorithmSelection() !== 'Cellular-Automaton'"
+                            (click)="algorithmSelection.set('Cellular-Automaton')">
                             Cellular Automaton
                         </button>
                     </div>
@@ -91,76 +91,76 @@
                 <div class="column is-half">
                     <div class="buttons pathfinding-buttons is-centered mb-1">
                         <button
-                            class="button custom-button"
-                            [ngClass]=" algorithmSelection() === 'A-Star' ? 'is-danger' : 'is-danger is-light'"
+                            class="button custom-button is-danger"
+                            [class.is-light]="algorithmSelection() !== 'A-Star'"
                             (click)="algorithmSelection.set('A-Star')">
                             A*
                         </button>
                         <button
-                            class="button custom-button"
-                            [ngClass]=" algorithmSelection() === 'IDA-Star' ? 'is-danger' : 'is-danger is-light'"
+                            class="button custom-button is-danger"
+                            [class.is-light]="algorithmSelection() !== 'IDA-Star'"
                             (click)="algorithmSelection.set('IDA-Star')">
                             IDA*
                         </button>
                         <button
-                            class="button custom-button"
-                            [ngClass]=" algorithmSelection() === 'Dijkstra' ? 'is-danger' : 'is-danger is-light'"
+                            class="button custom-button is-danger"
+                            [class.is-light]="algorithmSelection() !== 'Dijkstra'"
                             (click)="algorithmSelection.set('Dijkstra')">
                             Dijkstra
                         </button>
                         <button
-                            class="button custom-button"
-                            [ngClass]=" algorithmSelection() === 'Breadth-FS' ? 'is-danger' : 'is-danger is-light'"
+                            class="button custom-button is-danger"
+                            [class.is-light]="algorithmSelection() !== 'Breadth-FS'"
                             (click)="algorithmSelection.set('Breadth-FS')">
                             Breadth-First-Search
                         </button>
                         <button
-                            class="button custom-button"
-                            [ngClass]=" algorithmSelection() === 'Depth-FS' ? 'is-danger' : 'is-danger is-light'"
+                            class="button custom-button is-danger"
+                            [class.is-light]="algorithmSelection() !== 'Depth-FS'"
                             (click)="algorithmSelection.set('Depth-FS')">
                             Depth-First-Search
                         </button>
                         <button
-                            class="button custom-button"
-                            [ngClass]=" algorithmSelection() === 'Best-FS' ? 'is-danger' : 'is-danger is-light'"
+                            class="button custom-button is-danger"
+                            [class.is-light]="algorithmSelection() !== 'Best-FS'"
                             (click)="algorithmSelection.set('Best-FS')">
                             Best-First-Search
                         </button>
                         <button
-                            class="button custom-button"
-                            [ngClass]=" algorithmSelection() === 'Jump-PS' ? 'is-danger' : 'is-danger is-light'"
-                            (click)="algorithmSelection.set('Jump-PS')">
+                            class="button custom-button is-danger"
+                            (click)="algorithmSelection.set('Jump-PS')"
+                            [class.is-light]="algorithmSelection() !== 'Jump-PS'">
                             Jump Point Search
                         </button>
                         <button
-                            class="button custom-button"
-                            [ngClass]=" algorithmSelection() === 'Orthogonal-Jump-PS' ? 'is-danger' : 'is-danger is-light'"
+                            class="button custom-button is-danger"
+                            [class.is-light]="algorithmSelection() !== 'Orthogonal-Jump-PS'"
                             (click)="algorithmSelection.set('Orthogonal-Jump-PS')">
                             Orthogonal Jump Point Search
                         </button>
                     </div>
                     <div class="buttons pathfinding-buttons is-centered pt-2 mb-1">
                         <button
-                            class="button custom-button"
-                            [ngClass]=" algorithmSelection() === 'Wall-Follower' ? 'is-danger' : 'is-danger is-light'"
+                            class="button custom-button is-danger"
+                            [class.is-light]="algorithmSelection() !== 'Wall-Follower'"
                             (click)="algorithmSelection.set('Wall-Follower')">
                             Wall Follower
                         </button>
                         <button
-                            class="button custom-button"
-                            [ngClass]=" algorithmSelection() === 'Pledge' ? 'is-danger' : 'is-danger is-light'"
+                            class="button custom-button is-danger"
+                            [class.is-light]="algorithmSelection() !== 'Pledge'"
                             (click)="algorithmSelection.set('Pledge')">
                             Pledge
                         </button>
                         <button
-                            class="button custom-button"
-                            [ngClass]=" algorithmSelection() === 'Trémaux' ? 'is-danger' : 'is-danger is-light'"
+                            class="button custom-button is-danger"
+                            [class.is-light]="algorithmSelection() !== 'Trémaux'"
                             (click)="algorithmSelection.set('Trémaux')">
                             Tremaux's
                         </button>
                         <button
-                            class="button custom-button"
-                            [ngClass]=" algorithmSelection() === 'Dead-End-Filling' ? 'is-danger' : 'is-danger is-light'"
+                            class="button custom-button is-danger"
+                            [class.is-light]="algorithmSelection() !== 'Dead-End-Filling'"
                             (click)="algorithmSelection.set('Dead-End-Filling')">
                             Dead-End Filling
                         </button>
