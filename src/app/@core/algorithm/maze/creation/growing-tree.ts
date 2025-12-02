@@ -55,7 +55,6 @@ export class GrowingTree extends MazeAlgorithmAbstract {
      * @private
      */
     private selectLocation(): [gridLocation: GridLocation, selectedNodeIndex: number] {
-        // TODO add more options to select locations
         let loc: GridLocation;
         let selectedNodeIndex: number;
         switch (this.options['Node Selection']) {

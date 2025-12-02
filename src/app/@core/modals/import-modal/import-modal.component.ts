@@ -15,13 +15,13 @@ import { BreakpointService } from '../../services/breakpoint.service';
     imports: [CommonModule, FaIconComponent, FormsModule, NgClass, HrComponent, DropZoneDirective]
 })
 export class ImportModalComponent implements OnDestroy {
-    readonly simulationService = inject(SimulationService);
-    readonly breakpointService = inject(BreakpointService);
+    protected readonly simulationService = inject(SimulationService);
+    protected readonly breakpointService = inject(BreakpointService);
 
-    public usedFileUpload: boolean;
-    public fileName: string;
-    public importToken: string;
-    public importError: boolean;
+    protected usedFileUpload: boolean;
+    protected fileName: string;
+    protected importToken: string;
+    protected importError: boolean;
 
     private readonly destroyed$: Subject<void>;
 

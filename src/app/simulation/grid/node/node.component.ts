@@ -9,7 +9,7 @@ import { NgClass } from '@angular/common';
     imports: [NgClass]
 })
 export class NodeComponent {
-    private simulationService = inject(SimulationService);
+    private readonly simulationService = inject(SimulationService);
 
     @Input() status: number;
     @Input() weight: number;

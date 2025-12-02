@@ -13,8 +13,8 @@ import { HrComponent } from '../../@shared/components/hr/hr.component';
     imports: [HrComponent, FaIconComponent, NgClass, MaxNumberPipe]
 })
 export class ControllerComponent {
-    readonly simulationService = inject(SimulationService);
-    readonly recordService = inject(RecordService);
+    protected readonly simulationService = inject(SimulationService);
+    protected readonly recordService = inject(RecordService);
 
     /**
      * Delegates the logic when trying to open the export modal.

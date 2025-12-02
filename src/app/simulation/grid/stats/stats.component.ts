@@ -17,11 +17,11 @@ import { BreakpointService } from 'src/app/@core/services/breakpoint.service';
 export class StatsComponent {
     @Input() isMouseDown: boolean;
 
-    public readonly simulationService = inject(SimulationService);
-    public readonly algorithmService = inject(AlgorithmService);
-    public readonly recordService = inject(RecordService);
-    public readonly settingsService = inject(SettingsService);
-    public readonly breakpointService = inject(BreakpointService);
+    protected readonly simulationService = inject(SimulationService);
+    protected readonly algorithmService = inject(AlgorithmService);
+    protected readonly recordService = inject(RecordService);
+    protected readonly settingsService = inject(SettingsService);
+    protected readonly breakpointService = inject(BreakpointService);
 
     protected readonly animationsEnabled = signal(false);
     protected readonly statEnterAnimation = signal<string | null>(null);

@@ -1,13 +1,10 @@
 import { SettingsService } from './../@core/services/settings.service';
-import { AlgorithmService } from 'src/app/@core/services/algorithm.service';
 import {
     Component,
     effect,
-    ElementRef,
     OnInit,
     Renderer2,
     signal,
-    ViewChild,
     ViewEncapsulation,
     DOCUMENT
 } from '@angular/core';
@@ -46,8 +43,6 @@ export interface Frontmatter {
     imports: [FaIconComponent, HrComponent, ArticleRendererComponent, NgClass]
 })
 export class LearnComponent implements OnInit {
-    @ViewChild('test') input: ElementRef<HTMLInputElement>;
-
     private readonly activatedRoute = inject(ActivatedRoute);
     private readonly http = inject(HttpClient);
     private readonly route = inject(ActivatedRoute);
@@ -55,13 +50,10 @@ export class LearnComponent implements OnInit {
     private readonly renderer = inject(Renderer2);
     private readonly document = inject(DOCUMENT);
     private readonly settingsService = inject(SettingsService);
-    private algorithm: string;
     public content: Frontmatter;
     public algorithmSelection = signal<MazeAlgorithm | PathFindingAlgorithm>(null);
 
     constructor() {
-        this.algorithm = this.activatedRoute.snapshot.params['algorithm'];
-
         effect(() => {
             if (this.algorithmSelection() !== null) {
                 const rootElement = this.document.documentElement; // Target the root element

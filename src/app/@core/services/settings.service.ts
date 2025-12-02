@@ -5,14 +5,14 @@ import { BehaviorSubject, Observable } from 'rxjs';
     providedIn: 'root'
 })
 export class SettingsService {
-    private darkModeSetting: BehaviorSubject<boolean>;
+    private readonly darkModeSetting$: BehaviorSubject<boolean>;
     private animationsSetting: boolean;
     private warningsSetting: boolean;
     private userTourTaken: boolean;
     private userTourActive: boolean;
 
     constructor() {
-        this.darkModeSetting = new BehaviorSubject<boolean>(false);
+        this.darkModeSetting$ = new BehaviorSubject<boolean>(false);
 
         // See if prefers color scheme is set. If yes, set the appropriate setting.
         const storagePrefersDarkColor = localStorage.getItem('prefersDarkColor');
@@ -62,11 +62,11 @@ export class SettingsService {
      */
     public setDarkModeSetting(newOption?: boolean): void {
         if (newOption !== undefined) {
-            this.darkModeSetting.next(newOption);
+            this.darkModeSetting$.next(newOption);
         } else {
-            this.darkModeSetting.next(!this.darkModeSetting.getValue());
+            this.darkModeSetting$.next(!this.darkModeSetting$.getValue());
         }
-        localStorage.setItem('prefersDarkColor', String(this.darkModeSetting.value));
+        localStorage.setItem('prefersDarkColor', String(this.darkModeSetting$.value));
     }
 
     /**
@@ -120,7 +120,7 @@ export class SettingsService {
      * Returns the current dark mode setting.
      */
     public getDarkModeSetting(): Observable<boolean> {
-        return this.darkModeSetting;
+        return this.darkModeSetting$;
     }
 
     /**

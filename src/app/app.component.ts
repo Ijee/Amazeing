@@ -81,19 +81,19 @@ import { BreakpointService } from './@core/services/breakpoint.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
     private readonly renderer = inject(Renderer2);
-    private document = inject<Document>(DOCUMENT);
+    private readonly document = inject<Document>(DOCUMENT);
     private readonly router = inject(Router);
     private readonly userTourService = inject(UserTourService);
-    readonly simulationService = inject(SimulationService);
-    readonly settingsService = inject(SettingsService);
-    readonly algorithmService = inject(AlgorithmService);
-    readonly breakpointService = inject(BreakpointService);
+    protected readonly simulationService = inject(SimulationService);
+    protected readonly settingsService = inject(SettingsService);
+    protected readonly algorithmService = inject(AlgorithmService);
+    protected readonly breakpointService = inject(BreakpointService);
 
-    public version: string;
-    public deferredInstallPrompt: any;
-    public showNavbar: boolean;
-    public showSettingsDropdown: boolean;
-    public isBouncing: boolean;
+    protected version: string;
+    protected deferredInstallPrompt: any;
+    protected showNavbar: boolean;
+    protected showSettingsDropdown: boolean;
+    protected isBouncing: boolean;
 
     protected routeTransition = signal<boolean>(true);
 

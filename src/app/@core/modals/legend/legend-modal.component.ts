@@ -13,7 +13,7 @@ import { FaIconComponent } from '@fortawesome/angular-fontawesome';
     imports: [CommonModule, FaIconComponent, HrComponent, NgClass]
 })
 export class LegendModalComponent {
-    readonly simulationService = inject(SimulationService);
-    readonly algorithmService = inject(AlgorithmService);
-    readonly breakpointService = inject(BreakpointService);
+    protected readonly simulationService = inject(SimulationService);
+    protected readonly algorithmService = inject(AlgorithmService);
+    protected readonly breakpointService = inject(BreakpointService);
 }

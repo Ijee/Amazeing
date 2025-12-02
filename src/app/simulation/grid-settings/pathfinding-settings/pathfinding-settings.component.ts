@@ -37,10 +37,10 @@ export class PathfindingSettingsComponent implements OnInit, OnDestroy {
     private readonly route = inject(ActivatedRoute);
     private readonly router = inject(Router);
     private readonly changeDetector = inject(ChangeDetectorRef);
-    readonly recordService = inject(RecordService);
-    readonly simulationService = inject(SimulationService);
-    readonly algorithmService = inject(AlgorithmService);
-    readonly settingsService = inject(SettingsService);
+    protected readonly recordService = inject(RecordService);
+    protected readonly simulationService = inject(SimulationService);
+    protected readonly algorithmService = inject(AlgorithmService);
+    protected readonly settingsService = inject(SettingsService);
 
     @Output() switchAlgo = new EventEmitter();
 
@@ -89,6 +89,12 @@ export class PathfindingSettingsComponent implements OnInit, OnDestroy {
         this.destroyed$.complete();
     }
 
+    /**
+     * Emits an event to notify the grid-settingscomponent so that a warning can be
+     * displayed in the parent component if necessary.
+     *
+     * @param newAlgo the new algorithm
+     */
     public emitAlgorithmChange(newAlgo: PathFindingAlgorithm): void {
         this.switchAlgo.emit(newAlgo);
     }

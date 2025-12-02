@@ -104,13 +104,6 @@ export class AlgorithmOptionsComponent implements OnDestroy {
                 control.name,
                 this.formBuilder.control(control.value, validatorsToAdd)
             );
-            // this.optionsForm.addControl(
-            //     control.name,
-            //     new FormControl(
-            //         { value: [], disabled: this.recordService.getIteration() > 0 },
-            //         (control1) => validatorsToAdd
-            //     )
-            // );
         }
     }
 
@@ -129,13 +122,6 @@ export class AlgorithmOptionsComponent implements OnDestroy {
     public setAlgorithmOptions(): void {
         const options = {};
         for (const field in this.optionsForm.controls) {
-            // sets the value on the options obj also casts string boolean back to boolean
-            // this.optionsForm.controls[field].value === 'true' ||
-            // this.optionsForm.controls[field].value === 'false'
-            //     ? (options[field] = JSON.parse(
-            //           this.optionsForm.controls[field].value.toLowerCase()
-            //       ))
-            //     : (options[field] = this.optionsForm.controls[field].getRawValue());
             if (
                 this.optionsForm.controls[field].value === 'true' ||
                 this.optionsForm.controls[field].value === 'false'

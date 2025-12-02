@@ -42,7 +42,7 @@ import { IDAStar } from '../algorithm/path-finding/ida-star';
     providedIn: 'root'
 })
 export class AlgorithmService {
-    private meta = inject(Meta);
+    private readonly meta = inject(Meta);
 
     private algorithmMode: AlgorithmMode;
     private mazeAlgorithm: MazeAlgorithmAbstract;
@@ -74,7 +74,7 @@ export class AlgorithmService {
             const colour = getComputedStyle(document.documentElement).getPropertyValue(
                 '--algorithm-mode-color'
             );
-            // This changes the notch / title bar colour
+            // This changes the notch / title bar colour.
             // TODO Maybe animate it? (use 500ms ease-in-out / global animation css-var)
             this.meta.updateTag({ name: 'theme-color', content: colour });
         } catch {

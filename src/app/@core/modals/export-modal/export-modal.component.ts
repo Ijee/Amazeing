@@ -15,11 +15,11 @@ import { AlgorithmService } from '../../services/algorithm.service';
     imports: [CommonModule, FaIconComponent, FormsModule]
 })
 export class ExportModalComponent implements OnInit, OnDestroy {
-    readonly algorithmService = inject(AlgorithmService);
-    readonly simulationService = inject(SimulationService);
-    readonly breakpointService = inject(BreakpointService);
+    protected readonly algorithmService = inject(AlgorithmService);
+    protected readonly simulationService = inject(SimulationService);
+    protected readonly breakpointService = inject(BreakpointService);
 
-    public canShare: boolean;
+    protected canShare: boolean;
 
     private readonly destroyed$: Subject<void>;
 

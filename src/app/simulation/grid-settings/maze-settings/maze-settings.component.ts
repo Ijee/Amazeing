@@ -8,13 +8,10 @@ import {
     Output,
     inject
 } from '@angular/core';
-import { SettingsService } from '../../../@core/services/settings.service';
 import { AlgorithmService } from '../../../@core/services/algorithm.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { SimulationService } from '../../../@core/services/simulation.service';
-import { RecordService } from '../../../@core/services/record.service';
 import { MazeAlgorithm } from '../../../@core/types/algorithm.types';
 import { NgClass } from '@angular/common';
 
@@ -25,17 +22,12 @@ import { NgClass } from '@angular/common';
     imports: [NgClass, AlgorithmOptionsComponent]
 })
 export class MazeSettingsComponent implements OnInit, OnDestroy {
+    @Output() switchAlgo = new EventEmitter();
+
     private readonly route = inject(ActivatedRoute);
     private readonly router = inject(Router);
     private readonly changeDetector = inject(ChangeDetectorRef);
-    readonly recordService = inject(RecordService);
-    readonly simulationService = inject(SimulationService);
-    readonly settingsService = inject(SettingsService);
-    readonly algorithmService = inject(AlgorithmService);
-
-    // protected readonly SimulationService = SimulationService;
-
-    @Output() switchAlgo = new EventEmitter();
+    protected readonly algorithmService = inject(AlgorithmService);
 
     private readonly destroyed$: Subject<void>;
 

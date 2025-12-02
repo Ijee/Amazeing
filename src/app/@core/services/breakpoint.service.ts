@@ -12,7 +12,7 @@ export const AmazeingBreakpoints: Record<string, string> = {
 
 @Injectable({ providedIn: 'root' })
 export class BreakpointService {
-    private breakpointObserver = inject(BreakpointObserver);
+    private readonly breakpointObserver = inject(BreakpointObserver);
 
     // Taken from https://bulma.io/documentation/start/responsiveness/
     // Touch means everything below in touch + mobile
@@ -42,9 +42,7 @@ export class BreakpointService {
                 this.widescreen,
                 this.fullhd
             ])
-            .pipe(
-                shareReplay(1) // Share the subscription among multiple subscribers
-            );
+            .pipe(shareReplay(1));
     }
 
     public getBreakpointState(): Observable<BreakpointState> {

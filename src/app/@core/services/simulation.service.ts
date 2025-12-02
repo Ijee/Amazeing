@@ -31,7 +31,7 @@ export class SimulationService {
     private showImportModal: boolean;
     private showExportModal: boolean;
     private exportToken: string;
-    private handleImport$: Subject<void>;
+    private readonly handleImport$: Subject<void>;
     private intervalID: number;
 
     constructor() {

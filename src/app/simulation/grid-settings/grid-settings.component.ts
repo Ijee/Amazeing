@@ -32,19 +32,19 @@ export class GridSettingsComponent implements AfterViewInit, OnDestroy {
     private readonly route = inject(ActivatedRoute);
     private readonly router = inject(Router);
     private readonly ref = inject(ChangeDetectorRef);
-    private renderer = inject(Renderer2);
-    private document = inject<Document>(DOCUMENT);
-    readonly recordService = inject(RecordService);
-    readonly algorithmService = inject(AlgorithmService);
-    readonly simulationService = inject(SimulationService);
-    readonly settingsService = inject(SettingsService);
-    readonly breakpointService = inject(BreakpointService);
-
-    public showWarning: boolean;
-    public transitionName: 'toMaze' | 'toPath' | 'disableTransition';
-    public newAlgorithm: MazeAlgorithm | PathFindingAlgorithm;
+    private readonly renderer = inject(Renderer2);
+    private readonly document = inject<Document>(DOCUMENT);
+    private readonly recordService = inject(RecordService);
+    protected readonly algorithmService = inject(AlgorithmService);
+    protected readonly simulationService = inject(SimulationService);
+    protected readonly settingsService = inject(SettingsService);
+    protected readonly breakpointService = inject(BreakpointService);
 
     private readonly destroyed$: Subject<void>;
+
+    protected showWarning: boolean;
+    protected transitionName: 'toMaze' | 'toPath' | 'disableTransition';
+    protected newAlgorithm: MazeAlgorithm | PathFindingAlgorithm;
 
     constructor() {
         this.destroyed$ = new Subject<void>();

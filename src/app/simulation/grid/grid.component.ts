@@ -37,16 +37,16 @@ import { BreakpointService } from 'src/app/@core/services/breakpoint.service';
     imports: [CommonModule, StatsComponent, NgClass, NodeComponent, HrComponent, FaIconComponent]
 })
 export class GridComponent implements OnInit, OnDestroy, AfterViewInit {
-    readonly simulationService = inject(SimulationService);
-    readonly recordService = inject(RecordService);
-    readonly algorithmService = inject(AlgorithmService);
-    readonly breakpointService = inject(BreakpointService);
     private readonly changeDetector = inject(ChangeDetectorRef);
+    protected readonly simulationService = inject(SimulationService);
+    protected readonly recordService = inject(RecordService);
+    protected readonly algorithmService = inject(AlgorithmService);
+    protected readonly breakpointService = inject(BreakpointService);
 
     private readonly width: number;
     private readonly height: number;
-    public gridList: Node[][];
-    public isMouseDown: boolean;
+    protected gridList: Node[][];
+    protected isMouseDown: boolean;
 
     private readonly destroyed$: Subject<void>;
 
