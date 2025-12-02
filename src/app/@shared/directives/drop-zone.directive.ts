@@ -15,8 +15,8 @@ export class DropZoneDirective {
     @Output() fileDropped = new EventEmitter<any>();
 
     // @HostBinding('style.background-color') private background = '';
-    @HostBinding('class') private class = '';
-    @HostBinding('style.opacity') private opacity = '1';
+    @HostBinding('class') protected class = '';
+    @HostBinding('style.opacity') protected opacity = '1';
     private counter = 0;
 
     // Dragover listener

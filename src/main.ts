@@ -1,4 +1,10 @@
-import { enableProdMode, importProvidersFrom, inject, isDevMode } from '@angular/core';
+import {
+    enableProdMode,
+    importProvidersFrom,
+    inject,
+    isDevMode,
+    provideZoneChangeDetection
+} from '@angular/core';
 import { environment } from './environments/environment';
 import { AppComponent } from './app/app.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -21,6 +27,7 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent, {
     providers: [
+        provideZoneChangeDetection(),
         importProvidersFrom(BrowserModule, FormsModule, ReactiveFormsModule, FontAwesomeModule),
         SettingsService,
         provideRouter(
