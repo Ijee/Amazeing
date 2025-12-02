@@ -2,7 +2,7 @@ import { BreakpointService } from './../../services/breakpoint.service';
 import { Component, inject } from '@angular/core';
 import { AlgorithmService } from '../../services/algorithm.service';
 import { SimulationService } from '../../services/simulation.service';
-import { NgClass, CommonModule } from '@angular/common';
+import { NgClass, AsyncPipe } from '@angular/common';
 import { HrComponent } from '../../../@shared/components/hr/hr.component';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 
@@ -10,7 +10,7 @@ import { FaIconComponent } from '@fortawesome/angular-fontawesome';
     selector: 'app-legend-modal',
     templateUrl: './legend-modal.component.html',
     styleUrls: ['./legend-modal.component.scss'],
-    imports: [CommonModule, FaIconComponent, HrComponent, NgClass]
+    imports: [FaIconComponent, HrComponent, NgClass, AsyncPipe, NgClass]
 })
 export class LegendModalComponent {
     protected readonly simulationService = inject(SimulationService);

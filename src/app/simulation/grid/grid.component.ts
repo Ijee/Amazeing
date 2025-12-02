@@ -17,7 +17,7 @@ import { Node } from '../../@core/types/algorithm.types';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { HrComponent } from '../../@shared/components/hr/hr.component';
 import { NodeComponent } from './node/node.component';
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { StatsComponent } from './stats/stats.component';
 import { BreakpointService } from 'src/app/@core/services/breakpoint.service';
 
@@ -34,7 +34,7 @@ import { BreakpointService } from 'src/app/@core/services/breakpoint.service';
     selector: 'app-grid',
     templateUrl: './grid.component.html',
     styleUrls: ['./grid.component.scss'],
-    imports: [CommonModule, StatsComponent, NodeComponent, HrComponent, FaIconComponent]
+    imports: [StatsComponent, NodeComponent, HrComponent, FaIconComponent, AsyncPipe, NgClass]
 })
 export class GridComponent implements OnInit, OnDestroy, AfterViewInit {
     private readonly changeDetector = inject(ChangeDetectorRef);

@@ -53,7 +53,7 @@ import { UserTourService } from './@core/services/user-tour.service';
 import { LegendModalComponent } from './@core/modals/legend/legend-modal.component';
 import { ImportModalComponent } from './@core/modals/import-modal/import-modal.component';
 import { ExportModalComponent } from './@core/modals/export-modal/export-modal.component';
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { ClickOutsideDirective } from './@shared/directives/click-outside.directive';
 import { faPaste } from '@fortawesome/free-solid-svg-icons/faPaste';
 import { faSquareFull } from '@fortawesome/free-solid-svg-icons/faSquareFull';
@@ -69,14 +69,15 @@ import { BreakpointService } from './@core/services/breakpoint.service';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
     imports: [
-        CommonModule,
         RouterOutlet,
         RouterLinkActive,
         FontAwesomeModule,
         ClickOutsideDirective,
         LegendModalComponent,
         ImportModalComponent,
-        ExportModalComponent
+        ExportModalComponent,
+        AsyncPipe,
+        NgClass
     ]
 })
 export class AppComponent implements OnInit, OnDestroy {

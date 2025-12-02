@@ -5,14 +5,14 @@ import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { saveAs } from 'file-saver';
 import { FormsModule } from '@angular/forms';
 import { BreakpointService } from '../../services/breakpoint.service';
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { AlgorithmService } from '../../services/algorithm.service';
 
 @Component({
     selector: 'app-export-modal',
     templateUrl: './export-modal.component.html',
     styleUrls: ['./export-modal.component.scss'],
-    imports: [CommonModule, FaIconComponent, FormsModule]
+    imports: [FaIconComponent, FormsModule, AsyncPipe, NgClass]
 })
 export class ExportModalComponent implements OnInit, OnDestroy {
     protected readonly algorithmService = inject(AlgorithmService);

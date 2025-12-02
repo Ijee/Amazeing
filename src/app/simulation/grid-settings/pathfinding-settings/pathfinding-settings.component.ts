@@ -16,7 +16,7 @@ import { SimulationService } from '../../../@core/services/simulation.service';
 import { AlgorithmService } from '../../../@core/services/algorithm.service';
 import { RecordService } from '../../../@core/services/record.service';
 import { PathFindingAlgorithm } from '../../../@core/types/algorithm.types';
-import { CommonModule, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 
@@ -26,11 +26,11 @@ import { FaIconComponent } from '@fortawesome/angular-fontawesome';
     styleUrls: ['./pathfinding-settings.component.scss'],
     imports: [
         NgClass,
-        CommonModule,
         FormsModule,
         ReactiveFormsModule,
         AlgorithmOptionsComponent,
-        FaIconComponent
+        FaIconComponent,
+        NgClass
     ]
 })
 export class PathfindingSettingsComponent implements OnInit, OnDestroy {

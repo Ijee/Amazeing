@@ -5,14 +5,14 @@ import { RecordService } from '../../../@core/services/record.service';
 import { AlgorithmService } from '../../../@core/services/algorithm.service';
 import { Statistic } from '../../../@core/types/algorithm.types';
 import { CountAnimationDirective } from '../../../@shared/directives/count-animation.directive';
-import { CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { BreakpointService } from 'src/app/@core/services/breakpoint.service';
 
 @Component({
     selector: 'app-stats',
     templateUrl: './stats.component.html',
     styleUrls: ['./stats.component.scss'],
-    imports: [CommonModule, CountAnimationDirective]
+    imports: [CountAnimationDirective, AsyncPipe]
 })
 export class StatsComponent {
     @Input() isMouseDown: boolean;

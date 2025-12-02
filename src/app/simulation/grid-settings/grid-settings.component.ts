@@ -16,7 +16,7 @@ import { AlgorithmService } from '../../@core/services/algorithm.service';
 import { Subject, takeUntil } from 'rxjs';
 import { RecordService } from '../../@core/services/record.service';
 import { AlgorithmMode } from '../../@core/types/algorithm.types';
-import { CommonModule } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { HrComponent } from '../../@shared/components/hr/hr.component';
 import { BreakpointService } from 'src/app/@core/services/breakpoint.service';
 import { MazeSettingsComponent } from './maze-settings/maze-settings.component';
@@ -26,7 +26,7 @@ import { PathfindingSettingsComponent } from './pathfinding-settings/pathfinding
     selector: 'app-grid-settings',
     templateUrl: './grid-settings.component.html',
     styleUrls: ['./grid-settings.component.scss'],
-    imports: [CommonModule, HrComponent, FaIconComponent, RouterOutlet]
+    imports: [HrComponent, FaIconComponent, RouterOutlet, NgClass]
 })
 export class GridSettingsComponent implements AfterViewInit, OnDestroy {
     private readonly route = inject(ActivatedRoute);

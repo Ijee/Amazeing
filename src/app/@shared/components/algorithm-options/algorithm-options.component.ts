@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { SimulationService } from '../../../@core/services/simulation.service';
 import { Component, Input, OnDestroy, inject } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
@@ -12,7 +12,7 @@ import { AlgorithmMode } from 'src/app/@core/types/algorithm.types';
 
 @Component({
     selector: 'app-algorithm-options',
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, DisableControlDirective],
+    imports: [FormsModule, ReactiveFormsModule, DisableControlDirective, NgClass],
     templateUrl: './algorithm-options.component.html',
     styleUrl: './algorithm-options.component.scss'
 })
