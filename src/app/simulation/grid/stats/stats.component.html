@@ -25,7 +25,7 @@
                             appCountAnimation
                             [newValue]="stat.currentValue"
                             [disableAnimation]="
-                        isMouseDown || this.simulationService.getSimulationSpeed() >= 300 || !settingsService.getAnimationsSetting()
+                        isMouseDown() || this.simulationService.getSimulationSpeed() >= 300 || !settingsService.getAnimationsSetting()
                     "></p>
                     </strong>
                 </div>

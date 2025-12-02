@@ -3,5 +3,5 @@
     class="node"
     [attr.text]="getText()"
     (mousedown)="setNewStatus(true)"
-    (mouseover)="setNewStatus(isMouseDown)"
-    (focus)="setNewStatus(isMouseDown)"></div>
+    (mouseover)="setNewStatus(isMouseDown())"
+    (focus)="setNewStatus(isMouseDown())"></div>

@@ -1,4 +1,4 @@
-import { Directive, Input, OnChanges, SimpleChanges, inject } from '@angular/core';
+import { Directive, OnChanges, SimpleChanges, inject, input } from '@angular/core';
 import { NgControl } from '@angular/forms';
 
 @Directive({
@@ -8,11 +8,11 @@ import { NgControl } from '@angular/forms';
 export class DisableControlDirective implements OnChanges {
     private ngControl = inject(NgControl);
 
-    @Input() disableControl: boolean;
+    readonly disableControl = input<boolean>(undefined);
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes['disableControl']) {
-            const action = this.disableControl ? 'disable' : 'enable';
+            const action = this.disableControl() ? 'disable' : 'enable';
 
             this.ngControl.control[action]();
         }

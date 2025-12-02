@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { Frontmatter } from '../learn.component';
 import { DatePipe } from '@angular/common';
@@ -10,6 +10,6 @@ import { DatePipe } from '@angular/common';
     imports: [FaIconComponent, DatePipe]
 })
 export class ArticleRendererComponent {
-    @Input() content: Frontmatter = null;
+    readonly content = input<Frontmatter>(null);
     constructor() {}
 }

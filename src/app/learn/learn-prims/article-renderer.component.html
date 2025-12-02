@@ -1,13 +1,13 @@
 <div class="columns mx-0 is-multiline container">
     <div class="column is-3 is-col-span-1">
         <h2 class="title mb-2">
-            <b>{{ content?.data.title }}</b>
+            <b>{{ content()?.data.title }}</b>
         </h2>
         <h3 class="is-italic mb-3">
             <fa-icon title="last change" aria-label="last change" [icon]="['fas', 'calendar-days']"></fa-icon>
-            {{ content?.data['last-change'] | date: 'mediumDate'}}
+            {{ content()?.data['last-change'] | date: 'mediumDate'}}
         </h3>
-        @for (link of content?.data.links; track $index) {
+        @for (link of content()?.data.links; track $index) {
         <div class="tags m-1">
             <a
                 class="tag is-normal is-light"
@@ -27,7 +27,7 @@
         }
     </div>
     <main class="column is-9 is-size-5" style="text-wrap: balance">
-        <div class="content" [innerHTML]="content?.content"></div>
+        <div class="content" [innerHTML]="content()?.content"></div>
     </main>
     <div class="column is-12 has-text-centered">
         Found an error or have more to add? Please create an

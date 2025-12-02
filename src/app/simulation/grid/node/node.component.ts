@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Output, inject, input } from '@angular/core';
 import { SimulationService } from '../../../@core/services/simulation.service';
 import { NgClass } from '@angular/common';
 
@@ -11,10 +11,10 @@ import { NgClass } from '@angular/common';
 export class NodeComponent {
     private readonly simulationService = inject(SimulationService);
 
-    @Input() status: number;
-    @Input() weight: number;
-    @Input() text: string;
-    @Input() isMouseDown: boolean;
+    readonly status = input<number>(undefined);
+    readonly weight = input<number>(undefined);
+    readonly text = input<string>(undefined);
+    readonly isMouseDown = input<boolean>(undefined);
     @Output() wasUpdated: EventEmitter<void>;
 
     constructor() {
@@ -22,11 +22,12 @@ export class NodeComponent {
     }
 
     getText(): string {
-        if (this.status !== 1) {
+        const status = this.status();
+        if (status !== 1) {
             if (!this.simulationService.getShowWeightStatus()) {
-                return this.text;
-            } else if (this.status !== 2 && this.status !== 3) {
-                return this.weight?.toString();
+                return this.text();
+            } else if (status !== 2 && status !== 3) {
+                return this.weight()?.toString();
             }
         }
     }
@@ -53,7 +54,7 @@ export class NodeComponent {
      * See src/styles/colors for the color meaning when given.
      */
     determineStatus(): string {
-        switch (this.status) {
+        switch (this.status()) {
             case 1:
                 return 'status-1';
             case 2:

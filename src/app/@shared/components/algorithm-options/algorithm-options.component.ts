@@ -1,6 +1,6 @@
 import { NgClass } from '@angular/common';
 import { SimulationService } from '../../../@core/services/simulation.service';
-import { Component, Input, OnDestroy, inject } from '@angular/core';
+import { Component, OnDestroy, inject, input } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 import { AlgorithmService } from 'src/app/@core/services/algorithm.service';
 import { RecordService } from 'src/app/@core/services/record.service';
@@ -23,7 +23,7 @@ export class AlgorithmOptionsComponent implements OnDestroy {
     readonly recordService = inject(RecordService);
     readonly formBuilder = inject(UntypedFormBuilder);
 
-    @Input() algorithmMode: AlgorithmMode;
+    readonly algorithmMode = input<AlgorithmMode>(undefined);
     public readonly optionsForm = this.formBuilder.group({});
 
     private readonly destroyed$: Subject<void>;
@@ -111,7 +111,7 @@ export class AlgorithmOptionsComponent implements OnDestroy {
      * Gets and handles the creation of the form based on JsonFormData.
      */
     public handleJsonFormData(): JsonFormData {
-        const jsonFormData = this.algorithmService.getJsonFormData(this.algorithmMode);
+        const jsonFormData = this.algorithmService.getJsonFormData(this.algorithmMode());
         this.createForm(jsonFormData.controls);
         return jsonFormData;
     }

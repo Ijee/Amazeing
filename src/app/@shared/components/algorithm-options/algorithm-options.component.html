@@ -16,7 +16,7 @@
                             [class.is-not-allowed]="recordService.getIteration() > 0">
                             <input
                                 type="checkbox"
-                                [class]="algorithmMode === 'maze' ? 'active-color-primary' : 'active-color-danger'"
+                                [class]="algorithmMode() === 'maze' ? 'active-color-primary' : 'active-color-danger'"
                                 appDisableControl
                                 [disableControl]="recordService.getIteration() > 0"
                                 [formControlName]="control.name"
@@ -29,7 +29,7 @@
                         <label class="radio form-text-size" [class.is-not-allowed]="recordService.getIteration() > 0">
                             <input
                                 type="radio"
-                                [class]="algorithmMode === 'maze' ? 'active-color-primary' : 'active-color-danger'"
+                                [class]="algorithmMode() === 'maze' ? 'active-color-primary' : 'active-color-danger'"
                                 appDisableControl
                                 [disableControl]="recordService.getIteration() > 0"
                                 [formControlName]="control.name"

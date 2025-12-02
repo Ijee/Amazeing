@@ -1,4 +1,4 @@
-import { Component, Input, afterRenderEffect, inject, signal } from '@angular/core';
+import { Component, afterRenderEffect, inject, signal, input } from '@angular/core';
 import { SimulationService } from '../../../@core/services/simulation.service';
 import { SettingsService } from '../../../@core/services/settings.service';
 import { RecordService } from '../../../@core/services/record.service';
@@ -15,7 +15,7 @@ import { BreakpointService } from 'src/app/@core/services/breakpoint.service';
     imports: [CountAnimationDirective, AsyncPipe]
 })
 export class StatsComponent {
-    @Input() isMouseDown: boolean;
+    readonly isMouseDown = input<boolean>(undefined);
 
     protected readonly simulationService = inject(SimulationService);
     protected readonly algorithmService = inject(AlgorithmService);

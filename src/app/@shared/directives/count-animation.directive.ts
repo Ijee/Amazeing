@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, OnChanges, SimpleChanges, inject } from '@angular/core';
+import { Directive, ElementRef, OnChanges, SimpleChanges, inject, input } from '@angular/core';
 
 @Directive({
     selector: '[appCountAnimation]',
@@ -7,18 +7,18 @@ import { Directive, ElementRef, Input, OnChanges, SimpleChanges, inject } from '
 export class CountAnimationDirective implements OnChanges {
     private elementRef = inject(ElementRef);
 
-    @Input() newValue: number;
-    @Input() duration: number;
-    @Input() disableAnimation: boolean;
+    readonly newValue = input<number>(0);
+    readonly duration = input<number>(300);
+    readonly disableAnimation = input<boolean>(false);
 
     private readonly refreshInterval: number;
     private intervalID: number;
 
     constructor() {
-        this.newValue = 0;
-        // the duration in which the 'animation' has to be done
-        this.duration = 300;
-        this.disableAnimation = false;
+        // this.newValue = 0;
+        // // the duration in which the 'animation' has to be done
+        // this.duration = 300;
+        // this.disableAnimation = false;
         this.refreshInterval = 30;
     }
 
@@ -34,17 +34,17 @@ export class CountAnimationDirective implements OnChanges {
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.newValue) {
             clearInterval(this.intervalID);
-            if (this.disableAnimation) {
-                this.currentValue = this.newValue;
+            if (this.disableAnimation()) {
+                this.currentValue = this.newValue();
             } else {
-                const steps = Math.floor(this.duration / this.refreshInterval);
-                const increment = (this.newValue - this.currentValue) / steps;
+                const steps = Math.floor(this.duration() / this.refreshInterval);
+                const increment = (this.newValue() - this.currentValue) / steps;
                 let step = 0;
                 let internalValue = this.currentValue;
                 this.intervalID = window.setInterval(() => {
                     step++;
                     if (step === steps - 1) {
-                        this.currentValue = this.newValue;
+                        this.currentValue = this.newValue();
                         clearInterval(this.intervalID);
                     } else {
                         internalValue += increment;

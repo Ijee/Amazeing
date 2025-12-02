@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
     selector: 'app-hr',
@@ -7,8 +7,8 @@ import { Component, Input } from '@angular/core';
     standalone: true
 })
 export class HrComponent {
-    @Input() text: string;
-    @Input() textSize: string;
-    @Input() isUppercase: string;
+    readonly text = input<string>(undefined);
+    readonly textSize = input<string>(undefined);
+    readonly isUppercase = input<string>(undefined);
     constructor() {}
 }
