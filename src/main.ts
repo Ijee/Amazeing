@@ -38,7 +38,6 @@ bootstrapApplication(AppComponent, {
                 onViewTransitionCreated: ({ transition }) => {
                     // Check if view-transitino should play.
                     const settingsService = inject(SettingsService);
-                    console.log('transition maybe' + new Date().getTime());
                     if (!settingsService.getAnimationsSetting()) {
                         transition.skipTransition();
                     }
