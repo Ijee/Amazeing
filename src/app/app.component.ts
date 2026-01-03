@@ -47,7 +47,7 @@ import { faEdit, faSave } from '@fortawesome/free-regular-svg-icons';
 import { SimulationService } from './@core/services/simulation.service';
 import { Subject } from 'rxjs';
 import { SettingsService } from './@core/services/settings.service';
-import { Router, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Router, RouterLinkActive, RouterOutlet, RouterLinkWithHref } from '@angular/router';
 import { AlgorithmService } from './@core/services/algorithm.service';
 import { UserTourService } from './@core/services/user-tour.service';
 import { LegendModalComponent } from './@core/modals/legend/legend-modal.component';
@@ -77,7 +77,8 @@ import { BreakpointService } from './@core/services/breakpoint.service';
         ImportModalComponent,
         ExportModalComponent,
         AsyncPipe,
-        NgClass
+        NgClass,
+        RouterLinkWithHref
     ]
 })
 export class AppComponent implements OnInit, OnDestroy {

@@ -142,8 +142,8 @@
                     data-testid="simulation"
                     [class.font-white]="((breakpointService.isTouch() | async) === false)"
                     tabindex="0"
-                    (click)="navigateToSimulation()"
-                    routerLink="/simulation">
+                    [routerLink]="['simulation/']"
+                    (click)="navigateToSimulation()">
                     <span class="icon">
                         <fa-icon [icon]="['fas', 'microchip']"></fa-icon>
                     </span>
@@ -155,8 +155,8 @@
                     data-testid="learn"
                     [class.font-white]="((breakpointService.isTouch() | async) === false)"
                     tabindex="0"
-                    (click)="navigateToLearn()"
-                    routerLink="learn">
+                    [routerLink]="['/learn']"
+                    (click)="navigateToLearn()">
                     <span class="icon">
                         <fa-icon [icon]="['fas', 'chalkboard-teacher']"></fa-icon>
                     </span>
