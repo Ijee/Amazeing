@@ -19,7 +19,7 @@ This project visualizes different algorithms adapted to creating and solving maz
 
 > [!TIP]
 >
-> ### Check out the app at [amazeing.app/](https://amazeing.app/).
+> ### Check it out at [amazeing.app/](https://amazeing.app/).
 
 ## Features
 
@@ -44,7 +44,7 @@ This project visualizes different algorithms adapted to creating and solving maz
 This has been a passion project of mine which I did not create for profit and it
 will always remain open source and ad-free.
 
-If you enjoy this project and want to show your appreciation, you can:
+If you enjoy this project and want to show your appreciation, feel free to:
 * **Support the project:** [Ko-fi](https://ko-fi.com/ijeee) :coffee:
 * **Spread the word:** Share this project with others!
 
@@ -65,6 +65,39 @@ There are quite a few TODOs throughout this project that could be good starting 
 **Note:** This project is based on a previous Vue.js project of mine, which was later converted to Angular. You can check out the original [Game of Life Vue project here](https://github.com/Ijee/Game-of-Life-Vue).
 
 ---
+
+### Project structure
+
+Here is a quick overview of the project structure and where the most important functionality is located.
+
+```bash
+├── assets                     # Uncompressed source files (images & markdown articles)
+├── e2e
+│   └── playwright             # E2E UI automation tests
+├── src
+│   ├── app
+│   │   ├── @core              # Singleton services and core logic
+│   │   │   ├── algorithm      # Implementation of all maze and pathfinding algorithms
+│   │   │   |   ├── classes    # Data structures (HashSet, PriorityQueue, etc.)
+│   │   │   │   ├── maze
+│   │   │   │   └── path-finding
+│   │   │   ├── services
+│   │   │   │   ├── algorithm.service.ts  # Standardizes algorithm execution & delegates data for simulation
+│   │   │   │   ├── record.service.ts     # Manages algorithm state and iteration history
+│   │   │   │   ├── settings.service.ts   # Persists user preferences
+│   │   │   │   └── simulation.service.ts # Controls simulation state (play/pause/step, etc.)
+│   │   │   └── types                     # Shared interfaces and types
+│   │   ├── @shared            # Reusable UI elements and helper logic
+│   │   │   ├── components
+│   │   │   ├── directives
+│   │   │   ├── pipes
+│   │   │   └── utils          # Pure utility functions
+│   │   ├───learn              # The /learn route and components
+│   │   └───simulation         # The /simulation route and components
+├── assets                     # Assets for the final bundle (compressed images & compiled frontmatter articles)
+├── build-articles.js          # CI: Converts Markdown + Frontmatter into JSON
+└── build-version.js           # CI: Injects latest Git tag version into production builds
+```
 
 ### Development server
 
@@ -88,4 +121,4 @@ Run locally: `npm run test:pw`
 
 ## License:
 
-This project is licensed under the [MIT License](https://github.com/Ijee/Amazeing/blob/logo/LICENSE).
+This project is licensed under the [MIT License](https://github.com/Ijee/Amazeing/blob/main/LICENSE).
