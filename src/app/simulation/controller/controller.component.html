@@ -31,9 +31,9 @@
             aria-label="clear grid"
             [disabled]="simulationService.getSimulationStatus()"
             (click)="simulationService.reset()">
-            @if (recordService.getIteration() > 0) {
+            @if (recordService.getIteration() > 0 && recordService.getGridSavePoint() !== null) {
             <fa-icon class="fa-flip-horizontal" [icon]="['fas', 'redo']"></fa-icon>
-            } @if (recordService.getIteration() === 0) {
+            } @if (recordService.getIteration() === 0 || recordService.getGridSavePoint() === null) {
             <fa-icon [icon]="['fas', 'trash']"></fa-icon>
             }
         </button>

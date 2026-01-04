@@ -186,6 +186,10 @@ export class GridSettingsComponent implements AfterViewInit, OnDestroy {
      */
     private switchAlgorithm(): void {
         if (this.algorithmService.getAlgorithmMode() === 'maze') {
+            // So that the we don't remove the users painted walls when changing algorithms multiple times.
+            if (this.recordService.getIteration() > 0) {
+                this.simulationService.reset();
+            }
             this.algorithmService.setMazeAlgorithm(this.newAlgorithm as MazeAlgorithm);
         } else {
             this.algorithmService.setPathAlgorithm(this.newAlgorithm as PathFindingAlgorithm);

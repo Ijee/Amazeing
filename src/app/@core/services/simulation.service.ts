@@ -163,6 +163,7 @@ export class SimulationService {
         this.setDisablePlay(true);
         this.settingsService.setUserTourTaken(true);
         if (this.recordService.getIteration() === 0) {
+            this.recordService.setGridSavePoint(cloneDeep(this.gridList$.getValue()));
             this.algorithmService.setInitialData(
                 this.gridList$.getValue(),
                 this.recordService.getGridStartLocation(),
