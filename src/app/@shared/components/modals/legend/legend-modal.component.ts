@@ -1,10 +1,10 @@
-import { BreakpointService } from './../../services/breakpoint.service';
 import { Component, inject } from '@angular/core';
-import { AlgorithmService } from '../../services/algorithm.service';
-import { SimulationService } from '../../services/simulation.service';
 import { NgClass, AsyncPipe } from '@angular/common';
-import { HrComponent } from '../../../@shared/components/hr/hr.component';
+import { HrComponent } from './../../hr/hr.component';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { SimulationService } from 'src/app/@core/services/simulation.service';
+import { AlgorithmService } from 'src/app/@core/services/algorithm.service';
+import { BreakpointService } from 'src/app/@core/services/breakpoint.service';
 
 @Component({
     selector: 'app-legend-modal',

@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { Subject } from 'rxjs';
-import { SimulationService } from '../../services/simulation.service';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { saveAs } from 'file-saver';
 import { FormsModule } from '@angular/forms';
-import { BreakpointService } from '../../services/breakpoint.service';
 import { AsyncPipe, NgClass } from '@angular/common';
-import { AlgorithmService } from '../../services/algorithm.service';
+import { AlgorithmService } from 'src/app/@core/services/algorithm.service';
+import { SimulationService } from 'src/app/@core/services/simulation.service';
+import { BreakpointService } from 'src/app/@core/services/breakpoint.service';
 
 @Component({
     selector: 'app-export-modal',

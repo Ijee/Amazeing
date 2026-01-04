@@ -1,12 +1,12 @@
 import { Component, OnDestroy, inject } from '@angular/core';
-import { SimulationService } from '../../services/simulation.service';
 import { Subject } from 'rxjs';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
-import { DropZoneDirective } from '../../../@shared/directives/drop-zone.directive';
-import { HrComponent } from '../../../@shared/components/hr/hr.component';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { BreakpointService } from '../../services/breakpoint.service';
+import { HrComponent } from '../../hr/hr.component';
+import { DropZoneDirective } from 'src/app/@shared/directives/drop-zone.directive';
+import { SimulationService } from 'src/app/@core/services/simulation.service';
+import { BreakpointService } from 'src/app/@core/services/breakpoint.service';
 
 @Component({
     selector: 'app-import-modal',
