@@ -1,4 +1,4 @@
-import { GridLocation } from 'src/app/@shared/classes/GridLocation';
+import { GridLocation } from 'src/app/@core/algorithm/classes/GridLocation';
 import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
 import { shuffleFisherYates } from '../../../../@shared/utils/fisher-yates';
 import { MazeAlgorithm, Node, Statistic } from '../../../types/algorithm.types';

@@ -1,5 +1,5 @@
 import { Node, Statistic, PathFindingAlgorithm } from 'src/app/@core/types/algorithm.types';
-import { GridLocation } from 'src/app/@shared/classes/GridLocation';
+import { GridLocation } from 'src/app/@core/algorithm/classes/GridLocation';
 import { PathFindingAlgorithmAbstract } from '../path-finding-algorithm.abstract';
 
 export class Tremaux extends PathFindingAlgorithmAbstract {

@@ -1,7 +1,7 @@
 import { Node, Statistic, PathFindingAlgorithm } from 'src/app/@core/types/algorithm.types';
-import { GridLocation } from 'src/app/@shared/classes/GridLocation';
+import { GridLocation } from 'src/app/@core/algorithm/classes/GridLocation';
 import { PathFindingAlgorithmAbstract } from '../path-finding-algorithm.abstract';
-import { HashSet } from 'src/app/@shared/classes/HashSet';
+import { HashSet } from 'src/app/@core/algorithm/classes/HashSet';
 
 export class DeadEndFilling extends PathFindingAlgorithmAbstract {
     private deadEnds: GridLocation[];

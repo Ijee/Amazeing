@@ -1,7 +1,7 @@
-import { GridLocation } from 'src/app/@shared/classes/GridLocation';
+import { GridLocation } from 'src/app/@core/algorithm/classes/GridLocation';
 import { Node, Statistic, PathFindingAlgorithm } from '../../types/algorithm.types';
 import { PathFindingAlgorithmAbstract } from './path-finding-algorithm.abstract';
-import { HashSet } from 'src/app/@shared/classes/HashSet';
+import { HashSet } from 'src/app/@core/algorithm/classes/HashSet';
 
 interface PathInformation {
     g: number;

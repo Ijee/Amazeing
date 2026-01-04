@@ -1,4 +1,4 @@
-import { GridLocation } from 'src/app/@shared/classes/GridLocation';
+import { GridLocation } from 'src/app/@core/algorithm/classes/GridLocation';
 
 /**
  * Calculates the Chevyshev-Distance of two given GridLocations on the grid.

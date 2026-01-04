@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { GridLocation } from '../../@shared/classes/GridLocation';
+import { GridLocation } from '../algorithm/classes/GridLocation';
 import { AlgorithmRecord, Node, Statistic } from '../types/algorithm.types';
 
 @Injectable({

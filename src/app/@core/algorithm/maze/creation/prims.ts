@@ -1,6 +1,6 @@
 import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
-import { HashSet } from '../../../../@shared/classes/HashSet';
-import { GridLocation } from '../../../../@shared/classes/GridLocation';
+import { HashSet } from '../../classes/HashSet';
+import { GridLocation } from '../../classes/GridLocation';
 import { MazeAlgorithm, Node, Statistic } from '../../../types/algorithm.types';
 
 // TODO: The frontier nodes are called frontier nodes because

@@ -1,4 +1,4 @@
-import { GridLocation } from '../../../../@shared/classes/GridLocation';
+import { GridLocation } from '../../classes/GridLocation';
 import { Node, Statistic, PathFindingAlgorithm, Direction } from '../../../types/algorithm.types';
 import { PathFindingAlgorithmAbstract } from '../path-finding-algorithm.abstract';
 interface TurnResult {

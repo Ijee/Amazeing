@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { MazeAlgorithmAbstract } from '../algorithm/maze/maze-algorithm.abstract';
 import { Prims } from '../algorithm/maze/creation/prims';
-import { GridLocation } from '../../@shared/classes/GridLocation';
+import { GridLocation } from '../algorithm/classes/GridLocation';
 import { isEmpty } from 'lodash-es';
 import { AldousBroder } from '../algorithm/maze/creation/aldous-broder';
 import { Wilsons } from '../algorithm/maze/creation/wilsons';

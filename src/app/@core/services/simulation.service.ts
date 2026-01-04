@@ -8,7 +8,7 @@ import { AlgorithmService } from './algorithm.service';
 import { RecordService } from './record.service';
 import { MazeAlgorithm, Node, PathFindingAlgorithm, Statistic } from '../types/algorithm.types';
 import { AlgorithmOptions } from '../types/jsonform.types';
-import { GridLocation } from 'src/app/@shared/classes/GridLocation';
+import { GridLocation } from 'src/app/@core/algorithm/classes/GridLocation';
 
 @Injectable({
     providedIn: 'root'

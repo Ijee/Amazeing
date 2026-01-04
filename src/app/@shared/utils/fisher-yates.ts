@@ -1,4 +1,4 @@
-import { GridLocation } from '../classes/GridLocation';
+import { GridLocation } from '../../@core/algorithm/classes/GridLocation';
 
 /**
  *  Fisher-Yates random sort algorithm.

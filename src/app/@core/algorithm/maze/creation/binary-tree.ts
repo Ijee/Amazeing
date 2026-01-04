@@ -1,5 +1,5 @@
 import { Direction, MazeAlgorithm, Node, Statistic } from 'src/app/@core/types/algorithm.types';
-import { GridLocation } from 'src/app/@shared/classes/GridLocation';
+import { GridLocation } from 'src/app/@core/algorithm/classes/GridLocation';
 import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
 
 export class BinaryTree extends MazeAlgorithmAbstract {

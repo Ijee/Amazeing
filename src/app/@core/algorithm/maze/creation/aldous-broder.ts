@@ -1,5 +1,5 @@
 import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
-import { GridLocation } from '../../../../@shared/classes/GridLocation';
+import { GridLocation } from '../../classes/GridLocation';
 import { MazeAlgorithm, Node, Statistic } from '../../../types/algorithm.types';
 
 export class AldousBroder extends MazeAlgorithmAbstract {

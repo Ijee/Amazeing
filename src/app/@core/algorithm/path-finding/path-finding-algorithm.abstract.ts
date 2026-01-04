@@ -1,4 +1,4 @@
-import { GridLocation } from '../../../@shared/classes/GridLocation';
+import { GridLocation } from '../classes/GridLocation';
 import {
     Node,
     PathFindingAlgorithm,

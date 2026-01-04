@@ -12,7 +12,7 @@ import { takeUntil } from 'rxjs/operators';
 import { cloneDeep } from 'lodash-es';
 import { AlgorithmService } from '../../@core/services/algorithm.service';
 import { RecordService } from '../../@core/services/record.service';
-import { GridLocation } from '../../@shared/classes/GridLocation';
+import { GridLocation } from '../../@core/algorithm/classes/GridLocation';
 import { Node } from '../../@core/types/algorithm.types';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { HrComponent } from '../../@shared/components/hr/hr.component';

@@ -1,4 +1,4 @@
-import { GridLocation } from '../../../@shared/classes/GridLocation';
+import { GridLocation } from '../classes/GridLocation';
 import { MazeAlgorithm, Node, Statistic, StatusChange } from '../../types/algorithm.types';
 import { AlgorithmOptions, JsonFormData } from '../../types/jsonform.types';
 

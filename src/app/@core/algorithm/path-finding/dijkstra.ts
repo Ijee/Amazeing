@@ -1,6 +1,6 @@
-import { HashMap } from 'src/app/@shared/classes/HasMap';
-import { PriorityQueue } from 'src/app/@shared/classes/PriorityQueue';
-import { GridLocation } from '../../../@shared/classes/GridLocation';
+import { HashMap } from 'src/app/@core/algorithm/classes/HasMap';
+import { PriorityQueue } from 'src/app/@core/algorithm/classes/PriorityQueue';
+import { GridLocation } from '../classes/GridLocation';
 import { Node, PathFindingAlgorithm, Statistic, VisitedNode } from '../../types/algorithm.types';
 import { PathFindingAlgorithmAbstract } from './path-finding-algorithm.abstract';
 

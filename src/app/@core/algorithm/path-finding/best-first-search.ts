@@ -1,8 +1,8 @@
-import { GridLocation } from 'src/app/@shared/classes/GridLocation';
+import { GridLocation } from 'src/app/@core/algorithm/classes/GridLocation';
 import { Node, Statistic, PathFindingAlgorithm } from '../../types/algorithm.types';
 import { PathFindingAlgorithmAbstract } from './path-finding-algorithm.abstract';
-import { PriorityQueue } from 'src/app/@shared/classes/PriorityQueue';
-import { HashMap } from 'src/app/@shared/classes/HasMap';
+import { PriorityQueue } from 'src/app/@core/algorithm/classes/PriorityQueue';
+import { HashMap } from 'src/app/@core/algorithm/classes/HasMap';
 
 export class BestFIrstSearch extends PathFindingAlgorithmAbstract {
     private priorityQueue: PriorityQueue;

@@ -1,5 +1,5 @@
 import { AlgorithmOptions } from './jsonform.types';
-import { GridLocation } from '../../@shared/classes/GridLocation';
+import { GridLocation } from '../algorithm/classes/GridLocation';
 
 export interface Node {
     status: number;
@@ -33,7 +33,10 @@ export type Direction = 'unknown' | 'up' | 'right' | 'down' | 'left';
 export type CardinalDirection = 'North-West' | 'North-East' | 'South-West' | 'South-East';
 export type Orientation = 'horizontal' | 'vertical';
 export type Parity = 'odd' | 'even';
-export interface NodeDirection { gridLocation: GridLocation; direction: Direction }
+export interface NodeDirection {
+    gridLocation: GridLocation;
+    direction: Direction;
+}
 export interface VisitedNode {
     predecessor: GridLocation;
     distance: number;

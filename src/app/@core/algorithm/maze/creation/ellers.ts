@@ -1,8 +1,8 @@
 import { MazeAlgorithm, Node, Statistic } from 'src/app/@core/types/algorithm.types';
-import { GridLocation } from 'src/app/@shared/classes/GridLocation';
+import { GridLocation } from 'src/app/@core/algorithm/classes/GridLocation';
 import { MazeAlgorithmAbstract } from '../maze-algorithm.abstract';
-import { HashSet } from '../../../../@shared/classes/HashSet';
-import { HashMap } from '../../../../@shared/classes/HasMap';
+import { HashSet } from '../../classes/HashSet';
+import { HashMap } from '../../classes/HasMap';
 
 export class Ellers extends MazeAlgorithmAbstract {
     private cursor: GridLocation;

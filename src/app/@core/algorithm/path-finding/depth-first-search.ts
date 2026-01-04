@@ -1,8 +1,11 @@
-import { GridLocation } from 'src/app/@shared/classes/GridLocation';
+import { GridLocation } from 'src/app/@core/algorithm/classes/GridLocation';
 import { Node, Statistic, PathFindingAlgorithm } from '../../types/algorithm.types';
 import { PathFindingAlgorithmAbstract } from './path-finding-algorithm.abstract';
 
-interface VisitedNode { node: GridLocation; predecessor: GridLocation }
+interface VisitedNode {
+    node: GridLocation;
+    predecessor: GridLocation;
+}
 
 export class DepthFirstSearch extends PathFindingAlgorithmAbstract {
     private stack: GridLocation[];
