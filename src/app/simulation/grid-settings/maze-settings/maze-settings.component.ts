@@ -14,12 +14,13 @@ import { NgClass } from '@angular/common';
     imports: [NgClass, AlgorithmOptionsComponent]
 })
 export class MazeSettingsComponent implements OnInit, OnDestroy {
-    readonly switchAlgo = output<MazeAlgorithm>();
+    protected readonly switchAlgo = output<MazeAlgorithm>();
+
+    protected readonly algorithmService = inject(AlgorithmService);
 
     private readonly route = inject(ActivatedRoute);
     private readonly router = inject(Router);
     private readonly changeDetector = inject(ChangeDetectorRef);
-    protected readonly algorithmService = inject(AlgorithmService);
 
     private readonly destroyed$: Subject<void>;
 

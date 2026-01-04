@@ -14,38 +14,40 @@ import { GridLocation } from 'src/app/@shared/classes/GridLocation';
     providedIn: 'root'
 })
 export class SimulationService {
-    private settingsService = inject(SettingsService);
-    private recordService = inject(RecordService);
-    private algorithmService = inject(AlgorithmService);
-
-    private readonly gridList$: BehaviorSubject<Node[][]>;
+    private readonly settingsService = inject(SettingsService);
+    private readonly recordService = inject(RecordService);
+    private readonly algorithmService = inject(AlgorithmService);
 
     private drawingMode: number;
     private simulationSpeed: number;
-    private isSimulationActive: boolean;
-    private disablePlay: boolean;
+    private simulationActive: boolean;
+    private algorithmComplete: boolean;
     private backwardStepsAmount: number;
     private showWeightStatus: boolean;
-    private readonly patchFormValues$: Subject<AlgorithmOptions>;
     private showLegendModal: boolean;
     private showImportModal: boolean;
     private showExportModal: boolean;
     private exportToken: string;
-    private readonly handleImport$: Subject<void>;
     private intervalID: number;
 
+    private readonly gridList$: BehaviorSubject<Node[][]>;
+
+    private readonly importTriggered$: Subject<void>;
+    private readonly patchFormValues$: Subject<AlgorithmOptions>;
+
     constructor() {
-        this.gridList$ = new BehaviorSubject<Node[][]>([]);
         this.drawingMode = -1;
         this.simulationSpeed = 100;
-        this.disablePlay = false;
-        this.isSimulationActive = false;
+        this.algorithmComplete = false;
+        this.simulationActive = false;
         this.backwardStepsAmount = 0;
-        this.patchFormValues$ = new Subject<AlgorithmOptions>();
         this.showLegendModal = false;
         this.showImportModal = false;
         this.showExportModal = false;
-        this.handleImport$ = new Subject<void>();
+
+        this.gridList$ = new BehaviorSubject<Node[][]>([]);
+        this.importTriggered$ = new Subject<void>();
+        this.patchFormValues$ = new Subject<AlgorithmOptions>();
     }
 
     /**
@@ -82,7 +84,7 @@ export class SimulationService {
      */
     private restartInterval(): void {
         clearInterval(this.intervalID);
-        if (this.isSimulationActive) {
+        if (this.simulationActive) {
             this.intervalID = window.setInterval(
                 () => this.stepForward(),
                 10000 / this.simulationSpeed
@@ -124,7 +126,7 @@ export class SimulationService {
                 this.updateRecords(newGrid);
             }
         } else {
-            this.setDisablePlay(true);
+            this.setAlgorithmComplete(true);
             this.setSimulationStatus();
             this.settingsService.setUserTourTaken(true);
         }
@@ -137,13 +139,13 @@ export class SimulationService {
      * Responsible for the backwardStep.
      */
     public stepBackwards(): void {
-        if (this.isSimulationActive) {
-            this.isSimulationActive = false;
+        if (this.simulationActive) {
+            this.simulationActive = false;
             this.restartInterval();
         }
         if (this.backwardStepsAmount > 0) {
             this.changeBackwardStepsAmount(-1);
-            this.setDisablePlay(false);
+            this.setAlgorithmComplete(false);
             // this.recordService.manipulateHistory();
             this.recordService.setIteration(this.recordService.getIteration() - 1);
             this.recordService.historyStepBackwards();
@@ -160,7 +162,7 @@ export class SimulationService {
      */
     public completeAlgorithm(): void {
         this.setSimulationStatus(false);
-        this.setDisablePlay(true);
+        this.setAlgorithmComplete(true);
         this.settingsService.setUserTourTaken(true);
         if (this.recordService.getIteration() === 0) {
             this.recordService.setGridSavePoint(cloneDeep(this.gridList$.getValue()));
@@ -185,7 +187,7 @@ export class SimulationService {
      */
     public reset(): void {
         this.setSimulationStatus(false);
-        this.setDisablePlay(false);
+        this.setAlgorithmComplete(false);
         if (this.recordService.getIteration() > 0) {
             // const gridSavepoint = this.recordService.getGridSavePoint();
             // Resets to save point
@@ -237,7 +239,7 @@ export class SimulationService {
             });
         });
         this.gridList$.next(grid);
-        this.setDisablePlay(false);
+        this.setAlgorithmComplete(false);
         this.recordService.setIteration(0);
         this.backwardStepsAmount = 0;
         this.recordService.setGridSavePoint(grid);
@@ -246,7 +248,7 @@ export class SimulationService {
     /**
      * Sets a new gridList as the current gridList
      *
-     * @param newGrid - the new gridList
+     * @param newGrid the new gridList
      */
     public setGridList(newGrid: Node[][]): void {
         const grid = cloneDeep(newGrid);
@@ -257,13 +259,13 @@ export class SimulationService {
     /**
      * Determines the new simulation status to be either active or inactive
      *
-     * @param status - the new status to be set and if not given will negate the current status
+     * @param status the new status to be set and if not given will negate the current status
      */
     public setSimulationStatus(status?: boolean): void {
         if (status !== undefined) {
-            this.isSimulationActive = status;
+            this.simulationActive = status;
         } else {
-            this.isSimulationActive = !this.isSimulationActive;
+            this.simulationActive = !this.simulationActive;
         }
         this.restartInterval();
     }
@@ -271,7 +273,7 @@ export class SimulationService {
     /**
      * Tries to set all the important information for the new session.
      *
-     * @param importText - the new session to be used
+     * @param importText the new session to be used
      */
     public importSession(importText: string): void {
         const oldAlgoMode = this.algorithmService.getAlgorithmMode();
@@ -337,7 +339,7 @@ export class SimulationService {
 
             if (oldAlgoMode !== session.algorithmMode) {
                 // console.log('navigating to other mode');
-                this.handleImport$.next();
+                this.importTriggered$.next();
             }
 
             // console.log('patchFormValue', this.patchFormValues$.value);
@@ -409,16 +411,16 @@ export class SimulationService {
     /**
      * Toggles whether it should be possible to press play / next step / complete.
      *
-     * @param isDisabled - the new value
+     * @param completed the new value
      */
-    public setDisablePlay(isDisabled: boolean): void {
-        this.disablePlay = isDisabled;
+    public setAlgorithmComplete(completed: boolean): void {
+        this.algorithmComplete = completed;
     }
 
     /**
-     * Actually sets a step as a new iteration
+     * Sets a savepoint and updates the gridList.
      *
-     * @param newGrid - the current grid
+     * @param newGrid the new grid
      */
     public setSavePoint(newGrid: Node[][]): void {
         this.gridList$.next(newGrid);
@@ -504,18 +506,18 @@ export class SimulationService {
     }
 
     /**
-     * Returns the status whether to disable the controller buttons.
+     * Returns the status whether the algorithm is complete.
      *
      */
-    public getIsPlayDisabled(): boolean {
-        return this.disablePlay;
+    public getAlgorithmComplete(): boolean {
+        return this.algorithmComplete;
     }
 
     /**
      * Returns whether  the simulation is currently active.
      */
-    public getSimulationStatus(): boolean {
-        return this.isSimulationActive;
+    public getSimulationActive(): boolean {
+        return this.simulationActive;
     }
 
     /**
@@ -581,7 +583,7 @@ export class SimulationService {
         return this.exportToken;
     }
 
-    public getHandleImport(): Observable<void> {
-        return this.handleImport$;
+    public getImportTriggered(): Observable<void> {
+        return this.importTriggered$;
     }
 }

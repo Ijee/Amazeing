@@ -59,7 +59,7 @@ export class AlgorithmService {
     /**
      * Sets the new algorithm mode.
      *
-     * @param newMode - the new algorithm mode ('maze' | 'path-finding')
+     * @param newMode the new algorithm mode ('maze' | 'path-finding')
      */
     public setAlgorithmMode(newMode: AlgorithmMode): void {
         try {
@@ -86,7 +86,7 @@ export class AlgorithmService {
     /**
      * Switches the current maze algorithm for the
      *
-     * @param newAlgo - the new algorithm to be used
+     * @param newAlgo the new algorithm to be used
      */
     public setMazeAlgorithm(newAlgo: MazeAlgorithm): void {
         switch (newAlgo) {
@@ -134,7 +134,7 @@ export class AlgorithmService {
     /**
      * Switches the current path finding algorithm
      *
-     * @param newAlgo - the new algorithm to be used
+     * @param newAlgo the new algorithm to be used
      */
     public setPathAlgorithm(newAlgo: PathFindingAlgorithm): void {
         switch (newAlgo) {
@@ -193,9 +193,9 @@ export class AlgorithmService {
     /**
      * Sets the initial data required for the algorithm to work.
      *
-     * @param currentGrid - the currentGrid
-     * @param startLocation - the goal location
-     * @param goalLocation - the goal location
+     * @param currentGrid the currentGrid
+     * @param startLocation the goal location
+     * @param goalLocation the goal location
      */
     public setInitialData(
         currentGrid: Node[][],
@@ -225,7 +225,7 @@ export class AlgorithmService {
     /**
      * Sets the options for the currently selected algorithm,-
      *
-     * @param options - the new options to be set
+     * @param options the new options to be set
      */
     public setOptions(options: AlgorithmOptions) {
         if (this.algorithmMode === 'maze') {
@@ -235,6 +235,11 @@ export class AlgorithmService {
         }
     }
 
+    /**
+     * Sets the heuristic.
+     *
+     * @param newHeuristic the new heuristic
+     */
     public setHeuristic(newHeuristic: PathFindingHeuristic): void {
         this.heuristic = newHeuristic;
     }
@@ -242,7 +247,7 @@ export class AlgorithmService {
     /**
      * Sets the diagonal movement setting.
      *
-     * @param val the setting to be
+     * @param val the new value
      */
     public setDiagonalMovement(val: boolean) {
         if (!val) {
@@ -254,7 +259,7 @@ export class AlgorithmService {
     /**
      * Sets the cross corners setting.
      *
-     * @param val the setting to be
+     * @param val the new value
      */
     public setCrossCorners(val: boolean) {
         if (val) {
@@ -273,17 +278,14 @@ export class AlgorithmService {
     }
 
     /**
-     * Returns the last step of an algorithm.
-     * Or rather - it completed the algorithm entirely.
+     * Tries to complete the algorithm with a maximum of 10000 iterations.
      *
-     * @param currentGrid - the currentGrid
+     * @param currentGrid the currentGrid
      */
     public completeAlgorithm(): [number, Node[][]] {
         let algorithmEnded = false;
         let lastGrid: Node[][];
         let iterationCount = 0;
-        // this stops the algorithm at a maximum of 10k iterations.
-        // TODO use toaster service once available to say that some nodes may be unreachable
         while (!algorithmEnded && iterationCount < 10000) {
             const tempGrid = this.getNextStep();
             if (tempGrid === null) {
@@ -299,10 +301,10 @@ export class AlgorithmService {
     /**
      * Updates the internal algorithm state and stats.
      *
-     * @param newGrid - the current Grid
-     * @param state - the new algorithm state
-     * @param statRecord - the new statRecord
-     * @param deserialize - whether to deserialize the state object before updating the algorithm state
+     * @param newGrid the current Grid
+     * @param state the new algorithm state
+     * @param statRecord the new statRecord
+     * @param deserialize whether to deserialize the state object before updating the algorithm state
      */
     public updateAlgorithmState(
         newGrid: Node[][],
@@ -470,6 +472,7 @@ export class AlgorithmService {
     public usesPathFindingSettings(): boolean {
         return this.pathAlgorithm.usesPathFindingSettings();
     }
+
     /**
      * Returns whether the current algorithm forces the diagonal movement functionality.
      */

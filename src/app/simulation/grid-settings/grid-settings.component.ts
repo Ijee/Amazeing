@@ -57,7 +57,7 @@ export class GridSettingsComponent implements AfterViewInit, OnDestroy {
         }
 
         this.simulationService
-            .getHandleImport()
+            .getImportTriggered()
             .pipe(takeUntil(this.destroyed$))
             .subscribe(() => {
                 this.navigateMode();

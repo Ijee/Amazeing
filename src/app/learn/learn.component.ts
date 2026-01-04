@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { HrComponent } from '../@shared/components/hr/hr.component';
-import { ArticleRendererComponent } from './learn-prims/article-renderer.component';
+import { ArticleRendererComponent } from './article-renderer/article-renderer.component';
 import { MazeAlgorithm, PathFindingAlgorithm } from '../@core/types/algorithm.types';
 import { inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';

@@ -17,13 +17,13 @@ import { AlgorithmMode } from 'src/app/@core/types/algorithm.types';
     styleUrl: './algorithm-options.component.scss'
 })
 export class AlgorithmOptionsComponent implements OnDestroy {
-    readonly algorithmService = inject(AlgorithmService);
-    readonly simulationService = inject(SimulationService);
-    readonly settingsService = inject(SettingsService);
-    readonly recordService = inject(RecordService);
-    readonly formBuilder = inject(UntypedFormBuilder);
+    protected readonly algorithmService = inject(AlgorithmService);
+    protected readonly simulationService = inject(SimulationService);
+    protected readonly settingsService = inject(SettingsService);
+    protected readonly recordService = inject(RecordService);
+    protected readonly formBuilder = inject(UntypedFormBuilder);
 
-    readonly algorithmMode = input<AlgorithmMode>(undefined);
+    protected readonly algorithmMode = input<AlgorithmMode>(undefined);
     public readonly optionsForm = this.formBuilder.group({});
 
     private readonly destroyed$: Subject<void>;

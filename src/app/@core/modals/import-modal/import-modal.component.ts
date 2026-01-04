@@ -56,10 +56,10 @@ export class ImportModalComponent implements OnDestroy {
     /**
      * Called when a file has been uploaded through the file explorer.
      *
-     * @param event - the event that was being triggered.
+     * @param event the event that was being triggered.
      */
-    uploadFile(event): void {
-        const uploadedFile: File = event.target.files[0];
+    uploadFile(event: Event): void {
+        const uploadedFile: File = (event.target as HTMLInputElement).files[0];
         this.importFromFile(uploadedFile);
     }
 
@@ -68,9 +68,9 @@ export class ImportModalComponent implements OnDestroy {
      * Only handles the first file that has been dragged in.
      * Check drop-zone directive for further reading.
      *
-     * @param file - the new file that comes from the directive.
+     * @param file the new file that comes from the directive.
      */
-    droppedInFile(file): void {
+    droppedInFile(file: File): void {
         this.importFromFile(file[0]);
     }
 

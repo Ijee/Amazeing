@@ -188,9 +188,9 @@ export abstract class MazeAlgorithmAbstract {
      * Refer to how to load the state back in on what is being returned
      * in getCurrentAlgorithmState
      *
-     * @param deserializedState - the new algorithm state
-     * @param statRecords - the new algorithm statRecords
-     * @param newGrid - the current Grid
+     * @param deserializedState the new algorithm state
+     * @param statRecords the new algorithm statRecords
+     * @param newGrid the current Grid
      */
 
     public abstract updateState(

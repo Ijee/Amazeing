@@ -201,13 +201,13 @@ export class AppComponent implements OnInit, OnDestroy {
     handleKeyboardEvent(event: KeyboardEvent): void {
         if (!this.settingsService.getUserTourActive()) {
             if (event.key === 'd') {
-                if (!this.simulationService.getIsPlayDisabled()) {
+                if (!this.simulationService.getAlgorithmComplete()) {
                     this.simulationService.stepForward();
                 }
             } else if (event.key === 'a') {
                 this.simulationService.stepBackwards();
             } else if (event.key === 's') {
-                if (!this.simulationService.getIsPlayDisabled()) {
+                if (!this.simulationService.getAlgorithmComplete()) {
                     this.simulationService.setSimulationStatus();
                 }
             } else if (event.code === 'NumpadAdd' || event.key === '+') {
@@ -261,16 +261,6 @@ export class AppComponent implements OnInit, OnDestroy {
         this.deferredInstallPrompt = null;
     }
 
-    /**
-     * Is responsible for triggering the animation for the main routing
-     *
-     * @param outlet - the angular outlet to be used
-     *
-     * @return a boolean or an empty string that triggers the animation
-     */
-    public prepareRoute(outlet: RouterOutlet): any {
-        return outlet.isActivated ? outlet.activatedRouteData.animationState : '';
-    }
     public navigateToSimulation(): void {
         this.simulationService.setSimulationStatus(false);
         const rootElement = this.document.documentElement;

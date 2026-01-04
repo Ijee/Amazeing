@@ -58,7 +58,7 @@ export class SettingsService {
     /**
      * Sets the current dark mode setting and saves it to the localStorage.
      *
-     * @param newOption - whether the option is set
+     * @param newOption whether the option is set
      */
     public setDarkModeSetting(newOption?: boolean): void {
         if (newOption !== undefined) {
@@ -108,7 +108,7 @@ export class SettingsService {
     }
 
     /**
-     * Sets whether the  user tour is currently active.
+     * Sets whether the user tour is currently active.
      *
      * @param newOption the new option
      */
@@ -117,21 +117,21 @@ export class SettingsService {
     }
 
     /**
-     * Returns the current dark mode setting.
+     * Returns the current dark mode setting value.
      */
     public getDarkModeSetting(): Observable<boolean> {
         return this.darkModeSetting$;
     }
 
     /**
-     * Returns the current animations setting.
+     * Returns the current animations setting value.
      */
     public getAnimationsSetting(): boolean {
         return this.animationsSetting;
     }
 
     /**
-     * Returns the current warnings setting.
+     * Returns the current warnings setting value.
      */
     public getWarningsSetting(): boolean {
         return this.warningsSetting;

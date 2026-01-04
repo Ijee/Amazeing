@@ -131,7 +131,7 @@ export class RecordService {
     /**
      * Sets the  new value to the current tick on every tick.
      *
-     * @param value - the new value to be set
+     * @param value the new value to be set
      */
     public setIteration(value: number): void {
         this.iteration = value;

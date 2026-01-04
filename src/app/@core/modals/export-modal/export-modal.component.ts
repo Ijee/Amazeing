@@ -115,8 +115,9 @@ export class ExportModalComponent implements OnInit, OnDestroy {
 
     /**
      * Copies the text in the #copystring input
-     * to the users clipboard. May not work for
-     * some clients.
+     * to the users clipboard.
+     *
+     * May not work on some clients.
      */
     toClipboard(): void {
         const copyString = document.querySelector('#exportArea') as HTMLTextAreaElement;

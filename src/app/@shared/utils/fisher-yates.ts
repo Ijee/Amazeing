@@ -1,9 +1,9 @@
 import { GridLocation } from '../classes/GridLocation';
 
 /**
- *  Fisher-Yates random sort algorithm
+ *  Fisher-Yates random sort algorithm.
  *
- * @param array - the array to be shuffled
+ * @param array the array to be shuffled
  * @return the shuffled array
  */
 export function shuffleFisherYates(array: GridLocation[]): GridLocation[] {
