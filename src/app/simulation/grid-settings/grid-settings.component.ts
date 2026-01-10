@@ -8,6 +8,7 @@ import {
     DOCUMENT,
     inject
 } from '@angular/core';
+
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { SettingsService } from '../../@core/services/settings.service';
 import { SimulationService } from '../../@core/services/simulation.service';
@@ -21,12 +22,13 @@ import { HrComponent } from '../../@shared/components/hr/hr.component';
 import { BreakpointService } from 'src/app/@core/services/breakpoint.service';
 import { MazeSettingsComponent } from './maze-settings/maze-settings.component';
 import { PathfindingSettingsComponent } from './pathfinding-settings/pathfinding-settings.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-grid-settings',
     templateUrl: './grid-settings.component.html',
     styleUrls: ['./grid-settings.component.scss'],
-    imports: [HrComponent, FaIconComponent, RouterOutlet, NgClass]
+    imports: [HrComponent, FaIconComponent, RouterOutlet, NgClass, FormsModule]
 })
 export class GridSettingsComponent implements AfterViewInit, OnDestroy {
     private readonly route = inject(ActivatedRoute);
@@ -43,12 +45,14 @@ export class GridSettingsComponent implements AfterViewInit, OnDestroy {
     private readonly destroyed$: Subject<void>;
 
     protected showWarning: boolean;
+    protected disableWarning: boolean;
     protected transitionName: 'toMaze' | 'toPath' | 'disableTransition';
     protected newAlgorithm: MazeAlgorithm | PathFindingAlgorithm;
 
     constructor() {
         this.destroyed$ = new Subject<void>();
         this.showWarning = false;
+        this.disableWarning = false;
         // activates the right algorithm mode button based on the matched url
         if (this.router.url.includes('maze')) {
             this.algorithmService.setAlgorithmMode('maze');
@@ -96,6 +100,10 @@ export class GridSettingsComponent implements AfterViewInit, OnDestroy {
     }
 
     public delegateSwitch(): void {
+        if (this.disableWarning) {
+            this.settingsService.setWarningsSetting(false);
+            this.disableWarning = false;
+        }
         if (this.newAlgorithm) {
             this.switchAlgorithm();
         } else {
@@ -112,7 +120,8 @@ export class GridSettingsComponent implements AfterViewInit, OnDestroy {
         if (this.algorithmService.getAlgorithmMode() !== algoMode) {
             if (
                 this.recordService.getIteration() === 0 ||
-                !this.settingsService.getWarningsSetting()
+                !this.settingsService.getWarningsSetting() ||
+                this.simulationService.getAlgorithmComplete()
             ) {
                 if (this.newAlgorithm) {
                     this.switchAlgorithm();
@@ -120,9 +129,37 @@ export class GridSettingsComponent implements AfterViewInit, OnDestroy {
                     this.switchAlgoMode();
                 }
             } else {
+                this.simulationService.setSimulationStatus(false);
                 this.showWarning = true;
             }
         }
+    }
+    /**
+     * Switches the algorithm and appends the query param to the url.
+     */
+    private switchAlgorithm(): void {
+        if (this.algorithmService.getAlgorithmMode() === 'maze') {
+            // So that the we don't remove the users painted walls when changing algorithms multiple times.
+            if (this.recordService.getIteration() > 0) {
+                this.simulationService.reset();
+            }
+            this.algorithmService.setMazeAlgorithm(this.newAlgorithm as MazeAlgorithm);
+        } else {
+            this.algorithmService.setPathAlgorithm(this.newAlgorithm as PathFindingAlgorithm);
+        }
+        this.simulationService.setSimulationStatus(false);
+        this.simulationService.prepareGrid();
+
+        this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: { algorithm: this.newAlgorithm },
+            queryParamsHandling: 'merge' // remove to replace all query params by provided
+        });
+        this.newAlgorithm = undefined;
+        // Fixes most of the choppiness of the warning-message animation exit animation.
+        requestAnimationFrame(() => {
+            this.showWarning = false;
+        });
     }
 
     /**
@@ -178,31 +215,5 @@ export class GridSettingsComponent implements AfterViewInit, OnDestroy {
         this.router.navigate(['/learn'], {
             queryParams: { algorithm: this.algorithmService.getAlgorithmName() }
         });
-    }
-
-    /**
-     * Switches the algorithm and appends the query param to the url.
-     *
-     */
-    private switchAlgorithm(): void {
-        if (this.algorithmService.getAlgorithmMode() === 'maze') {
-            // So that the we don't remove the users painted walls when changing algorithms multiple times.
-            if (this.recordService.getIteration() > 0) {
-                this.simulationService.reset();
-            }
-            this.algorithmService.setMazeAlgorithm(this.newAlgorithm as MazeAlgorithm);
-        } else {
-            this.algorithmService.setPathAlgorithm(this.newAlgorithm as PathFindingAlgorithm);
-        }
-        this.simulationService.setSimulationStatus(false);
-        this.simulationService.prepareGrid();
-
-        this.router.navigate([], {
-            relativeTo: this.route,
-            queryParams: { algorithm: this.newAlgorithm },
-            queryParamsHandling: 'merge' // remove to replace all query params by provided
-        });
-        this.newAlgorithm = undefined;
-        this.showWarning = false;
     }
 }

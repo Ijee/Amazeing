@@ -58,7 +58,7 @@ input[type='radio']:focus-visible {
 input[type='checkbox'] {
     --_test: var(--input-color);
     accent-color: var(--_test);
-    transform: scale(1.4);
+    transform: scale(1.2);
     margin-right: 0.2rem;
 }
 
@@ -72,6 +72,10 @@ input[type='checkbox'][disabled][checked] {
 
 input[type='checkbox'][disabled] {
     filter: grayscale(100%);
+}
+
+input[type='checkbox']:hover {
+    filter: brightness(0.9);
 }
 
 select {

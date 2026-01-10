@@ -66,12 +66,13 @@ body.theme-dark :host .path-button:focus-visible {
     grid-area: 3 / 1 / 13 / 13;
 }
 
-.danger-button {
-    background-color: rgba(0, 0, 0, 0.7) !important;
+.custom-button.warning-button {
+    background-color: rgba(0, 0, 0, 0.75);
+    border-radius: 0.375rem;
 }
 
-.danger-button:hover {
-    background-color: rgba(0, 0, 0, 0.7);
+.custom-button.warning-button:hover {
+    background-color: rgba(0, 0, 0, 0.85);
 }
 .button {
     border-radius: 0;
@@ -91,6 +92,10 @@ body.theme-dark :host .path-button:focus-visible {
 
 body.theme-dark :host .warning-message {
     color: var(--bulma-dark);
+}
+
+.remember-checkbox {
+    font-size: 0.85rem;
 }
 
 .learn-button {

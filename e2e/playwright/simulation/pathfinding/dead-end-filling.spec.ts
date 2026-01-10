@@ -35,7 +35,6 @@ test.describe('Dead End Filling @algorithm @pathfinding', () => {
         await openApplication(page);
         await page.getByTestId('complete-algorithm').click();
         await page.getByTestId('pathfinding-mode').click();
-        await page.getByTestId('mode-continue').click();
         await page.getByTestId('dead-end-filling').click();
     });
 

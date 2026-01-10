@@ -38,16 +38,22 @@
                 #o="outlet"></router-outlet>
         </div>
         <div class="fixed-grid has-12-cols cell switch-warning" [class.is-active]="showWarning">
-            <div class="grid is-gap-1 has-background-warning">
-                <div class="cell is-col-span-12 is-row-start-1 warning-message has-text-centered mt-2">
-                    <b> Doing this will partially reset the grid </b>
+            <div class="grid is-gap-0 has-background-warning">
+                <div class="cell is-col-span-12 is-row-start-1 warning-message has-text-centered mt-2 mb-1">
+                    <b>Continue to reset the grid</b>
                 </div>
-                <div class="cell is-col-span-12 is-row-start-2 mb-2">
+                <div class="cell is-col-span-12 is-row-start-2 has-text-centered pt-0 mb-1">
+                    <label
+                        class="checkbox form-text-size warning-message remember-checkbox has-text-weight-semibold has-text-grey-dark">
+                        <input class="mr-1" type="checkbox" [(ngModel)]="disableWarning" />
+                        <span class="has-text-centered">Don't show again</span>
+                    </label>
+                </div>
+                <div class="cell is-col-span-12 is-row-start-3 mb-2">
                     <div class="buttons is-centered">
                         <button
-                            class="button danger-button is-small is-warning has-text-white"
+                            class="button warning-button custom-button is-small is-warning has-text-white"
                             data-testid="mode-continue"
-                            title="continue"
                             (click)="delegateSwitch()">
                             <span class="icon">
                                 <fa-icon [icon]="['fas', 'check']"></fa-icon>
@@ -55,7 +61,7 @@
                             <span><b>Continue</b></span>
                         </button>
                         <button
-                            class="button danger-button is-small is-warning has-text-white"
+                            class="button warning-button custom-button is-small is-warning has-text-white"
                             data-testid="mode-cancel"
                             (click)="showWarning = false">
                             <span class="icon">
