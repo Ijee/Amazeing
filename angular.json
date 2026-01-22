@@ -133,7 +133,10 @@
         }
     },
     "cli": {
-        "schematicCollections": ["angular-eslint"]
+        "schematicCollections": [
+          "angular-eslint"
+        ],
+        "analytics": false
     },
     "schematics": {
         "@angular-eslint/schematics:application": {
