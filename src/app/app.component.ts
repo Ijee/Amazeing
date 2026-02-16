@@ -205,7 +205,8 @@ export class AppComponent implements OnInit, OnDestroy {
                     this.simulationService.stepForward();
                 }
             } else if (event.key === 'a') {
-                this.simulationService.stepBackwards();
+                if (this.simulationService.getBackwardStepsAmount() > 0)
+                    this.simulationService.stepBackwards();
             } else if (event.key === 's') {
                 if (!this.simulationService.getAlgorithmComplete()) {
                     this.simulationService.setSimulationStatus();

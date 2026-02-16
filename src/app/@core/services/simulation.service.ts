@@ -113,23 +113,31 @@ export class SimulationService {
                 this.recordService.getGridGoalLocation()
             );
         }
+
+        if (this.recordService.tryHistoryStepForward()) {
+            const { grid, state, statRecord } = cloneDeep(
+                this.recordService.getCurrentHistoryStep()
+            );
+            this.algorithmService.updateAlgorithmState(grid, state, statRecord);
+            this.gridList$.next(grid);
+            this.recordService.setIteration(this.recordService.getIteration() + 1);
+
+            if (this.backwardStepsAmount < RecordService.MAX_SAVE_STEPS - 1) {
+                this.changeBackwardStepsAmount(1);
+            }
+            return;
+        }
+
         const newGrid = this.algorithmService.getNextStep();
         if (newGrid) {
             this.recordService.setIteration(this.recordService.getIteration() + 1);
-            if (this.recordService.tryHistoryStepForward()) {
-                const { grid, state, statRecord } = cloneDeep(
-                    this.recordService.getCurrentHistoryStep()
-                );
-                this.algorithmService.updateAlgorithmState(grid, state, statRecord);
-                this.gridList$.next(grid);
-            } else {
-                this.updateRecords(newGrid);
-            }
+            this.updateRecords(newGrid);
         } else {
             this.setAlgorithmComplete(true);
             this.setSimulationStatus();
             this.settingsService.setUserTourTaken(true);
         }
+
         if (this.backwardStepsAmount < RecordService.MAX_SAVE_STEPS - 1) {
             this.changeBackwardStepsAmount(1);
         }
@@ -238,6 +246,9 @@ export class SimulationService {
                 }
             });
         });
+        this.recordService.resetHistory();
+        this.recordService.addEmptyHistoryStep(grid);
+
         this.gridList$.next(grid);
         this.setAlgorithmComplete(false);
         this.recordService.setIteration(0);
